@@ -19,7 +19,6 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun CharacterListScreen(
-    innerPadding: PaddingValues,
     viewModel: CharacterViewModel = koinViewModel(),
 ) {
     val characters by viewModel.characters.collectAsState()
@@ -27,7 +26,6 @@ fun CharacterListScreen(
     Column(modifier = Modifier.padding(16.dp)) {
         Greeting(
             name = "Android",
-            modifier = Modifier.padding(innerPadding),
         )
 
         Button(onClick = { viewModel.addSampleCharacter() }) {

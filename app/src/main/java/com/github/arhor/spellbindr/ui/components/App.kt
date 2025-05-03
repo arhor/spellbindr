@@ -1,13 +1,15 @@
 package com.github.arhor.spellbindr.ui.components
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
+import org.koin.androidx.compose.KoinAndroidContext
+
 
 @Composable
 fun App() {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        CharacterListScreen(innerPadding)
+    SpellbindrTheme {
+        KoinAndroidContext {
+            AppRouter()
+        }
     }
 }
