@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,10 +18,18 @@ import com.github.arhor.spellbindr.viewmodel.CharacterViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CharacterListScreen(viewModel: CharacterViewModel = koinViewModel()) {
+fun CharacterListScreen(
+    innerPadding: PaddingValues,
+    viewModel: CharacterViewModel = koinViewModel(),
+) {
     val characters by viewModel.characters.collectAsState()
 
     Column(modifier = Modifier.padding(16.dp)) {
+        Greeting(
+            name = "Android",
+            modifier = Modifier.padding(innerPadding),
+        )
+
         Button(onClick = { viewModel.addSampleCharacter() }) {
             Text("Add Character")
         }

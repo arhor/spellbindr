@@ -55,7 +55,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.androidx.viewmodel)
     implementation(libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
