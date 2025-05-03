@@ -11,7 +11,7 @@ const val CHARACTER_LIST = "character-list"
 fun AppRouter() {
     val controller = rememberNavController()
 
-    NavHost(controller, CHARACTER_LIST) {
+    NavHost(navController = controller, startDestination = CHARACTER_LIST) {
         composable(route = CHARACTER_LIST) {
             CharacterListScreen()
         }
