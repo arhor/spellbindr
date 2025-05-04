@@ -10,3 +10,4 @@ data class Character(
     val classType: String,
     val level: Int,
 )
+
