@@ -10,4 +10,5 @@ enum class SpellcastingClass {
     WARLOCK,
     WIZARD,
     ARTIFICER,
+    RITUAL_CASTER,
 }

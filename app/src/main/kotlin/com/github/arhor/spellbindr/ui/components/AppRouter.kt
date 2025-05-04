@@ -6,12 +6,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 const val CHARACTER_LIST = "character-list"
+const val SPELL_SEARCH = "spell-search"
 
 @Composable
 fun AppRouter() {
     val controller = rememberNavController()
 
-    NavHost(navController = controller, startDestination = CHARACTER_LIST) {
+    NavHost(navController = controller, startDestination = SPELL_SEARCH) {
+        composable(route = SPELL_SEARCH) {
+            SpellSearchScreen()
+        }
         composable(route = CHARACTER_LIST) {
             CharacterListScreen()
         }

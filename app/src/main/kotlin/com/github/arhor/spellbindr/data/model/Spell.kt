@@ -1,14 +1,17 @@
 package com.github.arhor.spellbindr.data.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Spell(
     val name: String,
     val desc: String,
     val level: Int,
     val range: Range,
     val school: MagicSchool,
-    val castingTime: CastingTime,
+    val castingTime: String,
     val components: Set<Component>,
-    val duration: Duration,
+    val duration: String,
     val higherLevel: String? = null,
     val classes: List<SpellcastingClass>,
     val ritual: Boolean = false,
@@ -16,4 +19,3 @@ data class Spell(
     val damage: Damage? = null,
     val source: Source,
 )
-
