@@ -6,7 +6,8 @@ enum class DiceType(val sides: Int) {
     D8(8),
     D10(10),
     D12(12),
-    D20(20);
+    D20(20),
+    ;
 
     override fun toString(): String = "d$sides"
 }

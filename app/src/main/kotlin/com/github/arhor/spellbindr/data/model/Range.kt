@@ -8,6 +8,19 @@ data class Range(
     val distance: Int? = null,
     val area: AreaOfEffect? = null
 ) {
+    override fun toString(): String = buildString {
+        if (distance != null) {
+            append(distance)
+            append(' ')
+        }
+        append(type)
+        if (area != null) {
+            append('(')
+            append(area)
+            append(')')
+        }
+    }
+
     enum class Type {
         Touch,
         Sight,

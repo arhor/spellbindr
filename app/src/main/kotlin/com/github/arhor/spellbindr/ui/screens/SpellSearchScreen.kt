@@ -29,6 +29,7 @@ import androidx.compose.foundation.clickable
 @Composable
 fun SpellSearchScreen(
     viewModel: SpellSearchViewModel = hiltViewModel(),
+    onSpellClick: (String) -> Unit = {}
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -64,20 +65,20 @@ fun SpellSearchScreen(
             }
 
             else -> {
-                SpellList(spells = state.spells)
+                SpellList(spells = state.spells, onSpellClick = onSpellClick)
             }
         }
     }
 }
 
 @Composable
-private fun SpellList(spells: List<Spell>) {
+private fun SpellList(spells: List<Spell>, onSpellClick: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(spells) { spell ->
-            SpellCard(spell = spell, onClick = { /* TODO: Open spell details */ })
+            SpellCard(spell = spell, onClick = { onSpellClick(spell.name) })
         }
     }
 }

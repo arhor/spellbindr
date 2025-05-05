@@ -1,5 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.Locale
+
 enum class DamageType {
     ACID,
     BLUDGEONING,
@@ -14,9 +17,8 @@ enum class DamageType {
     RADIANT,
     SLASHING,
     THUNDER,
-    NONE;
+    NONE,
+    ;
 
-    override fun toString(): String =
-        name.lowercase()
-            .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+    override fun toString(): String = super.toString().lowercase().capitalize(Locale.current)
 }
