@@ -10977,7 +10977,10 @@
   {
     "name": "Project Image",
     "desc": "You create an illusory copy of yourself that lasts for the duration. The copy can appear at any location within range that you have seen before, regardless of intervening obstacles. The illusion looks and sounds like you but is intangible. If the illusion takes any damage, it disappears, and the spell ends. You can use your action to move this illusion up to twice your speed, and make it gesture, speak, and behave in whatever way you choose. It mimics your mannerisms perfectly. You can see through its eyes and hear through its ears as if you were in its space. On your turn as a bonus action, you can switch from using its senses to using your own, or back again. While you are using its senses, you are blinded and deafened in regard to your own surroundings. Physical interaction with the image reveals it to be an illusion, because things can pass through it. A creature that uses its action to examine the image can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the creature can see through the image, and any noise it makes sounds hollow to the creature. ",
-    "range": "500 miles",
+    "range": {
+      "type": "Miles",
+      "distance": 500
+    },
     "ritual": false,
     "duration": "Up to 24 hours",
     "concentration": true,
@@ -11906,7 +11909,9 @@
   {
     "name": "Sending",
     "desc": "You send a short message of twenty-five words or less to a creature with which you are familiar. The creature hears the message in its mind, recognizes you as the sender if it knows you, and can answer in a like manner immediately. The spell enables creatures with Intelligence scores of at least 1 to understand the meaning of your message. You can send the message across any distance and even to other planes of existence, but if the target is on a different plane than you, there is a 5 percent chance that the message doesn’t arrive. ",
-    "range": "Unlimited",
+    "range": {
+      "type": "Unlimited"
+    },
     "ritual": false,
     "duration": "1 round",
     "concentration": false,
@@ -13554,7 +13559,9 @@
   {
     "name": "Telepathy",
     "desc": "You create a telepathic link between yourself and a willing creature with which you are familiar. The creature can be anywhere on the same plane of existence as you. The spell ends if you or the target are no longer on the same plane. Until the spell ends, you and the target can instantaneously share words, images, sounds, and other sensory messages with one another through the link, and the target recognizes you as the creature it is communicating with. The spell enables a creature with an Intelligence score of at least 1 to understand the meaning of your words and take in the scope of any sensory messages you send to it. ",
-    "range": "Unlimited",
+    "range": {
+      "type": "Unlimited"
+    },
     "ritual": false,
     "duration": "24 hours",
     "concentration": false,
@@ -13830,7 +13837,13 @@
   {
     "name": "Thunderclap",
     "desc": "You create a burst of thunderous sound, which can be heard 100 feet away. Each creature other than you within 5 feet of you must make a Constitution saving throw. On a failed save, the creature takes 1d6 thunder damage. The spell's damage increases by 1d6 when you reach 5th level (2d6), 11th level (3d6), and 17th level (4d6). ",
-    "range": "Self (5-foot radius)",
+    "range": {
+      "type": "Self",
+      "area": {
+        "size": 5,
+        "type": "SPHERE"
+      }
+    },
     "ritual": false,
     "duration": "Instantaneous",
     "concentration": false,
@@ -14153,8 +14166,7 @@
       "WIZARD"
     ],
     "source": {
-      "book": "PHB",
-      "page": null
+      "book": "PHB"
     },
     "components": [
       {

@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Source(
     val book: String,
-    val page: Int,
+    val page: Int? = null,
 )
