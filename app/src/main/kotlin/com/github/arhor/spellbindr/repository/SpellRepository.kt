@@ -19,7 +19,9 @@ class SpellRepository @Inject constructor(
 
     fun searchSpells(query: String): List<Spell> = spells.filter {
         with(it) {
-            name.contains(query, ignoreCase = true) || desc.contains(query, ignoreCase = true)
+            name.contains(query, ignoreCase = true)
         }
     }
+
+    fun getAllSpells(): List<Spell> = spells
 }

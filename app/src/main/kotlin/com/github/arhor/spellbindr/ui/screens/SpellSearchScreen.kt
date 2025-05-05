@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -24,12 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
+import androidx.compose.foundation.clickable
 
 @Composable
 fun SpellSearchScreen(
     viewModel: SpellSearchViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val state by viewModel.state.collectAsState()
 
     Column(
         modifier = Modifier
@@ -37,7 +38,7 @@ fun SpellSearchScreen(
             .padding(16.dp)
     ) {
         OutlinedTextField(
-            value = uiState.searchQuery,
+            value = state.searchQuery,
             onValueChange = viewModel::onSearchQueryChanged,
             label = { Text("Search spells") },
             modifier = Modifier.fillMaxWidth()
@@ -46,7 +47,7 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         when {
-            uiState.isLoading -> {
+            state.isLoading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -55,15 +56,15 @@ fun SpellSearchScreen(
                 }
             }
 
-            uiState.error != null -> {
+            state.error != null -> {
                 Text(
-                    text = "Error: ${uiState.error}",
+                    text = "Error: ${state.error}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
             else -> {
-                SpellList(spells = uiState.spells)
+                SpellList(spells = state.spells)
             }
         }
     }
@@ -76,32 +77,28 @@ private fun SpellList(spells: List<Spell>) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(spells) { spell ->
-            SpellCard(spell = spell)
+            SpellCard(spell = spell, onClick = { /* TODO: Open spell details */ })
         }
     }
 }
 
 @Composable
-private fun SpellCard(spell: Spell) {
-    Card(
-        modifier = Modifier.fillMaxWidth()
+private fun SpellCard(spell: Spell, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 8.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = spell.name,
-                style = MaterialTheme.typography.titleLarge
-            )
-            Text(
-                text = "Level ${spell.level} ${spell.school}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = spell.desc,
-                style = MaterialTheme.typography.bodySmall,
-                maxLines = 3
-            )
-        }
+        Text(
+            text = "Lvl. ${spell.level}",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(end = 16.dp)
+        )
+        Text(
+            text = spell.name,
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 } 
