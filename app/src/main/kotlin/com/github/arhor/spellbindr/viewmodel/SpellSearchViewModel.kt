@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.repository.SpellRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import javax.inject.Inject
 
 data class SpellSearchUiState(
     val searchQuery: String = "",
@@ -19,7 +19,8 @@ data class SpellSearchUiState(
     val error: String? = null
 )
 
-class SpellSearchViewModel(
+@HiltViewModel
+class SpellSearchViewModel @Inject constructor(
     private val spellRepository: SpellRepository
 ) : ViewModel() {
 

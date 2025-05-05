@@ -1,20 +1,21 @@
 package com.github.arhor.spellbindr.di
 
-import com.github.arhor.spellbindr.data.AppDatabase
-import com.github.arhor.spellbindr.repository.CharacterRepository
-import com.github.arhor.spellbindr.repository.CharacterRepositoryImpl
+import android.content.Context
 import com.github.arhor.spellbindr.repository.SpellRepository
-import com.github.arhor.spellbindr.viewmodel.CharacterViewModel
-import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
-import org.koin.core.module.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-val appModule = module {
-    single { AppDatabase.getDatabase(get()).characterDao() }
-    single<CharacterRepository> { CharacterRepositoryImpl(get()) }
-    viewModel { CharacterViewModel(get()) }
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
     
-    // Spell-related modules
-    single { SpellRepository(get()) }
-    viewModel { SpellSearchViewModel(get()) }
+    @Provides
+    @Singleton
+    fun provideSpellRepository(@ApplicationContext context: Context): SpellRepository {
+        return SpellRepository(context)
+    }
 }
