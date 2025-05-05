@@ -34,7 +34,7 @@ google-services.json
 
 ####
 
-./.vscode
+./.vscode/
 
 .gradle
 /local.properties
