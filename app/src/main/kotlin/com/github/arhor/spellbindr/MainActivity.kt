@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.github.arhor.spellbindr.ui.components.App
+import com.github.arhor.spellbindr.ui.App
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

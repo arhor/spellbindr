@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 class SpellRepository @Inject constructor(
-    private val context: Context
+    private val context: Context,
 ) {
     val json = Json { ignoreUnknownKeys = true }
 

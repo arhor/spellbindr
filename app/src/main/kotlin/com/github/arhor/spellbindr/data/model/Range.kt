@@ -12,7 +12,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 
-@Serializable(with = RangeSerializer::class)
+@Serializable(with = Range.Serializer::class)
 sealed class Range {
     data object Touch : Range()
 
@@ -27,120 +27,120 @@ sealed class Range {
     data class Miles(val distance: Int, val area: AreaOfEffect? = null) : Range()
 
     data class Special(val description: String) : Range()
-}
 
-object RangeSerializer : KSerializer<Range> {
-    override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Range")
+    companion object Serializer : KSerializer<Range> {
+        override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Range")
 
-    override fun serialize(encoder: Encoder, value: Range) {
-        val json = when (value) {
-            is Range.Touch -> buildJsonObject { put("type", "Touch") }
-            is Range.Unlimited -> buildJsonObject { put("type", "Unlimited") }
-            is Range.Self -> buildJsonObject {
-                put("type", "Self")
-                value.area?.let { area ->
-                    put("area", buildJsonObject {
-                        put("size", area.size.toString())
-                        put("type", area.type.name)
-                    })
+        override fun serialize(encoder: Encoder, value: Range) {
+            val json = when (value) {
+                is Touch -> buildJsonObject { put("type", "Touch") }
+                is Unlimited -> buildJsonObject { put("type", "Unlimited") }
+                is Self -> buildJsonObject {
+                    put("type", "Self")
+                    value.area?.let { area ->
+                        put("area", buildJsonObject {
+                            put("size", area.size.toString())
+                            put("type", area.type.name)
+                        })
+                    }
+                }
+                is Feet -> buildJsonObject {
+                    put("type", "Feet")
+                    put("distance", value.distance.toString())
+                    value.area?.let { area ->
+                        put("area", buildJsonObject {
+                            put("size", area.size.toString())
+                            put("type", area.type.name)
+                        })
+                    }
+                }
+                is Miles -> buildJsonObject {
+                    put("type", "Miles")
+                    put("distance", value.distance.toString())
+                    value.area?.let { area ->
+                        put("area", buildJsonObject {
+                            put("size", area.size.toString())
+                            put("type", area.type.name)
+                        })
+                    }
+                }
+                is Sight -> buildJsonObject {
+                    put("type", "Sight")
+                }
+                is Special -> buildJsonObject {
+                    put("type", "Special")
+                    put("description", value.description)
                 }
             }
-            is Range.Feet -> buildJsonObject {
-                put("type", "Feet")
-                put("distance", value.distance.toString())
-                value.area?.let { area ->
-                    put("area", buildJsonObject {
-                        put("size", area.size.toString())
-                        put("type", area.type.name)
-                    })
-                }
-            }
-            is Range.Miles -> buildJsonObject {
-                put("type", "Miles")
-                put("distance", value.distance.toString())
-                value.area?.let { area ->
-                    put("area", buildJsonObject {
-                        put("size", area.size.toString())
-                        put("type", area.type.name)
-                    })
-                }
-            }
-            is Range.Sight -> buildJsonObject {
-                put("type", "Sight")
-            }
-            is Range.Special -> buildJsonObject {
-                put("type", "Special")
-                put("description", value.description)
-            }
+            encoder.encodeSerializableValue(JsonObject.serializer(), json)
         }
-        encoder.encodeSerializableValue(JsonObject.serializer(), json)
-    }
 
-    override fun deserialize(decoder: Decoder): Range {
-        val json = decoder.decodeSerializableValue(JsonObject.serializer())
-        val type = json["type"]?.jsonPrimitive?.content ?: throw IllegalArgumentException("Missing 'type' field in Range")
+        override fun deserialize(decoder: Decoder): Range {
+            val json = decoder.decodeSerializableValue(JsonObject.serializer())
+            val type = json["type"]?.jsonPrimitive?.content ?: throw IllegalArgumentException("Missing 'type' field in Range")
 
-        return when (type) {
-            "Touch" -> Range.Touch
-            "Unlimited" -> Range.Unlimited
-            "Self" -> {
-                val area = json["area"]?.jsonObject?.let { areaJson ->
-                    val size = areaJson["size"]?.jsonPrimitive?.content?.toIntOrNull()
-                        ?: throw IllegalArgumentException("Missing 'size' field in AreaOfEffect")
-                    val areaType = areaJson["type"]?.jsonPrimitive?.content?.let { typeStr ->
-                        try {
-                            AreaOfEffect.Type.valueOf(typeStr)
-                        } catch (e: IllegalArgumentException) {
-                            throw IllegalArgumentException("Invalid area type: $typeStr")
-                        }
-                    } ?: throw IllegalArgumentException("Missing 'type' field in AreaOfEffect")
-                    AreaOfEffect(size, areaType)
+            return when (type) {
+                "Touch" -> Touch
+                "Unlimited" -> Unlimited
+                "Self" -> {
+                    val area = json["area"]?.jsonObject?.let { areaJson ->
+                        val size = areaJson["size"]?.jsonPrimitive?.content?.toIntOrNull()
+                            ?: throw IllegalArgumentException("Missing 'size' field in AreaOfEffect")
+                        val areaType = areaJson["type"]?.jsonPrimitive?.content?.let { typeStr ->
+                            try {
+                                AreaOfEffect.Type.valueOf(typeStr)
+                            } catch (e: IllegalArgumentException) {
+                                throw IllegalArgumentException("Invalid area type: $typeStr", e)
+                            }
+                        } ?: throw IllegalArgumentException("Missing 'type' field in AreaOfEffect")
+                        AreaOfEffect(size, areaType)
+                    }
+                    Self(area)
                 }
-                Range.Self(area)
-            }
-            "Feet" -> {
-                val distance = json["distance"]?.jsonPrimitive?.content?.toIntOrNull()
-                    ?: throw IllegalArgumentException("Missing 'distance' field in Feet range")
-                val area = json["area"]?.jsonObject?.let { areaJson ->
-                    val size = areaJson["size"]?.jsonPrimitive?.content?.toIntOrNull()
-                        ?: throw IllegalArgumentException("Missing 'size' field in AreaOfEffect")
-                    val areaType = areaJson["type"]?.jsonPrimitive?.content?.let { typeStr ->
-                        try {
-                            AreaOfEffect.Type.valueOf(typeStr)
-                        } catch (e: IllegalArgumentException) {
-                            throw IllegalArgumentException("Invalid area type: $typeStr")
-                        }
-                    } ?: throw IllegalArgumentException("Missing 'type' field in AreaOfEffect")
-                    AreaOfEffect(size, areaType)
+                "Feet" -> {
+                    val distance = json["distance"]?.jsonPrimitive?.content?.toIntOrNull()
+                        ?: throw IllegalArgumentException("Missing 'distance' field in Feet range")
+                    val area = json["area"]?.jsonObject?.let { areaJson ->
+                        val size = areaJson["size"]?.jsonPrimitive?.content?.toIntOrNull()
+                            ?: throw IllegalArgumentException("Missing 'size' field in AreaOfEffect")
+                        val areaType = areaJson["type"]?.jsonPrimitive?.content?.let { typeStr ->
+                            try {
+                                AreaOfEffect.Type.valueOf(typeStr)
+                            } catch (e: IllegalArgumentException) {
+                                throw IllegalArgumentException("Invalid area type: $typeStr", e)
+                            }
+                        } ?: throw IllegalArgumentException("Missing 'type' field in AreaOfEffect")
+                        AreaOfEffect(size, areaType)
+                    }
+                    Feet(distance, area)
                 }
-                Range.Feet(distance, area)
-            }
-            "Miles" -> {
-                val distance = json["distance"]?.jsonPrimitive?.content?.toIntOrNull()
-                    ?: throw IllegalArgumentException("Missing 'distance' field in Miles range")
-                val area = json["area"]?.jsonObject?.let { areaJson ->
-                    val size = areaJson["size"]?.jsonPrimitive?.content?.toIntOrNull()
-                        ?: throw IllegalArgumentException("Missing 'size' field in AreaOfEffect")
-                    val areaType = areaJson["type"]?.jsonPrimitive?.content?.let { typeStr ->
-                        try {
-                            AreaOfEffect.Type.valueOf(typeStr)
-                        } catch (e: IllegalArgumentException) {
-                            throw IllegalArgumentException("Invalid area type: $typeStr")
-                        }
-                    } ?: throw IllegalArgumentException("Missing 'type' field in AreaOfEffect")
-                    AreaOfEffect(size, areaType)
+                "Miles" -> {
+                    val distance = json["distance"]?.jsonPrimitive?.content?.toIntOrNull()
+                        ?: throw IllegalArgumentException("Missing 'distance' field in Miles range")
+                    val area = json["area"]?.jsonObject?.let { areaJson ->
+                        val size = areaJson["size"]?.jsonPrimitive?.content?.toIntOrNull()
+                            ?: throw IllegalArgumentException("Missing 'size' field in AreaOfEffect")
+                        val areaType = areaJson["type"]?.jsonPrimitive?.content?.let { typeStr ->
+                            try {
+                                AreaOfEffect.Type.valueOf(typeStr)
+                            } catch (e: IllegalArgumentException) {
+                                throw IllegalArgumentException("Invalid area type: $typeStr", e)
+                            }
+                        } ?: throw IllegalArgumentException("Missing 'type' field in AreaOfEffect")
+                        AreaOfEffect(size, areaType)
+                    }
+                    Miles(distance, area)
                 }
-                Range.Miles(distance, area)
+                "Sight" -> {
+                    Sight
+                }
+                "Special" -> {
+                    val description = json["description"]?.jsonPrimitive?.content
+                        ?: "N/A"
+                    Special(description )
+                }
+                else -> throw IllegalArgumentException("Unknown range type: $type")
             }
-            "Sight" -> {
-                Range.Sight
-            }
-            "Special" -> {
-                val description = json["description"]?.jsonPrimitive?.content
-                    ?: "N/A"
-                Range.Special(description )
-            }
-            else -> throw IllegalArgumentException("Unknown range type: $type")
         }
     }
 }

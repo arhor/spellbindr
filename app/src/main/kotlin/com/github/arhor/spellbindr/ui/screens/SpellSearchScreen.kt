@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.components
+package com.github.arhor.spellbindr.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,7 +27,7 @@ import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 
 @Composable
 fun SpellSearchScreen(
-    viewModel: SpellSearchViewModel = hiltViewModel()
+    viewModel: SpellSearchViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
