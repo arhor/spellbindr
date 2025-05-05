@@ -8,7 +8,6 @@ data class Range(
     val distance: Int? = null,
     val area: AreaOfEffect? = null
 ) {
-    @Serializable
     enum class Type {
         Touch,
         Sight,
