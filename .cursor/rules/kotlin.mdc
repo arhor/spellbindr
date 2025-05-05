@@ -1,0 +1,8 @@
+---
+description: Set of rules for writing clean, consistent, and well-structured Kotlin code
+globs: 
+alwaysApply: true
+---
+
+- writing kotlin code, avoid creating functions having more than 20 lines of code
+- writing kotlin code, use proper functional decomposition, to avoid high cognitive complexity
