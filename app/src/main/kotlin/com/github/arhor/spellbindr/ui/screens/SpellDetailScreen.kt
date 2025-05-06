@@ -19,6 +19,7 @@ import com.github.arhor.spellbindr.viewmodel.SpellDetailViewModel
 @Composable
 fun SpellDetailScreen(
     spellName: String?,
+    modifier: Modifier = Modifier,
     viewModel: SpellDetailViewModel = hiltViewModel(),
 ) {
     if (spellName != null) {
@@ -26,14 +27,13 @@ fun SpellDetailScreen(
     }
     val spell by viewModel.state.collectAsState()
 
-
-    spell?.let {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        spell?.let {
             Text(text = it.name, style = MaterialTheme.typography.headlineLarge)
             Text(text = "Level: ${it.level}")
             Text(text = "School: ${it.school}")
@@ -54,8 +54,8 @@ fun SpellDetailScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(text = "At Higher Levels: ${it.higherLevel}")
             }
+        } ?: run {
+            Text("Loading or spell not found")
         }
-    } ?: run {
-        Text("Loading or spell not found")
     }
-} 
+}

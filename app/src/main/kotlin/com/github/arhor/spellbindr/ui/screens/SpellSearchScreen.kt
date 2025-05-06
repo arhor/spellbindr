@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,17 +26,22 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
-import androidx.compose.foundation.clickable
 
 @Composable
 fun SpellSearchScreen(
-    viewModel: SpellSearchViewModel = hiltViewModel(),
-    onSpellClick: (String) -> Unit = {}
+    modifier: Modifier = Modifier,
+    onSpellClick: (String) -> Unit = {},
+    onScreedLoad: () -> Unit = {},
+    viewModel: SpellSearchViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
 
+    LaunchedEffect(Unit) {
+        onScreedLoad()
+    }
+
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
