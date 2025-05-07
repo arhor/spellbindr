@@ -70,36 +70,3 @@ fun SpellSearchScreen(
         }
     }
 }
-
-@Composable
-private fun SpellList(spells: List<Spell>, onSpellClick: (String) -> Unit) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(spells) { spell ->
-            SpellCard(spell = spell, onClick = { onSpellClick(spell.name) })
-        }
-    }
-}
-
-@Composable
-private fun SpellCard(spell: Spell, onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "Lvl. ${spell.level}",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(end = 16.dp)
-        )
-        Text(
-            text = spell.name,
-            style = MaterialTheme.typography.titleMedium
-        )
-    }
-} 
