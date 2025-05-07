@@ -10,7 +10,11 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Spell
 
 @Composable
-fun SpellList(spells: List<Spell>, onSpellClick: (String) -> Unit) {
+fun SpellList(
+    spells: List<Spell>,
+    onSpellClick: (String) -> Unit,
+    onSpellFavor: (String) -> Unit,
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -19,6 +23,7 @@ fun SpellList(spells: List<Spell>, onSpellClick: (String) -> Unit) {
             SpellCard(
                 spell = it,
                 onClick = { onSpellClick(it.name) },
+                onFavor = { onSpellFavor(it.name) }
             )
         }
     }
