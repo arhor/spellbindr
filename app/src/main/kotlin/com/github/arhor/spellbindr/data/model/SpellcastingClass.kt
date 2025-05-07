@@ -20,5 +20,5 @@ enum class SpellcastingClass {
         super.toString()
             .lowercase()
             .split('_')
-            .joinToString(separator = "") { it.capitalize(Locale.current) }
+            .joinToString(separator = " ") { it.capitalize(Locale.current) }
 }
