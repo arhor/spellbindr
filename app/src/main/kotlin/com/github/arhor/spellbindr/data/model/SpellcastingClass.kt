@@ -19,6 +19,6 @@ enum class SpellcastingClass {
     override fun toString(): String =
         super.toString()
             .lowercase()
-            .split(' ')
+            .split('_')
             .joinToString(separator = "") { it.capitalize(Locale.current) }
 }
