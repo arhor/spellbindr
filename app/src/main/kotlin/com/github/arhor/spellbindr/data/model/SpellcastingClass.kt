@@ -1,8 +1,5 @@
 package com.github.arhor.spellbindr.data.model
 
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.intl.Locale
-
 enum class SpellcastingClass {
     BARD,
     CLERIC,
@@ -20,5 +17,5 @@ enum class SpellcastingClass {
         super.toString()
             .lowercase()
             .split('_')
-            .joinToString(separator = " ") { it.capitalize(Locale.current) }
+            .joinToString(separator = " ") { it.replaceFirstChar(Char::titlecaseChar) }
 }
