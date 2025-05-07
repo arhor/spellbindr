@@ -15,23 +15,18 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     private var isSplashVisible = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen().also {
-            it.setKeepOnScreenCondition {
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
                 isSplashVisible
             }
         }
-
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch {
-            delay(1500)
-            isSplashVisible = false
-        }
         enableEdgeToEdge()
-        setContent { App() }
+        setContent {
+            App(onLoaded = { isSplashVisible = false })
+        }
     }
 }
