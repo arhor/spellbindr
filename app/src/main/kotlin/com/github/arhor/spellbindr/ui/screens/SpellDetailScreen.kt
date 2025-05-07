@@ -19,7 +19,6 @@ import com.github.arhor.spellbindr.viewmodel.SpellDetailViewModel
 @Composable
 fun SpellDetailScreen(
     spellName: String?,
-    modifier: Modifier = Modifier,
     viewModel: SpellDetailViewModel = hiltViewModel(),
 ) {
     if (spellName != null) {
@@ -28,7 +27,7 @@ fun SpellDetailScreen(
     val spell by viewModel.state.collectAsState()
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)

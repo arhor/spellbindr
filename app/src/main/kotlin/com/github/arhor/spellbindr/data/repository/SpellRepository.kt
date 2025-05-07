@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.repository
+package com.github.arhor.spellbindr.data.repository
 
 import android.content.Context
 import com.github.arhor.spellbindr.data.model.Spell

@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -17,64 +14,53 @@ import androidx.navigation.compose.rememberNavController
 import com.github.arhor.spellbindr.ui.screens.SettingsScreen
 import com.github.arhor.spellbindr.ui.screens.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.screens.SpellSearchScreen
-import com.github.arhor.spellbindr.ui.screens.SplashScreen
-
-private const val SPLASH_SCREEN = "splash-screen"
-private const val SPELL_SEARCH = "spell-search"
-private const val SPELL_DETAIL = "spell-detail/{spellName}"
-private const val SETTINGS = "settings"
-
-private val NAV_ITEMS = listOf(
-    SPELL_SEARCH to "Spells",
-    SETTINGS to "Settings",
-)
 
 @Composable
 fun AppNavGraph() {
     val controller = rememberNavController()
     val stackEntry by controller.currentBackStackEntryAsState()
-    var showNavBar by remember { mutableStateOf(false) }
 
     Scaffold(
         bottomBar = {
-            if (showNavBar && stackEntry?.destination?.route != SPLASH_SCREEN) {
-                AppNavBar(
-                    items = NAV_ITEMS,
-                    onItemClick = controller::navigate,
-                    isItemSelected = stackEntry::isSelected,
-                )
-            }
+            AppNavBar(
+                items = listOf(
+                    Routes.SPELL_SEARCH to "Spells",
+                    Routes.APP_SETTINGS to "Settings",
+                ),
+                onItemClick = controller::navigate,
+                isItemSelected = stackEntry::isSelected,
+            )
         }
     ) { innerPadding ->
         NavHost(
             navController = controller,
-            startDestination = SPLASH_SCREEN,
+            startDestination = Routes.SPELL_SEARCH,
+            modifier = Modifier.padding(innerPadding),
         ) {
-            composable(route = SPLASH_SCREEN) {
-                SplashScreen(
-                    onTimeout = { controller.navigate(SPELL_SEARCH) },
-                )
-            }
-            composable(route = SPELL_SEARCH) {
+            composable(route = Routes.SPELL_SEARCH) {
                 SpellSearchScreen(
-                    modifier = Modifier.padding(innerPadding),
-                    onSpellClick = { controller.navigate("spell-detail/$it") },
-                    onScreedLoad = { showNavBar = true },
+                    onSpellClick = { controller.navigate("$SPELL_DETAIL_ROUTE$it") },
                 )
             }
-            composable(route = SPELL_DETAIL) {
+            composable(route = Routes.SPELL_DETAIL) {
                 SpellDetailScreen(
-                    modifier = Modifier.padding(innerPadding),
-                    spellName = it.arguments?.getString("spellName"),
+                    spellName = it.arguments?.getString(SPELL_DETAIL_VALUE),
                 )
             }
-            composable(route = SETTINGS) {
-                SettingsScreen(
-                    modifier = Modifier.padding(innerPadding),
-                )
+            composable(route = Routes.APP_SETTINGS) {
+                SettingsScreen()
             }
         }
     }
+}
+
+private const val SPELL_DETAIL_ROUTE = "spell-detail/"
+private const val SPELL_DETAIL_VALUE = "spell-name"
+
+private object Routes {
+    const val SPELL_SEARCH = "spell-search"
+    const val SPELL_DETAIL = "$SPELL_DETAIL_ROUTE{$SPELL_DETAIL_VALUE}"
+    const val APP_SETTINGS = "settings"
 }
 
 private fun NavBackStackEntry?.isSelected(route: String): Boolean =

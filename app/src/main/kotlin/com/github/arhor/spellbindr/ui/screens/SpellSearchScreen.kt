@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -29,19 +28,13 @@ import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 
 @Composable
 fun SpellSearchScreen(
-    modifier: Modifier = Modifier,
     onSpellClick: (String) -> Unit = {},
-    onScreedLoad: () -> Unit = {},
     viewModel: SpellSearchViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
 
-    LaunchedEffect(Unit) {
-        onScreedLoad()
-    }
-
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {

@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.ui.theme
 
+import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -19,16 +21,6 @@ private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
 )
 
 @Composable
@@ -37,13 +29,26 @@ fun SpellbindrTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    MaterialTheme(
+        colorScheme = determineColorScheme(
+            dark = darkTheme,
+            dynamic = dynamicColor,
+            ctx = LocalContext.current,
+        ),
+        typography = Typography,
+        content = content,
+    )
+}
+
+private fun determineColorScheme(dark: Boolean, dynamic: Boolean, ctx: Context): ColorScheme =
+    when {
+        dynamic -> if (dark) {
+            dynamicDarkColorScheme(ctx)
+        } else {
+            dynamicLightColorScheme(ctx)
         }
 
-        darkTheme -> {
+        dark -> {
             DarkColorScheme
         }
 
@@ -52,9 +57,3 @@ fun SpellbindrTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
