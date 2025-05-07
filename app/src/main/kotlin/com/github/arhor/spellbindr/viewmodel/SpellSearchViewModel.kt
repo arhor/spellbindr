@@ -10,6 +10,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
@@ -37,9 +38,7 @@ class SpellSearchViewModel @Inject constructor(
     private val selectedClass = MutableStateFlow<SpellcastingClass?>(null)
 
     init {
-        observeSearchQuery()
-        observeSelectedClass()
-        loadAllSpells()
+        observeQueryAndClass()
     }
 
     fun onSearchQueryChanged(query: String) {
@@ -58,12 +57,28 @@ class SpellSearchViewModel @Inject constructor(
         selectedClass.value = spellClass
     }
 
-    private fun loadAllSpells() {
+    @OptIn(FlowPreview::class)
+    private fun observeQueryAndClass() {
+        viewModelScope.launch {
+            combine(searchQuery, selectedClass) { query, spellClass -> query to spellClass }
+                .debounce(500.milliseconds)
+                .distinctUntilChanged()
+                .collect { (query, spellClass) ->
+                    if (query.isBlank()) {
+                        loadAllSpells(spellClass)
+                    } else {
+                        searchSpells(query, spellClass)
+                    }
+                }
+        }
+    }
+
+    private fun loadAllSpells(spellClass: SpellcastingClass?) {
         viewModelScope.launch {
             try {
                 uiState.update { it.copy(isLoading = true, error = null) }
                 val spells = spellRepository.getAllSpells()
-                    .let { filterByClass(it, selectedClass.value) }
+                    .filterByClass(spellClass)
                     .sortedWith(LEVEL_AND_NAME_COMPARATOR)
                 uiState.update { it.copy(spells = spells, isLoading = false) }
             } catch (e: Exception) {
@@ -72,42 +87,16 @@ class SpellSearchViewModel @Inject constructor(
         }
     }
 
-    @OptIn(FlowPreview::class)
-    private fun observeSearchQuery() {
-        viewModelScope.launch {
-            searchQuery
-                .debounce(500.milliseconds)
-                .distinctUntilChanged()
-                .collect { query ->
-                    if (query.isBlank()) {
-                        loadAllSpells()
-                    } else {
-                        searchSpells(query)
-                    }
-                }
-        }
-    }
-
-    private fun observeSelectedClass() {
-        viewModelScope.launch {
-            selectedClass
-                .collect {
-                    if (uiState.value.searchQuery.isBlank()) {
-                        loadAllSpells()
-                    } else {
-                        searchSpells(uiState.value.searchQuery)
-                    }
-                }
-        }
-    }
-
-    private fun searchSpells(query: String) {
+    private fun searchSpells(query: String, spellClass: SpellcastingClass?) {
         viewModelScope.launch {
             try {
                 uiState.update { it.copy(isLoading = true, error = null) }
-                val spells = spellRepository.searchSpells(query)
-                    .let { filterByClass(it, selectedClass.value) }
-                    .sortedWith(LEVEL_AND_NAME_COMPARATOR)
+
+                val spells =
+                    spellRepository.searchSpells(query)
+                        .filterByClass(spellClass)
+                        .sortedWith(LEVEL_AND_NAME_COMPARATOR)
+
                 uiState.update { it.copy(spells = spells, isLoading = false) }
             } catch (e: Exception) {
                 uiState.update { it.copy(error = e.message, isLoading = false) }
@@ -115,8 +104,8 @@ class SpellSearchViewModel @Inject constructor(
         }
     }
 
-    private fun filterByClass(spells: List<Spell>, spellClass: SpellcastingClass?): List<Spell> {
-        return spellClass?.let { spells.filter { it.classes.contains(spellClass) } } ?: spells
+    private fun List<Spell>.filterByClass(spellClass: SpellcastingClass?): List<Spell> {
+        return spellClass?.let { filter { it.classes.contains(spellClass) } } ?: this
     }
 
     companion object {
