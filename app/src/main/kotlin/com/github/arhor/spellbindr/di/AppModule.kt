@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.di
 
 import android.content.Context
-import com.github.arhor.spellbindr.repository.SpellRepository
+import com.github.arhor.spellbindr.data.repository.SpellRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
