@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,21 +26,16 @@ fun SpellCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
-            text = "Lvl. ${spell.level}",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(end = 16.dp),
+        IconButton(
+            onClick = onFavor,
+            content = { Icon(Icons.Outlined.AddCircle, contentDescription = "Add spell to list") }
         )
         Text(
             text = spell.name,
-            style = MaterialTheme.typography.titleMedium,
-        )
-        IconButton(
-            onClick = onFavor,
-            content = { Icon(Icons.Outlined.Add, contentDescription = "Add spell to list") }
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
 }
