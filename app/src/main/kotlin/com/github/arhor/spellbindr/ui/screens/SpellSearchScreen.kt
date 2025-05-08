@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -27,18 +29,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.SpellcastingClass
+import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpellSearchScreen(
     onSpellClick: (String) -> Unit = {},
-    viewModel: SpellSearchViewModel = hiltViewModel()
+    spellListViewModel: SpellListViewModel = hiltViewModel(),
+    spellSearchViewModel: SpellSearchViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsState()
-    var expanded by remember { mutableStateOf(false) }
-    val classOptions = listOf<SpellcastingClass?>(null) + SpellcastingClass.values().toList()
-    val selectedClass = state.selectedClass
+    val spellListViewState by spellListViewModel.state.collectAsState()
+    val spellSearchViewState by spellSearchViewModel.state.collectAsState()
+
+    var expandedClass by remember { mutableStateOf(false) }
+    var showAddDialog by remember { mutableStateOf(false) }
+    var selectedSpellName by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -46,36 +52,36 @@ fun SpellSearchScreen(
             .padding(16.dp)
     ) {
         ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded }
+            expanded = expandedClass,
+            onExpandedChange = { expandedClass = !expandedClass }
         ) {
             OutlinedTextField(
-                value = selectedClass?.toString() ?: "All Classes",
+                value = spellSearchViewState.selectedClass?.toString() ?: "All Classes",
                 onValueChange = {},
                 readOnly = true,
                 label = { Text("Filter by Class") },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedClass) },
                 modifier = Modifier
                     .menuAnchor(MenuAnchorType.PrimaryNotEditable)
                     .fillMaxWidth(),
             )
             ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
+                expanded = expandedClass,
+                onDismissRequest = { expandedClass = false }
             ) {
                 DropdownMenuItem(
                     text = { Text("All Classes") },
                     onClick = {
-                        viewModel.onClassFilterChanged(null)
-                        expanded = false
+                        spellSearchViewModel.onClassFilterChanged(null)
+                        expandedClass = false
                     }
                 )
                 SpellcastingClass.entries.forEach { spellClass ->
                     DropdownMenuItem(
                         text = { Text(spellClass.toString()) },
                         onClick = {
-                            viewModel.onClassFilterChanged(spellClass)
-                            expanded = false
+                            spellSearchViewModel.onClassFilterChanged(spellClass)
+                            expandedClass = false
                         }
                     )
                 }
@@ -84,8 +90,8 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = state.searchQuery,
-            onValueChange = viewModel::onSearchQueryChanged,
+            value = spellSearchViewState.searchQuery,
+            onValueChange = spellSearchViewModel::onSearchQueryChanged,
             label = { Text("Search spells") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -93,7 +99,7 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         when {
-            state.isLoading -> {
+            spellSearchViewState.isLoading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -102,16 +108,49 @@ fun SpellSearchScreen(
                 }
             }
 
-            state.error != null -> {
+            spellSearchViewState.error != null -> {
                 Text(
-                    text = "Error: ${state.error}",
+                    text = "Error: ${spellSearchViewState.error}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
             else -> {
-                SpellList(spells = state.spells, onSpellClick = onSpellClick)
+                SpellSearchResultList(
+                    spells = spellSearchViewState.spells,
+                    onSpellClick = onSpellClick,
+                    onSpellFavor = {
+                        selectedSpellName = it
+                        showAddDialog = true
+                    },
+                )
             }
         }
+    }
+
+    if (showAddDialog && selectedSpellName != null) {
+        AlertDialog(
+            onDismissRequest = { showAddDialog = false },
+            title = { Text("Add '${selectedSpellName}' to which list?") },
+            text = {
+                Column {
+                    spellListViewState.forEach { list ->
+                        TextButton(onClick = {
+                            val updated = list.copy(
+                                spellNames = (list.spellNames + selectedSpellName!!).distinct()
+                            )
+                            spellListViewModel.updateSpellList(updated)
+                            showAddDialog = false
+                        }) {
+                            Text(list.name)
+                        }
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {
+                TextButton(onClick = { showAddDialog = false }) { Text("Cancel") }
+            }
+        )
     }
 }

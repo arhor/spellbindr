@@ -18,22 +18,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
-data class SpellSearchUiState(
-    val searchQuery: String = "",
-    val spells: List<Spell> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val selectedClass: SpellcastingClass? = null
-)
-
 @HiltViewModel
 class SpellSearchViewModel @Inject constructor(
     private val spellRepository: SpellRepository
 ) : ViewModel() {
 
-    val state: StateFlow<SpellSearchUiState> by lazy { uiState.asStateFlow() }
+    data class SpellSearchViewState(
+        val searchQuery: String = "",
+        val spells: List<Spell> = emptyList(),
+        val isLoading: Boolean = false,
+        val error: String? = null,
+        val selectedClass: SpellcastingClass? = null
+    )
 
-    private val uiState = MutableStateFlow(SpellSearchUiState())
+    val state: StateFlow<SpellSearchViewState> by lazy { uiState.asStateFlow() }
+
+    private val uiState = MutableStateFlow(SpellSearchViewState())
     private val searchQuery = MutableStateFlow("")
     private val selectedClass = MutableStateFlow<SpellcastingClass?>(null)
 

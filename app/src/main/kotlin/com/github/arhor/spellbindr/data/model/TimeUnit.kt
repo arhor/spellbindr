@@ -1,8 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.intl.Locale
-
+@Suppress("unused")
 enum class TimeUnit {
     ACTION,
     BONUS_ACTION,
@@ -15,5 +13,5 @@ enum class TimeUnit {
         super.toString()
             .lowercase()
             .split(' ')
-            .joinToString(separator = "") { it.capitalize(Locale.current) }
+            .joinToString(separator = "") { it.replaceFirstChar(Char::titlecaseChar) }
 }

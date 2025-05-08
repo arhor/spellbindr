@@ -1,7 +1,5 @@
 package com.github.arhor.spellbindr.data.model
 
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.intl.Locale
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,6 +14,7 @@ data class AreaOfEffect(
         append(type)
     }
 
+    @Suppress("unused")
     enum class Type {
         CUBE,
         SPHERE,
@@ -25,6 +24,6 @@ data class AreaOfEffect(
         CIRCLE,
         ;
 
-        override fun toString(): String = super.toString().lowercase().capitalize(Locale.current)
+        override fun toString(): String = name.lowercase().replaceFirstChar(Char::titlecaseChar)
     }
 }
