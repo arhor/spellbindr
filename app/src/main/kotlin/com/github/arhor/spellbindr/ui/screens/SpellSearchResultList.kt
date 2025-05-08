@@ -44,7 +44,7 @@ fun SpellSearchResultList(
             .padding(16.dp)
     ) {
         spellsByLevel.forEach { (level, spellsForLevel) ->
-            val expanded = expandedState[level] == true
+            val expanded = expandedState[level] != false
 
             stickyHeader {
                 val rotationAngle by animateFloatAsState(targetValue = if (expanded) 180f else 0f)
