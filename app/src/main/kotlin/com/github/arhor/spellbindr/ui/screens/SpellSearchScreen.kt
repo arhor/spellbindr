@@ -116,7 +116,7 @@ fun SpellSearchScreen(
             }
 
             else -> {
-                SpellList(
+                SpellSearchResultList(
                     spells = state.spells,
                     onSpellClick = onSpellClick,
                     onSpellFavor = {
