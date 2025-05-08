@@ -8,8 +8,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.SpellList
 import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 
@@ -20,7 +18,7 @@ fun EditSpellListScreen(
     onCancel: () -> Unit,
     spellListViewModel: SpellListViewModel
 ) {
-    val spellListsState by spellListViewModel.spellLists.collectAsState()
+    val spellListsState by spellListViewModel.state.collectAsState()
 
     val allSpells = remember { spellListViewModel.getAllSpells() }
 

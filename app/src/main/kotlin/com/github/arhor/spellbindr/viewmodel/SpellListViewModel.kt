@@ -17,7 +17,7 @@ class SpellListViewModel @Inject constructor(
     private val repository: SpellListRepository,
     private val spellRepository: SpellRepository
 ) : ViewModel() {
-    val spellLists: StateFlow<List<SpellList>> = repository.spellListsFlow
+    val state: StateFlow<List<SpellList>> = repository.spellListsFlow
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun getAllSpells() = spellRepository.getAllSpells()

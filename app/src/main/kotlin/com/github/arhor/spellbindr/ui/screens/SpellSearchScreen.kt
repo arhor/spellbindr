@@ -36,13 +36,13 @@ import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 @Composable
 fun SpellSearchScreen(
     onSpellClick: (String) -> Unit = {},
-    spellListViewModel: SpellListViewModel = hiltViewModel()
+    spellListViewModel: SpellListViewModel = hiltViewModel(),
+    spellSearchViewModel: SpellSearchViewModel = hiltViewModel(),
 ) {
-    val hiltViewModel = hiltViewModel<SpellSearchViewModel>()
-    val state by hiltViewModel.state.collectAsState()
-    var expanded by remember { mutableStateOf(false) }
-    val selectedClass = state.selectedClass
-    val spellLists = spellListViewModel.spellLists.collectAsState().value
+    val spellListViewState by spellListViewModel.state.collectAsState()
+    val spellSearchViewState by spellSearchViewModel.state.collectAsState()
+
+    var expandedClass by remember { mutableStateOf(false) }
     var showAddDialog by remember { mutableStateOf(false) }
     var selectedSpellName by remember { mutableStateOf<String?>(null) }
 
@@ -52,36 +52,36 @@ fun SpellSearchScreen(
             .padding(16.dp)
     ) {
         ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded }
+            expanded = expandedClass,
+            onExpandedChange = { expandedClass = !expandedClass }
         ) {
             OutlinedTextField(
-                value = selectedClass?.toString() ?: "All Classes",
+                value = spellSearchViewState.selectedClass?.toString() ?: "All Classes",
                 onValueChange = {},
                 readOnly = true,
                 label = { Text("Filter by Class") },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedClass) },
                 modifier = Modifier
                     .menuAnchor(MenuAnchorType.PrimaryNotEditable)
                     .fillMaxWidth(),
             )
             ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
+                expanded = expandedClass,
+                onDismissRequest = { expandedClass = false }
             ) {
                 DropdownMenuItem(
                     text = { Text("All Classes") },
                     onClick = {
-                        hiltViewModel.onClassFilterChanged(null)
-                        expanded = false
+                        spellSearchViewModel.onClassFilterChanged(null)
+                        expandedClass = false
                     }
                 )
                 SpellcastingClass.entries.forEach { spellClass ->
                     DropdownMenuItem(
                         text = { Text(spellClass.toString()) },
                         onClick = {
-                            hiltViewModel.onClassFilterChanged(spellClass)
-                            expanded = false
+                            spellSearchViewModel.onClassFilterChanged(spellClass)
+                            expandedClass = false
                         }
                     )
                 }
@@ -90,8 +90,8 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = state.searchQuery,
-            onValueChange = hiltViewModel::onSearchQueryChanged,
+            value = spellSearchViewState.searchQuery,
+            onValueChange = spellSearchViewModel::onSearchQueryChanged,
             label = { Text("Search spells") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -99,7 +99,7 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         when {
-            state.isLoading -> {
+            spellSearchViewState.isLoading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -108,16 +108,16 @@ fun SpellSearchScreen(
                 }
             }
 
-            state.error != null -> {
+            spellSearchViewState.error != null -> {
                 Text(
-                    text = "Error: ${state.error}",
+                    text = "Error: ${spellSearchViewState.error}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
             else -> {
                 SpellSearchResultList(
-                    spells = state.spells,
+                    spells = spellSearchViewState.spells,
                     onSpellClick = onSpellClick,
                     onSpellFavor = {
                         selectedSpellName = it
@@ -134,7 +134,7 @@ fun SpellSearchScreen(
             title = { Text("Add '${selectedSpellName}' to which list?") },
             text = {
                 Column {
-                    spellLists.forEach { list ->
+                    spellListViewState.forEach { list ->
                         TextButton(onClick = {
                             val updated = list.copy(
                                 spellNames = (list.spellNames + selectedSpellName!!).distinct()

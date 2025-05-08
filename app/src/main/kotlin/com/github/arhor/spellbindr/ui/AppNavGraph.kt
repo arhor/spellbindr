@@ -26,7 +26,7 @@ fun AppNavGraph() {
     val controller = rememberNavController()
     val stackEntry by controller.currentBackStackEntryAsState()
     val spellListViewModel = hiltViewModel<SpellListViewModel>()
-    val spellListViewState by spellListViewModel.spellLists.collectAsState()
+    val spellListViewState by spellListViewModel.state.collectAsState()
 
     Scaffold(
         bottomBar = {

@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
-import com.github.arhor.spellbindr.data.repository.SpellRepository
 import com.github.arhor.spellbindr.data.model.SpellList
 import com.github.arhor.spellbindr.data.model.Spell
 
@@ -22,7 +21,7 @@ fun SpellListsScreen(
     spellListViewModel: SpellListViewModel = hiltViewModel()
 ) {
     val viewModel = spellListViewModel
-    val spellLists = viewModel.spellLists.collectAsState().value
+    val spellLists = viewModel.state.collectAsState().value
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
