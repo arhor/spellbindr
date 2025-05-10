@@ -65,7 +65,7 @@ fun SpellSearchScreen(
             )
             Spacer(Modifier.weight(1f))
             Box(
-                modifier = Modifier.padding(end = 10.dp)
+                modifier = Modifier.padding(end = 16.dp)
             ) {
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(Icons.Default.MoreVert, contentDescription = "Filter by class")
