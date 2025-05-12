@@ -60,7 +60,6 @@ fun SpellSearchScreen(
         ) {
             Text(
                 text = "Spell Book",
-                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleLarge,
             )
             Spacer(Modifier.weight(1f))
