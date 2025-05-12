@@ -23,6 +23,7 @@ import com.github.arhor.spellbindr.ui.screens.EditSpellListScreen
 import com.github.arhor.spellbindr.ui.screens.SpellListDetailScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.R
+import com.github.arhor.spellbindr.ui.screens.CharacterListScreen
 import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 
 @Composable
@@ -37,7 +38,8 @@ fun AppNavGraph() {
             AppNavBar(
                 items = listOf(
                     Routes.SPELL_SEARCH to "Spells",
-                    Routes.SPELL_LISTS to "My Lists",
+                    Routes.SPELL_LISTS to "Spell Lists",
+                    Routes.CHARACTERS to "Characters",
                 ),
                 onItemClick = controller::navigate,
                 isItemSelected = stackEntry::isSelected,
@@ -107,6 +109,9 @@ fun AppNavGraph() {
                         spellListViewModel = spellListViewModel
                     )
                 }
+                composable(route = Routes.CHARACTERS) {
+                    CharacterListScreen()
+                }
             }
         }
     }
@@ -122,7 +127,7 @@ private object Routes {
     const val SPELL_LIST_DETAIL = "spell-list-detail"
     const val CREATE_SPELL_LIST = "create-spell-list"
     const val EDIT_SPELL_LIST = "edit-spell-list"
-    const val APP_SETTINGS = "settings"
+    const val CHARACTERS = "characters"
 }
 
 private fun NavBackStackEntry?.isSelected(route: String): Boolean =

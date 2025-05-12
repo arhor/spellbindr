@@ -132,32 +132,6 @@ fun SpellDetailScreen(
 }
 
 @Composable
-private fun ScreenControls(
-    onBackClicked: () -> Unit,
-    onLikeClicked: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        IconButton(onClick = onBackClicked) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Back",
-            )
-        }
-        IconButton(onClick = onLikeClicked) {
-            Icon(
-                imageVector = Icons.Filled.FavoriteBorder,
-                contentDescription = "Favorite",
-            )
-        }
-    }
-}
-
-@Composable
 private fun DescriptionRow(text: String) {
     Text(
         text = text,

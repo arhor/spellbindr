@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.AlertDialog
@@ -63,11 +64,9 @@ fun SpellSearchScreen(
                 style = MaterialTheme.typography.titleLarge,
             )
             Spacer(Modifier.weight(1f))
-            Box(
-                modifier = Modifier.padding(end = 16.dp)
-            ) {
+            Box {
                 IconButton(onClick = { expanded = !expanded }) {
-                    Icon(Icons.Default.MoreVert, contentDescription = "Filter by class")
+                    Icon(Icons.Default.FilterAlt, contentDescription = "Filter by class")
                 }
                 DropdownMenu(
                     expanded = expanded,
@@ -83,7 +82,7 @@ fun SpellSearchScreen(
                     SpellcastingClass.entries.forEach { spellClass ->
                         DropdownMenuItem(
                             text = { Text(spellClass.toString()) },
-                            leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) }, // TODO change to class Icon
+                            leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
                             onClick = {
                                 spellSearchViewModel.onClassFilterChanged(spellClass)
                                 expanded = false
