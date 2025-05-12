@@ -1,9 +1,7 @@
 package com.github.arhor.spellbindr.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,15 +28,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.CardBg
@@ -56,110 +52,81 @@ fun SpellDetailScreen(
     viewModel.loadSpellByName(spellName)
     val spell by viewModel.state.collectAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(id = R.drawable.bg_stars),
-            modifier = Modifier.matchParentSize(),
-            contentScale = ContentScale.Crop,
-            contentDescription = null
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Row(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
+        ScreenControls(onBackClicked, onLikeClicked)
+
+        spell?.let {
+            Text(
+                text = it.name,
+                fontSize = 36.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
+                style = TextStyle(
+                    shadow = Shadow(
+                        color = Accent.copy(alpha = 0.5f),
+                        offset = Offset(2f, 2f),
+                        blurRadius = 32f
+                    )
+                ),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(Modifier.height(16.dp))
+
+            Card(
+                colors = CardDefaults.cardColors(containerColor = CardBg.copy(alpha = 0.2f)),
+                shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .border(
+                        width = 2.dp,
+                        shape = RoundedCornerShape(16.dp),
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                Accent.copy(alpha = 0.2f),
+                                Accent,
+                                Accent.copy(alpha = 0.2f),
+                            ),
+                        )
+                    )
             ) {
-                IconButton(onClick = onBackClicked) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                        tint = Accent
-                    )
-                }
-                IconButton(onClick = onLikeClicked) {
-                    Icon(
-                        imageVector = Icons.Filled.FavoriteBorder,
-                        contentDescription = "Favorite",
-                        tint = Accent
-                    )
-                }
-            }
+                Column(modifier = Modifier.padding(16.dp)) {
+                    TableRow(label = "Level", value = it.level.toString())
+                    TableRow(label = "School", value = it.school.toString())
 
-            spell?.let {
-                Text(
-                    text = it.name,
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Serif,
-                    color = Accent,
-                    style = TextStyle(
-                        shadow = Shadow(
-                            color = Accent.copy(alpha = 0.5f),
-                            offset = Offset(2f, 2f),
-                            blurRadius = 32f
-                        )
-                    ),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-                Spacer(Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
+                    GradientDivider()
+                    Spacer(modifier = Modifier.height(12.dp))
 
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = CardBg.copy(alpha = 0.2f)),
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(
-                            width = 2.dp,
-                            shape = RoundedCornerShape(16.dp),
-                            brush = Brush.linearGradient(
-                                colors = listOf(
-                                    Accent.copy(alpha = 0.2f),
-                                    Accent,
-                                    Accent.copy(alpha = 0.2f),
-                                ),
-                            )
-                        )
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        TableRow(label = "Level", value = it.level.toString())
-                        TableRow(label = "School", value = it.school.toString())
+                    TableRow(label = "Casting Time", value = it.castingTime)
+                    TableRow(label = "Range", value = it.range.toString())
+                    TableRow(label = "Components", value = it.components.joinToString())
+                    TableRow(label = "Duration", value = it.duration)
+                    TableRow(label = "Classes", value = it.classes.joinToString())
+                    TableRow(label = "Ritual", value = it.ritual.toString())
+                    TableRow(label = "Concentration", value = it.concentration.toString())
 
-                        Spacer(modifier = Modifier.height(12.dp))
-                        GradientDivider()
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        TableRow(label = "Casting Time", value = it.castingTime)
-                        TableRow(label = "Range", value = it.range.toString())
-                        TableRow(label = "Components", value = it.components.joinToString())
-                        TableRow(label = "Duration", value = it.duration)
-                        TableRow(label = "Classes", value = it.classes.joinToString())
-                        TableRow(label = "Ritual", value = it.ritual.toString())
-                        TableRow(label = "Concentration", value = it.concentration.toString())
-
-                        it.damage?.let {
-                            TableRow(label = "Damage", value = it.toString())
-                        }
-                        TableRow(
-                            label = "Source",
-                            value = "${it.source.book}${it.source.page?.let { ", p.$it" } ?: ""}")
+                    it.damage?.let {
+                        TableRow(label = "Damage", value = it.toString())
                     }
-
+                    TableRow(
+                        label = "Source",
+                        value = "${it.source.book}${it.source.page?.let { ", p.$it" } ?: ""}")
                 }
-                DescriptionRow(it.desc)
 
-                if (!it.higherLevel.isNullOrBlank()) {
-                    DescriptionRow(it.higherLevel)
-
-                }
-            } ?: run {
-                Text("Loading or spell not found")
             }
+            DescriptionRow(it.desc)
+
+            if (!it.higherLevel.isNullOrBlank()) {
+                DescriptionRow(it.higherLevel)
+
+            }
+        } ?: run {
+            Text("Loading or spell not found")
         }
     }
 }
