@@ -54,6 +54,7 @@ fun AppNavGraph() {
             composable(route = Routes.SPELL_DETAIL) {
                 SpellDetailScreen(
                     spellName = it.arguments?.getString(SPELL_DETAIL_VALUE),
+                    onBackClicked = { controller.navigateUp() },
                 )
             }
             composable(route = Routes.SPELL_LISTS) {
