@@ -19,7 +19,10 @@ class SpellDetailViewModel @Inject constructor(
     private val spell = MutableStateFlow<Spell?>(null)
     val state: StateFlow<Spell?> = spell.asStateFlow()
 
-    fun loadSpellByName(name: String) {
+    fun loadSpellByName(name: String?) {
+        if (name == null) {
+            return
+        }
         viewModelScope.launch {
             spell.value = spellRepository.getAllSpells().find { it.name == name }
         }
