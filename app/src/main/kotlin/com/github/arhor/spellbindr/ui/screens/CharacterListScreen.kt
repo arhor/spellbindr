@@ -9,8 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PersonAdd
-import androidx.compose.material.icons.rounded.UnfoldLess
-import androidx.compose.material.icons.rounded.UnfoldMore
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,8 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CharacterListScreen() {
-
+fun CharacterListScreen(
+    onCreateNewCharacter: () -> Unit = {},
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,7 +35,7 @@ fun CharacterListScreen() {
         Spacer(Modifier.weight(1f))
         Box(modifier = Modifier.fillMaxSize()) {
             FloatingActionButton(
-                onClick = { },
+                onClick = onCreateNewCharacter,
                 shape = MaterialTheme.shapes.extraLarge,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)

@@ -23,6 +23,7 @@ import com.github.arhor.spellbindr.ui.screens.EditSpellListScreen
 import com.github.arhor.spellbindr.ui.screens.SpellListDetailScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.R
+import com.github.arhor.spellbindr.ui.screens.CharacterCreationWizardScreen
 import com.github.arhor.spellbindr.ui.screens.CharacterListScreen
 import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 
@@ -110,7 +111,12 @@ fun AppNavGraph() {
                     )
                 }
                 composable(route = Routes.CHARACTERS) {
-                    CharacterListScreen()
+                    CharacterListScreen(onCreateNewCharacter = {
+                        controller.navigate(Routes.CHARACTERS_CREATE)
+                    })
+                }
+                composable(route = Routes.CHARACTERS_CREATE) {
+                    CharacterCreationWizardScreen()
                 }
             }
         }
@@ -128,6 +134,7 @@ private object Routes {
     const val CREATE_SPELL_LIST = "create-spell-list"
     const val EDIT_SPELL_LIST = "edit-spell-list"
     const val CHARACTERS = "characters"
+    const val CHARACTERS_CREATE = "characters/create"
 }
 
 private fun NavBackStackEntry?.isSelected(route: String): Boolean =
