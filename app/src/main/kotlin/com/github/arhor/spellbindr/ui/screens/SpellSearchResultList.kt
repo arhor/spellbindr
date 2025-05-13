@@ -71,8 +71,8 @@ fun SpellSearchResultList(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(shape = SpellSearchResultListShapes.groupHeader)
-                            .background(color = CardBg, shape = SpellSearchResultListShapes.groupHeader)
+                            .clip(shape = SpellSearchResultListShapes.GroupHeader)
+                            .background(color = CardBg, shape = SpellSearchResultListShapes.GroupHeader)
                             .clickable { expandedState[level] = !expanded }
                             .padding(vertical = 10.dp, horizontal = 20.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -94,9 +94,7 @@ fun SpellSearchResultList(
                     items(spellsForLevel) { spell ->
                         SpellCard(
                             spell = spell,
-                            isFavorite = spell.name in favoriteSpellNames,
                             onClick = { onSpellClick(spell.name) },
-                            onFavor = { onSpellFavor(spell.name) }
                         )
                     }
                 }
@@ -124,5 +122,5 @@ fun SpellSearchResultList(
 }
 
 private object SpellSearchResultListShapes {
-    val groupHeader = RoundedCornerShape(12.dp)
+    val GroupHeader = RoundedCornerShape(12.dp)
 }
