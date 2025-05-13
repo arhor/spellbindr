@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Spell
@@ -69,7 +70,8 @@ fun SpellSearchResultList(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(color = CardBg.copy(alpha = 0.8f), shape = RoundedCornerShape(12.dp))
+                            .clip(shape = SpellSearchResultListShapes.groupHeader)
+                            .background(color = CardBg, shape = SpellSearchResultListShapes.groupHeader)
                             .clickable { expandedState[level] = !expanded }
                             .padding(vertical = 10.dp, horizontal = 20.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -117,4 +119,8 @@ fun SpellSearchResultList(
             }
         }
     }
+}
+
+private object SpellSearchResultListShapes {
+    val groupHeader = RoundedCornerShape(12.dp)
 }
