@@ -16,7 +16,7 @@ fun SpellbindrTheme(
             onBackground = Accent,
             surfaceContainer = Purple40,
         ),
-        typography = Typography,
+        typography = SpellbindrTypography,
         content = content,
     )
 }
