@@ -43,6 +43,7 @@ fun SpellSearchResultList(
     spells: List<Spell>,
     onSpellClick: (String) -> Unit,
     onSpellFavor: (String) -> Unit,
+    favoriteSpellNames: Set<String> = emptySet(),
 ) {
     var expandedAll by remember(spells) { mutableStateOf(true) }
     val expandedState = remember(spells) { mutableStateMapOf<Int, Boolean>() }
@@ -93,6 +94,7 @@ fun SpellSearchResultList(
                     items(spellsForLevel) { spell ->
                         SpellCard(
                             spell = spell,
+                            isFavorite = spell.name in favoriteSpellNames,
                             onClick = { onSpellClick(spell.name) },
                             onFavor = { onSpellFavor(spell.name) }
                         )

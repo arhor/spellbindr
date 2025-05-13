@@ -31,29 +31,24 @@ class SpellListRepository @Inject constructor(
             } ?: emptyList()
         }
 
-    suspend fun setSpellLists(lists: List<SpellList>) {
-        context.spellListsDataStore.edit { preferences ->
-            preferences[SPELL_LISTS_KEY] = json.encodeToString(lists)
-        }
+    suspend fun getFavoritesList(): SpellList? {
+        return spellListsFlow.first().find { it.name == "Favorites" }
     }
 
     suspend fun addSpellList(list: SpellList) {
         val current = spellListsFlow.map { it.toMutableList() }.first()
+        current.removeAll { it.name == list.name }
         current.add(list)
         setSpellLists(current)
     }
 
     suspend fun updateSpellList(updated: SpellList) {
-        val current = spellListsFlow.map { lists ->
-            lists.map { if (it.name == updated.name) updated else it }
-        }.first()
-        setSpellLists(current)
+        addSpellList(updated)
     }
 
-    suspend fun deleteSpellList(name: String) {
-        val current = spellListsFlow.map { lists ->
-            lists.filterNot { it.name == name }
-        }.first()
-        setSpellLists(current)
+    private suspend fun setSpellLists(lists: List<SpellList>) {
+        context.spellListsDataStore.edit { preferences ->
+            preferences[SPELL_LISTS_KEY] = json.encodeToString(lists)
+        }
     }
 } 

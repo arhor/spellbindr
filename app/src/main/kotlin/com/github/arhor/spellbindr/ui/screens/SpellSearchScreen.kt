@@ -55,11 +55,9 @@ fun SpellSearchScreen(
     spellListViewModel: SpellListViewModel = hiltViewModel(),
     spellSearchViewModel: SpellSearchViewModel = hiltViewModel(),
 ) {
-    val spellListViewState by spellListViewModel.state.collectAsState()
     val spellSearchViewState by spellSearchViewModel.state.collectAsState()
+    val favoriteSpellNames = spellListViewModel.state.collectAsState().value?.spellNames?.toSet() ?: emptySet()
 
-    var showAddDialog by remember { mutableStateOf(false) }
-    var selectedSpellName by remember { mutableStateOf<String?>(null) }
     var showFilterDialog by remember { mutableStateOf(false) }
     var selectedClassFilters by remember { mutableStateOf(spellSearchViewState.selectedClasses) }
     var classesExpanded by remember { mutableStateOf(false) }
@@ -115,39 +113,11 @@ fun SpellSearchScreen(
                 SpellSearchResultList(
                     spells = spellSearchViewState.spells,
                     onSpellClick = onSpellClick,
-                    onSpellFavor = {
-                        selectedSpellName = it
-                        showAddDialog = true
-                    },
+                    onSpellFavor = { spellListViewModel.toggleFavorite(it) },
+                    favoriteSpellNames = favoriteSpellNames,
                 )
             }
         }
-    }
-
-    if (showAddDialog && selectedSpellName != null) {
-        AlertDialog(
-            onDismissRequest = { showAddDialog = false },
-            title = { Text("Add '${selectedSpellName}' to which list?") },
-            text = {
-                Column {
-                    spellListViewState.forEach { list ->
-                        TextButton(onClick = {
-                            val updated = list.copy(
-                                spellNames = (list.spellNames + selectedSpellName!!).distinct()
-                            )
-                            spellListViewModel.updateSpellList(updated)
-                            showAddDialog = false
-                        }) {
-                            Text(list.name)
-                        }
-                    }
-                }
-            },
-            confirmButton = {},
-            dismissButton = {
-                TextButton(onClick = { showAddDialog = false }) { Text("Cancel") }
-            }
-        )
     }
 
     if (showFilterDialog) {

@@ -5,7 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AddCircle
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +20,7 @@ import com.github.arhor.spellbindr.data.model.Spell
 @Composable
 fun SpellCard(
     spell: Spell,
+    isFavorite: Boolean = false,
     onClick: () -> Unit = {},
     onFavor: () -> Unit = {},
 ) {
@@ -31,7 +33,12 @@ fun SpellCard(
     ) {
         IconButton(
             onClick = onFavor,
-            content = { Icon(Icons.Outlined.AddCircle, contentDescription = "Add spell to list") }
+            content = {
+                Icon(
+                    imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                    contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites"
+                )
+            }
         )
         Text(
             text = spell.name,

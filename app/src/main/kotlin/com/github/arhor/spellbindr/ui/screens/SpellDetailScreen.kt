@@ -14,7 +14,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -28,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -41,16 +41,20 @@ import com.github.arhor.spellbindr.ui.theme.CardBg
 import com.github.arhor.spellbindr.ui.theme.DescriptionText
 import com.github.arhor.spellbindr.ui.theme.HeaderText
 import com.github.arhor.spellbindr.viewmodel.SpellDetailViewModel
+import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 
 @Composable
 fun SpellDetailScreen(
     spellName: String?,
     onBackClicked: () -> Unit = {},
-    onLikeClicked: () -> Unit = {},
+    onLikeClicked: (String?) -> Unit = {},
     viewModel: SpellDetailViewModel = hiltViewModel(),
+    spellListViewModel: SpellListViewModel,
 ) {
     viewModel.loadSpellByName(spellName)
     val spell by viewModel.state.collectAsState()
+    val favorites by spellListViewModel.state.collectAsState()
+    val isFavorite = spell?.name?.let { favorites?.spellNames?.contains(it) } == true
 
     Column(
         modifier = Modifier
@@ -58,7 +62,25 @@ fun SpellDetailScreen(
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        ScreenControls(onBackClicked, onLikeClicked)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(onClick = onBackClicked) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                )
+            }
+            IconButton(onClick = { onLikeClicked(spell?.name) }) {
+                Icon(
+                    imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                    contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                )
+            }
+        }
 
         spell?.let {
             Text(
