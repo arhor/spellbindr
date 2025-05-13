@@ -7,17 +7,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.UnfoldLess
 import androidx.compose.material.icons.rounded.UnfoldMore
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.ui.theme.CardBg
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -66,9 +69,9 @@ fun SpellSearchResultList(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(MaterialTheme.colorScheme.surface)
-                            .clickable(onClick = { expandedState[level] = !expanded })
-                            .padding(vertical = 8.dp, horizontal = 16.dp),
+                            .background(color = CardBg.copy(alpha = 0.8f), shape = RoundedCornerShape(12.dp))
+                            .clickable { expandedState[level] = !expanded }
+                            .padding(vertical = 10.dp, horizontal = 20.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -95,10 +98,11 @@ fun SpellSearchResultList(
                 }
 
                 item {
-                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    Spacer(modifier = Modifier.height(7.dp))
                 }
             }
         }
+
         FloatingActionButton(
             onClick = ::toggleExpandAll,
             shape = MaterialTheme.shapes.extraLarge,
