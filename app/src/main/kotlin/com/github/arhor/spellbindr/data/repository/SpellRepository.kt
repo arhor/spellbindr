@@ -11,7 +11,7 @@ class SpellRepository @Inject constructor(
     val json = Json { ignoreUnknownKeys = true }
 
     private val spells by lazy {
-        context.assets.open("spells.json")
+        context.assets.open("spells/data.json")
             .bufferedReader()
             .use { it.readText() }
             .let { json.decodeFromString<List<Spell>>(it) }
