@@ -26,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Shadow
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.ui.components.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.CardBg
 import com.github.arhor.spellbindr.ui.theme.DescriptionText
@@ -116,9 +118,24 @@ fun SpellDetailScreen(
                         )
                     )
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    TableRow(label = "Level", value = it.level.toString())
-                    TableRow(label = "School", value = it.school.toString())
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Row(modifier = Modifier.padding(start = 15.dp), verticalAlignment = Alignment.CenterVertically) {
+                        SpellIcon(
+                            modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+                            spellName = it.name,
+                            size = 60.dp,
+                            iconSize = 60.dp,
+                        )
+                        Column {
+                            TableRow(label = "Level", value = buildString {
+                                append(it.level)
+                                if (it.level == 0) {
+                                    append(" (Cantrip)")
+                                }
+                            })
+                            TableRow(label = "School", value = it.school.toString())
+                        }
+                    }
 
                     Spacer(modifier = Modifier.height(12.dp))
                     GradientDivider()
@@ -139,8 +156,8 @@ fun SpellDetailScreen(
                         label = "Source",
                         value = "${it.source.book}${it.source.page?.let { ", p.$it" } ?: ""}")
                 }
-
             }
+
             DescriptionRow(it.desc)
 
             if (!it.higherLevel.isNullOrBlank()) {
