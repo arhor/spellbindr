@@ -27,22 +27,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.arhor.spellbindr.data.model.SpellcastingClass
 import com.github.arhor.spellbindr.ui.spells.search.SearchFilterDialog
 import com.github.arhor.spellbindr.ui.spells.search.SpellSearchResultList
-import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpellSearchScreen(
     onSpellClick: (String) -> Unit = {},
-    spellListViewModel: SpellListViewModel = hiltViewModel(),
-    spellSearchViewModel: SpellSearchViewModel = hiltViewModel(),
+    spellSearchVM: SpellSearchViewModel = hiltViewModel(),
 ) {
-    val spellSearchViewState by spellSearchViewModel.state.collectAsState()
-    val favoriteSpellNames = spellListViewModel.state.collectAsState().value.spellNames.toSet()
-
+    val spellSearchViewState by spellSearchVM.state.collectAsState()
     var showFilterDialog by remember { mutableStateOf(false) }
+
+    fun handleFilterChanges(selectedClasses: Set<SpellcastingClass>) {
+        spellSearchVM.onClassFilterChanged(selectedClasses)
+        showFilterDialog = false
+    }
 
     Column(
         modifier = Modifier
@@ -67,7 +69,7 @@ fun SpellSearchScreen(
 
         OutlinedTextField(
             value = spellSearchViewState.searchQuery,
-            onValueChange = spellSearchViewModel::onSearchQueryChanged,
+            onValueChange = spellSearchVM::onSearchQueryChanged,
             label = { Text("Search spells") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -95,8 +97,6 @@ fun SpellSearchScreen(
                 SpellSearchResultList(
                     spells = spellSearchViewState.spells,
                     onSpellClick = onSpellClick,
-                    onSpellFavor = { spellListViewModel.toggleFavorite(it) },
-                    favoriteSpellNames = favoriteSpellNames,
                 )
             }
         }
@@ -104,7 +104,8 @@ fun SpellSearchScreen(
 
     SearchFilterDialog(
         showFilterDialog = showFilterDialog,
-        onSubmit = { showFilterDialog = false },
-        onCancel = { showFilterDialog = false },
+        currentClasses = spellSearchViewState.selectedClasses,
+        onSubmit = ::handleFilterChanges,
+        onCancel = ::handleFilterChanges,
     )
 }

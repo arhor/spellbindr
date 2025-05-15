@@ -42,8 +42,6 @@ import com.github.arhor.spellbindr.ui.theme.CardBg
 fun SpellSearchResultList(
     spells: List<Spell>,
     onSpellClick: (String) -> Unit,
-    onSpellFavor: (String) -> Unit,
-    favoriteSpellNames: Set<String> = emptySet(),
 ) {
     var expandedAll by remember(spells) { mutableStateOf(true) }
     val expandedState = remember(spells) { mutableStateMapOf<Int, Boolean>() }

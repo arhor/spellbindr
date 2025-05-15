@@ -25,7 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,25 +34,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.SpellcastingClass
-import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 
 @Composable
 fun SearchFilterDialog(
     showFilterDialog: Boolean,
-    onSubmit: () -> Unit = { },
-    onCancel: () -> Unit = { },
-    spellSearchViewModel: SpellSearchViewModel = hiltViewModel(),
+    currentClasses: Set<SpellcastingClass>,
+    onSubmit: (Set<SpellcastingClass>) -> Unit = { },
+    onCancel: (Set<SpellcastingClass>) -> Unit = { },
 ) {
     var classesExpanded by remember { mutableStateOf(false) }
-    val spellSearchViewState by spellSearchViewModel.state.collectAsState()
-    var selectedClassFilters by remember { mutableStateOf(spellSearchViewState.selectedClasses) }
-
+    var selectedClasses by remember { mutableStateOf(currentClasses) }
 
     if (showFilterDialog) {
         AlertDialog(
-            onDismissRequest = { onCancel() },
+            onDismissRequest = { onCancel(currentClasses) },
             title = { Text("Filters") },
             text = {
                 Column {
@@ -65,7 +60,7 @@ fun SearchFilterDialog(
                             .padding(vertical = 8.dp)
                     ) {
                         Text("Classes:", style = MaterialTheme.typography.titleMedium)
-                        if (selectedClassFilters.isNotEmpty()) {
+                        if (selectedClasses.isNotEmpty()) {
                             Box(
                                 modifier = Modifier
                                     .padding(start = 8.dp)
@@ -75,7 +70,7 @@ fun SearchFilterDialog(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = selectedClassFilters.size.toString(),
+                                    text = selectedClasses.size.toString(),
                                     style = MaterialTheme.typography.labelSmall,
                                     color = Color.White
                                 )
@@ -99,19 +94,21 @@ fun SearchFilterDialog(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .clickable {
-                                            selectedClassFilters = if (spellClass in selectedClassFilters)
-                                                selectedClassFilters - spellClass
-                                            else
-                                                selectedClassFilters + spellClass
+                                            selectedClasses = if (spellClass in selectedClasses) {
+                                                selectedClasses - spellClass
+                                            } else {
+                                                selectedClasses + spellClass
+                                            }
                                         }
                                 ) {
                                     Checkbox(
-                                        checked = spellClass in selectedClassFilters,
+                                        checked = spellClass in selectedClasses,
                                         onCheckedChange = {
-                                            selectedClassFilters = if (it)
-                                                selectedClassFilters + spellClass
-                                            else
-                                                selectedClassFilters - spellClass
+                                            selectedClasses = if (it) {
+                                                selectedClasses + spellClass
+                                            } else {
+                                                selectedClasses - spellClass
+                                            }
                                         }
                                     )
                                     Text(spellClass.toString())
@@ -123,22 +120,11 @@ fun SearchFilterDialog(
             },
             confirmButton = {
                 Row {
-                    OutlinedButton(
-                        onClick = {
-                            selectedClassFilters = emptySet()
-                            spellSearchViewModel.onClassFilterChanged(emptySet())
-                            onCancel()
-                        }
-                    ) {
+                    OutlinedButton(onClick = { onCancel(emptySet()) }) {
                         Text("Clear")
                     }
                     Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = {
-                            spellSearchViewModel.onClassFilterChanged(selectedClassFilters)
-                            onSubmit()
-                        }
-                    ) {
+                    Button(onClick = { onSubmit(selectedClasses) }) {
                         Text("Apply")
                     }
                 }
