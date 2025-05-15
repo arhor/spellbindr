@@ -9,15 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
-import com.github.arhor.spellbindr.ui.AppNavBar
 import com.github.arhor.spellbindr.ui.screens.CharacterCreationWizardScreen
 import com.github.arhor.spellbindr.ui.screens.CharacterListScreen
 import com.github.arhor.spellbindr.ui.screens.FavoriteSpellsScreen
@@ -38,7 +35,7 @@ fun AppNavGraph() {
                     AppRoute.Characters,
                 ),
                 onItemClick = controller::navigate,
-                isItemSelected = stackEntry::isSelected,
+                isItemSelected = { it.isCurrent(stackEntry) },
             )
         }
     ) { innerPadding ->
@@ -47,7 +44,7 @@ fun AppNavGraph() {
                 painter = painterResource(id = R.drawable.bg_stars),
                 modifier = Modifier.matchParentSize(),
                 contentScale = ContentScale.Crop,
-                contentDescription = null
+                contentDescription = "Global background",
             )
             NavHost(
                 navController = controller,
@@ -56,7 +53,12 @@ fun AppNavGraph() {
             ) {
                 composable<AppRoute.SpellSearch> {
                     SpellSearchScreen(
-                        onSpellClick = { controller.navigate(AppRoute.SpellDetails(it)) },
+                        onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
+                    )
+                }
+                composable<AppRoute.FavoriteSpells> {
+                    FavoriteSpellsScreen(
+                        onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
                     )
                 }
                 composable<AppRoute.SpellDetails> {
@@ -65,14 +67,9 @@ fun AppNavGraph() {
                         onBackClicked = { controller.navigateUp() },
                     )
                 }
-                composable<AppRoute.FavoriteSpells> {
-                    FavoriteSpellsScreen(
-                        onSpellClick = { controller.navigate(AppRoute.SpellDetails(it)) },
-                    )
-                }
                 composable<AppRoute.Characters> {
                     CharacterListScreen(
-                        onCreateNewCharacter = { controller.navigate(AppRoute.CharacterCreate) }
+                        onCreateNewCharacter = { controller.navigate(route = AppRoute.CharacterCreate) }
                     )
                 }
                 composable<AppRoute.CharacterCreate> {
@@ -82,9 +79,3 @@ fun AppNavGraph() {
         }
     }
 }
-
-private fun NavBackStackEntry?.isSelected(route: AppRoute): Boolean =
-    when (this) {
-        null -> false
-        else -> destination.hasRoute(route::class)
-    }
