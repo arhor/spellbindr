@@ -42,20 +42,20 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.CardBg
 import com.github.arhor.spellbindr.ui.theme.DescriptionText
 import com.github.arhor.spellbindr.ui.theme.HeaderText
+import com.github.arhor.spellbindr.viewmodel.FavoriteSpellsViewModel
 import com.github.arhor.spellbindr.viewmodel.SpellDetailViewModel
-import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 
 @Composable
 fun SpellDetailScreen(
     spellName: String?,
     onBackClicked: () -> Unit = {},
     spellDetailVM: SpellDetailViewModel = hiltViewModel(),
-    spellListVM: SpellListViewModel = hiltViewModel(),
+    spellListVM: FavoriteSpellsViewModel = hiltViewModel(),
 ) {
     spellDetailVM.loadSpellByName(spellName)
     val spell by spellDetailVM.state.collectAsState()
-    val favorites by spellListVM.state.collectAsState()
-    val isFavorite = spell?.name?.let { favorites.spellNames.contains(it) } == true
+    val favorites by spellListVM.stateFlow.collectAsState()
+    val isFavorite = spell?.name?.let { favorites.spellList.spellNames.contains(it) } == true
 
     Column(
         modifier = Modifier

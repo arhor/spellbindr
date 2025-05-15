@@ -14,27 +14,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.spells.search.SpellSearchResultList
-import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
+import com.github.arhor.spellbindr.viewmodel.FavoriteSpellsViewModel
 
 @Composable
 fun FavoriteSpellsScreen(
     onSpellClick: (String) -> Unit = {},
-    spellListViewModel: SpellListViewModel = hiltViewModel()
+    favoriteSpellsVM: FavoriteSpellsViewModel = hiltViewModel()
 ) {
-    val favorites by spellListViewModel.state.collectAsState()
-    val favoriteSpellNames = favorites?.spellNames?.toSet() ?: emptySet()
-    val favoriteSpells = spellListViewModel.getFavoriteSpells()
+    val state by favoriteSpellsVM.stateFlow.collectAsState()
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         Text("Favorite Spells", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(16.dp))
         SpellSearchResultList(
-            spells = favoriteSpells,
+            spells = state.favoriteSpells,
             onSpellClick = onSpellClick,
-            onSpellFavor = { spellListViewModel.toggleFavorite(it) },
-            favoriteSpellNames = favoriteSpellNames
         )
     }
 } 

@@ -6,9 +6,8 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.github.arhor.spellbindr.data.model.SpellList
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.decodeFromString
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -19,7 +18,7 @@ private val Context.spellListsDataStore by preferencesDataStore(name = SPELL_LIS
 private val SPELL_LISTS_KEY = stringPreferencesKey("spell_lists")
 
 @Singleton
-class SpellListRepository @Inject constructor(
+class FavoriteSpellsRepository @Inject constructor(
     private val context: Context
 ) {
     private val json = Json { ignoreUnknownKeys = true }
@@ -30,10 +29,6 @@ class SpellListRepository @Inject constructor(
                 runCatching { json.decodeFromString<List<SpellList>>(it) }.getOrDefault(emptyList())
             } ?: emptyList()
         }
-
-    suspend fun getFavoritesList(): SpellList? {
-        return spellListsFlow.first().find { it.name == "Favorites" }
-    }
 
     suspend fun addSpellList(list: SpellList) {
         val current = spellListsFlow.map { it.toMutableList() }.first()
