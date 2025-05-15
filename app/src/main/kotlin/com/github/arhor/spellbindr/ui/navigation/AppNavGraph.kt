@@ -1,11 +1,10 @@
-package com.github.arhor.spellbindr.ui
+package com.github.arhor.spellbindr.ui.navigation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -16,21 +15,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.github.arhor.spellbindr.ui.screens.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.SpellSearchScreen
-import com.github.arhor.spellbindr.ui.screens.FavoriteSpellsScreen
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.R
+import com.github.arhor.spellbindr.ui.AppNavBar
 import com.github.arhor.spellbindr.ui.screens.CharacterCreationWizardScreen
 import com.github.arhor.spellbindr.ui.screens.CharacterListScreen
-import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
+import com.github.arhor.spellbindr.ui.screens.FavoriteSpellsScreen
+import com.github.arhor.spellbindr.ui.screens.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.screens.SpellSearchScreen
 
 @Composable
 fun AppNavGraph() {
     val controller = rememberNavController()
     val stackEntry by controller.currentBackStackEntryAsState()
-    val spellListViewModel = hiltViewModel<SpellListViewModel>()
-    val spellListViewState by spellListViewModel.state.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -45,7 +41,7 @@ fun AppNavGraph() {
             )
         }
     ) { innerPadding ->
-        Box(modifier = Modifier) {
+        Box {
             Image(
                 painter = painterResource(id = R.drawable.bg_stars),
                 modifier = Modifier.matchParentSize(),
@@ -66,14 +62,11 @@ fun AppNavGraph() {
                     SpellDetailScreen(
                         spellName = it.arguments?.getString(SPELL_DETAIL_VALUE),
                         onBackClicked = { controller.navigateUp() },
-                        onLikeClicked = { name -> name?.let { spellListViewModel.toggleFavorite(it) } },
-                        spellListViewModel = spellListViewModel
                     )
                 }
                 composable(route = Routes.SPELL_LISTS) {
                     FavoriteSpellsScreen(
                         onSpellClick = { controller.navigate("${SPELL_DETAIL_ROUTE}$it") },
-                        spellListViewModel = spellListViewModel
                     )
                 }
                 composable(route = Routes.CHARACTERS) {

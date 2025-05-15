@@ -49,14 +49,13 @@ import com.github.arhor.spellbindr.viewmodel.SpellListViewModel
 fun SpellDetailScreen(
     spellName: String?,
     onBackClicked: () -> Unit = {},
-    onLikeClicked: (String?) -> Unit = {},
-    viewModel: SpellDetailViewModel = hiltViewModel(),
-    spellListViewModel: SpellListViewModel,
+    spellDetailVM: SpellDetailViewModel = hiltViewModel(),
+    spellListVM: SpellListViewModel = hiltViewModel(),
 ) {
-    viewModel.loadSpellByName(spellName)
-    val spell by viewModel.state.collectAsState()
-    val favorites by spellListViewModel.state.collectAsState()
-    val isFavorite = spell?.name?.let { favorites?.spellNames?.contains(it) } == true
+    spellDetailVM.loadSpellByName(spellName)
+    val spell by spellDetailVM.state.collectAsState()
+    val favorites by spellListVM.state.collectAsState()
+    val isFavorite = spell?.name?.let { favorites.spellNames.contains(it) } == true
 
     Column(
         modifier = Modifier
@@ -76,7 +75,9 @@ fun SpellDetailScreen(
                     contentDescription = "Back",
                 )
             }
-            IconButton(onClick = { onLikeClicked(spell?.name) }) {
+            IconButton(
+                onClick = { spell?.name?.let { spellListVM.toggleFavorite(it) } }
+            ) {
                 Icon(
                     imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                     contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
