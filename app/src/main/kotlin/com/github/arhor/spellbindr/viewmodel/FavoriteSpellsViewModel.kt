@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Spell
-import com.github.arhor.spellbindr.data.model.SpellList
 import com.github.arhor.spellbindr.data.repository.FavoriteSpellsRepository
 import com.github.arhor.spellbindr.data.repository.SpellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +14,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class FavoriteSpellsState(
-    val spellList: SpellList = SpellList.EMPTY,
-    val favoriteSpells: List<Spell> = emptyList()
+    val favoriteSpellNames: List<String> = emptyList(),
+    val favoriteSpells: List<Spell> = emptyList(),
 )
 
 @HiltViewModel
@@ -25,28 +24,31 @@ class FavoriteSpellsViewModel @Inject constructor(
     private val spellRepository: SpellRepository,
 ) : ViewModel() {
 
-    val stateFlow: StateFlow<FavoriteSpellsState> = favoriteSpellsRepository.spellListsFlow
-        .map { lists -> lists.find { it.name == "Favorites" } ?: SpellList.EMPTY }
-        .map { spellList ->
-            val allSpells = spellRepository.getAllSpells()
-            val favoriteNames = spellList.spellNames.toSet()
-            val favoriteSpells = allSpells.filter { it.name in favoriteNames }
-            FavoriteSpellsState(spellList = spellList, favoriteSpells = favoriteSpells)
-        }
+    val stateFlow: StateFlow<FavoriteSpellsState> = favoriteSpellsRepository.favoriteSpellNamesFlow
+        .map(::toFavoriteSpellsState)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FavoriteSpellsState())
 
     fun toggleFavorite(spellName: String) {
-        val current = stateFlow.value.spellList
-        val currentNames = current.spellNames.toMutableSet()
+        val current = stateFlow.value.favoriteSpellNames
+        val currentNames = current.toMutableSet()
         val updatedNames = if (spellName in currentNames) {
             currentNames - spellName
         } else {
             currentNames + spellName
         }
-        val updatedList = SpellList(name = "Favorites", spellNames = updatedNames.toList())
         viewModelScope.launch {
-            favoriteSpellsRepository.updateSpellList(updatedList)
+            favoriteSpellsRepository.updateFavoriteSpells(updatedNames.toList())
         }
+    }
+
+    private fun toFavoriteSpellsState(favoriteSpellNames: List<String>): FavoriteSpellsState {
+        val favoriteNames = favoriteSpellNames.toSet()
+        val favoriteSpells = spellRepository.getAllSpells().filter { it.name in favoriteNames }
+
+        return FavoriteSpellsState(
+            favoriteSpellNames = favoriteSpellNames,
+            favoriteSpells = favoriteSpells,
+        )
     }
 }
 

@@ -55,7 +55,7 @@ fun SpellDetailScreen(
     spellDetailVM.loadSpellByName(spellName)
     val spell by spellDetailVM.state.collectAsState()
     val favorites by spellListVM.stateFlow.collectAsState()
-    val isFavorite = spell?.name?.let { favorites.spellList.spellNames.contains(it) } == true
+    val isFavorite = spell?.name?.let { it in favorites.favoriteSpellNames } == true
 
     Column(
         modifier = Modifier
