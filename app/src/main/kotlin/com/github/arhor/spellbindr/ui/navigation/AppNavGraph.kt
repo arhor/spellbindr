@@ -10,11 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.AppNavBar
 import com.github.arhor.spellbindr.ui.screens.CharacterCreationWizardScreen
@@ -32,9 +33,9 @@ fun AppNavGraph() {
         bottomBar = {
             AppNavBar(
                 items = listOf(
-                    Routes.SPELL_SEARCH to "Spells",
-                    Routes.SPELL_LISTS to "Favorites",
-                    Routes.CHARACTERS to "Characters",
+                    AppRoute.SpellSearch,
+                    AppRoute.FavoriteSpells,
+                    AppRoute.Characters,
                 ),
                 onItemClick = controller::navigate,
                 isItemSelected = stackEntry::isSelected,
@@ -50,31 +51,31 @@ fun AppNavGraph() {
             )
             NavHost(
                 navController = controller,
-                startDestination = Routes.SPELL_SEARCH,
+                startDestination = AppRoute.SpellSearch,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                composable(route = Routes.SPELL_SEARCH) {
+                composable<AppRoute.SpellSearch> {
                     SpellSearchScreen(
-                        onSpellClick = { controller.navigate("$SPELL_DETAIL_ROUTE$it") },
+                        onSpellClick = { controller.navigate(AppRoute.SpellDetails(it)) },
                     )
                 }
-                composable(route = Routes.SPELL_DETAIL) {
+                composable<AppRoute.SpellDetails> {
                     SpellDetailScreen(
-                        spellName = it.arguments?.getString(SPELL_DETAIL_VALUE),
+                        spellName = it.toRoute<AppRoute.SpellDetails>().spellName,
                         onBackClicked = { controller.navigateUp() },
                     )
                 }
-                composable(route = Routes.SPELL_LISTS) {
+                composable<AppRoute.FavoriteSpells> {
                     FavoriteSpellsScreen(
-                        onSpellClick = { controller.navigate("${SPELL_DETAIL_ROUTE}$it") },
+                        onSpellClick = { controller.navigate(AppRoute.SpellDetails(it)) },
                     )
                 }
-                composable(route = Routes.CHARACTERS) {
-                    CharacterListScreen(onCreateNewCharacter = {
-                        controller.navigate(Routes.CHARACTERS_CREATE)
-                    })
+                composable<AppRoute.Characters> {
+                    CharacterListScreen(
+                        onCreateNewCharacter = { controller.navigate(AppRoute.CharacterCreate) }
+                    )
                 }
-                composable(route = Routes.CHARACTERS_CREATE) {
+                composable<AppRoute.CharacterCreate> {
                     CharacterCreationWizardScreen()
                 }
             }
@@ -82,19 +83,8 @@ fun AppNavGraph() {
     }
 }
 
-private const val SPELL_DETAIL_ROUTE = "spell-detail/"
-private const val SPELL_DETAIL_VALUE = "spell-name"
-
-private object Routes {
-    const val SPELL_SEARCH = "spell-search"
-    const val SPELL_DETAIL = "$SPELL_DETAIL_ROUTE{$SPELL_DETAIL_VALUE}"
-    const val SPELL_LISTS = "spell-lists"
-    const val CHARACTERS = "characters"
-    const val CHARACTERS_CREATE = "characters/create"
-}
-
-private fun NavBackStackEntry?.isSelected(route: String): Boolean =
+private fun NavBackStackEntry?.isSelected(route: AppRoute): Boolean =
     when (this) {
         null -> false
-        else -> destination.hierarchy.any { it.route == route }
+        else -> destination.hasRoute(route::class)
     }
