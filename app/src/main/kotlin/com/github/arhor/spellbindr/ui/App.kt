@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.arhor.spellbindr.ui.navigation.AppNavGraph
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
 import kotlinx.coroutines.delay
