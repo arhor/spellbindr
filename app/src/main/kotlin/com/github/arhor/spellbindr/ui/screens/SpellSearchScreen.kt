@@ -20,14 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.data.model.SpellcastingClass
 import com.github.arhor.spellbindr.ui.spells.search.SearchFilterDialog
 import com.github.arhor.spellbindr.ui.spells.search.SpellSearchResultList
 import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
@@ -38,13 +34,7 @@ fun SpellSearchScreen(
     onSpellClick: (String) -> Unit = {},
     spellSearchVM: SpellSearchViewModel = hiltViewModel(),
 ) {
-    val spellSearchViewState by spellSearchVM.state.collectAsState()
-    var showFilterDialog by remember { mutableStateOf(false) }
-
-    fun handleFilterChanges(selectedClasses: Set<SpellcastingClass>) {
-        spellSearchVM.onClassFilterChanged(selectedClasses)
-        showFilterDialog = false
-    }
+    val spellSearchState by spellSearchVM.state.collectAsState()
 
     Column(
         modifier = Modifier
@@ -60,7 +50,7 @@ fun SpellSearchScreen(
             )
             Spacer(Modifier.weight(1f))
             Box {
-                IconButton(onClick = { showFilterDialog = true }) {
+                IconButton(onClick = spellSearchVM::displayFilterDialog) {
                     Icon(Icons.Default.FilterAlt, contentDescription = "Filter by class")
                 }
             }
@@ -68,8 +58,8 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = spellSearchViewState.searchQuery,
-            onValueChange = spellSearchVM::onSearchQueryChanged,
+            value = spellSearchState.query,
+            onValueChange = spellSearchVM::onQueryChanged,
             label = { Text("Search spells") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -77,7 +67,7 @@ fun SpellSearchScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         when {
-            spellSearchViewState.isLoading -> {
+            spellSearchState.isLoading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -86,16 +76,16 @@ fun SpellSearchScreen(
                 }
             }
 
-            spellSearchViewState.error != null -> {
+            spellSearchState.error != null -> {
                 Text(
-                    text = "Error: ${spellSearchViewState.error}",
+                    text = "Error: ${spellSearchState.error}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
             else -> {
                 SpellSearchResultList(
-                    spells = spellSearchViewState.spells,
+                    spells = spellSearchState.spells,
                     onSpellClick = onSpellClick,
                 )
             }
@@ -103,9 +93,9 @@ fun SpellSearchScreen(
     }
 
     SearchFilterDialog(
-        showFilterDialog = showFilterDialog,
-        currentClasses = spellSearchViewState.selectedClasses,
-        onSubmit = ::handleFilterChanges,
-        onCancel = ::handleFilterChanges,
+        showFilterDialog = spellSearchState.showFilterDialog,
+        currentClasses = spellSearchState.selectedClasses,
+        onSubmit = spellSearchVM::onFilterChanged,
+        onCancel = spellSearchVM::onFilterChanged,
     )
 }

@@ -24,7 +24,7 @@ class SpellDetailViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            spell.value = spellRepository.getAllSpells().find { it.name == name }
+            spell.value = spellRepository.findSpellByName(name)
         }
     }
 } 

@@ -41,14 +41,9 @@ class FavoriteSpellsViewModel @Inject constructor(
         }
     }
 
-    private fun toFavoriteSpellsState(favoriteSpellNames: List<String>): FavoriteSpellsState {
-        val favoriteNames = favoriteSpellNames.toSet()
-        val favoriteSpells = spellRepository.getAllSpells().filter { it.name in favoriteNames }
-
-        return FavoriteSpellsState(
-            favoriteSpellNames = favoriteSpellNames,
-            favoriteSpells = favoriteSpells,
-        )
-    }
+    private fun toFavoriteSpellsState(favoriteSpellNames: List<String>): FavoriteSpellsState =
+        spellRepository
+            .findSpells(favoriteSpellNames)
+            .let { FavoriteSpellsState(favoriteSpellNames = favoriteSpellNames, favoriteSpells = it) }
 }
 
