@@ -64,7 +64,7 @@ class SpellSearchViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeQueryAndFilter() {
         viewModelScope.launch {
-            _state.debounce(300.milliseconds)
+            _state.debounce(350.milliseconds)
                 .map { it.query to it.selectedClasses }
                 .distinctUntilChanged()
                 .collect { (query, classes) -> searchSpells(query, classes) }
