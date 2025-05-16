@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens
+package com.github.arhor.spellbindr.ui.screens.spells.details
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -42,8 +42,7 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.CardBg
 import com.github.arhor.spellbindr.ui.theme.DescriptionText
 import com.github.arhor.spellbindr.ui.theme.HeaderText
-import com.github.arhor.spellbindr.viewmodel.FavoriteSpellsViewModel
-import com.github.arhor.spellbindr.viewmodel.SpellDetailViewModel
+import com.github.arhor.spellbindr.ui.screens.spells.favorites.FavoriteSpellsViewModel
 
 @Composable
 fun SpellDetailScreen(

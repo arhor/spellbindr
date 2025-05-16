@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens
+package com.github.arhor.spellbindr.ui.screens.spells.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

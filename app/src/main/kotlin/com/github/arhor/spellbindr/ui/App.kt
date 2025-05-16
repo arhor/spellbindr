@@ -10,7 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.navigation.AppNavGraph
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
-import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
+import com.github.arhor.spellbindr.ui.screens.spells.search.SpellSearchViewModel
 import kotlinx.coroutines.delay
 
 @Composable
