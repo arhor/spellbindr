@@ -42,19 +42,17 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.CardBg
 import com.github.arhor.spellbindr.ui.theme.DescriptionText
 import com.github.arhor.spellbindr.ui.theme.HeaderText
-import com.github.arhor.spellbindr.ui.screens.spells.favorites.FavoriteSpellsViewModel
 
 @Composable
 fun SpellDetailScreen(
     spellName: String?,
     onBackClicked: () -> Unit = {},
-    spellDetailVM: SpellDetailViewModel = hiltViewModel(),
-    spellListVM: FavoriteSpellsViewModel = hiltViewModel(),
+    spellDetailsVM: SpellDetailsViewModel = hiltViewModel(),
 ) {
-    spellDetailVM.loadSpellByName(spellName)
-    val spell by spellDetailVM.state.collectAsState()
-    val favorites by spellListVM.stateFlow.collectAsState()
-    val isFavorite = spell?.name?.let { it in favorites.favoriteSpellNames } == true
+    spellDetailsVM.loadSpellByName(spellName)
+    val spellDetailState by spellDetailsVM.state.collectAsState()
+    val spell = spellDetailState.spell
+    val isFavorite = spellDetailState.isFavorite
 
     Column(
         modifier = Modifier
@@ -75,7 +73,7 @@ fun SpellDetailScreen(
                 )
             }
             IconButton(
-                onClick = { spell?.name?.let { spellListVM.toggleFavorite(it) } }
+                onClick = { spellDetailsVM.toggleFavorite() }
             ) {
                 Icon(
                     imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,

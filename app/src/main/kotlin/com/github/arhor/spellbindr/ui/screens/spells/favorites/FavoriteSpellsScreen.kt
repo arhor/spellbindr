@@ -20,7 +20,7 @@ fun FavoriteSpellsScreen(
     onSpellClick: (String) -> Unit = {},
     favoriteSpellsVM: FavoriteSpellsViewModel = hiltViewModel()
 ) {
-    val state by favoriteSpellsVM.stateFlow.collectAsState()
+    val favoriteSpellsState by favoriteSpellsVM.state.collectAsState()
 
     Column(
         modifier = Modifier
@@ -30,7 +30,7 @@ fun FavoriteSpellsScreen(
         Text("Favorite Spells", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(16.dp))
         SpellSearchResultList(
-            spells = state.favoriteSpells,
+            spells = favoriteSpellsState.favoriteSpells,
             onSpellClick = onSpellClick,
         )
     }

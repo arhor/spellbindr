@@ -17,8 +17,8 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationWizardScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
-import com.github.arhor.spellbindr.ui.screens.spells.favorites.FavoriteSpellsScreen
 import com.github.arhor.spellbindr.ui.screens.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.screens.spells.favorites.FavoriteSpellsScreen
 import com.github.arhor.spellbindr.ui.screens.spells.search.SpellSearchScreen
 
 @Composable
@@ -29,11 +29,6 @@ fun AppNavGraph() {
     Scaffold(
         bottomBar = {
             AppNavBar(
-                items = listOf(
-                    AppRoute.SpellSearch,
-                    AppRoute.FavoriteSpells,
-                    AppRoute.Characters,
-                ),
                 onItemClick = controller::navigate,
                 isItemSelected = { it.isCurrent(stackEntry) },
             )
