@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.spells.search
+package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi

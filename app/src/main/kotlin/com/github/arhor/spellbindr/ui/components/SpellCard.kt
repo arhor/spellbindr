@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.spells.search
+package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Spell
-import com.github.arhor.spellbindr.ui.components.SpellIcon
 
 @Composable
 fun SpellCard(

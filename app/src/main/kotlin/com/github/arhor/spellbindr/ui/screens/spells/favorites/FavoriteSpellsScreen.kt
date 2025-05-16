@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens
+package com.github.arhor.spellbindr.ui.screens.spells.favorites
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.ui.spells.search.SpellSearchResultList
-import com.github.arhor.spellbindr.viewmodel.FavoriteSpellsViewModel
+import com.github.arhor.spellbindr.ui.components.SpellSearchResultList
 
 @Composable
 fun FavoriteSpellsScreen(

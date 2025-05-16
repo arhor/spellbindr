@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.viewmodel
+package com.github.arhor.spellbindr.ui.screens.spells.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

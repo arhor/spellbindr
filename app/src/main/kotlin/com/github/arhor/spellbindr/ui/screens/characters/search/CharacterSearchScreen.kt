@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens
+package com.github.arhor.spellbindr.ui.screens.characters.search
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

@@ -15,11 +15,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
-import com.github.arhor.spellbindr.ui.screens.CharacterCreationWizardScreen
-import com.github.arhor.spellbindr.ui.screens.CharacterListScreen
-import com.github.arhor.spellbindr.ui.screens.FavoriteSpellsScreen
-import com.github.arhor.spellbindr.ui.screens.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationWizardScreen
+import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
+import com.github.arhor.spellbindr.ui.screens.spells.favorites.FavoriteSpellsScreen
+import com.github.arhor.spellbindr.ui.screens.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.screens.spells.search.SpellSearchScreen
 
 @Composable
 fun AppNavGraph() {

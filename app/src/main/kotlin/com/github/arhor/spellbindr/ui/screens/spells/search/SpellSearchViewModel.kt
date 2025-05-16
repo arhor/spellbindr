@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.viewmodel
+package com.github.arhor.spellbindr.ui.screens.spells.search
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

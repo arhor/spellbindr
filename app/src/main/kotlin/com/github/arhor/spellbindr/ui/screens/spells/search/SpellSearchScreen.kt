@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens
+package com.github.arhor.spellbindr.ui.screens.spells.search
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,9 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.ui.spells.search.SearchFilterDialog
-import com.github.arhor.spellbindr.ui.spells.search.SpellSearchResultList
-import com.github.arhor.spellbindr.viewmodel.SpellSearchViewModel
+import com.github.arhor.spellbindr.ui.components.SpellSearchResultList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

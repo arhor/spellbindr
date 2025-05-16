@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.viewmodel
+package com.github.arhor.spellbindr.ui.screens.spells.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,4 +27,4 @@ class SpellDetailViewModel @Inject constructor(
             spell.value = spellRepository.findSpellByName(name)
         }
     }
-} 
+}
