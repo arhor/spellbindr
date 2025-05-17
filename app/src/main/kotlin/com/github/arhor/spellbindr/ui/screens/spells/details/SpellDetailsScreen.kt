@@ -46,7 +46,7 @@ import com.github.arhor.spellbindr.ui.theme.HeaderText
 @Composable
 fun SpellDetailScreen(
     spellName: String?,
-    onBackClicked: () -> Unit = {},
+    onBackClick: () -> Unit = {},
     spellDetailsVM: SpellDetailsViewModel = hiltViewModel(),
 ) {
     spellDetailsVM.loadSpellByName(spellName)
@@ -66,7 +66,7 @@ fun SpellDetailScreen(
                 .padding(bottom = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            IconButton(onClick = onBackClicked) {
+            IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",

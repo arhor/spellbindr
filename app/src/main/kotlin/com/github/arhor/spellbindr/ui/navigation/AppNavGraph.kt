@@ -48,18 +48,20 @@ fun AppNavGraph() {
             ) {
                 composable<AppRoute.SpellSearch> {
                     SpellSearchScreen(
+                        onFavorClick = { controller.navigate(route = AppRoute.FavoriteSpells) },
                         onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
                     )
                 }
                 composable<AppRoute.FavoriteSpells> {
                     FavoriteSpellsScreen(
+                        onBackClick = { controller.navigateUp() },
                         onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
                     )
                 }
                 composable<AppRoute.SpellDetails> {
                     SpellDetailScreen(
                         spellName = it.toRoute<AppRoute.SpellDetails>().spellName,
-                        onBackClicked = { controller.navigateUp() },
+                        onBackClick = { controller.navigateUp() },
                     )
                 }
                 composable<AppRoute.Characters> {
