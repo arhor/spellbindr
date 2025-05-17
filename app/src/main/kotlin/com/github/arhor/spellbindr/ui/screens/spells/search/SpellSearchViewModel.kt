@@ -3,9 +3,9 @@ package com.github.arhor.spellbindr.ui.screens.spells.search
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.core.common.data.model.Spell
-import com.github.arhor.spellbindr.core.common.data.model.SpellcastingClass
-import com.github.arhor.spellbindr.core.common.data.repository.SpellRepository
+import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.model.SpellcastingClass
+import com.github.arhor.spellbindr.data.repository.SpellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow

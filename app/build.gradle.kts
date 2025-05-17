@@ -44,7 +44,6 @@ android {
 dependencies {
     ksp(libs.hilt.android.compiler)
 
-    implementation(project(":core:common"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)

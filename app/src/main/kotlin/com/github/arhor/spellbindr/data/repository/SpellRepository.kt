@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.github.arhor.spellbindr.core.common.data.model.Spell
-import com.github.arhor.spellbindr.core.common.data.model.SpellcastingClass
-import com.github.arhor.spellbindr.core.common.data.repository.SpellRepository
+import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.model.SpellcastingClass
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -14,10 +14,11 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
-class SpellRepositoryImpl @Inject constructor(
+class SpellRepository @Inject constructor(
+    @ApplicationContext
     private val context: Context,
     private val json: Json,
-) : SpellRepository {
+) {
     private val spells by lazy {
         context.assets.open("spells/data.json")
             .bufferedReader()
@@ -25,28 +26,26 @@ class SpellRepositoryImpl @Inject constructor(
             .let { json.decodeFromString<List<Spell>>(it) }
             .sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
     }
-    private val favoriteSpellsFlow: Flow<List<String>> = context.spellListsDataStore.data.map {
+    val favoriteSpellsFlow: Flow<List<String>> = context.spellListsDataStore.data.map {
         it[FAVORITE_SPELLS]
             ?.let { runCatching { json.decodeFromString<List<String>>(it) } }
             ?.getOrNull()
             ?: emptyList()
     }
 
-    override fun getFavoriteSpells(): Flow<List<String>> = favoriteSpellsFlow
+    fun findSpellByName(name: String): Spell? = spells.find { it.name == name }
 
-    override fun findSpellByName(name: String): Spell? = spells.find { it.name == name }
-
-    override fun findSpells(
-        query: String?,
-        classes: Set<SpellcastingClass>?,
+    fun findSpells(
+        query: String? = null,
+        classes: Set<SpellcastingClass>? = null,
     ): List<Spell> = findSpells(queries = query?.takeIf(String::isNotBlank)?.let(::listOf), classes = classes)
 
-    override fun findSpells(
-        queries: List<String>?,
-        classes: Set<SpellcastingClass>?,
+    fun findSpells(
+        queries: List<String>? = null,
+        classes: Set<SpellcastingClass>? = null,
     ): List<Spell> = spells.filter { it.shouldBeIncluded(queries, classes) }
 
-    override suspend fun toggleFavorite(spellName: String) {
+    suspend fun toggleFavorite(spellName: String) {
         val updatedFavoriteSpells =
             favoriteSpellsFlow.first()
                 .let { if (spellName in it) it - spellName else it + spellName }
@@ -57,7 +56,7 @@ class SpellRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun isFavorite(name: String?, favoriteSpells: List<String>?): Boolean {
+    suspend fun isFavorite(name: String?, favoriteSpells: List<String>? = null): Boolean {
         val spellName = name ?: return false
         val favorites = favoriteSpells ?: favoriteSpellsFlow.first()
 

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.core.common.data.model
+package com.github.arhor.spellbindr.data.model
 
 enum class DiceType(val sides: Int) {
     D4(4),

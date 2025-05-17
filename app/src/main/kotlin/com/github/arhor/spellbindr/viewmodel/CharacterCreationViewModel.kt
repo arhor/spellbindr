@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.core.common.data.model.Race
+import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.repository.RaceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

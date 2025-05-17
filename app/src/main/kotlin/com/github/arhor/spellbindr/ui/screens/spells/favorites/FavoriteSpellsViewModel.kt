@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui.screens.spells.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.core.common.data.model.Spell
-import com.github.arhor.spellbindr.core.common.data.repository.SpellRepository
+import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.repository.SpellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +21,7 @@ class FavoriteSpellsViewModel @Inject constructor(
     private val spellRepository: SpellRepository,
 ) : ViewModel() {
 
-    val state: StateFlow<FavoriteSpellsState> = spellRepository.getFavoriteSpells()
+    val state: StateFlow<FavoriteSpellsState> = spellRepository.favoriteSpellsFlow
         .map(::toFavoriteSpellsState)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), FavoriteSpellsState())
 

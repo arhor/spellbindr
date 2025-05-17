@@ -158,8 +158,9 @@ fun SpellDetailScreen(
 
             DescriptionRow(it.desc)
 
-            it.higherLevel?.takeIf { it.isNotBlank() }?.let {
-                DescriptionRow(it)
+            if (!it.higherLevel.isNullOrBlank()) {
+                DescriptionRow(it.higherLevel)
+
             }
         } ?: run {
             Text("Loading or spell not found")

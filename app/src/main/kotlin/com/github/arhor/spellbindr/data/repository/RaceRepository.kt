@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.data.repository
 
 import android.content.Context
-import com.github.arhor.spellbindr.core.common.data.model.Race
-import com.github.arhor.spellbindr.core.common.data.model.RaceList
+import com.github.arhor.spellbindr.data.model.Race
+import com.github.arhor.spellbindr.data.model.RaceList
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
