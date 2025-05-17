@@ -13,13 +13,23 @@ sealed class AppRoute(val title: String) {
     }
 
     @Serializable
+    data object Spells : AppRoute(
+        title = "Spell Book"
+    )
+
+    @Serializable
     data object SpellSearch : AppRoute(
-        title = "Spells"
+        title = "Spell Book"
     )
 
     @Serializable
     data object FavoriteSpells : AppRoute(
-        title = "Favorites"
+        title = "Favorite Spells"
+    )
+
+    @Serializable
+    data class SpellDetails(val spellName: String) : AppRoute(
+        title = "Spell details"
     )
 
     @Serializable
@@ -28,12 +38,12 @@ sealed class AppRoute(val title: String) {
     )
 
     @Serializable
-    data object CharacterCreate : AppRoute(
-        title = "Create character"
+    data object CharacterSearch : AppRoute(
+        title = "Characters List"
     )
 
     @Serializable
-    data class SpellDetails(val spellName: String) : AppRoute(
-        title = "Spell details"
+    data object CharacterCreate : AppRoute(
+        title = "Create character"
     )
 }

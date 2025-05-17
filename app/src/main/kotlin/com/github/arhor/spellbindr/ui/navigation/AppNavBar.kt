@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 private val NAV_ITEMS = listOf(
-    AppRoute.SpellSearch,
+    AppRoute.Spells,
     AppRoute.Characters,
 )
 

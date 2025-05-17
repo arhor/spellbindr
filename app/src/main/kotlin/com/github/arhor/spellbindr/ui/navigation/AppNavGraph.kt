@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationWizardScreen
@@ -43,34 +44,41 @@ fun AppNavGraph() {
             )
             NavHost(
                 navController = controller,
-                startDestination = AppRoute.SpellSearch,
+                startDestination = AppRoute.Spells,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                composable<AppRoute.SpellSearch> {
-                    SpellSearchScreen(
-                        onFavorClick = { controller.navigate(route = AppRoute.FavoriteSpells) },
-                        onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
-                    )
+                // "Spells" top level route
+                navigation<AppRoute.Spells>(startDestination = AppRoute.SpellSearch) {
+                    composable<AppRoute.SpellSearch> {
+                        SpellSearchScreen(
+                            onFavorClick = { controller.navigate(route = AppRoute.FavoriteSpells) },
+                            onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
+                        )
+                    }
+                    composable<AppRoute.FavoriteSpells> {
+                        FavoriteSpellsScreen(
+                            onBackClick = { controller.navigateUp() },
+                            onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
+                        )
+                    }
+                    composable<AppRoute.SpellDetails> {
+                        SpellDetailScreen(
+                            spellName = it.toRoute<AppRoute.SpellDetails>().spellName,
+                            onBackClick = { controller.navigateUp() },
+                        )
+                    }
                 }
-                composable<AppRoute.FavoriteSpells> {
-                    FavoriteSpellsScreen(
-                        onBackClick = { controller.navigateUp() },
-                        onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
-                    )
-                }
-                composable<AppRoute.SpellDetails> {
-                    SpellDetailScreen(
-                        spellName = it.toRoute<AppRoute.SpellDetails>().spellName,
-                        onBackClick = { controller.navigateUp() },
-                    )
-                }
-                composable<AppRoute.Characters> {
-                    CharacterListScreen(
-                        onCreateNewCharacter = { controller.navigate(route = AppRoute.CharacterCreate) }
-                    )
-                }
-                composable<AppRoute.CharacterCreate> {
-                    CharacterCreationWizardScreen()
+
+                // "Characters" top level route
+                navigation<AppRoute.Characters>(startDestination = AppRoute.CharacterSearch) {
+                    composable<AppRoute.CharacterSearch> {
+                        CharacterListScreen(
+                            onCreateNewCharacter = { controller.navigate(route = AppRoute.CharacterCreate) }
+                        )
+                    }
+                    composable<AppRoute.CharacterCreate> {
+                        CharacterCreationWizardScreen()
+                    }
                 }
             }
         }
