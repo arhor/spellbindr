@@ -34,7 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.SpellcastingClass
+import com.github.arhor.spellbindr.core.common.data.model.SpellcastingClass
 
 @Composable
 fun SearchFilterDialog(
