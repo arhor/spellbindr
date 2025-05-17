@@ -47,10 +47,14 @@ class SpellSearchViewModel @Inject constructor(
     }
 
     fun onFilterChanged(classes: Set<SpellcastingClass>) {
-        if (classes != _state.value.selectedClasses) {
-            _state.update {
+        _state.update {
+            if (classes != _state.value.selectedClasses) {
                 it.copy(
+                    showFilterDialog = false,
                     selectedClasses = classes,
+                )
+            } else {
+                it.copy(
                     showFilterDialog = false,
                 )
             }

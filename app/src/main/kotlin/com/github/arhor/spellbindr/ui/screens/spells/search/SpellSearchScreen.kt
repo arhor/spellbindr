@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FilterAlt
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -46,20 +48,31 @@ fun SpellSearchScreen(
                 text = "Spell Book",
                 style = MaterialTheme.typography.titleLarge,
             )
-            Spacer(Modifier.weight(1f))
-            Box {
-                IconButton(onClick = spellSearchVM::displayFilterDialog) {
-                    Icon(Icons.Default.FilterAlt, contentDescription = "Filter by class")
-                }
-            }
         }
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = spellSearchState.query,
             onValueChange = spellSearchVM::onQueryChanged,
-            label = { Text("Search spells") },
-            modifier = Modifier.fillMaxWidth()
+            label = { Text("Search spell by name") },
+            modifier = Modifier.fillMaxWidth(),
+
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Search",
+                )
+            },
+            trailingIcon = {
+                IconButton(onClick = spellSearchVM::displayFilterDialog) {
+                    Icon(
+                        imageVector = Icons.Default.FilterList,
+                        contentDescription = "Advanced Filters",
+                    )
+                }
+            },
+            singleLine = true,
+            shape = RoundedCornerShape(16.dp),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
