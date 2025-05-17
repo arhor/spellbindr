@@ -120,11 +120,15 @@ fun SearchFilterDialog(
             },
             confirmButton = {
                 Row {
-                    OutlinedButton(onClick = { onCancel(emptySet()) }) {
+                    OutlinedButton(
+                        onClick = { onCancel(emptySet()) }
+                    ) {
                         Text("Clear")
                     }
                     Spacer(modifier = Modifier.width(8.dp))
-                    Button(onClick = { onSubmit(selectedClasses) }) {
+                    Button(
+                        onClick = { onSubmit(selectedClasses) }
+                    ) {
                         Text("Apply")
                     }
                 }
