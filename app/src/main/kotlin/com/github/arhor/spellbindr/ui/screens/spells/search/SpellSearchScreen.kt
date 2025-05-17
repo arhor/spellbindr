@@ -5,19 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FilterList
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -50,31 +42,11 @@ fun SpellSearchScreen(
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = spellSearchState.query,
-            onValueChange = spellSearchVM::onQueryChanged,
-            label = { Text("Search spell by name") },
-            modifier = Modifier.fillMaxWidth(),
-
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
-                )
-            },
-            trailingIcon = {
-                IconButton(onClick = spellSearchVM::displayFilterDialog) {
-                    Icon(
-                        imageVector = Icons.Default.FilterList,
-                        contentDescription = "Advanced Filters",
-                    )
-                }
-            },
-            singleLine = true,
-            shape = RoundedCornerShape(16.dp),
+        SpellSearchInput(
+            query = spellSearchState.query,
+            onQueryChanged = spellSearchVM::onQueryChanged,
+            onFiltersClick = spellSearchVM::displayFilterDialog,
         )
-
         Spacer(modifier = Modifier.height(16.dp))
 
         when {
