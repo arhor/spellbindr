@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,10 +48,17 @@ fun SpellSearchScreen(
                 style = MaterialTheme.typography.titleLarge,
             )
             IconButton(onClick = spellSearchVM::onFavoritesClicked) {
-                Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "Favorite spells"
-                )
+                if (spellSearchState.showFavorite) {
+                    Icon(
+                        imageVector = Icons.Filled.Favorite,
+                        contentDescription = "Favorites: ON",
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Favorites: OFF",
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

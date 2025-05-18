@@ -75,10 +75,17 @@ fun SpellDetailScreen(
             IconButton(
                 onClick = { spellDetailsVM.toggleFavorite() }
             ) {
-                Icon(
-                    imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                    contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
-                )
+                if (isFavorite) {
+                    Icon(
+                        imageVector = Icons.Filled.Favorite,
+                        contentDescription = "Remove from favorites",
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Add to favorites",
+                    )
+                }
             }
         }
 

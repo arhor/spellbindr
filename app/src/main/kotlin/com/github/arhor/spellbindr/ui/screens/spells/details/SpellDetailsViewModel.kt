@@ -27,7 +27,7 @@ class SpellDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            spellRepository.favoriteSpellsFlow.collect { favoriteSpells ->
+            spellRepository.favoriteSpells.collect { favoriteSpells ->
                 _state.update { state ->
                     state.copy(
                         isFavorite = spellRepository.isFavorite(
