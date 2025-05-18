@@ -1,17 +1,9 @@
 package com.github.arhor.spellbindr.ui.navigation
 
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavDestination.Companion.hierarchy
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class AppRoute(val title: String) {
-
-    infix fun inSameHierarchyWith(destination: NavDestination?): Boolean = when (destination) {
-        null -> false
-        else -> destination.hierarchy.any { it.hasRoute(this::class) }
-    }
 
     @Serializable
     data object Spells : AppRoute(title = "Spell Book") {
