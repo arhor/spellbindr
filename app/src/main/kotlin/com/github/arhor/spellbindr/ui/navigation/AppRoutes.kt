@@ -1,49 +1,65 @@
 package com.github.arhor.spellbindr.ui.navigation
 
-import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class AppRoute(val title: String) {
 
-    fun isCurrent(entry: NavBackStackEntry?): Boolean = when (entry) {
+    infix fun inSameHierarchyWith(destination: NavDestination?): Boolean = when (destination) {
         null -> false
-        else -> entry.destination.hasRoute(this::class)
+        else -> destination.hierarchy.any { it.hasRoute(this::class) }
     }
 
     @Serializable
-    data object Spells : AppRoute(
-        title = "Spell Book"
-    )
+    data object Spells : AppRoute(title = "Spell Book") {
+        @Serializable
+        data object Search : AppRoute(title = "Spell Book")
+
+        @Serializable
+        data object Favorite : AppRoute(title = "Favorite Spells")
+
+        @Serializable
+        data class Details(val spellName: String) : AppRoute(title = "Spell Details")
+    }
 
     @Serializable
-    data object SpellSearch : AppRoute(
-        title = "Spell Book"
-    )
+    data object Characters : AppRoute(title = "Characters") {
 
-    @Serializable
-    data object FavoriteSpells : AppRoute(
-        title = "Favorite Spells"
-    )
+        @Serializable
+        data object Search : AppRoute(title = "Characters List")
 
-    @Serializable
-    data class SpellDetails(val spellName: String) : AppRoute(
-        title = "Spell details"
-    )
+        @Serializable
+        data object Create : AppRoute(title = "Create character") {
 
-    @Serializable
-    data object Characters : AppRoute(
-        title = "Characters"
-    )
+            @Serializable
+            data object NameAndBackground : AppRoute(title = "Name and Background")
 
-    @Serializable
-    data object CharacterSearch : AppRoute(
-        title = "Characters List"
-    )
+            @Serializable
+            data object Race : AppRoute(title = "Race")
 
-    @Serializable
-    data object CharacterCreate : AppRoute(
-        title = "Create character"
-    )
+            @Serializable
+            data object Class : AppRoute(title = "Class")
+
+            @Serializable
+            data object Abilities : AppRoute(title = "Abilities")
+
+            @Serializable
+            data object Skills : AppRoute(title = "Skills")
+
+            @Serializable
+            data object Equipment : AppRoute(title = "Equipment")
+
+            @Serializable
+            data object Spells : AppRoute(title = "Spells")
+
+            @Serializable
+            data object Appearance : AppRoute(title = "Appearance")
+
+            @Serializable
+            data object Summary : AppRoute(title = "Summary")
+        }
+    }
 }

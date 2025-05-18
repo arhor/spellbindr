@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -26,12 +27,21 @@ import com.github.arhor.spellbindr.ui.screens.spells.search.SpellSearchScreen
 fun AppNavGraph() {
     val controller = rememberNavController()
     val stackEntry by controller.currentBackStackEntryAsState()
+    val currentDestination = stackEntry?.destination
 
     Scaffold(
         bottomBar = {
             AppNavBar(
-                onItemClick = controller::navigate,
-                isItemSelected = { it.isCurrent(stackEntry) },
+                onItemClick = {
+                    controller.navigate(it) {
+                        popUpTo(controller.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                isItemSelected = { it inSameHierarchyWith currentDestination },
             )
         }
     ) { innerPadding ->
@@ -47,40 +57,128 @@ fun AppNavGraph() {
                 startDestination = AppRoute.Spells,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                // "Spells" top level route
-                navigation<AppRoute.Spells>(startDestination = AppRoute.SpellSearch) {
-                    composable<AppRoute.SpellSearch> {
+                navigation<AppRoute.Spells>(
+                    startDestination = AppRoute.Spells.Search
+                ) {
+                    composable<AppRoute.Spells.Search> {
                         SpellSearchScreen(
-                            onFavorClick = { controller.navigate(route = AppRoute.FavoriteSpells) },
-                            onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
+                            onFavorClick = { controller.navigate(route = AppRoute.Spells.Favorite) },
+                            onSpellClick = { controller.navigate(route = AppRoute.Spells.Details(it)) },
                         )
                     }
-                    composable<AppRoute.FavoriteSpells> {
+                    composable<AppRoute.Spells.Favorite> {
                         FavoriteSpellsScreen(
                             onBackClick = { controller.navigateUp() },
-                            onSpellClick = { controller.navigate(route = AppRoute.SpellDetails(it)) },
+                            onSpellClick = { controller.navigate(route = AppRoute.Spells.Details(it)) },
                         )
                     }
-                    composable<AppRoute.SpellDetails> {
+                    composable<AppRoute.Spells.Details> {
                         SpellDetailScreen(
-                            spellName = it.toRoute<AppRoute.SpellDetails>().spellName,
+                            spellName = it.toRoute<AppRoute.Spells.Details>().spellName,
                             onBackClick = { controller.navigateUp() },
                         )
                     }
                 }
 
-                // "Characters" top level route
-                navigation<AppRoute.Characters>(startDestination = AppRoute.CharacterSearch) {
-                    composable<AppRoute.CharacterSearch> {
+                navigation<AppRoute.Characters>(
+                    startDestination = AppRoute.Characters.Search
+                ) {
+                    composable<AppRoute.Characters.Search> {
                         CharacterListScreen(
-                            onCreateNewCharacter = { controller.navigate(route = AppRoute.CharacterCreate) }
+                            onCreateNewCharacter = { controller.navigate(route = AppRoute.Characters.Create) }
                         )
                     }
-                    composable<AppRoute.CharacterCreate> {
+                    composable<AppRoute.Characters.Create> {
                         CharacterCreationWizardScreen()
+                    }
+
+                    navigation<AppRoute.Characters.Create>(
+                        startDestination = AppRoute.Characters.Create.NameAndBackground
+                    ) {
+                        composable<AppRoute.Characters.Create.NameAndBackground> {
+                            NameAndBackgroundScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Race) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Race> {
+                            RaceSelectionScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Class) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Class> {
+                            ClassSelectionScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Abilities) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Abilities> {
+                            AbilitiesScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Skills) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Skills> {
+                            SkillsScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Equipment) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Equipment> {
+                            EquipmentScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Spells) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Spells> {
+                            SpellsScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Appearance) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Appearance> {
+                            AppearanceScreen(
+                                onNext = { controller.navigate(route = AppRoute.Characters.Create.Summary) }
+                            )
+                        }
+                        composable<AppRoute.Characters.Create.Summary> {
+                            SummaryScreen(
+                                onFinish = { controller.popBackStack(route = AppRoute.Characters, inclusive = false) }
+                            )
+                        }
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun NameAndBackgroundScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun RaceSelectionScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun ClassSelectionScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun AbilitiesScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun SkillsScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun EquipmentScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun SpellsScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun AppearanceScreen(onNext: () -> Unit = {}) {
+}
+
+@Composable
+fun SummaryScreen(onFinish: () -> Unit = {}) {
 }
