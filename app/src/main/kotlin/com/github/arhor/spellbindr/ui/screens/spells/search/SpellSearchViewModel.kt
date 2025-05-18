@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ class SpellSearchViewModel @Inject constructor(
     data class State(
         val query: String = "",
         val spells: List<Spell> = emptyList(),
+        val showFavorites: Boolean = false,
         val showFilterDialog: Boolean = false,
         val selectedClasses: Set<SpellcastingClass> = emptySet(),
         val isLoading: Boolean = false,
@@ -37,7 +39,15 @@ class SpellSearchViewModel @Inject constructor(
     val state: StateFlow<State> = _state.asStateFlow()
 
     init {
-        observeQueryAndFilter()
+        observeStateChanges()
+    }
+
+    fun onFavoritesClicked() {
+        _state.update { it.copy(showFavorites = !it.showFavorites) }
+    }
+
+    fun onFilterClicked() {
+        _state.update { it.copy(showFilterDialog = true) }
     }
 
     fun onQueryChanged(query: String) {
@@ -61,24 +71,30 @@ class SpellSearchViewModel @Inject constructor(
         }
     }
 
-    fun displayFilterDialog() {
-        _state.update { it.copy(showFilterDialog = true) }
-    }
-
     @OptIn(FlowPreview::class)
-    private fun observeQueryAndFilter() {
+    private fun observeStateChanges() {
         viewModelScope.launch {
             _state.debounce(350.milliseconds)
-                .map { it.query to it.selectedClasses }
+                .map { Triple(it.query, it.selectedClasses, it.showFavorites) }
                 .distinctUntilChanged()
-                .collect { (query, classes) -> searchSpells(query, classes) }
+                .collect { (query, selectedClasses, showFavorites) ->
+                    searchSpells(
+                        query = query,
+                        classes = selectedClasses,
+                        favorites = showFavorites,
+                    )
+                }
         }
     }
 
-    private fun searchSpells(query: String, classes: Set<SpellcastingClass>) {
+    private suspend fun searchSpells(query: String, classes: Set<SpellcastingClass>, favorites: Boolean) {
         try {
             _state.update { it.copy(isLoading = true, error = null) }
-            val spells = spellRepository.findSpells(query = query, classes = classes)
+            val spells = if (favorites) {
+                spellRepository.findSpells(queries = spellRepository.favoriteSpellsFlow.first(), classes = classes)
+            } else {
+                spellRepository.findSpells(query = query, classes = classes)
+            }
             _state.update { it.copy(spells = spells, isLoading = false) }
         } catch (e: Exception) {
             Log.d(TAG, e.message.toString(), e)

@@ -34,7 +34,6 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SpellsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
 import com.github.arhor.spellbindr.ui.screens.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.spells.favorites.FavoriteSpellsScreen
 import com.github.arhor.spellbindr.ui.screens.spells.search.SpellSearchScreen
 
 @Composable
@@ -76,13 +75,6 @@ fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
     ) {
         composable<AppRoute.Spells.Search> {
             SpellSearchScreen(
-                onFavorClick = { controller.navigate(route = AppRoute.Spells.Favorite) },
-                onSpellClick = { controller.navigate(route = AppRoute.Spells.Details(it)) },
-            )
-        }
-        composable<AppRoute.Spells.Favorite> {
-            FavoriteSpellsScreen(
-                onBackClick = { controller.navigateUp() },
                 onSpellClick = { controller.navigate(route = AppRoute.Spells.Details(it)) },
             )
         }

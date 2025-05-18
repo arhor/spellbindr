@@ -23,11 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.ui.components.SpellSearchResultList
+import com.github.arhor.spellbindr.ui.components.SpellList
 
 @Composable
 fun SpellSearchScreen(
-    onFavorClick: () -> Unit = {},
     onSpellClick: (String) -> Unit = {},
     spellSearchVM: SpellSearchViewModel = hiltViewModel(),
 ) {
@@ -47,7 +46,7 @@ fun SpellSearchScreen(
                 text = "Spell Book",
                 style = MaterialTheme.typography.titleLarge,
             )
-            IconButton(onClick = onFavorClick) {
+            IconButton(onClick = spellSearchVM::onFavoritesClicked) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = "Favorite spells"
@@ -58,7 +57,7 @@ fun SpellSearchScreen(
         SpellSearchInput(
             query = spellSearchState.query,
             onQueryChanged = spellSearchVM::onQueryChanged,
-            onFiltersClick = spellSearchVM::displayFilterDialog,
+            onFiltersClick = spellSearchVM::onFilterClicked,
         )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -80,7 +79,7 @@ fun SpellSearchScreen(
             }
 
             else -> {
-                SpellSearchResultList(
+                SpellList(
                     spells = spellSearchState.spells,
                     onSpellClick = onSpellClick,
                 )

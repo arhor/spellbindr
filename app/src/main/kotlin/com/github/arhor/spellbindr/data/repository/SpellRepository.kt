@@ -35,15 +35,22 @@ class SpellRepository @Inject constructor(
 
     fun findSpellByName(name: String): Spell? = spells.find { it.name == name }
 
-    fun findSpells(
+    suspend fun findSpells(
         query: String? = null,
         classes: Set<SpellcastingClass>? = null,
-    ): List<Spell> = findSpells(queries = query?.takeIf(String::isNotBlank)?.let(::listOf), classes = classes)
-
-    fun findSpells(
-        queries: List<String>? = null,
-        classes: Set<SpellcastingClass>? = null,
-    ): List<Spell> = spells.filter { it.shouldBeIncluded(queries, classes) }
+        favorite: Boolean = false,
+    ): List<Spell> {
+        val availableSpells = if (favorite) {
+            favoriteSpellsFlow.first().let {
+                spells.filter { spell ->
+                    spell.name in it
+                }
+            }
+        } else {
+            spells
+        }
+        return availableSpells.filter { it.shouldBeIncluded(query, classes) }
+    }
 
     suspend fun toggleFavorite(spellName: String) {
         val updatedFavoriteSpells =
@@ -64,10 +71,10 @@ class SpellRepository @Inject constructor(
     }
 
     private fun Spell.shouldBeIncluded(
-        queries: List<String>?,
-        classes: Set<SpellcastingClass>?
+        query: String?,
+        classes: Set<SpellcastingClass>?,
     ): Boolean {
-        return (queries.isNullOrEmpty() || queries.any { this.name.contains(it, ignoreCase = true) })
+        return (query.isNullOrBlank() || query.let { this.name.contains(it, ignoreCase = true) })
             && (classes.isNullOrEmpty() || classes.all { this.classes.contains(it) })
     }
 

@@ -11,9 +11,6 @@ sealed class AppRoute(val title: String) {
         data object Search : AppRoute(title = "Spell Book")
 
         @Serializable
-        data object Favorite : AppRoute(title = "Favorite Spells")
-
-        @Serializable
         data class Details(val spellName: String) : AppRoute(title = "Spell Details")
     }
 
