@@ -26,7 +26,7 @@ class SpellRepository @Inject constructor(
             .let { json.decodeFromString<List<Spell>>(it) }
             .sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
     }
-    val favoriteSpellsFlow: Flow<List<String>> = context.spellListsDataStore.data.map {
+    val favoriteSpells: Flow<List<String>> = context.spellListsDataStore.data.map {
         it[FAVORITE_SPELLS]
             ?.let { runCatching { json.decodeFromString<List<String>>(it) } }
             ?.getOrNull()
@@ -35,19 +35,18 @@ class SpellRepository @Inject constructor(
 
     fun findSpellByName(name: String): Spell? = spells.find { it.name == name }
 
-    fun findSpells(
-        query: String? = null,
-        classes: Set<SpellcastingClass>? = null,
-    ): List<Spell> = findSpells(queries = query?.takeIf(String::isNotBlank)?.let(::listOf), classes = classes)
+    suspend fun findSpells(query: String, classes: Set<SpellcastingClass>, favorite: Boolean): List<Spell> =
+        if (favorite) {
+            val favorites = favoriteSpells.first()
 
-    fun findSpells(
-        queries: List<String>? = null,
-        classes: Set<SpellcastingClass>? = null,
-    ): List<Spell> = spells.filter { it.shouldBeIncluded(queries, classes) }
+            spells.filter { it.shouldBeIncluded(query, classes) && it.name in favorites }
+        } else {
+            spells.filter { it.shouldBeIncluded(query, classes) }
+        }
 
     suspend fun toggleFavorite(spellName: String) {
         val updatedFavoriteSpells =
-            favoriteSpellsFlow.first()
+            favoriteSpells.first()
                 .let { if (spellName in it) it - spellName else it + spellName }
                 .let { json.encodeToString(it) }
 
@@ -58,17 +57,17 @@ class SpellRepository @Inject constructor(
 
     suspend fun isFavorite(name: String?, favoriteSpells: List<String>? = null): Boolean {
         val spellName = name ?: return false
-        val favorites = favoriteSpells ?: favoriteSpellsFlow.first()
+        val favorites = favoriteSpells ?: this.favoriteSpells.first()
 
         return spellName in favorites
     }
 
     private fun Spell.shouldBeIncluded(
-        queries: List<String>?,
-        classes: Set<SpellcastingClass>?
+        query: String,
+        classes: Set<SpellcastingClass>,
     ): Boolean {
-        return (queries.isNullOrEmpty() || queries.any { this.name.contains(it, ignoreCase = true) })
-            && (classes.isNullOrEmpty() || classes.all { this.classes.contains(it) })
+        return (query.isBlank() || query.let { this.name.contains(it, ignoreCase = true) })
+            && (classes.isEmpty() || classes.all { this.classes.contains(it) })
     }
 
     companion object {

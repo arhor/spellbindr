@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,11 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.ui.components.SpellSearchResultList
+import com.github.arhor.spellbindr.ui.components.SpellList
 
 @Composable
 fun SpellSearchScreen(
-    onFavorClick: () -> Unit = {},
     onSpellClick: (String) -> Unit = {},
     spellSearchVM: SpellSearchViewModel = hiltViewModel(),
 ) {
@@ -47,18 +47,25 @@ fun SpellSearchScreen(
                 text = "Spell Book",
                 style = MaterialTheme.typography.titleLarge,
             )
-            IconButton(onClick = onFavorClick) {
-                Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "Favorite spells"
-                )
+            IconButton(onClick = spellSearchVM::onFavoritesClicked) {
+                if (spellSearchState.showFavorite) {
+                    Icon(
+                        imageVector = Icons.Filled.Favorite,
+                        contentDescription = "Favorites: ON",
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Favorites: OFF",
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
         SpellSearchInput(
             query = spellSearchState.query,
             onQueryChanged = spellSearchVM::onQueryChanged,
-            onFiltersClick = spellSearchVM::displayFilterDialog,
+            onFiltersClick = spellSearchVM::onFilterClicked,
         )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -80,7 +87,7 @@ fun SpellSearchScreen(
             }
 
             else -> {
-                SpellSearchResultList(
+                SpellList(
                     spells = spellSearchState.spells,
                     onSpellClick = onSpellClick,
                 )

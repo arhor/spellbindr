@@ -39,7 +39,7 @@ import com.github.arhor.spellbindr.ui.theme.CardBg
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SpellSearchResultList(
+fun SpellList(
     spells: List<Spell>,
     onSpellClick: (String) -> Unit,
 ) {
