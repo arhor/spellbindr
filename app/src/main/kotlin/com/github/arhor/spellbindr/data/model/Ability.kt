@@ -1,6 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
-enum class SavingThrow {
+import kotlinx.serialization.Serializable
+
+@Serializable
+enum class Ability {
     STR,
     DEX,
     CON,

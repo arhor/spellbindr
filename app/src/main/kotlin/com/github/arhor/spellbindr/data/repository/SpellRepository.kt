@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.SpellcastingClass
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.github.arhor.spellbindr.data.model.StaticAsset
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -15,7 +15,6 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 class SpellRepository @Inject constructor(
-    @ApplicationContext
     private val context: Context,
     private val json: Json,
 ) {
@@ -23,7 +22,7 @@ class SpellRepository @Inject constructor(
         context.assets.open("spells/data.json")
             .bufferedReader()
             .use { it.readText() }
-            .let { json.decodeFromString<List<Spell>>(it) }
+            .let { json.decodeFromString<StaticAsset<Spell, Unit>>(it).data }
             .sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
     }
     val favoriteSpells: Flow<List<String>> = context.spellListsDataStore.data.map {
