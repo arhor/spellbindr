@@ -73,31 +73,40 @@ class SpellSearchViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         viewModelScope.launch {
-            combine(_state, spellRepository.favoriteSpells) { state, favoriteSpells ->
-                Step(
-                    state.query,
-                    state.selectedClasses,
-                    state.showFavorite,
-                    favoriteSpells
-                )
-            }.debounce(350.milliseconds).distinctUntilChanged().collect { step ->
-                try {
-                    _state.update { it.copy(isLoading = true, error = null) }
-                    val spells = spellRepository.findSpells(
-                        query = step.query,
-                        classes = step.selectedClasses,
-                        favorite = step.showFavorite,
-                    )
-                    _state.update { it.copy(spells = spells, isLoading = false) }
-                } catch (e: Exception) {
-                    Log.d(TAG, e.message.toString(), e)
-                    _state.update { it.copy(error = "Oops, something went wrong...", isLoading = false) }
-                }
-            }
+            combine(_state, spellRepository.favoriteSpells, ::toStateChanges)
+                .debounce(350.milliseconds)
+                .distinctUntilChanged()
+                .collect(::handleStateChanges)
         }
     }
 
-    private data class Step(
+    private fun toStateChanges(state: State, favorites: List<String>) = StateChanges(
+        state.query,
+        state.selectedClasses,
+        state.showFavorite,
+        favorites,
+    )
+
+    private suspend fun handleStateChanges(changes: StateChanges) {
+        try {
+            _state.update { it.copy(isLoading = true, error = null) }
+            spellRepository
+                .findSpells(query = changes.query, classes = changes.selectedClasses, favorite = changes.showFavorite)
+                .collect { spells ->
+                    _state.update { state ->
+                        state.copy(
+                            spells = spells,
+                            isLoading = false,
+                        )
+                    }
+                }
+        } catch (e: Exception) {
+            Log.d(TAG, e.message.toString(), e)
+            _state.update { it.copy(error = "Oops, something went wrong...", isLoading = false) }
+        }
+    }
+
+    private data class StateChanges(
         val query: String,
         val selectedClasses: Set<SpellcastingClass>,
         val showFavorite: Boolean,
