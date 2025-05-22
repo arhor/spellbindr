@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui
+package com.github.arhor.spellbindr.ui.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,8 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.navigation.AppNavGraph
-import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 import com.github.arhor.spellbindr.ui.screens.spells.search.SpellSearchViewModel
+import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 import kotlinx.coroutines.delay
 
 @Composable
