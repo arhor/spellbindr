@@ -49,6 +49,7 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.ui.theme.Accent
+import com.github.arhor.spellbindr.viewmodel.CharacterCreationViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
