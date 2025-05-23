@@ -7,24 +7,29 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.SpellcastingClass
 import com.github.arhor.spellbindr.data.model.StaticAsset
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SpellRepository @Inject constructor(
+    @ApplicationContext
     private val context: Context,
     private val json: Json,
-) {
-    private val spells by lazy {
-        context.assets.open("spells/data.json")
-            .bufferedReader()
-            .use { it.readText() }
-            .let { json.decodeFromString<StaticAsset<Spell, Unit>>(it).data }
-            .sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
-    }
+) : DataLoader {
+
+    private lateinit var data: List<Spell>
+    private val mutex = Mutex()
+
     val favoriteSpells: Flow<List<String>> = context.spellListsDataStore.data.map {
         it[FAVORITE_SPELLS]
             ?.let { runCatching { json.decodeFromString<List<String>>(it) } }
@@ -32,15 +37,40 @@ class SpellRepository @Inject constructor(
             ?: emptyList()
     }
 
-    fun findSpellByName(name: String): Spell? = spells.find { it.name == name }
+    override val resource: String
+        get() = "Spells"
 
-    suspend fun findSpells(query: String, classes: Set<SpellcastingClass>, favorite: Boolean): List<Spell> =
-        if (favorite) {
-            val favorites = favoriteSpells.first()
+    override suspend fun loadData() {
+        if (!::data.isInitialized) {
+            mutex.withLock {
+                if (!::data.isInitialized) {
+                    data = withContext(Dispatchers.IO) {
+                        context.assets.open("spells/data.json")
+                            .bufferedReader()
+                            .use { it.readText() }
+                            .let { json.decodeFromString<StaticAsset<Spell, Unit>>(it).data }
+                            .sortedWith(compareBy<Spell> { it.level }.thenBy { it.name })
+                    }
+                }
+            }
+        }
+    }
 
-            spells.filter { it.shouldBeIncluded(query, classes) && it.name in favorites }
-        } else {
-            spells.filter { it.shouldBeIncluded(query, classes) }
+    suspend fun findSpellByName(name: String): Spell? = spells().find { it.name == name }
+
+    suspend fun findSpells(
+        query: String = "",
+        classes: Set<SpellcastingClass> = emptySet(),
+        favorite: Boolean = false,
+    ): List<Spell> =
+        spells().let {
+            if (favorite) {
+                val favorites = favoriteSpells.first()
+
+                it.filter { it.shouldBeIncluded(query, classes) && it.name in favorites }
+            } else {
+                it.filter { it.shouldBeIncluded(query, classes) }
+            }
         }
 
     suspend fun toggleFavorite(spellName: String) {
@@ -59,6 +89,11 @@ class SpellRepository @Inject constructor(
         val favorites = favoriteSpells ?: this.favoriteSpells.first()
 
         return spellName in favorites
+    }
+
+    private suspend fun spells(): List<Spell> {
+        loadData()
+        return data
     }
 
     private fun Spell.shouldBeIncluded(

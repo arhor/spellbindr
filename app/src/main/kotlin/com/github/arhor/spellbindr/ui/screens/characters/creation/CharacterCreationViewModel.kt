@@ -29,7 +29,7 @@ class CharacterCreationViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _races.value = raceRepository.getAllRaces()
+            _races.value = raceRepository.findRaces()
         }
     }
 

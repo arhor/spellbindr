@@ -242,7 +242,11 @@ data class SizeEffect(
 
 /** Represents D&D creature sizes. */
 @Serializable
-enum class Size { SMALL, MEDIUM, LARGE }
+enum class Size {
+    SMALL,
+    MEDIUM,
+    LARGE
+}
 
 /** Machine-readable speed effect. */
 @Serializable
