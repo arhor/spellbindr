@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.screens.spells.details
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -150,7 +151,17 @@ fun SpellDetailScreen(
                     TableRow(label = "Range", text = it.range.toString())
                     TableRow(label = "Components", text = it.components.joinToString())
                     TableRow(label = "Duration", text = it.duration)
-                    TableRow(label = "Classes", text = it.classes.joinToString())
+                    TableRow(label = "Classes") {
+                        FlowRow(horizontalArrangement = Arrangement.End) {
+                            it.classes.forEachIndexed { i, className ->
+                                Text(
+                                    text = if (i == 0) "$className" else ", $className",
+                                    color = HeaderText,
+                                    fontFamily = FontFamily.Serif,
+                                )
+                            }
+                        }
+                    }
                     TableRow(label = "Ritual", text = it.ritual.toString())
                     TableRow(label = "Concentration", text = it.concentration.toString())
 
