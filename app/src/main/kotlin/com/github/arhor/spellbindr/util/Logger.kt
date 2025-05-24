@@ -5,7 +5,7 @@ import kotlin.reflect.KClass
 
 @JvmInline
 @Suppress("UNUSED", "NOTHING_TO_INLINE")
-internal value class Logger(private val tag: String) {
+value class Logger(val tag: String) {
     constructor(type: Class<*>) : this(tag = type.simpleName)
     constructor(type: KClass<*>) : this(type = type.let { if (it.isCompanion) it.java.enclosingClass else it.java })
 

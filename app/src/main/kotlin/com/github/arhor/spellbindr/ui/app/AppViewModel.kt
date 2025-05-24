@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.ui.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.repository.DataLoader
+import com.github.arhor.spellbindr.data.repository.StaticAssetLoader
 import com.github.arhor.spellbindr.util.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -18,9 +18,9 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
-@JvmSuppressWildcards
 class AppViewModel @Inject constructor(
-    private val loaders: Set<DataLoader>,
+
+    private val loaders: Set<@JvmSuppressWildcards StaticAssetLoader>,
 ) : ViewModel() {
 
     data class State(
@@ -53,13 +53,7 @@ class AppViewModel @Inject constructor(
     }
 
     private suspend fun CoroutineScope.executeDataLoading() {
-        val tasks = loaders.map {
-            async {
-                it.loadData()
-                logger.info { "${it.resource} loaded" }
-            }
-        }
-        tasks.awaitAll()
+        loaders.map { async { it.loadAsset() } }.awaitAll()
         logger.info { "Data loading phase passed" }
         _state.update { it.copy(resourcesPreloaded = true) }
     }
