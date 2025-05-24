@@ -132,13 +132,13 @@ fun SpellDetailScreen(
                             iconSize = 60.dp,
                         )
                         Column {
-                            TableRow(label = "Level", value = buildString {
+                            TableRow(label = "Level", text = buildString {
                                 append(it.level)
                                 if (it.level == 0) {
                                     append(" (Cantrip)")
                                 }
                             })
-                            TableRow(label = "School", value = it.school.toString())
+                            TableRow(label = "School", text = it.school.toString())
                         }
                     }
 
@@ -146,20 +146,20 @@ fun SpellDetailScreen(
                     GradientDivider()
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    TableRow(label = "Casting Time", value = it.castingTime)
-                    TableRow(label = "Range", value = it.range.toString())
-                    TableRow(label = "Components", value = it.components.joinToString())
-                    TableRow(label = "Duration", value = it.duration)
-                    TableRow(label = "Classes", value = it.classes.joinToString())
-                    TableRow(label = "Ritual", value = it.ritual.toString())
-                    TableRow(label = "Concentration", value = it.concentration.toString())
+                    TableRow(label = "Casting Time", text = it.castingTime)
+                    TableRow(label = "Range", text = it.range.toString())
+                    TableRow(label = "Components", text = it.components.joinToString())
+                    TableRow(label = "Duration", text = it.duration)
+                    TableRow(label = "Classes", text = it.classes.joinToString())
+                    TableRow(label = "Ritual", text = it.ritual.toString())
+                    TableRow(label = "Concentration", text = it.concentration.toString())
 
                     it.damage?.let {
-                        TableRow(label = "Damage", value = it.toString())
+                        TableRow(label = "Damage", text = it.toString())
                     }
                     TableRow(
                         label = "Source",
-                        value = "${it.source.book}${it.source.page?.let { ", p.$it" } ?: ""}")
+                        text = "${it.source.book}${it.source.page?.let { ", p.$it" } ?: ""}")
                 }
             }
 
@@ -188,14 +188,42 @@ private fun DescriptionRow(text: String) {
 }
 
 @Composable
-private fun TableRow(label: String, value: String) {
+private fun TableRow(label: String, text: String) {
+    TableRow(label) {
+        Text(
+            text = text,
+            color = HeaderText,
+            fontFamily = FontFamily.Serif,
+            maxLines = Int.MAX_VALUE,
+            softWrap = true
+        )
+    }
+}
+
+@Composable
+private fun TableRow(label: String, content: @Composable () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp, horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        verticalAlignment = Alignment.Top
     ) {
-        Text(label, color = HeaderText, fontFamily = FontFamily.Serif)
-        Text(value, color = HeaderText, fontFamily = FontFamily.Serif)
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = label,
+                color = HeaderText,
+                fontFamily = FontFamily.Serif,
+                maxLines = Int.MAX_VALUE,
+                softWrap = true
+            )
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.End
+        ) {
+            content()
+        }
     }
 }
