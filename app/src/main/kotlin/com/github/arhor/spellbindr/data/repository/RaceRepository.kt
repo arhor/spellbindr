@@ -2,22 +2,24 @@ package com.github.arhor.spellbindr.data.repository
 
 import android.content.Context
 import com.github.arhor.spellbindr.data.model.Race
-import com.github.arhor.spellbindr.data.model.RaceList
+import com.github.arhor.spellbindr.data.model.StaticAsset
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class RaceRepository @Inject constructor(
     @ApplicationContext
-    private val context: Context,
-    private val json: Json,
+    context: Context,
+    json: Json,
+) : StaticAssetLoaderBase<Race, Unit>(
+    context = context,
+    json = json,
+    path = "races/data.json",
+    serializer = StaticAsset.serializer(Race.serializer(), Unit.serializer())
 ) {
-    private val races by lazy {
-        context.assets.open("races.json")
-            .bufferedReader()
-            .use { it.readText() }
-            .let { json.decodeFromString(RaceList.serializer(), it).data }
-    }
 
-    fun getAllRaces(): List<Race> = races
+    suspend fun findRaces(): List<Race> = getAsset()
 } 

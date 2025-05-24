@@ -15,5 +15,6 @@ object AppModule {
     @Singleton
     fun provideJson(): Json = Json {
         ignoreUnknownKeys = true
+        classDiscriminator = "type"
     }
 }

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.viewmodel
+package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,7 +29,7 @@ class CharacterCreationViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _races.value = raceRepository.getAllRaces()
+            _races.value = raceRepository.findRaces()
         }
     }
 
@@ -44,4 +44,4 @@ class CharacterCreationViewModel @Inject constructor(
     fun setCharacterName(name: String) {
         _characterName.value = name
     }
-} 
+}
