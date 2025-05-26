@@ -508,97 +508,74 @@
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-black",
-                "name": "Draconic Ancestry (Black)",
-                "url": "/api/2014/traits/draconic-ancestry-black"
+                "id": "draconic-ancestry-black"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-blue",
-                "name": "Draconic Ancestry (Blue)",
-                "url": "/api/2014/traits/draconic-ancestry-blue"
+                "id": "draconic-ancestry-blue"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-brass",
-                "name": "Draconic Ancestry (Brass)",
-                "url": "/api/2014/traits/draconic-ancestry-brass"
+                "id": "draconic-ancestry-brass"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-bronze",
-                "name": "Draconic Ancestry (Bronze)",
-                "url": "/api/2014/traits/draconic-ancestry-bronze"
+                "id": "draconic-ancestry-bronze"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-copper",
-                "name": "Draconic Ancestry (Copper)",
-                "url": "/api/2014/traits/draconic-ancestry-copper"
+                "id": "draconic-ancestry-copper"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-gold",
-                "name": "Draconic Ancestry (Gold)",
-                "url": "/api/2014/traits/draconic-ancestry-gold"
+                "id": "draconic-ancestry-gold"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-green",
-                "name": "Draconic Ancestry (Green)",
-                "url": "/api/2014/traits/draconic-ancestry-green"
+                "id": "draconic-ancestry-green"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-red",
-                "name": "Draconic Ancestry (Red)",
-                "url": "/api/2014/traits/draconic-ancestry-red"
+                "id": "draconic-ancestry-red"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-silver",
-                "name": "Draconic Ancestry (Silver)",
-                "url": "/api/2014/traits/draconic-ancestry-silver"
+                "id": "draconic-ancestry-silver"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "id": "draconic-ancestry-white",
-                "name": "Draconic Ancestry (White)",
-                "url": "/api/2014/traits/draconic-ancestry-white"
+                "id": "draconic-ancestry-white"
               }
             }
           ]
         },
         "type": "trait"
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry"
+    }
   },
   {
     "id": "draconic-ancestry-black",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -607,16 +584,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "acid",
-        "name": "Acid",
-        "url": "/api/2014/damage-types/acid"
+        "id": "acid"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -631,18 +604,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "acid",
-              "name": "Acid",
-              "url": "/api/2014/damage-types/acid"
+              "id": "acid"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -653,16 +622,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-black"
+    }
   },
   {
     "id": "draconic-ancestry-blue",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -671,16 +637,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "lightning",
-        "name": "Lightning",
-        "url": "/api/2014/damage-types/lightning"
+        "id": "lightning"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -695,18 +657,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "lightning",
-              "name": "Lightning",
-              "url": "/api/2014/damage-types/lightning"
+              "id": "lightning"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -717,16 +675,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-blue"
+    }
   },
   {
     "id": "draconic-ancestry-brass",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -735,16 +690,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "fire",
-        "name": "Fire",
-        "url": "/api/2014/damage-types/fire"
+        "id": "fire"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -759,18 +710,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "fire",
-              "name": "Fire",
-              "url": "/api/2014/damage-types/fire"
+              "id": "fire"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -781,16 +728,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-brass"
+    }
   },
   {
     "id": "draconic-ancestry-bronze",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -799,16 +743,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "lightning",
-        "name": "Lightning",
-        "url": "/api/2014/damage-types/lightning"
+        "id": "lightning"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -823,18 +763,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "lightning",
-              "name": "Lightning",
-              "url": "/api/2014/damage-types/lightning"
+              "id": "lightning"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -845,16 +781,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-bronze"
+    }
   },
   {
     "id": "draconic-ancestry-copper",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -863,16 +796,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "acid",
-        "name": "Acid",
-        "url": "/api/2014/damage-types/acid"
+        "id": "acid"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -887,18 +816,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "acid",
-              "name": "Acid",
-              "url": "/api/2014/damage-types/acid"
+              "id": "acid"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -909,16 +834,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-copper"
+    }
   },
   {
     "id": "draconic-ancestry-gold",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -927,16 +849,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "fire",
-        "name": "Fire",
-        "url": "/api/2014/damage-types/fire"
+        "id": "fire"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -951,18 +869,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "fire",
-              "name": "Fire",
-              "url": "/api/2014/damage-types/fire"
+              "id": "fire"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -973,16 +887,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-gold"
+    }
   },
   {
     "id": "draconic-ancestry-green",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -991,16 +902,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "poison",
-        "name": "Poison",
-        "url": "/api/2014/damage-types/poison"
+        "id": "poison"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -1015,18 +922,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "con",
-            "name": "CON",
-            "url": "/api/2014/ability-scores/con"
+            "id": "con"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "poison",
-              "name": "Poison",
-              "url": "/api/2014/damage-types/poison"
+              "id": "poison"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -1037,16 +940,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-green"
+    }
   },
   {
     "id": "draconic-ancestry-red",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -1055,16 +955,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "fire",
-        "name": "Fire",
-        "url": "/api/2014/damage-types/fire"
+        "id": "fire"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -1079,18 +975,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "fire",
-              "name": "Fire",
-              "url": "/api/2014/damage-types/fire"
+              "id": "fire"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -1101,16 +993,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-red"
+    }
   },
   {
     "id": "draconic-ancestry-silver",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -1119,16 +1008,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "cold",
-        "name": "Cold",
-        "url": "/api/2014/damage-types/cold"
+        "id": "cold"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -1143,18 +1028,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "con",
-            "name": "CON",
-            "url": "/api/2014/ability-scores/con"
+            "id": "con"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "cold",
-              "name": "Cold",
-              "url": "/api/2014/damage-types/cold"
+              "id": "cold"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -1165,16 +1046,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-silver"
+    }
   },
   {
     "id": "draconic-ancestry-white",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -1183,16 +1061,12 @@
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
     "parent": {
-      "id": "draconic-ancestry",
-      "name": "Draconic Ancestry",
-      "url": "/api/2014/traits/draconic-ancestry"
+      "id": "draconic-ancestry"
     },
     "proficiencies": [],
     "trait_specific": {
       "damage_type": {
-        "id": "cold",
-        "name": "Cold",
-        "url": "/api/2014/damage-types/cold"
+        "id": "cold"
       },
       "breath_weapon": {
         "name": "Breath Weapon",
@@ -1207,18 +1081,14 @@
         },
         "dc": {
           "dc_type": {
-            "id": "con",
-            "name": "CON",
-            "url": "/api/2014/ability-scores/con"
+            "id": "con"
           },
           "success_type": "half"
         },
         "damage": [
           {
             "damage_type": {
-              "id": "cold",
-              "name": "Cold",
-              "url": "/api/2014/damage-types/cold"
+              "id": "cold"
             },
             "damage_at_character_level": {
               "1": "2d6",
@@ -1229,16 +1099,13 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/draconic-ancestry-white"
+    }
   },
   {
     "id": "breath-weapon",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -1248,16 +1115,13 @@
       "When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level.",
       "After you use your breath weapon, you cannot use it again until you complete a short or long rest."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/breath-weapon"
+    "proficiencies": []
   },
   {
     "id": "damage-resistance",
     "races": [
       {
-        "id": "dragonborn",
-        "name": "Dragonborn",
-        "url": "/api/2014/races/dragonborn"
+        "id": "dragonborn"
       }
     ],
     "subraces": [],
@@ -1265,16 +1129,13 @@
     "desc": [
       "You have resistance to the damage type associated with your draconic ancestry."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/damage-resistance"
+    "proficiencies": []
   },
   {
     "id": "gnome-cunning",
     "races": [
       {
-        "id": "gnome",
-        "name": "Gnome",
-        "url": "/api/2014/races/gnome"
+        "id": "gnome"
       }
     ],
     "subraces": [],
@@ -1282,34 +1143,28 @@
     "desc": [
       "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/gnome-cunning"
+    "proficiencies": []
   },
   {
     "id": "artificers-lore",
     "races": [],
     "subraces": [
       {
-        "id": "rock-gnome",
-        "name": "Rock Gnome",
-        "url": "/api/2014/subraces/rock-gnome"
+        "id": "rock-gnome"
       }
     ],
     "name": "Artificer's Lore",
     "desc": [
       "Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/artificers-lore"
+    "proficiencies": []
   },
   {
     "id": "tinker",
     "races": [],
     "subraces": [
       {
-        "id": "rock-gnome",
-        "name": "Rock Gnome",
-        "url": "/api/2014/subraces/rock-gnome"
+        "id": "rock-gnome"
       }
     ],
     "name": "Tinker",
@@ -1322,20 +1177,15 @@
     ],
     "proficiencies": [
       {
-        "id": "tinkers-tools",
-        "name": "Tinker's Tools",
-        "url": "/api/2014/proficiencies/tinkers-tools"
+        "id": "tinkers-tools"
       }
-    ],
-    "url": "/api/2014/traits/tinker"
+    ]
   },
   {
     "id": "skill-versatility",
     "races": [
       {
-        "id": "half-elf",
-        "name": "Half-Elf",
-        "url": "/api/2014/races/half-elf"
+        "id": "half-elf"
       }
     ],
     "subraces": [],
@@ -1353,159 +1203,120 @@
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-acrobatics",
-              "name": "Skill: Acrobatics",
-              "url": "/api/2014/proficiencies/skill-acrobatics"
+              "id": "skill-acrobatics"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-animal-handling",
-              "name": "Skill: Animal Handling",
-              "url": "/api/2014/proficiencies/skill-animal-handling"
+              "id": "skill-animal-handling"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-arcana",
-              "name": "Skill: Arcana",
-              "url": "/api/2014/proficiencies/skill-arcana"
+              "id": "skill-arcana"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-athletics",
-              "name": "Skill: Athletics",
-              "url": "/api/2014/proficiencies/skill-athletics"
+              "id": "skill-athletics"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-deception",
-              "name": "Skill: Deception",
-              "url": "/api/2014/proficiencies/skill-deception"
+              "id": "skill-deception"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-history",
-              "name": "Skill: History",
-              "url": "/api/2014/proficiencies/skill-history"
+              "id": "skill-history"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-insight",
-              "name": "Skill: Insight",
-              "url": "/api/2014/proficiencies/skill-insight"
+              "id": "skill-insight"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-intimidation",
-              "name": "Skill: Intimidation",
-              "url": "/api/2014/proficiencies/skill-intimidation"
+              "id": "skill-intimidation"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-investigation",
-              "name": "Skill: Investigation",
-              "url": "/api/2014/proficiencies/skill-investigation"
+              "id": "skill-investigation"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-medicine",
-              "name": "Skill: Medicine",
-              "url": "/api/2014/proficiencies/skill-medicine"
+              "id": "skill-medicine"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-nature",
-              "name": "Skill: Nature",
-              "url": "/api/2014/proficiencies/skill-nature"
+              "id": "skill-nature"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-perception",
-              "name": "Skill: Perception",
-              "url": "/api/2014/proficiencies/skill-perception"
+              "id": "skill-perception"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-performance",
-              "name": "Skill: Performance",
-              "url": "/api/2014/proficiencies/skill-performance"
+              "id": "skill-performance"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-persuasion",
-              "name": "Skill: Persuasion",
-              "url": "/api/2014/proficiencies/skill-persuasion"
+              "id": "skill-persuasion"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-religion",
-              "name": "Skill: Religion",
-              "url": "/api/2014/proficiencies/skill-religion"
+              "id": "skill-religion"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-sleight-of-hand",
-              "name": "Skill: Sleight of Hand",
-              "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+              "id": "skill-sleight-of-hand"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-stealth",
-              "name": "Skill: Stealth",
-              "url": "/api/2014/proficiencies/skill-stealth"
+              "id": "skill-stealth"
             }
           },
           {
             "option_type": "reference",
             "item": {
-              "id": "skill-survival",
-              "name": "Skill: Survival",
-              "url": "/api/2014/proficiencies/skill-survival"
+              "id": "skill-survival"
             }
           }
         ]
       }
-    },
-    "url": "/api/2014/traits/skill-versatility"
+    }
   },
   {
     "id": "menacing",
     "races": [
       {
-        "id": "half-orc",
-        "name": "Half-Orc",
-        "url": "/api/2014/races/half-orc"
+        "id": "half-orc"
       }
     ],
     "subraces": [],
@@ -1515,20 +1326,15 @@
     ],
     "proficiencies": [
       {
-        "id": "skill-intimidation",
-        "name": "Skill: Intimidation",
-        "url": "/api/2014/proficiencies/skill-intimidation"
+        "id": "skill-intimidation"
       }
-    ],
-    "url": "/api/2014/traits/menacing"
+    ]
   },
   {
     "id": "relentless-endurance",
     "races": [
       {
-        "id": "half-orc",
-        "name": "Half-Orc",
-        "url": "/api/2014/races/half-orc"
+        "id": "half-orc"
       }
     ],
     "subraces": [],
@@ -1536,16 +1342,13 @@
     "desc": [
       "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. you cannot use this feature again until you finish a long rest."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/relentless-endurance"
+    "proficiencies": []
   },
   {
     "id": "savage-attacks",
     "races": [
       {
-        "id": "half-orc",
-        "name": "Half-Orc",
-        "url": "/api/2014/races/half-orc"
+        "id": "half-orc"
       }
     ],
     "subraces": [],
@@ -1553,16 +1356,13 @@
     "desc": [
       "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/savage-attacks"
+    "proficiencies": []
   },
   {
     "id": "hellish-resistance",
     "races": [
       {
-        "id": "tiefling",
-        "name": "Tiefling",
-        "url": "/api/2014/races/tiefling"
+        "id": "tiefling"
       }
     ],
     "subraces": [],
@@ -1570,16 +1370,13 @@
     "desc": [
       "You have resistance to fire damage."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/hellish-resistance"
+    "proficiencies": []
   },
   {
     "id": "infernal-legacy",
     "races": [
       {
-        "id": "tiefling",
-        "name": "Tiefling",
-        "url": "/api/2014/races/tiefling"
+        "id": "tiefling"
       }
     ],
     "subraces": [],
@@ -1587,7 +1384,6 @@
     "desc": [
       "You know the thaumaturgy cantrip. When you reach 3rd level, you can cast the hellish rebuke spell as a 2nd-level spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."
     ],
-    "proficiencies": [],
-    "url": "/api/2014/traits/infernal-legacy"
+    "proficiencies": []
   }
 ]
