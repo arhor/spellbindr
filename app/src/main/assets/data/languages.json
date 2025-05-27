@@ -6,8 +6,7 @@
     "typical_speakers": [
       "Humans"
     ],
-    "script": "Common",
-    "url": "/api/2014/languages/common"
+    "script": "Common"
   },
   {
     "index": "dwarvish",
@@ -17,8 +16,7 @@
     "typical_speakers": [
       "Dwarves"
     ],
-    "script": "Dwarvish",
-    "url": "/api/2014/languages/dwarvish"
+    "script": "Dwarvish"
   },
   {
     "index": "elvish",
@@ -28,8 +26,7 @@
     "typical_speakers": [
       "Elves"
     ],
-    "script": "Elvish",
-    "url": "/api/2014/languages/elvish"
+    "script": "Elvish"
   },
   {
     "index": "giant",
@@ -39,8 +36,7 @@
       "Ogres",
       "Giants"
     ],
-    "script": "Dwarvish",
-    "url": "/api/2014/languages/giant"
+    "script": "Dwarvish"
   },
   {
     "index": "gnomish",
@@ -50,8 +46,7 @@
     "typical_speakers": [
       "Gnomes"
     ],
-    "script": "Dwarvish",
-    "url": "/api/2014/languages/gnomish"
+    "script": "Dwarvish"
   },
   {
     "index": "goblin",
@@ -60,8 +55,7 @@
     "typical_speakers": [
       "Goblinoids"
     ],
-    "script": "Dwarvish",
-    "url": "/api/2014/languages/goblin"
+    "script": "Dwarvish"
   },
   {
     "index": "halfling",
@@ -71,8 +65,7 @@
     "typical_speakers": [
       "Halflings"
     ],
-    "script": "Common",
-    "url": "/api/2014/languages/halfling"
+    "script": "Common"
   },
   {
     "index": "orc",
@@ -82,8 +75,7 @@
     "typical_speakers": [
       "Orcs"
     ],
-    "script": "Dwarvish",
-    "url": "/api/2014/languages/orc"
+    "script": "Dwarvish"
   },
   {
     "index": "abyssal",
@@ -92,8 +84,7 @@
     "typical_speakers": [
       "Demons"
     ],
-    "script": "Infernal",
-    "url": "/api/2014/languages/abyssal"
+    "script": "Infernal"
   },
   {
     "index": "celestial",
@@ -102,8 +93,7 @@
     "typical_speakers": [
       "Celestials"
     ],
-    "script": "Celestial",
-    "url": "/api/2014/languages/celestial"
+    "script": "Celestial"
   },
   {
     "index": "draconic",
@@ -114,8 +104,7 @@
       "Dragons",
       "Dragonborn"
     ],
-    "script": "Draconic",
-    "url": "/api/2014/languages/draconic"
+    "script": "Draconic"
   },
   {
     "index": "deep-speech",
@@ -134,8 +123,7 @@
     "typical_speakers": [
       "Devils"
     ],
-    "script": "Infernal",
-    "url": "/api/2014/languages/infernal"
+    "script": "Infernal"
   },
   {
     "index": "primordial",
@@ -144,8 +132,7 @@
     "typical_speakers": [
       "Elementals"
     ],
-    "script": "Dwarvish",
-    "url": "/api/2014/languages/primordial"
+    "script": "Dwarvish"
   },
   {
     "index": "sylvan",
@@ -154,8 +141,7 @@
     "typical_speakers": [
       "Fey creatures"
     ],
-    "script": "Elvish",
-    "url": "/api/2014/languages/sylvan"
+    "script": "Elvish"
   },
   {
     "index": "undercommon",
@@ -164,7 +150,6 @@
     "typical_speakers": [
       "Underdark traders"
     ],
-    "script": "Elvish",
-    "url": "/api/2014/languages/undercommon"
+    "script": "Elvish"
   }
 ]
