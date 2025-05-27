@@ -188,8 +188,8 @@ data class EquipmentCategoryOptionSet(
 data class ResourceListOptionSet(
     @SerialName("option_set_type")
     override val optionSetType: OptionSetType = OptionSetType.RESOURCE_LIST,
-    @SerialName("resource_list_url")
-    val resourceListUrl: String
+    @SerialName("resource_list_name")
+    val resourceListName: String
 ) : OptionSet()
 
 @Serializable

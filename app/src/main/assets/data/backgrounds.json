@@ -1,17 +1,13 @@
 [
   {
-    "index": "acolyte",
+    "id": "acolyte",
     "name": "Acolyte",
     "starting_proficiencies": [
       {
-        "index": "skill-insight",
-        "name": "Skill: Insight",
-        "url": "/api/2014/proficiencies/skill-insight"
+        "id": "skill-insight"
       },
       {
-        "index": "skill-religion",
-        "name": "Skill: Religion",
-        "url": "/api/2014/proficiencies/skill-religion"
+        "id": "skill-religion"
       }
     ],
     "language_options": {
@@ -19,23 +15,19 @@
       "type": "languages",
       "from": {
         "option_set_type": "resource_list",
-        "resource_list_url": "/api/2014/languages"
+        "resource_list_name": "languages"
       }
     },
     "starting_equipment": [
       {
         "equipment": {
-          "index": "clothes-common",
-          "name": "Clothes, common",
-          "url": "/api/2014/equipment/clothes-common"
+          "id": "clothes-common"
         },
         "quantity": 1
       },
       {
         "equipment": {
-          "index": "pouch",
-          "name": "Pouch",
-          "url": "/api/2014/equipment/pouch"
+          "id": "pouch"
         },
         "quantity": 1
       }
@@ -47,9 +39,7 @@
         "from": {
           "option_set_type": "equipment_category",
           "equipment_category": {
-            "index": "holy-symbols",
-            "name": "Holy Symbols",
-            "url": "/api/2014/equipment-categories/holy-symbols"
+            "id": "holy-symbols"
           }
         }
       }
@@ -113,19 +103,13 @@
             "desc": "Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld.",
             "alignments": [
               {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
+                "id": "lawful-good"
               },
               {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
+                "id": "lawful-neutral"
               },
               {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
+                "id": "lawful-evil"
               }
             ]
           },
@@ -134,19 +118,13 @@
             "desc": "Charity. I always try to help those in need, no matter what the personal cost.",
             "alignments": [
               {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
+                "id": "lawful-good"
               },
               {
-                "index": "neutral-good",
-                "name": "Neutral Good",
-                "url": "/api/2014/alignments/neutral-good"
+                "id": "neutral-good"
               },
               {
-                "index": "chaotic-good",
-                "name": "Chaotic Good",
-                "url": "/api/2014/alignments/chaotic-good"
+                "id": "chaotic-good"
               }
             ]
           },
@@ -155,19 +133,13 @@
             "desc": "Change. We must help bring about the changes the gods are constantly working in the world.",
             "alignments": [
               {
-                "index": "chaotic-good",
-                "name": "Chaotic Good",
-                "url": "/api/2014/alignments/chaotic-good"
+                "id": "chaotic-good"
               },
               {
-                "index": "chaotic-neutral",
-                "name": "Chaotic Neutral",
-                "url": "/api/2014/alignments/chaotic-neutral"
+                "id": "chaotic-neutral"
               },
               {
-                "index": "chaotic-evil",
-                "name": "Chaotic Evil",
-                "url": "/api/2014/alignments/chaotic-evil"
+                "id": "chaotic-evil"
               }
             ]
           },
@@ -176,19 +148,13 @@
             "desc": "Power. I hope to one day rise to the top of my faith's religious hierarchy.",
             "alignments": [
               {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
+                "id": "lawful-good"
               },
               {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
+                "id": "lawful-neutral"
               },
               {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
+                "id": "lawful-evil"
               }
             ]
           },
@@ -197,19 +163,13 @@
             "desc": "Faith. I trust that my deity will guide my actions. I have faith that if I work hard, things will go well.",
             "alignments": [
               {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
+                "id": "lawful-good"
               },
               {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
+                "id": "lawful-neutral"
               },
               {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
+                "id": "lawful-evil"
               }
             ]
           },
@@ -218,49 +178,31 @@
             "desc": "Aspiration. I seek to prove myself worthy of my god's favor by matching my actions against his or her teachings.",
             "alignments": [
               {
-                "index": "lawful-good",
-                "name": "Lawful Good",
-                "url": "/api/2014/alignments/lawful-good"
+                "id": "lawful-good"
               },
               {
-                "index": "neutral-good",
-                "name": "Neutral Good",
-                "url": "/api/2014/alignments/neutral-good"
+                "id": "neutral-good"
               },
               {
-                "index": "chaotic-good",
-                "name": "Chaotic Good",
-                "url": "/api/2014/alignments/chaotic-good"
+                "id": "chaotic-good"
               },
               {
-                "index": "lawful-neutral",
-                "name": "Lawful Neutral",
-                "url": "/api/2014/alignments/lawful-neutral"
+                "id": "lawful-neutral"
               },
               {
-                "index": "neutral",
-                "name": "Neutral",
-                "url": "/api/2014/alignments/neutral"
+                "id": "neutral"
               },
               {
-                "index": "chaotic-neutral",
-                "name": "Chaotic Neutral",
-                "url": "/api/2014/alignments/chaotic-neutral"
+                "id": "chaotic-neutral"
               },
               {
-                "index": "lawful-evil",
-                "name": "Lawful Evil",
-                "url": "/api/2014/alignments/lawful-evil"
+                "id": "lawful-evil"
               },
               {
-                "index": "neutral-evil",
-                "name": "Neutral Evil",
-                "url": "/api/2014/alignments/neutral-evil"
+                "id": "neutral-evil"
               },
               {
-                "index": "chaotic-evil",
-                "name": "Chaotic Evil",
-                "url": "/api/2014/alignments/chaotic-evil"
+                "id": "chaotic-evil"
               }
             ]
           }
@@ -332,7 +274,6 @@
           }
         ]
       }
-    },
-    "url": "/api/2014/backgrounds/acolyte"
+    }
   }
 ]
