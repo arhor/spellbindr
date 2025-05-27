@@ -8,9 +8,9 @@
       "url": "/api/2014/races/dwarf"
     },
     "desc": "As a hill dwarf, you have keen senses, deep intuition, and remarkable resilience.",
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "wis",
           "name": "WIS",
           "url": "/api/2014/ability-scores/wis"
@@ -18,7 +18,7 @@
         "bonus": 1
       }
     ],
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [],
     "racial_traits": [
       {
@@ -38,9 +38,9 @@
       "url": "/api/2014/races/elf"
     },
     "desc": "As a high elf, you have a keen mind and a mastery of at least the basics of magic. In many fantasy gaming worlds, there are two kinds of high elves. One type is haughty and reclusive, believing themselves to be superior to non-elves and even other elves. The other type is more common and more friendly, and often encountered among humans and other races.",
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "int",
           "name": "INT",
           "url": "/api/2014/ability-scores/int"
@@ -48,7 +48,7 @@
         "bonus": 1
       }
     ],
-    "starting_proficiencies": [
+    "startingProficiencies": [
       {
         "index": "longswords",
         "name": "Longswords",
@@ -71,7 +71,7 @@
       }
     ],
     "languages": [],
-    "language_options": {
+    "languageOptions": {
       "choose": 1,
       "from": {
         "option_set_type": "options_array",
@@ -220,9 +220,9 @@
       "url": "/api/2014/races/halfling"
     },
     "desc": "As a lightfoot halfling, you can easily hide from notice, even using other people as cover. You're inclined to be affable and get along well with others. Lightfoots are more prone to wanderlust than other halflings, and often dwell alongside other races or take up a nomadic life.",
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "cha",
           "name": "CHA",
           "url": "/api/2014/ability-scores/cha"
@@ -230,7 +230,7 @@
         "bonus": 1
       }
     ],
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [],
     "racial_traits": [
       {
@@ -250,9 +250,9 @@
       "url": "/api/2014/races/gnome"
     },
     "desc": "As a rock gnome, you have a natural inventiveness and hardiness beyond that of other gnomes.",
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "con",
           "name": "CON",
           "url": "/api/2014/ability-scores/con"
@@ -260,7 +260,7 @@
         "bonus": 1
       }
     ],
-    "starting_proficiencies": [
+    "startingProficiencies": [
       {
         "index": "tinkers-tools",
         "name": "Tinker's Tools",

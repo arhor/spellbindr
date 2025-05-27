@@ -112,7 +112,7 @@
         "url": "/api/2014/ability-scores/con"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "explorers-pack",
@@ -130,7 +130,7 @@
         "quantity": 4
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a greataxe or (b) any martial melee weapon",
         "choose": 1,
@@ -202,11 +202,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/barbarian/levels",
+    "classLevels": "/api/2014/classes/barbarian/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "str",
             "name": "STR",
             "url": "/api/2014/ability-scores/str"
@@ -545,7 +545,7 @@
         "url": "/api/2014/ability-scores/cha"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "leather-armor",
@@ -563,7 +563,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a rapier, (b) a longsword, or (c) any simple weapon",
         "choose": 1,
@@ -672,11 +672,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/bard/levels",
+    "classLevels": "/api/2014/classes/bard/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "cha",
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
@@ -947,7 +947,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "cha",
         "name": "CHA",
         "url": "/api/2014/ability-scores/cha"
@@ -1100,7 +1100,7 @@
         "url": "/api/2014/ability-scores/cha"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "shield",
@@ -1110,7 +1110,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a mace or (b) a warhammer (if proficient)",
         "choose": 1,
@@ -1287,11 +1287,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/cleric/levels",
+    "classLevels": "/api/2014/classes/cleric/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "wis",
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
@@ -1326,7 +1326,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "wis",
         "name": "WIS",
         "url": "/api/2014/ability-scores/wis"
@@ -1546,7 +1546,7 @@
         "url": "/api/2014/ability-scores/wis"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "leather-armor",
@@ -1564,7 +1564,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a wooden shield or (b) any simple weapon",
         "choose": 1,
@@ -1649,11 +1649,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/druid/levels",
+    "classLevels": "/api/2014/classes/druid/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "wis",
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
@@ -1688,7 +1688,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "wis",
         "name": "WIS",
         "url": "/api/2014/ability-scores/wis"
@@ -1858,8 +1858,8 @@
         "url": "/api/2014/ability-scores/con"
       }
     ],
-    "starting_equipment": [],
-    "starting_equipment_options": [
+    "startingEquipment": [],
+    "startingEquipmentOptions": [
       {
         "desc": "(a) chain mail or (b) leather armor, longbow, and 20 arrows",
         "choose": 1,
@@ -2038,7 +2038,7 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/fighter/levels",
+    "classLevels": "/api/2014/classes/fighter/levels",
     "multi_classing": {
       "prerequisite_options": {
         "type": "ability-scores",
@@ -2048,7 +2048,7 @@
           "options": [
             {
               "option_type": "score_prerequisite",
-              "ability_score": {
+              "abilityScore": {
                 "index": "str",
                 "name": "STR",
                 "url": "/api/2014/ability-scores/str"
@@ -2057,7 +2057,7 @@
             },
             {
               "option_type": "score_prerequisite",
-              "ability_score": {
+              "abilityScore": {
                 "index": "dex",
                 "name": "DEX",
                 "url": "/api/2014/ability-scores/dex"
@@ -2470,7 +2470,7 @@
         "url": "/api/2014/ability-scores/dex"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "dart",
@@ -2480,7 +2480,7 @@
         "quantity": 10
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a shortsword or (b) any simple weapon",
         "choose": 1,
@@ -2545,11 +2545,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/monk/levels",
+    "classLevels": "/api/2014/classes/monk/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "dex",
             "name": "DEX",
             "url": "/api/2014/ability-scores/dex"
@@ -2557,7 +2557,7 @@
           "minimum_score": 13
         },
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "wis",
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
@@ -2695,7 +2695,7 @@
         "url": "/api/2014/ability-scores/cha"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "chain-mail",
@@ -2705,7 +2705,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a martial weapon and a shield or (b) two martial weapons",
         "choose": 1,
@@ -2839,11 +2839,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/paladin/levels",
+    "classLevels": "/api/2014/classes/paladin/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "str",
             "name": "STR",
             "url": "/api/2014/ability-scores/str"
@@ -2851,7 +2851,7 @@
           "minimum_score": 13
         },
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "cha",
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
@@ -2896,7 +2896,7 @@
     ],
     "spellcasting": {
       "level": 2,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "cha",
         "name": "CHA",
         "url": "/api/2014/ability-scores/cha"
@@ -3059,7 +3059,7 @@
         "url": "/api/2014/ability-scores/dex"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "longbow",
@@ -3077,7 +3077,7 @@
         "quantity": 20
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) scale mail or (b) leather armor",
         "choose": 1,
@@ -3170,11 +3170,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/ranger/levels",
+    "classLevels": "/api/2014/classes/ranger/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "dex",
             "name": "DEX",
             "url": "/api/2014/ability-scores/dex"
@@ -3182,7 +3182,7 @@
           "minimum_score": 13
         },
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "wis",
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
@@ -3302,7 +3302,7 @@
     ],
     "spellcasting": {
       "level": 2,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "wis",
         "name": "WIS",
         "url": "/api/2014/ability-scores/wis"
@@ -3499,7 +3499,7 @@
         "url": "/api/2014/ability-scores/int"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "leather-armor",
@@ -3525,7 +3525,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a rapier or (b) a shortsword",
         "choose": 1,
@@ -3634,11 +3634,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/rogue/levels",
+    "classLevels": "/api/2014/classes/rogue/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "dex",
             "name": "DEX",
             "url": "/api/2014/ability-scores/dex"
@@ -3880,7 +3880,7 @@
         "url": "/api/2014/ability-scores/cha"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "dagger",
@@ -3890,7 +3890,7 @@
         "quantity": 2
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a light crossbow and 20 bolts or (b) any simple weapon",
         "choose": 1,
@@ -4004,11 +4004,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/sorcerer/levels",
+    "classLevels": "/api/2014/classes/sorcerer/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "cha",
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
@@ -4027,7 +4027,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "cha",
         "name": "CHA",
         "url": "/api/2014/ability-scores/cha"
@@ -4179,7 +4179,7 @@
         "url": "/api/2014/ability-scores/cha"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "dagger",
@@ -4197,7 +4197,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a light crossbow and 20 bolts or (b) any simple weapon",
         "choose": 1,
@@ -4324,11 +4324,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/warlock/levels",
+    "classLevels": "/api/2014/classes/warlock/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "cha",
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
@@ -4358,7 +4358,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "cha",
         "name": "CHA",
         "url": "/api/2014/ability-scores/cha"
@@ -4518,7 +4518,7 @@
         "url": "/api/2014/ability-scores/wis"
       }
     ],
-    "starting_equipment": [
+    "startingEquipment": [
       {
         "equipment": {
           "index": "spellbook",
@@ -4528,7 +4528,7 @@
         "quantity": 1
       }
     ],
-    "starting_equipment_options": [
+    "startingEquipmentOptions": [
       {
         "desc": "(a) a quarterstaff or (b) a dagger",
         "choose": 1,
@@ -4621,11 +4621,11 @@
         }
       }
     ],
-    "class_levels": "/api/2014/classes/wizard/levels",
+    "classLevels": "/api/2014/classes/wizard/levels",
     "multi_classing": {
       "prerequisites": [
         {
-          "ability_score": {
+          "abilityScore": {
             "index": "int",
             "name": "INT",
             "url": "/api/2014/ability-scores/int"
@@ -4644,7 +4644,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcasting_ability": {
+      "spellcastingAbility": {
         "index": "int",
         "name": "INT",
         "url": "/api/2014/ability-scores/int"

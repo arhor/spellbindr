@@ -11,7 +11,6 @@ data class AbilityScore(
     val id: String,
     val name: String,
     val desc: List<String>,
-    @SerialName("full_name")
     val fullName: String,
     val skills: List<EntityRef>
 )
@@ -21,7 +20,7 @@ data class Alignment(
     val id: String,
     val name: String,
     val desc: String,
-    val abbreviation: String
+    val abbr: String,
 )
 
 @Serializable
@@ -40,16 +39,11 @@ data class GenericInfo(
 data class Background(
     val id: String,
     val name: String,
-    @SerialName("starting_proficiencies")
     val startingProficiencies: List<EntityRef>,
-    @SerialName("language_options")
     val languageOptions: Choice,
-    @SerialName("starting_equipment")
     val startingEquipment: List<EquipmentRef>,
-    @SerialName("starting_equipment_options")
     val startingEquipmentOptions: List<Choice>,
     val feature: GenericInfo,
-    @SerialName("personality_traits")
     val personalityTraits: Choice,
     val ideals: Choice,
     val bonds: Choice,
@@ -60,13 +54,11 @@ data class Background(
 data class Spellcasting(
     val info: List<GenericInfo>,
     val level: Int,
-    @SerialName("spellcasting_ability")
     val spellcastingAbility: EntityRef
 )
 
 @Serializable
 data class MultiClassingPrereq(
-    @SerialName("ability_score")
     val abilityScore: EntityRef,
     @SerialName("minimum_score")
     val minimumScore: Int
@@ -86,7 +78,6 @@ data class MultiClassing(
 data class Class(
     val id: String,
     val name: String,
-    @SerialName("class_levels")
     val classLevels: String,
     @SerialName("multi_classing")
     val multiClassing: MultiClassing,
@@ -99,9 +90,7 @@ data class Class(
     val savingThrows: List<EntityRef>,
     val spellcasting: Spellcasting? = null,
     val spells: String,
-    @SerialName("starting_equipment")
     val startingEquipment: List<EquipmentRef>,
-    @SerialName("starting_equipment_options")
     val startingEquipmentOptions: List<Choice>,
     val subclasses: List<EntityRef>
 )
@@ -813,14 +802,12 @@ data class RaceAbilityBonus(
 data class Race(
     @SerialName("ability_bonus_options")
     val abilityBonusOptions: Choice? = null,
-    @SerialName("ability_bonuses")
     val abilityBonuses: List<RaceAbilityBonus>,
     val age: String,
     val alignment: String,
     val id: String,
     @SerialName("language_desc")
     val languageDesc: String,
-    @SerialName("language_options")
     val languageOptions: Choice,
     val languages: List<EntityRef>,
     val name: String,
@@ -828,7 +815,6 @@ data class Race(
     @SerialName("size_description")
     val sizeDescription: String,
     val speed: Int,
-    @SerialName("starting_proficiencies")
     val startingProficiencies: List<EntityRef>? = null,
     @SerialName("starting_proficiency_options")
     val startingProficiencyOptions: Choice? = null,
@@ -948,14 +934,11 @@ data class Subrace(
     val name: String,
     val desc: String,
     val race: EntityRef,
-    @SerialName("ability_bonuses")
     val abilityBonuses: List<SubraceAbilityBonus>,
     val languages: List<EntityRef>? = null,
-    @SerialName("language_options")
     val languageOptions: Choice? = null,
     @SerialName("racial_traits")
     val racialTraits: List<EntityRef>,
-    @SerialName("starting_proficiencies")
     val startingProficiencies: List<EntityRef>? = null
 )
 
@@ -1010,7 +993,6 @@ data class Trait(
     val proficiencies: List<Proficiency>,
     @SerialName("proficiency_choices")
     val proficiencyChoices: Choice? = null,
-    @SerialName("language_options")
     val languageOptions: Choice? = null,
     val races: List<EntityRef>,
     val subraces: List<EntityRef>,

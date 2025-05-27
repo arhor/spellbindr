@@ -3,7 +3,7 @@
     "index": "dwarf",
     "name": "Dwarf",
     "speed": 25,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "con",
@@ -17,7 +17,7 @@
     "age": "Dwarves mature at the same rate as humans, but they're considered young until they reach the age of 50. On average, they live about 350 years.",
     "size": "Medium",
     "size_description": "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.",
-    "starting_proficiencies": [
+    "startingProficiencies": [
       {
         "index": "battleaxes",
         "name": "Battleaxes",
@@ -126,7 +126,7 @@
     "index": "elf",
     "name": "Elf",
     "speed": 30,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "dex",
@@ -140,7 +140,7 @@
     "alignment": "Elves love freedom, variety, and self-expression, so they lean strongly toward the gentler aspects of chaos. They value and protect others' freedom as well as their own, and they are more often good than not.",
     "size": "Medium",
     "size_description": "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium.",
-    "starting_proficiencies": [
+    "startingProficiencies": [
       {
         "index": "skill-perception",
         "name": "Skill: Perception",
@@ -195,7 +195,7 @@
     "index": "halfling",
     "name": "Halfling",
     "speed": 25,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "dex",
@@ -209,7 +209,7 @@
     "alignment": "Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways.",
     "size": "Small",
     "size_description": "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.",
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [
       {
         "index": "common",
@@ -253,7 +253,7 @@
     "index": "human",
     "name": "Human",
     "speed": 30,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "str",
@@ -307,7 +307,7 @@
     "alignment": "Humans tend toward no particular alignment. The best and the worst are found among them.",
     "size": "Medium",
     "size_description": "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is Medium.",
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [
       {
         "index": "common",
@@ -315,7 +315,7 @@
         "url": "/api/2014/languages/common"
       }
     ],
-    "language_options": {
+    "languageOptions": {
       "choose": 1,
       "type": "languages",
       "from": {
@@ -453,7 +453,7 @@
     "index": "dragonborn",
     "name": "Dragonborn",
     "speed": 30,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "str",
@@ -475,7 +475,7 @@
     "age": "Young dragonborn grow quickly. They walk hours after hatching, attain the size and development of a 10-year-old human child by the age of 3, and reach adulthood by 15. They live to be around 80.",
     "size": "Medium",
     "size_description": "Dragonborn are taller and heavier than humans, standing well over 6 feet tall and averaging almost 250 pounds. Your size is Medium.",
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [
       {
         "index": "common",
@@ -513,7 +513,7 @@
     "index": "gnome",
     "name": "Gnome",
     "speed": 25,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "int",
@@ -527,7 +527,7 @@
     "age": "Gnomes mature at the same rate humans do, and most are expected to settle down into an adult life by around age 40. They can live 350 to almost 500 years.",
     "size": "Small",
     "size_description": "Gnomes are between 3 and 4 feet tall and average about 40 pounds. Your size is Small.",
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [
       {
         "index": "common",
@@ -566,7 +566,7 @@
     "index": "half-elf",
     "name": "Half-Elf",
     "speed": 30,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "cha",
@@ -578,7 +578,7 @@
     ],
     "ability_bonus_options": {
       "choose": 2,
-      "type": "ability_bonuses",
+      "type": "abilityBonuses",
       "from": {
         "option_set_type": "options_array",
         "options": [
@@ -634,7 +634,7 @@
     "age": "Half-elves mature at the same rate humans do and reach adulthood around the age of 20. They live much longer than humans, however, often exceeding 180 years.",
     "size": "Medium",
     "size_description": "Half-elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium.",
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "starting_proficiency_options": {
       "choose": 2,
       "type": "proficiencies",
@@ -800,7 +800,7 @@
         "url": "/api/2014/languages/elvish"
       }
     ],
-    "language_options": {
+    "languageOptions": {
       "choose": 1,
       "type": "languages",
       "from": {
@@ -946,7 +946,7 @@
     "index": "half-orc",
     "name": "Half-Orc",
     "speed": 30,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "str",
@@ -968,7 +968,7 @@
     "age": "Half-orcs mature a little faster than humans, reaching adulthood around age 14. They age noticeably faster and rarely live longer than 75 years.",
     "size": "Medium",
     "size_description": "Half-orcs are somewhat larger and bulkier than humans, and they range from 5 to well over 6 feet tall. Your size is Medium.",
-    "starting_proficiencies": [
+    "startingProficiencies": [
       {
         "index": "skill-intimidation",
         "name": "Skill: Intimidation",
@@ -1017,7 +1017,7 @@
     "index": "tiefling",
     "name": "Tiefling",
     "speed": 30,
-    "ability_bonuses": [
+    "abilityBonuses": [
       {
         "ability_score": {
           "index": "int",
@@ -1039,7 +1039,7 @@
     "age": "Tieflings mature at the same rate as humans but live a few years longer.",
     "size": "Medium",
     "size_description": "Tieflings are about the same size and build as humans. Your size is Medium.",
-    "starting_proficiencies": [],
+    "startingProficiencies": [],
     "languages": [
       {
         "index": "common",

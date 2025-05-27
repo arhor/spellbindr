@@ -336,7 +336,7 @@
       "You can speak, read, and write one extra language of your choice."
     ],
     "proficiencies": [],
-    "language_options": {
+    "languageOptions": {
       "choose": 1,
       "type": "languages",
       "from": {
