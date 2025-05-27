@@ -1,0 +1,4712 @@
+[
+  {
+    "id": "club",
+    "name": "Club",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "light"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "dagger",
+    "name": "Dagger",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 1,
+    "properties": [
+      {
+        "id": "finesse"
+      },
+      {
+        "id": "light"
+      },
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "throwRange": {
+      "normal": 20,
+      "long": 60
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "greatclub",
+    "name": "Greatclub",
+    "cost": {
+      "quantity": 2,
+      "unit": "sp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 10,
+    "properties": [
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "handaxe",
+    "name": "Handaxe",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "light"
+      },
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "throwRange": {
+      "normal": 20,
+      "long": 60
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "javelin",
+    "name": "Javelin",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "throwRange": {
+      "normal": 30,
+      "long": 120
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "light-hammer",
+    "name": "Light hammer",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "light"
+      },
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "throwRange": {
+      "normal": 20,
+      "long": 60
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "mace",
+    "name": "Mace",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 4,
+    "properties": [
+      {
+        "id": "monk"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "quarterstaff",
+    "name": "Quarterstaff",
+    "cost": {
+      "quantity": 2,
+      "unit": "sp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 4,
+    "properties": [
+      {
+        "id": "versatile"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "twoHandedDamage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "sickle",
+    "name": "Sickle",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "light"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "spear",
+    "name": "Spear",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 3,
+    "properties": [
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "versatile"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "throwRange": {
+      "normal": 20,
+      "long": 60
+    },
+    "twoHandedDamage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "melee"
+    ]
+  },
+  {
+    "id": "crossbow-light",
+    "name": "Crossbow, light",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 80,
+      "long": 320
+    },
+    "weight": 5,
+    "properties": [
+      {
+        "id": "ammunition"
+      },
+      {
+        "id": "loading"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "ranged"
+    ]
+  },
+  {
+    "id": "dart",
+    "name": "Dart",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 20,
+      "long": 60
+    },
+    "weight": 0.25,
+    "properties": [
+      {
+        "id": "finesse"
+      },
+      {
+        "id": "thrown"
+      }
+    ],
+    "throwRange": {
+      "normal": 20,
+      "long": 60
+    },
+    "categories": [
+      "weapon",
+      "simple",
+      "ranged"
+    ]
+  },
+  {
+    "id": "shortbow",
+    "name": "Shortbow",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 80,
+      "long": 320
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "ammunition"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "ranged"
+    ]
+  },
+  {
+    "id": "sling",
+    "name": "Sling",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 30,
+      "long": 120
+    },
+    "weight": 0,
+    "properties": [
+      {
+        "id": "ammunition"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "simple",
+      "ranged"
+    ]
+  },
+  {
+    "id": "battleaxe",
+    "name": "Battleaxe",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 4,
+    "properties": [
+      {
+        "id": "versatile"
+      }
+    ],
+    "twoHandedDamage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "flail",
+    "name": "Flail",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "glaive",
+    "name": "Glaive",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 6,
+    "properties": [
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "reach"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "greataxe",
+    "name": "Greataxe",
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d12",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 7,
+    "properties": [
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "greatsword",
+    "name": "Greatsword",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "2d6",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 6,
+    "properties": [
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "halberd",
+    "name": "Halberd",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 6,
+    "properties": [
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "reach"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "lance",
+    "name": "Lance",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d12",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 6,
+    "properties": [
+      {
+        "id": "reach"
+      },
+      {
+        "id": "special"
+      }
+    ],
+    "special": [
+      "You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted."
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "longsword",
+    "name": "Longsword",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 3,
+    "properties": [
+      {
+        "id": "versatile"
+      }
+    ],
+    "twoHandedDamage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "maul",
+    "name": "Maul",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "2d6",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 10,
+    "properties": [
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "morningstar",
+    "name": "Morningstar",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 4,
+    "properties": [],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "pike",
+    "name": "Pike",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 18,
+    "properties": [
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "reach"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "rapier",
+    "name": "Rapier",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "finesse"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "scimitar",
+    "name": "Scimitar",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 3,
+    "properties": [
+      {
+        "id": "finesse"
+      },
+      {
+        "id": "light"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "shortsword",
+    "name": "Shortsword",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "finesse"
+      },
+      {
+        "id": "light"
+      },
+      {
+        "id": "monk"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "trident",
+    "name": "Trident",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 4,
+    "properties": [
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "versatile"
+      }
+    ],
+    "throwRange": {
+      "normal": 20,
+      "long": 60
+    },
+    "twoHandedDamage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "war-pick",
+    "name": "War pick",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "warhammer",
+    "name": "Warhammer",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "versatile"
+      }
+    ],
+    "twoHandedDamage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "bludgeoning"
+      }
+    },
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "whip",
+    "name": "Whip",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d4",
+      "damageType": {
+        "id": "slashing"
+      }
+    },
+    "range": {
+      "normal": 5
+    },
+    "weight": 3,
+    "properties": [
+      {
+        "id": "finesse"
+      },
+      {
+        "id": "reach"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "melee"
+    ]
+  },
+  {
+    "id": "blowgun",
+    "name": "Blowgun",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 25,
+      "long": 100
+    },
+    "weight": 1,
+    "properties": [
+      {
+        "id": "ammunition"
+      },
+      {
+        "id": "loading"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "ranged"
+    ]
+  },
+  {
+    "id": "crossbow-hand",
+    "name": "Crossbow, hand",
+    "cost": {
+      "quantity": 75,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d6",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 30,
+      "long": 120
+    },
+    "weight": 3,
+    "properties": [
+      {
+        "id": "ammunition"
+      },
+      {
+        "id": "light"
+      },
+      {
+        "id": "loading"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "ranged"
+    ]
+  },
+  {
+    "id": "crossbow-heavy",
+    "name": "Crossbow, heavy",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d10",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 100,
+      "long": 400
+    },
+    "weight": 18,
+    "properties": [
+      {
+        "id": "ammunition"
+      },
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "loading"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "ranged"
+    ]
+  },
+  {
+    "id": "longbow",
+    "name": "Longbow",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "damage": {
+      "damageDice": "1d8",
+      "damageType": {
+        "id": "piercing"
+      }
+    },
+    "range": {
+      "normal": 150,
+      "long": 600
+    },
+    "weight": 2,
+    "properties": [
+      {
+        "id": "ammunition"
+      },
+      {
+        "id": "heavy"
+      },
+      {
+        "id": "two-handed"
+      }
+    ],
+    "categories": [
+      "weapon",
+      "martial",
+      "ranged"
+    ]
+  },
+  {
+    "id": "net",
+    "name": "Net",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "range": {
+      "normal": 5,
+      "long": 15
+    },
+    "weight": 3,
+    "properties": [
+      {
+        "id": "thrown"
+      },
+      {
+        "id": "special"
+      }
+    ],
+    "special": [
+      "A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. A creature can use its action to make a DC 10 Strength check, freeing itself or another creature within its reach on a success. Dealing 5 slashing damage to the net (AC 10) also frees the creature without harming it, ending the effect and destroying the net. When you use an action, bonus action, or reaction to attack with a net, you can make only one attack regardless of the number of attacks you can normally make."
+    ],
+    "throwRange": {
+      "normal": 5,
+      "long": 15
+    },
+    "categories": [
+      "weapon",
+      "martial",
+      "ranged"
+    ]
+  },
+  {
+    "id": "padded-armor",
+    "name": "Padded Armor",
+    "armorClass": {
+      "base": 11,
+      "dex_bonus": true
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": true,
+    "weight": 8,
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "light"
+    ]
+  },
+  {
+    "id": "leather-armor",
+    "name": "Leather Armor",
+    "armorClass": {
+      "base": 11,
+      "dex_bonus": true
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": false,
+    "weight": 10,
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "light"
+    ]
+  },
+  {
+    "id": "studded-leather-armor",
+    "name": "Studded Leather Armor",
+    "armorClass": {
+      "base": 12,
+      "dex_bonus": true
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": false,
+    "weight": 13,
+    "cost": {
+      "quantity": 45,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "light"
+    ]
+  },
+  {
+    "id": "hide-armor",
+    "name": "Hide Armor",
+    "armorClass": {
+      "base": 12,
+      "dex_bonus": true,
+      "max_bonus": 2
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": false,
+    "weight": 12,
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "medium"
+    ]
+  },
+  {
+    "id": "chain-shirt",
+    "name": "Chain Shirt",
+    "armorClass": {
+      "base": 13,
+      "dex_bonus": true,
+      "max_bonus": 2
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": false,
+    "weight": 20,
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "medium"
+    ]
+  },
+  {
+    "id": "scale-mail",
+    "name": "Scale Mail",
+    "armorClass": {
+      "base": 14,
+      "dex_bonus": true,
+      "max_bonus": 2
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": true,
+    "weight": 45,
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "medium"
+    ]
+  },
+  {
+    "id": "breastplate",
+    "name": "Breastplate",
+    "armorClass": {
+      "base": 14,
+      "dex_bonus": true,
+      "max_bonus": 2
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": false,
+    "weight": 20,
+    "cost": {
+      "quantity": 400,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "medium"
+    ]
+  },
+  {
+    "id": "half-plate-armor",
+    "name": "Half Plate Armor",
+    "armorClass": {
+      "base": 15,
+      "dex_bonus": true,
+      "max_bonus": 2
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": true,
+    "weight": 40,
+    "cost": {
+      "quantity": 750,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "medium"
+    ]
+  },
+  {
+    "id": "ring-mail",
+    "name": "Ring Mail",
+    "armorClass": {
+      "base": 14,
+      "dex_bonus": false
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": true,
+    "weight": 40,
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "heavy"
+    ]
+  },
+  {
+    "id": "chain-mail",
+    "name": "Chain Mail",
+    "armorClass": {
+      "base": 16,
+      "dex_bonus": false
+    },
+    "strMinimum": 13,
+    "stealthDisadvantage": true,
+    "weight": 55,
+    "cost": {
+      "quantity": 75,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "heavy"
+    ]
+  },
+  {
+    "id": "splint-armor",
+    "name": "Splint Armor",
+    "armorClass": {
+      "base": 17,
+      "dex_bonus": false
+    },
+    "strMinimum": 15,
+    "stealthDisadvantage": true,
+    "weight": 60,
+    "cost": {
+      "quantity": 200,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "heavy"
+    ]
+  },
+  {
+    "id": "plate-armor",
+    "name": "Plate Armor",
+    "armorClass": {
+      "base": 18,
+      "dex_bonus": false
+    },
+    "strMinimum": 15,
+    "stealthDisadvantage": true,
+    "weight": 65,
+    "cost": {
+      "quantity": 1500,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "heavy"
+    ]
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "armorClass": {
+      "base": 2,
+      "dex_bonus": false
+    },
+    "strMinimum": 0,
+    "stealthDisadvantage": false,
+    "weight": 6,
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "categories": [
+      "armor",
+      "shield"
+    ]
+  },
+  {
+    "id": "abacus",
+    "name": "Abacus",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "acid-vial",
+    "name": "Acid (vial)",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "As an action, you can splash the contents of this vial onto a creature within 5 feet of you or throw the vial up to 20 feet, shattering it on impact. In either case, make a ranged attack against a creature or object, treating the acid as an improvised weapon.",
+      "On a hit, the target takes 2d6 acid damage."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "alchemists-fire-flask",
+    "name": "Alchemist's fire (flask)",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "desc": [
+      "This sticky, adhesive fluid ignites when exposed to air.",
+      "As an action, you can throw this flask up to 20 feet, shattering it on impact. Make a ranged attack against a creature or object, treating the alchemist's fire as an improvised weapon.",
+      "On a hit, the target takes 1d4 fire damage at the start of each of its turns. A creature can end this damage by using its action to make a DC 10 Dexterity check to extinguish the flames."
+    ],
+    "weight": 1,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "alms-box",
+    "name": "Alms box",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "A small box for alms, typically found in a priest's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "arrow",
+    "name": "Arrow",
+    "quantity": 20,
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "categories": [
+      "gear",
+      "ammunition"
+    ]
+  },
+  {
+    "id": "block-of-incense",
+    "name": "Block of incense",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "A block of incense, typically found in a priest's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "blowgun-needle",
+    "name": "Blowgun needle",
+    "quantity": 50,
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "categories": [
+      "gear",
+      "ammunition"
+    ]
+  },
+  {
+    "id": "censer",
+    "name": "Censer",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "A censer, typically found in a priest's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "crossbow-bolt",
+    "name": "Crossbow bolt",
+    "quantity": 20,
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 1.5,
+    "categories": [
+      "gear",
+      "ammunition"
+    ]
+  },
+  {
+    "id": "sling-bullet",
+    "name": "Sling bullet",
+    "quantity": 20,
+    "cost": {
+      "quantity": 4,
+      "unit": "cp"
+    },
+    "weight": 1.5,
+    "categories": [
+      "gear",
+      "ammunition"
+    ]
+  },
+  {
+    "id": "amulet",
+    "name": "Amulet",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "A holy symbol is a representation of a god or pantheon. It might be an amulet depicting a symbol representing a deity, the same symbol carefully engraved or inlaid as an emblem on a shield, or a tiny box holding a fragment of a sacred relic.",
+      "Appendix B lists the symbols commonly associated with many gods in the multiverse. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield."
+    ],
+    "categories": [
+      "gear",
+      "holy-symbols"
+    ]
+  },
+  {
+    "id": "antitoxin-vial",
+    "name": "Antitoxin (vial)",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "desc": [
+      "A creature that drinks this vial of liquid gains advantage on saving throws against poison for 1 hour. It confers no benefit to undead or constructs."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "crystal",
+    "name": "Crystal",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "An arcane focus is a special item--an orb, a crystal, a rod, a specially constructed staff, a wand-like length of wood, or some similar item--designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "arcane-focus"
+    ]
+  },
+  {
+    "id": "orb",
+    "name": "Orb",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "An arcane focus is a special item--an orb, a crystal, a rod, a specially constructed staff, a wand-like length of wood, or some similar item--designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "arcane-focus"
+    ]
+  },
+  {
+    "id": "rod",
+    "name": "Rod",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "An arcane focus is a special item--an orb, a crystal, a rod, a specially constructed staff, a wand-like length of wood, or some similar item--designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "arcane-focus"
+    ]
+  },
+  {
+    "id": "staff",
+    "name": "Staff",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "desc": [
+      "An arcane focus is a special item--an orb, a crystal, a rod, a specially constructed staff, a wand-like length of wood, or some similar item--designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "arcane-focus"
+    ]
+  },
+  {
+    "id": "wand",
+    "name": "Wand",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "An arcane focus is a special item--an orb, a crystal, a rod, a specially constructed staff, a wand-like length of wood, or some similar item--designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "arcane-focus"
+    ]
+  },
+  {
+    "id": "backpack",
+    "name": "Backpack",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "ball-bearings-bag-of-1000",
+    "name": "Ball bearings (bag of 1,000)",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "As an action, you can spill these tiny metal balls from their pouch to cover a level, square area that is 10 feet on a side.",
+      "A creature moving across the covered area must succeed on a DC 10 Dexterity saving throw or fall prone.",
+      "A creature moving through the area at half speed doesn't need to make the save."
+    ],
+    "image": "/api/images/equipment/ball-bearings-bag-of-1000.png",
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "barrel",
+    "name": "Barrel",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 70,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "basket",
+    "name": "Basket",
+    "cost": {
+      "quantity": 4,
+      "unit": "sp"
+    },
+    "weight": 2,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "bedroll",
+    "name": "Bedroll",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 7,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "bell",
+    "name": "Bell",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "blanket",
+    "name": "Blanket",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 3,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "block-and-tackle",
+    "name": "Block and tackle",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "A set of pulleys with a cable threaded through them and a hook to attach to objects, a block and tackle allows you to hoist up to four times the weight you can normally lift."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "book",
+    "name": "Book",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "A book might contain poetry, historical accounts, information pertaining to a particular field of lore, diagrams and notes on gnomish contraptions, or just about anything else that can be represented using text or pictures. A book of spells is a spellbook (described later in this section)."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "bottle-glass",
+    "name": "Bottle, glass",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "bucket",
+    "name": "Bucket",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "weight": 2,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "caltrops",
+    "name": "Caltrops",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "weight": 2,
+    "desc": [
+      "As an action, you can spread a bag of caltrops to cover a square area that is 5 feet on a side.",
+      "Any creature that enters the area must succeed on a DC 15 Dexterity saving throw or stop moving this turn and take 1 piercing damage.",
+      "Taking this damage reduces the creature's walking speed by 10 feet until the creature regains at least 1 hit point.",
+      "A creature moving through the area at half speed doesn't need to make the save."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "candle",
+    "name": "Candle",
+    "cost": {
+      "quantity": 1,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "For 1 hour, a candle sheds bright light in a 5-foot radius and dim light for an additional 5 feet."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "case-crossbow-bolt",
+    "name": "Case, crossbow bolt",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "This wooden case can hold up to twenty crossbow bolts."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "case-map-or-scroll",
+    "name": "Case, map or scroll",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "This cylindrical leather case can hold up to ten rolled-up sheets of paper or five rolled-up sheets of parchment."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "chain-10-feet",
+    "name": "Chain (10 feet)",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "desc": [
+      "A chain has 10 hit points. It can be burst with a successful DC 20 Strength check."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "chalk-1-piece",
+    "name": "Chalk (1 piece)",
+    "cost": {
+      "quantity": 1,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "chest",
+    "name": "Chest",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 25,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "clothes-common",
+    "name": "Clothes, common",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 3,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "clothes-costume",
+    "name": "Clothes, costume",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "clothes-fine",
+    "name": "Clothes, fine",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "weight": 6,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "clothes-travelers",
+    "name": "Clothes, traveler's",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "component-pouch",
+    "name": "Component pouch",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "A component pouch is a small, watertight leather belt pouch that has compartments to hold all the material components and other special items you need to cast your spells, except for those components that have a specific cost (as indicated in a spell's description)."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "crowbar",
+    "name": "Crowbar",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "Using a crowbar grants advantage to Strength checks where the crowbar's leverage can be applied."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "sprig-of-mistletoe",
+    "name": "Sprig of mistletoe",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "desc": [
+      "A druidic focus might be a sprig of mistletoe or holly, a wand or scepter made of yew or another special wood, a staff drawn whole out of a living tree, or a totem object incorporating feathers, fur, bones, and teeth from sacred animals. A druid can use such an object as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "druidic-focus"
+    ]
+  },
+  {
+    "id": "totem",
+    "name": "Totem",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "desc": [
+      "A druidic focus might be a sprig of mistletoe or holly, a wand or scepter made of yew or another special wood, a staff drawn whole out of a living tree, or a totem object incorporating feathers, fur, bones, and teeth from sacred animals. A druid can use such an object as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "druidic-focus"
+    ]
+  },
+  {
+    "id": "wooden-staff",
+    "name": "Wooden staff",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "desc": [
+      "A druidic focus might be a sprig of mistletoe or holly, a wand or scepter made of yew or another special wood, a staff drawn whole out of a living tree, or a totem object incorporating feathers, fur, bones, and teeth from sacred animals. A druid can use such an object as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "druidic-focus"
+    ]
+  },
+  {
+    "id": "yew-wand",
+    "name": "Yew wand",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "A druidic focus might be a sprig of mistletoe or holly, a wand or scepter made of yew or another special wood, a staff drawn whole out of a living tree, or a totem object incorporating feathers, fur, bones, and teeth from sacred animals. A druid can use such an object as a spellcasting focus."
+    ],
+    "categories": [
+      "gear",
+      "druidic-focus"
+    ]
+  },
+  {
+    "id": "emblem",
+    "name": "Emblem",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "desc": [
+      "A holy symbol is a representation of a god or pantheon. It might be an amulet depicting a symbol representing a deity, the same symbol carefully engraved or inlaid as an emblem on a shield, or a tiny box holding a fragment of a sacred relic.",
+      "Appendix B lists the symbols commonly associated with many gods in the multiverse. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield."
+    ],
+    "categories": [
+      "gear",
+      "holy-symbols"
+    ]
+  },
+  {
+    "id": "fishing-tackle",
+    "name": "Fishing tackle",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "desc": [
+      "This kit includes a wooden rod, silken line, corkwood bobbers, steel hooks, lead sinkers, velvet lures, and narrow netting."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "flask-or-tankard",
+    "name": "Flask or tankard",
+    "cost": {
+      "quantity": 2,
+      "unit": "cp"
+    },
+    "weight": 1,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "grappling-hook",
+    "name": "Grappling hook",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "hammer",
+    "name": "Hammer",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "hammer-sledge",
+    "name": "Hammer, sledge",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "holy-water-flask",
+    "name": "Holy water (flask)",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "As an action, you can splash the contents of this flask onto a creature within 5 feet of you or throw it up to 20 feet, shattering it on impact. In either case, make a ranged attack against a target creature, treating the holy water as an improvised weapon.",
+      "If the target is a fiend or undead, it takes 2d6 radiant damage.",
+      "A cleric or paladin may create holy water by performing a special ritual.",
+      "The ritual takes 1 hour to perform, uses 25 gp worth of powdered silver, and requires the caster to expend a 1st-level spell slot."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "hourglass",
+    "name": "Hourglass",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "hunting-trap",
+    "name": "Hunting trap",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "desc": [
+      "When you use your action to set it, this trap forms a saw-toothed steel ring that snaps shut when a creature steps on a pressure plate in the center. The trap is affixed by a heavy chain to an immobile object, such as a tree or a spike driven into the ground.",
+      "A creature that steps on the plate must succeed on a DC 13 Dexterity saving throw or take 1d4 piercing damage and stop moving. Thereafter, until the creature breaks free of the trap, its movement is limited by the length of the chain (typically 3 feet long).",
+      "A creature can use its action to make a DC 13 Strength check, freeing itself or another creature within its reach on a success. Each failed check deals 1 piercing damage to the trapped creature."
+    ],
+    "weight": 25,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "ink-1-ounce-bottle",
+    "name": "Ink (1 ounce bottle)",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "ink-pen",
+    "name": "Ink pen",
+    "cost": {
+      "quantity": 2,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "jug-or-pitcher",
+    "name": "Jug or pitcher",
+    "cost": {
+      "quantity": 2,
+      "unit": "cp"
+    },
+    "weight": 4,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "climbers-kit",
+    "name": "Climber's Kit",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 12,
+    "desc": [
+      "A climber's kit includes special pitons, boot tips, gloves, and a harness. You can use the climber's kit as an action to anchor yourself; when you do, you can't fall more than 25 feet from the point where you anchored yourself, and you can't climb more than 25 feet away from that point without undoing the anchor."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "disguise-kit",
+    "name": "Disguise Kit",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "This pouch of cosmetics, hair dye, and small props lets you create disguises that change your physical appearance. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to create a visual disguise."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "forgery-kit",
+    "name": "Forgery Kit",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "This small box contains a variety of papers and parchments, pens and inks, seals and sealing wax, gold and silver leaf, and other supplies necessary to create convincing forgeries of physical documents. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to create a physical forgery of a document."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "herbalism-kit",
+    "name": "Herbalism Kit",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "This kit contains a variety of instruments such as clippers, mortar and pestle, and pouches and vials used by herbalists to create remedies and potions. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to identify or apply herbs. Also, proficiency with this kit is required to create antitoxin and potions of healing."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "healers-kit",
+    "name": "Healer's Kit",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "This kit is a leather pouch containing bandages, salves, and splints. The kit has ten uses. As an action, you can expend one use of the kit to stabilize a creature that has 0 hit points, without needing to make a Wisdom (Medicine) check."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "mess-kit",
+    "name": "Mess Kit",
+    "cost": {
+      "quantity": 2,
+      "unit": "sp"
+    },
+    "weight": 1,
+    "desc": [
+      "This tin box contains a cup and simple cutlery. The box clamps together, and one side can be used as a cooking pan and the other as a plate or shallow bowl."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "poisoners-kit",
+    "name": "Poisoner's Kit",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "A poisoner's kit includes the vials, chemicals, and other equipment necessary for the creation of poisons. Proficiency with this kit lets you add your proficiency bonus to any ability checks you make to craft or use poisons."
+    ],
+    "categories": [
+      "gear",
+      "kit"
+    ]
+  },
+  {
+    "id": "ladder-10-foot",
+    "name": "Ladder (10-foot)",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "weight": 25,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "lamp",
+    "name": "Lamp",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 1,
+    "desc": [
+      "A lamp casts bright light in a 15-foot radius and dim light for an additional 30 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "lantern-bullseye",
+    "name": "Lantern, bullseye",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "A bullseye lantern casts bright light in a 60-foot cone and dim light for an additional 60 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "lantern-hooded",
+    "name": "Lantern, hooded",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "A hooded lantern casts bright light in a 30-foot radius and dim light for an additional 30 feet. Once lit, it burns for 6 hours on a flask (1 pint) of oil. As an action, you can lower the hood, reducing the light to dim light in a 5-foot radius."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "little-bag-of-sand",
+    "name": "Little bag of sand",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "A small bag of sand, typically found in a scholar's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "lock",
+    "name": "Lock",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "A key is provided with the lock. Without the key, a creature proficient with thieves' tools can pick this lock with a successful DC 15 Dexterity check. Your GM may decide that better locks are available for higher prices."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "magnifying-glass",
+    "name": "Magnifying glass",
+    "cost": {
+      "quantity": 100,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "desc": [
+      "This lens allows a closer look at small objects. It is also useful as a substitute for flint and steel when starting fires. Lighting a fire with a magnifying glass requires light as bright as sunlight to focus, tinder to ignite, and about 5 minutes for the fire to ignite.",
+      "A magnifying glass grants advantage on any ability check made to appraise or inspect an item that is small or highly detailed."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "manacles",
+    "name": "Manacles",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 6,
+    "desc": [
+      "These metal restraints can bind a Small or Medium creature. Escaping the manacles requires a successful DC 20 Dexterity check. Breaking them requires a successful DC 20 Strength check.",
+      "Each set of manacles comes with one key. Without the key, a creature proficient with thieves' tools can pick the manacles' lock with a successful DC 15 Dexterity check. Manacles have 15 hit points."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "mirror-steel",
+    "name": "Mirror, steel",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 0.5,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "oil-flask",
+    "name": "Oil (flask)",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "weight": 1,
+    "desc": [
+      "Oil usually comes in a clay flask that holds 1 pint.",
+      "As an action, you can splash the oil in this flask onto a creature within 5 feet of you or throw it up to 20 feet, shattering it on impact. Make a ranged attack against a target creature or object, treating the oil as an improvised weapon.",
+      "On a hit, the target is covered in oil. If the target takes any fire damage before the oil dries (after 1 minute), the target takes an additional 5 fire damage from the burning oil.",
+      "You can also pour a flask of oil on the ground to cover a 5-foot-square area, provided that the surface is level.",
+      "If lit, the oil burns for 2 rounds and deals 5 fire damage to any creature that enters the area or ends its turn in the area. A creature can take this damage only once per turn."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "paper-one-sheet",
+    "name": "Paper (one sheet)",
+    "cost": {
+      "quantity": 2,
+      "unit": "sp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "parchment-one-sheet",
+    "name": "Parchment (one sheet)",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "perfume-vial",
+    "name": "Perfume (vial)",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "pick-miners",
+    "name": "Pick, miner's",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "piton",
+    "name": "Piton",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "weight": 0.25,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "poison-basic-vial",
+    "name": "Poison, basic (vial)",
+    "cost": {
+      "quantity": 100,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "desc": [
+      "You can use the poison in this vial to coat one slashing or piercing weapon or up to three pieces of ammunition. Applying the poison takes an action. A creature hit by the poisoned weapon or ammunition must make a DC 10 Constitution saving throw or take 1d4 poison damage. Once applied, the poison retains potency for 1 minute before drying."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "pole-10-foot",
+    "name": "Pole (10-foot)",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "weight": 7,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "pot-iron",
+    "name": "Pot, iron",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "pouch",
+    "name": "Pouch",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 1,
+    "desc": [
+      "A cloth or leather pouch can hold up to 20 sling bullets or 50 blowgun needles, among other things. A compartmentalized pouch for holding spell components is called a component pouch (described earlier in this section)."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "quiver",
+    "name": "Quiver",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "A quiver can hold up to 20 arrows."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "ram-portable",
+    "name": "Ram, portable",
+    "cost": {
+      "quantity": 4,
+      "unit": "gp"
+    },
+    "weight": 35,
+    "desc": [
+      "You can use a portable ram to break down doors. When doing so, you gain a +4 bonus on the Strength check. One other character can help you use the ram, giving you advantage on this check."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "rations-1-day",
+    "name": "Rations (1 day)",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 2,
+    "desc": [
+      "Rations consist of dry foods suitable for extended travel, including jerky, dried fruit, hardtack, and nuts."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "reliquary",
+    "name": "Reliquary",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "A holy symbol is a representation of a god or pantheon. It might be an amulet depicting a symbol representing a deity, the same symbol carefully engraved or inlaid as an emblem on a shield, or a tiny box holding a fragment of a sacred relic.",
+      "Appendix B lists the symbols commonly associated with many gods in the multiverse. A cleric or paladin can use a holy symbol as a spellcasting focus. To use the symbol in this way, the caster must hold it in hand, wear it visibly, or bear it on a shield."
+    ],
+    "categories": [
+      "gear",
+      "holy-symbol"
+    ]
+  },
+  {
+    "id": "robes",
+    "name": "Robes",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 4,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "rope-hempen-50-feet",
+    "name": "Rope, hempen (50 feet)",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "desc": [
+      "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "rope-silk-50-feet",
+    "name": "Rope, silk (50 feet)",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "Rope, whether made of hemp or silk, has 2 hit points and can be burst with a DC 17 Strength check."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "sack",
+    "name": "Sack",
+    "cost": {
+      "quantity": 1,
+      "unit": "cp"
+    },
+    "weight": 0.5,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "scale-merchants",
+    "name": "Scale, merchant's",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "A scale includes a small balance, pans, and a suitable assortment of weights up to 2 pounds. With it, you can measure the exact weight of small objects, such as raw precious metals or trade goods, to help determine their worth."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "sealing-wax",
+    "name": "Sealing wax",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "shovel",
+    "name": "Shovel",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "signal-whistle",
+    "name": "Signal whistle",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "signet-ring",
+    "name": "Signet ring",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "small-knife",
+    "name": "Small knife",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "A small knife, typically found in a scholar's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "soap",
+    "name": "Soap",
+    "cost": {
+      "quantity": 2,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "spellbook",
+    "name": "Spellbook",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "Essential for wizards, a spellbook is a leather-bound tome with 100 blank vellum pages suitable for recording spells."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "spike-iron",
+    "name": "Spike, iron",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "weight": 5,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "spyglass",
+    "name": "Spyglass",
+    "cost": {
+      "quantity": 1000,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "Objects viewed through a spyglass are magnified to twice their size."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "string-10-feet",
+    "name": "String (10 feet)",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "A 10-foot length of string, typically found in a burglar's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "tent-two-person",
+    "name": "Tent, two-person",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 20,
+    "desc": [
+      "A simple and portable canvas shelter, a tent sleeps two."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "tinderbox",
+    "name": "Tinderbox",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 1,
+    "desc": [
+      "This small container holds flint, fire steel, and tinder (usually dry cloth soaked in light oil) used to kindle a fire. Using it to light a torch--or anything else with abundant, exposed fuel--takes an action.",
+      "Lighting any other fire takes 1 minute."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "torch",
+    "name": "Torch",
+    "cost": {
+      "quantity": 1,
+      "unit": "cp"
+    },
+    "weight": 1,
+    "desc": [
+      "A torch burns for 1 hour, providing bright light in a 20-foot radius and dim light for an additional 20 feet. If you make a melee attack with a burning torch and hit, it deals 1 fire damage."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "vestments",
+    "name": "Vestments",
+    "cost": {
+      "quantity": 0,
+      "unit": "cp"
+    },
+    "weight": 0,
+    "desc": [
+      "Religious clothing, typically found in a priest's pack."
+    ],
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "vial",
+    "name": "Vial",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 0,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "waterskin",
+    "name": "Waterskin",
+    "cost": {
+      "quantity": 2,
+      "unit": "sp"
+    },
+    "weight": 5,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "whetstone",
+    "name": "Whetstone",
+    "cost": {
+      "quantity": 1,
+      "unit": "cp"
+    },
+    "weight": 1,
+    "categories": [
+      "gear",
+      "standard"
+    ]
+  },
+  {
+    "id": "burglars-pack",
+    "name": "Burglar's Pack",
+    "cost": {
+      "quantity": 16,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "ball-bearings-bag-of-1000"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "string-10-feet"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "bell"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "candle"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "id": "crowbar"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "hammer"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "piton"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "lantern-hooded"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "oil-flask"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "id": "rations-1-day"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "id": "tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "waterskin"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "rope-hempen-50-feet"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "diplomats-pack",
+    "name": "Diplomat's Pack",
+    "cost": {
+      "quantity": 39,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "chest"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "case-map-or-scroll"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "id": "clothes-fine"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "ink-1-ounce-bottle"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "ink-pen"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "lamp"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "oil-flask"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "id": "paper-one-sheet"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "id": "perfume-vial"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "sealing-wax"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "soap"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "dungeoneers-pack",
+    "name": "Dungeoneer's Pack",
+    "cost": {
+      "quantity": 12,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "crowbar"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "hammer"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "piton"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "torch"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "rations-1-day"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "waterskin"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "rope-hempen-50-feet"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "entertainers-pack",
+    "name": "Entertainer's Pack",
+    "cost": {
+      "quantity": 40,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "bedroll"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "clothes-costume"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "id": "candle"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "id": "rations-1-day"
+        },
+        "quantity": 5
+      },
+      {
+        "item": {
+          "id": "waterskin"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "disguise-kit"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "explorers-pack",
+    "name": "Explorer's Pack",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "bedroll"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "mess-kit"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "torch"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "rations-1-day"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "waterskin"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "rope-hempen-50-feet"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "priests-pack",
+    "name": "Priest's Pack",
+    "cost": {
+      "quantity": 19,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "blanket"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "candle"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "tinderbox"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "rations-1-day"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "id": "waterskin"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "alms-box"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "block-of-incense"
+        },
+        "quantity": 2
+      },
+      {
+        "item": {
+          "id": "censer"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "vestments"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "scholars-pack",
+    "name": "Scholar's Pack",
+    "cost": {
+      "quantity": 40,
+      "unit": "gp"
+    },
+    "contents": [
+      {
+        "item": {
+          "id": "backpack"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "book"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "ink-1-ounce-bottle"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "ink-pen"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "parchment-one-sheet"
+        },
+        "quantity": 10
+      },
+      {
+        "item": {
+          "id": "little-bag-of-sand"
+        },
+        "quantity": 1
+      },
+      {
+        "item": {
+          "id": "small-knife"
+        },
+        "quantity": 1
+      }
+    ],
+    "categories": [
+      "gear",
+      "equipment-pack"
+    ]
+  },
+  {
+    "id": "alchemists-supplies",
+    "name": "Alchemist's Supplies",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "weight": 8,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "brewers-supplies",
+    "name": "Brewer's Supplies",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "weight": 9,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "calligraphers-supplies",
+    "name": "Calligrapher's Supplies",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "carpenters-tools",
+    "name": "Carpenter's Tools",
+    "cost": {
+      "quantity": 8,
+      "unit": "gp"
+    },
+    "weight": 6,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "cartographers-tools",
+    "name": "Cartographer's Tools",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "weight": 6,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "cobblers-tools",
+    "name": "Cobbler's Tools",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "cooks-utensils",
+    "name": "Cook's utensils",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 8,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "glassblowers-tools",
+    "name": "Glassblower's Tools",
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "jewelers-tools",
+    "name": "Jeweler's Tools",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "leatherworkers-tools",
+    "name": "Leatherworker's Tools",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "masons-tools",
+    "name": "Mason's Tools",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 8,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "painters-supplies",
+    "name": "Painter's Supplies",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "potters-tools",
+    "name": "Potter's Tools",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "smiths-tools",
+    "name": "Smith's Tools",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "weight": 8,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "tinkers-tools",
+    "name": "Tinker's Tools",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "weavers-tools",
+    "name": "Weaver's Tools",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "woodcarvers-tools",
+    "name": "Woodcarver's Tools",
+    "cost": {
+      "quantity": 1,
+      "unit": "gp"
+    },
+    "weight": 5,
+    "desc": [
+      "These special tools include the items needed to pursue a craft or trade. The table shows examples of the most common types of tools, each providing items related to a single craft. Proficiency with a set of artisan's tools lets you add your proficiency bonus to any ability checks you make using the tools in your craft. Each type of artisan's tools requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "artisans-tool"
+    ]
+  },
+  {
+    "id": "dice-set",
+    "name": "Dice Set",
+    "cost": {
+      "quantity": 1,
+      "unit": "sp"
+    },
+    "weight": 0,
+    "desc": [
+      "This item encompasses a wide range of game pieces, including dice and decks of cards (for games such as Three-Dragon Ante). A few common examples appear on the Tools table, but other kinds of gaming sets exist. If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play a game with that set. Each type of gaming set requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "gaming-sets"
+    ]
+  },
+  {
+    "id": "playing-card-set",
+    "name": "Playing Card Set",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 0,
+    "desc": [
+      "This item encompasses a wide range of game pieces, including dice and decks of cards (for games such as Three-Dragon Ante). A few common examples appear on the Tools table, but other kinds of gaming sets exist. If you are proficient with a gaming set, you can add your proficiency bonus to ability checks you make to play a game with that set. Each type of gaming set requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "gaming-sets"
+    ]
+  },
+  {
+    "id": "bagpipes",
+    "name": "Bagpipes",
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "weight": 6,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "drum",
+    "name": "Drum",
+    "cost": {
+      "quantity": 6,
+      "unit": "gp"
+    },
+    "weight": 3,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "dulcimer",
+    "name": "Dulcimer",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 10,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "flute",
+    "name": "Flute",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "lute",
+    "name": "Lute",
+    "cost": {
+      "quantity": 35,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "lyre",
+    "name": "Lyre",
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "horn",
+    "name": "Horn",
+    "cost": {
+      "quantity": 3,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "pan-flute",
+    "name": "Pan flute",
+    "cost": {
+      "quantity": 12,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "shawm",
+    "name": "Shawm",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "viol",
+    "name": "Viol",
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "Several of the most common types of musical instruments are shown on the table as examples. If you have proficiency with a given musical instrument, you can add your proficiency bonus to any ability checks you make to play music with the instrument. A bard can use a musical instrument as a spellcasting focus. Each type of musical instrument requires a separate proficiency."
+    ],
+    "categories": [
+      "tool",
+      "musical-instrument"
+    ]
+  },
+  {
+    "id": "navigators-tools",
+    "name": "Navigator's Tools",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 2,
+    "desc": [
+      "This set of instruments is used for navigation at sea. Proficiency with navigator's tools lets you chart a ship's course and follow navigation charts. In addition, these tools allow you to add your proficiency bonus to any ability check you make to avoid getting lost at sea."
+    ],
+    "categories": [
+      "tool",
+      "other"
+    ]
+  },
+  {
+    "id": "thieves-tools",
+    "name": "Thieves' Tools",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "desc": [
+      "This set of tools includes a small file, a set of lock picks, a small mirror mounted on a metal handle, a set of narrow-bladed scissors, and a pair of pliers. Proficiency with these tools lets you add your proficiency bonus to any ability checks you make to disarm traps or open locks."
+    ],
+    "categories": [
+      "tool",
+      "other"
+    ]
+  },
+  {
+    "id": "camel",
+    "name": "Camel",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 50,
+      "unit": "ft/round"
+    },
+    "capacity": "480 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "donkey",
+    "name": "Donkey",
+    "cost": {
+      "quantity": 8,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 40,
+      "unit": "ft/round"
+    },
+    "capacity": "420 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "mule",
+    "name": "Mule",
+    "cost": {
+      "quantity": 8,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 40,
+      "unit": "ft/round"
+    },
+    "capacity": "420 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "elephant",
+    "name": "Elephant",
+    "cost": {
+      "quantity": 200,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 40,
+      "unit": "ft/round"
+    },
+    "capacity": "1,320 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "horse-draft",
+    "name": "Horse, draft",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 40,
+      "unit": "ft/round"
+    },
+    "capacity": "540 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "horse-riding",
+    "name": "Horse, riding",
+    "cost": {
+      "quantity": 75,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 60,
+      "unit": "ft/round"
+    },
+    "capacity": "480 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "mastiff",
+    "name": "Mastiff",
+    "cost": {
+      "quantity": 25,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 40,
+      "unit": "ft/round"
+    },
+    "capacity": "195 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "pony",
+    "name": "Pony",
+    "cost": {
+      "quantity": 30,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 40,
+      "unit": "ft/round"
+    },
+    "capacity": "225 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "warhorse",
+    "name": "Warhorse",
+    "cost": {
+      "quantity": 400,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 60,
+      "unit": "ft/round"
+    },
+    "capacity": "540 lb.",
+    "categories": [
+      "mounts-and-other-animals"
+    ]
+  },
+  {
+    "id": "barding-padded",
+    "name": "Barding: Padded",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "weight": 16,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-leather",
+    "name": "Barding: Leather",
+    "cost": {
+      "quantity": 40,
+      "unit": "gp"
+    },
+    "weight": 20,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-studded-leather",
+    "name": "Barding: Studded Leather",
+    "cost": {
+      "quantity": 180,
+      "unit": "gp"
+    },
+    "weight": 26,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-hide",
+    "name": "Barding: Hide",
+    "cost": {
+      "quantity": 40,
+      "unit": "gp"
+    },
+    "weight": 24,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-chain-shirt",
+    "name": "Barding: Chain shirt",
+    "cost": {
+      "quantity": 200,
+      "unit": "gp"
+    },
+    "weight": 40,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-scale-mail",
+    "name": "Barding: Scale mail",
+    "cost": {
+      "quantity": 200,
+      "unit": "gp"
+    },
+    "weight": 90,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-breastplate",
+    "name": "Barding: Breastplate",
+    "cost": {
+      "quantity": 1600,
+      "unit": "gp"
+    },
+    "weight": 40,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-half-plate",
+    "name": "Barding: Half plate",
+    "cost": {
+      "quantity": 3000,
+      "unit": "gp"
+    },
+    "weight": 80,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-ring-mail",
+    "name": "Barding: Ring mail",
+    "cost": {
+      "quantity": 12,
+      "unit": "gp"
+    },
+    "weight": 80,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-chain-mail",
+    "name": "Barding: Chain mail",
+    "cost": {
+      "quantity": 300,
+      "unit": "gp"
+    },
+    "weight": 110,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-splint",
+    "name": "Barding: Splint",
+    "cost": {
+      "quantity": 800,
+      "unit": "gp"
+    },
+    "weight": 120,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "barding-plate",
+    "name": "Barding: Plate",
+    "cost": {
+      "quantity": 6000,
+      "unit": "gp"
+    },
+    "weight": 130,
+    "desc": [
+      "Barding is armor designed to protect an animal's head, neck, chest, and body. Any type of armor shown on the Armor table can be purchased as barding. The cost is four times the equivalent armor made for humanoids, and it weighs twice as much."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "bit-and-bridle",
+    "name": "Bit and bridle",
+    "cost": {
+      "quantity": 2,
+      "unit": "gp"
+    },
+    "weight": 1,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "carriage",
+    "name": "Carriage",
+    "cost": {
+      "quantity": 100,
+      "unit": "gp"
+    },
+    "weight": 600,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "cart",
+    "name": "Cart",
+    "cost": {
+      "quantity": 15,
+      "unit": "gp"
+    },
+    "weight": 200,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "chariot",
+    "name": "Chariot",
+    "cost": {
+      "quantity": 250,
+      "unit": "gp"
+    },
+    "weight": 100,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "animal-feed-1-day",
+    "name": "Animal Feed (1 day)",
+    "cost": {
+      "quantity": 5,
+      "unit": "cp"
+    },
+    "weight": 10,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "saddle-exotic",
+    "name": "Saddle, Exotic",
+    "cost": {
+      "quantity": 60,
+      "unit": "gp"
+    },
+    "weight": 50,
+    "desc": [
+      "An exotic saddle is required for riding any aquatic or flying mount."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "saddle-military",
+    "name": "Saddle, Military",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "weight": 30,
+    "desc": [
+      "A military saddle braces the rider, helping you keep your seat on an active mount in battle. It gives you advantage on any check you make to remain mounted."
+    ],
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "saddle-pack",
+    "name": "Saddle, Pack",
+    "cost": {
+      "quantity": 5,
+      "unit": "gp"
+    },
+    "weight": 15,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "saddle-riding",
+    "name": "Saddle, Riding",
+    "cost": {
+      "quantity": 10,
+      "unit": "gp"
+    },
+    "weight": 25,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "saddlebags",
+    "name": "Saddlebags",
+    "cost": {
+      "quantity": 4,
+      "unit": "gp"
+    },
+    "weight": 8,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "sled",
+    "name": "Sled",
+    "cost": {
+      "quantity": 20,
+      "unit": "gp"
+    },
+    "weight": 300,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "stabling-1-day",
+    "name": "Stabling (1 day)",
+    "cost": {
+      "quantity": 5,
+      "unit": "sp"
+    },
+    "weight": 0,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "wagon",
+    "name": "Wagon",
+    "cost": {
+      "quantity": 35,
+      "unit": "gp"
+    },
+    "weight": 400,
+    "categories": [
+      "vehicle",
+      "tack-harness-and-drawn-vehicle"
+    ]
+  },
+  {
+    "id": "galley",
+    "name": "Galley",
+    "cost": {
+      "quantity": 30000,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 4,
+      "unit": "mph"
+    },
+    "categories": [
+      "vehicle",
+      "waterborne-vehicle"
+    ]
+  },
+  {
+    "id": "keelboat",
+    "name": "Keelboat",
+    "cost": {
+      "quantity": 3000,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 1,
+      "unit": "mph"
+    },
+    "desc": [
+      "Keelboats and rowboats are used on lakes and rivers. If going downstream, add the speed of the current (typically 3 miles per hour) to the speed of the vehicle. These vehicles can't be rowed against any significant current, but they can be pulled upstream by draft animals on the shores. A rowboat weighs 100 pounds, in case adventurers carry it over land."
+    ],
+    "categories": [
+      "vehicle",
+      "waterborne-vehicle"
+    ]
+  },
+  {
+    "id": "longship",
+    "name": "Longship",
+    "cost": {
+      "quantity": 10000,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 3,
+      "unit": "mph"
+    },
+    "categories": [
+      "vehicle",
+      "waterborne-vehicle"
+    ]
+  },
+  {
+    "id": "rowboat",
+    "name": "Rowboat",
+    "cost": {
+      "quantity": 50,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 1.5,
+      "unit": "mph"
+    },
+    "desc": [
+      "Keelboats and rowboats are used on lakes and rivers. If going downstream, add the speed of the current (typically 3 miles per hour) to the speed of the vehicle. These vehicles can't be rowed against any significant current, but they can be pulled upstream by draft animals on the shores. A rowboat weighs 100 pounds, in case adventurers carry it over land."
+    ],
+    "categories": [
+      "vehicle",
+      "waterborne-vehicle"
+    ]
+  },
+  {
+    "id": "sailing-ship",
+    "name": "Sailing ship",
+    "cost": {
+      "quantity": 10000,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 2,
+      "unit": "mph"
+    },
+    "categories": [
+      "vehicle",
+      "waterborne-vehicle"
+    ]
+  },
+  {
+    "id": "warship",
+    "name": "Warship",
+    "cost": {
+      "quantity": 25000,
+      "unit": "gp"
+    },
+    "speed": {
+      "quantity": 2.5,
+      "unit": "mph"
+    },
+    "categories": [
+      "vehicle",
+      "waterborne-vehicle"
+    ]
+  }
+]

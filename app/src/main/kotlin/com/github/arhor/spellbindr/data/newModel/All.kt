@@ -153,9 +153,7 @@ enum class SuccessType {
 
 @Serializable
 data class Damage(
-    @SerialName("damage_dice")
     val damageDice: String,
-    @SerialName("damage_type")
     val damageType: EntityRef
 )
 
@@ -391,51 +389,76 @@ data class Equipment(
     val id: String,
     val name: String,
     val desc: List<String>,
-    @SerialName("armor_category")
-    val armorCategory: String? = null,
-    @SerialName("armor_class")
     val armorClass: EquipmentArmorClass? = null,
     val capacity: String? = null,
-    @SerialName("category_range")
-    val categoryRange: String? = null,
     val contents: List<Content>? = null,
     val cost: Cost,
     val damage: Damage? = null,
-    @SerialName("equipment_category")
-    val equipmentCategory: EntityRef,
-    @SerialName("gear_category")
-    val gearCategory: EntityRef? = null,
-    val image: String? = null,
     val properties: List<EntityRef>? = null,
     val quantity: Int? = null,
     val range: Range? = null,
     val special: List<String>? = null,
     val speed: EquipmentSpeed? = null,
-    @SerialName("stealth_disadvantage")
     val stealthDisadvantage: Boolean? = null,
-    @SerialName("str_minimum")
     val strMinimum: Int? = null,
-    @SerialName("throw_range")
     val throwRange: Range? = null,
-    @SerialName("tool_category")
-    val toolCategory: String? = null,
-    @SerialName("two_handed_damage")
     val twoHandedDamage: TwoHandedDamage? = null,
-    @SerialName("vehicle_category")
-    val vehicleCategory: String? = null,
-    @SerialName("weapon_category")
-    val weaponCategory: String? = null,
-    @SerialName("weapon_range")
-    val weaponRange: String? = null,
-    val weight: Double? = null
+    val weight: Double? = null,
+    val categories: List<EquipmentCategory>,
 )
 
-@Serializable
-data class EquipmentCategory(
-    val id: String,
-    val name: String,
-    val equipment: List<EntityRef>
-)
+enum class EquipmentCategory {
+    @SerialName("weapon")
+    WEAPON,
+
+    @SerialName("armor")
+    ARMOR,
+
+    @SerialName("tool")
+    TOOL,
+
+    @SerialName("gear")
+    GEAR,
+
+    @SerialName("holy-symbol")
+    HOLY_SYMBOL,
+
+    @SerialName("standard")
+    STANDARD,
+
+    @SerialName("musical-instrument")
+    MUSICAL_INSTRUMENT,
+
+    @SerialName("gaming-set")
+    GAMING_SET,
+
+    @SerialName("other")
+    OTHER,
+
+    @SerialName("arcane-focus")
+    ARCANE_FOCUS,
+
+    @SerialName("druidic-focus")
+    DRUIDIC_FOCUS,
+
+    @SerialName("kit")
+    KIT,
+
+    @SerialName("simple")
+    SIMPLE,
+
+    @SerialName("martial")
+    MARTIAL,
+
+    @SerialName("ranged")
+    RANGED,
+
+    @SerialName("melee")
+    MELEE,
+
+    @SerialName("shield")
+    SHIELD,
+}
 
 @Serializable
 data class FeatPrerequisite(
