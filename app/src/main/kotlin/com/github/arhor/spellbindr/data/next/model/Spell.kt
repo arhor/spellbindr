@@ -48,5 +48,6 @@ data class Spell(
     val higherLevel: List<String>? = null,
     val material: String? = null,
     val subclasses: List<EntityRef>? = null,
+    val source: String,
 )
 

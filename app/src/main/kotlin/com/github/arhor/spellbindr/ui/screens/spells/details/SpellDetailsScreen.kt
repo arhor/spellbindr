@@ -187,15 +187,17 @@ fun SpellDetailScreen(
 }
 
 @Composable
-private fun DescriptionRow(text: String) {
-    Text(
-        text = text,
-        color = DescriptionText,
-        fontSize = 16.sp,
-        lineHeight = 22.sp,
-        fontFamily = FontFamily.Serif,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
-    )
+private fun DescriptionRow(text: Iterable<String>) {
+    for (paragraph in text) {
+        Text(
+            text = paragraph,
+            color = DescriptionText,
+            fontSize = 16.sp,
+            lineHeight = 22.sp,
+            fontFamily = FontFamily.Serif,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
+        )
+    }
 }
 
 @Composable
