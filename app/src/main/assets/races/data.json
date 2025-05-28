@@ -5,7 +5,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Constitution score increases by 2.",
           "effect": {
@@ -113,7 +113,7 @@
           "source": "PHB",
           "traits": [
             {
-              "type": "ability_score",
+              "type": "abilityScore",
               "name": "Ability Score Increase",
               "desc": "Your Wisdom score increases by 1.",
               "effect": {
@@ -138,7 +138,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Dexterity score increases by 2.",
           "effect": {
@@ -226,7 +226,7 @@
           "source": "PHB",
           "traits": [
             {
-              "type": "ability_score",
+              "type": "abilityScore",
               "name": "Ability Score Increase",
               "desc": "Your Intelligence score increases by 1.",
               "effect": {
@@ -293,7 +293,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Dexterity score increases by 2.",
           "effect": {
@@ -367,7 +367,7 @@
           "source": "PHB",
           "traits": [
             {
-              "type": "ability_score",
+              "type": "abilityScore",
               "name": "Ability Score Increase",
               "desc": "Your Charisma score increases by 1.",
               "effect": {
@@ -392,7 +392,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your ability scores each increase by 1.",
           "effect": {
@@ -453,7 +453,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Strength score increases by 2, and your Charisma score increases by 1.",
           "effect": {
@@ -587,7 +587,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Intelligence score increases by 2.",
           "effect": {
@@ -656,7 +656,7 @@
           "source": "PHB",
           "traits": [
             {
-              "type": "ability_score",
+              "type": "abilityScore",
               "name": "Ability Score Increase",
               "desc": "Your Constitution score increases by 1.",
               "effect": {
@@ -686,7 +686,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Charisma score increases by 2, and two other ability scores of your choice increase by 1.",
           "effect": {
@@ -776,7 +776,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Strength score increases by 2, and your Constitution score increases by 1.",
           "effect": {
@@ -867,7 +867,7 @@
       "source": "PHB",
       "traits": [
         {
-          "type": "ability_score",
+          "type": "abilityScore",
           "name": "Ability Score Increase",
           "desc": "Your Intelligence score increases by 1, and your Charisma score increases by 2.",
           "effect": {

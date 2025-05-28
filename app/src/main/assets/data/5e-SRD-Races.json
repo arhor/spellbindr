@@ -5,7 +5,7 @@
     "speed": 25,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "con",
           "name": "CON",
           "url": "/api/2014/ability-scores/con"
@@ -44,7 +44,7 @@
       "choose": 1,
       "type": "proficiencies",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -128,7 +128,7 @@
     "speed": 30,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "dex",
           "name": "DEX",
           "url": "/api/2014/ability-scores/dex"
@@ -197,7 +197,7 @@
     "speed": 25,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "dex",
           "name": "DEX",
           "url": "/api/2014/ability-scores/dex"
@@ -255,7 +255,7 @@
     "speed": 30,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "str",
           "name": "STR",
           "url": "/api/2014/ability-scores/str"
@@ -263,7 +263,7 @@
         "bonus": 1
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "dex",
           "name": "DEX",
           "url": "/api/2014/ability-scores/dex"
@@ -271,7 +271,7 @@
         "bonus": 1
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "con",
           "name": "CON",
           "url": "/api/2014/ability-scores/con"
@@ -279,7 +279,7 @@
         "bonus": 1
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "int",
           "name": "INT",
           "url": "/api/2014/ability-scores/int"
@@ -287,7 +287,7 @@
         "bonus": 1
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "wis",
           "name": "WIS",
           "url": "/api/2014/ability-scores/wis"
@@ -295,7 +295,7 @@
         "bonus": 1
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "cha",
           "name": "CHA",
           "url": "/api/2014/ability-scores/cha"
@@ -319,7 +319,7 @@
       "choose": 1,
       "type": "languages",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -455,7 +455,7 @@
     "speed": 30,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "str",
           "name": "STR",
           "url": "/api/2014/ability-scores/str"
@@ -463,7 +463,7 @@
         "bonus": 2
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "cha",
           "name": "CHA",
           "url": "/api/2014/ability-scores/cha"
@@ -515,7 +515,7 @@
     "speed": 25,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "int",
           "name": "INT",
           "url": "/api/2014/ability-scores/int"
@@ -568,7 +568,7 @@
     "speed": 30,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "cha",
           "name": "CHA",
           "url": "/api/2014/ability-scores/cha"
@@ -580,11 +580,11 @@
       "choose": 2,
       "type": "abilityBonuses",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "ability_bonus",
-            "ability_score": {
+            "abilityScore": {
               "index": "str",
               "name": "STR",
               "url": "/api/2014/ability-scores/str"
@@ -593,7 +593,7 @@
           },
           {
             "option_type": "ability_bonus",
-            "ability_score": {
+            "abilityScore": {
               "index": "dex",
               "name": "DEX",
               "url": "/api/2014/ability-scores/dex"
@@ -602,7 +602,7 @@
           },
           {
             "option_type": "ability_bonus",
-            "ability_score": {
+            "abilityScore": {
               "index": "con",
               "name": "CON",
               "url": "/api/2014/ability-scores/con"
@@ -611,7 +611,7 @@
           },
           {
             "option_type": "ability_bonus",
-            "ability_score": {
+            "abilityScore": {
               "index": "int",
               "name": "INT",
               "url": "/api/2014/ability-scores/int"
@@ -620,7 +620,7 @@
           },
           {
             "option_type": "ability_bonus",
-            "ability_score": {
+            "abilityScore": {
               "index": "wis",
               "name": "WIS",
               "url": "/api/2014/ability-scores/wis"
@@ -639,7 +639,7 @@
       "choose": 2,
       "type": "proficiencies",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -804,7 +804,7 @@
       "choose": 1,
       "type": "languages",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -948,7 +948,7 @@
     "speed": 30,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "str",
           "name": "STR",
           "url": "/api/2014/ability-scores/str"
@@ -956,7 +956,7 @@
         "bonus": 2
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "con",
           "name": "CON",
           "url": "/api/2014/ability-scores/con"
@@ -1019,7 +1019,7 @@
     "speed": 30,
     "abilityBonuses": [
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "int",
           "name": "INT",
           "url": "/api/2014/ability-scores/int"
@@ -1027,7 +1027,7 @@
         "bonus": 1
       },
       {
-        "ability_score": {
+        "abilityScore": {
           "index": "cha",
           "name": "CHA",
           "url": "/api/2014/ability-scores/cha"

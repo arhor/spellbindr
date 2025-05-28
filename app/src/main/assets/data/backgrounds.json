@@ -14,7 +14,7 @@
       "choose": 2,
       "type": "languages",
       "from": {
-        "option_set_type": "resource_list",
+        "optionSetType": "resource_list",
         "resource_list_name": "languages"
       }
     },
@@ -37,7 +37,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "equipment_category",
+          "optionSetType": "equipment_category",
           "equipment_category": {
             "id": "holy-symbols"
           }
@@ -55,7 +55,7 @@
       "choose": 2,
       "type": "personality_traits",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "string",
@@ -96,7 +96,7 @@
       "choose": 1,
       "type": "ideals",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "ideal",
@@ -213,7 +213,7 @@
       "choose": 1,
       "type": "bonds",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "string",
@@ -246,7 +246,7 @@
       "choose": 1,
       "type": "flaws",
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "string",

@@ -2,14 +2,14 @@
   {
     "index": "barbarian",
     "name": "Barbarian",
-    "hit_die": 12,
-    "proficiency_choices": [
+    "hitDie": 12,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -100,7 +100,7 @@
         "url": "/api/2014/proficiencies/saving-throw-con"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "str",
         "name": "STR",
@@ -136,7 +136,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -154,7 +154,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "martial-melee-weapons",
                     "name": "Martial Melee Weapons",
@@ -171,7 +171,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -189,7 +189,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -203,7 +203,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/barbarian/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -211,7 +211,7 @@
             "name": "STR",
             "url": "/api/2014/ability-scores/str"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -244,14 +244,14 @@
   {
     "index": "bard",
     "name": "Bard",
-    "hit_die": 8,
-    "proficiency_choices": [
+    "hitDie": 8,
+    "proficiencyChoices": [
       {
         "desc": "Choose any three",
         "choose": 3,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -405,7 +405,7 @@
         "choose": 3,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -533,7 +533,7 @@
         "url": "/api/2014/proficiencies/saving-throw-cha"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "dex",
         "name": "DEX",
@@ -569,7 +569,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -596,7 +596,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -613,7 +613,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -641,7 +641,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -659,7 +659,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "musical-instruments",
                     "name": "Musical Instruments",
@@ -673,7 +673,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/bard/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -681,7 +681,7 @@
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -691,13 +691,13 @@
           "url": "/api/2014/proficiencies/light-armor"
         }
       ],
-      "proficiency_choices": [
+      "proficiencyChoices": [
         {
           "desc": "skill",
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "option_set_type": "options_array",
+            "optionSetType": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -851,7 +851,7 @@
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "option_set_type": "options_array",
+            "optionSetType": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -1003,14 +1003,14 @@
   {
     "index": "cleric",
     "name": "Cleric",
-    "hit_die": 8,
-    "proficiency_choices": [
+    "hitDie": 8,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from History, Insight, Medicine, Persuasion, and Religion",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1088,7 +1088,7 @@
         "url": "/api/2014/proficiencies/saving-throw-cha"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "wis",
         "name": "WIS",
@@ -1116,7 +1116,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1154,7 +1154,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1201,7 +1201,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -1233,7 +1233,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -1250,7 +1250,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1278,7 +1278,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "equipment_category",
+          "optionSetType": "equipment_category",
           "equipment_category": {
             "index": "holy-symbols",
             "name": "Holy Symbols",
@@ -1288,7 +1288,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/cleric/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -1296,7 +1296,7 @@
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -1375,14 +1375,14 @@
   {
     "index": "druid",
     "name": "Druid",
-    "hit_die": 8,
-    "proficiency_choices": [
+    "hitDie": 8,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, and Survival",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1534,7 +1534,7 @@
         "url": "/api/2014/proficiencies/saving-throw-wis"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "int",
         "name": "INT",
@@ -1570,7 +1570,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1588,7 +1588,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -1605,7 +1605,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1623,7 +1623,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-melee-weapons",
                     "name": "Simple Melee Weapons",
@@ -1640,7 +1640,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "equipment_category",
+          "optionSetType": "equipment_category",
           "equipment_category": {
             "index": "druidic-foci",
             "name": "Druidic Foci",
@@ -1650,7 +1650,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/druid/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -1658,7 +1658,7 @@
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -1737,14 +1737,14 @@
   {
     "index": "fighter",
     "name": "Fighter",
-    "hit_die": 10,
-    "proficiency_choices": [
+    "hitDie": 10,
+    "proficiencyChoices": [
       {
         "desc": "Choose two skills from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1846,7 +1846,7 @@
         "url": "/api/2014/proficiencies/saving-throw-con"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "str",
         "name": "STR",
@@ -1865,7 +1865,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1916,7 +1916,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -1928,7 +1928,7 @@
                     "choose": 1,
                     "type": "equipment",
                     "from": {
-                      "option_set_type": "equipment_category",
+                      "optionSetType": "equipment_category",
                       "equipment_category": {
                         "index": "martial-weapons",
                         "name": "Martial Weapons",
@@ -1955,7 +1955,7 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "martial-weapons",
                     "name": "Martial Weapons",
@@ -1972,7 +1972,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -2014,7 +2014,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2039,12 +2039,12 @@
       }
     ],
     "classLevels": "/api/2014/classes/fighter/levels",
-    "multi_classing": {
-      "prerequisite_options": {
+    "multiClassing": {
+      "prerequisiteOptions": {
         "type": "ability-scores",
         "choose": 1,
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "score_prerequisite",
@@ -2053,7 +2053,7 @@
                 "name": "STR",
                 "url": "/api/2014/ability-scores/str"
               },
-              "minimum_score": 13
+              "minimumScore": 13
             },
             {
               "option_type": "score_prerequisite",
@@ -2062,7 +2062,7 @@
                 "name": "DEX",
                 "url": "/api/2014/ability-scores/dex"
               },
-              "minimum_score": 13
+              "minimumScore": 13
             }
           ]
         }
@@ -2107,14 +2107,14 @@
   {
     "index": "monk",
     "name": "Monk",
-    "hit_die": 8,
-    "proficiency_choices": [
+    "hitDie": 8,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2172,7 +2172,7 @@
         "type": "proficiencies",
         "choose": 1,
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "choice",
@@ -2181,7 +2181,7 @@
                 "type": "proficiencies",
                 "choose": 1,
                 "from": {
-                  "option_set_type": "options_array",
+                  "optionSetType": "options_array",
                   "options": [
                     {
                       "option_type": "reference",
@@ -2346,7 +2346,7 @@
                 "type": "proficiencies",
                 "choose": 1,
                 "from": {
-                  "option_set_type": "options_array",
+                  "optionSetType": "options_array",
                   "options": [
                     {
                       "option_type": "reference",
@@ -2458,7 +2458,7 @@
         "url": "/api/2014/proficiencies/saving-throw-str"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "str",
         "name": "STR",
@@ -2486,7 +2486,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2504,7 +2504,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -2521,7 +2521,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2546,7 +2546,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/monk/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -2554,7 +2554,7 @@
             "name": "DEX",
             "url": "/api/2014/ability-scores/dex"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         },
         {
           "abilityScore": {
@@ -2562,7 +2562,7 @@
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -2590,14 +2590,14 @@
   {
     "index": "paladin",
     "name": "Paladin",
-    "hit_die": 10,
-    "proficiency_choices": [
+    "hitDie": 10,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion, and Religion",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2683,7 +2683,7 @@
         "url": "/api/2014/proficiencies/saving-throw-cha"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "wis",
         "name": "WIS",
@@ -2711,7 +2711,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -2723,7 +2723,7 @@
                     "choose": 1,
                     "type": "equipment",
                     "from": {
-                      "option_set_type": "equipment_category",
+                      "optionSetType": "equipment_category",
                       "equipment_category": {
                         "name": "Martial Weapons",
                         "index": "martial-weapons",
@@ -2750,7 +2750,7 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "martial-weapons",
                     "name": "Martial Weapons",
@@ -2767,7 +2767,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2785,7 +2785,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -2802,7 +2802,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2830,7 +2830,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "equipment_category",
+          "optionSetType": "equipment_category",
           "equipment_category": {
             "index": "holy-symbols",
             "name": "Holy Symbols",
@@ -2840,7 +2840,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/paladin/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -2848,7 +2848,7 @@
             "name": "STR",
             "url": "/api/2014/ability-scores/str"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         },
         {
           "abilityScore": {
@@ -2856,7 +2856,7 @@
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -2933,14 +2933,14 @@
   {
     "index": "ranger",
     "name": "Ranger",
-    "hit_die": 10,
-    "proficiency_choices": [
+    "hitDie": 10,
+    "proficiencyChoices": [
       {
         "desc": "Choose three from Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, and Survival",
         "choose": 3,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3047,7 +3047,7 @@
         "url": "/api/2014/proficiencies/saving-throw-str"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "str",
         "name": "STR",
@@ -3083,7 +3083,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3111,7 +3111,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3129,7 +3129,7 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-melee-weapons",
                     "name": "Simple Melee Weapons",
@@ -3146,7 +3146,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3171,7 +3171,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/ranger/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -3179,7 +3179,7 @@
             "name": "DEX",
             "url": "/api/2014/ability-scores/dex"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         },
         {
           "abilityScore": {
@@ -3187,7 +3187,7 @@
             "name": "WIS",
             "url": "/api/2014/ability-scores/wis"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -3217,12 +3217,12 @@
           "url": "/api/2014/proficiencies/martial-weapons"
         }
       ],
-      "proficiency_choices": [
+      "proficiencyChoices": [
         {
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "option_set_type": "options_array",
+            "optionSetType": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -3339,14 +3339,14 @@
   {
     "index": "rogue",
     "name": "Rogue",
-    "hit_die": 8,
-    "proficiency_choices": [
+    "hitDie": 8,
+    "proficiencyChoices": [
       {
         "desc": "Choose four from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, and Stealth",
         "choose": 4,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3487,7 +3487,7 @@
         "url": "/api/2014/proficiencies/saving-throw-int"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "dex",
         "name": "DEX",
@@ -3531,7 +3531,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3559,7 +3559,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -3601,7 +3601,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3635,7 +3635,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/rogue/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -3643,7 +3643,7 @@
             "name": "DEX",
             "url": "/api/2014/ability-scores/dex"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -3658,12 +3658,12 @@
           "url": "/api/2014/proficiencies/thieves-tools"
         }
       ],
-      "proficiency_choices": [
+      "proficiencyChoices": [
         {
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "option_set_type": "options_array",
+            "optionSetType": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -3770,14 +3770,14 @@
   {
     "index": "sorcerer",
     "name": "Sorcerer",
-    "hit_die": 6,
-    "proficiency_choices": [
+    "hitDie": 6,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from Arcana, Deception, Insight, Intimidation, Persuasion, and Religion",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3868,7 +3868,7 @@
         "url": "/api/2014/proficiencies/saving-throw-cha"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "con",
         "name": "CON",
@@ -3896,7 +3896,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -3928,7 +3928,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -3945,7 +3945,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3963,7 +3963,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "arcane-foci",
                     "name": "Arcane Foci",
@@ -3980,7 +3980,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -4005,7 +4005,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/sorcerer/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -4013,7 +4013,7 @@
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": []
@@ -4076,14 +4076,14 @@
   {
     "index": "warlock",
     "name": "Warlock",
-    "hit_die": 8,
-    "proficiency_choices": [
+    "hitDie": 8,
+    "proficiencyChoices": [
       {
         "desc": "Choose two skills from Arcana, Deception, History, Intimidation, Investigation, Nature, and Religion",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -4167,7 +4167,7 @@
         "url": "/api/2014/proficiencies/saving-throw-cha"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "wis",
         "name": "WIS",
@@ -4203,7 +4203,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -4235,7 +4235,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "simple-weapons",
                     "name": "Simple Weapons",
@@ -4252,7 +4252,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -4270,7 +4270,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "arcane-foci",
                     "name": "Arcane Foci",
@@ -4287,7 +4287,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -4315,7 +4315,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "equipment_category",
+          "optionSetType": "equipment_category",
           "equipment_category": {
             "index": "simple-weapons",
             "name": "Simple Weapons",
@@ -4325,7 +4325,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/warlock/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -4333,7 +4333,7 @@
             "name": "CHA",
             "url": "/api/2014/ability-scores/cha"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": [
@@ -4408,14 +4408,14 @@
   {
     "index": "wizard",
     "name": "Wizard",
-    "hit_die": 6,
-    "proficiency_choices": [
+    "hitDie": 6,
+    "proficiencyChoices": [
       {
         "desc": "Choose two from Arcana, History, Insight, Investigation, Medicine, and Religion",
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -4506,7 +4506,7 @@
         "url": "/api/2014/proficiencies/saving-throw-wis"
       }
     ],
-    "saving_throws": [
+    "optionSetType": [
       {
         "index": "int",
         "name": "INT",
@@ -4534,7 +4534,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -4562,7 +4562,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -4580,7 +4580,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "option_set_type": "equipment_category",
+                  "optionSetType": "equipment_category",
                   "equipment_category": {
                     "index": "arcane-foci",
                     "name": "Arcane Foci",
@@ -4597,7 +4597,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "option_set_type": "options_array",
+          "optionSetType": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -4622,7 +4622,7 @@
       }
     ],
     "classLevels": "/api/2014/classes/wizard/levels",
-    "multi_classing": {
+    "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
@@ -4630,7 +4630,7 @@
             "name": "INT",
             "url": "/api/2014/ability-scores/int"
           },
-          "minimum_score": 13
+          "minimumScore": 13
         }
       ],
       "proficiencies": []

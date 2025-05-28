@@ -4,7 +4,6 @@ package com.github.arhor.spellbindr.data.newModel
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class AbilityScore(
@@ -58,19 +57,16 @@ data class Spellcasting(
 )
 
 @Serializable
-data class MultiClassingPrereq(
+data class MultiClassingPreReq(
     val abilityScore: EntityRef,
-    @SerialName("minimum_score")
     val minimumScore: Int
 )
 
 @Serializable
 data class MultiClassing(
-    val prerequisites: List<MultiClassingPrereq>? = null,
-    @SerialName("prerequisite_options")
+    val prerequisites: List<MultiClassingPreReq>? = null,
     val prerequisiteOptions: Choice? = null,
     val proficiencies: List<EntityRef>? = null,
-    @SerialName("proficiency_choices")
     val proficiencyChoices: List<Choice>? = null
 )
 
@@ -79,14 +75,10 @@ data class Class(
     val id: String,
     val name: String,
     val classLevels: String,
-    @SerialName("multi_classing")
     val multiClassing: MultiClassing,
-    @SerialName("hit_die")
     val hitDie: Int,
     val proficiencies: List<EntityRef>,
-    @SerialName("proficiency_choices")
     val proficiencyChoices: List<Choice>,
-    @SerialName("saving_throws")
     val savingThrows: List<EntityRef>,
     val spellcasting: Spellcasting? = null,
     val spells: String,
@@ -122,11 +114,8 @@ enum class AreaOfEffectType {
 
 @Serializable
 data class DifficultyClass(
-    @SerialName("dc_type")
     val dcType: EntityRef,
-    @SerialName("dc_value")
     val dcValue: Int,
-    @SerialName("success_type")
     val successType: SuccessType
 )
 
@@ -147,168 +136,164 @@ data class Damage(
 )
 
 @Serializable
-sealed class OptionSet {
-    abstract val optionSetType: OptionSetType
-}
-
-@Serializable
 enum class OptionSetType {
     @SerialName("equipment_category")
     EQUIPMENT_CATEGORY,
+
     @SerialName("resource_list")
     RESOURCE_LIST,
+
     @SerialName("options_array")
     OPTIONS_ARRAY
 }
 
 @Serializable
-@SerialName("equipment_category")
-data class EquipmentCategoryOptionSet(
-    @SerialName("option_set_type")
-    override val optionSetType: OptionSetType = OptionSetType.EQUIPMENT_CATEGORY,
+sealed class OptionSet {
+
+    abstract val optionSetType: OptionSetType
+
+    @Serializable
     @SerialName("equipment_category")
-    val equipmentCategory: EntityRef
-) : OptionSet()
+    data class EquipmentCategoryOptionSet(
+        override val optionSetType: OptionSetType = OptionSetType.EQUIPMENT_CATEGORY,
+        @SerialName("equipment_category")
+        val equipmentCategory: EntityRef
+    ) : OptionSet()
 
-@Serializable
-@SerialName("resource_list")
-data class ResourceListOptionSet(
-    @SerialName("option_set_type")
-    override val optionSetType: OptionSetType = OptionSetType.RESOURCE_LIST,
-    @SerialName("resource_list_name")
-    val resourceListName: String
-) : OptionSet()
+    @Serializable
+    @SerialName("resource_list")
+    data class ResourceListOptionSet(
+        override val optionSetType: OptionSetType = OptionSetType.RESOURCE_LIST,
+        @SerialName("resource_list_name")
+        val resourceListName: String
+    ) : OptionSet()
 
-@Serializable
-@SerialName("options_array")
-data class OptionsArrayOptionSet(
-    @SerialName("option_set_type")
-    override val optionSetType: OptionSetType = OptionSetType.OPTIONS_ARRAY,
-    val options: List<Option>
-) : OptionSet()
+    @Serializable
+    @SerialName("options_array")
+    data class OptionsArrayOptionSet(
+        override val optionSetType: OptionSetType = OptionSetType.OPTIONS_ARRAY,
+        val options: List<Option>
+    ) : OptionSet()
+}
 
 @Serializable
 sealed class Option {
     abstract val optionType: String
+
+    @Serializable
+    open class BaseOption(
+        @SerialName("option_type")
+        override val optionType: String
+    ) : Option()
+
+    @Serializable
+    @SerialName("reference")
+    data class ReferenceOption(
+        @SerialName("option_type")
+        override val optionType: String = "reference",
+        val item: EntityRef
+    ) : Option()
+
+    @Serializable
+    @SerialName("action")
+    data class ActionOption(
+        @SerialName("option_type")
+        override val optionType: String = "action",
+        @SerialName("action_name")
+        val actionName: String,
+        val count: Int? = null,
+        val type: String,
+        val notes: String? = null
+    ) : Option()
+
+    @Serializable
+    @SerialName("multiple")
+    data class MultipleOption(
+        @SerialName("option_type")
+        override val optionType: String = "multiple",
+        val items: List<Option>
+    ) : Option()
+
+    @Serializable
+    @SerialName("string")
+    data class StringOption(
+        @SerialName("option_type")
+        override val optionType: String = "string",
+        val string: String
+    ) : Option()
+
+    @Serializable
+    @SerialName("ideal")
+    data class IdealOption(
+        @SerialName("option_type")
+        override val optionType: String = "ideal",
+        val desc: String,
+        val alignments: List<EntityRef>
+    ) : Option()
+
+    @Serializable
+    @SerialName("counted_reference")
+    data class CountedReferenceOption(
+        @SerialName("option_type")
+        override val optionType: String = "counted_reference",
+        val count: Int,
+        val of: EntityRef,
+        val prerequisites: List<CountedReferencePrerequisite>? = null
+    ) : Option()
+
+    @Serializable
+    @SerialName("score_prerequisite")
+    data class ScorePrerequisiteOption(
+        @SerialName("option_type")
+        override val optionType: String = "score_prerequisite",
+        val abilityScore: EntityRef,
+        val minimumScore: Int
+    ) : Option()
+
+    @Serializable
+    @SerialName("ability_bonus")
+    data class AbilityBonusOption(
+        @SerialName("option_type")
+        override val optionType: String = "ability_bonus",
+        val abilityScore: EntityRef,
+        val bonus: Int
+    ) : Option()
+
+    @Serializable
+    @SerialName("breath")
+    data class BreathOption(
+        @SerialName("option_type")
+        override val optionType: String = "breath",
+        val name: String,
+        val dc: DifficultyClass,
+        val damage: List<Damage>? = null
+    ) : Option()
+
+    @Serializable
+    @SerialName("damage")
+    data class DamageOption(
+        @SerialName("option_type")
+        override val optionType: String = "damage",
+        val damageType: EntityRef,
+        @SerialName("damage_dice")
+        val damageDice: String,
+        val notes: String? = null
+    ) : Option()
+
+    @Serializable
+    @SerialName("choice")
+    data class ChoiceOption(
+        @SerialName("option_type")
+        override val optionType: String = "choice",
+        val choice: Choice
+    ) : Option()
 }
 
 @Serializable
-open class BaseOption(
-    @SerialName("option_type")
-    override val optionType: String
-) : Option()
-
-@Serializable
-@SerialName("reference")
-data class ReferenceOption(
-    @SerialName("option_type")
-    override val optionType: String = "reference",
-    val item: EntityRef
-) : Option()
-
-@Serializable
-@SerialName("action")
-data class ActionOption(
-    @SerialName("option_type")
-    override val optionType: String = "action",
-    @SerialName("action_name")
-    val actionName: String,
-    val count: Int? = null, // Может быть строкой, если нужно - поменяй на Any и кастуй вручную
-    val type: String,
-    val notes: String? = null
-) : Option()
-
-@Serializable
-@SerialName("multiple")
-data class MultipleOption(
-    @SerialName("option_type")
-    override val optionType: String = "multiple",
-    val items: List<Option>
-) : Option()
-
-@Serializable
-@SerialName("string")
-data class StringOption(
-    @SerialName("option_type")
-    override val optionType: String = "string",
-    val string: String
-) : Option()
-
-@Serializable
-@SerialName("ideal")
-data class IdealOption(
-    @SerialName("option_type")
-    override val optionType: String = "ideal",
-    val desc: String,
-    val alignments: List<EntityRef>
-) : Option()
-
-@Serializable
-@SerialName("counted_reference")
-data class CountedReferenceOption(
-    @SerialName("option_type")
-    override val optionType: String = "counted_reference",
-    val count: Int,
-    val of: EntityRef,
-    val prerequisites: List<CountedReferencePrerequisite>? = null
-) : Option()
-
-@Serializable
 data class CountedReferencePrerequisite(
-    val type: String, // "proficiency"
+    val type: String,
     val proficiency: EntityRef? = null
 )
-
-@Serializable
-@SerialName("score_prerequisite")
-data class ScorePrerequisiteOption(
-    @SerialName("option_type")
-    override val optionType: String = "score_prerequisite",
-    @SerialName("ability_score")
-    val abilityScore: EntityRef,
-    @SerialName("minimum_score")
-    val minimumScore: Int
-) : Option()
-
-@Serializable
-@SerialName("ability_bonus")
-data class AbilityBonusOption(
-    @SerialName("option_type")
-    override val optionType: String = "ability_bonus",
-    @SerialName("ability_score")
-    val abilityScore: EntityRef,
-    val bonus: Int
-) : Option()
-
-@Serializable
-@SerialName("breath")
-data class BreathOption(
-    @SerialName("option_type")
-    override val optionType: String = "breath",
-    val name: String,
-    val dc: DifficultyClass,
-    val damage: List<Damage>? = null
-) : Option()
-
-@Serializable
-@SerialName("damage")
-data class DamageOption(
-    @SerialName("option_type")
-    override val optionType: String = "damage",
-    @SerialName("damage_type")
-    val damageType: EntityRef,
-    @SerialName("damage_dice")
-    val damageDice: String,
-    val notes: String? = null
-) : Option()
-
-@Serializable
-@SerialName("choice")
-data class ChoiceOption(
-    @SerialName("option_type")
-    override val optionType: String = "choice",
-    val choice: Choice
-) : Option()
 
 @Serializable
 data class Choice(
@@ -369,7 +354,6 @@ data class EquipmentSpeed(
 data class TwoHandedDamage(
     @SerialName("damage_dice")
     val damageDice: String,
-    @SerialName("damage_type")
     val damageType: EntityRef
 )
 
@@ -451,9 +435,7 @@ enum class EquipmentCategory {
 
 @Serializable
 data class FeatPrerequisite(
-    @SerialName("ability_score")
     val abilityScore: EntityRef,
-    @SerialName("minimum_score")
     val minimumScore: Int
 )
 
@@ -484,16 +466,16 @@ data class SpellPrerequisite(
 )
 
 @Serializable
-sealed class CommonPrerequisite
+sealed class CommonPrerequisite {
+    @Serializable
+    data class LevelPrerequisiteWrapper(val level: LevelPrerequisite) : CommonPrerequisite()
 
-@Serializable
-data class LevelPrerequisiteWrapper(val level: LevelPrerequisite) : CommonPrerequisite()
+    @Serializable
+    data class FeaturePrerequisiteWrapper(val feature: FeaturePrerequisite) : CommonPrerequisite()
 
-@Serializable
-data class FeaturePrerequisiteWrapper(val feature: FeaturePrerequisite) : CommonPrerequisite()
-
-@Serializable
-data class SpellPrerequisiteWrapper(val spell: SpellPrerequisite) : CommonPrerequisite()
+    @Serializable
+    data class SpellPrerequisiteWrapper(val spell: SpellPrerequisite) : CommonPrerequisite()
+}
 
 @Serializable
 data class FeatureSpecific(
@@ -564,7 +546,7 @@ data class MagicSchool(
 data class ActionItem(
     @SerialName("action_name")
     val actionName: String,
-    val count: String, // TS: number | string
+    val count: String,
     val type: String
 )
 
@@ -598,50 +580,50 @@ sealed class ArmorClass {
     abstract val type: String
     abstract val value: Int
     open val desc: String? get() = null
+
+    @Serializable
+    @SerialName("dex")
+    data class ArmorClassDex(
+        override val type: String = "dex",
+        override val value: Int,
+        override val desc: String? = null
+    ) : ArmorClass()
+
+    @Serializable
+    @SerialName("natural")
+    data class ArmorClassNatural(
+        override val type: String = "natural",
+        override val value: Int,
+        override val desc: String? = null
+    ) : ArmorClass()
+
+    @Serializable
+    @SerialName("armor")
+    data class ArmorClassArmor(
+        override val type: String = "armor",
+        override val value: Int,
+        override val desc: String? = null,
+        val armor: List<EntityRef>? = null
+    ) : ArmorClass()
+
+    @Serializable
+    @SerialName("spell")
+    data class ArmorClassSpell(
+        override val type: String = "spell",
+        override val value: Int,
+        override val desc: String? = null,
+        val spell: EntityRef
+    ) : ArmorClass()
+
+    @Serializable
+    @SerialName("condition")
+    data class ArmorClassCondition(
+        override val type: String = "condition",
+        override val value: Int,
+        override val desc: String? = null,
+        val condition: EntityRef
+    ) : ArmorClass()
 }
-
-@Serializable
-@SerialName("dex")
-data class ArmorClassDex(
-    override val type: String = "dex",
-    override val value: Int,
-    override val desc: String? = null
-) : ArmorClass()
-
-@Serializable
-@SerialName("natural")
-data class ArmorClassNatural(
-    override val type: String = "natural",
-    override val value: Int,
-    override val desc: String? = null
-) : ArmorClass()
-
-@Serializable
-@SerialName("armor")
-data class ArmorClassArmor(
-    override val type: String = "armor",
-    override val value: Int,
-    override val desc: String? = null,
-    val armor: List<EntityRef>? = null
-) : ArmorClass()
-
-@Serializable
-@SerialName("spell")
-data class ArmorClassSpell(
-    override val type: String = "spell",
-    override val value: Int,
-    override val desc: String? = null,
-    val spell: EntityRef
-) : ArmorClass()
-
-@Serializable
-@SerialName("condition")
-data class ArmorClassCondition(
-    override val type: String = "condition",
-    override val value: Int,
-    override val desc: String? = null,
-    val condition: EntityRef
-) : ArmorClass()
 
 @Serializable
 data class LegendaryAction(
@@ -793,7 +775,6 @@ data class GenericProficiency(
 
 @Serializable
 data class RaceAbilityBonus(
-    @SerialName("ability_score")
     val abilityScore: EntityRef,
     val bonus: Int
 )
@@ -842,36 +823,27 @@ data class Skill(
     val id: String,
     val name: String,
     val desc: List<String>,
-    @SerialName("ability_score")
     val abilityScore: EntityRef
 )
 
 @Serializable
 data class SpellDamage(
-    @SerialName("damage_type")
     val damageType: EntityRef? = null,
-    @SerialName("damage_at_slot_level")
     val damageAtSlotLevel: Map<String, String>? = null,
-    @SerialName("damage_at_character_level")
-    val damageAtCharacterLevel: Map<String, String>? = null
+    val damageAtCharacterLevel: Map<String, String>? = null,
 )
 
 @Serializable
 data class SpellDC(
     val desc: String? = null,
-    @SerialName("dc_type")
     val dcType: EntityRef,
-    @SerialName("dc_success")
-    val dcSuccess: String
+    val dcSuccess: String,
 )
 
 @Serializable
 data class Spell(
-    @SerialName("area_of_effect")
     val areaOfEffect: AreaOfEffect? = null,
-    @SerialName("attack_type")
     val attackType: String? = null,
-    @SerialName("casting_time")
     val castingTime: String,
     val classes: List<EntityRef>,
     val components: List<String>,
@@ -880,9 +852,7 @@ data class Spell(
     val dc: SpellDC? = null,
     val desc: List<String>,
     val duration: String,
-    @SerialName("heal_at_slot_level")
     val healAtSlotLevel: Map<String, String>? = null,
-    @SerialName("higher_level")
     val higherLevel: List<String>? = null,
     val id: String,
     val level: Int,
@@ -915,15 +885,12 @@ data class Subclass(
     @SerialName("class")
     val clazz: EntityRef,
     val spells: List<SubclassSpell>? = null,
-    @SerialName("subclass_flavor")
     val subclassFlavor: String,
-    @SerialName("subclass_levels")
     val subclassLevels: String
 )
 
 @Serializable
 data class SubraceAbilityBonus(
-    @SerialName("ability_score")
     val abilityScore: EntityRef,
     val bonus: Int
 )
@@ -937,7 +904,6 @@ data class Subrace(
     val abilityBonuses: List<SubraceAbilityBonus>,
     val languages: List<EntityRef>? = null,
     val languageOptions: Choice? = null,
-    @SerialName("racial_traits")
     val racialTraits: List<EntityRef>,
     val startingProficiencies: List<EntityRef>? = null
 )
@@ -950,9 +916,7 @@ data class Proficiency(
 
 @Serializable
 data class ActionDamage(
-    @SerialName("damage_type")
     val damageType: EntityRef,
-    @SerialName("damage_at_character_level")
     val damageAtCharacterLevel: Map<String, String>
 )
 
@@ -969,19 +933,14 @@ data class BreathWeaponAction(
     val usage: Usage,
     val dc: DifficultyClass,
     val damage: List<ActionDamage>,
-    @SerialName("area_of_effect")
-    val areaOfEffect: AreaOfEffect
+    val areaOfEffect: AreaOfEffect,
 )
 
 @Serializable
 data class TraitSpecific(
-    @SerialName("subtrait_options")
     val subtraitOptions: Choice? = null,
-    @SerialName("spell_options")
     val spellOptions: Choice? = null,
-    @SerialName("damage_type")
     val damageType: EntityRef? = null,
-    @SerialName("breath_weapon")
     val breathWeapon: BreathWeaponAction? = null
 )
 
@@ -991,13 +950,11 @@ data class Trait(
     val name: String,
     val desc: List<String>,
     val proficiencies: List<Proficiency>,
-    @SerialName("proficiency_choices")
     val proficiencyChoices: Choice? = null,
     val languageOptions: Choice? = null,
     val races: List<EntityRef>,
     val subraces: List<EntityRef>,
     val parent: EntityRef? = null,
-    @SerialName("trait_specific")
     val traitSpecific: TraitSpecific? = null
 )
 
@@ -1007,107 +964,3 @@ data class WeaponProperty(
     val name: String,
     val desc: List<String>
 )
-
-fun main() {
-    val json = Json {
-        ignoreUnknownKeys = true
-        classDiscriminator = "type"
-    }
-    val data = json.decodeFromString<List<WeaponProperty>>(
-        """
-            [
-              {
-                "id": "ammunition",
-                "name": "Ammunition",
-                "desc": [
-                  "You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon).",
-                  "At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield. If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon (see \"Improvised Weapons\" later in the section). A sling must be loaded to deal any damage when used in this way."
-                ],
-                "url": "/api/2014/weapon-properties/ammunition"
-              },
-              {
-                "id": "finesse",
-                "name": "Finesse",
-                "desc": [
-                  "When making an attack with a finesse weapon, you use your choice of your Strength or Dexterity modifier for the attack and damage rolls. You must use the same modifier for both rolls."
-                ],
-                "url": "/api/2014/weapon-properties/finesse"
-              },
-              {
-                "id": "heavy",
-                "name": "Heavy",
-                "desc": [
-                  "Small creatures have disadvantage on attack rolls with heavy weapons. A heavy weapon's size and bulk make it too large for a Small creature to use effectively."
-                ],
-                "url": "/api/2014/weapon-properties/heavy"
-              },
-              {
-                "id": "light",
-                "name": "Light",
-                "desc": [
-                  "A light weapon is small and easy to handle, making it ideal for use when fighting with two weapons."
-                ],
-                "url": "/api/2014/weapon-properties/light"
-              },
-              {
-                "id": "loading",
-                "name": "Loading",
-                "desc": [
-                  "Because of the time required to load this weapon, you can fire only one piece of ammunition from it when you use an action, bonus action, or reaction to fire it, regardless of the number of attacks you can normally make."
-                ],
-                "url": "/api/2014/weapon-properties/loading"
-              },
-              {
-                "id": "reach",
-                "name": "Reach",
-                "desc": [
-                  "This weapon adds 5 feet to your reach when you attack with it, as well as when determining your reach for opportunity attacks with it."
-                ],
-                "url": "/api/2014/weapon-properties/reach"
-              },
-              {
-                "id": "special",
-                "name": "Special",
-                "desc": [
-                  "A weapon with the special property has unusual rules governing its use, explained in the weapon's description (see \"Special Weapons\" later in this section)."
-                ],
-                "url": "/api/2014/weapon-properties/special"
-              },
-              {
-                "id": "thrown",
-                "name": "Thrown",
-                "desc": [
-                  "If a weapon has the thrown property, you can throw the weapon to make a ranged attack. If the weapon is a melee weapon, you use the same ability modifier for that attack roll and damage roll that you would use for a melee attack with the weapon. For example, if you throw a handaxe, you use your Strength, but if you throw a dagger, you can use either your Strength or your Dexterity, since the dagger has the finesse property."
-                ],
-                "url": "/api/2014/weapon-properties/thrown"
-              },
-              {
-                "id": "two-handed",
-                "name": "Two-Handed",
-                "desc": [
-                  "This weapon requires two hands when you attack with it."
-                ],
-                "url": "/api/2014/weapon-properties/two-handed"
-              },
-              {
-                "id": "versatile",
-                "name": "Versatile",
-                "desc": [
-                  "This weapon can be used with one or two hands. A damage value in parentheses appears with the property--the damage when the weapon is used with two hands to make a melee attack."
-                ],
-                "url": "/api/2014/weapon-properties/versatile"
-              },
-              {
-                "id": "monk",
-                "name": "Monk",
-                "desc": [
-                  "Monks gain several benefits while unarmed or wielding only monk weapons while they aren't wearing armor or wielding shields."
-                ],
-                "url": "/api/2014/weapon-properties/monk"
-              }
-            ]
-        """.trimIndent()
-    )
-
-    data.forEach { println(it) }
-}

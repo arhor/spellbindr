@@ -20,7 +20,7 @@
     ],
     "startingProficiencies": [],
     "languages": [],
-    "racial_traits": [
+    "racialTraits": [
       {
         "index": "dwarven-toughness",
         "name": "Dwarven Toughness",
@@ -74,7 +74,7 @@
     "languageOptions": {
       "choose": 1,
       "from": {
-        "option_set_type": "options_array",
+        "optionSetType": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -192,7 +192,7 @@
       },
       "type": "language"
     },
-    "racial_traits": [
+    "racialTraits": [
       {
         "index": "elf-weapon-training",
         "name": "Elf Weapon Training",
@@ -232,7 +232,7 @@
     ],
     "startingProficiencies": [],
     "languages": [],
-    "racial_traits": [
+    "racialTraits": [
       {
         "index": "naturally-stealthy",
         "name": "Naturally Stealthy",
@@ -268,7 +268,7 @@
       }
     ],
     "languages": [],
-    "racial_traits": [
+    "racialTraits": [
       {
         "index": "artificers-lore",
         "name": "Artificer's Lore",
