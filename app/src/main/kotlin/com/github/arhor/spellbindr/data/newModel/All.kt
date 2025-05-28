@@ -2,6 +2,8 @@
 
 package com.github.arhor.spellbindr.data.newModel
 
+import com.github.arhor.spellbindr.data.next.model.AreaOfEffect
+import com.github.arhor.spellbindr.data.next.model.EntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -86,31 +88,6 @@ data class Class(
     val startingEquipmentOptions: List<Choice>,
     val subclasses: List<EntityRef>
 )
-
-@Serializable
-data class EntityRef(
-    val id: String,
-)
-
-@Serializable
-data class AreaOfEffect(
-    val size: Int,
-    val type: AreaOfEffectType
-)
-
-@Serializable
-enum class AreaOfEffectType {
-    @SerialName("sphere")
-    SPHERE,
-    @SerialName("cube")
-    CUBE,
-    @SerialName("cylinder")
-    CYLINDER,
-    @SerialName("line")
-    LINE,
-    @SerialName("cone")
-    CONE
-}
 
 @Serializable
 data class DifficultyClass(
@@ -305,13 +282,6 @@ data class Choice(
 
 @Serializable
 data class Condition(
-    val id: String,
-    val name: String,
-    val desc: List<String>
-)
-
-@Serializable
-data class DamageType(
     val id: String,
     val name: String,
     val desc: List<String>
@@ -824,44 +794,6 @@ data class Skill(
     val name: String,
     val desc: List<String>,
     val abilityScore: EntityRef
-)
-
-@Serializable
-data class SpellDamage(
-    val damageType: EntityRef? = null,
-    val damageAtSlotLevel: Map<String, String>? = null,
-    val damageAtCharacterLevel: Map<String, String>? = null,
-)
-
-@Serializable
-data class SpellDC(
-    val desc: String? = null,
-    val dcType: EntityRef,
-    val dcSuccess: String,
-)
-
-@Serializable
-data class Spell(
-    val areaOfEffect: AreaOfEffect? = null,
-    val attackType: String? = null,
-    val castingTime: String,
-    val classes: List<EntityRef>,
-    val components: List<String>,
-    val concentration: Boolean,
-    val damage: SpellDamage? = null,
-    val dc: SpellDC? = null,
-    val desc: List<String>,
-    val duration: String,
-    val healAtSlotLevel: Map<String, String>? = null,
-    val higherLevel: List<String>? = null,
-    val id: String,
-    val level: Int,
-    val material: String? = null,
-    val name: String,
-    val range: String,
-    val ritual: Boolean,
-    val school: EntityRef,
-    val subclasses: List<EntityRef>? = null
 )
 
 @Serializable
