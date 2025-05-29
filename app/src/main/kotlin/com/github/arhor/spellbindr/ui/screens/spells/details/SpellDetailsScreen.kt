@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -139,7 +140,7 @@ fun SpellDetailScreen(
                                     append(" (Cantrip)")
                                 }
                             })
-                            TableRow(label = "School", text = it.school.toString())
+                            TableRow(label = "School", text = it.school.prettyString())
                         }
                     }
 
@@ -153,12 +154,14 @@ fun SpellDetailScreen(
                     TableRow(label = "Duration", text = it.duration)
                     TableRow(label = "Classes") {
                         FlowRow(horizontalArrangement = Arrangement.End) {
-                            it.classes.forEachIndexed { i, className ->
+                            it.classes.forEachIndexed { i, classRef ->
                                 Text(
-                                    text = if (i == 0) "$className" else ", $className",
+                                    text = " [${classRef.prettyString()}]",
                                     color = HeaderText,
+                                    fontStyle = FontStyle.Italic,
                                     fontFamily = FontFamily.Serif,
                                 )
+
                             }
                         }
                     }
@@ -170,13 +173,14 @@ fun SpellDetailScreen(
                     }
                     TableRow(
                         label = "Source",
-                        text = "${it.source.book}${it.source.page?.let { ", p.$it" } ?: ""}")
+                        text = it.source,
+                    )
                 }
             }
 
             DescriptionRow(it.desc)
 
-            if (!it.higherLevel.isNullOrBlank()) {
+            if (!it.higherLevel.isNullOrEmpty()) {
                 DescriptionRow(it.higherLevel)
 
             }

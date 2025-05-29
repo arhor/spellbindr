@@ -22,4 +22,8 @@ class RaceRepository @Inject constructor(
 ) {
 
     suspend fun findRaces(): List<Race> = getAsset()
+
+    override suspend fun loadAsset() {
+
+    }
 } 

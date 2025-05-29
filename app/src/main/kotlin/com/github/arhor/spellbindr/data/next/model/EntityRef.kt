@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.next.model
 
+import com.github.arhor.spellbindr.util.toTitleCase
 import kotlinx.serialization.Serializable
 
 /**
@@ -11,4 +12,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class EntityRef(
     val id: String,
-)
+) {
+    fun prettyString(): String = id.toTitleCase('-')
+}

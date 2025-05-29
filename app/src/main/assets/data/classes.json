@@ -1,6 +1,6 @@
 [
   {
-    "index": "barbarian",
+    "id": "barbarian",
     "name": "Barbarian",
     "hitDie": 12,
     "proficiencyChoices": [
@@ -14,49 +14,37 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-animal-handling",
-                "name": "Skill: Animal Handling",
-                "url": "/api/2014/proficiencies/skill-animal-handling"
+                "id": "skill-animal-handling"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-nature",
-                "name": "Skill: Nature",
-                "url": "/api/2014/proficiencies/skill-nature"
+                "id": "skill-nature"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-perception",
-                "name": "Skill: Perception",
-                "url": "/api/2014/proficiencies/skill-perception"
+                "id": "skill-perception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-survival",
-                "name": "Skill: Survival",
-                "url": "/api/2014/proficiencies/skill-survival"
+                "id": "skill-survival"
               }
             }
           ]
@@ -65,67 +53,45 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "medium-armor",
-        "name": "Medium Armor",
-        "url": "/api/2014/proficiencies/medium-armor"
+        "id": "medium-armor"
       },
       {
-        "index": "shields",
-        "name": "Shields",
-        "url": "/api/2014/proficiencies/shields"
+        "id": "shields"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "martial-weapons",
-        "name": "Martial Weapons",
-        "url": "/api/2014/proficiencies/martial-weapons"
+        "id": "martial-weapons"
       },
       {
-        "index": "saving-throw-str",
-        "name": "Saving Throw: STR",
-        "url": "/api/2014/proficiencies/saving-throw-str"
+        "id": "saving-throw-str"
       },
       {
-        "index": "saving-throw-con",
-        "name": "Saving Throw: CON",
-        "url": "/api/2014/proficiencies/saving-throw-con"
+        "id": "saving-throw-con"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "str",
-        "name": "STR",
-        "url": "/api/2014/ability-scores/str"
+        "id": "str"
       },
       {
-        "index": "con",
-        "name": "CON",
-        "url": "/api/2014/ability-scores/con"
+        "id": "con"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "explorers-pack",
-          "name": "Explorer's Pack",
-          "url": "/api/2014/equipment/explorers-pack"
+          "id": "explorers-pack"
         },
         "quantity": 1
       },
       {
         "equipment": {
-          "index": "javelin",
-          "name": "Javelin",
-          "url": "/api/2014/equipment/javelin"
+          "id": "javelin"
         },
         "quantity": 4
       }
@@ -142,9 +108,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "greataxe",
-                "name": "Greataxe",
-                "url": "/api/2014/equipment/greataxe"
+                "id": "greataxe"
               }
             },
             {
@@ -156,9 +120,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "martial-melee-weapons",
-                    "name": "Martial Melee Weapons",
-                    "url": "/api/2014/equipment-categories/martial-melee-weapons"
+                    "id": "martial-melee-weapons"
                   }
                 }
               }
@@ -177,9 +139,7 @@
               "option_type": "counted_reference",
               "count": 2,
               "of": {
-                "index": "handaxe",
-                "name": "Handaxe",
-                "url": "/api/2014/equipment/handaxe"
+                "id": "handaxe"
               }
             },
             {
@@ -191,9 +151,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -202,47 +160,35 @@
         }
       }
     ],
-    "classLevels": "/api/2014/classes/barbarian/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "str",
-            "name": "STR",
-            "url": "/api/2014/ability-scores/str"
+            "id": "str"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "shields",
-          "name": "Shields",
-          "url": "/api/2014/proficiencies/shields"
+          "id": "shields"
         },
         {
-          "index": "simple-weapons",
-          "name": "Simple Weapons",
-          "url": "/api/2014/proficiencies/simple-weapons"
+          "id": "simple-weapons"
         },
         {
-          "index": "martial-weapons",
-          "name": "Martial Weapons",
-          "url": "/api/2014/proficiencies/martial-weapons"
+          "id": "martial-weapons"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "berserker",
-        "name": "Berserker",
-        "url": "/api/2014/subclasses/berserker"
+        "id": "berserker"
       }
-    ],
-    "url": "/api/2014/classes/barbarian"
+    ]
   },
   {
-    "index": "bard",
+    "id": "bard",
     "name": "Bard",
     "hitDie": 8,
     "proficiencyChoices": [
@@ -256,145 +202,109 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-acrobatics",
-                "name": "Skill: Acrobatics",
-                "url": "/api/2014/proficiencies/skill-acrobatics"
+                "id": "skill-acrobatics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-animal-handling",
-                "name": "Skill: Animal Handling",
-                "url": "/api/2014/proficiencies/skill-animal-handling"
+                "id": "skill-animal-handling"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-arcana",
-                "name": "Skill: Arcana",
-                "url": "/api/2014/proficiencies/skill-arcana"
+                "id": "skill-arcana"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-deception",
-                "name": "Skill: Deception",
-                "url": "/api/2014/proficiencies/skill-deception"
+                "id": "skill-deception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-history",
-                "name": "Skill: History",
-                "url": "/api/2014/proficiencies/skill-history"
+                "id": "skill-history"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-investigation",
-                "name": "Skill: Investigation",
-                "url": "/api/2014/proficiencies/skill-investigation"
+                "id": "skill-investigation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-medicine",
-                "name": "Skill: Medicine",
-                "url": "/api/2014/proficiencies/skill-medicine"
+                "id": "skill-medicine"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-nature",
-                "name": "Skill: Nature",
-                "url": "/api/2014/proficiencies/skill-nature"
+                "id": "skill-nature"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-perception",
-                "name": "Skill: Perception",
-                "url": "/api/2014/proficiencies/skill-perception"
+                "id": "skill-perception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-performance",
-                "name": "Skill: Performance",
-                "url": "/api/2014/proficiencies/skill-performance"
+                "id": "skill-performance"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-persuasion",
-                "name": "Skill: Persuasion",
-                "url": "/api/2014/proficiencies/skill-persuasion"
+                "id": "skill-persuasion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-sleight-of-hand",
-                "name": "Skill: Sleight of Hand",
-                "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+                "id": "skill-sleight-of-hand"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-stealth",
-                "name": "Skill: Stealth",
-                "url": "/api/2014/proficiencies/skill-stealth"
+                "id": "skill-stealth"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-survival",
-                "name": "Skill: Survival",
-                "url": "/api/2014/proficiencies/skill-survival"
+                "id": "skill-survival"
               }
             }
           ]
@@ -410,81 +320,61 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "bagpipes",
-                "name": "Bagpipes",
-                "url": "/api/2014/proficiencies/bagpipes"
+                "id": "bagpipes"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "drum",
-                "name": "Drum",
-                "url": "/api/2014/proficiencies/drum"
+                "id": "drum"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "dulcimer",
-                "name": "Dulcimer",
-                "url": "/api/2014/proficiencies/dulcimer"
+                "id": "dulcimer"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "flute",
-                "name": "Flute",
-                "url": "/api/2014/proficiencies/flute"
+                "id": "flute"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "lute",
-                "name": "Lute",
-                "url": "/api/2014/proficiencies/lute"
+                "id": "lute"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "lyre",
-                "name": "Lyre",
-                "url": "/api/2014/proficiencies/lyre"
+                "id": "lyre"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "horn",
-                "name": "Horn",
-                "url": "/api/2014/proficiencies/horn"
+                "id": "horn"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "pan-flute",
-                "name": "Pan flute",
-                "url": "/api/2014/proficiencies/pan-flute"
+                "id": "pan-flute"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "shawm",
-                "name": "Shawm",
-                "url": "/api/2014/proficiencies/shawm"
+                "id": "shawm"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "viol",
-                "name": "Viol",
-                "url": "/api/2014/proficiencies/viol"
+                "id": "viol"
               }
             }
           ]
@@ -493,72 +383,48 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "longswords",
-        "name": "Longswords",
-        "url": "/api/2014/proficiencies/longswords"
+        "id": "longswords"
       },
       {
-        "index": "rapiers",
-        "name": "Rapiers",
-        "url": "/api/2014/proficiencies/rapiers"
+        "id": "rapiers"
       },
       {
-        "index": "shortswords",
-        "name": "Shortswords",
-        "url": "/api/2014/proficiencies/shortswords"
+        "id": "shortswords"
       },
       {
-        "index": "hand-crossbows",
-        "name": "Hand crossbows",
-        "url": "/api/2014/proficiencies/hand-crossbows"
+        "id": "hand-crossbows"
       },
       {
-        "index": "saving-throw-dex",
-        "name": "Saving Throw: DEX",
-        "url": "/api/2014/proficiencies/saving-throw-dex"
+        "id": "saving-throw-dex"
       },
       {
-        "index": "saving-throw-cha",
-        "name": "Saving Throw: CHA",
-        "url": "/api/2014/proficiencies/saving-throw-cha"
+        "id": "saving-throw-cha"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "dex",
-        "name": "DEX",
-        "url": "/api/2014/ability-scores/dex"
+        "id": "dex"
       },
       {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "leather-armor",
-          "name": "Leather Armor",
-          "url": "/api/2014/equipment/leather-armor"
+          "id": "leather-armor"
         },
         "quantity": 1
       },
       {
         "equipment": {
-          "index": "dagger",
-          "name": "Dagger",
-          "url": "/api/2014/equipment/dagger"
+          "id": "dagger"
         },
         "quantity": 1
       }
@@ -575,18 +441,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "rapier",
-                "name": "Rapier",
-                "url": "/api/2014/equipment/rapier"
+                "id": "rapier"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "longsword",
-                "name": "Longsword",
-                "url": "/api/2014/equipment/longsword"
+                "id": "longsword"
               }
             },
             {
@@ -598,9 +460,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -619,18 +479,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "diplomats-pack",
-                "name": "Diplomat's Pack",
-                "url": "/api/2014/equipment/diplomats-pack"
+                "id": "diplomats-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "entertainers-pack",
-                "name": "Entertainer's Pack",
-                "url": "/api/2014/equipment/entertainers-pack"
+                "id": "entertainers-pack"
               }
             }
           ]
@@ -647,9 +503,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "lute",
-                "name": "Lute",
-                "url": "/api/2014/equipment/lute"
+                "id": "lute"
               }
             },
             {
@@ -661,9 +515,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "musical-instruments",
-                    "name": "Musical Instruments",
-                    "url": "/api/2014/equipment-categories/musical-instruments"
+                    "id": "musical-instruments"
                   }
                 }
               }
@@ -672,23 +524,18 @@
         }
       }
     ],
-    "classLevels": "/api/2014/classes/bard/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "cha",
-            "name": "CHA",
-            "url": "/api/2014/ability-scores/cha"
+            "id": "cha"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         }
       ],
       "proficiencyChoices": [
@@ -702,145 +549,109 @@
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-acrobatics",
-                  "name": "Skill: Acrobatics",
-                  "url": "/api/2014/proficiencies/skill-acrobatics"
+                  "id": "skill-acrobatics"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-animal-handling",
-                  "name": "Skill: Animal Handling",
-                  "url": "/api/2014/proficiencies/skill-animal-handling"
+                  "id": "skill-animal-handling"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-arcana",
-                  "name": "Skill: Arcana",
-                  "url": "/api/2014/proficiencies/skill-arcana"
+                  "id": "skill-arcana"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-athletics",
-                  "name": "Skill: Athletics",
-                  "url": "/api/2014/proficiencies/skill-athletics"
+                  "id": "skill-athletics"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-deception",
-                  "name": "Skill: Deception",
-                  "url": "/api/2014/proficiencies/skill-deception"
+                  "id": "skill-deception"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-history",
-                  "name": "Skill: History",
-                  "url": "/api/2014/proficiencies/skill-history"
+                  "id": "skill-history"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-insight",
-                  "name": "Skill: Insight",
-                  "url": "/api/2014/proficiencies/skill-insight"
+                  "id": "skill-insight"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-intimidation",
-                  "name": "Skill: Intimidation",
-                  "url": "/api/2014/proficiencies/skill-intimidation"
+                  "id": "skill-intimidation"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-investigation",
-                  "name": "Skill: Investigation",
-                  "url": "/api/2014/proficiencies/skill-investigation"
+                  "id": "skill-investigation"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-medicine",
-                  "name": "Skill: Medicine",
-                  "url": "/api/2014/proficiencies/skill-medicine"
+                  "id": "skill-medicine"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-nature",
-                  "name": "Skill: Nature",
-                  "url": "/api/2014/proficiencies/skill-nature"
+                  "id": "skill-nature"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-perception",
-                  "name": "Skill: Perception",
-                  "url": "/api/2014/proficiencies/skill-perception"
+                  "id": "skill-perception"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-performance",
-                  "name": "Skill: Performance",
-                  "url": "/api/2014/proficiencies/skill-performance"
+                  "id": "skill-performance"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-persuasion",
-                  "name": "Skill: Persuasion",
-                  "url": "/api/2014/proficiencies/skill-persuasion"
+                  "id": "skill-persuasion"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-religion",
-                  "name": "Skill: Religion",
-                  "url": "/api/2014/proficiencies/skill-religion"
+                  "id": "skill-religion"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-sleight-of-hand",
-                  "name": "Skill: Sleight of Hand",
-                  "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+                  "id": "skill-sleight-of-hand"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-stealth",
-                  "name": "Skill: Stealth",
-                  "url": "/api/2014/proficiencies/skill-stealth"
+                  "id": "skill-stealth"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-survival",
-                  "name": "Skill: Survival",
-                  "url": "/api/2014/proficiencies/skill-survival"
+                  "id": "skill-survival"
                 }
               }
             ]
@@ -856,81 +667,61 @@
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "bagpipes",
-                  "name": "Bagpipes",
-                  "url": "/api/2014/proficiencies/bagpipes"
+                  "id": "bagpipes"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "drum",
-                  "name": "Drum",
-                  "url": "/api/2014/proficiencies/drum"
+                  "id": "drum"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "dulcimer",
-                  "name": "Dulcimer",
-                  "url": "/api/2014/proficiencies/dulcimer"
+                  "id": "dulcimer"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "flute",
-                  "name": "Flute",
-                  "url": "/api/2014/proficiencies/flute"
+                  "id": "flute"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "lute",
-                  "name": "Lute",
-                  "url": "/api/2014/proficiencies/lute"
+                  "id": "lute"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "lyre",
-                  "name": "Lyre",
-                  "url": "/api/2014/proficiencies/lyre"
+                  "id": "lyre"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "horn",
-                  "name": "Horn",
-                  "url": "/api/2014/proficiencies/horn"
+                  "id": "horn"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "pan-flute",
-                  "name": "Pan flute",
-                  "url": "/api/2014/proficiencies/pan-flute"
+                  "id": "pan-flute"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "shawm",
-                  "name": "Shawm",
-                  "url": "/api/2014/proficiencies/shawm"
+                  "id": "shawm"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "viol",
-                  "name": "Viol",
-                  "url": "/api/2014/proficiencies/viol"
+                  "id": "viol"
                 }
               }
             ]
@@ -940,17 +731,13 @@
     },
     "subclasses": [
       {
-        "index": "lore",
-        "name": "Lore",
-        "url": "/api/2014/subclasses/lore"
+        "id": "lore"
       }
     ],
     "spellcasting": {
       "level": 1,
       "spellcastingAbility": {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       },
       "info": [
         {
@@ -996,12 +783,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/bard/spells",
-    "url": "/api/2014/classes/bard"
+    }
   },
   {
-    "index": "cleric",
+    "id": "cleric",
     "name": "Cleric",
     "hitDie": 8,
     "proficiencyChoices": [
@@ -1015,41 +800,31 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-history",
-                "name": "Skill: History",
-                "url": "/api/2014/proficiencies/skill-history"
+                "id": "skill-history"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-medicine",
-                "name": "Skill: Medicine",
-                "url": "/api/2014/proficiencies/skill-medicine"
+                "id": "skill-medicine"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-persuasion",
-                "name": "Skill: Persuasion",
-                "url": "/api/2014/proficiencies/skill-persuasion"
+                "id": "skill-persuasion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             }
           ]
@@ -1058,54 +833,36 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "medium-armor",
-        "name": "Medium Armor",
-        "url": "/api/2014/proficiencies/medium-armor"
+        "id": "medium-armor"
       },
       {
-        "index": "shields",
-        "name": "Shields",
-        "url": "/api/2014/proficiencies/shields"
+        "id": "shields"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "saving-throw-wis",
-        "name": "Saving Throw: WIS",
-        "url": "/api/2014/proficiencies/saving-throw-wis"
+        "id": "saving-throw-wis"
       },
       {
-        "index": "saving-throw-cha",
-        "name": "Saving Throw: CHA",
-        "url": "/api/2014/proficiencies/saving-throw-cha"
+        "id": "saving-throw-cha"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       },
       {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "shield",
-          "name": "Shield",
-          "url": "/api/2014/equipment/shield"
+          "id": "shield"
         },
         "quantity": 1
       }
@@ -1122,26 +879,20 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "mace",
-                "name": "Mace",
-                "url": "/api/2014/equipment/mace"
+                "id": "mace"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "warhammer",
-                "name": "Warhammer",
-                "url": "/api/2014/equipment/warhammer"
+                "id": "warhammer"
               },
               "prerequisites": [
                 {
                   "type": "proficiency",
                   "proficiency": {
-                    "index": "warhammers",
-                    "name": "Warhammers",
-                    "url": "/api/2014/proficiencies/warhammers"
+                    "id": "warhammers"
                   }
                 }
               ]
@@ -1160,35 +911,27 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "scale-mail",
-                "name": "Scale Mail",
-                "url": "/api/2014/equipment/scale-mail"
+                "id": "scale-mail"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "leather-armor",
-                "name": "Leather Armor",
-                "url": "/api/2014/equipment/leather-armor"
+                "id": "leather-armor"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "chain-mail",
-                "name": "Chain Mail",
-                "url": "/api/2014/equipment/chain-mail"
+                "id": "chain-mail"
               },
               "prerequisites": [
                 {
                   "type": "proficiency",
                   "proficiency": {
-                    "index": "chain-mail",
-                    "name": "Chain Mail",
-                    "url": "/api/2014/proficiencies/chain-mail"
+                    "id": "chain-mail"
                   }
                 }
               ]
@@ -1210,18 +953,14 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "crossbow-light",
-                    "name": "Crossbow, light",
-                    "url": "/api/2014/equipment/crossbow-light"
+                    "id": "crossbow-light"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 20,
                   "of": {
-                    "index": "crossbow-bolt",
-                    "name": "Crossbow bolt",
-                    "url": "/api/2014/equipment/crossbow-bolt"
+                    "id": "crossbow-bolt"
                   }
                 }
               ]
@@ -1235,9 +974,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -1256,18 +993,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "priests-pack",
-                "name": "Priest's Pack",
-                "url": "/api/2014/equipment/priests-pack"
+                "id": "priests-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
@@ -1280,56 +1013,41 @@
         "from": {
           "optionSetType": "equipment_category",
           "equipment_category": {
-            "index": "holy-symbols",
-            "name": "Holy Symbols",
-            "url": "/api/2014/equipment-categories/holy-symbols"
+            "id": "holy-symbols"
           }
         }
       }
     ],
-    "classLevels": "/api/2014/classes/cleric/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "wis",
-            "name": "WIS",
-            "url": "/api/2014/ability-scores/wis"
+            "id": "wis"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "medium-armor",
-          "name": "Medium Armor",
-          "url": "/api/2014/proficiencies/medium-armor"
+          "id": "medium-armor"
         },
         {
-          "index": "shields",
-          "name": "Shields",
-          "url": "/api/2014/proficiencies/shields"
+          "id": "shields"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "life",
-        "name": "Life",
-        "url": "/api/2014/subclasses/life"
+        "id": "life"
       }
     ],
     "spellcasting": {
       "level": 1,
       "spellcastingAbility": {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       },
       "info": [
         {
@@ -1368,12 +1086,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/cleric/spells",
-    "url": "/api/2014/classes/cleric"
+    }
   },
   {
-    "index": "druid",
+    "id": "druid",
     "name": "Druid",
     "hitDie": 8,
     "proficiencyChoices": [
@@ -1387,65 +1103,49 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-arcana",
-                "name": "Skill: Arcana",
-                "url": "/api/2014/proficiencies/skill-arcana"
+                "id": "skill-arcana"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-animal-handling",
-                "name": "Skill: Animal Handling",
-                "url": "/api/2014/proficiencies/skill-animal-handling"
+                "id": "skill-animal-handling"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-medicine",
-                "name": "Skill: Medicine",
-                "url": "/api/2014/proficiencies/skill-medicine"
+                "id": "skill-medicine"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-nature",
-                "name": "Skill: Nature",
-                "url": "/api/2014/proficiencies/skill-nature"
+                "id": "skill-nature"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-perception",
-                "name": "Skill: Perception",
-                "url": "/api/2014/proficiencies/skill-perception"
+                "id": "skill-perception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-survival",
-                "name": "Skill: Survival",
-                "url": "/api/2014/proficiencies/skill-survival"
+                "id": "skill-survival"
               }
             }
           ]
@@ -1454,112 +1154,72 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "medium-armor",
-        "name": "Medium Armor",
-        "url": "/api/2014/proficiencies/medium-armor"
+        "id": "medium-armor"
       },
       {
-        "index": "shields",
-        "name": "Shields",
-        "url": "/api/2014/proficiencies/shields"
+        "id": "shields"
       },
       {
-        "index": "clubs",
-        "name": "Clubs",
-        "url": "/api/2014/proficiencies/clubs"
+        "id": "clubs"
       },
       {
-        "index": "daggers",
-        "name": "Daggers",
-        "url": "/api/2014/proficiencies/daggers"
+        "id": "daggers"
       },
       {
-        "index": "javelins",
-        "name": "Javelins",
-        "url": "/api/2014/proficiencies/javelins"
+        "id": "javelins"
       },
       {
-        "index": "maces",
-        "name": "Maces",
-        "url": "/api/2014/proficiencies/maces"
+        "id": "maces"
       },
       {
-        "index": "quarterstaffs",
-        "name": "Quarterstaffs",
-        "url": "/api/2014/proficiencies/quarterstaffs"
+        "id": "quarterstaffs"
       },
       {
-        "index": "sickles",
-        "name": "Sickles",
-        "url": "/api/2014/proficiencies/sickles"
+        "id": "sickles"
       },
       {
-        "index": "spears",
-        "name": "Spears",
-        "url": "/api/2014/proficiencies/spears"
+        "id": "spears"
       },
       {
-        "index": "darts",
-        "name": "Darts",
-        "url": "/api/2014/proficiencies/darts"
+        "id": "darts"
       },
       {
-        "index": "slings",
-        "name": "Slings",
-        "url": "/api/2014/proficiencies/slings"
+        "id": "slings"
       },
       {
-        "index": "scimitars",
-        "name": "Scimitars",
-        "url": "/api/2014/proficiencies/scimitars"
+        "id": "scimitars"
       },
       {
-        "index": "herbalism-kit",
-        "name": "Herbalism Kit",
-        "url": "/api/2014/proficiencies/herbalism-kit"
+        "id": "herbalism-kit"
       },
       {
-        "index": "saving-throw-int",
-        "name": "Saving Throw: INT",
-        "url": "/api/2014/proficiencies/saving-throw-int"
+        "id": "saving-throw-int"
       },
       {
-        "index": "saving-throw-wis",
-        "name": "Saving Throw: WIS",
-        "url": "/api/2014/proficiencies/saving-throw-wis"
+        "id": "saving-throw-wis"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "int",
-        "name": "INT",
-        "url": "/api/2014/ability-scores/int"
+        "id": "int"
       },
       {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "leather-armor",
-          "name": "Leather Armor",
-          "url": "/api/2014/equipment/leather-armor"
+          "id": "leather-armor"
         },
         "quantity": 1
       },
       {
         "equipment": {
-          "index": "explorers-pack",
-          "name": "Explorer's Pack",
-          "url": "/api/2014/equipment/explorers-pack"
+          "id": "explorers-pack"
         },
         "quantity": 1
       }
@@ -1576,9 +1236,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "shield",
-                "name": "Shield",
-                "url": "/api/2014/equipment/shield"
+                "id": "shield"
               }
             },
             {
@@ -1590,9 +1248,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -1611,9 +1267,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "scimitar",
-                "name": "Scimitar",
-                "url": "/api/2014/equipment/scimitar"
+                "id": "scimitar"
               }
             },
             {
@@ -1625,9 +1279,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-melee-weapons",
-                    "name": "Simple Melee Weapons",
-                    "url": "/api/2014/equipment-categories/simple-melee-weapons"
+                    "id": "simple-melee-weapons"
                   }
                 }
               }
@@ -1642,56 +1294,41 @@
         "from": {
           "optionSetType": "equipment_category",
           "equipment_category": {
-            "index": "druidic-foci",
-            "name": "Druidic Foci",
-            "url": "/api/2014/equipment-categories/druidic-foci"
+            "id": "druidic-focus"
           }
         }
       }
     ],
-    "classLevels": "/api/2014/classes/druid/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "wis",
-            "name": "WIS",
-            "url": "/api/2014/ability-scores/wis"
+            "id": "wis"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "medium-armor",
-          "name": "Medium Armor",
-          "url": "/api/2014/proficiencies/medium-armor"
+          "id": "medium-armor"
         },
         {
-          "index": "shields",
-          "name": "Shields",
-          "url": "/api/2014/proficiencies/shields"
+          "id": "shields"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "land",
-        "name": "Land",
-        "url": "/api/2014/subclasses/land"
+        "id": "land"
       }
     ],
     "spellcasting": {
       "level": 1,
       "spellcastingAbility": {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       },
       "info": [
         {
@@ -1730,12 +1367,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/druid/spells",
-    "url": "/api/2014/classes/druid"
+    }
   },
   {
-    "index": "fighter",
+    "id": "fighter",
     "name": "Fighter",
     "hitDie": 10,
     "proficiencyChoices": [
@@ -1749,65 +1384,49 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-acrobatics",
-                "name": "Skill: Acrobatics",
-                "url": "/api/2014/proficiencies/skill-acrobatics"
+                "id": "skill-acrobatics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-animal-handling",
-                "name": "Skill: Animal Handling",
-                "url": "/api/2014/proficiencies/skill-animal-handling"
+                "id": "skill-animal-handling"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-history",
-                "name": "Skill: History",
-                "url": "/api/2014/proficiencies/skill-history"
+                "id": "skill-history"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-perception",
-                "name": "Skill: Perception",
-                "url": "/api/2014/proficiencies/skill-perception"
+                "id": "skill-perception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-survival",
-                "name": "Skill: Survival",
-                "url": "/api/2014/proficiencies/skill-survival"
+                "id": "skill-survival"
               }
             }
           ]
@@ -1816,46 +1435,30 @@
     ],
     "proficiencies": [
       {
-        "index": "all-armor",
-        "name": "All armor",
-        "url": "/api/2014/proficiencies/all-armor"
+        "id": "all-armor"
       },
       {
-        "index": "shields",
-        "name": "Shields",
-        "url": "/api/2014/proficiencies/shields"
+        "id": "shields"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "martial-weapons",
-        "name": "Martial Weapons",
-        "url": "/api/2014/proficiencies/martial-weapons"
+        "id": "martial-weapons"
       },
       {
-        "index": "saving-throw-str",
-        "name": "Saving Throw: STR",
-        "url": "/api/2014/proficiencies/saving-throw-str"
+        "id": "saving-throw-str"
       },
       {
-        "index": "saving-throw-con",
-        "name": "Saving Throw: CON",
-        "url": "/api/2014/proficiencies/saving-throw-con"
+        "id": "saving-throw-con"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "str",
-        "name": "STR",
-        "url": "/api/2014/ability-scores/str"
+        "id": "str"
       },
       {
-        "index": "con",
-        "name": "CON",
-        "url": "/api/2014/ability-scores/con"
+        "id": "con"
       }
     ],
     "startingEquipment": [],
@@ -1871,9 +1474,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "chain-mail",
-                "name": "Chain Mail",
-                "url": "/api/2014/equipment/chain-mail"
+                "id": "chain-mail"
               }
             },
             {
@@ -1883,27 +1484,21 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "leather-armor",
-                    "name": "Leather Armor",
-                    "url": "/api/2014/equipment/leather-armor"
+                    "id": "leather-armor"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "longbow",
-                    "name": "Longbow",
-                    "url": "/api/2014/equipment/longbow"
+                    "id": "longbow"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 20,
                   "of": {
-                    "index": "arrow",
-                    "name": "Arrow",
-                    "url": "/api/2014/equipment/arrow"
+                    "id": "arrow"
                   }
                 }
               ]
@@ -1930,9 +1525,7 @@
                     "from": {
                       "optionSetType": "equipment_category",
                       "equipment_category": {
-                        "index": "martial-weapons",
-                        "name": "Martial Weapons",
-                        "url": "/api/2014/equipment-categories/martial-weapons"
+                        "id": "martial-weapons"
                       }
                     }
                   }
@@ -1941,9 +1534,7 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "shield",
-                    "name": "Shield",
-                    "url": "/api/2014/equipment/shield"
+                    "id": "shield"
                   }
                 }
               ]
@@ -1957,9 +1548,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "martial-weapons",
-                    "name": "Martial Weapons",
-                    "url": "/api/2014/equipment-categories/martial-weapons"
+                    "id": "martial-weapons"
                   }
                 }
               }
@@ -1981,18 +1570,14 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "crossbow-light",
-                    "name": "Crossbow, light",
-                    "url": "/api/2014/equipment/crossbow-light"
+                    "id": "crossbow-light"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 20,
                   "of": {
-                    "index": "crossbow-bolt",
-                    "name": "Crossbow bolt",
-                    "url": "/api/2014/equipment/crossbow-bolt"
+                    "id": "crossbow-bolt"
                   }
                 }
               ]
@@ -2001,9 +1586,7 @@
               "option_type": "counted_reference",
               "count": 2,
               "of": {
-                "index": "handaxe",
-                "name": "Handaxe",
-                "url": "/api/2014/equipment/handaxe"
+                "id": "handaxe"
               }
             }
           ]
@@ -2020,25 +1603,20 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dungeoneers-pack",
-                "name": "Dungeoneer's Pack",
-                "url": "/api/2014/equipment/dungeoneers-pack"
+                "id": "dungeoneers-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
         }
       }
     ],
-    "classLevels": "/api/2014/classes/fighter/levels",
     "multiClassing": {
       "prerequisiteOptions": {
         "type": "ability-scores",
@@ -2049,18 +1627,14 @@
             {
               "option_type": "score_prerequisite",
               "abilityScore": {
-                "index": "str",
-                "name": "STR",
-                "url": "/api/2014/ability-scores/str"
+                "id": "str"
               },
               "minimumScore": 13
             },
             {
               "option_type": "score_prerequisite",
               "abilityScore": {
-                "index": "dex",
-                "name": "DEX",
-                "url": "/api/2014/ability-scores/dex"
+                "id": "dex"
               },
               "minimumScore": 13
             }
@@ -2069,43 +1643,30 @@
       },
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "medium-armor",
-          "name": "Medium Armor",
-          "url": "/api/2014/proficiencies/medium-armor"
+          "id": "medium-armor"
         },
         {
-          "index": "shields",
-          "name": "Shields",
-          "url": "/api/2014/proficiencies/shields"
+          "id": "shields"
         },
         {
-          "index": "simple-weapons",
-          "name": "Simple Weapons",
-          "url": "/api/2014/proficiencies/simple-weapons"
+          "id": "simple-weapons"
         },
         {
-          "index": "martial-weapons",
-          "name": "Martial Weapons",
-          "url": "/api/2014/proficiencies/martial-weapons"
+          "id": "martial-weapons"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "champion",
-        "name": "Champion",
-        "url": "/api/2014/subclasses/champion"
+        "id": "champion"
       }
-    ],
-    "url": "/api/2014/classes/fighter"
+    ]
   },
   {
-    "index": "monk",
+    "id": "monk",
     "name": "Monk",
     "hitDie": 8,
     "proficiencyChoices": [
@@ -2119,49 +1680,37 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-acrobatics",
-                "name": "Skill: Acrobatics",
-                "url": "/api/2014/proficiencies/skill-acrobatics"
+                "id": "skill-acrobatics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-history",
-                "name": "Skill: History",
-                "url": "/api/2014/proficiencies/skill-history"
+                "id": "skill-history"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-stealth",
-                "name": "Skill: Stealth",
-                "url": "/api/2014/proficiencies/skill-stealth"
+                "id": "skill-stealth"
               }
             }
           ]
@@ -2186,153 +1735,115 @@
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "alchemists-supplies",
-                        "name": "Alchemist's Supplies",
-                        "url": "/api/2014/proficiencies/alchemists-supplies"
+                        "id": "alchemists-supplies"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "brewers-supplies",
-                        "name": "Brewer's Supplies",
-                        "url": "/api/2014/proficiencies/brewers-supplies"
+                        "id": "brewers-supplies"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "calligraphers-supplies",
-                        "name": "Calligrapher's Supplies",
-                        "url": "/api/2014/proficiencies/calligraphers-supplies"
+                        "id": "calligraphers-supplies"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "carpenters-tools",
-                        "name": "Carpenter's Tools",
-                        "url": "/api/2014/proficiencies/carpenters-tools"
+                        "id": "carpenters-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "cartographers-tools",
-                        "name": "Cartographer's Tools",
-                        "url": "/api/2014/proficiencies/cartographers-tools"
+                        "id": "cartographers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "cobblers-tools",
-                        "name": "Cobbler's Tools",
-                        "url": "/api/2014/proficiencies/cobblers-tools"
+                        "id": "cobblers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "cooks-utensils",
-                        "name": "Cook's utensils",
-                        "url": "/api/2014/proficiencies/cooks-utensils"
+                        "id": "cooks-utensils"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "glassblowers-tools",
-                        "name": "Glassblower's Tools",
-                        "url": "/api/2014/proficiencies/glassblowers-tools"
+                        "id": "glassblowers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "jewelers-tools",
-                        "name": "Jeweler's Tools",
-                        "url": "/api/2014/proficiencies/jewelers-tools"
+                        "id": "jewelers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "leatherworkers-tools",
-                        "name": "Leatherworker's Tools",
-                        "url": "/api/2014/proficiencies/leatherworkers-tools"
+                        "id": "leatherworkers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "masons-tools",
-                        "name": "Mason's Tools",
-                        "url": "/api/2014/proficiencies/masons-tools"
+                        "id": "masons-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "painters-supplies",
-                        "name": "Painter's Supplies",
-                        "url": "/api/2014/proficiencies/painters-supplies"
+                        "id": "painters-supplies"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "potters-tools",
-                        "name": "Potter's Tools",
-                        "url": "/api/2014/proficiencies/potters-tools"
+                        "id": "potters-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "smiths-tools",
-                        "name": "Smith's Tools",
-                        "url": "/api/2014/proficiencies/smiths-tools"
+                        "id": "smiths-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "tinkers-tools",
-                        "name": "Tinker's Tools",
-                        "url": "/api/2014/proficiencies/tinkers-tools"
+                        "id": "tinkers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "weavers-tools",
-                        "name": "Weaver's Tools",
-                        "url": "/api/2014/proficiencies/weavers-tools"
+                        "id": "weavers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "woodcarvers-tools",
-                        "name": "Woodcarver's Tools",
-                        "url": "/api/2014/proficiencies/woodcarvers-tools"
+                        "id": "woodcarvers-tools"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "disguise-kit",
-                        "name": "Disguise Kit",
-                        "url": "/api/2014/proficiencies/disguise-kit"
+                        "id": "disguise-kit"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "forgery-kit",
-                        "name": "Forgery Kit",
-                        "url": "/api/2014/proficiencies/forgery-kit"
+                        "id": "forgery-kit"
                       }
                     }
                   ]
@@ -2351,81 +1862,61 @@
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "bagpipes",
-                        "name": "Bagpipes",
-                        "url": "/api/2014/proficiencies/bagpipes"
+                        "id": "bagpipes"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "drum",
-                        "name": "Drum",
-                        "url": "/api/2014/proficiencies/drum"
+                        "id": "drum"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "dulcimer",
-                        "name": "Dulcimer",
-                        "url": "/api/2014/proficiencies/dulcimer"
+                        "id": "dulcimer"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "flute",
-                        "name": "Flute",
-                        "url": "/api/2014/proficiencies/flute"
+                        "id": "flute"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "lute",
-                        "name": "Lute",
-                        "url": "/api/2014/proficiencies/lute"
+                        "id": "lute"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "lyre",
-                        "name": "Lyre",
-                        "url": "/api/2014/proficiencies/lyre"
+                        "id": "lyre"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "horn",
-                        "name": "Horn",
-                        "url": "/api/2014/proficiencies/horn"
+                        "id": "horn"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "pan-flute",
-                        "name": "Pan flute",
-                        "url": "/api/2014/proficiencies/pan-flute"
+                        "id": "pan-flute"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "shawm",
-                        "name": "Shawm",
-                        "url": "/api/2014/proficiencies/shawm"
+                        "id": "shawm"
                       }
                     },
                     {
                       "option_type": "reference",
                       "item": {
-                        "index": "viol",
-                        "name": "Viol",
-                        "url": "/api/2014/proficiencies/viol"
+                        "id": "viol"
                       }
                     }
                   ]
@@ -2438,44 +1929,30 @@
     ],
     "proficiencies": [
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "shortswords",
-        "name": "Shortswords",
-        "url": "/api/2014/proficiencies/shortswords"
+        "id": "shortswords"
       },
       {
-        "index": "saving-throw-dex",
-        "name": "Saving Throw: DEX",
-        "url": "/api/2014/proficiencies/saving-throw-dex"
+        "id": "saving-throw-dex"
       },
       {
-        "index": "saving-throw-str",
-        "name": "Saving Throw: STR",
-        "url": "/api/2014/proficiencies/saving-throw-str"
+        "id": "saving-throw-str"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "str",
-        "name": "STR",
-        "url": "/api/2014/ability-scores/str"
+        "id": "str"
       },
       {
-        "index": "dex",
-        "name": "DEX",
-        "url": "/api/2014/ability-scores/dex"
+        "id": "dex"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "dart",
-          "name": "Dart",
-          "url": "/api/2014/equipment/dart"
+          "id": "dart"
         },
         "quantity": 10
       }
@@ -2492,9 +1969,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "shortsword",
-                "name": "Shortsword",
-                "url": "/api/2014/equipment/shortsword"
+                "id": "shortsword"
               }
             },
             {
@@ -2506,9 +1981,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -2527,68 +2000,52 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dungeoneers-pack",
-                "name": "Dungeoneer's Pack",
-                "url": "/api/2014/equipment/dungeoneers-pack"
+                "id": "dungeoneers-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
         }
       }
     ],
-    "classLevels": "/api/2014/classes/monk/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "minimumScore": 13
         },
         {
           "abilityScore": {
-            "index": "wis",
-            "name": "WIS",
-            "url": "/api/2014/ability-scores/wis"
+            "id": "wis"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "simple-weapons",
-          "name": "Simple Weapons",
-          "url": "/api/2014/proficiencies/simple-weapons"
+          "id": "simple-weapons"
         },
         {
-          "index": "shortswords",
-          "name": "Shortswords",
-          "url": "/api/2014/proficiencies/shortswords"
+          "id": "shortswords"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "open-hand",
-        "name": "Open Hand",
-        "url": "/api/2014/subclasses/open-hand"
+        "id": "open-hand"
       }
-    ],
-    "url": "/api/2014/classes/monk"
+    ]
   },
   {
-    "index": "paladin",
+    "id": "paladin",
     "name": "Paladin",
     "hitDie": 10,
     "proficiencyChoices": [
@@ -2602,49 +2059,37 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-medicine",
-                "name": "Skill: Medicine",
-                "url": "/api/2014/proficiencies/skill-medicine"
+                "id": "skill-medicine"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-persuasion",
-                "name": "Skill: Persuasion",
-                "url": "/api/2014/proficiencies/skill-persuasion"
+                "id": "skill-persuasion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             }
           ]
@@ -2653,54 +2098,36 @@
     ],
     "proficiencies": [
       {
-        "index": "all-armor",
-        "name": "All armor",
-        "url": "/api/2014/proficiencies/all-armor"
+        "id": "all-armor"
       },
       {
-        "index": "shields",
-        "name": "Shields",
-        "url": "/api/2014/proficiencies/shields"
+        "id": "shields"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "martial-weapons",
-        "name": "Martial Weapons",
-        "url": "/api/2014/proficiencies/martial-weapons"
+        "id": "martial-weapons"
       },
       {
-        "index": "saving-throw-wis",
-        "name": "Saving Throw: WIS",
-        "url": "/api/2014/proficiencies/saving-throw-wis"
+        "id": "saving-throw-wis"
       },
       {
-        "index": "saving-throw-cha",
-        "name": "Saving Throw: CHA",
-        "url": "/api/2014/proficiencies/saving-throw-cha"
+        "id": "saving-throw-cha"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       },
       {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "chain-mail",
-          "name": "Chain Mail",
-          "url": "/api/2014/equipment/chain-mail"
+          "id": "chain-mail"
         },
         "quantity": 1
       }
@@ -2725,9 +2152,7 @@
                     "from": {
                       "optionSetType": "equipment_category",
                       "equipment_category": {
-                        "name": "Martial Weapons",
-                        "index": "martial-weapons",
-                        "url": "/api/2014/equipment-categories/martial-weapons"
+                        "id": "martial-weapons"
                       }
                     }
                   }
@@ -2736,9 +2161,7 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "shield",
-                    "name": "Shield",
-                    "url": "/api/2014/equipment/shield"
+                    "id": "shield"
                   }
                 }
               ]
@@ -2752,9 +2175,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "martial-weapons",
-                    "name": "Martial Weapons",
-                    "url": "/api/2014/equipment-categories/martial-weapons"
+                    "id": "martial-weapons"
                   }
                 }
               }
@@ -2773,9 +2194,7 @@
               "option_type": "counted_reference",
               "count": 5,
               "of": {
-                "index": "javelin",
-                "name": "Javelin",
-                "url": "/api/2014/equipment/javelin"
+                "id": "javelin"
               }
             },
             {
@@ -2787,9 +2206,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -2808,18 +2225,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "priests-pack",
-                "name": "Priest's Pack",
-                "url": "/api/2014/equipment/priests-pack"
+                "id": "priests-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
@@ -2832,74 +2245,53 @@
         "from": {
           "optionSetType": "equipment_category",
           "equipment_category": {
-            "index": "holy-symbols",
-            "name": "Holy Symbols",
-            "url": "/api/2014/equipment-categories/holy-symbols"
+            "id": "holy-symbols"
           }
         }
       }
     ],
-    "classLevels": "/api/2014/classes/paladin/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "str",
-            "name": "STR",
-            "url": "/api/2014/ability-scores/str"
+            "id": "str"
           },
           "minimumScore": 13
         },
         {
           "abilityScore": {
-            "index": "cha",
-            "name": "CHA",
-            "url": "/api/2014/ability-scores/cha"
+            "id": "cha"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "medium-armor",
-          "name": "Medium Armor",
-          "url": "/api/2014/proficiencies/medium-armor"
+          "id": "medium-armor"
         },
         {
-          "index": "shields",
-          "name": "Shields",
-          "url": "/api/2014/proficiencies/shields"
+          "id": "shields"
         },
         {
-          "index": "simple-weapons",
-          "name": "Simple Weapons",
-          "url": "/api/2014/proficiencies/simple-weapons"
+          "id": "simple-weapons"
         },
         {
-          "index": "martial-weapons",
-          "name": "Martial Weapons",
-          "url": "/api/2014/proficiencies/martial-weapons"
+          "id": "martial-weapons"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "devotion",
-        "name": "Devotion",
-        "url": "/api/2014/subclasses/devotion"
+        "id": "devotion"
       }
     ],
     "spellcasting": {
       "level": 2,
       "spellcastingAbility": {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       },
       "info": [
         {
@@ -2926,12 +2318,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/paladin/spells",
-    "url": "/api/2014/classes/paladin"
+    }
   },
   {
-    "index": "ranger",
+    "id": "ranger",
     "name": "Ranger",
     "hitDie": 10,
     "proficiencyChoices": [
@@ -2945,65 +2335,49 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-animal-handling",
-                "name": "Skill: Animal Handling",
-                "url": "/api/2014/proficiencies/skill-animal-handling"
+                "id": "skill-animal-handling"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-investigation",
-                "name": "Skill: Investigation",
-                "url": "/api/2014/proficiencies/skill-investigation"
+                "id": "skill-investigation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-nature",
-                "name": "Skill: Nature",
-                "url": "/api/2014/proficiencies/skill-nature"
+                "id": "skill-nature"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-perception",
-                "name": "Skill: Perception",
-                "url": "/api/2014/proficiencies/skill-perception"
+                "id": "skill-perception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-stealth",
-                "name": "Skill: Stealth",
-                "url": "/api/2014/proficiencies/skill-stealth"
+                "id": "skill-stealth"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-survival",
-                "name": "Skill: Survival",
-                "url": "/api/2014/proficiencies/skill-survival"
+                "id": "skill-survival"
               }
             }
           ]
@@ -3012,67 +2386,45 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "medium-armor",
-        "name": "Medium Armor",
-        "url": "/api/2014/proficiencies/medium-armor"
+        "id": "medium-armor"
       },
       {
-        "index": "shields",
-        "name": "Shields",
-        "url": "/api/2014/proficiencies/shields"
+        "id": "shields"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "martial-weapons",
-        "name": "Martial Weapons",
-        "url": "/api/2014/proficiencies/martial-weapons"
+        "id": "martial-weapons"
       },
       {
-        "index": "saving-throw-dex",
-        "name": "Saving Throw: DEX",
-        "url": "/api/2014/proficiencies/saving-throw-dex"
+        "id": "saving-throw-dex"
       },
       {
-        "index": "saving-throw-str",
-        "name": "Saving Throw: STR",
-        "url": "/api/2014/proficiencies/saving-throw-str"
+        "id": "saving-throw-str"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "str",
-        "name": "STR",
-        "url": "/api/2014/ability-scores/str"
+        "id": "str"
       },
       {
-        "index": "dex",
-        "name": "DEX",
-        "url": "/api/2014/ability-scores/dex"
+        "id": "dex"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "longbow",
-          "name": "Longbow",
-          "url": "/api/2014/equipment/longbow"
+          "id": "longbow"
         },
         "quantity": 1
       },
       {
         "equipment": {
-          "index": "arrow",
-          "name": "Arrow",
-          "url": "/api/2014/equipment/arrow"
+          "id": "arrow"
         },
         "quantity": 20
       }
@@ -3089,18 +2441,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "scale-mail",
-                "name": "Scale Mail",
-                "url": "/api/2014/equipment/scale-mail"
+                "id": "scale-mail"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "leather-armor",
-                "name": "Leather Armor",
-                "url": "/api/2014/equipment/leather-armor"
+                "id": "leather-armor"
               }
             }
           ]
@@ -3117,9 +2465,7 @@
               "option_type": "counted_reference",
               "count": 2,
               "of": {
-                "index": "shortsword",
-                "name": "Shortsword",
-                "url": "/api/2014/equipment/shortsword"
+                "id": "shortsword"
               }
             },
             {
@@ -3131,9 +2477,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-melee-weapons",
-                    "name": "Simple Melee Weapons",
-                    "url": "/api/2014/equipment-categories/simple-melee-weapons"
+                    "id": "simple-melee-weapons"
                   }
                 }
               }
@@ -3152,69 +2496,50 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dungeoneers-pack",
-                "name": "Dungeoneer's Pack",
-                "url": "/api/2014/equipment/dungeoneers-pack"
+                "id": "dungeoneers-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
         }
       }
     ],
-    "classLevels": "/api/2014/classes/ranger/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "minimumScore": 13
         },
         {
           "abilityScore": {
-            "index": "wis",
-            "name": "WIS",
-            "url": "/api/2014/ability-scores/wis"
+            "id": "wis"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "medium-armor",
-          "name": "Medium Armor",
-          "url": "/api/2014/proficiencies/medium-armor"
+          "id": "medium-armor"
         },
         {
-          "index": "shields",
-          "name": "Shields",
-          "url": "/api/2014/proficiencies/shields"
+          "id": "shields"
         },
         {
-          "index": "simple-weapons",
-          "name": "Simple Weapons",
-          "url": "/api/2014/proficiencies/simple-weapons"
+          "id": "simple-weapons"
         },
         {
-          "index": "martial-weapons",
-          "name": "Martial Weapons",
-          "url": "/api/2014/proficiencies/martial-weapons"
+          "id": "martial-weapons"
         }
       ],
       "proficiencyChoices": [
@@ -3227,65 +2552,49 @@
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-animal-handling",
-                  "name": "Skill: Animal Handling",
-                  "url": "/api/2014/proficiencies/skill-animal-handling"
+                  "id": "skill-animal-handling"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-athletics",
-                  "name": "Skill: Athletics",
-                  "url": "/api/2014/proficiencies/skill-athletics"
+                  "id": "skill-athletics"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-insight",
-                  "name": "Skill: Insight",
-                  "url": "/api/2014/proficiencies/skill-insight"
+                  "id": "skill-insight"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-investigation",
-                  "name": "Skill: Investigation",
-                  "url": "/api/2014/proficiencies/skill-investigation"
+                  "id": "skill-investigation"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-nature",
-                  "name": "Skill: Nature",
-                  "url": "/api/2014/proficiencies/skill-nature"
+                  "id": "skill-nature"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-perception",
-                  "name": "Skill: Perception",
-                  "url": "/api/2014/proficiencies/skill-perception"
+                  "id": "skill-perception"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-stealth",
-                  "name": "Skill: Stealth",
-                  "url": "/api/2014/proficiencies/skill-stealth"
+                  "id": "skill-stealth"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-survival",
-                  "name": "Skill: Survival",
-                  "url": "/api/2014/proficiencies/skill-survival"
+                  "id": "skill-survival"
                 }
               }
             ]
@@ -3295,17 +2604,13 @@
     },
     "subclasses": [
       {
-        "index": "hunter",
-        "name": "Hunter",
-        "url": "/api/2014/subclasses/hunter"
+        "id": "hunter"
       }
     ],
     "spellcasting": {
       "level": 2,
       "spellcastingAbility": {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       },
       "info": [
         {
@@ -3332,12 +2637,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/ranger/spells",
-    "url": "/api/2014/classes/ranger"
+    }
   },
   {
-    "index": "rogue",
+    "id": "rogue",
     "name": "Rogue",
     "hitDie": 8,
     "proficiencyChoices": [
@@ -3351,89 +2654,67 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-acrobatics",
-                "name": "Skill: Acrobatics",
-                "url": "/api/2014/proficiencies/skill-acrobatics"
+                "id": "skill-acrobatics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-athletics",
-                "name": "Skill: Athletics",
-                "url": "/api/2014/proficiencies/skill-athletics"
+                "id": "skill-athletics"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-deception",
-                "name": "Skill: Deception",
-                "url": "/api/2014/proficiencies/skill-deception"
+                "id": "skill-deception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-investigation",
-                "name": "Skill: Investigation",
-                "url": "/api/2014/proficiencies/skill-investigation"
+                "id": "skill-investigation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-perception",
-                "name": "Skill: Perception",
-                "url": "/api/2014/proficiencies/skill-perception"
+                "id": "skill-perception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-performance",
-                "name": "Skill: Performance",
-                "url": "/api/2014/proficiencies/skill-performance"
+                "id": "skill-performance"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-persuasion",
-                "name": "Skill: Persuasion",
-                "url": "/api/2014/proficiencies/skill-persuasion"
+                "id": "skill-persuasion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-sleight-of-hand",
-                "name": "Skill: Sleight of Hand",
-                "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+                "id": "skill-sleight-of-hand"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-stealth",
-                "name": "Skill: Stealth",
-                "url": "/api/2014/proficiencies/skill-stealth"
+                "id": "skill-stealth"
               }
             }
           ]
@@ -3442,85 +2723,57 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "longswords",
-        "name": "Longswords",
-        "url": "/api/2014/proficiencies/longswords"
+        "id": "longswords"
       },
       {
-        "index": "rapiers",
-        "name": "Rapiers",
-        "url": "/api/2014/proficiencies/rapiers"
+        "id": "rapiers"
       },
       {
-        "index": "shortswords",
-        "name": "Shortswords",
-        "url": "/api/2014/proficiencies/shortswords"
+        "id": "shortswords"
       },
       {
-        "index": "hand-crossbows",
-        "name": "Hand crossbows",
-        "url": "/api/2014/proficiencies/hand-crossbows"
+        "id": "hand-crossbows"
       },
       {
-        "index": "thieves-tools",
-        "name": "Thieves' Tools",
-        "url": "/api/2014/proficiencies/thieves-tools"
+        "id": "thieves-tools"
       },
       {
-        "index": "saving-throw-dex",
-        "name": "Saving Throw: DEX",
-        "url": "/api/2014/proficiencies/saving-throw-dex"
+        "id": "saving-throw-dex"
       },
       {
-        "index": "saving-throw-int",
-        "name": "Saving Throw: INT",
-        "url": "/api/2014/proficiencies/saving-throw-int"
+        "id": "saving-throw-int"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "dex",
-        "name": "DEX",
-        "url": "/api/2014/ability-scores/dex"
+        "id": "dex"
       },
       {
-        "index": "int",
-        "name": "INT",
-        "url": "/api/2014/ability-scores/int"
+        "id": "int"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "leather-armor",
-          "name": "Leather Armor",
-          "url": "/api/2014/equipment/leather-armor"
+          "id": "leather-armor"
         },
         "quantity": 1
       },
       {
         "equipment": {
-          "index": "dagger",
-          "name": "Dagger",
-          "url": "/api/2014/equipment/dagger"
+          "id": "dagger"
         },
         "quantity": 2
       },
       {
         "equipment": {
-          "index": "thieves-tools",
-          "name": "Thieves' Tools",
-          "url": "/api/2014/equipment/thieves-tools"
+          "id": "thieves-tools"
         },
         "quantity": 1
       }
@@ -3537,18 +2790,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "rapier",
-                "name": "Rapier",
-                "url": "/api/2014/equipment/rapier"
+                "id": "rapier"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "shortsword",
-                "name": "Shortsword",
-                "url": "/api/2014/equipment/shortsword"
+                "id": "shortsword"
               }
             }
           ]
@@ -3568,18 +2817,14 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "shortbow",
-                    "name": "Shortbow",
-                    "url": "/api/2014/equipment/shortbow"
+                    "id": "shortbow"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 20,
                   "of": {
-                    "index": "arrow",
-                    "name": "Arrow",
-                    "url": "/api/2014/equipment/arrow"
+                    "id": "arrow"
                   }
                 }
               ]
@@ -3588,9 +2833,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "shortsword",
-                "name": "Shortsword",
-                "url": "/api/2014/equipment/shortsword"
+                "id": "shortsword"
               }
             }
           ]
@@ -3607,55 +2850,42 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "burglars-pack",
-                "name": "Burglar's Pack",
-                "url": "/api/2014/equipment/burglars-pack"
+                "id": "burglars-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dungeoneers-pack",
-                "name": "Dungeoneer's Pack",
-                "url": "/api/2014/equipment/dungeoneers-pack"
+                "id": "dungeoneers-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
         }
       }
     ],
-    "classLevels": "/api/2014/classes/rogue/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "dex",
-            "name": "DEX",
-            "url": "/api/2014/ability-scores/dex"
+            "id": "dex"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "thieves-tools",
-          "name": "Thieves' Tools",
-          "url": "/api/2014/proficiencies/thieves-tools"
+          "id": "thieves-tools"
         }
       ],
       "proficiencyChoices": [
@@ -3668,89 +2898,67 @@
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-acrobatics",
-                  "name": "Skill: Acrobatics",
-                  "url": "/api/2014/proficiencies/skill-acrobatics"
+                  "id": "skill-acrobatics"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-athletics",
-                  "name": "Skill: Athletics",
-                  "url": "/api/2014/proficiencies/skill-athletics"
+                  "id": "skill-athletics"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-deception",
-                  "name": "Skill: Deception",
-                  "url": "/api/2014/proficiencies/skill-deception"
+                  "id": "skill-deception"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-insight",
-                  "name": "Skill: Insight",
-                  "url": "/api/2014/proficiencies/skill-insight"
+                  "id": "skill-insight"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-intimidation",
-                  "name": "Skill: Intimidation",
-                  "url": "/api/2014/proficiencies/skill-intimidation"
+                  "id": "skill-intimidation"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-investigation",
-                  "name": "Skill: Investigation",
-                  "url": "/api/2014/proficiencies/skill-investigation"
+                  "id": "skill-investigation"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-perception",
-                  "name": "Skill: Perception",
-                  "url": "/api/2014/proficiencies/skill-perception"
+                  "id": "skill-perception"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-performance",
-                  "name": "Skill: Performance",
-                  "url": "/api/2014/proficiencies/skill-performance"
+                  "id": "skill-performance"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-persuasion",
-                  "name": "Skill: Persuasion",
-                  "url": "/api/2014/proficiencies/skill-persuasion"
+                  "id": "skill-persuasion"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-sleight-of-hand",
-                  "name": "Skill: Sleight of Hand",
-                  "url": "/api/2014/proficiencies/skill-sleight-of-hand"
+                  "id": "skill-sleight-of-hand"
                 }
               },
               {
                 "option_type": "reference",
                 "item": {
-                  "index": "skill-stealth",
-                  "name": "Skill: Stealth",
-                  "url": "/api/2014/proficiencies/skill-stealth"
+                  "id": "skill-stealth"
                 }
               }
             ]
@@ -3760,15 +2968,12 @@
     },
     "subclasses": [
       {
-        "index": "thief",
-        "name": "Thief",
-        "url": "/api/2014/subclasses/thief"
+        "id": "thief"
       }
-    ],
-    "url": "/api/2014/classes/rogue"
+    ]
   },
   {
-    "index": "sorcerer",
+    "id": "sorcerer",
     "name": "Sorcerer",
     "hitDie": 6,
     "proficiencyChoices": [
@@ -3782,49 +2987,37 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-arcana",
-                "name": "Skill: Arcana",
-                "url": "/api/2014/proficiencies/skill-arcana"
+                "id": "skill-arcana"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-deception",
-                "name": "Skill: Deception",
-                "url": "/api/2014/proficiencies/skill-deception"
+                "id": "skill-deception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-persuasion",
-                "name": "Skill: Persuasion",
-                "url": "/api/2014/proficiencies/skill-persuasion"
+                "id": "skill-persuasion"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             }
           ]
@@ -3833,59 +3026,39 @@
     ],
     "proficiencies": [
       {
-        "index": "daggers",
-        "name": "Daggers",
-        "url": "/api/2014/proficiencies/daggers"
+        "id": "daggers"
       },
       {
-        "index": "darts",
-        "name": "Darts",
-        "url": "/api/2014/proficiencies/darts"
+        "id": "darts"
       },
       {
-        "index": "slings",
-        "name": "Slings",
-        "url": "/api/2014/proficiencies/slings"
+        "id": "slings"
       },
       {
-        "index": "quarterstaffs",
-        "name": "Quarterstaffs",
-        "url": "/api/2014/proficiencies/quarterstaffs"
+        "id": "quarterstaffs"
       },
       {
-        "index": "crossbows-light",
-        "name": "Crossbows, light",
-        "url": "/api/2014/proficiencies/crossbows-light"
+        "id": "crossbows-light"
       },
       {
-        "index": "saving-throw-con",
-        "name": "Saving Throw: CON",
-        "url": "/api/2014/proficiencies/saving-throw-con"
+        "id": "saving-throw-con"
       },
       {
-        "index": "saving-throw-cha",
-        "name": "Saving Throw: CHA",
-        "url": "/api/2014/proficiencies/saving-throw-cha"
+        "id": "saving-throw-cha"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "con",
-        "name": "CON",
-        "url": "/api/2014/ability-scores/con"
+        "id": "con"
       },
       {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "dagger",
-          "name": "Dagger",
-          "url": "/api/2014/equipment/dagger"
+          "id": "dagger"
         },
         "quantity": 2
       }
@@ -3905,18 +3078,14 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "crossbow-light",
-                    "name": "Crossbow, light",
-                    "url": "/api/2014/equipment/crossbow-light"
+                    "id": "crossbow-light"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 20,
                   "of": {
-                    "index": "crossbow-bolt",
-                    "name": "Crossbow bolt",
-                    "url": "/api/2014/equipment/crossbow-bolt"
+                    "id": "crossbow-bolt"
                   }
                 }
               ]
@@ -3930,9 +3099,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -3951,9 +3118,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "component-pouch",
-                "name": "Component pouch",
-                "url": "/api/2014/equipment/component-pouch"
+                "id": "component-pouch"
               }
             },
             {
@@ -3965,9 +3130,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "arcane-foci",
-                    "name": "Arcane Foci",
-                    "url": "/api/2014/equipment-categories/arcane-foci"
+                    "id": "arcane-focus"
                   }
                 }
               }
@@ -3986,32 +3149,25 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dungeoneers-pack",
-                "name": "Dungeoneer's Pack",
-                "url": "/api/2014/equipment/dungeoneers-pack"
+                "id": "dungeoneers-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
         }
       }
     ],
-    "classLevels": "/api/2014/classes/sorcerer/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "cha",
-            "name": "CHA",
-            "url": "/api/2014/ability-scores/cha"
+            "id": "cha"
           },
           "minimumScore": 13
         }
@@ -4020,17 +3176,13 @@
     },
     "subclasses": [
       {
-        "index": "draconic",
-        "name": "Draconic",
-        "url": "/api/2014/subclasses/draconic"
+        "id": "draconic"
       }
     ],
     "spellcasting": {
       "level": 1,
       "spellcastingAbility": {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       },
       "info": [
         {
@@ -4069,12 +3221,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/sorcerer/spells",
-    "url": "/api/2014/classes/sorcerer"
+    }
   },
   {
-    "index": "warlock",
+    "id": "warlock",
     "name": "Warlock",
     "hitDie": 8,
     "proficiencyChoices": [
@@ -4088,57 +3238,43 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-arcana",
-                "name": "Skill: Arcana",
-                "url": "/api/2014/proficiencies/skill-arcana"
+                "id": "skill-arcana"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-deception",
-                "name": "Skill: Deception",
-                "url": "/api/2014/proficiencies/skill-deception"
+                "id": "skill-deception"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-history",
-                "name": "Skill: History",
-                "url": "/api/2014/proficiencies/skill-history"
+                "id": "skill-history"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-intimidation",
-                "name": "Skill: Intimidation",
-                "url": "/api/2014/proficiencies/skill-intimidation"
+                "id": "skill-intimidation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-investigation",
-                "name": "Skill: Investigation",
-                "url": "/api/2014/proficiencies/skill-investigation"
+                "id": "skill-investigation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-nature",
-                "name": "Skill: Nature",
-                "url": "/api/2014/proficiencies/skill-nature"
+                "id": "skill-nature"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             }
           ]
@@ -4147,52 +3283,36 @@
     ],
     "proficiencies": [
       {
-        "index": "light-armor",
-        "name": "Light Armor",
-        "url": "/api/2014/proficiencies/light-armor"
+        "id": "light-armor"
       },
       {
-        "index": "simple-weapons",
-        "name": "Simple Weapons",
-        "url": "/api/2014/proficiencies/simple-weapons"
+        "id": "simple-weapons"
       },
       {
-        "index": "saving-throw-wis",
-        "name": "Saving Throw: WIS",
-        "url": "/api/2014/proficiencies/saving-throw-wis"
+        "id": "saving-throw-wis"
       },
       {
-        "index": "saving-throw-cha",
-        "name": "Saving Throw: CHA",
-        "url": "/api/2014/proficiencies/saving-throw-cha"
+        "id": "saving-throw-cha"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       },
       {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "dagger",
-          "name": "Dagger",
-          "url": "/api/2014/equipment/dagger"
+          "id": "dagger"
         },
         "quantity": 2
       },
       {
         "equipment": {
-          "index": "leather-armor",
-          "name": "Leather Armor",
-          "url": "/api/2014/equipment/leather-armor"
+          "id": "leather-armor"
         },
         "quantity": 1
       }
@@ -4212,18 +3332,14 @@
                   "option_type": "counted_reference",
                   "count": 1,
                   "of": {
-                    "index": "crossbow-light",
-                    "name": "Crossbow, light",
-                    "url": "/api/2014/equipment/crossbow-light"
+                    "id": "crossbow-light"
                   }
                 },
                 {
                   "option_type": "counted_reference",
                   "count": 20,
                   "of": {
-                    "index": "crossbow-bolt",
-                    "name": "Crossbow bolt",
-                    "url": "/api/2014/equipment/crossbow-bolt"
+                    "id": "crossbow-bolt"
                   }
                 }
               ]
@@ -4237,9 +3353,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "simple-weapons",
-                    "name": "Simple Weapons",
-                    "url": "/api/2014/equipment-categories/simple-weapons"
+                    "id": "simple-weapons"
                   }
                 }
               }
@@ -4258,9 +3372,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "component-pouch",
-                "name": "Component pouch",
-                "url": "/api/2014/equipment/component-pouch"
+                "id": "component-pouch"
               }
             },
             {
@@ -4272,9 +3384,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "arcane-foci",
-                    "name": "Arcane Foci",
-                    "url": "/api/2014/equipment-categories/arcane-foci"
+                    "id": "arcane-focus"
                   }
                 }
               }
@@ -4293,18 +3403,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "scholars-pack",
-                "name": "Scholar's Pack",
-                "url": "/api/2014/equipment/scholars-pack"
+                "id": "scholars-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dungeoneers-pack",
-                "name": "Dungeoneer's Pack",
-                "url": "/api/2014/equipment/dungeoneers-pack"
+                "id": "dungeoneers-pack"
               }
             }
           ]
@@ -4317,51 +3423,38 @@
         "from": {
           "optionSetType": "equipment_category",
           "equipment_category": {
-            "index": "simple-weapons",
-            "name": "Simple Weapons",
-            "url": "/api/2014/equipment-categories/simple-weapons"
+            "id": "simple-weapons"
           }
         }
       }
     ],
-    "classLevels": "/api/2014/classes/warlock/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "cha",
-            "name": "CHA",
-            "url": "/api/2014/ability-scores/cha"
+            "id": "cha"
           },
           "minimumScore": 13
         }
       ],
       "proficiencies": [
         {
-          "index": "light-armor",
-          "name": "Light Armor",
-          "url": "/api/2014/proficiencies/light-armor"
+          "id": "light-armor"
         },
         {
-          "index": "simple-weapons",
-          "name": "Simple Weapons",
-          "url": "/api/2014/proficiencies/simple-weapons"
+          "id": "simple-weapons"
         }
       ]
     },
     "subclasses": [
       {
-        "index": "fiend",
-        "name": "Fiend",
-        "url": "/api/2014/subclasses/fiend"
+        "id": "fiend"
       }
     ],
     "spellcasting": {
       "level": 1,
       "spellcastingAbility": {
-        "index": "cha",
-        "name": "CHA",
-        "url": "/api/2014/ability-scores/cha"
+        "id": "cha"
       },
       "info": [
         {
@@ -4401,12 +3494,10 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/warlock/spells",
-    "url": "/api/2014/classes/warlock"
+    }
   },
   {
-    "index": "wizard",
+    "id": "wizard",
     "name": "Wizard",
     "hitDie": 6,
     "proficiencyChoices": [
@@ -4420,49 +3511,37 @@
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-arcana",
-                "name": "Skill: Arcana",
-                "url": "/api/2014/proficiencies/skill-arcana"
+                "id": "skill-arcana"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-history",
-                "name": "Skill: History",
-                "url": "/api/2014/proficiencies/skill-history"
+                "id": "skill-history"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-insight",
-                "name": "Skill: Insight",
-                "url": "/api/2014/proficiencies/skill-insight"
+                "id": "skill-insight"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-investigation",
-                "name": "Skill: Investigation",
-                "url": "/api/2014/proficiencies/skill-investigation"
+                "id": "skill-investigation"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-medicine",
-                "name": "Skill: Medicine",
-                "url": "/api/2014/proficiencies/skill-medicine"
+                "id": "skill-medicine"
               }
             },
             {
               "option_type": "reference",
               "item": {
-                "index": "skill-religion",
-                "name": "Skill: Religion",
-                "url": "/api/2014/proficiencies/skill-religion"
+                "id": "skill-religion"
               }
             }
           ]
@@ -4471,59 +3550,39 @@
     ],
     "proficiencies": [
       {
-        "index": "daggers",
-        "name": "Daggers",
-        "url": "/api/2014/proficiencies/daggers"
+        "id": "daggers"
       },
       {
-        "index": "darts",
-        "name": "Darts",
-        "url": "/api/2014/proficiencies/darts"
+        "id": "darts"
       },
       {
-        "index": "slings",
-        "name": "Slings",
-        "url": "/api/2014/proficiencies/slings"
+        "id": "slings"
       },
       {
-        "index": "quarterstaffs",
-        "name": "Quarterstaffs",
-        "url": "/api/2014/proficiencies/quarterstaffs"
+        "id": "quarterstaffs"
       },
       {
-        "index": "crossbows-light",
-        "name": "Crossbows, light",
-        "url": "/api/2014/proficiencies/crossbows-light"
+        "id": "crossbows-light"
       },
       {
-        "index": "saving-throw-int",
-        "name": "Saving Throw: INT",
-        "url": "/api/2014/proficiencies/saving-throw-int"
+        "id": "saving-throw-int"
       },
       {
-        "index": "saving-throw-wis",
-        "name": "Saving Throw: WIS",
-        "url": "/api/2014/proficiencies/saving-throw-wis"
+        "id": "saving-throw-wis"
       }
     ],
-    "optionSetType": [
+    "savingThrows": [
       {
-        "index": "int",
-        "name": "INT",
-        "url": "/api/2014/ability-scores/int"
+        "id": "int"
       },
       {
-        "index": "wis",
-        "name": "WIS",
-        "url": "/api/2014/ability-scores/wis"
+        "id": "wis"
       }
     ],
     "startingEquipment": [
       {
         "equipment": {
-          "index": "spellbook",
-          "name": "Spellbook",
-          "url": "/api/2014/equipment/spellbook"
+          "id": "spellbook"
         },
         "quantity": 1
       }
@@ -4540,18 +3599,14 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "quarterstaff",
-                "name": "Quarterstaff",
-                "url": "/api/2014/equipment/quarterstaff"
+                "id": "quarterstaff"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "dagger",
-                "name": "Dagger",
-                "url": "/api/2014/equipment/dagger"
+                "id": "dagger"
               }
             }
           ]
@@ -4568,9 +3623,7 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "component-pouch",
-                "name": "Component pouch",
-                "url": "/api/2014/equipment/component-pouch"
+                "id": "component-pouch"
               }
             },
             {
@@ -4582,9 +3635,7 @@
                 "from": {
                   "optionSetType": "equipment_category",
                   "equipment_category": {
-                    "index": "arcane-foci",
-                    "name": "Arcane Foci",
-                    "url": "/api/2014/equipment-categories/arcane-foci"
+                    "id": "arcane-focus"
                   }
                 }
               }
@@ -4603,32 +3654,25 @@
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "scholars-pack",
-                "name": "Scholar's Pack",
-                "url": "/api/2014/equipment/scholars-pack"
+                "id": "scholars-pack"
               }
             },
             {
               "option_type": "counted_reference",
               "count": 1,
               "of": {
-                "index": "explorers-pack",
-                "name": "Explorer's Pack",
-                "url": "/api/2014/equipment/explorers-pack"
+                "id": "explorers-pack"
               }
             }
           ]
         }
       }
     ],
-    "classLevels": "/api/2014/classes/wizard/levels",
     "multiClassing": {
       "prerequisites": [
         {
           "abilityScore": {
-            "index": "int",
-            "name": "INT",
-            "url": "/api/2014/ability-scores/int"
+            "id": "int"
           },
           "minimumScore": 13
         }
@@ -4637,17 +3681,13 @@
     },
     "subclasses": [
       {
-        "index": "evocation",
-        "name": "Evocation",
-        "url": "/api/2014/subclasses/evocation"
+        "id": "evocation"
       }
     ],
     "spellcasting": {
       "level": 1,
       "spellcastingAbility": {
-        "index": "int",
-        "name": "INT",
-        "url": "/api/2014/ability-scores/int"
+        "id": "int"
       },
       "info": [
         {
@@ -4692,8 +3732,6 @@
           ]
         }
       ]
-    },
-    "spells": "/api/2014/classes/wizard/spells",
-    "url": "/api/2014/classes/wizard"
+    }
   }
 ]

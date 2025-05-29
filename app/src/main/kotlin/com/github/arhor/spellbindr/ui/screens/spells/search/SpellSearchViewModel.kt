@@ -3,9 +3,10 @@ package com.github.arhor.spellbindr.ui.screens.spells.search
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.Spell
-import com.github.arhor.spellbindr.data.model.SpellcastingClass
-import com.github.arhor.spellbindr.data.repository.SpellRepository
+import com.github.arhor.spellbindr.data.next.model.EntityRef
+import com.github.arhor.spellbindr.data.next.model.Spell
+import com.github.arhor.spellbindr.data.next.repository.CharacterClassRepository
+import com.github.arhor.spellbindr.data.next.repository.SpellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ import kotlin.time.Duration.Companion.milliseconds
 @HiltViewModel
 class SpellSearchViewModel @Inject constructor(
     private val spellRepository: SpellRepository,
+    private val characterClassRepository: CharacterClassRepository,
 ) : ViewModel() {
 
     data class State(
@@ -29,7 +31,8 @@ class SpellSearchViewModel @Inject constructor(
         val spells: List<Spell> = emptyList(),
         val showFavorite: Boolean = false,
         val showFilterDialog: Boolean = false,
-        val selectedClasses: Set<SpellcastingClass> = emptySet(),
+        val castingClasses: List<EntityRef> = emptyList(),
+        val currentClasses: Set<EntityRef> = emptySet(),
         val isLoading: Boolean = false,
         val error: String? = null,
     )
@@ -38,6 +41,11 @@ class SpellSearchViewModel @Inject constructor(
     val state: StateFlow<State> = _state.asStateFlow()
 
     init {
+        viewModelScope.launch {
+            characterClassRepository
+                .findSpellcastingClassesRefs()
+                .let { refs -> _state.update { it.copy(castingClasses = refs) } }
+        }
         observeStateChanges()
     }
 
@@ -55,12 +63,12 @@ class SpellSearchViewModel @Inject constructor(
         }
     }
 
-    fun onFilterChanged(classes: Set<SpellcastingClass>) {
+    fun onFilterChanged(classes: Set<EntityRef>) {
         _state.update {
-            if (classes != _state.value.selectedClasses) {
+            if (classes != _state.value.currentClasses) {
                 it.copy(
                     showFilterDialog = false,
-                    selectedClasses = classes,
+                    currentClasses = classes,
                 )
             } else {
                 it.copy(
@@ -76,7 +84,8 @@ class SpellSearchViewModel @Inject constructor(
             combine(_state, spellRepository.favoriteSpells) { state, favoriteSpells ->
                 Step(
                     state.query,
-                    state.selectedClasses,
+                    state.castingClasses,
+                    state.currentClasses,
                     state.showFavorite,
                     favoriteSpells
                 )
@@ -85,7 +94,7 @@ class SpellSearchViewModel @Inject constructor(
                     _state.update { it.copy(isLoading = true, error = null) }
                     val spells = spellRepository.findSpells(
                         query = step.query,
-                        classes = step.selectedClasses,
+                        classes = step.currentClasses,
                         favorite = step.showFavorite,
                     )
                     _state.update { it.copy(spells = spells, isLoading = false) }
@@ -99,7 +108,8 @@ class SpellSearchViewModel @Inject constructor(
 
     private data class Step(
         val query: String,
-        val selectedClasses: Set<SpellcastingClass>,
+        val castingClasses: List<EntityRef>,
+        val currentClasses: Set<EntityRef>,
         val showFavorite: Boolean,
         val favoriteSpells: List<String>
     )
