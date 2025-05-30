@@ -81,33 +81,40 @@ class SpellSearchViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         viewModelScope.launch {
-            combine(_state, spellRepository.allSpells, spellRepository.favSpells) { state, allSpells, favSpells ->
-                Step(
-                    state.query,
-                    state.castingClasses,
-                    state.currentClasses,
-                    state.showFavorite,
-                    allSpells,
-                    favSpells,
-                )
-            }.debounce(350.milliseconds).distinctUntilChanged().collect { step ->
-                try {
-                    _state.update { it.copy(isLoading = true, error = null) }
-                    val spells = spellRepository.findSpells(
-                        query = step.query,
-                        classes = step.currentClasses,
-                        favorite = step.showFavorite,
-                    )
-                    _state.update { it.copy(spells = spells, isLoading = false) }
-                } catch (e: Exception) {
-                    Log.d(TAG, e.message.toString(), e)
-                    _state.update { it.copy(error = "Oops, something went wrong...", isLoading = false) }
+            combine(
+                _state,
+                spellRepository.allSpells,
+                spellRepository.favSpells,
+                ::toObservableData
+            ).debounce(350.milliseconds).distinctUntilChanged().collect { step ->
+                    try {
+                        _state.update { it.copy(isLoading = true, error = null) }
+                        val spells = spellRepository.findSpells(
+                            query = step.query,
+                            classes = step.currentClasses,
+                            favorite = step.showFavorite,
+                        )
+                        _state.update { it.copy(spells = spells, isLoading = false) }
+                    } catch (e: Exception) {
+                        Log.d(TAG, e.message.toString(), e)
+                        _state.update { it.copy(error = "Oops, something went wrong...", isLoading = false) }
+                    }
                 }
-            }
         }
     }
 
-    private data class Step(
+    private fun toObservableData(
+        state: State, allSpells: List<Spell>, favSpells: List<String>
+    ): ObservableData = ObservableData(
+        state.query,
+        state.castingClasses,
+        state.currentClasses,
+        state.showFavorite,
+        allSpells,
+        favSpells,
+    )
+
+    private data class ObservableData(
         val query: String,
         val castingClasses: List<EntityRef>,
         val currentClasses: Set<EntityRef>,
