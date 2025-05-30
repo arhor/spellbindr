@@ -538,7 +538,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -793,7 +793,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -1056,7 +1056,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -1341,7 +1341,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -1622,7 +1622,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -1915,7 +1915,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -2230,7 +2230,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -2485,7 +2485,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -2747,7 +2747,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -3033,7 +3033,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -3217,7 +3217,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 4
+          "minValue": 4
         }
       }
     ],
@@ -3424,7 +3424,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -3679,7 +3679,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -3942,7 +3942,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -4231,7 +4231,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -4516,7 +4516,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -4813,7 +4813,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -5132,7 +5132,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -5387,7 +5387,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -5649,7 +5649,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -5939,7 +5939,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -6524,7 +6524,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -8648,7 +8648,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -8980,7 +8980,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -9215,7 +9215,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 4
+          "minValue": 4
         }
       }
     ],
@@ -9420,7 +9420,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -9804,7 +9804,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -9975,7 +9975,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -10946,7 +10946,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -11236,7 +11236,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         }
       }
     ],
@@ -11907,7 +11907,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -13903,7 +13903,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -15089,7 +15089,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -16062,7 +16062,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "attackBonus": 4
       }
@@ -17459,7 +17459,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -19466,7 +19466,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "attackBonus": 5
       }
@@ -19994,7 +19994,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -20893,7 +20893,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -21040,7 +21040,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -21313,7 +21313,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -22511,7 +22511,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -22790,7 +22790,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -24153,7 +24153,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -24615,7 +24615,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -26760,7 +26760,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -28746,7 +28746,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -32311,7 +32311,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -34491,7 +34491,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -35741,7 +35741,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -36082,7 +36082,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -36335,7 +36335,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -39950,7 +39950,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 6
+          "minValue": 6
         },
         "dc": {
           "dcType": {
@@ -40322,7 +40322,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 4
+          "minValue": 4
         },
         "dc": {
           "dcType": {
@@ -42547,7 +42547,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -42998,7 +42998,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -43749,7 +43749,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -43928,7 +43928,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -44107,7 +44107,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -44318,7 +44318,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -44523,7 +44523,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -44742,7 +44742,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -44967,7 +44967,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -45146,7 +45146,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
@@ -45332,7 +45332,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "options": {
           "choose": 1,
@@ -45544,7 +45544,7 @@
         "usage": {
           "type": "recharge on roll",
           "dice": "1d6",
-          "min_value": 5
+          "minValue": 5
         },
         "dc": {
           "dcType": {
