@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class Monster(
     val id: String,
     val name: String,
-    val actions: List<Action>? = null,
+    val actions: List<MonsterAction>? = null,
     val alignment: String,
     @SerialName("armor_class")
     val armorClass: List<ArmorClass>,
