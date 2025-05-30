@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class MagicSchool(
     val id: String,
     val name: String,
-    val desc: String
+    val desc: List<String>,
 )
