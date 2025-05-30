@@ -22,8 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.data.model.Race
-import com.github.arhor.spellbindr.data.model.Subrace
 
 @Composable
 fun RaceSelectionScreen(
@@ -60,7 +58,7 @@ fun RaceSelectionScreen(
 
             else -> {
                 Text("Choose your race:", style = MaterialTheme.typography.titleMedium)
-                races.forEach { race: Race ->
+                races.forEach { race ->
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -70,9 +68,9 @@ fun RaceSelectionScreen(
                     ) {
                         Column(Modifier.padding(12.dp)) {
                             Text(race.name, style = MaterialTheme.typography.titleMedium)
-                            if (race.traits.isNotEmpty()) {
+                            if (race.traits?.isNotEmpty() == true) {
                                 Text(
-                                    race.traits.joinToString { trait -> trait.name },
+                                    race.traits.joinToString { trait -> trait.id },
                                     style = MaterialTheme.typography.bodySmall
                                 )
                             }
@@ -82,7 +80,7 @@ fun RaceSelectionScreen(
                 if (isSubraceRequired) {
                     Spacer(Modifier.height(16.dp))
                     Text("Choose a subrace:", style = MaterialTheme.typography.titleMedium)
-                    subraces.forEach { subrace: Subrace ->
+                    subraces.forEach { subrace ->
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -91,13 +89,14 @@ fun RaceSelectionScreen(
                             colors = if (subrace == selectedSubrace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
                         ) {
                             Column(Modifier.padding(12.dp)) {
-                                Text(subrace.name, style = MaterialTheme.typography.titleMedium)
-                                if (subrace.traits.isNotEmpty()) {
-                                    Text(
-                                        subrace.traits.joinToString { trait -> trait.name },
-                                        style = MaterialTheme.typography.bodySmall
-                                    )
-                                }
+                                Text(subrace.id, style = MaterialTheme.typography.titleMedium)
+//                                if (subrace.traits.isNotEmpty()) {
+//                                // TODO: join with traits
+//                                    Text(
+//                                        subrace.traits.joinToString { trait -> trait.name },
+//                                        style = MaterialTheme.typography.bodySmall
+//                                    )
+//                                }
                             }
                         }
                     }

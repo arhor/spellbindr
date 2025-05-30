@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.di
 
-import com.github.arhor.spellbindr.data.repository.RaceRepository
-import com.github.arhor.spellbindr.data.repository.SpellRepository
-import com.github.arhor.spellbindr.data.repository.StaticAssetLoader
+import com.github.arhor.spellbindr.data.datasource.local.CharacterClassesAssetDataStore
+import com.github.arhor.spellbindr.data.datasource.local.InitializingStaticAssetDataStore
+import com.github.arhor.spellbindr.data.datasource.local.SpellsAssetDataStore
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,9 +16,11 @@ abstract class StaticAssetLoaderModule {
 
     @Binds
     @IntoSet
-    abstract fun bindSpellRepository(repository: SpellRepository): StaticAssetLoader
+    abstract fun bindSpellsAssetDataStore(spellsDataStore: SpellsAssetDataStore)
+        : InitializingStaticAssetDataStore
 
     @Binds
     @IntoSet
-    abstract fun bindRaceRepository(repository: RaceRepository): StaticAssetLoader
+    abstract fun bindCharacterClassesAssetDataStore(characterClassesDataStore: CharacterClassesAssetDataStore)
+        : InitializingStaticAssetDataStore
 }

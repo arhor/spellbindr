@@ -1,22 +1,17 @@
 package com.github.arhor.spellbindr.data.model
 
-@Suppress("unused")
-enum class DamageType {
-    ACID,
-    BLUDGEONING,
-    COLD,
-    FIRE,
-    FORCE,
-    LIGHTNING,
-    NECROTIC,
-    PIERCING,
-    POISON,
-    PSYCHIC,
-    RADIANT,
-    SLASHING,
-    THUNDER,
-    NONE,
-    ;
+import kotlinx.serialization.Serializable
 
-    override fun toString(): String = name.lowercase().replaceFirstChar(Char::titlecaseChar)
-}
+/**
+ * Represents a type of damage.
+ *
+ * @property id The unique identifier of the damage type.
+ * @property name The name of the damage type.
+ * @property desc A list of strings describing the damage type.
+ */
+@Serializable
+data class DamageType(
+    val id: String,
+    val name: String,
+    val desc: List<String>,
+)

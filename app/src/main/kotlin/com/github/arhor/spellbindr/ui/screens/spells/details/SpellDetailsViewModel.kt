@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui.screens.spells.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.next.model.Spell
-import com.github.arhor.spellbindr.data.next.repository.SpellRepository
+import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.repository.SpellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,12 +27,12 @@ class SpellDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            spellRepository.favoriteSpells.collect { favoriteSpells ->
+            spellRepository.favSpells.collect { favoriteSpells ->
                 _state.update { state ->
                     state.copy(
                         isFavorite = spellRepository.isFavorite(
-                            name = state.spell?.name,
-                            favoriteSpells = favoriteSpells,
+                            spellId = state.spell?.id,
+                            favoriteSpellIds = favoriteSpells,
                         )
                     )
                 }

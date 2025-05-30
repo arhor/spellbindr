@@ -13,7 +13,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -44,7 +44,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 1,
     "properties": [
@@ -62,7 +62,7 @@
       }
     ],
     "throwRange": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "categories": [
@@ -85,7 +85,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 10,
     "properties": [
@@ -113,7 +113,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -128,7 +128,7 @@
       }
     ],
     "throwRange": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "categories": [
@@ -151,7 +151,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -163,7 +163,7 @@
       }
     ],
     "throwRange": {
-      "normal": 30,
+      "base": 30,
       "long": 120
     },
     "categories": [
@@ -186,7 +186,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -201,7 +201,7 @@
       }
     ],
     "throwRange": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "categories": [
@@ -224,7 +224,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 4,
     "properties": [
@@ -252,7 +252,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 4,
     "properties": [
@@ -289,7 +289,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -320,7 +320,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 3,
     "properties": [
@@ -335,7 +335,7 @@
       }
     ],
     "throwRange": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "twoHandedDamage": {
@@ -364,7 +364,7 @@
       }
     },
     "range": {
-      "normal": 80,
+      "base": 80,
       "long": 320
     },
     "weight": 5,
@@ -399,7 +399,7 @@
       }
     },
     "range": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "weight": 0.25,
@@ -412,7 +412,7 @@
       }
     ],
     "throwRange": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "categories": [
@@ -435,7 +435,7 @@
       }
     },
     "range": {
-      "normal": 80,
+      "base": 80,
       "long": 320
     },
     "weight": 2,
@@ -467,7 +467,7 @@
       }
     },
     "range": {
-      "normal": 30,
+      "base": 30,
       "long": 120
     },
     "weight": 0,
@@ -496,7 +496,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 4,
     "properties": [
@@ -530,7 +530,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [],
@@ -554,7 +554,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 6,
     "properties": [
@@ -588,7 +588,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 7,
     "properties": [
@@ -619,7 +619,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 6,
     "properties": [
@@ -650,7 +650,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 6,
     "properties": [
@@ -684,7 +684,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 6,
     "properties": [
@@ -718,7 +718,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 3,
     "properties": [
@@ -752,7 +752,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 10,
     "properties": [
@@ -783,7 +783,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 4,
     "properties": [],
@@ -807,7 +807,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 18,
     "properties": [
@@ -841,7 +841,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -869,7 +869,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 3,
     "properties": [
@@ -900,7 +900,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -934,7 +934,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 4,
     "properties": [
@@ -946,7 +946,7 @@
       }
     ],
     "throwRange": {
-      "normal": 20,
+      "base": 20,
       "long": 60
     },
     "twoHandedDamage": {
@@ -975,7 +975,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [],
@@ -999,7 +999,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 2,
     "properties": [
@@ -1033,7 +1033,7 @@
       }
     },
     "range": {
-      "normal": 5
+      "base": 5
     },
     "weight": 3,
     "properties": [
@@ -1064,7 +1064,7 @@
       }
     },
     "range": {
-      "normal": 25,
+      "base": 25,
       "long": 100
     },
     "weight": 1,
@@ -1096,7 +1096,7 @@
       }
     },
     "range": {
-      "normal": 30,
+      "base": 30,
       "long": 120
     },
     "weight": 3,
@@ -1131,7 +1131,7 @@
       }
     },
     "range": {
-      "normal": 100,
+      "base": 100,
       "long": 400
     },
     "weight": 18,
@@ -1169,7 +1169,7 @@
       }
     },
     "range": {
-      "normal": 150,
+      "base": 150,
       "long": 600
     },
     "weight": 2,
@@ -1198,7 +1198,7 @@
       "unit": "gp"
     },
     "range": {
-      "normal": 5,
+      "base": 5,
       "long": 15
     },
     "weight": 3,
@@ -1214,7 +1214,7 @@
       "A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. A creature can use its action to make a DC 10 Strength check, freeing itself or another creature within its reach on a success. Dealing 5 slashing damage to the net (AC 10) also frees the creature without harming it, ending the effect and destroying the net. When you use an action, bonus action, or reaction to attack with a net, you can make only one attack regardless of the number of attacks you can normally make."
     ],
     "throwRange": {
-      "normal": 5,
+      "base": 5,
       "long": 15
     },
     "categories": [

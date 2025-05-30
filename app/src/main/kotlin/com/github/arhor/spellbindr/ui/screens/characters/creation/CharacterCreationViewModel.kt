@@ -1,9 +1,8 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.lifecycle.ViewModel
+import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Race
-import com.github.arhor.spellbindr.data.model.Subrace
-import com.github.arhor.spellbindr.data.repository.RaceRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterCreationViewModel @Inject constructor(
-    private val raceRepository: RaceRepository
 ) : ViewModel() {
 
     data class State(
@@ -25,7 +23,7 @@ class CharacterCreationViewModel @Inject constructor(
         val alignment: String? = null,
         val backstory: String? = null,
         val race: Race? = null,
-        val subrace: Subrace? = null,
+        val subrace: EntityRef? = null,
         val isLoadingRaces: Boolean = false,
         val races: List<Race> = emptyList(),
         val raceLoadError: String? = null,
@@ -42,7 +40,7 @@ class CharacterCreationViewModel @Inject constructor(
         _state.update { it.copy(isLoadingRaces = true, raceLoadError = null) }
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val races = raceRepository.findRaces()
+                val races = emptyList<Race>()
                 _state.update { it.copy(races = races, isLoadingRaces = false) }
             } catch (e: Exception) {
                 _state.update { it.copy(raceLoadError = e.message, isLoadingRaces = false) }
@@ -70,7 +68,7 @@ class CharacterCreationViewModel @Inject constructor(
         _state.update { it.copy(race = race, subrace = null) }
     }
 
-    fun onSubraceSelected(subrace: Subrace) {
+    fun onSubraceSelected(subrace: EntityRef) {
         _state.update { it.copy(subrace = subrace) }
     }
 }

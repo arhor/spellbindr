@@ -3,10 +3,10 @@ package com.github.arhor.spellbindr.ui.screens.spells.search
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.next.model.EntityRef
-import com.github.arhor.spellbindr.data.next.model.Spell
-import com.github.arhor.spellbindr.data.next.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.data.next.repository.SpellRepository
+import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
+import com.github.arhor.spellbindr.data.repository.SpellRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -81,13 +81,14 @@ class SpellSearchViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         viewModelScope.launch {
-            combine(_state, spellRepository.favoriteSpells) { state, favoriteSpells ->
+            combine(_state, spellRepository.allSpells, spellRepository.favSpells) { state, allSpells, favSpells ->
                 Step(
                     state.query,
                     state.castingClasses,
                     state.currentClasses,
                     state.showFavorite,
-                    favoriteSpells
+                    allSpells,
+                    favSpells,
                 )
             }.debounce(350.milliseconds).distinctUntilChanged().collect { step ->
                 try {
@@ -111,7 +112,8 @@ class SpellSearchViewModel @Inject constructor(
         val castingClasses: List<EntityRef>,
         val currentClasses: Set<EntityRef>,
         val showFavorite: Boolean,
-        val favoriteSpells: List<String>
+        val allSpells: List<Spell>,
+        val favSpells: List<String>,
     )
 
     companion object {

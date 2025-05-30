@@ -134,7 +134,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           },
           {
             "damageType": {
@@ -142,7 +142,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d12"
+            "damageDice": "1d12"
           }
         ]
       },
@@ -157,7 +157,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d6+5"
+            "damageDice": "3d6+5"
           }
         ]
       },
@@ -198,7 +198,7 @@
               "name": "Psychic",
               "url": "/api/2014/damage-types/psychic"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -330,7 +330,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -477,7 +477,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           },
           {
             "damageType": {
@@ -485,7 +485,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -500,7 +500,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -515,7 +515,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           }
         ]
       },
@@ -556,7 +556,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "12d8"
+            "damageDice": "12d8"
           }
         ]
       }
@@ -589,7 +589,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       }
@@ -732,7 +732,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+7"
+            "damageDice": "2d10+7"
           },
           {
             "damageType": {
@@ -740,7 +740,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       },
@@ -755,7 +755,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+7"
+            "damageDice": "2d6+7"
           }
         ]
       },
@@ -770,7 +770,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+7"
+            "damageDice": "2d8+7"
           }
         ]
       },
@@ -811,7 +811,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "12d10"
+            "damageDice": "12d10"
           }
         ]
       }
@@ -844,7 +844,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       }
@@ -1003,7 +1003,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           }
         ]
       },
@@ -1018,7 +1018,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -1033,7 +1033,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           }
         ]
       },
@@ -1083,7 +1083,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "13d6"
+                    "damageDice": "13d6"
                   }
                 ]
               },
@@ -1133,7 +1133,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       }
@@ -1288,7 +1288,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+7"
+            "damageDice": "2d10+7"
           }
         ]
       },
@@ -1303,7 +1303,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+7"
+            "damageDice": "2d6+7"
           }
         ]
       },
@@ -1318,7 +1318,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+7"
+            "damageDice": "2d8+7"
           }
         ]
       },
@@ -1368,7 +1368,7 @@
                       "name": "Lightning",
                       "url": "/api/2014/damage-types/lightning"
                     },
-                    "damage_dice": "12d10"
+                    "damageDice": "12d10"
                   }
                 ]
               },
@@ -1418,7 +1418,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+7"
+            "damageDice": "2d6+7"
           }
         ]
       }
@@ -1569,7 +1569,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           }
         ]
       },
@@ -1584,7 +1584,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -1599,7 +1599,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           }
         ]
       },
@@ -1649,7 +1649,7 @@
                       "name": "Acid",
                       "url": "/api/2014/damage-types/acid"
                     },
-                    "damage_dice": "12d8"
+                    "damageDice": "12d8"
                   }
                 ]
               },
@@ -1699,7 +1699,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "13d6+6"
+            "damageDice": "13d6+6"
           }
         ]
       }
@@ -1862,7 +1862,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           }
         ]
       },
@@ -1877,7 +1877,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -1892,7 +1892,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -1942,7 +1942,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "12d10"
+                    "damageDice": "12d10"
                   }
                 ]
               },
@@ -1992,7 +1992,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -2169,7 +2169,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           },
           {
             "damageType": {
@@ -2177,7 +2177,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -2192,7 +2192,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -2207,7 +2207,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           }
         ]
       },
@@ -2248,7 +2248,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "16d6"
+            "damageDice": "16d6"
           }
         ]
       }
@@ -2281,7 +2281,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       }
@@ -2424,7 +2424,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           },
           {
             "damageType": {
@@ -2432,7 +2432,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -2447,7 +2447,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -2462,7 +2462,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -2503,7 +2503,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "18d6"
+            "damageDice": "18d6"
           }
         ]
       }
@@ -2536,7 +2536,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -2694,7 +2694,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           }
         ]
       },
@@ -2709,7 +2709,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -2724,7 +2724,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -2774,7 +2774,7 @@
                       "name": "Cold",
                       "url": "/api/2014/damage-types/cold"
                     },
-                    "damage_dice": "13d8"
+                    "damageDice": "13d8"
                   }
                 ]
               },
@@ -2824,7 +2824,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -2972,7 +2972,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           },
           {
             "damageType": {
@@ -2980,7 +2980,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -2995,7 +2995,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -3010,7 +3010,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           }
         ]
       },
@@ -3051,7 +3051,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "12d8"
+            "damageDice": "12d8"
           }
         ]
       }
@@ -3084,7 +3084,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       }
@@ -3207,7 +3207,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       },
@@ -3363,7 +3363,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           },
           {
             "damageType": {
@@ -3371,7 +3371,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "2d8"
+            "damageDice": "2d8"
           }
         ]
       },
@@ -3386,7 +3386,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -3401,7 +3401,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -3442,7 +3442,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "15d8"
+            "damageDice": "15d8"
           }
         ]
       }
@@ -3475,7 +3475,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -3618,7 +3618,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+9"
+            "damageDice": "2d10+9"
           },
           {
             "damageType": {
@@ -3626,7 +3626,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "2d10"
+            "damageDice": "2d10"
           }
         ]
       },
@@ -3641,7 +3641,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+9"
+            "damageDice": "2d6+9"
           }
         ]
       },
@@ -3656,7 +3656,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+9"
+            "damageDice": "2d8+9"
           }
         ]
       },
@@ -3697,7 +3697,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "16d10"
+            "damageDice": "16d10"
           }
         ]
       }
@@ -3730,7 +3730,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+9"
+            "damageDice": "2d6+9"
           }
         ]
       }
@@ -3889,7 +3889,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           }
         ]
       },
@@ -3904,7 +3904,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -3919,7 +3919,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -3969,7 +3969,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "16d6"
+                    "damageDice": "16d6"
                   }
                 ]
               },
@@ -4023,7 +4023,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -4178,7 +4178,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+9"
+            "damageDice": "2d10+9"
           }
         ]
       },
@@ -4193,7 +4193,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+9"
+            "damageDice": "2d6+9"
           }
         ]
       },
@@ -4208,7 +4208,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+9"
+            "damageDice": "2d8+9"
           }
         ]
       },
@@ -4258,7 +4258,7 @@
                       "name": "Lightning",
                       "url": "/api/2014/damage-types/lightning"
                     },
-                    "damage_dice": "16d10"
+                    "damageDice": "16d10"
                   }
                 ]
               },
@@ -4312,7 +4312,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+9"
+            "damageDice": "2d6+9"
           }
         ]
       }
@@ -4463,7 +4463,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           }
         ]
       },
@@ -4478,7 +4478,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -4493,7 +4493,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -4543,7 +4543,7 @@
                       "name": "Acid",
                       "url": "/api/2014/damage-types/acid"
                     },
-                    "damage_dice": "14d8"
+                    "damageDice": "14d8"
                   }
                 ]
               },
@@ -4597,7 +4597,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -4760,7 +4760,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+10"
+            "damageDice": "2d10+10"
           }
         ]
       },
@@ -4775,7 +4775,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+10"
+            "damageDice": "2d6+10"
           }
         ]
       },
@@ -4790,7 +4790,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+10"
+            "damageDice": "2d8+10"
           }
         ]
       },
@@ -4840,7 +4840,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "13d10"
+                    "damageDice": "13d10"
                   }
                 ]
               },
@@ -4894,7 +4894,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+10"
+            "damageDice": "2d6+10"
           }
         ]
       }
@@ -5071,7 +5071,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           },
           {
             "damageType": {
@@ -5079,7 +5079,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -5094,7 +5094,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "4d6+8"
+            "damageDice": "4d6+8"
           }
         ]
       },
@@ -5109,7 +5109,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -5150,7 +5150,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "22d6"
+            "damageDice": "22d6"
           }
         ]
       }
@@ -5183,7 +5183,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -5326,7 +5326,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d10+10"
+            "damageDice": "2d10+10"
           },
           {
             "damageType": {
@@ -5334,7 +5334,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "4d6"
+            "damageDice": "4d6"
           }
         ]
       },
@@ -5349,7 +5349,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+10"
+            "damageDice": "2d6+10"
           }
         ]
       },
@@ -5364,7 +5364,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+10"
+            "damageDice": "2d8+10"
           }
         ]
       },
@@ -5405,7 +5405,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "26d6"
+            "damageDice": "26d6"
           }
         ]
       }
@@ -5438,7 +5438,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+10"
+            "damageDice": "2d6+10"
           }
         ]
       }
@@ -5596,7 +5596,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+10"
+            "damageDice": "2d10+10"
           }
         ]
       },
@@ -5611,7 +5611,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+10"
+            "damageDice": "2d6+10"
           }
         ]
       },
@@ -5626,7 +5626,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+10"
+            "damageDice": "2d8+10"
           }
         ]
       },
@@ -5676,7 +5676,7 @@
                       "name": "Cold",
                       "url": "/api/2014/damage-types/cold"
                     },
-                    "damage_dice": "15d8"
+                    "damageDice": "15d8"
                   }
                 ]
               },
@@ -5730,7 +5730,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+10"
+            "damageDice": "2d6+10"
           }
         ]
       }
@@ -5878,7 +5878,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+8"
+            "damageDice": "2d10+8"
           },
           {
             "damageType": {
@@ -5886,7 +5886,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "2d8"
+            "damageDice": "2d8"
           }
         ]
       },
@@ -5901,7 +5901,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -5916,7 +5916,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -5957,7 +5957,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "16d8"
+            "damageDice": "16d8"
           }
         ]
       }
@@ -5990,7 +5990,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       }
@@ -6245,7 +6245,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           }
         ]
       },
@@ -6299,7 +6299,7 @@
                   "name": "Thunder",
                   "url": "/api/2014/damage-types/thunder"
                 },
-                "damage_dice": "8d10"
+                "damageDice": "8d10"
               }
             ]
           }
@@ -6438,7 +6438,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -6506,7 +6506,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           },
           {
             "damageType": {
@@ -6514,7 +6514,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -6542,7 +6542,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -6628,7 +6628,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -6643,7 +6643,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       }
@@ -6929,7 +6929,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -7071,7 +7071,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           },
           {
             "dc": {
@@ -7088,7 +7088,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "7d6"
+            "damageDice": "7d6"
           }
         ]
       },
@@ -7103,7 +7103,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "dc": {
@@ -7120,7 +7120,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "7d6"
+            "damageDice": "7d6"
           }
         ]
       }
@@ -7187,7 +7187,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4-1"
+            "damageDice": "1d4-1"
           }
         ]
       }
@@ -7255,7 +7255,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d6+4"
+            "damageDice": "3d6+4"
           }
         ]
       }
@@ -7312,7 +7312,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -7396,7 +7396,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       },
@@ -7410,7 +7410,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -7431,7 +7431,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "damageType": {
@@ -7439,7 +7439,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       }
@@ -7502,7 +7502,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4-1"
+            "damageDice": "1d4-1"
           }
         ]
       }
@@ -7566,7 +7566,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -7679,7 +7679,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "20d6"
+            "damageDice": "20d6"
           }
         ]
       },
@@ -7693,7 +7693,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -7735,7 +7735,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "3d8+8"
+            "damageDice": "3d8+8"
           },
           {
             "damageType": {
@@ -7743,7 +7743,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "3d8"
+            "damageDice": "3d8"
           }
         ]
       },
@@ -7758,7 +7758,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           },
           {
             "damageType": {
@@ -7766,7 +7766,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -7835,7 +7835,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       },
@@ -7850,7 +7850,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+1"
+            "damageDice": "1d8+1"
           }
         ]
       }
@@ -7993,7 +7993,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -8008,7 +8008,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           }
         ]
       }
@@ -8140,7 +8140,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       },
@@ -8202,7 +8202,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -8217,7 +8217,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -8232,7 +8232,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -8304,7 +8304,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           },
           {
             "damageType": {
@@ -8312,7 +8312,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -8380,7 +8380,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -8506,7 +8506,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       },
@@ -8521,7 +8521,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           }
         ]
       }
@@ -8615,7 +8615,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d10+6"
+            "damageDice": "3d10+6"
           }
         ]
       },
@@ -8630,7 +8630,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           },
           {
             "damageType": {
@@ -8638,7 +8638,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           }
         ]
       },
@@ -8666,7 +8666,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "12d10"
+            "damageDice": "12d10"
           }
         ]
       },
@@ -8680,7 +8680,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "6d6"
+            "damageDice": "6d6"
           }
         ]
       }
@@ -8750,7 +8750,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d12+3"
+            "damageDice": "1d12+3"
           }
         ]
       }
@@ -8830,7 +8830,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -8845,7 +8845,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       }
@@ -8962,7 +8962,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           },
           {
             "damageType": {
@@ -8970,7 +8970,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       },
@@ -8998,7 +8998,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "5d8"
+            "damageDice": "5d8"
           }
         ]
       }
@@ -9090,7 +9090,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d8+8"
+            "damageDice": "1d8+8"
           }
         ]
       },
@@ -9111,7 +9111,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           },
           {
             "damageType": {
@@ -9119,7 +9119,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "4d8"
+            "damageDice": "4d8"
           }
         ]
       }
@@ -9205,7 +9205,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       },
@@ -9291,7 +9291,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -9402,7 +9402,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           },
           {
             "damageType": {
@@ -9410,7 +9410,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -9438,7 +9438,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10"
+            "damageDice": "4d10"
           }
         ]
       }
@@ -9493,7 +9493,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -9521,7 +9521,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }
@@ -9660,7 +9660,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -9675,7 +9675,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           },
           {
             "damageType": {
@@ -9683,7 +9683,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "5d6"
+            "damageDice": "5d6"
           }
         ]
       }
@@ -9794,7 +9794,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           }
         ]
       },
@@ -9831,7 +9831,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "4d6"
+                    "damageDice": "4d6"
                   }
                 ]
               },
@@ -9965,7 +9965,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           }
         ]
       },
@@ -10002,7 +10002,7 @@
                       "name": "Lightning",
                       "url": "/api/2014/damage-types/lightning"
                     },
-                    "damage_dice": "3d10"
+                    "damageDice": "3d10"
                   }
                 ]
               },
@@ -10108,7 +10108,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -10123,7 +10123,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -10220,7 +10220,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+2"
+            "damageDice": "2d8+2"
           }
         ]
       },
@@ -10235,7 +10235,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           }
         ]
       }
@@ -10309,7 +10309,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d12+4"
+            "damageDice": "4d12+4"
           }
         ]
       },
@@ -10369,7 +10369,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -10449,7 +10449,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -10529,7 +10529,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -10583,7 +10583,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+4"
+            "damageDice": "1d10+4"
           }
         ]
       },
@@ -10598,7 +10598,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -10613,7 +10613,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -10730,7 +10730,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -10906,7 +10906,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -10921,7 +10921,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d12+4"
+            "damageDice": "1d12+4"
           }
         ]
       },
@@ -10936,7 +10936,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -10964,7 +10964,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "7d8"
+            "damageDice": "7d8"
           }
         ]
       }
@@ -11086,7 +11086,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -11226,7 +11226,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d10+5"
+            "damageDice": "2d10+5"
           }
         ]
       },
@@ -11333,7 +11333,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -11348,7 +11348,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       },
@@ -11582,7 +11582,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d8+8"
+            "damageDice": "3d8+8"
           }
         ]
       },
@@ -11597,7 +11597,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10+8"
+            "damageDice": "4d10+8"
           }
         ]
       }
@@ -11655,7 +11655,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           }
         ]
       }
@@ -11713,7 +11713,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -11771,7 +11771,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -11786,7 +11786,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -11897,7 +11897,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           }
         ]
       },
@@ -11934,7 +11934,7 @@
                       "name": "Acid",
                       "url": "/api/2014/damage-types/acid"
                     },
-                    "damage_dice": "4d8"
+                    "damageDice": "4d8"
                   }
                 ]
               },
@@ -12180,7 +12180,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+5"
+            "damageDice": "1d6+5"
           }
         ]
       },
@@ -12195,7 +12195,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -12272,7 +12272,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -12344,7 +12344,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           }
         ]
       }
@@ -12518,7 +12518,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -12606,7 +12606,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }
@@ -12683,7 +12683,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -12784,7 +12784,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -12938,7 +12938,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       },
@@ -12953,7 +12953,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -13009,7 +13009,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -13184,7 +13184,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+4"
+            "damageDice": "1d6+4"
           },
           {
             "damageType": {
@@ -13192,7 +13192,7 @@
               "name": "Radiant",
               "url": "/api/2014/damage-types/radiant"
             },
-            "damage_dice": "4d8"
+            "damageDice": "4d8"
           }
         ]
       },
@@ -13287,7 +13287,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -13517,7 +13517,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           },
           {
             "choose": 1,
@@ -13532,7 +13532,7 @@
                     "name": "Lightning",
                     "url": "/api/2014/damage-types/lightning"
                   },
-                  "damage_dice": "1d6"
+                  "damageDice": "1d6"
                 },
                 {
                   "option_type": "damage",
@@ -13541,7 +13541,7 @@
                     "name": "Thunder",
                     "url": "/api/2014/damage-types/thunder"
                   },
-                  "damage_dice": "1d6"
+                  "damageDice": "1d6"
                 }
               ]
             }
@@ -13664,7 +13664,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+4"
+            "damageDice": "1d6+4"
           }
         ]
       },
@@ -13724,7 +13724,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+4"
+            "damageDice": "2d4+4"
           }
         ]
       }
@@ -13863,7 +13863,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d12+7"
+            "damageDice": "3d12+7"
           }
         ]
       },
@@ -13878,7 +13878,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+7"
+            "damageDice": "2d8+7"
           }
         ]
       },
@@ -13893,7 +13893,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d12+7"
+            "damageDice": "3d12+7"
           }
         ]
       },
@@ -13921,7 +13921,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "15d6"
+            "damageDice": "15d6"
           }
         ]
       }
@@ -14008,7 +14008,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -14023,7 +14023,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4"
+            "damageDice": "2d4"
           }
         ]
       },
@@ -14237,7 +14237,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           },
           {
             "damageType": {
@@ -14245,7 +14245,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "2d8"
+            "damageDice": "2d8"
           }
         ]
       },
@@ -14267,7 +14267,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d8+3",
+                  "damageDice": "1d8+3",
                   "notes": "One handed"
                 },
                 {
@@ -14277,7 +14277,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d10+3",
+                  "damageDice": "1d10+3",
                   "notes": "Two handed"
                 }
               ]
@@ -14296,7 +14296,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "damageType": {
@@ -14304,7 +14304,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       }
@@ -14441,7 +14441,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -14456,7 +14456,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -14628,7 +14628,7 @@
                     "name": "Bludgeoning",
                     "url": "/api/2014/damage-types/bludgeoning"
                   },
-                  "damage_dice": "1d6",
+                  "damageDice": "1d6",
                   "notes": "One handed"
                 },
                 {
@@ -14638,7 +14638,7 @@
                     "name": "Bludgeoning",
                     "url": "/api/2014/damage-types/bludgeoning"
                   },
-                  "damage_dice": "1d8",
+                  "damageDice": "1d8",
                   "notes": "Two handed"
                 },
                 {
@@ -14648,7 +14648,7 @@
                     "name": "Bludgeoning",
                     "url": "/api/2014/damage-types/bludgeoning"
                   },
-                  "damage_dice": "1d8+2",
+                  "damageDice": "1d8+2",
                   "notes": "With shillelagh"
                 }
               ]
@@ -14820,7 +14820,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       },
@@ -14926,7 +14926,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       },
@@ -14941,7 +14941,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -15079,7 +15079,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       },
@@ -15169,7 +15169,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -15282,7 +15282,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       }
@@ -15499,7 +15499,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           },
           {
             "damageType": {
@@ -15507,7 +15507,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -15522,7 +15522,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "5d6"
+            "damageDice": "5d6"
           }
         ]
       }
@@ -15584,7 +15584,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d8+6"
+            "damageDice": "3d8+6"
           }
         ]
       },
@@ -15599,7 +15599,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d10+6"
+            "damageDice": "3d10+6"
           }
         ]
       }
@@ -15661,7 +15661,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -15676,7 +15676,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+3"
+            "damageDice": "2d4+3"
           }
         ]
       }
@@ -15864,7 +15864,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d8+4",
+                  "damageDice": "1d8+4",
                   "notes": "One handed"
                 },
                 {
@@ -15874,7 +15874,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d10+4",
+                  "damageDice": "1d10+4",
                   "notes": "Two handed"
                 }
               ]
@@ -15886,7 +15886,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "3d8"
+            "damageDice": "3d8"
           }
         ]
       },
@@ -15901,7 +15901,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "damageType": {
@@ -15909,7 +15909,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "3d8"
+            "damageDice": "3d8"
           }
         ]
       }
@@ -16029,7 +16029,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           },
           {
             "damageType": {
@@ -16037,7 +16037,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -16052,7 +16052,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       },
@@ -16155,7 +16155,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       },
@@ -16170,7 +16170,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       }
@@ -16272,7 +16272,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "5d10"
+            "damageDice": "5d10"
           }
         ]
       },
@@ -16309,7 +16309,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -16427,7 +16427,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "6d6+7"
+            "damageDice": "6d6+7"
           }
         ]
       },
@@ -16442,7 +16442,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10+7"
+            "damageDice": "4d10+7"
           }
         ]
       }
@@ -16572,7 +16572,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -16638,7 +16638,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           },
           {
             "damageType": {
@@ -16646,7 +16646,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "3d4"
+            "damageDice": "3d4"
           }
         ]
       }
@@ -16763,7 +16763,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+1"
+            "damageDice": "1d8+1"
           }
         ]
       }
@@ -16944,7 +16944,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "3d12+6"
+            "damageDice": "3d12+6"
           }
         ]
       },
@@ -16959,7 +16959,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10+6"
+            "damageDice": "4d10+6"
           }
         ]
       }
@@ -17060,7 +17060,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -17075,7 +17075,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -17173,7 +17173,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -17196,7 +17196,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -17292,7 +17292,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+3"
+            "damageDice": "2d8+3"
           }
         ]
       },
@@ -17307,7 +17307,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -17432,7 +17432,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "4d6+3"
+            "damageDice": "4d6+3"
           }
         ]
       },
@@ -17542,7 +17542,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           }
         ]
       },
@@ -17557,7 +17557,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       }
@@ -17643,7 +17643,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d10+6"
+            "damageDice": "3d10+6"
           }
         ]
       },
@@ -17658,7 +17658,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "7d6+6"
+            "damageDice": "7d6+6"
           }
         ]
       }
@@ -17739,7 +17739,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       },
@@ -17754,7 +17754,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+1"
+            "damageDice": "2d4+1"
           }
         ]
       }
@@ -17822,7 +17822,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -17895,7 +17895,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -17953,7 +17953,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -18020,7 +18020,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -18035,7 +18035,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -18108,7 +18108,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }
@@ -18197,7 +18197,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d10+5"
+            "damageDice": "3d10+5"
           }
         ]
       },
@@ -18212,7 +18212,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       }
@@ -18302,7 +18302,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -18317,7 +18317,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -18389,7 +18389,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -18404,7 +18404,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d8+4"
+            "damageDice": "4d8+4"
           }
         ]
       }
@@ -18468,7 +18468,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6-1"
+            "damageDice": "1d6-1"
           }
         ]
       }
@@ -18553,7 +18553,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       },
@@ -18623,7 +18623,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+3"
+            "damageDice": "2d4+3"
           }
         ]
       }
@@ -18694,7 +18694,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -18753,7 +18753,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -18842,7 +18842,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -18938,7 +18938,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+1"
+            "damageDice": "2d6+1"
           }
         ]
       }
@@ -19005,7 +19005,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+4"
+            "damageDice": "1d4+4"
           }
         ]
       }
@@ -19072,7 +19072,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -19139,7 +19139,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -19196,7 +19196,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       },
@@ -19228,7 +19228,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           }
         ]
       }
@@ -19296,7 +19296,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }
@@ -19373,7 +19373,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d10+6"
+            "damageDice": "3d10+6"
           }
         ]
       }
@@ -19456,7 +19456,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       },
@@ -19534,7 +19534,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           },
           {
             "damageType": {
@@ -19542,7 +19542,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       },
@@ -19640,7 +19640,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       },
@@ -19655,7 +19655,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           }
         ]
       }
@@ -19713,7 +19713,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -19793,7 +19793,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           }
         ]
       }
@@ -19884,7 +19884,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }
@@ -19984,7 +19984,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "5d6"
+            "damageDice": "5d6"
           }
         ]
       },
@@ -20229,7 +20229,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d10+5"
+            "damageDice": "2d10+5"
           }
         ]
       },
@@ -20244,7 +20244,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       }
@@ -20439,7 +20439,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "2d6+4"
+                  "damageDice": "2d6+4"
                 },
                 {
                   "option_type": "damage",
@@ -20449,7 +20449,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "2d8+4"
+                  "damageDice": "2d8+4"
                 }
               ]
             }
@@ -20467,7 +20467,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+4"
+            "damageDice": "2d4+4"
           }
         ]
       }
@@ -20549,7 +20549,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       },
@@ -20572,7 +20572,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d6+2"
+                  "damageDice": "1d6+2"
                 },
                 {
                   "option_type": "damage",
@@ -20582,7 +20582,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d8+2"
+                  "damageDice": "1d8+2"
                 }
               ]
             }
@@ -20600,7 +20600,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+1"
+            "damageDice": "1d8+1"
           }
         ]
       }
@@ -20666,7 +20666,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           }
         ]
       }
@@ -20751,7 +20751,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -20766,7 +20766,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -20883,7 +20883,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+4"
+            "damageDice": "1d10+4"
           }
         ]
       },
@@ -20920,7 +20920,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "4d10"
+                    "damageDice": "4d10"
                   }
                 ]
               },
@@ -21015,7 +21015,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d12+5"
+            "damageDice": "2d12+5"
           }
         ]
       },
@@ -21030,7 +21030,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d10+5"
+            "damageDice": "2d10+5"
           }
         ]
       },
@@ -21164,7 +21164,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           },
           {
             "damageType": {
@@ -21172,7 +21172,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -21295,7 +21295,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           },
           {
             "damageType": {
@@ -21303,7 +21303,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -21331,7 +21331,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "6d6"
+            "damageDice": "6d6"
           }
         ]
       }
@@ -21473,7 +21473,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -21564,7 +21564,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           }
         ]
       },
@@ -21579,7 +21579,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -21669,7 +21669,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -21684,7 +21684,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -21787,7 +21787,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           },
           {
             "damageType": {
@@ -21795,7 +21795,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -21882,7 +21882,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d6+1"
+                  "damageDice": "1d6+1"
                 },
                 {
                   "option_type": "damage",
@@ -21892,7 +21892,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d8+1"
+                  "damageDice": "1d8+1"
                 }
               ]
             }
@@ -22115,7 +22115,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -22351,7 +22351,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -22458,7 +22458,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d8+3"
+                  "damageDice": "1d8+3"
                 },
                 {
                   "option_type": "damage",
@@ -22468,7 +22468,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d10+3"
+                  "damageDice": "1d10+3"
                 }
               ]
             }
@@ -22486,7 +22486,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -22501,7 +22501,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+1"
+            "damageDice": "1d10+1"
           }
         ]
       },
@@ -22529,7 +22529,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "7d6"
+            "damageDice": "7d6"
           }
         ]
       }
@@ -22603,7 +22603,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+1"
+            "damageDice": "2d4+1"
           }
         ]
       },
@@ -22618,7 +22618,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           }
         ]
       },
@@ -22694,7 +22694,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -22772,7 +22772,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "damageType": {
@@ -22780,7 +22780,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -22808,7 +22808,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "6d6"
+            "damageDice": "6d6"
           }
         ]
       }
@@ -22940,7 +22940,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -22955,7 +22955,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -23032,7 +23032,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d8+5"
+            "damageDice": "3d8+5"
           }
         ]
       },
@@ -23047,7 +23047,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d10+5"
+            "damageDice": "3d10+5"
           }
         ]
       }
@@ -23136,7 +23136,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           }
         ]
       },
@@ -23151,7 +23151,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -23235,7 +23235,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d8+1"
+                  "damageDice": "1d8+1"
                 },
                 {
                   "option_type": "damage",
@@ -23245,7 +23245,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d10+1"
+                  "damageDice": "1d10+1"
                 }
               ]
             }
@@ -23263,7 +23263,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+1"
+            "damageDice": "1d8+1"
           }
         ]
       }
@@ -23340,7 +23340,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -23525,7 +23525,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           }
         ]
       },
@@ -23540,7 +23540,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+6"
+            "damageDice": "1d8+6"
           }
         ]
       },
@@ -23555,7 +23555,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "4d6"
+            "damageDice": "4d6"
           }
         ]
       }
@@ -23632,7 +23632,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -23729,7 +23729,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+5"
+            "damageDice": "1d10+5"
           }
         ]
       }
@@ -23800,7 +23800,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       }
@@ -23935,7 +23935,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           },
           {
             "damageType": {
@@ -23943,7 +23943,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -23958,7 +23958,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+5"
+            "damageDice": "2d4+5"
           },
           {
             "damageType": {
@@ -23966,7 +23966,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -23981,7 +23981,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           },
           {
             "damageType": {
@@ -23989,7 +23989,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -24088,7 +24088,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -24135,7 +24135,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           },
           {
             "damageType": {
@@ -24143,7 +24143,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       },
@@ -24171,7 +24171,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "2d4"
+            "damageDice": "2d4"
           }
         ]
       }
@@ -24289,7 +24289,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           }
         ]
       },
@@ -24436,7 +24436,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -24590,7 +24590,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d8+7"
+            "damageDice": "3d8+7"
           }
         ]
       },
@@ -24605,7 +24605,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "3d10+7"
+            "damageDice": "3d10+7"
           }
         ]
       },
@@ -24633,7 +24633,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "10d8"
+            "damageDice": "10d8"
           }
         ]
       }
@@ -24708,7 +24708,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4-1"
+            "damageDice": "1d4-1"
           }
         ]
       }
@@ -24788,7 +24788,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "5d6+4"
+            "damageDice": "5d6+4"
           }
         ]
       }
@@ -24888,7 +24888,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -24903,7 +24903,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       },
@@ -24988,7 +24988,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       },
@@ -25003,7 +25003,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -25191,7 +25191,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d8+10"
+            "damageDice": "3d8+10"
           }
         ]
       },
@@ -25206,7 +25206,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d6+10"
+            "damageDice": "3d6+10"
           }
         ]
       },
@@ -25233,7 +25233,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "4d10"
+            "damageDice": "4d10"
           }
         ]
       }
@@ -25268,7 +25268,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "3d10"
+            "damageDice": "3d10"
           }
         ]
       }
@@ -25480,7 +25480,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d10+3"
+            "damageDice": "2d10+3"
           }
         ]
       },
@@ -25495,7 +25495,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           }
         ]
       },
@@ -25589,7 +25589,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -25917,7 +25917,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -25963,7 +25963,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "6d6"
+            "damageDice": "6d6"
           }
         ]
       }
@@ -26063,7 +26063,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       },
@@ -26078,7 +26078,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       }
@@ -26136,7 +26136,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -26352,7 +26352,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -26367,7 +26367,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -26382,7 +26382,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -26397,7 +26397,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -26608,7 +26608,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -26694,7 +26694,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -26742,7 +26742,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           },
           {
             "damageType": {
@@ -26750,7 +26750,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       },
@@ -26778,7 +26778,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -26847,7 +26847,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -26868,7 +26868,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -26931,7 +26931,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d8+7"
+            "damageDice": "4d8+7"
           }
         ]
       },
@@ -26946,7 +26946,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10+7"
+            "damageDice": "4d10+7"
           }
         ]
       }
@@ -27047,7 +27047,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       },
@@ -27062,7 +27062,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -27077,7 +27077,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       }
@@ -27212,7 +27212,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -27227,7 +27227,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -27309,7 +27309,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }
@@ -27451,7 +27451,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           },
           {
             "damageType": {
@@ -27459,7 +27459,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "4d6"
+            "damageDice": "4d6"
           }
         ]
       },
@@ -27474,7 +27474,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -27489,7 +27489,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           },
           {
             "damageType": {
@@ -27497,7 +27497,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -27578,7 +27578,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d6"
+                  "damageDice": "1d6"
                 },
                 {
                   "option_type": "damage",
@@ -27588,7 +27588,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d8"
+                  "damageDice": "1d8"
                 }
               ]
             }
@@ -27720,7 +27720,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -27735,7 +27735,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+4"
+            "damageDice": "2d4+4"
           }
         ]
       },
@@ -27750,7 +27750,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -27843,7 +27843,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       },
@@ -27858,7 +27858,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "damageType": {
@@ -27866,7 +27866,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       }
@@ -27946,7 +27946,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d12+4"
+            "damageDice": "2d12+4"
           }
         ]
       },
@@ -27961,7 +27961,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -28039,7 +28039,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d12+4"
+            "damageDice": "2d12+4"
           }
         ]
       },
@@ -28054,7 +28054,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -28120,7 +28120,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -28236,7 +28236,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           },
           {
             "damageType": {
@@ -28244,7 +28244,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -28527,7 +28527,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d6+4"
+            "damageDice": "3d6+4"
           },
           {
             "damageType": {
@@ -28535,7 +28535,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "6d6"
+            "damageDice": "6d6"
           }
         ]
       },
@@ -28721,7 +28721,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "5d10+5"
+            "damageDice": "5d10+5"
           }
         ]
       },
@@ -28736,7 +28736,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "3d6+5"
+            "damageDice": "3d6+5"
           }
         ]
       },
@@ -28931,7 +28931,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -29016,7 +29016,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           },
           {
             "damageType": {
@@ -29024,7 +29024,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -29118,7 +29118,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+1"
+            "damageDice": "1d8+1"
           }
         ]
       }
@@ -29228,7 +29228,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           },
           {
             "damageType": {
@@ -29236,7 +29236,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       }
@@ -29331,7 +29331,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       },
@@ -29407,7 +29407,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -29422,7 +29422,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -29502,7 +29502,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -29749,7 +29749,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -29764,7 +29764,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -29848,7 +29848,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d12+3"
+            "damageDice": "1d12+3"
           }
         ]
       },
@@ -29863,7 +29863,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       }
@@ -29952,7 +29952,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+3"
+            "damageDice": "2d8+3"
           }
         ]
       },
@@ -29967,7 +29967,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           },
           {
             "damageType": {
@@ -29975,7 +29975,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -30073,7 +30073,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -30162,7 +30162,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+5"
+            "damageDice": "1d10+5"
           }
         ]
       },
@@ -30177,7 +30177,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       }
@@ -30270,7 +30270,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -30285,7 +30285,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -30375,7 +30375,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -30457,7 +30457,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           }
         ]
       }
@@ -30655,7 +30655,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d6+8"
+            "damageDice": "4d6+8"
           }
         ]
       },
@@ -30670,7 +30670,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+8"
+            "damageDice": "2d8+8"
           }
         ]
       },
@@ -30685,7 +30685,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+8"
+            "damageDice": "2d6+8"
           }
         ]
       },
@@ -30700,7 +30700,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d10+8"
+            "damageDice": "3d10+8"
           }
         ]
       }
@@ -30934,7 +30934,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "4d6+7"
+            "damageDice": "4d6+7"
           },
           {
             "damageType": {
@@ -30942,7 +30942,7 @@
               "name": "Radiant",
               "url": "/api/2014/damage-types/radiant"
             },
-            "damage_dice": "5d8"
+            "damageDice": "5d8"
           }
         ]
       },
@@ -31030,7 +31030,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d6+4"
+            "damageDice": "3d6+4"
           }
         ]
       }
@@ -31088,7 +31088,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -31177,7 +31177,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+5"
+            "damageDice": "1d8+5"
           }
         ]
       },
@@ -31192,7 +31192,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           }
         ]
       }
@@ -31248,7 +31248,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       }
@@ -31421,7 +31421,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       }
@@ -31511,7 +31511,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       },
@@ -31526,7 +31526,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -31625,7 +31625,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d8+9"
+            "damageDice": "3d8+9"
           }
         ]
       },
@@ -31640,7 +31640,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d6+9"
+            "damageDice": "3d6+9"
           }
         ]
       }
@@ -31730,7 +31730,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           }
         ]
       },
@@ -31819,7 +31819,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -32047,7 +32047,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           }
         ]
       }
@@ -32110,7 +32110,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -32182,7 +32182,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -32293,7 +32293,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+4"
+            "damageDice": "1d10+4"
           },
           {
             "damageType": {
@@ -32301,7 +32301,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -32329,7 +32329,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "7d6"
+            "damageDice": "7d6"
           }
         ]
       }
@@ -32406,7 +32406,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -32467,7 +32467,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -32484,7 +32484,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "6d10+7"
+            "damageDice": "6d10+7"
           },
           {
             "damageType": {
@@ -32492,7 +32492,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -32558,7 +32558,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+5"
+            "damageDice": "2d8+5"
           }
         ]
       }
@@ -32614,7 +32614,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+3"
+            "damageDice": "2d4+3"
           }
         ]
       }
@@ -32735,7 +32735,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d8+9"
+            "damageDice": "4d8+9"
           }
         ]
       },
@@ -32750,7 +32750,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "4d6+9"
+            "damageDice": "4d6+9"
           }
         ]
       }
@@ -32861,7 +32861,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d8+4"
+            "damageDice": "4d8+4"
           }
         ]
       },
@@ -33037,7 +33037,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+1"
+            "damageDice": "1d8+1"
           }
         ]
       },
@@ -33133,7 +33133,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+5"
+            "damageDice": "1d10+5"
           }
         ]
       },
@@ -33148,7 +33148,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           }
         ]
       }
@@ -33278,7 +33278,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           }
         ]
       },
@@ -33293,7 +33293,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4+1"
+            "damageDice": "1d4+1"
           }
         ]
       },
@@ -33316,7 +33316,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d6+1"
+                  "damageDice": "1d6+1"
                 },
                 {
                   "option_type": "damage",
@@ -33326,7 +33326,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d8+1"
+                  "damageDice": "1d8+1"
                 }
               ]
             }
@@ -33391,7 +33391,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -33437,7 +33437,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "2d6+4"
+                  "damageDice": "2d6+4"
                 },
                 {
                   "option_type": "damage",
@@ -33447,7 +33447,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "2d8+4"
+                  "damageDice": "2d8+4"
                 }
               ]
             }
@@ -33458,7 +33458,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -33473,7 +33473,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           },
           {
             "damageType": {
@@ -33481,7 +33481,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -33575,7 +33575,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d4+1"
+            "damageDice": "2d4+1"
           }
         ]
       },
@@ -33590,7 +33590,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -33605,7 +33605,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       }
@@ -33662,7 +33662,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -33792,7 +33792,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -33807,7 +33807,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -33875,7 +33875,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -34070,7 +34070,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "2d6+2"
+            "damageDice": "2d6+2"
           }
         ]
       }
@@ -34181,7 +34181,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -34297,7 +34297,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -34481,7 +34481,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+4"
+            "damageDice": "1d10+4"
           }
         ]
       },
@@ -34518,7 +34518,7 @@
                       "name": "Cold",
                       "url": "/api/2014/damage-types/cold"
                     },
-                    "damage_dice": "4d8"
+                    "damageDice": "4d8"
                   }
                 ]
               },
@@ -34608,7 +34608,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -34623,7 +34623,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -34847,7 +34847,7 @@
               "name": "Radiant",
               "url": "/api/2014/damage-types/radiant"
             },
-            "damage_dice": "4d6+8"
+            "damageDice": "4d6+8"
           },
           {
             "damageType": {
@@ -34855,7 +34855,7 @@
               "name": "Radiant",
               "url": "/api/2014/damage-types/radiant"
             },
-            "damage_dice": "6d8"
+            "damageDice": "6d8"
           }
         ]
       },
@@ -34870,7 +34870,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d8+6"
+            "damageDice": "2d8+6"
           },
           {
             "damageType": {
@@ -34878,7 +34878,7 @@
               "name": "Radiant",
               "url": "/api/2014/damage-types/radiant"
             },
-            "damage_dice": "6d8"
+            "damageDice": "6d8"
           }
         ]
       },
@@ -34919,7 +34919,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "4d6"
+            "damageDice": "4d6"
           },
           {
             "damageType": {
@@ -34927,7 +34927,7 @@
               "name": "Radiant",
               "url": "/api/2014/damage-types/radiant"
             },
-            "damage_dice": "4d6"
+            "damageDice": "4d6"
           }
         ]
       },
@@ -35065,7 +35065,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       }
@@ -35146,7 +35146,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -35347,7 +35347,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+4"
+            "damageDice": "1d6+4"
           }
         ]
       }
@@ -35428,7 +35428,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       },
@@ -35443,7 +35443,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       },
@@ -35589,7 +35589,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -35604,7 +35604,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -35679,7 +35679,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -35723,7 +35723,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           },
           {
             "damageType": {
@@ -35731,7 +35731,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       },
@@ -35759,7 +35759,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       }
@@ -35817,7 +35817,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+3"
+            "damageDice": "1d4+3"
           }
         ]
       }
@@ -35933,7 +35933,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d8+6"
+            "damageDice": "3d8+6"
           }
         ]
       },
@@ -35948,7 +35948,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10+6"
+            "damageDice": "4d10+6"
           }
         ]
       }
@@ -36072,7 +36072,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d8+6"
+            "damageDice": "3d8+6"
           }
         ]
       },
@@ -36310,7 +36310,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "6d6+9"
+            "damageDice": "6d6+9"
           }
         ]
       },
@@ -36325,7 +36325,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d12+9"
+            "damageDice": "4d12+9"
           }
         ]
       },
@@ -36353,7 +36353,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "12d8"
+            "damageDice": "12d8"
           }
         ]
       }
@@ -36469,7 +36469,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -36496,7 +36496,7 @@
               "name": "Psychic",
               "url": "/api/2014/damage-types/psychic"
             },
-            "damage_dice": "5d10+5"
+            "damageDice": "5d10+5"
           }
         ]
       },
@@ -36617,7 +36617,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d4"
+            "damageDice": "2d4"
           }
         ]
       }
@@ -36727,7 +36727,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d4"
+            "damageDice": "4d4"
           }
         ]
       }
@@ -36836,7 +36836,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d4"
+            "damageDice": "4d4"
           }
         ]
       }
@@ -36945,7 +36945,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d4"
+            "damageDice": "4d4"
           }
         ]
       }
@@ -37054,7 +37054,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -37171,7 +37171,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d6"
+            "damageDice": "4d6"
           }
         ]
       }
@@ -37283,7 +37283,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -37391,7 +37391,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       }
@@ -37507,7 +37507,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d4"
+            "damageDice": "4d4"
           }
         ]
       }
@@ -37616,7 +37616,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d4"
+            "damageDice": "4d4"
           }
         ]
       }
@@ -37831,7 +37831,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d12+10"
+            "damageDice": "4d12+10"
           }
         ]
       },
@@ -37846,7 +37846,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "4d8+10"
+            "damageDice": "4d8+10"
           }
         ]
       },
@@ -37861,7 +37861,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d10+10"
+            "damageDice": "4d10+10"
           }
         ]
       },
@@ -37876,7 +37876,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d6+10"
+            "damageDice": "4d6+10"
           }
         ]
       },
@@ -37999,7 +37999,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -38014,7 +38014,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       }
@@ -38107,7 +38107,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           }
         ]
       },
@@ -38122,7 +38122,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       }
@@ -38205,7 +38205,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d6+6"
+            "damageDice": "3d6+6"
           }
         ]
       },
@@ -38220,7 +38220,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "4d10+6"
+            "damageDice": "4d10+6"
           }
         ]
       },
@@ -38307,7 +38307,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d6+1"
+                  "damageDice": "1d6+1"
                 },
                 {
                   "option_type": "damage",
@@ -38317,7 +38317,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d8+1"
+                  "damageDice": "1d8+1"
                 }
               ]
             }
@@ -38382,7 +38382,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d8+6"
+            "damageDice": "4d8+6"
           }
         ]
       },
@@ -38397,7 +38397,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d10+6"
+            "damageDice": "3d10+6"
           }
         ]
       }
@@ -38490,7 +38490,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+4"
+            "damageDice": "1d6+4"
           }
         ]
       },
@@ -38505,7 +38505,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -38587,7 +38587,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "4d12+7"
+            "damageDice": "4d12+7"
           }
         ]
       },
@@ -38602,7 +38602,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "3d8+7"
+            "damageDice": "3d8+7"
           }
         ]
       }
@@ -38774,7 +38774,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -38789,7 +38789,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -39000,7 +39000,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d8+4"
+            "damageDice": "1d8+4"
           }
         ]
       },
@@ -39015,7 +39015,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+4"
+            "damageDice": "1d6+4"
           },
           {
             "damageType": {
@@ -39023,7 +39023,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -39206,7 +39206,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+4"
+            "damageDice": "1d6+4"
           },
           {
             "damageType": {
@@ -39214,7 +39214,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "3d6"
+            "damageDice": "3d6"
           }
         ]
       },
@@ -39541,7 +39541,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           },
           {
             "damageType": {
@@ -39549,7 +39549,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -39564,7 +39564,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+3"
+            "damageDice": "2d4+3"
           }
         ]
       }
@@ -39671,7 +39671,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d8+3"
+                  "damageDice": "1d8+3"
                 },
                 {
                   "option_type": "damage",
@@ -39681,7 +39681,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d10+3"
+                  "damageDice": "1d10+3"
                 }
               ]
             }
@@ -39699,7 +39699,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -39714,7 +39714,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+1"
+            "damageDice": "1d10+1"
           }
         ]
       }
@@ -39805,7 +39805,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       }
@@ -39925,7 +39925,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -39940,7 +39940,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d10+3"
+            "damageDice": "2d10+3"
           }
         ]
       },
@@ -40051,7 +40051,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       }
@@ -40113,7 +40113,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -40186,7 +40186,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -40312,7 +40312,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -40340,7 +40340,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -40419,7 +40419,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1"
+            "damageDice": "1"
           }
         ]
       }
@@ -40522,7 +40522,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -40537,7 +40537,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       }
@@ -40639,7 +40639,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d12+4"
+            "damageDice": "1d12+4"
           }
         ]
       }
@@ -40773,7 +40773,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -40788,7 +40788,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -40803,7 +40803,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d12+4"
+            "damageDice": "1d12+4"
           }
         ]
       }
@@ -40904,7 +40904,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -41013,7 +41013,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -41151,7 +41151,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       },
@@ -41166,7 +41166,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -41307,7 +41307,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -41322,7 +41322,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -41497,7 +41497,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       },
@@ -41512,7 +41512,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -41527,7 +41527,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       }
@@ -41626,7 +41626,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d4+2"
+            "damageDice": "1d4+2"
           }
         ]
       }
@@ -41751,7 +41751,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -41766,7 +41766,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -41910,7 +41910,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           }
         ]
       },
@@ -41925,7 +41925,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       },
@@ -41940,7 +41940,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       },
@@ -41955,7 +41955,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -42067,7 +42067,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+3"
+            "damageDice": "1d10+3"
           }
         ]
       },
@@ -42082,7 +42082,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d8+3"
+            "damageDice": "1d8+3"
           }
         ]
       }
@@ -42192,7 +42192,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d6+2"
+                  "damageDice": "1d6+2"
                 },
                 {
                   "option_type": "damage",
@@ -42202,7 +42202,7 @@
                     "name": "Piercing",
                     "url": "/api/2014/damage-types/piercing"
                   },
-                  "damage_dice": "1d8+2"
+                  "damageDice": "1d8+2"
                 }
               ]
             }
@@ -42312,7 +42312,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       },
@@ -42327,7 +42327,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       }
@@ -42417,7 +42417,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -42529,7 +42529,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d10+2"
+            "damageDice": "1d10+2"
           },
           {
             "damageType": {
@@ -42537,7 +42537,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "1d4"
+            "damageDice": "1d4"
           }
         ]
       },
@@ -42565,7 +42565,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "5d8"
+            "damageDice": "5d8"
           }
         ]
       }
@@ -42711,7 +42711,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "1d6+2"
+            "damageDice": "1d6+2"
           }
         ]
       },
@@ -42734,7 +42734,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d8+2"
+                  "damageDice": "1d8+2"
                 },
                 {
                   "option_type": "damage",
@@ -42744,7 +42744,7 @@
                     "name": "Slashing",
                     "url": "/api/2014/damage-types/slashing"
                   },
-                  "damage_dice": "1d10+2"
+                  "damageDice": "1d10+2"
                 }
               ]
             }
@@ -42762,7 +42762,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "1d8+2"
+            "damageDice": "1d8+2"
           }
         ]
       }
@@ -42894,7 +42894,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "2d8"
+            "damageDice": "2d8"
           }
         ]
       },
@@ -42988,7 +42988,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -43016,7 +43016,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "4d8"
+            "damageDice": "4d8"
           }
         ]
       }
@@ -43099,7 +43099,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d4+2"
+            "damageDice": "2d4+2"
           }
         ]
       }
@@ -43172,7 +43172,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+3"
+            "damageDice": "2d6+3"
           }
         ]
       }
@@ -43292,7 +43292,7 @@
               "name": "Necrotic",
               "url": "/api/2014/damage-types/necrotic"
             },
-            "damage_dice": "4d8+3"
+            "damageDice": "4d8+3"
           }
         ]
       },
@@ -43428,7 +43428,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -43443,7 +43443,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d8+4"
+            "damageDice": "2d8+4"
           }
         ]
       },
@@ -43458,7 +43458,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       }
@@ -43567,7 +43567,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "3d6+3"
+            "damageDice": "3d6+3"
           }
         ]
       },
@@ -43582,7 +43582,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "1d6+3"
+            "damageDice": "1d6+3"
           }
         ]
       }
@@ -43716,7 +43716,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           },
           {
             "damageType": {
@@ -43724,7 +43724,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -43739,7 +43739,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -43767,7 +43767,7 @@
               "name": "Acid",
               "url": "/api/2014/damage-types/acid"
             },
-            "damage_dice": "11d8"
+            "damageDice": "11d8"
           }
         ]
       }
@@ -43895,7 +43895,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+5"
+            "damageDice": "2d10+5"
           },
           {
             "damageType": {
@@ -43903,7 +43903,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "1d10"
+            "damageDice": "1d10"
           }
         ]
       },
@@ -43918,7 +43918,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           }
         ]
       },
@@ -43946,7 +43946,7 @@
               "name": "Lightning",
               "url": "/api/2014/damage-types/lightning"
             },
-            "damage_dice": "10d10"
+            "damageDice": "10d10"
           }
         ]
       }
@@ -44082,7 +44082,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -44097,7 +44097,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -44134,7 +44134,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "12d6"
+                    "damageDice": "12d6"
                   }
                 ]
               },
@@ -44293,7 +44293,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+5"
+            "damageDice": "2d10+5"
           }
         ]
       },
@@ -44308,7 +44308,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+5"
+            "damageDice": "2d6+5"
           }
         ]
       },
@@ -44345,7 +44345,7 @@
                       "name": "Lightning",
                       "url": "/api/2014/damage-types/lightning"
                     },
-                    "damage_dice": "10d10"
+                    "damageDice": "10d10"
                   }
                 ]
               },
@@ -44498,7 +44498,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           }
         ]
       },
@@ -44513,7 +44513,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -44550,7 +44550,7 @@
                       "name": "Acid",
                       "url": "/api/2014/damage-types/acid"
                     },
-                    "damage_dice": "9d8"
+                    "damageDice": "9d8"
                   }
                 ]
               },
@@ -44717,7 +44717,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           }
         ]
       },
@@ -44732,7 +44732,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -44769,7 +44769,7 @@
                       "name": "Fire",
                       "url": "/api/2014/damage-types/fire"
                     },
-                    "damage_dice": "10d10"
+                    "damageDice": "10d10"
                   }
                 ]
               },
@@ -44934,7 +44934,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           },
           {
             "damageType": {
@@ -44942,7 +44942,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "2d6"
+            "damageDice": "2d6"
           }
         ]
       },
@@ -44957,7 +44957,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -44985,7 +44985,7 @@
               "name": "Poison",
               "url": "/api/2014/damage-types/poison"
             },
-            "damage_dice": "12d6"
+            "damageDice": "12d6"
           }
         ]
       }
@@ -45113,7 +45113,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           },
           {
             "damageType": {
@@ -45121,7 +45121,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "1d6"
+            "damageDice": "1d6"
           }
         ]
       },
@@ -45136,7 +45136,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -45164,7 +45164,7 @@
               "name": "Fire",
               "url": "/api/2014/damage-types/fire"
             },
-            "damage_dice": "16d6"
+            "damageDice": "16d6"
           }
         ]
       }
@@ -45307,7 +45307,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+6"
+            "damageDice": "2d10+6"
           }
         ]
       },
@@ -45322,7 +45322,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+6"
+            "damageDice": "2d6+6"
           }
         ]
       },
@@ -45359,7 +45359,7 @@
                       "name": "Cold",
                       "url": "/api/2014/damage-types/cold"
                     },
-                    "damage_dice": "12d8"
+                    "damageDice": "12d8"
                   }
                 ]
               },
@@ -45511,7 +45511,7 @@
               "name": "Piercing",
               "url": "/api/2014/damage-types/piercing"
             },
-            "damage_dice": "2d10+4"
+            "damageDice": "2d10+4"
           },
           {
             "damageType": {
@@ -45519,7 +45519,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "1d8"
+            "damageDice": "1d8"
           }
         ]
       },
@@ -45534,7 +45534,7 @@
               "name": "Slashing",
               "url": "/api/2014/damage-types/slashing"
             },
-            "damage_dice": "2d6+4"
+            "damageDice": "2d6+4"
           }
         ]
       },
@@ -45562,7 +45562,7 @@
               "name": "Cold",
               "url": "/api/2014/damage-types/cold"
             },
-            "damage_dice": "10d8"
+            "damageDice": "10d8"
           }
         ]
       }
@@ -45642,7 +45642,7 @@
               "name": "Bludgeoning",
               "url": "/api/2014/damage-types/bludgeoning"
             },
-            "damage_dice": "1d6+1"
+            "damageDice": "1d6+1"
           }
         ]
       }

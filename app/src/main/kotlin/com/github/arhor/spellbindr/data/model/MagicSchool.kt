@@ -1,15 +1,10 @@
 package com.github.arhor.spellbindr.data.model
 
-enum class MagicSchool {
-    ABJURATION,
-    CONJURATION,
-    DIVINATION,
-    ENCHANTMENT,
-    EVOCATION,
-    ILLUSION,
-    NECROMANCY,
-    TRANSMUTATION,
-    ;
+import kotlinx.serialization.Serializable
 
-    override fun toString(): String = name.lowercase().replaceFirstChar(Char::titlecaseChar)
-}
+@Serializable
+data class MagicSchool(
+    val id: String,
+    val name: String,
+    val desc: String
+)
