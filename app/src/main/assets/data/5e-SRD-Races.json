@@ -44,7 +44,7 @@
       "choose": 1,
       "type": "proficiencies",
       "from": {
-        "optionSetType": "options_array",
+        "type": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -319,7 +319,7 @@
       "choose": 1,
       "type": "languages",
       "from": {
-        "optionSetType": "options_array",
+        "type": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -580,7 +580,7 @@
       "choose": 2,
       "type": "abilityBonuses",
       "from": {
-        "optionSetType": "options_array",
+        "type": "options_array",
         "options": [
           {
             "option_type": "ability_bonus",
@@ -639,7 +639,7 @@
       "choose": 2,
       "type": "proficiencies",
       "from": {
-        "optionSetType": "options_array",
+        "type": "options_array",
         "options": [
           {
             "option_type": "reference",
@@ -804,7 +804,7 @@
       "choose": 1,
       "type": "languages",
       "from": {
-        "optionSetType": "options_array",
+        "type": "options_array",
         "options": [
           {
             "option_type": "reference",

@@ -74,7 +74,7 @@
     "languageOptions": {
       "choose": 1,
       "from": {
-        "optionSetType": "options_array",
+        "type": "options_array",
         "options": [
           {
             "option_type": "reference",

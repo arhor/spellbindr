@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 data class Background(
     val id: String,
     val name: String,
-    val startingProficiencies: List<EntityRef>,
     val languageOptions: Choice,
+    val startingProficiencies: List<EntityRef>,
     val startingEquipment: List<EquipmentRef>,
     val startingEquipmentOptions: List<Choice>,
     val feature: GenericInfo,

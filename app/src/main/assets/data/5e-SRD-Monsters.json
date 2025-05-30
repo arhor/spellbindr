@@ -1062,7 +1062,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -1347,7 +1347,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -1628,7 +1628,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -1921,7 +1921,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -2753,7 +2753,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -3948,7 +3948,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -4237,7 +4237,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -4522,7 +4522,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -4819,7 +4819,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -5655,7 +5655,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -7953,7 +7953,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -8162,7 +8162,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -9810,7 +9810,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -9981,7 +9981,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -10543,7 +10543,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -10820,7 +10820,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -11046,7 +11046,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -11913,7 +11913,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -13523,7 +13523,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -13812,7 +13812,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -14174,7 +14174,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -14258,7 +14258,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -14619,7 +14619,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -15470,7 +15470,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -15794,7 +15794,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -15855,7 +15855,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -20178,7 +20178,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -20362,7 +20362,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -20429,7 +20429,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -20562,7 +20562,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -20899,7 +20899,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -21872,7 +21872,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -22448,7 +22448,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -23225,7 +23225,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -23451,7 +23451,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -24544,7 +24544,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -25128,7 +25128,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -25429,7 +25429,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -26233,7 +26233,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -27007,7 +27007,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -27411,7 +27411,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -27568,7 +27568,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -27652,7 +27652,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -29701,7 +29701,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -33227,7 +33227,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -33306,7 +33306,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -33427,7 +33427,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -33763,7 +33763,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -34497,7 +34497,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -37743,7 +37743,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -38297,7 +38297,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -38960,7 +38960,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -39501,7 +39501,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -39661,7 +39661,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -40727,7 +40727,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -41111,7 +41111,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -41261,7 +41261,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -41417,7 +41417,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -41722,7 +41722,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -41875,7 +41875,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -42182,7 +42182,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -42665,7 +42665,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "action",
@@ -42724,7 +42724,7 @@
             "choose": 1,
             "type": "damage",
             "from": {
-              "optionSetType": "options_array",
+              "type": "options_array",
               "options": [
                 {
                   "option_type": "damage",
@@ -43360,7 +43360,7 @@
           "choose": 1,
           "type": "action",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "multiple",
@@ -44113,7 +44113,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -44324,7 +44324,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -44529,7 +44529,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -44748,7 +44748,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",
@@ -45338,7 +45338,7 @@
           "choose": 1,
           "type": "attack",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "breath",

@@ -9,7 +9,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -102,7 +102,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -118,7 +118,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "martial-melee-weapons"
                   }
@@ -133,7 +133,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -149,7 +149,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -197,7 +197,7 @@
         "choose": 3,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -315,7 +315,7 @@
         "choose": 3,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -435,7 +435,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -458,7 +458,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -473,7 +473,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -497,7 +497,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -513,7 +513,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "musical-instruments"
                   }
@@ -544,7 +544,7 @@
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -662,7 +662,7 @@
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -795,7 +795,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -873,7 +873,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -905,7 +905,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -944,7 +944,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -972,7 +972,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -987,7 +987,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1011,7 +1011,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "equipment_category",
+          "type": "equipment_category",
           "equipment_category": {
             "id": "holy-symbols"
           }
@@ -1098,7 +1098,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1230,7 +1230,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1246,7 +1246,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -1261,7 +1261,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1277,7 +1277,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-melee-weapons"
                   }
@@ -1292,7 +1292,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "equipment_category",
+          "type": "equipment_category",
           "equipment_category": {
             "id": "druidic-focus"
           }
@@ -1379,7 +1379,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1468,7 +1468,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1511,7 +1511,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -1523,7 +1523,7 @@
                     "choose": 1,
                     "type": "equipment",
                     "from": {
-                      "optionSetType": "equipment_category",
+                      "type": "equipment_category",
                       "equipment_category": {
                         "id": "martial-weapons"
                       }
@@ -1546,7 +1546,7 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "martial-weapons"
                   }
@@ -1561,7 +1561,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -1597,7 +1597,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1622,7 +1622,7 @@
         "type": "ability-scores",
         "choose": 1,
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "score_prerequisite",
@@ -1675,7 +1675,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1721,7 +1721,7 @@
         "type": "proficiencies",
         "choose": 1,
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "choice",
@@ -1730,7 +1730,7 @@
                 "type": "proficiencies",
                 "choose": 1,
                 "from": {
-                  "optionSetType": "options_array",
+                  "type": "options_array",
                   "options": [
                     {
                       "option_type": "reference",
@@ -1857,7 +1857,7 @@
                 "type": "proficiencies",
                 "choose": 1,
                 "from": {
-                  "optionSetType": "options_array",
+                  "type": "options_array",
                   "options": [
                     {
                       "option_type": "reference",
@@ -1963,7 +1963,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -1979,7 +1979,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -1994,7 +1994,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2054,7 +2054,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2138,7 +2138,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -2150,7 +2150,7 @@
                     "choose": 1,
                     "type": "equipment",
                     "from": {
-                      "optionSetType": "equipment_category",
+                      "type": "equipment_category",
                       "equipment_category": {
                         "id": "martial-weapons"
                       }
@@ -2173,7 +2173,7 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "martial-weapons"
                   }
@@ -2188,7 +2188,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2204,7 +2204,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -2219,7 +2219,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2243,7 +2243,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "equipment_category",
+          "type": "equipment_category",
           "equipment_category": {
             "id": "holy-symbols"
           }
@@ -2330,7 +2330,7 @@
         "choose": 3,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2435,7 +2435,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2459,7 +2459,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2475,7 +2475,7 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-melee-weapons"
                   }
@@ -2490,7 +2490,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2547,7 +2547,7 @@
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -2649,7 +2649,7 @@
         "choose": 4,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2784,7 +2784,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2808,7 +2808,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -2844,7 +2844,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -2893,7 +2893,7 @@
           "choose": 1,
           "type": "proficiencies",
           "from": {
-            "optionSetType": "options_array",
+            "type": "options_array",
             "options": [
               {
                 "option_type": "reference",
@@ -2982,7 +2982,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3069,7 +3069,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -3097,7 +3097,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -3112,7 +3112,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3128,7 +3128,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "arcane-focus"
                   }
@@ -3143,7 +3143,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3233,7 +3233,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3323,7 +3323,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "multiple",
@@ -3351,7 +3351,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "simple-weapons"
                   }
@@ -3366,7 +3366,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3382,7 +3382,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "arcane-focus"
                   }
@@ -3397,7 +3397,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3421,7 +3421,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "equipment_category",
+          "type": "equipment_category",
           "equipment_category": {
             "id": "simple-weapons"
           }
@@ -3506,7 +3506,7 @@
         "choose": 2,
         "type": "proficiencies",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3593,7 +3593,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3617,7 +3617,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",
@@ -3633,7 +3633,7 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "optionSetType": "equipment_category",
+                  "type": "equipment_category",
                   "equipment_category": {
                     "id": "arcane-focus"
                   }
@@ -3648,7 +3648,7 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "counted_reference",

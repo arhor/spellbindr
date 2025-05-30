@@ -572,7 +572,7 @@
         "choose": 2,
         "type": "proficiency",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -887,7 +887,7 @@
         "choose": 2,
         "type": "proficiency",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -1866,7 +1866,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2525,7 +2525,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -2900,7 +2900,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -3777,7 +3777,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -4336,7 +4336,7 @@
         "choose": 1,
         "type": "string",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             "aberrations",
             "beasts",
@@ -4385,7 +4385,7 @@
         "choose": 1,
         "type": "string",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             "arctic",
             "coast",
@@ -4418,7 +4418,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -4595,7 +4595,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -4770,7 +4770,7 @@
         "choose": 1,
         "type": "string",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             "aberrations",
             "beasts",
@@ -4819,7 +4819,7 @@
         "choose": 1,
         "type": "string",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             "arctic",
             "coast",
@@ -4875,7 +4875,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -5040,7 +5040,7 @@
         "choose": 1,
         "type": "string",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             "arctic",
             "coast",
@@ -5111,7 +5111,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -5223,7 +5223,7 @@
         "choose": 1,
         "type": "string",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             "aberrations",
             "beasts",
@@ -5301,7 +5301,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -5488,7 +5488,7 @@
         "choose": 1,
         "type": "proficiency",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "choice",
@@ -5496,7 +5496,7 @@
                 "choose": 2,
                 "type": "proficiency",
                 "from": {
-                  "optionSetType": "options_array",
+                  "type": "options_array",
                   "options": [
                     {
                       "option_type": "reference",
@@ -5655,7 +5655,7 @@
                     "choose": 1,
                     "type": "proficiency",
                     "from": {
-                      "optionSetType": "options_array",
+                      "type": "options_array",
                       "options": [
                         {
                           "option_type": "reference",
@@ -5974,7 +5974,7 @@
         "choose": 2,
         "type": "proficiency",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -6461,7 +6461,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -6897,7 +6897,7 @@
         "choose": 2,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -7213,7 +7213,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -7371,7 +7371,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
@@ -8563,7 +8563,7 @@
         "choose": 1,
         "type": "feature",
         "from": {
-          "optionSetType": "options_array",
+          "type": "options_array",
           "options": [
             {
               "option_type": "reference",
