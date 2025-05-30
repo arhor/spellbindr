@@ -81,18 +81,16 @@ class SpellSearchViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         viewModelScope.launch {
-            combine(
-                _state,
-                spellRepository.allSpells,
-                spellRepository.favSpells,
-                ::toObservableData
-            ).debounce(350.milliseconds).distinctUntilChanged().collect { step ->
+            combine(_state, spellRepository.allSpells, spellRepository.favSpells, ::toObservableData)
+                .debounce(350.milliseconds)
+                .distinctUntilChanged()
+                .collect { data ->
                     try {
                         _state.update { it.copy(isLoading = true, error = null) }
                         val spells = spellRepository.findSpells(
-                            query = step.query,
-                            classes = step.currentClasses,
-                            favorite = step.showFavorite,
+                            query = data.query,
+                            classes = data.currentClasses,
+                            favorite = data.showFavorite,
                         )
                         _state.update { it.copy(spells = spells, isLoading = false) }
                     } catch (e: Exception) {
