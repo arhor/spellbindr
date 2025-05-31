@@ -2,8 +2,14 @@ package com.github.arhor.spellbindr.data.model
 
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a prerequisite that requires a certain number of proficiencies of a specific type.
+ *
+ * @property type The type of proficiency required (e.g., "skill", "weapon", "armor").
+ * @property proficiency Optional reference to a specific proficiency. If null, any proficiency of the specified type counts.
+ */
 @Serializable
 data class CountedReferencePrerequisite(
     val type: String,
-    val proficiency: EntityRef? = null
+    val proficiency: EntityRef? = null,
 )
