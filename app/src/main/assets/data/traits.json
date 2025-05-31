@@ -89,19 +89,19 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "smiths-tools"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "brewers-supplies"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "masons-tools"
             }
@@ -234,85 +234,85 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "light"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "mage-hand"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "mending"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "message"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "minor-illusion"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "acid-splash"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "prestidigitation"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "ray-of-frost"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "shocking-grasp"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "true-strike"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "chill-touch"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "dancing-lights"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "fire-bolt"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "poison-spray"
               }
@@ -343,85 +343,85 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "dwarvish"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "giant"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "gnomish"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "goblin"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "halfling"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "orc"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "abyssal"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "celestial"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "draconic"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "deep-speech"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "infernal"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "primordial"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "sylvan"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "undercommon"
             }
@@ -506,61 +506,61 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-black"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-blue"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-brass"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-bronze"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-copper"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-gold"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-green"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-red"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-silver"
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "id": "draconic-ancestry-white"
               }
@@ -1201,109 +1201,109 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-acrobatics"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-animal-handling"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-arcana"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-athletics"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-deception"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-history"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-insight"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-intimidation"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-investigation"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-medicine"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-nature"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-perception"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-performance"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-persuasion"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-religion"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-sleight-of-hand"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-stealth"
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "id": "skill-survival"
             }

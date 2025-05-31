@@ -575,7 +575,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-acrobatics",
                 "name": "Skill: Acrobatics",
@@ -583,7 +583,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-animal-handling",
                 "name": "Skill: Animal Handling",
@@ -591,7 +591,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-arcana",
                 "name": "Skill: Arcana",
@@ -599,7 +599,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-athletics",
                 "name": "Skill: Athletics",
@@ -607,7 +607,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-deception",
                 "name": "Skill: Deception",
@@ -615,7 +615,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-history",
                 "name": "Skill: History",
@@ -623,7 +623,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-insight",
                 "name": "Skill: Insight",
@@ -631,7 +631,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-intimidation",
                 "name": "Skill: Intimidation",
@@ -639,7 +639,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-investigation",
                 "name": "Skill: Investigation",
@@ -647,7 +647,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-medicine",
                 "name": "Skill: Medicine",
@@ -655,7 +655,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-nature",
                 "name": "Skill: Nature",
@@ -663,7 +663,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-perception",
                 "name": "Skill: Perception",
@@ -671,7 +671,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-performance",
                 "name": "Skill: Performance",
@@ -679,7 +679,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-persuasion",
                 "name": "Skill: Persuasion",
@@ -687,7 +687,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-religion",
                 "name": "Skill: Religion",
@@ -695,7 +695,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-sleight-of-hand",
                 "name": "Skill: Sleight of Hand",
@@ -703,7 +703,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-stealth",
                 "name": "Skill: Stealth",
@@ -711,7 +711,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-survival",
                 "name": "Skill: Survival",
@@ -890,7 +890,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-acrobatics",
                 "name": "Skill: Acrobatics",
@@ -898,7 +898,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-animal-handling",
                 "name": "Skill: Animal Handling",
@@ -906,7 +906,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-arcana",
                 "name": "Skill: Arcana",
@@ -914,7 +914,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-athletics",
                 "name": "Skill: Athletics",
@@ -922,7 +922,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-deception",
                 "name": "Skill: Deception",
@@ -930,7 +930,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-history",
                 "name": "Skill: History",
@@ -938,7 +938,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-insight",
                 "name": "Skill: Insight",
@@ -946,7 +946,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-intimidation",
                 "name": "Skill: Intimidation",
@@ -954,7 +954,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-investigation",
                 "name": "Skill: Investigation",
@@ -962,7 +962,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-medicine",
                 "name": "Skill: Medicine",
@@ -970,7 +970,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-nature",
                 "name": "Skill: Nature",
@@ -978,7 +978,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-perception",
                 "name": "Skill: Perception",
@@ -986,7 +986,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-performance",
                 "name": "Skill: Performance",
@@ -994,7 +994,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-persuasion",
                 "name": "Skill: Persuasion",
@@ -1002,7 +1002,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-religion",
                 "name": "Skill: Religion",
@@ -1010,7 +1010,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-sleight-of-hand",
                 "name": "Skill: Sleight of Hand",
@@ -1018,7 +1018,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-stealth",
                 "name": "Skill: Stealth",
@@ -1026,7 +1026,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-survival",
                 "name": "Skill: Survival",
@@ -1869,7 +1869,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-arctic",
                 "name": "Circle of the Land: Arctic",
@@ -1877,7 +1877,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-coast",
                 "name": "Circle of the Land: Coast",
@@ -1885,7 +1885,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-desert",
                 "name": "Circle of the Land: Desert",
@@ -1893,7 +1893,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-forest",
                 "name": "Circle of the Land: Forest",
@@ -1901,7 +1901,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-grassland",
                 "name": "Circle of the Land: Grassland",
@@ -1909,7 +1909,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-mountain",
                 "name": "Circle of the Land: Mountain",
@@ -1917,7 +1917,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "circle-of-the-land-swamp",
                 "name": "Circle of the Land: Swamp",
@@ -2528,7 +2528,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-archery",
                 "name": "Fighting Style: Archery",
@@ -2536,7 +2536,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-defense",
                 "name": "Fighting Style: Defense",
@@ -2544,7 +2544,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-dueling",
                 "name": "Fighting Style: Dueling",
@@ -2552,7 +2552,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-great-weapon-fighting",
                 "name": "Fighting Style: Great Weapon Fighting",
@@ -2560,7 +2560,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-protection",
                 "name": "Fighting Style: Protection",
@@ -2568,7 +2568,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-two-weapon-fighting",
                 "name": "Fighting Style: Two-Weapon Fighting",
@@ -2903,7 +2903,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-archery",
                 "name": "Fighting Style: Archery",
@@ -2911,7 +2911,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-defense",
                 "name": "Fighting Style: Defense",
@@ -2919,7 +2919,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-dueling",
                 "name": "Fighting Style: Dueling",
@@ -2927,7 +2927,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-great-weapon-fighting",
                 "name": "Fighting Style: Great Weapon Fighting",
@@ -2935,7 +2935,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-protection",
                 "name": "Fighting Style: Protection",
@@ -2943,7 +2943,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighter-fighting-style-two-weapon-fighting",
                 "name": "Fighting Style: Two-Weapon Fighting",
@@ -3780,7 +3780,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighting-style-defense",
                 "name": "Fighting Style: Defense",
@@ -3788,7 +3788,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighting-style-dueling",
                 "name": "Fighting Style: Dueling",
@@ -3796,7 +3796,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighting-style-great-weapon-fighting",
                 "name": "Fighting Style: Great Weapon Fighting",
@@ -3804,7 +3804,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "fighting-style-protection",
                 "name": "Fighting Style: Protection",
@@ -4421,7 +4421,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "ranger-fighting-style-archery",
                 "name": "Fighting Style: Archery",
@@ -4429,7 +4429,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "ranger-fighting-style-defense",
                 "name": "Fighting Style: Defense",
@@ -4437,7 +4437,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "ranger-fighting-style-dueling",
                 "name": "Fighting Style: Dueling",
@@ -4445,7 +4445,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "ranger-fighting-style-two-weapon-fighting",
                 "name": "Fighting Style: Two-Weapon Fighting",
@@ -4598,7 +4598,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "hunters-prey-colossus-slayer",
                 "name": "Hunter's Prey: Colossus Slayer",
@@ -4606,7 +4606,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "hunters-prey-giant-killer",
                 "name": "Hunter's Prey: Giant Killer",
@@ -4614,7 +4614,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "hunters-prey-horde-breaker",
                 "name": "Hunter's Prey: Horde Breaker",
@@ -4878,7 +4878,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "defensive-tactics-escape-the-horde",
                 "name": "Defensive Tactics: Escape the Horde",
@@ -4886,7 +4886,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "defensive-tactics-multiattack-defense",
                 "name": "Defensive Tactics: Multiattack Defense",
@@ -4894,7 +4894,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "defensive-tactics-steel-will",
                 "name": "Defensive Tactics: Steel Will",
@@ -5114,7 +5114,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "multiattack-volley",
                 "name": "Multiattack: Volley",
@@ -5122,7 +5122,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "multiattack-whirlwind-attack",
                 "name": "Multiattack: Whirlwind Attack",
@@ -5304,7 +5304,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "superior-hunters-defense-evasion",
                 "name": "Superior Hunter's Defense: Evasion",
@@ -5312,7 +5312,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "superior-hunters-defense-stand-against-the-tide",
                 "name": "Superior Hunter's Defense: Stand Against the Tide",
@@ -5320,7 +5320,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "superior-hunters-defense-uncanny-dodge",
                 "name": "Superior Hunter's Defense: Uncanny Dodge",
@@ -5491,7 +5491,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "choice",
+              "type": "choice",
               "choice": {
                 "choose": 2,
                 "type": "proficiency",
@@ -5499,7 +5499,7 @@
                   "type": "options_array",
                   "options": [
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-acrobatics",
                         "name": "Skill: Acrobatics",
@@ -5507,7 +5507,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-animal-handling",
                         "name": "Skill: Animal Handling",
@@ -5515,7 +5515,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-arcana",
                         "name": "Skill: Arcana",
@@ -5523,7 +5523,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-athletics",
                         "name": "Skill: Athletics",
@@ -5531,7 +5531,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-deception",
                         "name": "Skill: Deception",
@@ -5539,7 +5539,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-history",
                         "name": "Skill: History",
@@ -5547,7 +5547,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-insight",
                         "name": "Skill: Insight",
@@ -5555,7 +5555,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-intimidation",
                         "name": "Skill: Intimidation",
@@ -5563,7 +5563,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-investigation",
                         "name": "Skill: Investigation",
@@ -5571,7 +5571,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-medicine",
                         "name": "Skill: Medicine",
@@ -5579,7 +5579,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-nature",
                         "name": "Skill: Nature",
@@ -5587,7 +5587,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-perception",
                         "name": "Skill: Perception",
@@ -5595,7 +5595,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-performance",
                         "name": "Skill: Performance",
@@ -5603,7 +5603,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-persuasion",
                         "name": "Skill: Persuasion",
@@ -5611,7 +5611,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-religion",
                         "name": "Skill: Religion",
@@ -5619,7 +5619,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-sleight-of-hand",
                         "name": "Skill: Sleight of Hand",
@@ -5627,7 +5627,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-stealth",
                         "name": "Skill: Stealth",
@@ -5635,7 +5635,7 @@
                       }
                     },
                     {
-                      "option_type": "reference",
+                      "type": "reference",
                       "item": {
                         "index": "skill-survival",
                         "name": "Skill: Survival",
@@ -5647,10 +5647,10 @@
               }
             },
             {
-              "option_type": "multiple",
+              "type": "multiple",
               "items": [
                 {
-                  "option_type": "choice",
+                  "type": "choice",
                   "choice": {
                     "choose": 1,
                     "type": "proficiency",
@@ -5658,7 +5658,7 @@
                       "type": "options_array",
                       "options": [
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-acrobatics",
                             "name": "Skill: Acrobatics",
@@ -5666,7 +5666,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-animal-handling",
                             "name": "Skill: Animal Handling",
@@ -5674,7 +5674,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-arcana",
                             "name": "Skill: Arcana",
@@ -5682,7 +5682,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-athletics",
                             "name": "Skill: Athletics",
@@ -5690,7 +5690,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-deception",
                             "name": "Skill: Deception",
@@ -5698,7 +5698,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-history",
                             "name": "Skill: History",
@@ -5706,7 +5706,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-insight",
                             "name": "Skill: Insight",
@@ -5714,7 +5714,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-intimidation",
                             "name": "Skill: Intimidation",
@@ -5722,7 +5722,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-investigation",
                             "name": "Skill: Investigation",
@@ -5730,7 +5730,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-medicine",
                             "name": "Skill: Medicine",
@@ -5738,7 +5738,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-nature",
                             "name": "Skill: Nature",
@@ -5746,7 +5746,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-perception",
                             "name": "Skill: Perception",
@@ -5754,7 +5754,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-performance",
                             "name": "Skill: Performance",
@@ -5762,7 +5762,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-persuasion",
                             "name": "Skill: Persuasion",
@@ -5770,7 +5770,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-religion",
                             "name": "Skill: Religion",
@@ -5778,7 +5778,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-sleight-of-hand",
                             "name": "Skill: Sleight of Hand",
@@ -5786,7 +5786,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-stealth",
                             "name": "Skill: Stealth",
@@ -5794,7 +5794,7 @@
                           }
                         },
                         {
-                          "option_type": "reference",
+                          "type": "reference",
                           "item": {
                             "index": "skill-survival",
                             "name": "Skill: Survival",
@@ -5806,7 +5806,7 @@
                   }
                 },
                 {
-                  "option_type": "reference",
+                  "type": "reference",
                   "item": {
                     "index": "thieves-tools",
                     "name": "Thieves' Tools",
@@ -5977,7 +5977,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-acrobatics",
                 "name": "Skill: Acrobatics",
@@ -5985,7 +5985,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-animal-handling",
                 "name": "Skill: Animal Handling",
@@ -5993,7 +5993,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-arcana",
                 "name": "Skill: Arcana",
@@ -6001,7 +6001,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-athletics",
                 "name": "Skill: Athletics",
@@ -6009,7 +6009,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-deception",
                 "name": "Skill: Deception",
@@ -6017,7 +6017,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-history",
                 "name": "Skill: History",
@@ -6025,7 +6025,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-insight",
                 "name": "Skill: Insight",
@@ -6033,7 +6033,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-intimidation",
                 "name": "Skill: Intimidation",
@@ -6041,7 +6041,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-investigation",
                 "name": "Skill: Investigation",
@@ -6049,7 +6049,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-medicine",
                 "name": "Skill: Medicine",
@@ -6057,7 +6057,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-nature",
                 "name": "Skill: Nature",
@@ -6065,7 +6065,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-perception",
                 "name": "Skill: Perception",
@@ -6073,7 +6073,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-performance",
                 "name": "Skill: Performance",
@@ -6081,7 +6081,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-persuasion",
                 "name": "Skill: Persuasion",
@@ -6089,7 +6089,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-religion",
                 "name": "Skill: Religion",
@@ -6097,7 +6097,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-sleight-of-hand",
                 "name": "Skill: Sleight of Hand",
@@ -6105,7 +6105,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-stealth",
                 "name": "Skill: Stealth",
@@ -6113,7 +6113,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "skill-survival",
                 "name": "Skill: Survival",
@@ -6121,7 +6121,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "thieves-tools",
                 "name": "Thieves' Tools",
@@ -6464,7 +6464,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-black---acid-damage",
                 "name": "Dragon Ancestor: Black - Acid Damage",
@@ -6472,7 +6472,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-blue---lightning-damage",
                 "name": "Dragon Ancestor: Blue - Lightning Damage",
@@ -6480,7 +6480,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-brass---fire-damage",
                 "name": "Dragon Ancestor: Brass - Fire Damage",
@@ -6488,7 +6488,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-bronze---lightning-damage",
                 "name": "Dragon Ancestor: Bronze - Lightning Damage",
@@ -6496,7 +6496,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-copper---acid-damage",
                 "name": "Dragon Ancestor: Copper - Acid Damage",
@@ -6504,7 +6504,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-gold---fire-damage",
                 "name": "Dragon Ancestor: Gold - Fire Damage",
@@ -6512,7 +6512,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-green---poison-damage",
                 "name": "Dragon Ancestor: Green - Poison Damage",
@@ -6520,7 +6520,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-red---fire-damage",
                 "name": "Dragon Ancestor: Red - Fire Damage",
@@ -6528,7 +6528,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-silver---cold-damage",
                 "name": "Dragon Ancestor: Silver - Cold Damage",
@@ -6536,7 +6536,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "dragon-ancestor-white---cold-damage",
                 "name": "Dragon Ancestor: White - Cold Damage",
@@ -6900,7 +6900,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-careful-spell",
                 "name": "Metamagic: Careful Spell",
@@ -6908,7 +6908,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-distant-spell",
                 "name": "Metamagic: Distant Spell",
@@ -6916,7 +6916,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-empowered-spell",
                 "name": "Metamagic: Empowered Spell",
@@ -6924,7 +6924,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-extended-spell",
                 "name": "Metamagic: Extended Spell",
@@ -6932,7 +6932,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-heightened-spell",
                 "name": "Metamagic: Heightened Spell",
@@ -6940,7 +6940,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-quickened-spell",
                 "name": "Metamagic: Quickened Spell",
@@ -6948,7 +6948,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-subtle-spell",
                 "name": "Metamagic: Subtle Spell",
@@ -6956,7 +6956,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-twinned-spell",
                 "name": "Metamagic: Twinned Spell",
@@ -7216,7 +7216,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-careful-spell",
                 "name": "Metamagic: Careful Spell",
@@ -7224,7 +7224,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-distant-spell",
                 "name": "Metamagic: Distant Spell",
@@ -7232,7 +7232,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-empowered-spell",
                 "name": "Metamagic: Empowered Spell",
@@ -7240,7 +7240,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-extended-spell",
                 "name": "Metamagic: Extended Spell",
@@ -7248,7 +7248,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-heightened-spell",
                 "name": "Metamagic: Heightened Spell",
@@ -7256,7 +7256,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-quickened-spell",
                 "name": "Metamagic: Quickened Spell",
@@ -7264,7 +7264,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-subtle-spell",
                 "name": "Metamagic: Subtle Spell",
@@ -7272,7 +7272,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-twinned-spell",
                 "name": "Metamagic: Twinned Spell",
@@ -7374,7 +7374,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-careful-spell",
                 "name": "Metamagic: Careful Spell",
@@ -7382,7 +7382,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-distant-spell",
                 "name": "Metamagic: Distant Spell",
@@ -7390,7 +7390,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-empowered-spell",
                 "name": "Metamagic: Empowered Spell",
@@ -7398,7 +7398,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-extended-spell",
                 "name": "Metamagic: Extended Spell",
@@ -7406,7 +7406,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-heightened-spell",
                 "name": "Metamagic: Heightened Spell",
@@ -7414,7 +7414,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-quickened-spell",
                 "name": "Metamagic: Quickened Spell",
@@ -7422,7 +7422,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-subtle-spell",
                 "name": "Metamagic: Subtle Spell",
@@ -7430,7 +7430,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "metamagic-twinned-spell",
                 "name": "Metamagic: Twinned Spell",
@@ -8566,7 +8566,7 @@
           "type": "options_array",
           "options": [
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "pact-of-the-chain",
                 "name": "Pact of the Chain",
@@ -8574,7 +8574,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "pact-of-the-blade",
                 "name": "Pact of the Blade",
@@ -8582,7 +8582,7 @@
               }
             },
             {
-              "option_type": "reference",
+              "type": "reference",
               "item": {
                 "index": "pact-of-the-tome",
                 "name": "Pact of the Tome",

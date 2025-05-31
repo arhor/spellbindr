@@ -77,7 +77,7 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "dwarvish",
               "name": "Dwarvish",
@@ -85,7 +85,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "giant",
               "name": "Giant",
@@ -93,7 +93,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "gnomish",
               "name": "Gnomish",
@@ -101,7 +101,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "goblin",
               "name": "Goblin",
@@ -109,7 +109,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "halfling",
               "name": "Halfling",
@@ -117,7 +117,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "orc",
               "name": "Orc",
@@ -125,7 +125,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "abyssal",
               "name": "Abyssal",
@@ -133,7 +133,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "celestial",
               "name": "Celestial",
@@ -141,7 +141,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "draconic",
               "name": "Draconic",
@@ -149,7 +149,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "deep-speech",
               "name": "Deep Speech",
@@ -157,7 +157,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "infernal",
               "name": "Infernal",
@@ -165,7 +165,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "primordial",
               "name": "Primordial",
@@ -173,7 +173,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "sylvan",
               "name": "Sylvan",
@@ -181,7 +181,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "undercommon",
               "name": "Undercommon",

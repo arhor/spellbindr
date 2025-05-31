@@ -47,7 +47,7 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "smiths-tools",
               "name": "Smith's Tools",
@@ -55,7 +55,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "brewers-supplies",
               "name": "Brewer's Supplies",
@@ -63,7 +63,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "masons-tools",
               "name": "Mason's Tools",
@@ -322,7 +322,7 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "dwarvish",
               "name": "Dwarvish",
@@ -330,7 +330,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "elvish",
               "name": "Elvish",
@@ -338,7 +338,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "giant",
               "name": "Giant",
@@ -346,7 +346,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "gnomish",
               "name": "Gnomish",
@@ -354,7 +354,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "goblin",
               "name": "Goblin",
@@ -362,7 +362,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "halfling",
               "name": "Halfling",
@@ -370,7 +370,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "orc",
               "name": "Orc",
@@ -378,7 +378,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "abyssal",
               "name": "Abyssal",
@@ -386,7 +386,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "celestial",
               "name": "Celestial",
@@ -394,7 +394,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "draconic",
               "name": "Draconic",
@@ -402,7 +402,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "deep-speech",
               "name": "Deep Speech",
@@ -410,7 +410,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "infernal",
               "name": "Infernal",
@@ -418,7 +418,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "primordial",
               "name": "Primordial",
@@ -426,7 +426,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "sylvan",
               "name": "Sylvan",
@@ -434,7 +434,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "undercommon",
               "name": "Undercommon",
@@ -583,7 +583,7 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "ability_bonus",
+            "type": "ability_bonus",
             "abilityScore": {
               "index": "str",
               "name": "STR",
@@ -592,7 +592,7 @@
             "bonus": 1
           },
           {
-            "option_type": "ability_bonus",
+            "type": "ability_bonus",
             "abilityScore": {
               "index": "dex",
               "name": "DEX",
@@ -601,7 +601,7 @@
             "bonus": 1
           },
           {
-            "option_type": "ability_bonus",
+            "type": "ability_bonus",
             "abilityScore": {
               "index": "con",
               "name": "CON",
@@ -610,7 +610,7 @@
             "bonus": 1
           },
           {
-            "option_type": "ability_bonus",
+            "type": "ability_bonus",
             "abilityScore": {
               "index": "int",
               "name": "INT",
@@ -619,7 +619,7 @@
             "bonus": 1
           },
           {
-            "option_type": "ability_bonus",
+            "type": "ability_bonus",
             "abilityScore": {
               "index": "wis",
               "name": "WIS",
@@ -642,7 +642,7 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-acrobatics",
               "name": "Skill: Acrobatics",
@@ -650,7 +650,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-animal-handling",
               "name": "Skill: Animal Handling",
@@ -658,7 +658,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-arcana",
               "name": "Skill: Arcana",
@@ -666,7 +666,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-athletics",
               "name": "Skill: Athletics",
@@ -674,7 +674,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-deception",
               "name": "Skill: Deception",
@@ -682,7 +682,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-history",
               "name": "Skill: History",
@@ -690,7 +690,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-insight",
               "name": "Skill: Insight",
@@ -698,7 +698,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-intimidation",
               "name": "Skill: Intimidation",
@@ -706,7 +706,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-investigation",
               "name": "Skill: Investigation",
@@ -714,7 +714,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-medicine",
               "name": "Skill: Medicine",
@@ -722,7 +722,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-nature",
               "name": "Skill: Nature",
@@ -730,7 +730,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-perception",
               "name": "Skill: Perception",
@@ -738,7 +738,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-performance",
               "name": "Skill: Performance",
@@ -746,7 +746,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-persuasion",
               "name": "Skill: Persuasion",
@@ -754,7 +754,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-religion",
               "name": "Skill: Religion",
@@ -762,7 +762,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-sleight-of-hand",
               "name": "Skill: Sleight of Hand",
@@ -770,7 +770,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-stealth",
               "name": "Skill: Stealth",
@@ -778,7 +778,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "skill-survival",
               "name": "Skill: Survival",
@@ -807,7 +807,7 @@
         "type": "options_array",
         "options": [
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "dwarvish",
               "name": "Dwarvish",
@@ -815,7 +815,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "giant",
               "name": "Giant",
@@ -823,7 +823,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "gnomish",
               "name": "Gnomish",
@@ -831,7 +831,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "goblin",
               "name": "Goblin",
@@ -839,7 +839,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "halfling",
               "name": "Halfling",
@@ -847,7 +847,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "orc",
               "name": "Orc",
@@ -855,7 +855,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "abyssal",
               "name": "Abyssal",
@@ -863,7 +863,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "celestial",
               "name": "Celestial",
@@ -871,7 +871,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "draconic",
               "name": "Draconic",
@@ -879,7 +879,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "deep-speech",
               "name": "Deep Speech",
@@ -887,7 +887,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "infernal",
               "name": "Infernal",
@@ -895,7 +895,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "primordial",
               "name": "Primordial",
@@ -903,7 +903,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "sylvan",
               "name": "Sylvan",
@@ -911,7 +911,7 @@
             }
           },
           {
-            "option_type": "reference",
+            "type": "reference",
             "item": {
               "index": "undercommon",
               "name": "Undercommon",

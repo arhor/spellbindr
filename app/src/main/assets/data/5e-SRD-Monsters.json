@@ -1065,7 +1065,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -1088,7 +1088,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Sleep Breath",
                 "dc": {
                   "dcType": {
@@ -1350,7 +1350,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Lightning Breath",
                 "dc": {
                   "dcType": {
@@ -1373,7 +1373,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Repulsion Breath",
                 "dc": {
                   "dcType": {
@@ -1631,7 +1631,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Acid Breath",
                 "dc": {
                   "dcType": {
@@ -1654,7 +1654,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Slowing Breath",
                 "dc": {
                   "dcType": {
@@ -1924,7 +1924,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -1947,7 +1947,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Weakening Breath",
                 "dc": {
                   "dcType": {
@@ -2756,7 +2756,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Cold Breath",
                 "dc": {
                   "dcType": {
@@ -2779,7 +2779,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Paralyzing Breath",
                 "dc": {
                   "dcType": {
@@ -3951,7 +3951,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -3974,7 +3974,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Sleep Breath",
                 "dc": {
                   "dcType": {
@@ -4240,7 +4240,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Lightning Breath",
                 "dc": {
                   "dcType": {
@@ -4263,7 +4263,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Repulsion Breath",
                 "dc": {
                   "dcType": {
@@ -4525,7 +4525,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Acid Breath",
                 "dc": {
                   "dcType": {
@@ -4548,7 +4548,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Slowing Breath",
                 "dc": {
                   "dcType": {
@@ -4822,7 +4822,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -4845,7 +4845,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Weakening Breath",
                 "dc": {
                   "dcType": {
@@ -5658,7 +5658,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Cold Breath",
                 "dc": {
                   "dcType": {
@@ -5681,7 +5681,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Paralyzing Breath",
                 "dc": {
                   "dcType": {
@@ -7956,16 +7956,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Scimitar",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Dagger",
                     "count": 1,
                     "type": "melee"
@@ -7973,7 +7973,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Dagger",
                 "count": 2,
                 "type": "ranged"
@@ -8165,16 +8165,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tail",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claw",
                     "count": 2,
                     "type": "melee"
@@ -8182,7 +8182,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Hurl Flame",
                 "count": 2,
                 "type": "ranged"
@@ -9813,7 +9813,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -9836,7 +9836,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Sleep Breath",
                 "dc": {
                   "dcType": {
@@ -9984,7 +9984,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Lightning Breath",
                 "dc": {
                   "dcType": {
@@ -10007,7 +10007,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Repulsion Breath",
                 "dc": {
                   "dcType": {
@@ -10546,16 +10546,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Pike",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Hooves",
                     "count": 1,
                     "type": "melee"
@@ -10563,7 +10563,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 2,
                 "type": "ranged"
@@ -10823,22 +10823,22 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -10846,22 +10846,22 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fire Breath",
                     "count": 1,
                     "type": "ability"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -10869,22 +10869,22 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fire Breath",
                     "count": 1,
                     "type": "ability"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -11049,22 +11049,22 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Pincer",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Pincer",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tentacles",
                     "count": 1,
                     "type": "melee"
@@ -11916,7 +11916,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Acid Breath",
                 "dc": {
                   "dcType": {
@@ -11939,7 +11939,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Slowing Breath",
                 "dc": {
                   "dcType": {
@@ -13526,7 +13526,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "lightning",
                     "name": "Lightning",
@@ -13535,7 +13535,7 @@
                   "damageDice": "1d6"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "thunder",
                     "name": "Thunder",
@@ -13815,16 +13815,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 2,
                     "type": "melee"
@@ -13832,16 +13832,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tail",
                     "count": 1,
                     "type": "melee"
@@ -14177,28 +14177,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longsword",
                 "count": 3,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 3,
                 "type": "ranged"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longsword",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
@@ -14206,16 +14206,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longbow",
                     "count": 2,
                     "type": "ranged"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
@@ -14261,7 +14261,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "slashing",
                     "name": "Slashing",
@@ -14271,7 +14271,7 @@
                   "notes": "One handed"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "slashing",
                     "name": "Slashing",
@@ -14622,7 +14622,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "bludgeoning",
                     "name": "Bludgeoning",
@@ -14632,7 +14632,7 @@
                   "notes": "One handed"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "bludgeoning",
                     "name": "Bludgeoning",
@@ -14642,7 +14642,7 @@
                   "notes": "Two handed"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "bludgeoning",
                     "name": "Bludgeoning",
@@ -15473,13 +15473,13 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Scimitar",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Hurl Flame",
                 "count": 2,
                 "type": "ranged"
@@ -15797,28 +15797,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longsword",
                 "count": 3,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 3,
                 "type": "ranged"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longsword",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longbow",
                     "count": 1,
                     "type": "ranged"
@@ -15826,16 +15826,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longbow",
                     "count": 2,
                     "type": "ranged"
@@ -15858,7 +15858,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "slashing",
                     "name": "Slashing",
@@ -15868,7 +15868,7 @@
                   "notes": "One handed"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "damageType": {
                     "index": "slashing",
                     "name": "Slashing",
@@ -20181,16 +20181,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Pincer",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fist",
                     "count": 2,
                     "type": "ranged"
@@ -20198,16 +20198,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Pincer",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Innate Spellcasting",
                     "count": 1,
                     "type": "magic"
@@ -20365,34 +20365,34 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Spear",
                 "count": 3,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Shield Bash",
                 "count": 3,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Spear",
                 "count": 2,
                 "type": "ranged"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Spear",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Shield Bash",
                     "count": 1,
                     "type": "melee"
@@ -20400,16 +20400,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Spear",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Shield Bash",
                     "count": 2,
                     "type": "melee"
@@ -20432,7 +20432,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -20442,7 +20442,7 @@
                   "damageDice": "2d6+4"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -20565,7 +20565,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -20575,7 +20575,7 @@
                   "damageDice": "1d6+2"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -20902,7 +20902,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -20925,7 +20925,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Weakening Breath",
                 "dc": {
                   "dcType": {
@@ -21875,7 +21875,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -21885,7 +21885,7 @@
                   "damageDice": "1d6+1"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -22451,7 +22451,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "slashing",
@@ -22461,7 +22461,7 @@
                   "damageDice": "1d8+3"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "slashing",
@@ -23228,7 +23228,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "slashing",
@@ -23238,7 +23238,7 @@
                   "damageDice": "1d8+1"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "slashing",
@@ -23454,16 +23454,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fork",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tail",
                     "count": 1,
                     "type": "melee"
@@ -23471,16 +23471,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fork",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Hurl Flame",
                     "count": 1,
                     "type": "ranged"
@@ -23488,22 +23488,22 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fork",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tail",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Hurl Flame",
                     "count": 1,
                     "type": "ranged"
@@ -24547,28 +24547,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Slam",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Sword",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Slam",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Sword",
                     "count": 1,
                     "type": "melee"
@@ -25131,22 +25131,22 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Tentacle",
                 "count": 3,
                 "type": "melee"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tentacle",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fling",
                     "count": 1,
                     "type": "melee"
@@ -25154,16 +25154,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tentacle",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Fling",
                     "count": 2,
                     "type": "melee"
@@ -25171,7 +25171,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Fling",
                 "count": 3,
                 "type": "melee"
@@ -25432,16 +25432,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Dagger",
                     "count": 1,
                     "type": "melee"
@@ -25449,16 +25449,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Intoxicating Touch",
                     "count": 1,
                     "type": "ability"
@@ -26236,16 +26236,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Heavy Club",
                     "count": 1,
                     "type": "melee"
@@ -26253,16 +26253,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Javelin",
                     "count": 1,
                     "type": "melee"
@@ -26270,16 +26270,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Spiked Shield",
                     "count": 1,
                     "type": "melee"
@@ -26287,16 +26287,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Javelin",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Heavy Club",
                     "count": 1,
                     "type": "melee"
@@ -26304,16 +26304,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Spiked Shield",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Javelin",
                     "count": 1,
                     "type": "melee"
@@ -26321,16 +26321,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Spiked Shield",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Heavy Club",
                     "count": 1,
                     "type": "melee"
@@ -27010,16 +27010,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claw",
                     "count": 2,
                     "type": "melee"
@@ -27027,7 +27027,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Tail Spike",
                 "count": 3,
                 "type": "ranged"
@@ -27414,16 +27414,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Snake Hair",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Shortsword",
                     "count": 2,
                     "type": "melee"
@@ -27431,7 +27431,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 2,
                 "type": "ranged"
@@ -27571,7 +27571,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -27581,7 +27581,7 @@
                   "damageDice": "1d6"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -27655,16 +27655,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -27672,16 +27672,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Harpoon",
                     "count": 1,
                     "type": "melee"
@@ -27689,16 +27689,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Harpoon",
                     "count": 1,
                     "type": "ranged"
@@ -29704,13 +29704,13 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Glaive",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Claw",
                 "desc": "If in Oni form",
                 "count": 2,
@@ -29718,16 +29718,16 @@
               },
               {
                 "desc": "If in Oni form",
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Glaive",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claw",
                     "count": 1,
                     "type": "melee"
@@ -33230,16 +33230,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -33247,16 +33247,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Spear",
                     "count": 1,
                     "type": "melee"
@@ -33309,7 +33309,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -33319,7 +33319,7 @@
                   "damageDice": "1d6+1"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -33430,7 +33430,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -33440,7 +33440,7 @@
                   "damageDice": "2d6+4"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -33766,13 +33766,13 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Shortsword",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 2,
                 "type": "ranged"
@@ -34500,7 +34500,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Cold Breath",
                 "dc": {
                   "dcType": {
@@ -34523,7 +34523,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Paralyzing Breath",
                 "dc": {
                   "dcType": {
@@ -37746,34 +37746,34 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Frightful Presence",
                     "count": 1,
                     "type": "ability"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claw",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tail",
                     "count": 1,
                     "type": "melee"
@@ -37781,35 +37781,35 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Frightful Presence",
                     "count": 1,
                     "type": "ability"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Swallow",
                     "desc": "If the target is grappled",
                     "count": 1,
                     "type": "ability"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claw",
                     "count": 2,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tail",
                     "count": 1,
                     "type": "melee"
@@ -38300,7 +38300,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -38310,7 +38310,7 @@
                   "damageDice": "1d6+1"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -38963,16 +38963,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Unarmed Strike (Vampire Form Only)",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite (Bat or Vampire Form Only)",
                     "count": 1,
                     "type": "melee"
@@ -38980,7 +38980,7 @@
                 ]
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Unarmed Strike (Vampire Form Only)",
                 "count": 2,
                 "type": "melee"
@@ -39504,22 +39504,22 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Claws",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -39664,7 +39664,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "slashing",
@@ -39674,7 +39674,7 @@
                   "damageDice": "1d8+3"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "slashing",
@@ -40730,28 +40730,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Claw",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Greataxe",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Greataxe",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claw",
                     "count": 1,
                     "type": "melee"
@@ -41114,22 +41114,22 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Maul",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Maul",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Tusks",
                     "count": 1,
                     "type": "melee"
@@ -41264,28 +41264,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Shortsword",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Hand Crossbow",
                 "count": 2,
                 "type": "ranged"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Shortsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Hand Crossbow",
                     "count": 1,
                     "type": "ranged"
@@ -41420,28 +41420,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Shortsword",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Hand Crossbow",
                 "count": 2,
                 "type": "ranged"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Shortsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Hand Crossbow",
                     "count": 1,
                     "type": "ranged"
@@ -41449,16 +41449,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Shortsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
@@ -41466,16 +41466,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Hand Crossbow",
                     "count": 1,
                     "type": "ranged"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
@@ -41725,13 +41725,13 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Scimitar",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 2,
                 "type": "ranged"
@@ -41878,19 +41878,19 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Scimitar",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 2,
                 "type": "ranged"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Claw",
                 "count": 2,
                 "type": "melee"
@@ -42185,7 +42185,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "piercing",
@@ -42195,7 +42195,7 @@
                   "damageDice": "1d6+2"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "piercing",
@@ -42668,28 +42668,28 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longsword",
                 "count": 2,
                 "type": "melee"
               },
               {
-                "option_type": "action",
+                "type": "action",
                 "action_name": "Longbow",
                 "count": 2,
                 "type": "ranged"
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Life Drain",
                     "count": 1,
                     "type": "ability"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Longsword",
                     "count": 1,
                     "type": "melee"
@@ -42727,7 +42727,7 @@
               "type": "options_array",
               "options": [
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "One handed",
                   "damageType": {
                     "index": "slashing",
@@ -42737,7 +42737,7 @@
                   "damageDice": "1d8+2"
                 },
                 {
-                  "option_type": "damage",
+                  "type": "damage",
                   "notes": "Two handed",
                   "damageType": {
                     "index": "slashing",
@@ -43363,16 +43363,16 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Stinger",
                     "count": 1,
                     "type": "melee"
@@ -43380,16 +43380,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -43397,16 +43397,16 @@
                 ]
               },
               {
-                "option_type": "multiple",
+                "type": "multiple",
                 "items": [
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Stinger",
                     "count": 1,
                     "type": "melee"
                   },
                   {
-                    "option_type": "action",
+                    "type": "action",
                     "action_name": "Claws",
                     "count": 1,
                     "type": "melee"
@@ -44116,7 +44116,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -44139,7 +44139,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Sleep Breath",
                 "dc": {
                   "dcType": {
@@ -44327,7 +44327,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Lightning Breath",
                 "dc": {
                   "dcType": {
@@ -44350,7 +44350,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Repulsion Breath",
                 "dc": {
                   "dcType": {
@@ -44532,7 +44532,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Acid Breath",
                 "dc": {
                   "dcType": {
@@ -44555,7 +44555,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Slowing Breath",
                 "dc": {
                   "dcType": {
@@ -44751,7 +44751,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Fire Breath",
                 "dc": {
                   "dcType": {
@@ -44774,7 +44774,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Weakening Breath",
                 "dc": {
                   "dcType": {
@@ -45341,7 +45341,7 @@
             "type": "options_array",
             "options": [
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Cold Breath",
                 "dc": {
                   "dcType": {
@@ -45364,7 +45364,7 @@
                 ]
               },
               {
-                "option_type": "breath",
+                "type": "breath",
                 "name": "Paralyzing Breath",
                 "dc": {
                   "dcType": {
