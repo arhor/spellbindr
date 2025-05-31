@@ -108,7 +108,7 @@
         "desc": "The aboleth makes three tentacle attacks.",
         "actions": [
           {
-            "action_name": "Tentacle",
+            "actionName": "Tentacle",
             "count": 3,
             "type": "melee"
           }
@@ -450,17 +450,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -705,17 +705,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -976,17 +976,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -1261,17 +1261,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -1542,17 +1542,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -1835,17 +1835,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -2142,17 +2142,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -2397,17 +2397,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -2667,17 +2667,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -2945,17 +2945,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -3190,7 +3190,7 @@
         "desc": "The elemental makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -3336,17 +3336,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -3591,17 +3591,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -3862,17 +3862,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -4151,17 +4151,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -4436,17 +4436,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -4733,17 +4733,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -5044,17 +5044,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -5299,17 +5299,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -5569,17 +5569,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -5851,17 +5851,17 @@
         "desc": "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Frightful Presence",
+            "actionName": "Frightful Presence",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -6228,7 +6228,7 @@
         "desc": "The sphinx makes two claw attacks.",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -6421,7 +6421,7 @@
         "desc": "The armor makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -6611,7 +6611,7 @@
         "desc": "The ape makes two fist attacks.",
         "actions": [
           {
-            "action_name": "Fist",
+            "actionName": "Fist",
             "count": 2,
             "type": "melee"
           }
@@ -7054,7 +7054,7 @@
         "desc": "The assassin makes two shortsword attacks.",
         "actions": [
           {
-            "action_name": "Shortsword",
+            "actionName": "Shortsword",
             "count": 2,
             "type": "melee"
           }
@@ -7713,12 +7713,12 @@
         "desc": "The balor makes two attacks: one with its longsword and one with its whip.",
         "actions": [
           {
-            "action_name": "Longsword",
+            "actionName": "Longsword",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Whip",
+            "actionName": "Whip",
             "count": 1,
             "type": "melee"
           }
@@ -7960,13 +7960,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Scimitar",
+                    "actionName": "Scimitar",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Dagger",
+                    "actionName": "Dagger",
                     "count": 1,
                     "type": "melee"
                   }
@@ -7974,7 +7974,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Dagger",
+                "actionName": "Dagger",
                 "count": 2,
                 "type": "ranged"
               }
@@ -8169,13 +8169,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Tail",
+                    "actionName": "Tail",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claw",
+                    "actionName": "Claw",
                     "count": 2,
                     "type": "melee"
                   }
@@ -8183,7 +8183,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Hurl Flame",
+                "actionName": "Hurl Flame",
                 "count": 2,
                 "type": "ranged"
               }
@@ -8484,12 +8484,12 @@
         "desc": "The devil makes two attacks: one with its beard and one with its glaive.",
         "actions": [
           {
-            "action_name": "Beard",
+            "actionName": "Beard",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Glaive",
+            "actionName": "Glaive",
             "count": 1,
             "type": "melee"
           }
@@ -8593,12 +8593,12 @@
         "desc": "The behir makes two attacks: one with its bite and one to constrict.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Constrict",
+            "actionName": "Constrict",
             "count": 1,
             "type": "melee"
           }
@@ -8808,12 +8808,12 @@
         "desc": "The bear makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -9638,12 +9638,12 @@
         "desc": "The devil makes three attacks: two with its claws and one with its sting.",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           },
           {
-            "action_name": "Sting",
+            "actionName": "Sting",
             "count": 1,
             "type": "melee"
           }
@@ -10086,12 +10086,12 @@
         "desc": "The bear makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -10550,13 +10550,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Pike",
+                    "actionName": "Pike",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Hooves",
+                    "actionName": "Hooves",
                     "count": 1,
                     "type": "melee"
                   }
@@ -10564,7 +10564,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 2,
                 "type": "ranged"
               }
@@ -10713,7 +10713,7 @@
         "desc": "The devil makes two attacks with its chains.",
         "actions": [
           {
-            "action_name": "Chain",
+            "actionName": "Chain",
             "count": 2,
             "type": "melee"
           }
@@ -10827,42 +10827,19 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Horns",
+                    "actionName": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
-                    "count": 1,
-                    "type": "melee"
-                  }
-                ]
-              },
-              {
-                "type": "multiple",
-                "items": [
-                  {
-                    "type": "action",
-                    "action_name": "Fire Breath",
-                    "count": 1,
-                    "type": "ability"
-                  },
-                  {
-                    "type": "action",
-                    "action_name": "Horns",
-                    "count": 1,
-                    "type": "melee"
-                  },
-                  {
-                    "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -10873,19 +10850,42 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
-                    "count": 1,
-                    "type": "melee"
-                  },
-                  {
-                    "type": "action",
-                    "action_name": "Fire Breath",
+                    "actionName": "Fire Breath",
                     "count": 1,
                     "type": "ability"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Horns",
+                    "count": 1,
+                    "type": "melee"
+                  },
+                  {
+                    "type": "action",
+                    "actionName": "Claws",
+                    "count": 1,
+                    "type": "melee"
+                  }
+                ]
+              },
+              {
+                "type": "multiple",
+                "items": [
+                  {
+                    "type": "action",
+                    "actionName": "Bite",
+                    "count": 1,
+                    "type": "melee"
+                  },
+                  {
+                    "type": "action",
+                    "actionName": "Fire Breath",
+                    "count": 1,
+                    "type": "ability"
+                  },
+                  {
+                    "type": "action",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -11050,7 +11050,7 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Pincer",
+                "actionName": "Pincer",
                 "count": 2,
                 "type": "melee"
               },
@@ -11059,13 +11059,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Pincer",
+                    "actionName": "Pincer",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tentacles",
+                    "actionName": "Tentacles",
                     "count": 1,
                     "type": "melee"
                   }
@@ -11209,7 +11209,7 @@
         "desc": "The golem makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -11311,12 +11311,12 @@
         "desc": "The cloaker makes two attacks: one with its bite and one with its tail.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -11565,7 +11565,7 @@
         "desc": "The giant makes two morningstar attacks.",
         "actions": [
           {
-            "action_name": "Morningstar",
+            "actionName": "Morningstar",
             "count": 2,
             "type": "melee"
           }
@@ -12501,7 +12501,7 @@
         "desc": "The fanatic makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Dagger",
+            "actionName": "Dagger",
             "count": 2,
             "type": "melee"
           }
@@ -12767,7 +12767,7 @@
         "desc": "The dog makes two bite attacks.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 2,
             "type": "melee"
           }
@@ -13167,7 +13167,7 @@
         "desc": "The deva makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Mace",
+            "actionName": "Mace",
             "count": 2,
             "type": "melee"
           }
@@ -13500,7 +13500,7 @@
         "desc": "The djinni makes three scimitar attacks.",
         "actions": [
           {
-            "action_name": "Scimitar",
+            "actionName": "Scimitar",
             "count": 3,
             "type": "melee"
           }
@@ -13647,7 +13647,7 @@
         "desc": "The doppelganger makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -13819,13 +13819,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 2,
                     "type": "melee"
                   }
@@ -13836,13 +13836,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tail",
+                    "actionName": "Tail",
                     "count": 1,
                     "type": "melee"
                   }
@@ -13986,12 +13986,12 @@
         "desc": "The dretch makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -14178,13 +14178,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Longsword",
+                "actionName": "Longsword",
                 "count": 3,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 3,
                 "type": "ranged"
               },
@@ -14193,13 +14193,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Longsword",
+                    "actionName": "Longsword",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   }
@@ -14210,13 +14210,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Longbow",
+                    "actionName": "Longbow",
                     "count": 2,
                     "type": "ranged"
                   },
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   }
@@ -15265,7 +15265,7 @@
         "desc": "The elemental makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -15474,13 +15474,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Scimitar",
+                "actionName": "Scimitar",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Hurl Flame",
+                "actionName": "Hurl Flame",
                 "count": 2,
                 "type": "ranged"
               }
@@ -15798,13 +15798,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Longsword",
+                "actionName": "Longsword",
                 "count": 3,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 3,
                 "type": "ranged"
               },
@@ -15813,13 +15813,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Longsword",
+                    "actionName": "Longsword",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Longbow",
+                    "actionName": "Longbow",
                     "count": 1,
                     "type": "ranged"
                   }
@@ -15830,13 +15830,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Longsword",
+                    "actionName": "Longsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Longbow",
+                    "actionName": "Longbow",
                     "count": 2,
                     "type": "ranged"
                   }
@@ -16007,12 +16007,12 @@
         "desc": "The ettercap makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -16133,12 +16133,12 @@
         "desc": "The ettin makes two attacks: one with its battleaxe and one with its morningstar.",
         "actions": [
           {
-            "action_name": "Battleaxe",
+            "actionName": "Battleaxe",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Morningstar",
+            "actionName": "Morningstar",
             "count": 1,
             "type": "melee"
           }
@@ -16292,7 +16292,7 @@
         "desc": "The elemental makes two touch attacks.",
         "actions": [
           {
-            "action_name": "Touch",
+            "actionName": "Touch",
             "count": 2,
             "type": "melee"
           }
@@ -16410,7 +16410,7 @@
         "desc": "The giant makes two greatsword attacks.",
         "actions": [
           {
-            "action_name": "Greatsword",
+            "actionName": "Greatsword",
             "count": 2,
             "type": "melee"
           }
@@ -16555,7 +16555,7 @@
         "desc": "The golem makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -16927,7 +16927,7 @@
         "desc": "The giant makes two greataxe attacks.",
         "actions": [
           {
-            "action_name": "Greataxe",
+            "actionName": "Greataxe",
             "count": 2,
             "type": "melee"
           }
@@ -17038,12 +17038,12 @@
         "desc": "The gargoyle makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -17626,7 +17626,7 @@
         "desc": "The ape makes two fist attacks.",
         "actions": [
           {
-            "action_name": "Fist",
+            "actionName": "Fist",
             "count": 2,
             "type": "melee"
           }
@@ -17717,12 +17717,12 @@
         "desc": "The badger makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -18175,12 +18175,12 @@
         "desc": "The crocodile makes two attacks: one with its bite and one with its tail.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -18280,12 +18280,12 @@
         "desc": "The eagle makes two attacks: one with its beak and one with its talons.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Talons",
+            "actionName": "Talons",
             "count": 1,
             "type": "melee"
           }
@@ -19206,12 +19206,12 @@
         "desc": "The scorpion makes three attacks: two with its claws and one with its sting.",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           },
           {
-            "action_name": "Sting",
+            "actionName": "Sting",
             "count": 1,
             "type": "melee"
           }
@@ -19618,12 +19618,12 @@
         "desc": "The vulture makes two attacks: one with its beak and one with its talons.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Talons",
+            "actionName": "Talons",
             "count": 1,
             "type": "melee"
           }
@@ -19962,12 +19962,12 @@
         "desc": "The gibbering mouther makes one bite attack and, if it can, uses its Blinding Spittle.",
         "actions": [
           {
-            "action_name": "Bites",
+            "actionName": "Bites",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Blinding Spittle",
+            "actionName": "Blinding Spittle",
             "count": 1,
             "type": "ranged"
           }
@@ -20185,13 +20185,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Pincer",
+                    "actionName": "Pincer",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Fist",
+                    "actionName": "Fist",
                     "count": 2,
                     "type": "ranged"
                   }
@@ -20202,13 +20202,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Pincer",
+                    "actionName": "Pincer",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Innate Spellcasting",
+                    "actionName": "Innate Spellcasting",
                     "count": 1,
                     "type": "magic"
                   }
@@ -20366,19 +20366,19 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Spear",
+                "actionName": "Spear",
                 "count": 3,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Shield Bash",
+                "actionName": "Shield Bash",
                 "count": 3,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Spear",
+                "actionName": "Spear",
                 "count": 2,
                 "type": "ranged"
               },
@@ -20387,13 +20387,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Spear",
+                    "actionName": "Spear",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Shield Bash",
+                    "actionName": "Shield Bash",
                     "count": 1,
                     "type": "melee"
                   }
@@ -20404,13 +20404,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Spear",
+                    "actionName": "Spear",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Shield Bash",
+                    "actionName": "Shield Bash",
                     "count": 2,
                     "type": "melee"
                   }
@@ -21542,12 +21542,12 @@
         "desc": "The grick makes one attack with its tentacles. If that attack hits, the grick can make one beak attack against the same target.",
         "actions": [
           {
-            "action_name": "Tentacles",
+            "actionName": "Tentacles",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           }
@@ -21647,12 +21647,12 @@
         "desc": "The griffon makes two attacks: one with its beak and one with its claws.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -22334,7 +22334,7 @@
         "desc": "The sphinx makes two claw attacks.",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -22428,12 +22428,12 @@
         "desc": "The veteran makes two longsword attacks. If it has a shortsword drawn, it can also make a shortsword attack.",
         "actions": [
           {
-            "action_name": "Longsword",
+            "actionName": "Longsword",
             "count": 2,
             "type": "melee"
           },
           {
-            "action_name": "Shortsword",
+            "actionName": "Shortsword",
             "count": 1,
             "type": "melee"
           }
@@ -22581,12 +22581,12 @@
         "desc": "The harpy makes two attacks: one with its claws and one with its club.",
         "actions": [
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Club",
+            "actionName": "Club",
             "count": 1,
             "type": "melee"
           }
@@ -22918,12 +22918,12 @@
         "desc": "The hezrou makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 2,
             "type": "melee"
           }
@@ -23015,7 +23015,7 @@
         "desc": "The giant makes two greatclub attacks.",
         "actions": [
           {
-            "action_name": "Greatclub",
+            "actionName": "Greatclub",
             "count": 2,
             "type": "melee"
           }
@@ -23114,12 +23114,12 @@
         "desc": "The hippogriff makes two attacks: one with its beak and one with its claws.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -23458,13 +23458,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Fork",
+                    "actionName": "Fork",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tail",
+                    "actionName": "Tail",
                     "count": 1,
                     "type": "melee"
                   }
@@ -23475,13 +23475,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Fork",
+                    "actionName": "Fork",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Hurl Flame",
+                    "actionName": "Hurl Flame",
                     "count": 1,
                     "type": "ranged"
                   }
@@ -23492,19 +23492,19 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Fork",
+                    "actionName": "Fork",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tail",
+                    "actionName": "Tail",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Hurl Flame",
+                    "actionName": "Hurl Flame",
                     "count": 1,
                     "type": "ranged"
                   }
@@ -23712,7 +23712,7 @@
         "desc": "The hydra makes as many bite attacks as it has heads.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": "Number of Heads",
             "type": "melee"
           }
@@ -23908,17 +23908,17 @@
         "desc": "The devil makes three attacks: one with its bite, one with its claws, and one with its tail.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -24419,7 +24419,7 @@
         "desc": "The stalker makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -24548,13 +24548,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Slam",
+                "actionName": "Slam",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Sword",
+                "actionName": "Sword",
                 "count": 2,
                 "type": "melee"
               },
@@ -24563,13 +24563,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Slam",
+                    "actionName": "Slam",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Sword",
+                    "actionName": "Sword",
                     "count": 1,
                     "type": "melee"
                   }
@@ -24871,7 +24871,7 @@
         "desc": "The knight makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Greatsword",
+            "actionName": "Greatsword",
             "count": 2,
             "type": "melee"
           }
@@ -25132,7 +25132,7 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Tentacle",
+                "actionName": "Tentacle",
                 "count": 3,
                 "type": "melee"
               },
@@ -25141,13 +25141,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Tentacle",
+                    "actionName": "Tentacle",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Fling",
+                    "actionName": "Fling",
                     "count": 1,
                     "type": "melee"
                   }
@@ -25158,13 +25158,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Tentacle",
+                    "actionName": "Tentacle",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Fling",
+                    "actionName": "Fling",
                     "count": 2,
                     "type": "melee"
                   }
@@ -25172,7 +25172,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Fling",
+                "actionName": "Fling",
                 "count": 3,
                 "type": "melee"
               }
@@ -25436,13 +25436,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Dagger",
+                    "actionName": "Dagger",
                     "count": 1,
                     "type": "melee"
                   }
@@ -25453,13 +25453,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Intoxicating Touch",
+                    "actionName": "Intoxicating Touch",
                     "count": 1,
                     "type": "ability"
                   }
@@ -26240,13 +26240,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Heavy Club",
+                    "actionName": "Heavy Club",
                     "count": 1,
                     "type": "melee"
                   }
@@ -26257,13 +26257,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Javelin",
+                    "actionName": "Javelin",
                     "count": 1,
                     "type": "melee"
                   }
@@ -26274,13 +26274,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Spiked Shield",
+                    "actionName": "Spiked Shield",
                     "count": 1,
                     "type": "melee"
                   }
@@ -26291,13 +26291,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Javelin",
+                    "actionName": "Javelin",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Heavy Club",
+                    "actionName": "Heavy Club",
                     "count": 1,
                     "type": "melee"
                   }
@@ -26308,13 +26308,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Spiked Shield",
+                    "actionName": "Spiked Shield",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Javelin",
+                    "actionName": "Javelin",
                     "count": 1,
                     "type": "melee"
                   }
@@ -26325,13 +26325,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Spiked Shield",
+                    "actionName": "Spiked Shield",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Heavy Club",
+                    "actionName": "Heavy Club",
                     "count": 1,
                     "type": "melee"
                   }
@@ -27014,13 +27014,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claw",
+                    "actionName": "Claw",
                     "count": 2,
                     "type": "melee"
                   }
@@ -27028,7 +27028,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Tail Spike",
+                "actionName": "Tail Spike",
                 "count": 3,
                 "type": "ranged"
               }
@@ -27190,12 +27190,12 @@
         "desc": "The marilith can make seven attacks: six with its longswords and one with its tail.",
         "actions": [
           {
-            "action_name": "Longsword",
+            "actionName": "Longsword",
             "count": 6,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -27418,13 +27418,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Snake Hair",
+                    "actionName": "Snake Hair",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Shortsword",
+                    "actionName": "Shortsword",
                     "count": 2,
                     "type": "melee"
                   }
@@ -27432,7 +27432,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 2,
                 "type": "ranged"
               }
@@ -27659,13 +27659,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -27676,13 +27676,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Harpoon",
+                    "actionName": "Harpoon",
                     "count": 1,
                     "type": "melee"
                   }
@@ -27693,13 +27693,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Harpoon",
+                    "actionName": "Harpoon",
                     "count": 1,
                     "type": "ranged"
                   }
@@ -28214,12 +28214,12 @@
         "desc": "The mummy can use its Dreadful Glare and makes one attack with its rotting fist.",
         "actions": [
           {
-            "action_name": "Dreadful Glare",
+            "actionName": "Dreadful Glare",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Rotting Fist",
+            "actionName": "Rotting Fist",
             "count": 1,
             "type": "melee"
           }
@@ -28505,12 +28505,12 @@
         "desc": "The mummy can use its Dreadful Glare and makes one attack with its rotting fist.",
         "actions": [
           {
-            "action_name": "Dreadful Glare",
+            "actionName": "Dreadful Glare",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Rotting Fist",
+            "actionName": "Rotting Fist",
             "count": 1,
             "type": "melee"
           }
@@ -28694,17 +28694,17 @@
         "desc": "The nalfeshnee uses Horror Nimbus if it can. It then makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Horror Nimbus",
+            "actionName": "Horror Nimbus",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -29705,13 +29705,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Glaive",
+                "actionName": "Glaive",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Claw",
+                "actionName": "Claw",
                 "desc": "If in Oni form",
                 "count": 2,
                 "type": "melee"
@@ -29722,13 +29722,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Glaive",
+                    "actionName": "Glaive",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claw",
+                    "actionName": "Claw",
                     "count": 1,
                     "type": "melee"
                   }
@@ -29930,12 +29930,12 @@
         "desc": "The otyugh makes three attacks: one with its bite and two with its tentacles.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tentacle",
+            "actionName": "Tentacle",
             "count": 2,
             "type": "melee"
           }
@@ -30140,12 +30140,12 @@
         "desc": "The owlbear makes two attacks: one with its beak and one with its claws.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -30623,22 +30623,22 @@
         "desc": "The pit fiend makes four attacks: one with its bite, one with its claw, one with its mace, and one with its tail.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Mace",
+            "actionName": "Mace",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -30917,7 +30917,7 @@
         "desc": "The planetar makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Greatsword",
+            "actionName": "Greatsword",
             "count": 2,
             "type": "melee"
           }
@@ -31155,12 +31155,12 @@
         "desc": "The bear makes two attacks: one with its bite and one with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -31603,12 +31603,12 @@
         "desc": "The worm makes two attacks: one with its bite and one with its stinger.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail Stinger",
+            "actionName": "Tail Stinger",
             "count": 1,
             "type": "melee"
           }
@@ -32030,7 +32030,7 @@
         "desc": "The rakshasa makes two claw attacks",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -32713,12 +32713,12 @@
         "desc": "The roc makes two attacks: one with its beak and one with its talons.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Talons",
+            "actionName": "Talons",
             "count": 1,
             "type": "melee"
           }
@@ -32834,17 +32834,17 @@
         "desc": "The roper makes four attacks with its tendrils, uses Reel, and makes one attack with its bite.",
         "actions": [
           {
-            "action_name": "Tendril",
+            "actionName": "Tendril",
             "count": 4,
             "type": "melee"
           },
           {
-            "action_name": "Reel",
+            "actionName": "Reel",
             "count": 1,
             "type": "ability"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           }
@@ -33234,13 +33234,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -33251,13 +33251,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Spear",
+                    "actionName": "Spear",
                     "count": 1,
                     "type": "melee"
                   }
@@ -33407,12 +33407,12 @@
         "desc": "The salamander makes two attacks: one with its spear and one with its tail.",
         "actions": [
           {
-            "action_name": "Spear",
+            "actionName": "Spear",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -33767,13 +33767,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Shortsword",
+                "actionName": "Shortsword",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 2,
                 "type": "ranged"
               }
@@ -34159,12 +34159,12 @@
         "desc": "The shambling mound makes two slam attacks. If both attacks hit a Medium or smaller target, the target is grappled (escape DC 14), and the shambling mound uses its Engulf on it.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           },
           {
-            "action_name": "Engulf",
+            "actionName": "Engulf",
             "count": 1,
             "type": "melee"
           }
@@ -34280,7 +34280,7 @@
         "desc": "The guardian makes two fist attacks.",
         "actions": [
           {
-            "action_name": "Fist",
+            "actionName": "Fist",
             "count": 2,
             "type": "melee"
           }
@@ -34830,7 +34830,7 @@
         "desc": "The solar makes two greatsword attacks.",
         "actions": [
           {
-            "action_name": "Greatsword",
+            "actionName": "Greatsword",
             "count": 2,
             "type": "melee"
           }
@@ -35572,7 +35572,7 @@
         "desc": "The spy makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Shortsword",
+            "actionName": "Shortsword",
             "count": 2,
             "type": "melee"
           }
@@ -35916,7 +35916,7 @@
         "desc": "The giant makes two greatclub attacks.",
         "actions": [
           {
-            "action_name": "Greatclub",
+            "actionName": "Greatclub",
             "count": 2,
             "type": "melee"
           }
@@ -36055,7 +36055,7 @@
         "desc": "The golem makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -36293,7 +36293,7 @@
         "desc": "The giant makes two greatsword attacks.",
         "actions": [
           {
-            "action_name": "Greatsword",
+            "actionName": "Greatsword",
             "count": 2,
             "type": "melee"
           }
@@ -37750,31 +37750,31 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Frightful Presence",
+                    "actionName": "Frightful Presence",
                     "count": 1,
                     "type": "ability"
                   },
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claw",
+                    "actionName": "Claw",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Horns",
+                    "actionName": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tail",
+                    "actionName": "Tail",
                     "count": 1,
                     "type": "melee"
                   }
@@ -37785,32 +37785,32 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Frightful Presence",
+                    "actionName": "Frightful Presence",
                     "count": 1,
                     "type": "ability"
                   },
                   {
                     "type": "action",
-                    "action_name": "Swallow",
+                    "actionName": "Swallow",
                     "desc": "If the target is grappled",
                     "count": 1,
                     "type": "ability"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claw",
+                    "actionName": "Claw",
                     "count": 2,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Horns",
+                    "actionName": "Horns",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tail",
+                    "actionName": "Tail",
                     "count": 1,
                     "type": "melee"
                   }
@@ -37982,7 +37982,7 @@
         "desc": "The thug makes two melee attacks.",
         "actions": [
           {
-            "action_name": "Mace",
+            "actionName": "Mace",
             "count": 2,
             "type": "melee"
           }
@@ -38188,7 +38188,7 @@
         "desc": "The treant makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -38468,12 +38468,12 @@
         "desc": "The troll makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -38565,12 +38565,12 @@
         "desc": "The tyrannosaurus makes two attacks: one with its bite and one with its tail. It can't make both attacks against the same target.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Tail",
+            "actionName": "Tail",
             "count": 1,
             "type": "melee"
           }
@@ -38752,12 +38752,12 @@
         "desc": "The unicorn makes two attacks: one with its hooves and one with its horn.",
         "actions": [
           {
-            "action_name": "Hooves",
+            "actionName": "Hooves",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Horn",
+            "actionName": "Horn",
             "count": 1,
             "type": "melee"
           }
@@ -38967,13 +38967,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Unarmed Strike (Vampire Form Only)",
+                    "actionName": "Unarmed Strike (Vampire Form Only)",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Bite (Bat or Vampire Form Only)",
+                    "actionName": "Bite (Bat or Vampire Form Only)",
                     "count": 1,
                     "type": "melee"
                   }
@@ -38981,7 +38981,7 @@
               },
               {
                 "type": "action",
-                "action_name": "Unarmed Strike (Vampire Form Only)",
+                "actionName": "Unarmed Strike (Vampire Form Only)",
                 "count": 2,
                 "type": "melee"
               }
@@ -39505,7 +39505,7 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Claws",
+                "actionName": "Claws",
                 "count": 2,
                 "type": "melee"
               },
@@ -39514,13 +39514,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -39641,12 +39641,12 @@
         "desc": "The veteran makes two longsword attacks. If it has a shortsword drawn, it can also make a shortsword attack.",
         "actions": [
           {
-            "action_name": "Longsword",
+            "actionName": "Longsword",
             "count": 2,
             "type": "melee"
           },
           {
-            "action_name": "Shortsword",
+            "actionName": "Shortsword",
             "count": 2,
             "type": "melee"
           }
@@ -39788,7 +39788,7 @@
         "desc": "The fungus makes 1d4 Rotting Touch attacks.",
         "actions": [
           {
-            "action_name": "Rotting Touch",
+            "actionName": "Rotting Touch",
             "count": "1d4",
             "type": "melee"
           }
@@ -39903,12 +39903,12 @@
         "desc": "The vrock makes two attacks: one with its beak and one with its talons.",
         "actions": [
           {
-            "action_name": "Beak",
+            "actionName": "Beak",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Talons",
+            "actionName": "Talons",
             "count": 1,
             "type": "melee"
           }
@@ -40295,7 +40295,7 @@
         "desc": "The elemental makes two slam attacks.",
         "actions": [
           {
-            "action_name": "Slam",
+            "actionName": "Slam",
             "count": 2,
             "type": "melee"
           }
@@ -40505,7 +40505,7 @@
         "desc": "In bear form, the werebear makes two claw attacks. In humanoid form, it makes two greataxe attacks. In hybrid form, it can attack like a bear or a humanoid.",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -40622,7 +40622,7 @@
         "desc": "In bear form, the werebear makes two claw attacks. In humanoid form, it makes two greataxe attacks. In hybrid form, it can attack like a bear or a humanoid.",
         "actions": [
           {
-            "action_name": "Greataxe",
+            "actionName": "Greataxe",
             "count": 2,
             "type": "melee"
           }
@@ -40731,13 +40731,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Claw",
+                "actionName": "Claw",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Greataxe",
+                "actionName": "Greataxe",
                 "count": 2,
                 "type": "melee"
               },
@@ -40746,13 +40746,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Greataxe",
+                    "actionName": "Greataxe",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claw",
+                    "actionName": "Claw",
                     "count": 1,
                     "type": "melee"
                   }
@@ -40996,7 +40996,7 @@
         "desc": "The wereboar makes two attacks, only one of which can be with its tusks.",
         "actions": [
           {
-            "action_name": "Maul",
+            "actionName": "Maul",
             "count": 2,
             "type": "melee"
           }
@@ -41115,7 +41115,7 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Maul",
+                "actionName": "Maul",
                 "count": 2,
                 "type": "melee"
               },
@@ -41124,13 +41124,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Maul",
+                    "actionName": "Maul",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Tusks",
+                    "actionName": "Tusks",
                     "count": 1,
                     "type": "melee"
                   }
@@ -41265,13 +41265,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Shortsword",
+                "actionName": "Shortsword",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Hand Crossbow",
+                "actionName": "Hand Crossbow",
                 "count": 2,
                 "type": "ranged"
               },
@@ -41280,13 +41280,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Shortsword",
+                    "actionName": "Shortsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Hand Crossbow",
+                    "actionName": "Hand Crossbow",
                     "count": 1,
                     "type": "ranged"
                   }
@@ -41421,13 +41421,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Shortsword",
+                "actionName": "Shortsword",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Hand Crossbow",
+                "actionName": "Hand Crossbow",
                 "count": 2,
                 "type": "ranged"
               },
@@ -41436,13 +41436,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Shortsword",
+                    "actionName": "Shortsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Hand Crossbow",
+                    "actionName": "Hand Crossbow",
                     "count": 1,
                     "type": "ranged"
                   }
@@ -41453,13 +41453,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Shortsword",
+                    "actionName": "Shortsword",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   }
@@ -41470,13 +41470,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Hand Crossbow",
+                    "actionName": "Hand Crossbow",
                     "count": 1,
                     "type": "ranged"
                   },
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   }
@@ -41726,13 +41726,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Scimitar",
+                "actionName": "Scimitar",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 2,
                 "type": "ranged"
               }
@@ -41879,19 +41879,19 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Scimitar",
+                "actionName": "Scimitar",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 2,
                 "type": "ranged"
               },
               {
                 "type": "action",
-                "action_name": "Claw",
+                "actionName": "Claw",
                 "count": 2,
                 "type": "melee"
               }
@@ -42167,7 +42167,7 @@
         "desc": "The werewolf makes two attacks: two with its spear (humanoid form) or one with its bite and one with its claws (hybrid form).",
         "actions": [
           {
-            "action_name": "Spear",
+            "actionName": "Spear",
             "count": 2,
             "type": "melee"
           }
@@ -42290,12 +42290,12 @@
         "desc": "The werewolf makes two attacks: two with its spear (humanoid form) or one with its bite and one with its claws (hybrid form).",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claws",
+            "actionName": "Claws",
             "count": 1,
             "type": "melee"
           }
@@ -42669,13 +42669,13 @@
             "options": [
               {
                 "type": "action",
-                "action_name": "Longsword",
+                "actionName": "Longsword",
                 "count": 2,
                 "type": "melee"
               },
               {
                 "type": "action",
-                "action_name": "Longbow",
+                "actionName": "Longbow",
                 "count": 2,
                 "type": "ranged"
               },
@@ -42684,13 +42684,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Life Drain",
+                    "actionName": "Life Drain",
                     "count": 1,
                     "type": "ability"
                   },
                   {
                     "type": "action",
-                    "action_name": "Longsword",
+                    "actionName": "Longsword",
                     "count": 1,
                     "type": "melee"
                   }
@@ -43367,13 +43367,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Stinger",
+                    "actionName": "Stinger",
                     "count": 1,
                     "type": "melee"
                   }
@@ -43384,13 +43384,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Bite",
+                    "actionName": "Bite",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -43401,13 +43401,13 @@
                 "items": [
                   {
                     "type": "action",
-                    "action_name": "Stinger",
+                    "actionName": "Stinger",
                     "count": 1,
                     "type": "melee"
                   },
                   {
                     "type": "action",
-                    "action_name": "Claws",
+                    "actionName": "Claws",
                     "count": 1,
                     "type": "melee"
                   }
@@ -43545,12 +43545,12 @@
         "desc": "The xorn makes three claw attacks and one bite attack.",
         "actions": [
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 3,
             "type": "melee"
           },
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           }
@@ -43694,12 +43694,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -43873,12 +43873,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -44060,12 +44060,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -44271,12 +44271,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -44476,12 +44476,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -44695,12 +44695,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -44912,12 +44912,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -45091,12 +45091,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -45285,12 +45285,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
@@ -45489,12 +45489,12 @@
         "desc": "The dragon makes three attacks: one with its bite and two with its claws.",
         "actions": [
           {
-            "action_name": "Bite",
+            "actionName": "Bite",
             "count": 1,
             "type": "melee"
           },
           {
-            "action_name": "Claw",
+            "actionName": "Claw",
             "count": 2,
             "type": "melee"
           }
