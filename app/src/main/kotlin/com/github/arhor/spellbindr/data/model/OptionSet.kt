@@ -8,23 +8,16 @@ import kotlinx.serialization.Serializable
  * This is a sealed class, meaning that all possible option sets are defined within this file.
  *
  * The different types of option sets are:
- * - [EquipmentCategoryOptionSet]: A set of options where the character can choose equipment from a specific category.
  * - [ResourceListOptionSet]: A set of options where the character can choose from a predefined list of resources.
  * - [OptionsArrayOptionSet]: A set of options where the character can choose from a list of specific options.
  */
 @Serializable
 sealed class OptionSet {
 
-    /**
-     * Represents an option set that links to an equipment category.
-     * This is used when the choice involves selecting from a specific category of equipment.
-     *
-     * @property equipmentCategory A reference to the equipment category.
-     */
     @Serializable
-    @SerialName("equipment_category")
-    data class EquipmentCategoryOptionSet(
-        val equipmentCategory: EntityRef
+    @SerialName("equipment")
+    data class EquipmentOptionSet(
+        val categories: Set<EquipmentCategory>
     ) : OptionSet()
 
     /**

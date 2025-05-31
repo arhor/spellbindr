@@ -35,10 +35,10 @@
       {
         "choose": 1,
         "from": {
-          "type": "equipment_category",
-          "equipment_category": {
-            "id": "holy-symbols"
-          }
+          "type": "equipment",
+          "categories": [
+            "holy-symbols"
+          ]
         }
       }
     ],

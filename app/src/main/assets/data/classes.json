@@ -118,10 +118,12 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "martial-melee-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "martial",
+                    "melee"
+                  ]
                 }
               }
             }
@@ -149,10 +151,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "category": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -458,10 +461,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -513,10 +517,10 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "musical-instruments"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "musical-instruments"
+                  ]
                 }
               }
             }
@@ -972,10 +976,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -1011,10 +1016,10 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "type": "equipment_category",
-          "equipment_category": {
-            "id": "holy-symbols"
-          }
+          "type": "equipment",
+          "categories": [
+            "holy-symbols"
+          ]
         }
       }
     ],
@@ -1246,10 +1251,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -1277,10 +1283,12 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-melee-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple",
+                    "melee"
+                  ]
                 }
               }
             }
@@ -1292,10 +1300,10 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "type": "equipment_category",
-          "equipment_category": {
-            "id": "druidic-focus"
-          }
+          "type": "equipment",
+          "categories": [
+            "druidic-focus"
+          ]
         }
       }
     ],
@@ -1523,10 +1531,11 @@
                     "choose": 1,
                     "type": "equipment",
                     "from": {
-                      "type": "equipment_category",
-                      "equipment_category": {
-                        "id": "martial-weapons"
-                      }
+                      "type": "equipment",
+                      "categories": [
+                        "weapon",
+                        "martial"
+                      ]
                     }
                   }
                 },
@@ -1546,10 +1555,11 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "martial-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "martial"
+                  ]
                 }
               }
             }
@@ -1979,10 +1989,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -2150,10 +2161,11 @@
                     "choose": 1,
                     "type": "equipment",
                     "from": {
-                      "type": "equipment_category",
-                      "equipment_category": {
-                        "id": "martial-weapons"
-                      }
+                      "type": "equipment",
+                      "categories": [
+                        "weapon",
+                        "martial"
+                      ]
                     }
                   }
                 },
@@ -2173,10 +2185,11 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "martial-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "martial"
+                  ]
                 }
               }
             }
@@ -2204,10 +2217,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -2243,10 +2257,10 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "type": "equipment_category",
-          "equipment_category": {
-            "id": "holy-symbols"
-          }
+          "type": "equipment",
+          "categories": [
+            "holy-symbol"
+          ]
         }
       }
     ],
@@ -2475,10 +2489,11 @@
                 "choose": 2,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-melee-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -2486,7 +2501,7 @@
         }
       },
       {
-        "desc": "(a) a dungeoneer’s pack or (b) an explorer’s pack",
+        "desc": "(a) a dungeoneer's pack or (b) an explorer's pack",
         "choose": 1,
         "type": "equipment",
         "from": {
@@ -3097,10 +3112,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -3128,10 +3144,10 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "arcane-focus"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "arcane-focus"
+                  ]
                 }
               }
             }
@@ -3139,7 +3155,7 @@
         }
       },
       {
-        "desc": "(a) a dungeoneer’s pack or (b) an explorer’s pack",
+        "desc": "(a) a dungeoneer's pack or (b) an explorer's pack",
         "choose": 1,
         "type": "equipment",
         "from": {
@@ -3351,10 +3367,11 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "simple-weapons"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "weapon",
+                    "simple"
+                  ]
                 }
               }
             }
@@ -3382,10 +3399,10 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "arcane-focus"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "arcane-focus"
+                  ]
                 }
               }
             }
@@ -3393,7 +3410,7 @@
         }
       },
       {
-        "desc": "(a) a scholar’s pack or (b) a dungeoneer’s pack",
+        "desc": "(a) a scholar's pack or (b) a dungeoneer's pack",
         "choose": 1,
         "type": "equipment",
         "from": {
@@ -3421,10 +3438,11 @@
         "choose": 1,
         "type": "equipment",
         "from": {
-          "type": "equipment_category",
-          "equipment_category": {
-            "id": "simple-weapons"
-          }
+          "type": "equipment",
+          "categories": [
+            "weapon",
+            "simple"
+          ]
         }
       }
     ],
@@ -3633,10 +3651,10 @@
                 "choose": 1,
                 "type": "equipment",
                 "from": {
-                  "type": "equipment_category",
-                  "equipment_category": {
-                    "id": "arcane-focus"
-                  }
+                  "type": "equipment",
+                  "categories": [
+                    "arcane-focus"
+                  ]
                 }
               }
             }
@@ -3644,7 +3662,7 @@
         }
       },
       {
-        "desc": "(a) a scholar’s pack or (b) an explorer’s pack",
+        "desc": "(a) a scholar's pack or (b) an explorer's pack",
         "choose": 1,
         "type": "equipment",
         "from": {
