@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class Equipment(
     val id: String,
     val name: String,
-    val desc: List<String>,
+    val desc: List<String>? = null,
     val armorClass: EquipmentArmorClass? = null,
     val capacity: String? = null,
     val contents: List<Content>? = null,
@@ -22,5 +22,5 @@ data class Equipment(
     val throwRange: Range? = null,
     val twoHandedDamage: Damage? = null,
     val weight: Double? = null,
-    val categories: List<EquipmentCategory>,
+    val categories: Set<EquipmentCategory>,
 )

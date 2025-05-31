@@ -37,7 +37,7 @@
         "from": {
           "type": "equipment",
           "categories": [
-            "holy-symbols"
+            "holy-symbol"
           ]
         }
       }

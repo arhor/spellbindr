@@ -1,7 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 enum class EquipmentCategory {
     @SerialName("weapon")
     WEAPON,
@@ -53,4 +55,37 @@ enum class EquipmentCategory {
 
     @SerialName("shield")
     SHIELD,
+
+    @SerialName("light")
+    LIGHT,
+
+    @SerialName("heavy")
+    HEAVY,
+
+    @SerialName("medium")
+    MEDIUM,
+
+    @SerialName("ammunition")
+    AMMUNITION,
+
+    @SerialName("equipment-pack")
+    EQUIPMENT_PACK,
+
+    @SerialName("artisans-tool")
+    ARTISANS_TOOL,
+
+    @SerialName("gaming-sets")
+    GAMING_SETS,
+
+    @SerialName("mounts-and-other-animals")
+    MOUNTS_AND_OTHER_ANIMALS,
+
+    @SerialName("vehicle")
+    VEHICLE,
+
+    @SerialName("tack-harness-and-drawn-vehicle")
+    TACK_HARNESS_AND_DRAWN_VEHICLE,
+
+    @SerialName("waterborne-vehicle")
+    WATERBORNE_VEHICLE,
 }

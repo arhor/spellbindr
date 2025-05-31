@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EquipmentSpeed(
-    val quantity: Int,
+    val quantity: Double,
     val unit: String
 )
