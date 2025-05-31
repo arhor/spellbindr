@@ -97,7 +97,8 @@ fun SpellSearchScreen(
 
     SearchFilterDialog(
         showFilterDialog = spellSearchState.showFilterDialog,
-        currentClasses = spellSearchState.selectedClasses,
+        castingClasses = spellSearchState.castingClasses,
+        currentClasses = spellSearchState.currentClasses,
         onSubmit = spellSearchVM::onFilterChanged,
         onCancel = spellSearchVM::onFilterChanged,
     )

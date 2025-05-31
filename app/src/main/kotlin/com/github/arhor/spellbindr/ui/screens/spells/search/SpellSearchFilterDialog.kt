@@ -34,14 +34,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.SpellcastingClass
+import com.github.arhor.spellbindr.data.model.EntityRef
 
 @Composable
 fun SearchFilterDialog(
     showFilterDialog: Boolean,
-    currentClasses: Set<SpellcastingClass>,
-    onSubmit: (Set<SpellcastingClass>) -> Unit = { },
-    onCancel: (Set<SpellcastingClass>) -> Unit = { },
+    castingClasses: List<EntityRef>,
+    currentClasses: Set<EntityRef>,
+    onSubmit: (Set<EntityRef>) -> Unit = { },
+    onCancel: (Set<EntityRef>) -> Unit = { },
 ) {
     var classesExpanded by remember { mutableStateOf(false) }
     var selectedClasses by remember { mutableStateOf(currentClasses) }
@@ -88,7 +89,7 @@ fun SearchFilterDialog(
                         exit = shrinkVertically()
                     ) {
                         Column {
-                            SpellcastingClass.entries.forEach { spellClass ->
+                            castingClasses.forEach { spellClass ->
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier
@@ -111,7 +112,7 @@ fun SearchFilterDialog(
                                             }
                                         }
                                     )
-                                    Text(spellClass.toString())
+                                    Text(spellClass.prettyString())
                                 }
                             }
                         }

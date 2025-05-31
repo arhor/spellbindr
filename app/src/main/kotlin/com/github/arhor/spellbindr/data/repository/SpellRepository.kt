@@ -1,87 +1,62 @@
 package com.github.arhor.spellbindr.data.repository
 
-import android.content.Context
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import com.github.arhor.spellbindr.data.datasource.local.FavoriteSpellsDataStore
+import com.github.arhor.spellbindr.data.datasource.local.SpellsAssetDataStore
+import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
-import com.github.arhor.spellbindr.data.model.SpellcastingClass
-import com.github.arhor.spellbindr.data.model.StaticAsset
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class SpellRepository @Inject constructor(
-    @ApplicationContext
-    context: Context,
-    json: Json,
-) : StaticAssetLoaderBase<Spell, Unit>(
-    context = context,
-    json = json,
-    path = "spells/data.json",
-    serializer = StaticAsset.serializer(Spell.serializer(), Unit.serializer())
+    private val allSpellsDataStore: SpellsAssetDataStore,
+    private val favSpellsDataStore: FavoriteSpellsDataStore,
 ) {
+    val allSpells: Flow<List<Spell>>
+        get() = allSpellsDataStore.data.map { it ?: emptyList() }
 
-    val favoriteSpells: Flow<List<String>> = context.spellListsDataStore.data.map {
-        it[FAVORITE_SPELLS]
-            ?.let { runCatching { json.decodeFromString<List<String>>(it) } }
-            ?.getOrNull()
-            ?: emptyList()
-    }
+    val favSpells: Flow<List<String>>
+        get() = favSpellsDataStore.data.map { it ?: emptyList() }
 
-    suspend fun findSpellByName(name: String): Spell? = getAsset().find { it.name == name }
+    suspend fun findSpellByName(name: String): Spell? = allSpells.firstOrNull()?.find { it.name == name }
 
     suspend fun findSpells(
         query: String = "",
-        classes: Set<SpellcastingClass> = emptySet(),
+        classes: Set<EntityRef> = emptySet(),
         favorite: Boolean = false,
     ): List<Spell> =
-        getAsset().let {
+        allSpells.firstOrNull()?.let { spells ->
             if (favorite) {
-                val favorites = favoriteSpells.first()
+                val favorites = favSpells.first()
 
-                it.filter { it.shouldBeIncluded(query, classes) && it.name in favorites }
+                spells.filter { it.shouldBeIncluded(query, classes) && it.name in favorites }
             } else {
-                it.filter { it.shouldBeIncluded(query, classes) }
+                spells.filter { it.shouldBeIncluded(query, classes) }
             }
-        }
+        } ?: emptyList()
 
-    suspend fun toggleFavorite(spellName: String) {
-        val updatedFavoriteSpells =
-            favoriteSpells.first()
-                .let { if (spellName in it) it - spellName else it + spellName }
-                .let { json.encodeToString(it) }
-
-        context.spellListsDataStore.edit { preferences ->
-            preferences[FAVORITE_SPELLS] = updatedFavoriteSpells
-        }
+    suspend fun toggleFavorite(spellId: String) {
+        favSpells.first()
+            .let { if (spellId in it) it - spellId else it + spellId }
+            .let { favSpellsDataStore.store(it) }
     }
 
-    suspend fun isFavorite(name: String?, favoriteSpells: List<String>? = null): Boolean {
-        val spellName = name ?: return false
-        val favorites = favoriteSpells ?: this.favoriteSpells.first()
+    suspend fun isFavorite(spellId: String?, favoriteSpellIds: List<String>? = null): Boolean {
+        val targetSpellId = spellId ?: return false
+        val favorSpellIds = favoriteSpellIds ?: favSpells.first()
 
-        return spellName in favorites
+        return targetSpellId in favorSpellIds
     }
 
     private fun Spell.shouldBeIncluded(
         query: String,
-        classes: Set<SpellcastingClass>,
+        classes: Set<EntityRef>,
     ): Boolean {
         return (query.isBlank() || query.let { this.name.contains(it, ignoreCase = true) })
             && (classes.isEmpty() || classes.all { this.classes.contains(it) })
-    }
-
-    companion object {
-        private const val DATASTORE_NAME = "favorite_spells"
-        private val FAVORITE_SPELLS = stringPreferencesKey(DATASTORE_NAME)
-        private val Context.spellListsDataStore by preferencesDataStore(name = DATASTORE_NAME)
     }
 }
