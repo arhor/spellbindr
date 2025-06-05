@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.ui.app
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.datasource.local.InitializingStaticAssetDataStore
@@ -17,11 +19,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
+@Stable
 @HiltViewModel
 class AppViewModel @Inject constructor(
     private val loaders: Set<@JvmSuppressWildcards InitializingStaticAssetDataStore>,
 ) : ViewModel() {
 
+    @Immutable
     data class State(
         val initialDelayPassed: Boolean = false,
         val resourcesPreloaded: Boolean = false,
