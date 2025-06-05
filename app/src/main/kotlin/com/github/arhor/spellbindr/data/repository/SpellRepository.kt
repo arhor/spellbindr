@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
+import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.datasource.local.FavoriteSpellsDataStore
 import com.github.arhor.spellbindr.data.datasource.local.SpellsAssetDataStore
 import com.github.arhor.spellbindr.data.model.EntityRef
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Stable
 @Singleton
 class SpellRepository @Inject constructor(
     private val allSpellsDataStore: SpellsAssetDataStore,
@@ -33,7 +35,7 @@ class SpellRepository @Inject constructor(
             if (favorite) {
                 val favorites = favSpells.first()
 
-                spells.filter { it.shouldBeIncluded(query, classes) && it.name in favorites }
+                spells.filter { it.shouldBeIncluded(query, classes) && it.id in favorites }
             } else {
                 spells.filter { it.shouldBeIncluded(query, classes) }
             }

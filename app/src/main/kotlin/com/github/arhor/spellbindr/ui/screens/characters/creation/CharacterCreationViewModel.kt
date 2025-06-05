@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Race
@@ -13,10 +15,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Stable
 @HiltViewModel
 class CharacterCreationViewModel @Inject constructor(
 ) : ViewModel() {
 
+    @Immutable
     data class State(
         val name: String = "",
         val background: String = "",

@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
+import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.datasource.local.EquipmentAssetDataStore
 import com.github.arhor.spellbindr.data.model.Equipment
 import kotlinx.coroutines.flow.Flow
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Stable
 @Singleton
 class EquipmentRepository @Inject constructor(
     private val equipmentDataStore: EquipmentAssetDataStore,

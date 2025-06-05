@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
+import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.datasource.local.CharacterClassesAssetDataStore
 import com.github.arhor.spellbindr.data.model.EntityRef
 import kotlinx.coroutines.flow.firstOrNull
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Stable
 @Singleton
 class CharacterClassRepository @Inject constructor(
     characterClassesDataStore: CharacterClassesAssetDataStore,

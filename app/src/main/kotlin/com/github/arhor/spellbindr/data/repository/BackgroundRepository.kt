@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
+import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.datasource.local.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.data.model.Background
 import kotlinx.coroutines.flow.Flow
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Stable
 @Singleton
 class BackgroundRepository @Inject constructor(
     private val backgroundsDataStore: BackgroundsAssetDataStore,

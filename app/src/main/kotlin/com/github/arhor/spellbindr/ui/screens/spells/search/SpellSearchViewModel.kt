@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.ui.screens.spells.search
 
 import android.util.Log
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.EntityRef
@@ -20,12 +22,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
+@Stable
 @HiltViewModel
 class SpellSearchViewModel @Inject constructor(
     private val spellRepository: SpellRepository,
     private val characterClassRepository: CharacterClassRepository,
 ) : ViewModel() {
 
+    @Immutable
     data class State(
         val query: String = "",
         val spells: List<Spell> = emptyList(),
