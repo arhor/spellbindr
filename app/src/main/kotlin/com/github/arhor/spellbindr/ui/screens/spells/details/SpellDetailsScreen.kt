@@ -167,14 +167,7 @@ fun SpellDetailScreen(
                     }
                     TableRow(label = "Ritual", text = it.ritual.toString())
                     TableRow(label = "Concentration", text = it.concentration.toString())
-
-                    it.damage?.let {
-                        TableRow(label = "Damage", text = it.toString())
-                    }
-                    TableRow(
-                        label = "Source",
-                        text = it.source,
-                    )
+                    TableRow(label = "Source", text = it.source)
                 }
             }
 
