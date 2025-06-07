@@ -15,6 +15,5 @@ data class Feature(
     val prerequisites: List<CommonPrerequisite>? = null,
     val reference: String? = null,
     val subclass: EntityRef? = null,
-    @SerialName("feature_specific")
     val featureSpecific: FeatureSpecific? = null
 )

@@ -17,6 +17,6 @@ class RacesRepository @Inject constructor(
     val allRaces: Flow<List<Race>>
         get() = racesDataStore.data.map { it ?: emptyList() }
 
-    suspend fun findBackgroundById(id: String): Race? =
+    suspend fun findRaceById(id: String): Race? =
         allRaces.firstOrNull()?.find { it.id == id }
 } 

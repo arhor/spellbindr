@@ -7,7 +7,6 @@ import kotlinx.serialization.Serializable
 data class FeatureSpecific(
     @SerialName("subfeature_options")
     val subfeatureOptions: Choice? = null,
-    @SerialName("expertise_options")
     val expertiseOptions: Choice? = null,
     @SerialName("terrain_type_options")
     val terrainTypeOptions: Choice? = null,
