@@ -7,11 +7,12 @@ data class Trait(
     val id: String,
     val name: String,
     val desc: List<String>,
+
     val proficiencies: List<Proficiency>,
     val proficiencyChoices: Choice? = null,
     val languageOptions: Choice? = null,
-    val races: List<EntityRef>,
-    val subraces: List<EntityRef>,
     val parent: EntityRef? = null,
-    val traitSpecific: TraitSpecific? = null
+    val traitSpecific: TraitSpecific? = null,
+
+    val effects: List<Effect> = emptyList()
 )

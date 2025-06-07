@@ -76,6 +76,7 @@ data class Character(
     val feats: Set<EntityRef>,
     val knownSpells: Set<EntityRef>,
     val preparedSpells: Set<EntityRef>,
+    val resistances: Set<EntityRef>,
 ) {
     val level: Int
         get() = classes.values.sum()

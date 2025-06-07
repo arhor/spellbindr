@@ -1,27 +1,6 @@
 [
   {
     "id": "darkvision",
-    "races": [
-      {
-        "id": "dwarf"
-      },
-      {
-        "id": "elf"
-      },
-      {
-        "id": "gnome"
-      },
-      {
-        "id": "half-elf"
-      },
-      {
-        "id": "half-orc"
-      },
-      {
-        "id": "tiefling"
-      }
-    ],
-    "subraces": [],
     "name": "Darkvision",
     "desc": [
       "You have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You cannot discern color in darkness, only shades of gray."
@@ -30,12 +9,6 @@
   },
   {
     "id": "dwarven-resilience",
-    "races": [
-      {
-        "id": "dwarf"
-      }
-    ],
-    "subraces": [],
     "name": "Dwarven Resilience",
     "desc": [
       "You have advantage on saving throws against poison, and you have resistance against poison damage."
@@ -44,12 +17,6 @@
   },
   {
     "id": "dwarven-combat-training",
-    "races": [
-      {
-        "id": "dwarf"
-      }
-    ],
-    "subraces": [],
     "name": "Dwarven Combat Training",
     "desc": [
       "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer."
@@ -71,12 +38,6 @@
   },
   {
     "id": "tool-proficiency",
-    "races": [
-      {
-        "id": "dwarf"
-      }
-    ],
-    "subraces": [],
     "name": "Tool Proficiency",
     "desc": [
       "You gain proficiency with the artisan's tools of your choice: smith's tools, brewer's supplies, or mason's tools."
@@ -112,12 +73,6 @@
   },
   {
     "id": "stonecunning",
-    "races": [
-      {
-        "id": "dwarf"
-      }
-    ],
-    "subraces": [],
     "name": "Stonecunning",
     "desc": [
       "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus."
@@ -126,12 +81,6 @@
   },
   {
     "id": "dwarven-toughness",
-    "races": [],
-    "subraces": [
-      {
-        "id": "hill-dwarf"
-      }
-    ],
     "name": "Dwarven Toughness",
     "desc": [
       "Your hit point maximum increases by 1, and it increases by 1 every time you gain a level."
@@ -140,12 +89,6 @@
   },
   {
     "id": "keen-senses",
-    "races": [
-      {
-        "id": "elf"
-      }
-    ],
-    "subraces": [],
     "name": "Keen Senses",
     "desc": [
       "You have proficiency in the Perception skill."
@@ -158,15 +101,6 @@
   },
   {
     "id": "fey-ancestry",
-    "races": [
-      {
-        "id": "elf"
-      },
-      {
-        "id": "half-elf"
-      }
-    ],
-    "subraces": [],
     "name": "Fey Ancestry",
     "desc": [
       "You have advantage on saving throws against being charmed, and magic cannot put you to sleep."
@@ -175,12 +109,6 @@
   },
   {
     "id": "trance",
-    "races": [
-      {
-        "id": "elf"
-      }
-    ],
-    "subraces": [],
     "name": "Trance",
     "desc": [
       "Elves do not need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is \"trance.\") While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting this way, you gain the same benefit that a human does from 8 hours of sleep."
@@ -189,12 +117,6 @@
   },
   {
     "id": "elf-weapon-training",
-    "races": [],
-    "subraces": [
-      {
-        "id": "high-elf"
-      }
-    ],
     "name": "Elf Weapon Training",
     "desc": [
       "You have proficiency with the longsword, shortsword, shortbow, and longbow."
@@ -216,12 +138,6 @@
   },
   {
     "id": "high-elf-cantrip",
-    "races": [],
-    "subraces": [
-      {
-        "id": "high-elf"
-      }
-    ],
     "name": "High Elf Cantrip",
     "desc": [
       "You know one cantrip of your choice form the wizard spell list. Intelligence is your spellcasting ability for it."
@@ -325,12 +241,6 @@
   },
   {
     "id": "extra-language",
-    "races": [],
-    "subraces": [
-      {
-        "id": "high-elf"
-      }
-    ],
     "name": "Extra Language",
     "desc": [
       "You can speak, read, and write one extra language of your choice."
@@ -432,12 +342,6 @@
   },
   {
     "id": "lucky",
-    "races": [
-      {
-        "id": "halfling"
-      }
-    ],
-    "subraces": [],
     "name": "Lucky",
     "desc": [
       "When you roll a 1 on the d20 for an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll."
@@ -446,12 +350,6 @@
   },
   {
     "id": "brave",
-    "races": [
-      {
-        "id": "halfling"
-      }
-    ],
-    "subraces": [],
     "name": "Brave",
     "desc": [
       "You have advantage on saving throw against being frightened."
@@ -460,12 +358,6 @@
   },
   {
     "id": "halfling-nimbleness",
-    "races": [
-      {
-        "id": "halfling"
-      }
-    ],
-    "subraces": [],
     "name": "Halfling Nimbleness",
     "desc": [
       "You can move through the space of any creature that is of a size larger than yours."
@@ -474,12 +366,6 @@
   },
   {
     "id": "naturally-stealthy",
-    "races": [],
-    "subraces": [
-      {
-        "id": "lightfoot-halfling"
-      }
-    ],
     "name": "Naturally Stealthy",
     "desc": [
       "You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you."
@@ -488,12 +374,6 @@
   },
   {
     "id": "draconic-ancestry",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -573,12 +453,6 @@
   },
   {
     "id": "draconic-ancestry-black",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Black)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -626,12 +500,6 @@
   },
   {
     "id": "draconic-ancestry-blue",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Blue)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -679,12 +547,6 @@
   },
   {
     "id": "draconic-ancestry-brass",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Brass)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -732,12 +594,6 @@
   },
   {
     "id": "draconic-ancestry-bronze",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Bronze)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -785,12 +641,6 @@
   },
   {
     "id": "draconic-ancestry-copper",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Copper)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -838,12 +688,6 @@
   },
   {
     "id": "draconic-ancestry-gold",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Gold)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -891,12 +735,6 @@
   },
   {
     "id": "draconic-ancestry-green",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Green)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -944,12 +782,6 @@
   },
   {
     "id": "draconic-ancestry-red",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Red)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -997,12 +829,6 @@
   },
   {
     "id": "draconic-ancestry-silver",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (Silver)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -1050,12 +876,6 @@
   },
   {
     "id": "draconic-ancestry-white",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Draconic Ancestry (White)",
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
@@ -1103,12 +923,6 @@
   },
   {
     "id": "breath-weapon",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Breath Weapon",
     "desc": [
       "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation.",
@@ -1119,12 +933,6 @@
   },
   {
     "id": "damage-resistance",
-    "races": [
-      {
-        "id": "dragonborn"
-      }
-    ],
-    "subraces": [],
     "name": "Damage Resistance",
     "desc": [
       "You have resistance to the damage type associated with your draconic ancestry."
@@ -1133,12 +941,6 @@
   },
   {
     "id": "gnome-cunning",
-    "races": [
-      {
-        "id": "gnome"
-      }
-    ],
-    "subraces": [],
     "name": "Gnome Cunning",
     "desc": [
       "You have advantage on all Intelligence, Wisdom, and Charisma saving throws against magic."
@@ -1147,12 +949,6 @@
   },
   {
     "id": "artificers-lore",
-    "races": [],
-    "subraces": [
-      {
-        "id": "rock-gnome"
-      }
-    ],
     "name": "Artificer's Lore",
     "desc": [
       "Whenever you make an Intelligence (History) check related to magic items, alchemical objects, or technological devices, you can add twice your proficiency bonus, instead of any proficiency bonus you normally apply."
@@ -1161,12 +957,6 @@
   },
   {
     "id": "tinker",
-    "races": [],
-    "subraces": [
-      {
-        "id": "rock-gnome"
-      }
-    ],
     "name": "Tinker",
     "desc": [
       "You have proficiency with artisan's tools (tinker's tools). Using those tools, you can spend 1 hour and 10 gp worth of materials to construct a Tiny clockwork device (AC 5, 1 hp). The device ceases to function after 24 hours (unless you spend 1 hour repairing it to keep the device functioning), or when you use your action to dismantle it; at that time, you can reclaim the materials used to create it. You can have up to three such devices active at a time.",
@@ -1183,12 +973,6 @@
   },
   {
     "id": "skill-versatility",
-    "races": [
-      {
-        "id": "half-elf"
-      }
-    ],
-    "subraces": [],
     "name": "Skill Versatility",
     "desc": [
       "You gain proficiency in two skills of your choice."
@@ -1314,30 +1098,23 @@
   },
   {
     "id": "menacing",
-    "races": [
-      {
-        "id": "half-orc"
-      }
-    ],
-    "subraces": [],
     "name": "Menacing",
     "desc": [
       "You gain proficiency in the Intimidation skill."
     ],
-    "proficiencies": [
+    "effects": [
       {
-        "id": "skill-intimidation"
+        "type": "proficiency_effect",
+        "proficiencies": [
+          {
+            "id": "skill-intimidation"
+          }
+        ]
       }
     ]
   },
   {
     "id": "relentless-endurance",
-    "races": [
-      {
-        "id": "half-orc"
-      }
-    ],
-    "subraces": [],
     "name": "Relentless Endurance",
     "desc": [
       "When you are reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. you cannot use this feature again until you finish a long rest."
@@ -1346,12 +1123,6 @@
   },
   {
     "id": "savage-attacks",
-    "races": [
-      {
-        "id": "half-orc"
-      }
-    ],
-    "subraces": [],
     "name": "Savage Attacks",
     "desc": [
       "When you score a critical hit with a melee weapon attack, you can roll one of the weapon's damage dice one additional time and add it to the extra damage of the critical hit."
@@ -1360,30 +1131,59 @@
   },
   {
     "id": "hellish-resistance",
-    "races": [
-      {
-        "id": "tiefling"
-      }
-    ],
-    "subraces": [],
     "name": "Hellish Resistance",
     "desc": [
       "You have resistance to fire damage."
     ],
-    "proficiencies": []
+    "effects": [
+      {
+        "type": "resistance_effect",
+        "resistance": {
+          "id": "fire"
+        }
+      }
+    ]
   },
   {
     "id": "infernal-legacy",
-    "races": [
-      {
-        "id": "tiefling"
-      }
-    ],
-    "subraces": [],
     "name": "Infernal Legacy",
     "desc": [
-      "You know the thaumaturgy cantrip. When you reach 3rd level, you can cast the hellish rebuke spell as a 2nd-level spell once with this trait and regain the ability to do so when you finish a long rest. When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to do so when you finish a long rest. Charisma is your spellcasting ability for these spells."
+      "You know the thaumaturgy cantrip.",
+      "When you reach 3rd level, you can cast the hellish rebuke spell as a 2nd-level spell once with this trait and regain the ability to do so when you finish a long rest.",
+      "When you reach 5th level, you can cast the darkness spell once with this trait and regain the ability to do so when you finish a long rest.",
+      "Charisma is your spellcasting ability for these spells."
     ],
-    "proficiencies": []
+    "effects": [
+      {
+        "type": "known_spells_effect",
+        "knownSpells": [
+          {
+            "id": "thaumaturgy"
+          }
+        ]
+      },
+      {
+        "type": "known_spells_effect",
+        "requires": {
+          "level": 3
+        },
+        "knownSpells": [
+          {
+            "id": "hellish-rebuke"
+          }
+        ]
+      },
+      {
+        "type": "known_spells_effect",
+        "requires": {
+          "level": 5
+        },
+        "knownSpells": [
+          {
+            "id": "darkness"
+          }
+        ]
+      }
+    ]
   }
 ]
