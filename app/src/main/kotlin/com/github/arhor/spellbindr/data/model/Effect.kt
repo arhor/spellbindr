@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.util.copy
@@ -14,7 +16,6 @@ import kotlinx.serialization.Serializable
 sealed interface Effect {
     fun applyTo(character: Character): Character
 
-
     /**
      * Represents an effect that modifies a character's ability score.
      *
@@ -22,6 +23,7 @@ sealed interface Effect {
      * @property value The amount by which the ability score is modified.
      */
     @Serializable
+    @SerialName("ability")
     data class AbilityEffect(
         val ability: EntityRef,
         val value: Int,
@@ -36,15 +38,15 @@ sealed interface Effect {
     /**
      * Represents an effect that grants proficiencies to a character.
      *
-     * @property proficiencies A set of [EntityRef] objects representing the proficiencies granted by this effect.
+     * @property proficiencies A set of IDs representing the proficiencies granted by this effect.
      */
     @Serializable
-    @SerialName("proficiency_effect")
+    @SerialName("proficiency")
     data class ProficienciesEffect(
-        val proficiencies: Set<EntityRef>,
+        val proficiencies: Set<String>,
     ) : Effect {
         override fun applyTo(character: Character) = character.copy(
-            proficiencies = character.proficiencies + proficiencies,
+            proficiencies = character.proficiencies + proficiencies.map(::EntityRef),
         )
     }
 
@@ -54,7 +56,7 @@ sealed interface Effect {
      * @property knownSpells A set of [EntityRef] objects representing the spells the character learns.
      */
     @Serializable
-    @SerialName("known_spells_effect")
+    @SerialName("known_spells")
     data class KnownSpellsEffect(
         val knownSpells: Set<EntityRef>,
     ) : Effect {
@@ -69,7 +71,7 @@ sealed interface Effect {
      * @property resistance The reference to the resistance being granted.
      */
     @Serializable
-    @SerialName("resistance_effect")
+    @SerialName("resistance")
     data class ResistanceEffect(
         val resistance: EntityRef,
     ) : Effect {
@@ -77,4 +79,21 @@ sealed interface Effect {
             resistances = character.resistances + resistance,
         )
     }
+
+    @Serializable
+    @SerialName("hp_per_level")
+    data class HpPerLevelEffect(val value: Int) : Effect {
+        override fun applyTo(character: Character) = character.copy(
+            maximumHitPoints = character.maximumHitPoints + character.level * value
+        )
+    }
+
+    @Serializable
+    @SerialName("condition_immunity")
+    data class ConditionImmunityEffect(val condition: EntityRef) : Effect {
+        override fun applyTo(character: Character) = character.copy(
+            conditionImmunities = character.conditionImmunities + condition
+        )
+    }
 }
+

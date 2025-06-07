@@ -8,17 +8,17 @@ import kotlinx.serialization.Serializable
  * This is a sealed class, meaning that all possible option sets are defined within this file.
  *
  * The different types of option sets are:
- * - [ResourceListOptionSet]: A set of options where the character can choose from a predefined list of resources.
- * - [OptionsArrayOptionSet]: A set of options where the character can choose from a list of specific options.
+ * - [ResourceListOptions]: A set of options where the character can choose from a predefined list of resources.
+ * - [OptionsArrayOptions]: A set of options where the character can choose from a list of specific options.
  */
 @Serializable
-sealed class OptionSet {
+sealed class Options {
 
     @Serializable
     @SerialName("equipment")
-    data class EquipmentOptionSet(
+    data class EquipmentOptions(
         val categories: Set<EquipmentCategory>
-    ) : OptionSet()
+    ) : Options()
 
     /**
      * Represents an option set that is a reference to a resource list.
@@ -27,9 +27,9 @@ sealed class OptionSet {
      */
     @Serializable
     @SerialName("resource_list")
-    data class ResourceListOptionSet(
+    data class ResourceListOptions(
         val resourceListName: String
-    ) : OptionSet()
+    ) : Options()
 
     /**
      * Represents a set of options presented as a list.
@@ -39,7 +39,13 @@ sealed class OptionSet {
      */
     @Serializable
     @SerialName("options_array")
-    data class OptionsArrayOptionSet(
+    data class OptionsArrayOptions(
         val options: List<Option>,
-    ) : OptionSet()
+    ) : Options()
+
+    @Serializable
+    @SerialName("reference")
+    data class ReferenceOptions(
+        val options: List<EntityRef>,
+    ) : Options()
 }
