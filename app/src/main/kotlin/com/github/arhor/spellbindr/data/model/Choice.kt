@@ -51,4 +51,30 @@ sealed interface Choice {
         override val choose: Int,
         val from: List<Map<String, Int>>,
     ) : Choice
+
+    @Serializable
+    @SerialName("ideal")
+    data class IdealChoice(
+        override val choose: Int,
+        val from: List<IdealOption>,
+    ) : Choice
+
+    @Serializable
+    @SerialName("equipment")
+    data class EquipmentChoice(
+        override val choose: Int,
+        val from: List<EquipmentOption>,
+    ) : Choice
 }
+
+@Serializable
+data class IdealOption(
+    val desc: String,
+    val alignments: List<String>
+)
+
+
+@Serializable
+data class EquipmentOption(
+    val categories: List<String>,
+)

@@ -11,11 +11,10 @@ import kotlinx.serialization.Serializable
  *
  * @property id A unique identifier for the background.
  * @property name The name of the background (e.g., "Acolyte", "Criminal").
- * @property languageOptions Options for additional languages known by the character due to their background.
- * @property startingProficiencies A list of skill or tool proficiencies granted by this background.
- * @property startingEquipment A list of specific equipment items granted by this background.
- * @property startingEquipmentOptions Choices for additional starting equipment.
  * @property feature A special feature or ability granted by this background.
+ * @property effects A list of effects that this background applies to the character.
+ * @property languageChoice Optional choice for additional languages known by the character.
+ * @property equipmentChoice Optional choice for additional starting equipment.
  * @property personalityTraits Options for personality traits associated with this background.
  * @property ideals Options for ideals that characters with this background might hold.
  * @property bonds Options for bonds that characters with this background might have.
@@ -25,11 +24,10 @@ import kotlinx.serialization.Serializable
 data class Background(
     val id: String,
     val name: String,
-    val languageOptions: Choice,
-    val startingProficiencies: List<EntityRef>,
-    val startingEquipment: List<EquipmentRef>,
-    val startingEquipmentOptions: List<Choice>,
     val feature: GenericInfo,
+    val effects: List<Effect>,
+    val languageChoice: Choice?,
+    val equipmentChoice: Choice?,
     val personalityTraits: Choice,
     val ideals: Choice,
     val bonds: Choice,

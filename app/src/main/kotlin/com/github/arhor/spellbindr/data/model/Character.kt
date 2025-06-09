@@ -62,7 +62,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Character(
     val id: String,
-    val name: String,
+    val name: String = "",
     val race: EntityRef,
     val feats: Set<EntityRef> = emptySet(),
     val subrace: EntityRef? = null,
@@ -71,6 +71,11 @@ data class Character(
     val background: EntityRef,
     val experience: Int = 0,
     val abilityScores: Map<EntityRef, Int>,
+    val proficiencies: Set<EntityRef>,
+    val personalityTrait: String? = null,
+    val ideals: String? = null,
+    val bonds: String? = null,
+    val flaws: String? = null,
 ) {
     val level: Int
         get() = classes.values.sum()
