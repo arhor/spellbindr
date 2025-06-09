@@ -21,7 +21,7 @@
     ],
     "effects": [
       {
-        "type": "proficiency",
+        "type": "add-proficiencies",
         "proficiencies": [
           "battleaxes",
           "handaxes",
@@ -32,27 +32,696 @@
     ]
   },
   {
+    "id": "ability-score-increase-dwarf",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Constitution score increases by 2."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "con": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-halfling",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Dexterity score increases by 2."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "dex": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-elf",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Dexterity score increases by 2."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "dex": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-human",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your ability scores each increase by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "str": 1,
+          "dex": 1,
+          "con": 1,
+          "int": 1,
+          "wis": 1,
+          "cha": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-tiefling",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Intelligence score increases by 1, and your Charisma score increases by 2."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "int": 1,
+          "cha": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-half-orc",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Strength score increases by 2, and your Constitution score increases by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "str": 2,
+          "con": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-half-elf",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Charisma score increases by 2, and two other ability scores of your choice each increase by 1."
+    ],
+    "abilityBonusChoice": {
+      "type": "ability-bonus",
+      "from": [
+        {
+          "str": 1
+        },
+        {
+          "dex": 1
+        },
+        {
+          "con": 1
+        },
+        {
+          "int": 1
+        },
+        {
+          "wis": 1
+        }
+      ],
+      "choose": 2
+    },
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "cha": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-dragonborn",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Strength score increases by 2, and your Charisma score increases by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "str": 2,
+          "cha": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-gnome",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Intelligence score increases by 2."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "int": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "age-dwarf",
+    "name": "Age",
+    "desc": [
+      "Dwarves mature at the same rate as humans, but they're considered young until they reach the age of 50. On average, they live about 350 years."
+    ]
+  },
+  {
+    "id": "age-elf",
+    "name": "Age",
+    "desc": [
+      "Although elves reach physical maturity at about the same age as humans, the elven understanding of adulthood goes beyond physical growth to encompass worldly experience. An elf typically claims adulthood and an adult name around the age of 100 and can live to be 750 years old."
+    ]
+  },
+  {
+    "id": "age-halfling",
+    "name": "Age",
+    "desc": [
+      "A halfling reaches adulthood at the age of 20 and generally lives into the middle of his or her second century."
+    ]
+  },
+  {
+    "id": "age-human",
+    "name": "Age",
+    "desc": [
+      "Humans reach adulthood in their late teens and live less than a century."
+    ]
+  },
+  {
+    "id": "age-tiefling",
+    "name": "Age",
+    "desc": [
+      "Tieflings mature at the same rate as humans but live a few years longer."
+    ]
+  },
+  {
+    "id": "age-half-orc",
+    "name": "Age",
+    "desc": [
+      "Half-orcs mature a little faster than humans, reaching adulthood around age 14. They age noticeably faster and rarely live longer than 75 years."
+    ]
+  },
+  {
+    "id": "age-half-elf",
+    "name": "Age",
+    "desc": [
+      "Half-elves mature at the same rate humans do and reach adulthood around the age of 20. They live much longer than humans, however, often exceeding 180 years."
+    ]
+  },
+  {
+    "id": "age-dragonborn",
+    "name": "Age",
+    "desc": [
+      "Young dragonborn grow quickly. They walk hours after hatching, attain the size and development of a 10-year-old human child by the age of 3, and reach adulthood by 15. They live to be around 80."
+    ]
+  },
+  {
+    "id": "age-gnome",
+    "name": "Age",
+    "desc": [
+      "Gnomes mature at the same rate humans do, and most are expected to settle down into an adult life by around age 40. They can live 350 to almost 500 years."
+    ]
+  },
+  {
+    "id": "languages-dwarf",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Dwarvish. Dwarvish is full of hard consonants and guttural sounds, and those characteristics spill over into whatever other language a dwarf might speak."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "dwarvish"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-elf",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Elvish. Elvish is fluid, with subtle intonations and intricate grammar. Elven literature is rich and varied, and their songs and poems are famous among other races. Many bards learn their language so they can add Elvish ballads to their repertoires."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "elvish"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-halfling",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Halfling. The Halfling language isn't secret, but halflings are loath to share it with others. They write very little, so they don't have a rich body of literature. Their oral tradition, however, is very strong. Almost all halflings speak Common to converse with the people in whose lands they dwell or through which they are traveling."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "halfling"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-human",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and one extra language of your choice. Humans typically learn the languages of other peoples they deal with, including obscure dialects. They are fond of sprinkling their speech with words borrowed from other tongues: Orc curses, Elvish musical expressions, Dwarvish military phrases, and so on."
+    ],
+    "languageChoice": {
+      "type": "resource-list",
+      "from": "languages",
+      "choose": 1
+    },
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-half-elf",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common, Elvish, and one extra language of your choice."
+    ],
+    "languageChoice": {
+      "type": "resource-list",
+      "from": "languages",
+      "choose": 1
+    },
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [  
+          "common",
+          "elvish"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-dragonborn",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Draconic. Draconic is thought to be one of the oldest languages and is often used in the study of magic. The language sounds harsh to most other creatures and includes numerous hard consonants and sibilants."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "draconic"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-tiefling",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Infernal."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "infernal"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-half-orc",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Orc. Orc is a harsh, grating language with hard consonants. It has no script of its own but is written in the Dwarvish script."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "orc"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "languages-gnome",
+    "name": "Languages",
+    "desc": [
+      "You can speak, read, and write Common and Gnomish. The Gnomish language, which uses the Dwarvish script, is renowned for its technical treatises and its catalogs of knowledge about the natural world."
+    ],
+    "effects": [
+      {
+        "type": "add-languages",
+        "languages": [
+          "common",
+          "gnomish"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "size-dwarf",
+    "name": "Size",
+    "desc": [
+      "Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-elf",
+    "name": "Size",
+    "desc": [
+      "Elves range from under 5 to over 6 feet tall and have slender builds. Your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-halfling",
+    "name": "Size",
+    "desc": [
+      "Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "small"
+      }
+    ]
+  },
+  {
+    "id": "size-human",
+    "name": "Size",
+    "desc": [
+      "Humans vary widely in height and build, from barely 5 feet to well over 6 feet tall. Regardless of your position in that range, your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-tiefling",
+    "name": "Size",
+    "desc": [
+      "Tieflings are about the same size and build as humans. Your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-half-orc",
+    "name": "Size",
+    "desc": [
+      "Half-orcs are somewhat larger and bulkier than humans, and they range from 5 to well over 6 feet tall. Your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-half-elf",
+    "name": "Size",
+    "desc": [
+      "Half-elves are about the same size as humans, ranging from 5 to 6 feet tall. Your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-dragonborn",
+    "name": "Size",
+    "desc": [
+      "Dragonborn are taller and heavier than humans, standing well over 6 feet tall and averaging almost 250 pounds. Your size is Medium."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "medium"
+      }
+    ]
+  },
+  {
+    "id": "size-gnome",
+    "name": "Size",
+    "desc": [
+      "Gnomes are between 3 and 4 feet tall and average about 40 pounds. Your size is Small."
+    ],
+    "effects": [
+      {
+        "type": "modify-size",
+        "size": "small"
+      }
+    ]
+  },
+  {
+    "id": "speed-dwarf",
+    "name": "Speed",
+    "desc": [
+      "Dwarves have a walking speed of 25 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 25
+      }
+    ]
+  },
+  {
+    "id": "speed-elf",
+    "name": "Speed",
+    "desc": [
+      "Elves have a walking speed of 30 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 30
+      }
+    ]
+  },
+  {
+    "id": "speed-halfling",
+    "name": "Speed",
+    "desc": [
+      "Halflings have a walking speed of 25 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 25
+      }
+    ]
+  },
+  {
+    "id": "speed-human",
+    "name": "Speed",
+    "desc": [
+      "Humans have a walking speed of 30 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 30
+      }
+    ]
+  },
+  {
+    "id": "speed-tiefling",
+    "name": "Speed",
+    "desc": [
+      "Tieflings have a walking speed of 30 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 30
+      }
+    ]
+  },
+  {
+    "id": "speed-half-orc",
+    "name": "Speed",
+    "desc": [
+      "Half-orcs have a walking speed of 30 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 30
+      }
+    ]
+  },
+  {
+    "id": "speed-half-elf",
+    "name": "Speed",
+    "desc": [
+      "Half-elves have a walking speed of 30 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 30
+      }
+    ]
+  },
+  {
+    "id": "speed-dragonborn",
+    "name": "Speed",
+    "desc": [
+      "Dragonborn have a walking speed of 30 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 30
+      }
+    ]
+  },
+  {
+    "id": "speed-gnome",
+    "name": "Speed",
+    "desc": [
+      "Gnomes have a walking speed of 25 feet."
+    ],
+    "effects": [
+      {
+        "type": "modify-speed",
+        "speed": 25
+      }
+    ]
+  },
+  {
+    "id": "alignment-dwarf",
+    "name": "Alignment",
+    "desc": [
+      "Most dwarves are lawful, believing firmly in the benefits of a well-ordered society. They tend toward good as well, with a strong sense of fair play and a belief that everyone deserves to share in the benefits of a just order."
+    ]
+  },
+  {
+    "id": "alignment-elf",
+    "name": "Alignment",
+    "desc": [
+      "Elves love freedom, variety, and self-expression, so they lean strongly toward the gentler aspects of chaos. They value and protect others' freedom as well as their own, and they are more often good than not."
+    ]
+  },
+  {
+    "id": "alignment-halfling",
+    "name": "Alignment",
+    "desc": [
+      "Most halflings are lawful good. As a rule, they are good-hearted and kind, hate to see others in pain, and have no tolerance for oppression. They are also very orderly and traditional, leaning heavily on the support of their community and the comfort of their old ways."
+    ]
+  },
+  {
+    "id": "alignment-human",
+    "name": "Alignment",
+    "desc": [
+      "Humans tend toward no particular alignment. The best and the worst are found among them."
+    ]
+  },
+  {
+    "id": "alignment-tiefling",
+    "name": "Alignment",
+    "desc": [
+      "Tieflings might not have an innate tendency toward evil, but many of them end up there. Evil or not, an independent nature inclines many tieflings toward a chaotic alignment."
+    ]
+  },
+  {
+    "id": "alignment-half-orc",
+    "name": "Alignment",
+    "desc": [
+      "Half-orcs inherit a tendency toward chaos from their orc parents and are not strongly inclined toward good. Half-orcs raised among orcs and willing to live out their lives among them are usually evil."
+    ]
+  },
+  {
+    "id": "alignment-half-elf",
+    "name": "Alignment",
+    "desc": [
+      "Half-elves share the chaotic bent of their elven heritage. They value both personal freedom and creative expression, demonstrating neither love of leaders nor desire for followers. They chafe at rules, resent others' demands, and sometimes prove unreliable, or at least unpredictable."
+    ]
+  },
+  {
+    "id": "alignment-dragonborn",
+    "name": "Alignment",
+    "desc": [
+      "Dragonborn tend to extremes, making a conscious choice for one side or the other in the cosmic war between good and evil. Most dragonborn are good, but those who side with evil can be terrible villains."
+    ]
+  },
+  {
+    "id": "alignment-gnome",
+    "name": "Alignment",
+    "desc": [
+      "Gnomes are most often good. Those who tend toward law are sages, engineers, researchers, scholars, investigators, or inventors. Those who tend toward chaos are minstrels, tricksters, wanderers, or fanciful jewelers. Gnomes are good-hearted, and even the tricksters among them are more playful than vicious."
+    ]
+  },
+  {
     "id": "tool-proficiency",
     "name": "Tool Proficiency",
     "desc": [
       "You gain proficiency with the artisan's tools of your choice: smith's tools, brewer's supplies, or mason's tools."
     ],
-    "proficienciesChoice": {
-      "choose": 1,
-      "from": {
-        "type": "reference",
-        "options": [
-          {
-            "id": "smiths-tools"
-          },
-          {
-            "id": "brewers-supplies"
-          },
-          {
-            "id": "masons-tools"
-          }
-        ]
-      }
+    "proficiencyChoice": {
+      "type": "options-array",
+      "from": [
+        "smiths-tools",
+        "brewers-supplies",
+        "masons-tools"
+      ],
+      "choose": 1
     }
   },
   {
@@ -70,8 +739,9 @@
     ],
     "effects": [
       {
-        "type": "hp_per_level",
-        "value": 1
+        "type": "add-hp",
+        "value": 1,
+        "perLevel": true
       }
     ]
   },
@@ -83,7 +753,7 @@
     ],
     "effects": [
       {
-        "type": "proficiency",
+        "type": "add-proficiencies",
         "proficiencies": [
           "skill-perception"
         ]
@@ -98,7 +768,7 @@
     ],
     "effects": [
       {
-        "type": "condition_immunity",
+        "type": "add-condition-immunity",
         "condition": {
           "id": "sleep"
         }
@@ -120,7 +790,7 @@
     ],
     "effects": [
       {
-        "type": "proficiency",
+        "type": "add-proficiencies",
         "proficiencies": [
           "longswords",
           "shortswords",
@@ -136,100 +806,13 @@
     "desc": [
       "You know one cantrip of your choice form the wizard spell list. Intelligence is your spellcasting ability for it."
     ],
-    "traitSpecific": {
-      "spellOptions": {
-        "choose": 1,
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "light"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "mage-hand"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "mending"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "message"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "minor-illusion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "acid-splash"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "prestidigitation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "ray-of-frost"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "shocking-grasp"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "true-strike"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "chill-touch"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dancing-lights"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fire-bolt"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "poison-spray"
-              }
-            }
-          ]
-        },
-        "type": "spell"
-      }
+    "spellChoice": {
+      "type": "resource-list",
+      "from": "spells",
+      "where": {
+        "classes": "wizard"
+      },
+      "choose": 1
     }
   },
   {
@@ -238,56 +821,10 @@
     "desc": [
       "You can speak, read, and write one extra language of your choice."
     ],
-    "languageOptions": {
-      "choose": 1,
-      "type": "languages",
-      "from": {
-        "type": "options_array",
-        "options": [
-          {
-            "id": "dwarvish"
-          },
-          {
-            "id": "giant"
-          },
-          {
-            "id": "gnomish"
-          },
-          {
-            "id": "goblin"
-          },
-          {
-            "id": "halfling"
-          },
-          {
-            "id": "orc"
-          },
-          {
-            "id": "abyssal"
-          },
-          {
-            "id": "celestial"
-          },
-          {
-            "id": "draconic"
-          },
-          {
-            "id": "deep-speech"
-          },
-          {
-            "id": "infernal"
-          },
-          {
-            "id": "primordial"
-          },
-          {
-            "id": "sylvan"
-          },
-          {
-            "id": "undercommon"
-          }
-        ]
-      }
+    "languageChoice": {
+      "type": "resource-list",
+      "from": "languages",
+      "choose": 1
     }
   },
   {
@@ -324,76 +861,21 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "traitSpecific": {
-      "subtraitOptions": {
-        "choose": 1,
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-black"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-blue"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-brass"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-bronze"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-copper"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-gold"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-green"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-red"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-silver"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "draconic-ancestry-white"
-              }
-            }
-          ]
-        },
-        "type": "trait"
-      }
+    "draconicAncestryChoice": {
+      "type": "options-array",
+      "from": [
+        "draconic-ancestry-black",
+        "draconic-ancestry-blue",
+        "draconic-ancestry-brass",
+        "draconic-ancestry-bronze",
+        "draconic-ancestry-copper",
+        "draconic-ancestry-gold",
+        "draconic-ancestry-green",
+        "draconic-ancestry-red",
+        "draconic-ancestry-silver",
+        "draconic-ancestry-white"
+      ],
+      "choose": 1
     }
   },
   {
@@ -402,44 +884,42 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "acid"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 30,
-          "type": "line"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
+    "effect": {
+      "type": "add-action",
+      "actions": [
+        {
+          "type": "breath-weapon",
+          "name": "Breath Weapon",
+          "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+          "areaOfEffect": {
+            "size": 30,
+            "type": "line"
           },
-          "successType": "half"
-        },
-        "damage": [
-          {
-            "damageType": {
-              "id": "acid"
+          "usage": {
+            "type": "per rest",
+            "times": 1
+          },
+          "dc": {
+            "dcType": {
+              "id": "dex"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
+            "successType": "half"
+          },
+          "damage": [
+            {
+              "damageType": {
+                "id": "acid"
+              },
+              "damageAtCharacterLevel": {
+                "1": "2d6",
+                "6": "3d6",
+                "11": "4d6",
+                "16": "5d6"
+              }
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
     }
   },
   {
@@ -448,45 +928,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "lightning"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 30,
-          "type": "line"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "lightning"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 30,
+              "type": "line"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "dex"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "lightning"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-brass",
@@ -494,45 +974,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "fire"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 30,
-          "type": "line"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "fire"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 30,
+              "type": "line"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "dex"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "fire"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-bronze",
@@ -540,45 +1020,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "lightning"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 30,
-          "type": "line"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "lightning"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 30,
+              "type": "line"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "dex"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "lightning"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-copper",
@@ -586,45 +1066,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "acid"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 30,
-          "type": "line"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "acid"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 30,
+              "type": "line"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "dex"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "acid"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-gold",
@@ -632,45 +1112,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "fire"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 15,
-          "type": "cone"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "fire"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 15,
+              "type": "cone"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "dex"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "fire"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-green",
@@ -678,45 +1158,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "poison"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 15,
-          "type": "cone"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "con"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "poison"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 15,
+              "type": "cone"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "con"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "poison"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-red",
@@ -724,45 +1204,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "fire"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 15,
-          "type": "cone"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "dex"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "fire"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 15,
+              "type": "cone"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "dex"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "fire"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-silver",
@@ -770,45 +1250,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "cold"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 15,
-          "type": "cone"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "con"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "effects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "cold"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 15,
+              "type": "cone"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "con"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "cold"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "draconic-ancestry-white",
@@ -816,45 +1296,45 @@
     "desc": [
       "You have draconic ancestry. Choose one type of dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table."
     ],
-    "parent": {
-      "id": "draconic-ancestry"
-    },
-    "traitSpecific": {
-      "damageType": {
-        "id": "cold"
-      },
-      "breathWeapon": {
-        "name": "Breath Weapon",
-        "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
-        "areaOfEffect": {
-          "size": 15,
-          "type": "cone"
-        },
-        "usage": {
-          "type": "per rest",
-          "times": 1
-        },
-        "dc": {
-          "dcType": {
-            "id": "con"
-          },
-          "successType": "half"
-        },
-        "damage": [
+    "affects": [
+      {
+        "type": "add-action",
+        "actions": [
           {
-            "damageType": {
-              "id": "cold"
+            "type": "breath-weapon",
+            "name": "Breath Weapon",
+            "desc": "You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area of the exhalation must make a saving throw, the type of which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can't use it again until you complete a short or long rest.",
+            "areaOfEffect": {
+              "size": 15,
+              "type": "cone"
             },
-            "damageAtCharacterLevel": {
-              "1": "2d6",
-              "6": "3d6",
-              "11": "4d6",
-              "16": "5d6"
-            }
+            "usage": {
+              "type": "per rest",
+              "times": 1
+            },
+            "dc": {
+              "dcType": {
+                "id": "con"
+              },
+              "successType": "half"
+            },
+            "damage": [
+              {
+                "damageType": {
+                  "id": "cold"
+                },
+                "damageAtCharacterLevel": {
+                  "1": "2d6",
+                  "6": "3d6",
+                  "11": "4d6",
+                  "16": "5d6"
+                }
+              }
+            ]
           }
         ]
       }
-    }
+    ]
   },
   {
     "id": "breath-weapon",
@@ -898,7 +1378,7 @@
     ],
     "effects": [
       {
-        "type": "proficiency",
+        "type": "add-proficiencies",
         "proficiencies": [
           "tinkers-tools"
         ]
@@ -911,67 +1391,29 @@
     "desc": [
       "You gain proficiency in two skills of your choice."
     ],
-    "proficienciesChoice": {
-      "choose": 2,
-      "from": {
-        "type": "reference",
-        "options": [
-          {
-            "id": "skill-acrobatics"
-          },
-          {
-            "id": "skill-animal-handling"
-          },
-          {
-            "id": "skill-arcana"
-          },
-          {
-            "id": "skill-athletics"
-          },
-          {
-            "id": "skill-deception"
-          },
-          {
-            "id": "skill-history"
-          },
-          {
-            "id": "skill-insight"
-          },
-          {
-            "id": "skill-intimidation"
-          },
-          {
-            "id": "skill-investigation"
-          },
-          {
-            "id": "skill-medicine"
-          },
-          {
-            "id": "skill-nature"
-          },
-          {
-            "id": "skill-perception"
-          },
-          {
-            "id": "skill-performance"
-          },
-          {
-            "id": "skill-persuasion"
-          },
-          {
-            "id": "skill-religion"
-          },
-          {
-            "id": "skill-sleight-of-hand"
-          },
-          {
-            "id": "skill-stealth"
-          },
-          {
-            "id": "skill-survival"
-          }
-        ]
-      }
+    "proficiencyChoice": {
+      "type": "options-array",
+      "from": [
+        "skill-acrobatics",
+        "skill-animal-handling",
+        "skill-arcana",
+        "skill-athletics",
+        "skill-deception",
+        "skill-history",
+        "skill-insight",
+        "skill-intimidation",
+        "skill-investigation",
+        "skill-medicine",
+        "skill-nature",
+        "skill-perception",
+        "skill-performance",
+        "skill-persuasion",
+        "skill-religion",
+        "skill-sleight-of-hand",
+        "skill-stealth",
+        "skill-survival"
+      ],
+      "choose": 2
     }
   },
   {
@@ -982,7 +1424,7 @@
     ],
     "effects": [
       {
-        "type": "proficiency",
+        "type": "add-proficiencies",
         "proficiencies": [
           "skill-intimidation"
         ]
@@ -1011,8 +1453,8 @@
     ],
     "effects": [
       {
-        "type": "resistance",
-        "resistance": {
+        "type": "add-resistance",
+        "damageType": {
           "id": "fire"
         }
       }
@@ -1029,36 +1471,36 @@
     ],
     "effects": [
       {
-        "type": "known_spells",
-        "knownSpells": [
+        "type": "add-known-spells",
+        "spells": [
           {
             "id": "thaumaturgy"
           }
         ]
       },
       {
-        "type": "known_spells",
+        "type": "add-known-spells",
         "requires": [
           {
             "type": "level_requirement",
             "level": 3
           }
         ],
-        "knownSpells": [
+        "spells": [
           {
             "id": "hellish-rebuke"
           }
         ]
       },
       {
-        "type": "known_spells",
+        "type": "add-known-spells",
         "requires": [
           {
             "type": "level_requirement",
             "level": 5
           }
         ],
-        "knownSpells": [
+        "spells": [
           {
             "id": "darkness"
           }

@@ -8,12 +8,9 @@ data class Trait(
     val name: String,
     val desc: List<String>,
     val effects: List<Effect>? = null,
-
-    val proficienciesChoice: Choice? = null,
-
-    val languageOptions: Choice? = null,
-    val parent: EntityRef? = null,
-    val traitSpecific: TraitSpecific? = null,
+    val spellChoice: Choice? = null,
+    val languageChoice: Choice? = null,
+    val proficiencyChoice: Choice? = null,
+    val abilityBonusChoice: Choice? = null,
+    val draconicAncestryChoice: Choice? = null,
 )
-
-

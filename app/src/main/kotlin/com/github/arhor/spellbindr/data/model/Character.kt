@@ -46,7 +46,7 @@ import kotlinx.serialization.Serializable
  * @property experience Current amount of XP points earned by the character.
  * @property currentHitPoints Character's current HP (after damage, healing, etc).
  * @property maximumHitPoints Character's maximum HP (as calculated from class, CON, features).
- * @property abilities Map of ability score references (e.g., STR, DEX) to values.
+ * @property abilityScores Map of ability score references (e.g., STR, DEX) to values.
  *                     Example: { STR: 16, DEX: 14, CON: 13, INT: 10, WIS: 12, CHA: 18 }.
  * @property proficiencies Set of references to all proficiencies the character possesses
  *                         (skills, tools, saving throws, armor, weapons, etc).
@@ -64,21 +64,32 @@ data class Character(
     val id: String,
     val name: String,
     val race: EntityRef,
-    val subrace: EntityRef?,
-    val alignment: EntityRef,
-    val background: EntityRef,
+    val feats: Set<EntityRef> = emptySet(),
+    val subrace: EntityRef? = null,
     val classes: Map<EntityRef, Int>,
-    val experience: Int,
-    val currentHitPoints: Int,
-    val maximumHitPoints: Int,
-    val abilities: Map<EntityRef, Int>,
-    val proficiencies: Set<EntityRef>,
-    val feats: Set<EntityRef>,
-    val knownSpells: Set<EntityRef>,
-    val preparedSpells: Set<EntityRef>,
-    val resistances: Set<EntityRef>,
-    val conditionImmunities: Set<EntityRef>,
+    val alignment: EntityRef? = null,
+    val background: EntityRef,
+    val experience: Int = 0,
+    val abilityScores: Map<EntityRef, Int>,
 ) {
     val level: Int
         get() = classes.values.sum()
+
+    @Serializable
+    data class State(
+        val size: String = "medium",
+        val level: Int = 1,
+        val speed: Int = 30,
+        val actions: Set<Action> = emptySet(),
+        val languages: Set<EntityRef> = emptySet(),
+        val knownSpells: Set<EntityRef> = emptySet(),
+        val resistances: Set<EntityRef> = emptySet(),
+        val abilityScores: Map<EntityRef, Int> = emptyMap(),
+        val proficiencies: Set<EntityRef> = emptySet(),
+        val currentHitPoints: Int = 0,
+        val maximumHitPoints: Int = 0,
+        val conditionImmunities: Set<EntityRef> = emptySet(),
+    )
+
+    fun createState() = State(level = level)
 }
