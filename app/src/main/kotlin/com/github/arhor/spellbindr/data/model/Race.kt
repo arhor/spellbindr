@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class Race(
     val id: String,
     val name: String,
-    val traits: List<String>? = null,
-    val subraces: List<String>? = null,
+    val traits: List<String>,
+    val subraces: List<Subrace>,
 )

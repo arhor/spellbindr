@@ -47,6 +47,21 @@
     ]
   },
   {
+    "id": "ability-score-increase-hill-dwarf",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Wisdom score increases by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "wis": 1
+        }
+      }
+    ]
+  },
+  {
     "id": "ability-score-increase-halfling",
     "name": "Ability Score Increase",
     "desc": [
@@ -62,6 +77,21 @@
     ]
   },
   {
+    "id": "ability-score-increase-lightfoot-halfling",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Charisma score increases by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "cha": 1
+        }
+      }
+    ]
+  },
+  {
     "id": "ability-score-increase-elf",
     "name": "Ability Score Increase",
     "desc": [
@@ -72,6 +102,21 @@
         "type": "modify-abilities",
         "abilities": {
           "dex": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-high-elf",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Intelligence score increases by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "int": 1
         }
       }
     ]
@@ -191,6 +236,21 @@
         "type": "modify-abilities",
         "abilities": {
           "int": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "ability-score-increase-rock-gnome",
+    "name": "Ability Score Increase",
+    "desc": [
+      "Your Constitution score increases by 1."
+    ],
+    "effects": [
+      {
+        "type": "modify-abilities",
+        "abilities": {
+          "con": 1
         }
       }
     ]
