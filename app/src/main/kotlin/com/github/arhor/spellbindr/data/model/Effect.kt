@@ -141,5 +141,20 @@ sealed interface Effect {
             speed = speed,
         )
     }
+
+    @Serializable
+    @SerialName("add-equipment")
+    data class AddEquipmentEffect(
+        val equipment: List<CountedEntityRef>,
+    ) : Effect {
+        override fun applyTo(state: Character.State): Character.State {
+            TODO("Not yet implemented")
+        }
+    }
 }
 
+@Serializable
+data class CountedEntityRef(
+    val id: String,
+    val quantity: Int,
+)

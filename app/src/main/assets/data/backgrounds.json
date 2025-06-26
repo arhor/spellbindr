@@ -36,17 +36,15 @@
       "from": "languages",
       "choose": 2
     },
-    "equipmentChoice": [
-      {
-        "type": "equipment",
-        "from": {
-          "categories": [
-            "holy-symbol"
-          ]
-        },
-        "choose": 1
-      }
-    ],
+    "equipmentChoice": {
+      "type": "equipment",
+      "from": {
+        "categories": [
+          "holy-symbol"
+        ]
+      },
+      "choose": 1
+    },
     "personalityTraits": {
       "type": "options-array",
       "from": [

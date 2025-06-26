@@ -63,7 +63,7 @@ sealed interface Choice {
     @SerialName("equipment")
     data class EquipmentChoice(
         override val choose: Int,
-        val from: List<EquipmentOption>,
+        val from: EquipmentOption,
     ) : Choice
 }
 
