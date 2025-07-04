@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
-import com.github.arhor.spellbindr.data.datasource.local.FavoriteSpellsDataStore
-import com.github.arhor.spellbindr.data.datasource.local.SpellsAssetDataStore
+import com.github.arhor.spellbindr.data.datasource.local.assets.FavoriteSpellsDataStore
+import com.github.arhor.spellbindr.data.datasource.local.assets.SpellsAssetDataStore
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import kotlinx.coroutines.flow.Flow

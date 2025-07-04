@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
-import com.github.arhor.spellbindr.data.datasource.local.RacesAssetDataStore
+import com.github.arhor.spellbindr.data.datasource.local.assets.RacesAssetDataStore
 import com.github.arhor.spellbindr.data.model.Race
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull

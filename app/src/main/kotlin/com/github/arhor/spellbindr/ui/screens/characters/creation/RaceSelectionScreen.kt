@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,19 +21,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun RaceSelectionScreen(
-    onNext: () -> Unit = {},
-    viewModel: CharacterCreationViewModel = hiltViewModel()
+    onNext: () -> Unit,
+    viewModel: CharacterCreationViewModel,
 ) {
     val state by viewModel.state.collectAsState()
     val selectedRace = state.race
     val selectedSubrace = state.subrace
     val races = state.races
-    val isLoading = state.isLoadingRaces
-    val error = state.raceLoadError
+    val isLoading = state.isLoading
+    val error = state.error
 
     val subraces = selectedRace?.subraces ?: emptyList()
     val isSubraceRequired = selectedRace != null && subraces.isNotEmpty()
@@ -62,7 +62,9 @@ fun RaceSelectionScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp)
-                            .clickable { viewModel.onRaceSelected(race) },
+                            .clickable {
+                                viewModel.handleEvent(CharacterCreationEvent.RaceChanged(race.id))
+                            },
                         colors = if (race == selectedRace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
                     ) {
                         Column(Modifier.padding(12.dp)) {
@@ -76,30 +78,25 @@ fun RaceSelectionScreen(
                         }
                     }
                 }
-//                if (isSubraceRequired) {
-//                    Spacer(Modifier.height(16.dp))
-//                    Text("Choose a subrace:", style = MaterialTheme.typography.titleMedium)
-//                    subraces.forEach { subrace ->
-//                        Card(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(vertical = 4.dp)
-//                                .clickable { viewModel.onSubraceSelected(subrace) },
-//                            colors = if (subrace == selectedSubrace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
-//                        ) {
-//                            Column(Modifier.padding(12.dp)) {
-//                                Text(subrace.id, style = MaterialTheme.typography.titleMedium)
-//                                if (subrace.traits.isNotEmpty()) {
-//                                // TODO: join with traits
-//                                    Text(
-//                                        subrace.traits.joinToString { trait -> trait.name },
-//                                        style = MaterialTheme.typography.bodySmall
-//                                    )
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
+                if (isSubraceRequired) {
+                    Spacer(Modifier.height(16.dp))
+                    Text("Choose a subrace:", style = MaterialTheme.typography.titleMedium)
+                    subraces.forEach { subrace ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp)
+                                .clickable {
+                                    viewModel.handleEvent(CharacterCreationEvent.SubraceChanged(subrace.id))
+                                },
+                            colors = if (subrace == selectedSubrace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
+                        ) {
+                            Column(Modifier.padding(12.dp)) {
+                                Text(subrace.name, style = MaterialTheme.typography.titleMedium)
+                            }
+                        }
+                    }
+                }
             }
         }
         Spacer(modifier = Modifier.weight(1f))

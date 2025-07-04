@@ -1,20 +1,20 @@
-package com.github.arhor.spellbindr.data.datasource.local
+package com.github.arhor.spellbindr.data.datasource.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.model.Race
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SpellsAssetDataStore @Inject constructor(
+class RacesAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Spell>(
+) : StaticAssetDataStoreBase<Race>(
     json = json,
-    path = "data/spells.json",
+    path = "data/races.json",
     context = context,
-    serializer = Spell.serializer(),
-)
+    serializer = Race.serializer(),
+) 

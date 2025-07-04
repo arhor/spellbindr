@@ -76,6 +76,9 @@ data class Character(
     val ideals: String? = null,
     val bonds: String? = null,
     val flaws: String? = null,
+    val equipment: Set<EntityRef> = emptySet(),
+    val inventory: Map<EntityRef, Int> = emptyMap(),
+    val spells: Set<EntityRef> = emptySet(),
 ) {
     val level: Int
         get() = classes.values.sum()

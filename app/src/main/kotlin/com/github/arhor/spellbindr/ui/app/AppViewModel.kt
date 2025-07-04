@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.datasource.local.InitializingStaticAssetDataStore
+import com.github.arhor.spellbindr.data.datasource.local.assets.InitializingStaticAssetDataStore
 import com.github.arhor.spellbindr.util.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
