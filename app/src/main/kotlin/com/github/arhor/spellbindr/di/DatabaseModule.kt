@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.di
 
 import android.content.Context
 import androidx.room.Room
-import com.github.arhor.spellbindr.data.datasource.local.db.CharacterDao
-import com.github.arhor.spellbindr.data.datasource.local.db.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.db.CharacterDao
+import com.github.arhor.spellbindr.data.local.db.SpellbindrDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

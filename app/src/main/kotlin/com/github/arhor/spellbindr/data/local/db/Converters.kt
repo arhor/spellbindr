@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.datasource.local.db
+package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.TypeConverter
 import com.github.arhor.spellbindr.data.model.EntityRef

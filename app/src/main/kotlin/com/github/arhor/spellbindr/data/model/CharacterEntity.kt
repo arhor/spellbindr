@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.github.arhor.spellbindr.data.datasource.local.db.Converters
+import com.github.arhor.spellbindr.data.local.db.Converters
 
 @Entity(tableName = "characters")
 @TypeConverters(Converters::class)

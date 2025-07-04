@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.datasource.local.db
+package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.Dao
 import androidx.room.Insert

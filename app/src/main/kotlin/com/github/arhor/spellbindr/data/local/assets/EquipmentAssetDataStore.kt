@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.datasource.local.assets
+package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
 import com.github.arhor.spellbindr.data.model.Equipment

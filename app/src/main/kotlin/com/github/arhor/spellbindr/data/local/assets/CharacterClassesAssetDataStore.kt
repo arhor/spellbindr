@@ -1,20 +1,20 @@
-package com.github.arhor.spellbindr.data.datasource.local.assets
+package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.data.model.Background
+import com.github.arhor.spellbindr.data.model.CharacterClass
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BackgroundsAssetDataStore @Inject constructor(
+class CharacterClassesAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Background>(
+) : StaticAssetDataStoreBase<CharacterClass>(
     json = json,
-    path = "data/backgrounds.json",
+    path = "data/classes.json",
     context = context,
-    serializer = Background.serializer(),
-) 
+    serializer = CharacterClass.serializer(),
+)

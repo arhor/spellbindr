@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.datasource.local.db.CharacterDao
+import com.github.arhor.spellbindr.data.local.db.CharacterDao
 import com.github.arhor.spellbindr.data.model.Character
 import com.github.arhor.spellbindr.data.model.CharacterEntity
 import kotlinx.coroutines.flow.Flow
