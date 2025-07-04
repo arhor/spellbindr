@@ -5,12 +5,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "rage",
+        "id": "rage",
         "name": "Rage",
         "url": "/api/2014/features/rage"
       },
       {
-        "index": "barbarian-unarmored-defense",
+        "id": "barbarian-unarmored-defense",
         "name": "Unarmored Defense",
         "url": "/api/2014/features/barbarian-unarmored-defense"
       }
@@ -20,9 +20,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-1",
+    "id": "barbarian-1",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -34,12 +34,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "reckless-attack",
+        "id": "reckless-attack",
         "name": "Reckless Attack",
         "url": "/api/2014/features/reckless-attack"
       },
       {
-        "index": "danger-sense",
+        "id": "danger-sense",
         "name": "Danger Sense",
         "url": "/api/2014/features/danger-sense"
       }
@@ -49,9 +49,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-2",
+    "id": "barbarian-2",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -63,7 +63,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "primal-path",
+        "id": "primal-path",
         "name": "Primal Path",
         "url": "/api/2014/features/primal-path"
       }
@@ -73,9 +73,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-3",
+    "id": "barbarian-3",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -87,7 +87,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "barbarian-ability-score-improvement-1",
+        "id": "barbarian-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/barbarian-ability-score-improvement-1"
       }
@@ -97,9 +97,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-4",
+    "id": "barbarian-4",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -111,12 +111,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "barbarian-extra-attack",
+        "id": "barbarian-extra-attack",
         "name": "Extra Attack",
         "url": "/api/2014/features/barbarian-extra-attack"
       },
       {
-        "index": "fast-movement",
+        "id": "fast-movement",
         "name": "Fast Movement",
         "url": "/api/2014/features/fast-movement"
       }
@@ -126,9 +126,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-5",
+    "id": "barbarian-5",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -140,7 +140,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "primal-path-improvement-1",
+        "id": "primal-path-improvement-1",
         "name": "Path feature",
         "url": "/api/2014/features/primal-path-improvement-1"
       }
@@ -150,9 +150,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-6",
+    "id": "barbarian-6",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -164,7 +164,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "feral-instinct",
+        "id": "feral-instinct",
         "name": "Feral Instinct",
         "url": "/api/2014/features/feral-instinct"
       }
@@ -174,9 +174,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-7",
+    "id": "barbarian-7",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -188,7 +188,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "barbarian-ability-score-improvement-2",
+        "id": "barbarian-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/barbarian-ability-score-improvement-2"
       }
@@ -198,9 +198,9 @@
       "rage_damage_bonus": 2,
       "brutal_critical_dice": 0
     },
-    "index": "barbarian-8",
+    "id": "barbarian-8",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -212,7 +212,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "brutal-critical-1-die",
+        "id": "brutal-critical-1-die",
         "name": "Brutal Critical (1 die)",
         "url": "/api/2014/features/brutal-critical-1-die"
       }
@@ -222,9 +222,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 1
     },
-    "index": "barbarian-9",
+    "id": "barbarian-9",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -236,7 +236,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "primal-path-improvement-2",
+        "id": "primal-path-improvement-2",
         "name": "Path feature",
         "url": "/api/2014/features/primal-path-improvement-2"
       }
@@ -246,9 +246,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 1
     },
-    "index": "barbarian-10",
+    "id": "barbarian-10",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -260,7 +260,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "relentless-rage",
+        "id": "relentless-rage",
         "name": "Relentless Rage",
         "url": "/api/2014/features/relentless-rage"
       }
@@ -270,9 +270,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 1
     },
-    "index": "barbarian-11",
+    "id": "barbarian-11",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -284,7 +284,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "barbarian-ability-score-improvement-3",
+        "id": "barbarian-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/barbarian-ability-score-improvement-3"
       }
@@ -294,9 +294,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 1
     },
-    "index": "barbarian-12",
+    "id": "barbarian-12",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -308,7 +308,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "brutal-critical-2-dice",
+        "id": "brutal-critical-2-dice",
         "name": "Brutal Critical (2 dice)",
         "url": "/api/2014/features/brutal-critical-2-dice"
       }
@@ -318,9 +318,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 2
     },
-    "index": "barbarian-13",
+    "id": "barbarian-13",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -332,7 +332,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "primal-path-improvement-3",
+        "id": "primal-path-improvement-3",
         "name": "Path feature",
         "url": "/api/2014/features/primal-path-improvement-3"
       }
@@ -342,9 +342,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 2
     },
-    "index": "barbarian-14",
+    "id": "barbarian-14",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -356,7 +356,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "persistent-rage",
+        "id": "persistent-rage",
         "name": "Persistent Rage",
         "url": "/api/2014/features/persistent-rage"
       }
@@ -366,9 +366,9 @@
       "rage_damage_bonus": 3,
       "brutal_critical_dice": 2
     },
-    "index": "barbarian-15",
+    "id": "barbarian-15",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -380,7 +380,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "barbarian-ability-score-improvement-4",
+        "id": "barbarian-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/barbarian-ability-score-improvement-4"
       }
@@ -390,9 +390,9 @@
       "rage_damage_bonus": 4,
       "brutal_critical_dice": 2
     },
-    "index": "barbarian-16",
+    "id": "barbarian-16",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -404,7 +404,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "brutal-critical-3-dice",
+        "id": "brutal-critical-3-dice",
         "name": "Brutal Critical (3 dice)",
         "url": "/api/2014/features/brutal-critical-3-dice"
       }
@@ -414,9 +414,9 @@
       "rage_damage_bonus": 4,
       "brutal_critical_dice": 3
     },
-    "index": "barbarian-17",
+    "id": "barbarian-17",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -428,7 +428,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "indomitable-might",
+        "id": "indomitable-might",
         "name": "Indomitable Might",
         "url": "/api/2014/features/indomitable-might"
       }
@@ -438,9 +438,9 @@
       "rage_damage_bonus": 4,
       "brutal_critical_dice": 3
     },
-    "index": "barbarian-18",
+    "id": "barbarian-18",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -452,7 +452,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "barbarian-ability-score-improvement-5",
+        "id": "barbarian-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/barbarian-ability-score-improvement-5"
       }
@@ -462,9 +462,9 @@
       "rage_damage_bonus": 4,
       "brutal_critical_dice": 3
     },
-    "index": "barbarian-19",
+    "id": "barbarian-19",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -476,7 +476,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "primal-champion",
+        "id": "primal-champion",
         "name": "Primal Champion",
         "url": "/api/2014/features/primal-champion"
       }
@@ -486,9 +486,9 @@
       "rage_damage_bonus": 4,
       "brutal_critical_dice": 3
     },
-    "index": "barbarian-20",
+    "id": "barbarian-20",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
@@ -500,12 +500,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "spellcasting-bard",
+        "id": "spellcasting-bard",
         "name": "Spellcasting: Bard",
         "url": "/api/2014/features/spellcasting-bard"
       },
       {
-        "index": "bardic-inspiration-d6",
+        "id": "bardic-inspiration-d6",
         "name": "Bardic Inspiration (d6)",
         "url": "/api/2014/features/bardic-inspiration-d6"
       }
@@ -530,9 +530,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-1",
+    "id": "bard-1",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -544,12 +544,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "jack-of-all-trades",
+        "id": "jack-of-all-trades",
         "name": "Jack of All Trades",
         "url": "/api/2014/features/jack-of-all-trades"
       },
       {
-        "index": "song-of-rest-d6",
+        "id": "song-of-rest-d6",
         "name": "Song of Rest (d6)",
         "url": "/api/2014/features/song-of-rest-d6"
       }
@@ -574,9 +574,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-2",
+    "id": "bard-2",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -588,12 +588,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "bard-expertise-1",
+        "id": "bard-expertise-1",
         "name": "Expertise",
         "url": "/api/2014/features/bard-expertise-1"
       },
       {
-        "index": "bard-college",
+        "id": "bard-college",
         "name": "Bard College",
         "url": "/api/2014/features/bard-college"
       }
@@ -618,9 +618,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-3",
+    "id": "bard-3",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -632,7 +632,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "bard-ability-score-improvement-1",
+        "id": "bard-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/bard-ability-score-improvement-1"
       }
@@ -657,9 +657,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-4",
+    "id": "bard-4",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -671,12 +671,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "bardic-inspiration-d8",
+        "id": "bardic-inspiration-d8",
         "name": "Bardic Inspiration (d8)",
         "url": "/api/2014/features/bardic-inspiration-d8"
       },
       {
-        "index": "font-of-inspiration",
+        "id": "font-of-inspiration",
         "name": "Font of Inspiration",
         "url": "/api/2014/features/font-of-inspiration"
       }
@@ -701,9 +701,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-5",
+    "id": "bard-5",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -715,12 +715,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "countercharm",
+        "id": "countercharm",
         "name": "Countercharm",
         "url": "/api/2014/features/countercharm"
       },
       {
-        "index": "bard-college-improvement-1",
+        "id": "bard-college-improvement-1",
         "name": "Bard College feature",
         "url": "/api/2014/features/bard-college-improvement-1"
       }
@@ -745,9 +745,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-6",
+    "id": "bard-6",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -778,9 +778,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-7",
+    "id": "bard-7",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -792,7 +792,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "bard-ability-score-improvement-2",
+        "id": "bard-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/bard-ability-score-improvement-2"
       }
@@ -817,9 +817,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-8",
+    "id": "bard-8",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -831,7 +831,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "song-of-rest-d8",
+        "id": "song-of-rest-d8",
         "name": "Song of Rest (d8)",
         "url": "/api/2014/features/song-of-rest-d8"
       }
@@ -856,9 +856,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-9",
+    "id": "bard-9",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -870,17 +870,17 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "bard-expertise-2",
+        "id": "bard-expertise-2",
         "name": "Expertise",
         "url": "/api/2014/features/bard-expertise-2"
       },
       {
-        "index": "bardic-inspiration-d10",
+        "id": "bardic-inspiration-d10",
         "name": "Bardic Inspiration (d10)",
         "url": "/api/2014/features/bardic-inspiration-d10"
       },
       {
-        "index": "magical-secrets-1",
+        "id": "magical-secrets-1",
         "name": "Magical Secrets",
         "url": "/api/2014/features/magical-secrets-1"
       }
@@ -905,9 +905,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-10",
+    "id": "bard-10",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -938,9 +938,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-11",
+    "id": "bard-11",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -952,7 +952,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "bard-ability-score-improvement-3",
+        "id": "bard-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/bard-ability-score-improvement-3"
       }
@@ -977,9 +977,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-12",
+    "id": "bard-12",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -991,7 +991,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "song-of-rest-d10",
+        "id": "song-of-rest-d10",
         "name": "Song of Rest (d10)",
         "url": "/api/2014/features/song-of-rest-d10"
       }
@@ -1016,9 +1016,9 @@
       "magical_secrets_max_7": 0,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-13",
+    "id": "bard-13",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1030,12 +1030,12 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "magical-secrets-2",
+        "id": "magical-secrets-2",
         "name": "Magical Secrets",
         "url": "/api/2014/features/magical-secrets-2"
       },
       {
-        "index": "bard-college-improvement-2",
+        "id": "bard-college-improvement-2",
         "name": "Bard College feature",
         "url": "/api/2014/features/bard-college-improvement-2"
       }
@@ -1060,9 +1060,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-14",
+    "id": "bard-14",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1074,7 +1074,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "bardic-inspiration-d12",
+        "id": "bardic-inspiration-d12",
         "name": "Bardic Inspiration (d12)",
         "url": "/api/2014/features/bardic-inspiration-d12"
       }
@@ -1099,9 +1099,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-15",
+    "id": "bard-15",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1113,7 +1113,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "bard-ability-score-improvement-4",
+        "id": "bard-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/bard-ability-score-improvement-4"
       }
@@ -1138,9 +1138,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-16",
+    "id": "bard-16",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1152,7 +1152,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "song-of-rest-d12",
+        "id": "song-of-rest-d12",
         "name": "Song of Rest (d12)",
         "url": "/api/2014/features/song-of-rest-d12"
       }
@@ -1177,9 +1177,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 0
     },
-    "index": "bard-17",
+    "id": "bard-17",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1191,7 +1191,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "magical-secrets-3",
+        "id": "magical-secrets-3",
         "name": "Magical Secrets",
         "url": "/api/2014/features/magical-secrets-3"
       }
@@ -1216,9 +1216,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 2
     },
-    "index": "bard-18",
+    "id": "bard-18",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1230,7 +1230,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "bard-ability-score-improvement-5",
+        "id": "bard-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/bard-ability-score-improvement-5"
       }
@@ -1255,9 +1255,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 2
     },
-    "index": "bard-19",
+    "id": "bard-19",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1269,7 +1269,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "superior-inspiration",
+        "id": "superior-inspiration",
         "name": "Superior Inspiration",
         "url": "/api/2014/features/superior-inspiration"
       }
@@ -1294,9 +1294,9 @@
       "magical_secrets_max_7": 2,
       "magical_secrets_max_9": 2
     },
-    "index": "bard-20",
+    "id": "bard-20",
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
@@ -1308,17 +1308,17 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "spellcasting-cleric",
+        "id": "spellcasting-cleric",
         "name": "Spellcasting: Cleric",
         "url": "/api/2014/features/spellcasting-cleric"
       },
       {
-        "index": "divine-domain",
+        "id": "divine-domain",
         "name": "Divine Domain",
         "url": "/api/2014/features/divine-domain"
       },
       {
-        "index": "domain-spells-1",
+        "id": "domain-spells-1",
         "name": "Domain Spells",
         "url": "/api/2014/features/domain-spells-1"
       }
@@ -1339,9 +1339,9 @@
       "channel_divinity_charges": 0,
       "destroy_undead_cr": 0
     },
-    "index": "cleric-1",
+    "id": "cleric-1",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1353,17 +1353,17 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "channel-divinity-1-rest",
+        "id": "channel-divinity-1-rest",
         "name": "Channel Divinity (1/rest)",
         "url": "/api/2014/features/channel-divinity-1-rest"
       },
       {
-        "index": "channel-divinity-turn-undead",
+        "id": "channel-divinity-turn-undead",
         "name": "Channel Divinity: Turn Undead",
         "url": "/api/2014/features/channel-divinity-turn-undead"
       },
       {
-        "index": "divine-domain-improvement-1",
+        "id": "divine-domain-improvement-1",
         "name": "Divine Domain feature",
         "url": "/api/2014/features/divine-domain-improvement-1"
       }
@@ -1384,9 +1384,9 @@
       "channel_divinity_charges": 1,
       "destroy_undead_cr": 0
     },
-    "index": "cleric-2",
+    "id": "cleric-2",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1398,7 +1398,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "domain-spells-2",
+        "id": "domain-spells-2",
         "name": "Domain Spells",
         "url": "/api/2014/features/domain-spells-2"
       }
@@ -1419,9 +1419,9 @@
       "channel_divinity_charges": 1,
       "destroy_undead_cr": 0
     },
-    "index": "cleric-3",
+    "id": "cleric-3",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1433,7 +1433,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "cleric-ability-score-improvement-1",
+        "id": "cleric-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/cleric-ability-score-improvement-1"
       }
@@ -1454,9 +1454,9 @@
       "channel_divinity_charges": 1,
       "destroy_undead_cr": 0
     },
-    "index": "cleric-4",
+    "id": "cleric-4",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1468,12 +1468,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "domain-spells-3",
+        "id": "domain-spells-3",
         "name": "Domain Spells",
         "url": "/api/2014/features/domain-spells-3"
       },
       {
-        "index": "destroy-undead-cr-1-2-or-below",
+        "id": "destroy-undead-cr-1-2-or-below",
         "name": "Destroy Undead (CR 1/2 or below)",
         "url": "/api/2014/features/destroy-undead-cr-1-2-or-below"
       }
@@ -1494,9 +1494,9 @@
       "channel_divinity_charges": 1,
       "destroy_undead_cr": 0.5
     },
-    "index": "cleric-5",
+    "id": "cleric-5",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1508,12 +1508,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "channel-divinity-2-rest",
+        "id": "channel-divinity-2-rest",
         "name": "Channel Divinity (2/rest)",
         "url": "/api/2014/features/channel-divinity-2-rest"
       },
       {
-        "index": "divine-domain-improvement-2",
+        "id": "divine-domain-improvement-2",
         "name": "Divine Domain feature",
         "url": "/api/2014/features/divine-domain-improvement-2"
       }
@@ -1534,9 +1534,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 0.5
     },
-    "index": "cleric-6",
+    "id": "cleric-6",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1548,7 +1548,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "domain-spells-4",
+        "id": "domain-spells-4",
         "name": "Domain Spells",
         "url": "/api/2014/features/domain-spells-4"
       }
@@ -1569,9 +1569,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 0.5
     },
-    "index": "cleric-7",
+    "id": "cleric-7",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1583,17 +1583,17 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "cleric-ability-score-improvement-2",
+        "id": "cleric-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/cleric-ability-score-improvement-2"
       },
       {
-        "index": "destroy-undead-cr-1-or-below",
+        "id": "destroy-undead-cr-1-or-below",
         "name": "Destroy Undead (CR 1 or below)",
         "url": "/api/2014/features/destroy-undead-cr-1-or-below"
       },
       {
-        "index": "divine-domain-improvement-3",
+        "id": "divine-domain-improvement-3",
         "name": "Divine Domain feature",
         "url": "/api/2014/features/divine-domain-improvement-3"
       }
@@ -1614,9 +1614,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 1
     },
-    "index": "cleric-8",
+    "id": "cleric-8",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1628,7 +1628,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "domain-spells-5",
+        "id": "domain-spells-5",
         "name": "Domain Spells",
         "url": "/api/2014/features/domain-spells-5"
       }
@@ -1649,9 +1649,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 1
     },
-    "index": "cleric-9",
+    "id": "cleric-9",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1663,7 +1663,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "divine-intervention",
+        "id": "divine-intervention",
         "name": "Divine Intervention",
         "url": "/api/2014/features/divine-intervention"
       }
@@ -1684,9 +1684,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 1
     },
-    "index": "cleric-10",
+    "id": "cleric-10",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1698,7 +1698,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "destroy-undead-cr-2-or-below",
+        "id": "destroy-undead-cr-2-or-below",
         "name": "Destroy Undead (CR 2 or below)",
         "url": "/api/2014/features/destroy-undead-cr-2-or-below"
       }
@@ -1719,9 +1719,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 2
     },
-    "index": "cleric-11",
+    "id": "cleric-11",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1733,7 +1733,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "cleric-ability-score-improvement-3",
+        "id": "cleric-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/cleric-ability-score-improvement-3"
       }
@@ -1754,9 +1754,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 2
     },
-    "index": "cleric-12",
+    "id": "cleric-12",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1783,9 +1783,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 2
     },
-    "index": "cleric-13",
+    "id": "cleric-13",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1797,7 +1797,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "destroy-undead-cr-3-or-below",
+        "id": "destroy-undead-cr-3-or-below",
         "name": "Destroy Undead (CR 3 or below)",
         "url": "/api/2014/features/destroy-undead-cr-3-or-below"
       }
@@ -1818,9 +1818,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 3
     },
-    "index": "cleric-14",
+    "id": "cleric-14",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1847,9 +1847,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 3
     },
-    "index": "cleric-15",
+    "id": "cleric-15",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1861,7 +1861,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "cleric-ability-score-improvement-4",
+        "id": "cleric-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/cleric-ability-score-improvement-4"
       }
@@ -1882,9 +1882,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 3
     },
-    "index": "cleric-16",
+    "id": "cleric-16",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1896,12 +1896,12 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "destroy-undead-cr-4-or-below",
+        "id": "destroy-undead-cr-4-or-below",
         "name": "Destroy Undead (CR 4 or below)",
         "url": "/api/2014/features/destroy-undead-cr-4-or-below"
       },
       {
-        "index": "divine-domain-improvement-4",
+        "id": "divine-domain-improvement-4",
         "name": "Divine Domain feature",
         "url": "/api/2014/features/divine-domain-improvement-4"
       }
@@ -1922,9 +1922,9 @@
       "channel_divinity_charges": 2,
       "destroy_undead_cr": 4
     },
-    "index": "cleric-17",
+    "id": "cleric-17",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1936,7 +1936,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "channel-divinity-3-rest",
+        "id": "channel-divinity-3-rest",
         "name": "Channel Divinity (3/rest)",
         "url": "/api/2014/features/channel-divinity-3-rest"
       }
@@ -1957,9 +1957,9 @@
       "channel_divinity_charges": 3,
       "destroy_undead_cr": 4
     },
-    "index": "cleric-18",
+    "id": "cleric-18",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -1971,7 +1971,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "cleric-ability-score-improvement-5",
+        "id": "cleric-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/cleric-ability-score-improvement-5"
       }
@@ -1992,9 +1992,9 @@
       "channel_divinity_charges": 3,
       "destroy_undead_cr": 4
     },
-    "index": "cleric-19",
+    "id": "cleric-19",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -2006,7 +2006,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "divine-intervention-improvement",
+        "id": "divine-intervention-improvement",
         "name": "Divine Intervention Improvement",
         "url": "/api/2014/features/divine-intervention-improvement"
       }
@@ -2027,9 +2027,9 @@
       "channel_divinity_charges": 3,
       "destroy_undead_cr": 4
     },
-    "index": "cleric-20",
+    "id": "cleric-20",
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
@@ -2041,12 +2041,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "spellcasting-druid",
+        "id": "spellcasting-druid",
         "name": "Spellcasting: Druid",
         "url": "/api/2014/features/spellcasting-druid"
       },
       {
-        "index": "druidic",
+        "id": "druidic",
         "name": "Druidic",
         "url": "/api/2014/features/druidic"
       }
@@ -2068,9 +2068,9 @@
       "wild_shape_swim": false,
       "wild_shape_fly": false
     },
-    "index": "druid-1",
+    "id": "druid-1",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2082,12 +2082,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "wild-shape-cr-1-4-or-below-no-flying-or-swim-speed",
+        "id": "wild-shape-cr-1-4-or-below-no-flying-or-swim-speed",
         "name": "Wild Shape (CR 1/4 or below, no flying or swim speed)",
         "url": "/api/2014/features/wild-shape-cr-1-4-or-below-no-flying-or-swim-speed"
       },
       {
-        "index": "druid-circle",
+        "id": "druid-circle",
         "name": "Druid Circle",
         "url": "/api/2014/features/druid-circle"
       }
@@ -2109,9 +2109,9 @@
       "wild_shape_swim": false,
       "wild_shape_fly": false
     },
-    "index": "druid-2",
+    "id": "druid-2",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2139,9 +2139,9 @@
       "wild_shape_swim": false,
       "wild_shape_fly": false
     },
-    "index": "druid-3",
+    "id": "druid-3",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2153,12 +2153,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "wild-shape-cr-1-2-or-below-no-flying-speed",
+        "id": "wild-shape-cr-1-2-or-below-no-flying-speed",
         "name": "Wild Shape (CR 1/2 or below, no flying speed)",
         "url": "/api/2014/features/wild-shape-cr-1-2-or-below-no-flying-speed"
       },
       {
-        "index": "druid-ability-score-improvement-1",
+        "id": "druid-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/druid-ability-score-improvement-1"
       }
@@ -2180,9 +2180,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": false
     },
-    "index": "druid-4",
+    "id": "druid-4",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2210,9 +2210,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": false
     },
-    "index": "druid-5",
+    "id": "druid-5",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2224,7 +2224,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "druid-circle-improvement-1",
+        "id": "druid-circle-improvement-1",
         "name": "Druid Circle feature",
         "url": "/api/2014/features/druid-circle-improvement-1"
       }
@@ -2246,9 +2246,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": false
     },
-    "index": "druid-6",
+    "id": "druid-6",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2276,9 +2276,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": false
     },
-    "index": "druid-7",
+    "id": "druid-7",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2290,12 +2290,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "wild-shape-cr-1-or-below",
+        "id": "wild-shape-cr-1-or-below",
         "name": "Wild Shape (CR 1 or below)",
         "url": "/api/2014/features/wild-shape-cr-1-or-below"
       },
       {
-        "index": "druid-ability-score-improvement-2",
+        "id": "druid-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/druid-ability-score-improvement-2"
       }
@@ -2317,9 +2317,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-8",
+    "id": "druid-8",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2347,9 +2347,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-9",
+    "id": "druid-9",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2361,7 +2361,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "druid-circle-improvement-2",
+        "id": "druid-circle-improvement-2",
         "name": "Druid Circle feature",
         "url": "/api/2014/features/druid-circle-improvement-2"
       }
@@ -2383,9 +2383,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-10",
+    "id": "druid-10",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2413,9 +2413,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-11",
+    "id": "druid-11",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2427,7 +2427,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "druid-ability-score-improvement-3",
+        "id": "druid-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/druid-ability-score-improvement-3"
       }
@@ -2449,9 +2449,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-12",
+    "id": "druid-12",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2479,9 +2479,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-13",
+    "id": "druid-13",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2493,7 +2493,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "druid-circle-improvement-3",
+        "id": "druid-circle-improvement-3",
         "name": "Druid Circle feature",
         "url": "/api/2014/features/druid-circle-improvement-3"
       }
@@ -2515,9 +2515,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-14",
+    "id": "druid-14",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2545,9 +2545,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-15",
+    "id": "druid-15",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2559,7 +2559,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "druid-ability-score-improvement-4",
+        "id": "druid-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/druid-ability-score-improvement-4"
       }
@@ -2581,9 +2581,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-16",
+    "id": "druid-16",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2611,9 +2611,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-17",
+    "id": "druid-17",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2625,12 +2625,12 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "druid-timeless-body",
+        "id": "druid-timeless-body",
         "name": "Timeless Body",
         "url": "/api/2014/features/druid-timeless-body"
       },
       {
-        "index": "beast-spells",
+        "id": "beast-spells",
         "name": "Beast Spells",
         "url": "/api/2014/features/beast-spells"
       }
@@ -2652,9 +2652,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-18",
+    "id": "druid-18",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2666,7 +2666,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "druid-ability-score-improvement-5",
+        "id": "druid-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/druid-ability-score-improvement-5"
       }
@@ -2688,9 +2688,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-19",
+    "id": "druid-19",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2702,7 +2702,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "archdruid",
+        "id": "archdruid",
         "name": "Archdruid",
         "url": "/api/2014/features/archdruid"
       }
@@ -2724,9 +2724,9 @@
       "wild_shape_swim": true,
       "wild_shape_fly": true
     },
-    "index": "druid-20",
+    "id": "druid-20",
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
@@ -2738,12 +2738,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "fighter-fighting-style",
+        "id": "fighter-fighting-style",
         "name": "Fighting Style",
         "url": "/api/2014/features/fighter-fighting-style"
       },
       {
-        "index": "second-wind",
+        "id": "second-wind",
         "name": "Second Wind",
         "url": "/api/2014/features/second-wind"
       }
@@ -2753,9 +2753,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 0
     },
-    "index": "fighter-1",
+    "id": "fighter-1",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2767,7 +2767,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "action-surge-1-use",
+        "id": "action-surge-1-use",
         "name": "Action Surge (1 use)",
         "url": "/api/2014/features/action-surge-1-use"
       }
@@ -2777,9 +2777,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 0
     },
-    "index": "fighter-2",
+    "id": "fighter-2",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2791,7 +2791,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "martial-archetype",
+        "id": "martial-archetype",
         "name": "Martial Archetype",
         "url": "/api/2014/features/martial-archetype"
       }
@@ -2801,9 +2801,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 0
     },
-    "index": "fighter-3",
+    "id": "fighter-3",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2815,7 +2815,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-1",
+        "id": "fighter-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-1"
       }
@@ -2825,9 +2825,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 0
     },
-    "index": "fighter-4",
+    "id": "fighter-4",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2839,7 +2839,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "extra-attack-1",
+        "id": "extra-attack-1",
         "name": "Extra Attack",
         "url": "/api/2014/features/extra-attack-1"
       }
@@ -2849,9 +2849,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 1
     },
-    "index": "fighter-5",
+    "id": "fighter-5",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2863,7 +2863,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-2",
+        "id": "fighter-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-2"
       }
@@ -2873,9 +2873,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 1
     },
-    "index": "fighter-6",
+    "id": "fighter-6",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2887,7 +2887,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "martial-archetype-improvement-1",
+        "id": "martial-archetype-improvement-1",
         "name": "Martial Archetype feature",
         "url": "/api/2014/features/martial-archetype-improvement-1"
       }
@@ -2897,9 +2897,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 1
     },
-    "index": "fighter-7",
+    "id": "fighter-7",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2911,7 +2911,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-3",
+        "id": "fighter-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-3"
       }
@@ -2921,9 +2921,9 @@
       "indomitable_uses": 0,
       "extra_attacks": 1
     },
-    "index": "fighter-8",
+    "id": "fighter-8",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2935,7 +2935,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "indomitable-1-use",
+        "id": "indomitable-1-use",
         "name": "Indomitable (1 use)",
         "url": "/api/2014/features/indomitable-1-use"
       }
@@ -2945,9 +2945,9 @@
       "indomitable_uses": 1,
       "extra_attacks": 1
     },
-    "index": "fighter-9",
+    "id": "fighter-9",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2959,7 +2959,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "martial-archetype-improvement-2",
+        "id": "martial-archetype-improvement-2",
         "name": "Martial Archetype feature",
         "url": "/api/2014/features/martial-archetype-improvement-2"
       }
@@ -2969,9 +2969,9 @@
       "indomitable_uses": 1,
       "extra_attacks": 1
     },
-    "index": "fighter-10",
+    "id": "fighter-10",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -2983,7 +2983,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "extra-attack-2",
+        "id": "extra-attack-2",
         "name": "Extra Attack (2)",
         "url": "/api/2014/features/extra-attack-2"
       }
@@ -2993,9 +2993,9 @@
       "indomitable_uses": 1,
       "extra_attacks": 2
     },
-    "index": "fighter-11",
+    "id": "fighter-11",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3007,7 +3007,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-4",
+        "id": "fighter-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-4"
       }
@@ -3017,9 +3017,9 @@
       "indomitable_uses": 1,
       "extra_attacks": 2
     },
-    "index": "fighter-12",
+    "id": "fighter-12",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3031,7 +3031,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "indomitable-2-uses",
+        "id": "indomitable-2-uses",
         "name": "Indomitable (2 uses)",
         "url": "/api/2014/features/indomitable-2-uses"
       }
@@ -3041,9 +3041,9 @@
       "indomitable_uses": 2,
       "extra_attacks": 2
     },
-    "index": "fighter-13",
+    "id": "fighter-13",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3055,7 +3055,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-5",
+        "id": "fighter-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-5"
       }
@@ -3065,9 +3065,9 @@
       "indomitable_uses": 2,
       "extra_attacks": 2
     },
-    "index": "fighter-14",
+    "id": "fighter-14",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3079,7 +3079,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "martial-archetype-improvement-3",
+        "id": "martial-archetype-improvement-3",
         "name": "Martial Archetype feature",
         "url": "/api/2014/features/martial-archetype-improvement-3"
       }
@@ -3089,9 +3089,9 @@
       "indomitable_uses": 2,
       "extra_attacks": 2
     },
-    "index": "fighter-15",
+    "id": "fighter-15",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3103,7 +3103,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-6",
+        "id": "fighter-ability-score-improvement-6",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-6"
       }
@@ -3113,9 +3113,9 @@
       "indomitable_uses": 2,
       "extra_attacks": 2
     },
-    "index": "fighter-16",
+    "id": "fighter-16",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3127,12 +3127,12 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "action-surge-2-uses",
+        "id": "action-surge-2-uses",
         "name": "Action Surge (2 uses)",
         "url": "/api/2014/features/action-surge-2-uses"
       },
       {
-        "index": "indomitable-3-uses",
+        "id": "indomitable-3-uses",
         "name": "Indomitable (3 uses)",
         "url": "/api/2014/features/indomitable-3-uses"
       }
@@ -3142,9 +3142,9 @@
       "indomitable_uses": 3,
       "extra_attacks": 2
     },
-    "index": "fighter-17",
+    "id": "fighter-17",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3156,7 +3156,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "martial-archetype-improvement-4",
+        "id": "martial-archetype-improvement-4",
         "name": "Martial Archetype feature",
         "url": "/api/2014/features/martial-archetype-improvement-4"
       }
@@ -3166,9 +3166,9 @@
       "indomitable_uses": 3,
       "extra_attacks": 2
     },
-    "index": "fighter-18",
+    "id": "fighter-18",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3180,7 +3180,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "fighter-ability-score-improvement-7",
+        "id": "fighter-ability-score-improvement-7",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/fighter-ability-score-improvement-7"
       }
@@ -3190,9 +3190,9 @@
       "indomitable_uses": 3,
       "extra_attacks": 2
     },
-    "index": "fighter-19",
+    "id": "fighter-19",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3204,7 +3204,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "extra-attack-3",
+        "id": "extra-attack-3",
         "name": "Extra Attack (3)",
         "url": "/api/2014/features/extra-attack-3"
       }
@@ -3214,9 +3214,9 @@
       "indomitable_uses": 3,
       "extra_attacks": 3
     },
-    "index": "fighter-20",
+    "id": "fighter-20",
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
@@ -3228,12 +3228,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "monk-unarmored-defense",
+        "id": "monk-unarmored-defense",
         "name": "Unarmored Defense",
         "url": "/api/2014/features/monk-unarmored-defense"
       },
       {
-        "index": "martial-arts",
+        "id": "martial-arts",
         "name": "Martial Arts",
         "url": "/api/2014/features/martial-arts"
       }
@@ -3246,9 +3246,9 @@
       "ki_points": 0,
       "unarmored_movement": 0
     },
-    "index": "monk-1",
+    "id": "monk-1",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3260,27 +3260,27 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "ki",
+        "id": "ki",
         "name": "Ki",
         "url": "/api/2014/features/ki"
       },
       {
-        "index": "flurry-of-blows",
+        "id": "flurry-of-blows",
         "name": "Flurry of Blows",
         "url": "/api/2014/features/flurry-of-blows"
       },
       {
-        "index": "patient-defense",
+        "id": "patient-defense",
         "name": "Patient Defense",
         "url": "/api/2014/features/patient-defense"
       },
       {
-        "index": "step-of-the-wind",
+        "id": "step-of-the-wind",
         "name": "Step of the Wind",
         "url": "/api/2014/features/step-of-the-wind"
       },
       {
-        "index": "unarmored-movement-1",
+        "id": "unarmored-movement-1",
         "name": "Unarmored Movement",
         "url": "/api/2014/features/unarmored-movement-1"
       }
@@ -3293,9 +3293,9 @@
       "ki_points": 2,
       "unarmored_movement": 10
     },
-    "index": "monk-2",
+    "id": "monk-2",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3307,12 +3307,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "monastic-tradition",
+        "id": "monastic-tradition",
         "name": "Monastic Tradition",
         "url": "/api/2014/features/monastic-tradition"
       },
       {
-        "index": "deflect-missiles",
+        "id": "deflect-missiles",
         "name": "Deflect Missiles",
         "url": "/api/2014/features/deflect-missiles"
       }
@@ -3325,9 +3325,9 @@
       "ki_points": 3,
       "unarmored_movement": 10
     },
-    "index": "monk-3",
+    "id": "monk-3",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3339,12 +3339,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "monk-ability-score-improvement-1",
+        "id": "monk-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/monk-ability-score-improvement-1"
       },
       {
-        "index": "slow-fall",
+        "id": "slow-fall",
         "name": "Slow Fall",
         "url": "/api/2014/features/slow-fall"
       }
@@ -3357,9 +3357,9 @@
       "ki_points": 4,
       "unarmored_movement": 10
     },
-    "index": "monk-4",
+    "id": "monk-4",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3371,12 +3371,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "monk-extra-attack",
+        "id": "monk-extra-attack",
         "name": "Extra Attack",
         "url": "/api/2014/features/monk-extra-attack"
       },
       {
-        "index": "stunning-strike",
+        "id": "stunning-strike",
         "name": "Stunning Strike",
         "url": "/api/2014/features/stunning-strike"
       }
@@ -3389,9 +3389,9 @@
       "ki_points": 5,
       "unarmored_movement": 10
     },
-    "index": "monk-5",
+    "id": "monk-5",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3403,12 +3403,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "ki-empowered-strikes",
+        "id": "ki-empowered-strikes",
         "name": "Ki Empowered Strikes",
         "url": "/api/2014/features/ki-empowered-strikes"
       },
       {
-        "index": "monastic-tradition-improvement-1",
+        "id": "monastic-tradition-improvement-1",
         "name": "Monastic Tradition feature",
         "url": "/api/2014/features/monastic-tradition-improvement-1"
       }
@@ -3421,9 +3421,9 @@
       "ki_points": 6,
       "unarmored_movement": 15
     },
-    "index": "monk-6",
+    "id": "monk-6",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3435,12 +3435,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "monk-evasion",
+        "id": "monk-evasion",
         "name": "Evasion",
         "url": "/api/2014/features/monk-evasion"
       },
       {
-        "index": "stillness-of-mind",
+        "id": "stillness-of-mind",
         "name": "Stillness of Mind",
         "url": "/api/2014/features/stillness-of-mind"
       }
@@ -3453,9 +3453,9 @@
       "ki_points": 7,
       "unarmored_movement": 15
     },
-    "index": "monk-7",
+    "id": "monk-7",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3467,7 +3467,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "monk-ability-score-improvement-2",
+        "id": "monk-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/monk-ability-score-improvement-2"
       }
@@ -3480,9 +3480,9 @@
       "ki_points": 8,
       "unarmored_movement": 15
     },
-    "index": "monk-8",
+    "id": "monk-8",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3494,7 +3494,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "unarmored-movement-2",
+        "id": "unarmored-movement-2",
         "name": "Unarmored Movement",
         "url": "/api/2014/features/unarmored-movement-2"
       }
@@ -3507,9 +3507,9 @@
       "ki_points": 9,
       "unarmored_movement": 15
     },
-    "index": "monk-9",
+    "id": "monk-9",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3521,7 +3521,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "purity-of-body",
+        "id": "purity-of-body",
         "name": "Purity of Body",
         "url": "/api/2014/features/purity-of-body"
       }
@@ -3534,9 +3534,9 @@
       "ki_points": 10,
       "unarmored_movement": 20
     },
-    "index": "monk-10",
+    "id": "monk-10",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3548,7 +3548,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "monastic-tradition-improvement-2",
+        "id": "monastic-tradition-improvement-2",
         "name": "Monastic Tradition feature",
         "url": "/api/2014/features/monastic-tradition-improvement-2"
       }
@@ -3561,9 +3561,9 @@
       "ki_points": 11,
       "unarmored_movement": 20
     },
-    "index": "monk-11",
+    "id": "monk-11",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3575,7 +3575,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "monk-ability-score-improvement-3",
+        "id": "monk-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/monk-ability-score-improvement-3"
       }
@@ -3588,9 +3588,9 @@
       "ki_points": 12,
       "unarmored_movement": 20
     },
-    "index": "monk-12",
+    "id": "monk-12",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3602,7 +3602,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "tongue-of-the-sun-and-moon",
+        "id": "tongue-of-the-sun-and-moon",
         "name": "Tongue of the Sun and Moon",
         "url": "/api/2014/features/tongue-of-the-sun-and-moon"
       }
@@ -3615,9 +3615,9 @@
       "ki_points": 13,
       "unarmored_movement": 20
     },
-    "index": "monk-13",
+    "id": "monk-13",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3629,7 +3629,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "diamond-soul",
+        "id": "diamond-soul",
         "name": "Diamond Soul",
         "url": "/api/2014/features/diamond-soul"
       }
@@ -3642,9 +3642,9 @@
       "ki_points": 14,
       "unarmored_movement": 25
     },
-    "index": "monk-14",
+    "id": "monk-14",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3656,7 +3656,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "monk-timeless-body",
+        "id": "monk-timeless-body",
         "name": "Timeless Body",
         "url": "/api/2014/features/monk-timeless-body"
       }
@@ -3669,9 +3669,9 @@
       "ki_points": 15,
       "unarmored_movement": 25
     },
-    "index": "monk-15",
+    "id": "monk-15",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3683,7 +3683,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "monk-ability-score-improvement-4",
+        "id": "monk-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/monk-ability-score-improvement-4"
       }
@@ -3696,9 +3696,9 @@
       "ki_points": 16,
       "unarmored_movement": 25
     },
-    "index": "monk-16",
+    "id": "monk-16",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3710,7 +3710,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "monastic-tradition-improvement-3",
+        "id": "monastic-tradition-improvement-3",
         "name": "Monastic Tradition feature",
         "url": "/api/2014/features/monastic-tradition-improvement-3"
       }
@@ -3723,9 +3723,9 @@
       "ki_points": 17,
       "unarmored_movement": 25
     },
-    "index": "monk-17",
+    "id": "monk-17",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3737,7 +3737,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "empty-body",
+        "id": "empty-body",
         "name": "Empty Body",
         "url": "/api/2014/features/empty-body"
       }
@@ -3750,9 +3750,9 @@
       "ki_points": 18,
       "unarmored_movement": 30
     },
-    "index": "monk-18",
+    "id": "monk-18",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3764,7 +3764,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "monk-ability-score-improvement-5",
+        "id": "monk-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/monk-ability-score-improvement-5"
       }
@@ -3777,9 +3777,9 @@
       "ki_points": 19,
       "unarmored_movement": 30
     },
-    "index": "monk-19",
+    "id": "monk-19",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3791,7 +3791,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "perfect-self",
+        "id": "perfect-self",
         "name": "Perfect Self",
         "url": "/api/2014/features/perfect-self"
       }
@@ -3804,9 +3804,9 @@
       "ki_points": 20,
       "unarmored_movement": 30
     },
-    "index": "monk-20",
+    "id": "monk-20",
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
@@ -3818,12 +3818,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "divine-sense",
+        "id": "divine-sense",
         "name": "Divine Sense",
         "url": "/api/2014/features/divine-sense"
       },
       {
-        "index": "lay-on-hands",
+        "id": "lay-on-hands",
         "name": "Lay on Hands",
         "url": "/api/2014/features/lay-on-hands"
       }
@@ -3838,9 +3838,9 @@
     "class_specific": {
       "aura_range": 0
     },
-    "index": "paladin-1",
+    "id": "paladin-1",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -3852,17 +3852,17 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "paladin-fighting-style",
+        "id": "paladin-fighting-style",
         "name": "Fighting Style",
         "url": "/api/2014/features/paladin-fighting-style"
       },
       {
-        "index": "spellcasting-paladin",
+        "id": "spellcasting-paladin",
         "name": "Spellcasting: Paladin",
         "url": "/api/2014/features/spellcasting-paladin"
       },
       {
-        "index": "divine-smite",
+        "id": "divine-smite",
         "name": "Divine Smite",
         "url": "/api/2014/features/divine-smite"
       }
@@ -3877,9 +3877,9 @@
     "class_specific": {
       "aura_range": 0
     },
-    "index": "paladin-2",
+    "id": "paladin-2",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -3891,22 +3891,22 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "divine-health",
+        "id": "divine-health",
         "name": "Divine Health",
         "url": "/api/2014/features/divine-health"
       },
       {
-        "index": "sacred-oath",
+        "id": "sacred-oath",
         "name": "Sacred Oath",
         "url": "/api/2014/features/sacred-oath"
       },
       {
-        "index": "oath-spells",
+        "id": "oath-spells",
         "name": "Oath Spells",
         "url": "/api/2014/features/oath-spells"
       },
       {
-        "index": "channel-divinity",
+        "id": "channel-divinity",
         "name": "Channel Divinity",
         "url": "/api/2014/features/channel-divinity"
       }
@@ -3921,9 +3921,9 @@
     "class_specific": {
       "aura_range": 0
     },
-    "index": "paladin-3",
+    "id": "paladin-3",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -3935,7 +3935,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "paladin-ability-score-improvement-1",
+        "id": "paladin-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/paladin-ability-score-improvement-1"
       }
@@ -3950,9 +3950,9 @@
     "class_specific": {
       "aura_range": 0
     },
-    "index": "paladin-4",
+    "id": "paladin-4",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -3964,7 +3964,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "paladin-extra-attack",
+        "id": "paladin-extra-attack",
         "name": "Extra Attack",
         "url": "/api/2014/features/paladin-extra-attack"
       }
@@ -3979,9 +3979,9 @@
     "class_specific": {
       "aura_range": 0
     },
-    "index": "paladin-5",
+    "id": "paladin-5",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -3993,7 +3993,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "aura-of-protection",
+        "id": "aura-of-protection",
         "name": "Aura of Protection",
         "url": "/api/2014/features/aura-of-protection"
       }
@@ -4008,9 +4008,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-6",
+    "id": "paladin-6",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4022,7 +4022,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "sacred-oath-improvement-1",
+        "id": "sacred-oath-improvement-1",
         "name": "Sacred Oath feature",
         "url": "/api/2014/features/sacred-oath-improvement-1"
       }
@@ -4037,9 +4037,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-7",
+    "id": "paladin-7",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4051,7 +4051,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "paladin-ability-score-improvement-2",
+        "id": "paladin-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/paladin-ability-score-improvement-2"
       }
@@ -4066,9 +4066,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-8",
+    "id": "paladin-8",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4089,9 +4089,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-9",
+    "id": "paladin-9",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4103,7 +4103,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "aura-of-courage",
+        "id": "aura-of-courage",
         "name": "Aura of Courage",
         "url": "/api/2014/features/aura-of-courage"
       }
@@ -4118,9 +4118,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-10",
+    "id": "paladin-10",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4132,7 +4132,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "improved-divine-smite",
+        "id": "improved-divine-smite",
         "name": "Improved Divine Smite",
         "url": "/api/2014/features/improved-divine-smite"
       }
@@ -4147,9 +4147,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-11",
+    "id": "paladin-11",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4161,7 +4161,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "paladin-ability-score-improvement-3",
+        "id": "paladin-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/paladin-ability-score-improvement-3"
       }
@@ -4176,9 +4176,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-12",
+    "id": "paladin-12",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4199,9 +4199,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-13",
+    "id": "paladin-13",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4213,7 +4213,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "cleansing-touch",
+        "id": "cleansing-touch",
         "name": "Cleansing Touch",
         "url": "/api/2014/features/cleansing-touch"
       }
@@ -4228,9 +4228,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-14",
+    "id": "paladin-14",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4242,7 +4242,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "sacred-oath-improvement-2",
+        "id": "sacred-oath-improvement-2",
         "name": "Sacred Oath feature",
         "url": "/api/2014/features/sacred-oath-improvement-2"
       }
@@ -4257,9 +4257,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-15",
+    "id": "paladin-15",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4271,7 +4271,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "paladin-ability-score-improvement-4",
+        "id": "paladin-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/paladin-ability-score-improvement-4"
       }
@@ -4286,9 +4286,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-16",
+    "id": "paladin-16",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4309,9 +4309,9 @@
     "class_specific": {
       "aura_range": 10
     },
-    "index": "paladin-17",
+    "id": "paladin-17",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4323,7 +4323,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "aura-improvements",
+        "id": "aura-improvements",
         "name": "Aura improvements",
         "url": "/api/2014/features/aura-improvements"
       }
@@ -4338,9 +4338,9 @@
     "class_specific": {
       "aura_range": 30
     },
-    "index": "paladin-18",
+    "id": "paladin-18",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4352,7 +4352,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "paladin-ability-score-improvement-5",
+        "id": "paladin-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/paladin-ability-score-improvement-5"
       }
@@ -4367,9 +4367,9 @@
     "class_specific": {
       "aura_range": 30
     },
-    "index": "paladin-19",
+    "id": "paladin-19",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4381,7 +4381,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "sacred-oath-improvement-3",
+        "id": "sacred-oath-improvement-3",
         "name": "Sacred Oath feature",
         "url": "/api/2014/features/sacred-oath-improvement-3"
       }
@@ -4396,9 +4396,9 @@
     "class_specific": {
       "aura_range": 30
     },
-    "index": "paladin-20",
+    "id": "paladin-20",
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
@@ -4410,12 +4410,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "favored-enemy-1-type",
+        "id": "favored-enemy-1-type",
         "name": "Favored Enemy (1 type)",
         "url": "/api/2014/features/favored-enemy-1-type"
       },
       {
-        "index": "natural-explorer-1-terrain-type",
+        "id": "natural-explorer-1-terrain-type",
         "name": "Natural Explorer (1 terrain type)",
         "url": "/api/2014/features/natural-explorer-1-terrain-type"
       }
@@ -4432,9 +4432,9 @@
       "favored_enemies": 1,
       "favored_terrain": 1
     },
-    "index": "ranger-1",
+    "id": "ranger-1",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4446,12 +4446,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "ranger-fighting-style",
+        "id": "ranger-fighting-style",
         "name": "Fighting Style",
         "url": "/api/2014/features/ranger-fighting-style"
       },
       {
-        "index": "spellcasting-ranger",
+        "id": "spellcasting-ranger",
         "name": "Spellcasting: Ranger",
         "url": "/api/2014/features/spellcasting-ranger"
       }
@@ -4468,9 +4468,9 @@
       "favored_enemies": 1,
       "favored_terrain": 1
     },
-    "index": "ranger-2",
+    "id": "ranger-2",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4482,12 +4482,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "ranger-archetype",
+        "id": "ranger-archetype",
         "name": "Ranger Archetype",
         "url": "/api/2014/features/ranger-archetype"
       },
       {
-        "index": "primeval-awareness",
+        "id": "primeval-awareness",
         "name": "Primeval Awareness",
         "url": "/api/2014/features/primeval-awareness"
       }
@@ -4504,9 +4504,9 @@
       "favored_enemies": 1,
       "favored_terrain": 1
     },
-    "index": "ranger-3",
+    "id": "ranger-3",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4518,7 +4518,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "ranger-ability-score-improvement-1",
+        "id": "ranger-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/ranger-ability-score-improvement-1"
       }
@@ -4535,9 +4535,9 @@
       "favored_enemies": 1,
       "favored_terrain": 1
     },
-    "index": "ranger-4",
+    "id": "ranger-4",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4549,7 +4549,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "ranger-extra-attack",
+        "id": "ranger-extra-attack",
         "name": "Extra Attack",
         "url": "/api/2014/features/ranger-extra-attack"
       }
@@ -4566,9 +4566,9 @@
       "favored_enemies": 1,
       "favored_terrain": 1
     },
-    "index": "ranger-5",
+    "id": "ranger-5",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4580,12 +4580,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "favored-enemy-2-types",
+        "id": "favored-enemy-2-types",
         "name": "Favored Enemy (2 types)",
         "url": "/api/2014/features/favored-enemy-2-types"
       },
       {
-        "index": "natural-explorer-2-terrain-types",
+        "id": "natural-explorer-2-terrain-types",
         "name": "Natural Explorer (2 terrain types)",
         "url": "/api/2014/features/natural-explorer-2-terrain-types"
       }
@@ -4602,9 +4602,9 @@
       "favored_enemies": 2,
       "favored_terrain": 2
     },
-    "index": "ranger-6",
+    "id": "ranger-6",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4616,7 +4616,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "ranger-archetype-improvement-1",
+        "id": "ranger-archetype-improvement-1",
         "name": "Ranger Archetype feature",
         "url": "/api/2014/features/ranger-archetype-improvement-1"
       }
@@ -4633,9 +4633,9 @@
       "favored_enemies": 2,
       "favored_terrain": 2
     },
-    "index": "ranger-7",
+    "id": "ranger-7",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4647,12 +4647,12 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "ranger-ability-score-improvement-2",
+        "id": "ranger-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/ranger-ability-score-improvement-2"
       },
       {
-        "index": "ranger-lands-stride",
+        "id": "ranger-lands-stride",
         "name": "Land's Stride",
         "url": "/api/2014/features/ranger-lands-stride"
       }
@@ -4669,9 +4669,9 @@
       "favored_enemies": 2,
       "favored_terrain": 2
     },
-    "index": "ranger-8",
+    "id": "ranger-8",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4694,9 +4694,9 @@
       "favored_enemies": 2,
       "favored_terrain": 2
     },
-    "index": "ranger-9",
+    "id": "ranger-9",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4708,12 +4708,12 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "natural-explorer-3-terrain-types",
+        "id": "natural-explorer-3-terrain-types",
         "name": "Natural Explorer (3 terrain types)",
         "url": "/api/2014/features/natural-explorer-3-terrain-types"
       },
       {
-        "index": "hide-in-plain-sight",
+        "id": "hide-in-plain-sight",
         "name": "Hide in Plain Sight",
         "url": "/api/2014/features/hide-in-plain-sight"
       }
@@ -4730,9 +4730,9 @@
       "favored_enemies": 2,
       "favored_terrain": 3
     },
-    "index": "ranger-10",
+    "id": "ranger-10",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4744,7 +4744,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "ranger-archetype-improvement-2",
+        "id": "ranger-archetype-improvement-2",
         "name": "Ranger Archetype feature",
         "url": "/api/2014/features/ranger-archetype-improvement-2"
       }
@@ -4761,9 +4761,9 @@
       "favored_enemies": 2,
       "favored_terrain": 3
     },
-    "index": "ranger-11",
+    "id": "ranger-11",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4775,7 +4775,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "ranger-ability-score-improvement-3",
+        "id": "ranger-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/ranger-ability-score-improvement-3"
       }
@@ -4792,9 +4792,9 @@
       "favored_enemies": 2,
       "favored_terrain": 3
     },
-    "index": "ranger-12",
+    "id": "ranger-12",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4817,9 +4817,9 @@
       "favored_enemies": 2,
       "favored_terrain": 3
     },
-    "index": "ranger-13",
+    "id": "ranger-13",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4831,12 +4831,12 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "favored-enemy-3-enemies",
+        "id": "favored-enemy-3-enemies",
         "name": "Favored Enemy (3 enemies)",
         "url": "/api/2014/features/favored-enemy-3-enemies"
       },
       {
-        "index": "vanish",
+        "id": "vanish",
         "name": "Vanish",
         "url": "/api/2014/features/vanish"
       }
@@ -4853,9 +4853,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-14",
+    "id": "ranger-14",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4867,7 +4867,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "ranger-archetype-improvement-3",
+        "id": "ranger-archetype-improvement-3",
         "name": "Ranger Archetype feature",
         "url": "/api/2014/features/ranger-archetype-improvement-3"
       }
@@ -4884,9 +4884,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-15",
+    "id": "ranger-15",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4898,7 +4898,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "ranger-ability-score-improvement-4",
+        "id": "ranger-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/ranger-ability-score-improvement-4"
       }
@@ -4915,9 +4915,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-16",
+    "id": "ranger-16",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4940,9 +4940,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-17",
+    "id": "ranger-17",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4954,7 +4954,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "feral-senses",
+        "id": "feral-senses",
         "name": "Feral Senses",
         "url": "/api/2014/features/feral-senses"
       }
@@ -4971,9 +4971,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-18",
+    "id": "ranger-18",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -4985,7 +4985,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "ranger-ability-score-improvement-5",
+        "id": "ranger-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/ranger-ability-score-improvement-5"
       }
@@ -5002,9 +5002,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-19",
+    "id": "ranger-19",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -5016,7 +5016,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "foe-slayer",
+        "id": "foe-slayer",
         "name": "Foe Slayer",
         "url": "/api/2014/features/foe-slayer"
       }
@@ -5033,9 +5033,9 @@
       "favored_enemies": 3,
       "favored_terrain": 3
     },
-    "index": "ranger-20",
+    "id": "ranger-20",
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
@@ -5047,17 +5047,17 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "rogue-expertise-1",
+        "id": "rogue-expertise-1",
         "name": "Expertise",
         "url": "/api/2014/features/rogue-expertise-1"
       },
       {
-        "index": "sneak-attack",
+        "id": "sneak-attack",
         "name": "Sneak Attack",
         "url": "/api/2014/features/sneak-attack"
       },
       {
-        "index": "thieves-cant",
+        "id": "thieves-cant",
         "name": "Thieves' Cant",
         "url": "/api/2014/features/thieves-cant"
       }
@@ -5068,9 +5068,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-1",
+    "id": "rogue-1",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5082,7 +5082,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "cunning-action",
+        "id": "cunning-action",
         "name": "Cunning Action",
         "url": "/api/2014/features/cunning-action"
       }
@@ -5093,9 +5093,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-2",
+    "id": "rogue-2",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5107,7 +5107,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "roguish-archetype",
+        "id": "roguish-archetype",
         "name": "Roguish Archetype",
         "url": "/api/2014/features/roguish-archetype"
       }
@@ -5118,9 +5118,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-3",
+    "id": "rogue-3",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5132,7 +5132,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "rogue-ability-score-improvement-1",
+        "id": "rogue-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/rogue-ability-score-improvement-1"
       }
@@ -5143,9 +5143,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-4",
+    "id": "rogue-4",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5157,7 +5157,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "uncanny-dodge",
+        "id": "uncanny-dodge",
         "name": "Uncanny Dodge",
         "url": "/api/2014/features/uncanny-dodge"
       }
@@ -5168,9 +5168,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-5",
+    "id": "rogue-5",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5182,7 +5182,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "rogue-expertise-2",
+        "id": "rogue-expertise-2",
         "name": "Expertise",
         "url": "/api/2014/features/rogue-expertise-2"
       }
@@ -5193,9 +5193,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-6",
+    "id": "rogue-6",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5207,7 +5207,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "rogue-evasion",
+        "id": "rogue-evasion",
         "name": "Evasion",
         "url": "/api/2014/features/rogue-evasion"
       }
@@ -5218,9 +5218,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-7",
+    "id": "rogue-7",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5232,7 +5232,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "rogue-ability-score-improvement-2",
+        "id": "rogue-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/rogue-ability-score-improvement-2"
       }
@@ -5243,9 +5243,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-8",
+    "id": "rogue-8",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5257,7 +5257,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "roguish-archetype-improvement-1",
+        "id": "roguish-archetype-improvement-1",
         "name": "Roguish Archetype feature",
         "url": "/api/2014/features/roguish-archetype-improvement-1"
       }
@@ -5268,9 +5268,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-9",
+    "id": "rogue-9",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5282,7 +5282,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "rogue-ability-score-improvement-3",
+        "id": "rogue-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/rogue-ability-score-improvement-3"
       }
@@ -5293,9 +5293,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-10",
+    "id": "rogue-10",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5307,7 +5307,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "reliable-talent",
+        "id": "reliable-talent",
         "name": "Reliable Talent",
         "url": "/api/2014/features/reliable-talent"
       }
@@ -5318,9 +5318,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-11",
+    "id": "rogue-11",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5332,7 +5332,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "rogue-ability-score-improvement-4",
+        "id": "rogue-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/rogue-ability-score-improvement-4"
       }
@@ -5343,9 +5343,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-12",
+    "id": "rogue-12",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5357,7 +5357,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "roguish-archetype-improvement-2",
+        "id": "roguish-archetype-improvement-2",
         "name": "Roguish Archetype feature",
         "url": "/api/2014/features/roguish-archetype-improvement-2"
       }
@@ -5368,9 +5368,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-13",
+    "id": "rogue-13",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5382,7 +5382,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "blindsense",
+        "id": "blindsense",
         "name": "Blindsense",
         "url": "/api/2014/features/blindsense"
       }
@@ -5393,9 +5393,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-14",
+    "id": "rogue-14",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5407,7 +5407,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "slippery-mind",
+        "id": "slippery-mind",
         "name": "Slippery Mind",
         "url": "/api/2014/features/slippery-mind"
       }
@@ -5418,9 +5418,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-15",
+    "id": "rogue-15",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5432,7 +5432,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "rogue-ability-score-improvement-5",
+        "id": "rogue-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/rogue-ability-score-improvement-5"
       }
@@ -5443,9 +5443,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-16",
+    "id": "rogue-16",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5457,7 +5457,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "roguish-archetype-improvement-3",
+        "id": "roguish-archetype-improvement-3",
         "name": "Roguish Archetype feature",
         "url": "/api/2014/features/roguish-archetype-improvement-3"
       }
@@ -5468,9 +5468,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-17",
+    "id": "rogue-17",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5482,7 +5482,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "elusive",
+        "id": "elusive",
         "name": "Elusive",
         "url": "/api/2014/features/elusive"
       }
@@ -5493,9 +5493,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-18",
+    "id": "rogue-18",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5507,7 +5507,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "rogue-ability-score-improvement-6",
+        "id": "rogue-ability-score-improvement-6",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/rogue-ability-score-improvement-6"
       }
@@ -5518,9 +5518,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-19",
+    "id": "rogue-19",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5532,7 +5532,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "stroke-of-luck",
+        "id": "stroke-of-luck",
         "name": "Stroke of Luck",
         "url": "/api/2014/features/stroke-of-luck"
       }
@@ -5543,9 +5543,9 @@
         "dice_value": 6
       }
     },
-    "index": "rogue-20",
+    "id": "rogue-20",
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
@@ -5557,12 +5557,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "spellcasting-sorcerer",
+        "id": "spellcasting-sorcerer",
         "name": "Spellcasting: Sorcerer",
         "url": "/api/2014/features/spellcasting-sorcerer"
       },
       {
-        "index": "sorcerous-origin",
+        "id": "sorcerous-origin",
         "name": "Sorcerous Origin",
         "url": "/api/2014/features/sorcerous-origin"
       }
@@ -5585,9 +5585,9 @@
       "metamagic_known": 0,
       "creating_spell_slots": []
     },
-    "index": "sorcerer-1",
+    "id": "sorcerer-1",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5599,17 +5599,17 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "font-of-magic",
+        "id": "font-of-magic",
         "name": "Font of Magic",
         "url": "/api/2014/features/font-of-magic"
       },
       {
-        "index": "flexible-casting-creating-spell-slots",
+        "id": "flexible-casting-creating-spell-slots",
         "name": "Flexible Casting: Creating Spell Slots",
         "url": "/api/2014/features/flexible-casting-creating-spell-slots"
       },
       {
-        "index": "flexible-casting-converting-spell-slot",
+        "id": "flexible-casting-converting-spell-slot",
         "name": "Flexible Casting: Converting Spell Slot",
         "url": "/api/2014/features/flexible-casting-converting-spell-slot"
       }
@@ -5653,9 +5653,9 @@
         }
       ]
     },
-    "index": "sorcerer-2",
+    "id": "sorcerer-2",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5667,7 +5667,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "metamagic-1",
+        "id": "metamagic-1",
         "name": "Metamagic",
         "url": "/api/2014/features/metamagic-1"
       }
@@ -5711,9 +5711,9 @@
         }
       ]
     },
-    "index": "sorcerer-3",
+    "id": "sorcerer-3",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5725,7 +5725,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "sorcerer-ability-score-improvement-1",
+        "id": "sorcerer-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/sorcerer-ability-score-improvement-1"
       }
@@ -5769,9 +5769,9 @@
         }
       ]
     },
-    "index": "sorcerer-4",
+    "id": "sorcerer-4",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5821,9 +5821,9 @@
         }
       ]
     },
-    "index": "sorcerer-5",
+    "id": "sorcerer-5",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5835,7 +5835,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "sorcerous-origin-improvement-1",
+        "id": "sorcerous-origin-improvement-1",
         "name": "Sorcerous Origin feature",
         "url": "/api/2014/features/sorcerous-origin-improvement-1"
       }
@@ -5879,9 +5879,9 @@
         }
       ]
     },
-    "index": "sorcerer-6",
+    "id": "sorcerer-6",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5931,9 +5931,9 @@
         }
       ]
     },
-    "index": "sorcerer-7",
+    "id": "sorcerer-7",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -5945,7 +5945,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "sorcerer-ability-score-improvement-2",
+        "id": "sorcerer-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/sorcerer-ability-score-improvement-2"
       }
@@ -5989,9 +5989,9 @@
         }
       ]
     },
-    "index": "sorcerer-8",
+    "id": "sorcerer-8",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6041,9 +6041,9 @@
         }
       ]
     },
-    "index": "sorcerer-9",
+    "id": "sorcerer-9",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6055,7 +6055,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "metamagic-2",
+        "id": "metamagic-2",
         "name": "Metamagic",
         "url": "/api/2014/features/metamagic-2"
       }
@@ -6099,9 +6099,9 @@
         }
       ]
     },
-    "index": "sorcerer-10",
+    "id": "sorcerer-10",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6151,9 +6151,9 @@
         }
       ]
     },
-    "index": "sorcerer-11",
+    "id": "sorcerer-11",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6165,7 +6165,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "sorcerer-ability-score-improvement-3",
+        "id": "sorcerer-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/sorcerer-ability-score-improvement-3"
       }
@@ -6209,9 +6209,9 @@
         }
       ]
     },
-    "index": "sorcerer-12",
+    "id": "sorcerer-12",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6261,9 +6261,9 @@
         }
       ]
     },
-    "index": "sorcerer-13",
+    "id": "sorcerer-13",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6275,7 +6275,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "sorcerous-origin-improvement-2",
+        "id": "sorcerous-origin-improvement-2",
         "name": "Sorcerous Origin feature",
         "url": "/api/2014/features/sorcerous-origin-improvement-2"
       }
@@ -6319,9 +6319,9 @@
         }
       ]
     },
-    "index": "sorcerer-14",
+    "id": "sorcerer-14",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6371,9 +6371,9 @@
         }
       ]
     },
-    "index": "sorcerer-15",
+    "id": "sorcerer-15",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6385,7 +6385,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "sorcerer-ability-score-improvement-4",
+        "id": "sorcerer-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/sorcerer-ability-score-improvement-4"
       }
@@ -6429,9 +6429,9 @@
         }
       ]
     },
-    "index": "sorcerer-16",
+    "id": "sorcerer-16",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6443,7 +6443,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "metamagic-3",
+        "id": "metamagic-3",
         "name": "Metamagic",
         "url": "/api/2014/features/metamagic-3"
       }
@@ -6487,9 +6487,9 @@
         }
       ]
     },
-    "index": "sorcerer-17",
+    "id": "sorcerer-17",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6501,7 +6501,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "sorcerous-origin-improvement-3",
+        "id": "sorcerous-origin-improvement-3",
         "name": "Sorcerous Origin feature",
         "url": "/api/2014/features/sorcerous-origin-improvement-3"
       }
@@ -6545,9 +6545,9 @@
         }
       ]
     },
-    "index": "sorcerer-18",
+    "id": "sorcerer-18",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6559,7 +6559,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "sorcerer-ability-score-improvement-5",
+        "id": "sorcerer-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/sorcerer-ability-score-improvement-5"
       }
@@ -6603,9 +6603,9 @@
         }
       ]
     },
-    "index": "sorcerer-19",
+    "id": "sorcerer-19",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6617,7 +6617,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "sorcerous-restoration",
+        "id": "sorcerous-restoration",
         "name": "Sorcerous Restoration",
         "url": "/api/2014/features/sorcerous-restoration"
       }
@@ -6661,9 +6661,9 @@
         }
       ]
     },
-    "index": "sorcerer-20",
+    "id": "sorcerer-20",
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
@@ -6675,12 +6675,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "otherworldly-patron",
+        "id": "otherworldly-patron",
         "name": "Otherworldly Patron",
         "url": "/api/2014/features/otherworldly-patron"
       },
       {
-        "index": "pact-magic",
+        "id": "pact-magic",
         "name": "Pact Magic",
         "url": "/api/2014/features/pact-magic"
       }
@@ -6705,9 +6705,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-1",
+    "id": "warlock-1",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6719,7 +6719,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "eldritch-invocations",
+        "id": "eldritch-invocations",
         "name": "Eldritch Invocations",
         "url": "/api/2014/features/eldritch-invocations"
       }
@@ -6744,9 +6744,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-2",
+    "id": "warlock-2",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6758,7 +6758,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "pact-boon",
+        "id": "pact-boon",
         "name": "Pact Boon",
         "url": "/api/2014/features/pact-boon"
       }
@@ -6783,9 +6783,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-3",
+    "id": "warlock-3",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6797,7 +6797,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "warlock-ability-score-improvement-1",
+        "id": "warlock-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/warlock-ability-score-improvement-1"
       }
@@ -6822,9 +6822,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-4",
+    "id": "warlock-4",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6855,9 +6855,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-5",
+    "id": "warlock-5",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6869,7 +6869,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "otherworldly-patron-improvement-1",
+        "id": "otherworldly-patron-improvement-1",
         "name": "Otherworldly Patron feature",
         "url": "/api/2014/features/otherworldly-patron-improvement-1"
       }
@@ -6894,9 +6894,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-6",
+    "id": "warlock-6",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6927,9 +6927,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-7",
+    "id": "warlock-7",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6941,7 +6941,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "warlock-ability-score-improvement-2",
+        "id": "warlock-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/warlock-ability-score-improvement-2"
       }
@@ -6966,9 +6966,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-8",
+    "id": "warlock-8",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -6999,9 +6999,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-9",
+    "id": "warlock-9",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7013,7 +7013,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "otherworldly-patron-improvement-2",
+        "id": "otherworldly-patron-improvement-2",
         "name": "Otherworldly Patron feature",
         "url": "/api/2014/features/otherworldly-patron-improvement-2"
       }
@@ -7038,9 +7038,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-10",
+    "id": "warlock-10",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7052,7 +7052,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "mystic-arcanum-6th-level",
+        "id": "mystic-arcanum-6th-level",
         "name": "Mystic Arcanum (6th level)",
         "url": "/api/2014/features/mystic-arcanum-6th-level"
       }
@@ -7077,9 +7077,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-11",
+    "id": "warlock-11",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7091,7 +7091,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "warlock-ability-score-improvement-3",
+        "id": "warlock-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/warlock-ability-score-improvement-3"
       }
@@ -7116,9 +7116,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-12",
+    "id": "warlock-12",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7130,7 +7130,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "mystic-arcanum-7th-level",
+        "id": "mystic-arcanum-7th-level",
         "name": "Mystic Arcanum (7th level)",
         "url": "/api/2014/features/mystic-arcanum-7th-level"
       }
@@ -7155,9 +7155,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-13",
+    "id": "warlock-13",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7169,7 +7169,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "otherworldly-patron-improvement-3",
+        "id": "otherworldly-patron-improvement-3",
         "name": "Otherworldly Patron feature",
         "url": "/api/2014/features/otherworldly-patron-improvement-3"
       }
@@ -7194,9 +7194,9 @@
       "mystic_arcanum_level_8": 0,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-14",
+    "id": "warlock-14",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7208,7 +7208,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "mystic-arcanum-8th-level",
+        "id": "mystic-arcanum-8th-level",
         "name": "Mystic Arcanum (8th level)",
         "url": "/api/2014/features/mystic-arcanum-8th-level"
       }
@@ -7233,9 +7233,9 @@
       "mystic_arcanum_level_8": 1,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-15",
+    "id": "warlock-15",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7247,7 +7247,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "warlock-ability-score-improvement-4",
+        "id": "warlock-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/warlock-ability-score-improvement-4"
       }
@@ -7272,9 +7272,9 @@
       "mystic_arcanum_level_8": 1,
       "mystic_arcanum_level_9": 0
     },
-    "index": "warlock-16",
+    "id": "warlock-16",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7286,7 +7286,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "mystic-arcanum-9th-level",
+        "id": "mystic-arcanum-9th-level",
         "name": "Mystic Arcanum (9th level)",
         "url": "/api/2014/features/mystic-arcanum-9th-level"
       }
@@ -7311,9 +7311,9 @@
       "mystic_arcanum_level_8": 1,
       "mystic_arcanum_level_9": 1
     },
-    "index": "warlock-17",
+    "id": "warlock-17",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7344,9 +7344,9 @@
       "mystic_arcanum_level_8": 1,
       "mystic_arcanum_level_9": 1
     },
-    "index": "warlock-18",
+    "id": "warlock-18",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7358,7 +7358,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "warlock-ability-score-improvement-5",
+        "id": "warlock-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/warlock-ability-score-improvement-5"
       }
@@ -7383,9 +7383,9 @@
       "mystic_arcanum_level_8": 1,
       "mystic_arcanum_level_9": 1
     },
-    "index": "warlock-19",
+    "id": "warlock-19",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7397,7 +7397,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "eldritch-master",
+        "id": "eldritch-master",
         "name": "Eldritch Master",
         "url": "/api/2014/features/eldritch-master"
       }
@@ -7422,9 +7422,9 @@
       "mystic_arcanum_level_8": 1,
       "mystic_arcanum_level_9": 1
     },
-    "index": "warlock-20",
+    "id": "warlock-20",
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
@@ -7436,12 +7436,12 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "spellcasting-wizard",
+        "id": "spellcasting-wizard",
         "name": "Spellcasting: Wizard",
         "url": "/api/2014/features/spellcasting-wizard"
       },
       {
-        "index": "arcane-recovery",
+        "id": "arcane-recovery",
         "name": "Arcane Recovery",
         "url": "/api/2014/features/arcane-recovery"
       }
@@ -7461,9 +7461,9 @@
     "class_specific": {
       "arcane_recovery_levels": 1
     },
-    "index": "wizard-1",
+    "id": "wizard-1",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7475,7 +7475,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "arcane-tradition",
+        "id": "arcane-tradition",
         "name": "Arcane Tradition",
         "url": "/api/2014/features/arcane-tradition"
       }
@@ -7495,9 +7495,9 @@
     "class_specific": {
       "arcane_recovery_levels": 1
     },
-    "index": "wizard-2",
+    "id": "wizard-2",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7523,9 +7523,9 @@
     "class_specific": {
       "arcane_recovery_levels": 2
     },
-    "index": "wizard-3",
+    "id": "wizard-3",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7537,7 +7537,7 @@
     "prof_bonus": 2,
     "features": [
       {
-        "index": "wizard-ability-score-improvement-1",
+        "id": "wizard-ability-score-improvement-1",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/wizard-ability-score-improvement-1"
       }
@@ -7557,9 +7557,9 @@
     "class_specific": {
       "arcane_recovery_levels": 2
     },
-    "index": "wizard-4",
+    "id": "wizard-4",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7585,9 +7585,9 @@
     "class_specific": {
       "arcane_recovery_levels": 3
     },
-    "index": "wizard-5",
+    "id": "wizard-5",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7599,7 +7599,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "arcane-tradition-improvement-1",
+        "id": "arcane-tradition-improvement-1",
         "name": "Arcane Tradition feature",
         "url": "/api/2014/features/arcane-tradition-improvement-1"
       }
@@ -7619,9 +7619,9 @@
     "class_specific": {
       "arcane_recovery_levels": 3
     },
-    "index": "wizard-6",
+    "id": "wizard-6",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7647,9 +7647,9 @@
     "class_specific": {
       "arcane_recovery_levels": 4
     },
-    "index": "wizard-7",
+    "id": "wizard-7",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7661,7 +7661,7 @@
     "prof_bonus": 3,
     "features": [
       {
-        "index": "wizard-ability-score-improvement-2",
+        "id": "wizard-ability-score-improvement-2",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/wizard-ability-score-improvement-2"
       }
@@ -7681,9 +7681,9 @@
     "class_specific": {
       "arcane_recovery_levels": 4
     },
-    "index": "wizard-8",
+    "id": "wizard-8",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7709,9 +7709,9 @@
     "class_specific": {
       "arcane_recovery_levels": 5
     },
-    "index": "wizard-9",
+    "id": "wizard-9",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7723,7 +7723,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "arcane-tradition-improvement-2",
+        "id": "arcane-tradition-improvement-2",
         "name": "Arcane Tradition feature",
         "url": "/api/2014/features/arcane-tradition-improvement-2"
       }
@@ -7743,9 +7743,9 @@
     "class_specific": {
       "arcane_recovery_levels": 5
     },
-    "index": "wizard-10",
+    "id": "wizard-10",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7771,9 +7771,9 @@
     "class_specific": {
       "arcane_recovery_levels": 6
     },
-    "index": "wizard-11",
+    "id": "wizard-11",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7785,7 +7785,7 @@
     "prof_bonus": 4,
     "features": [
       {
-        "index": "wizard-ability-score-improvement-3",
+        "id": "wizard-ability-score-improvement-3",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/wizard-ability-score-improvement-3"
       }
@@ -7805,9 +7805,9 @@
     "class_specific": {
       "arcane_recovery_levels": 6
     },
-    "index": "wizard-12",
+    "id": "wizard-12",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7833,9 +7833,9 @@
     "class_specific": {
       "arcane_recovery_levels": 7
     },
-    "index": "wizard-13",
+    "id": "wizard-13",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7847,7 +7847,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "arcane-tradition-improvement-3",
+        "id": "arcane-tradition-improvement-3",
         "name": "Arcane Tradition feature",
         "url": "/api/2014/features/arcane-tradition-improvement-3"
       }
@@ -7867,9 +7867,9 @@
     "class_specific": {
       "arcane_recovery_levels": 7
     },
-    "index": "wizard-14",
+    "id": "wizard-14",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7895,9 +7895,9 @@
     "class_specific": {
       "arcane_recovery_levels": 8
     },
-    "index": "wizard-15",
+    "id": "wizard-15",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7909,7 +7909,7 @@
     "prof_bonus": 5,
     "features": [
       {
-        "index": "wizard-ability-score-improvement-4",
+        "id": "wizard-ability-score-improvement-4",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/wizard-ability-score-improvement-4"
       }
@@ -7929,9 +7929,9 @@
     "class_specific": {
       "arcane_recovery_levels": 8
     },
-    "index": "wizard-16",
+    "id": "wizard-16",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7957,9 +7957,9 @@
     "class_specific": {
       "arcane_recovery_levels": 9
     },
-    "index": "wizard-17",
+    "id": "wizard-17",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -7971,7 +7971,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "spell-mastery",
+        "id": "spell-mastery",
         "name": "Spell Mastery",
         "url": "/api/2014/features/spell-mastery"
       }
@@ -7991,9 +7991,9 @@
     "class_specific": {
       "arcane_recovery_levels": 9
     },
-    "index": "wizard-18",
+    "id": "wizard-18",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -8005,7 +8005,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "wizard-ability-score-improvement-5",
+        "id": "wizard-ability-score-improvement-5",
         "name": "Ability Score Improvement",
         "url": "/api/2014/features/wizard-ability-score-improvement-5"
       }
@@ -8025,9 +8025,9 @@
     "class_specific": {
       "arcane_recovery_levels": 10
     },
-    "index": "wizard-19",
+    "id": "wizard-19",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -8039,7 +8039,7 @@
     "prof_bonus": 6,
     "features": [
       {
-        "index": "signature-spell",
+        "id": "signature-spell",
         "name": "Signature Spell",
         "url": "/api/2014/features/signature-spell"
       }
@@ -8059,9 +8059,9 @@
     "class_specific": {
       "arcane_recovery_levels": 10
     },
-    "index": "wizard-20",
+    "id": "wizard-20",
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
@@ -8071,41 +8071,41 @@
     "level": 3,
     "features": [
       {
-        "index": "frenzy",
+        "id": "frenzy",
         "name": "Frenzy",
         "url": "/api/2014/features/frenzy"
       }
     ],
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
     "subclass": {
-      "index": "berserker",
+      "id": "berserker",
       "name": "Berserker",
       "url": "/api/2014/subclasses/berserker"
     },
     "url": "/api/2014/subclasses/berserker/levels/3",
-    "index": "berserker-3"
+    "id": "berserker-3"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "mindless-rage",
+        "id": "mindless-rage",
         "name": "Mindless Rage",
         "url": "/api/2014/features/mindless-rage"
       }
     ],
-    "index": "berserker-6",
+    "id": "berserker-6",
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
     "subclass": {
-      "index": "berserker",
+      "id": "berserker",
       "name": "Berserker",
       "url": "/api/2014/subclasses/berserker"
     },
@@ -8115,56 +8115,56 @@
     "level": 10,
     "features": [
       {
-        "index": "intimidating-presence",
+        "id": "intimidating-presence",
         "name": "Intimidating Presence",
         "url": "/api/2014/features/intimidating-presence"
       }
     ],
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
     "subclass": {
-      "index": "berserker",
+      "id": "berserker",
       "name": "Berserker",
       "url": "/api/2014/subclasses/berserker"
     },
     "url": "/api/2014/subclasses/berserker/levels/10",
-    "index": "berserker-10"
+    "id": "berserker-10"
   },
   {
     "level": 14,
     "features": [
       {
-        "index": "retaliation",
+        "id": "retaliation",
         "name": "Retaliation",
         "url": "/api/2014/features/retaliation"
       }
     ],
     "class": {
-      "index": "barbarian",
+      "id": "barbarian",
       "name": "Barbarian",
       "url": "/api/2014/classes/barbarian"
     },
     "subclass": {
-      "index": "berserker",
+      "id": "berserker",
       "name": "Berserker",
       "url": "/api/2014/subclasses/berserker"
     },
     "url": "/api/2014/subclasses/berserker/levels/14",
-    "index": "berserker-14"
+    "id": "berserker-14"
   },
   {
     "level": 3,
     "features": [
       {
-        "index": "bonus-proficiencies",
+        "id": "bonus-proficiencies",
         "name": "Bonus Proficiencies",
         "url": "/api/2014/features/bonus-proficiencies"
       },
       {
-        "index": "cutting-words",
+        "id": "cutting-words",
         "name": "Cutting Words",
         "url": "/api/2014/features/cutting-words"
       }
@@ -8173,23 +8173,23 @@
       "additional_magical_secrets_max_lvl": 0
     },
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
     "subclass": {
-      "index": "lore",
+      "id": "lore",
       "name": "Lore",
       "url": "/api/2014/subclasses/lore"
     },
     "url": "/api/2014/subclasses/lore/levels/3",
-    "index": "lore-3"
+    "id": "lore-3"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "additional-magical-secrets",
+        "id": "additional-magical-secrets",
         "name": "Additional Magical Secrets",
         "url": "/api/2014/features/additional-magical-secrets"
       }
@@ -8198,23 +8198,23 @@
       "additional_magical_secrets_max_lvl": 3
     },
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
     "subclass": {
-      "index": "lore",
+      "id": "lore",
       "name": "Lore",
       "url": "/api/2014/subclasses/lore"
     },
     "url": "/api/2014/subclasses/lore/levels/6",
-    "index": "lore-6"
+    "id": "lore-6"
   },
   {
     "level": 14,
     "features": [
       {
-        "index": "peerless-skill",
+        "id": "peerless-skill",
         "name": "Peerless Skill",
         "url": "/api/2014/features/peerless-skill"
       }
@@ -8223,456 +8223,456 @@
       "additional_magical_secrets_max_lvl": 3
     },
     "class": {
-      "index": "bard",
+      "id": "bard",
       "name": "Bard",
       "url": "/api/2014/classes/bard"
     },
     "subclass": {
-      "index": "lore",
+      "id": "lore",
       "name": "Lore",
       "url": "/api/2014/subclasses/lore"
     },
     "url": "/api/2014/subclasses/lore/levels/14",
-    "index": "lore-14"
+    "id": "lore-14"
   },
   {
     "level": 1,
     "features": [
       {
-        "index": "bonus-proficiency",
+        "id": "bonus-proficiency",
         "name": "Bonus Proficiency",
         "url": "/api/2014/features/bonus-proficiency"
       },
       {
-        "index": "disciple-of-life",
+        "id": "disciple-of-life",
         "name": "Disciple of Life",
         "url": "/api/2014/features/disciple-of-life"
       }
     ],
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
     "subclass": {
-      "index": "life",
+      "id": "life",
       "name": "Life",
       "url": "/api/2014/subclasses/life"
     },
     "url": "/api/2014/subclasses/life/levels/1",
-    "index": "life-1"
+    "id": "life-1"
   },
   {
     "level": 2,
     "features": [
       {
-        "index": "channel-divinity-preserve-life",
+        "id": "channel-divinity-preserve-life",
         "name": "Channel Divinity: Preserve Life",
         "url": "/api/2014/features/channel-divinity-preserve-life"
       }
     ],
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
     "subclass": {
-      "index": "life",
+      "id": "life",
       "name": "Life",
       "url": "/api/2014/subclasses/life"
     },
     "url": "/api/2014/subclasses/life/levels/2",
-    "index": "life-2"
+    "id": "life-2"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "blessed-healer",
+        "id": "blessed-healer",
         "name": "Blessed Healer",
         "url": "/api/2014/features/blessed-healer"
       }
     ],
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
     "subclass": {
-      "index": "life",
+      "id": "life",
       "name": "Life",
       "url": "/api/2014/subclasses/life"
     },
     "url": "/api/2014/subclasses/life/levels/6",
-    "index": "life-6"
+    "id": "life-6"
   },
   {
     "level": 8,
     "features": [
       {
-        "index": "divine-strike",
+        "id": "divine-strike",
         "name": "Divine Strike",
         "url": "/api/2014/features/divine-strike"
       }
     ],
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
     "subclass": {
-      "index": "life",
+      "id": "life",
       "name": "Life",
       "url": "/api/2014/subclasses/life"
     },
     "url": "/api/2014/subclasses/life/levels/8",
-    "index": "life-8"
+    "id": "life-8"
   },
   {
     "level": 17,
     "features": [
       {
-        "index": "supreme-healing",
+        "id": "supreme-healing",
         "name": "Supreme Healing",
         "url": "/api/2014/features/supreme-healing"
       }
     ],
     "class": {
-      "index": "cleric",
+      "id": "cleric",
       "name": "Cleric",
       "url": "/api/2014/classes/cleric"
     },
     "subclass": {
-      "index": "life",
+      "id": "life",
       "name": "Life",
       "url": "/api/2014/subclasses/life"
     },
     "url": "/api/2014/subclasses/life/levels/17",
-    "index": "life-17"
+    "id": "life-17"
   },
   {
     "level": 2,
     "features": [
       {
-        "index": "bonus-cantrip",
+        "id": "bonus-cantrip",
         "name": "Bonus Cantrip",
         "url": "/api/2014/features/bonus-cantrip"
       },
       {
-        "index": "natural-recovery",
+        "id": "natural-recovery",
         "name": "Natural Recovery",
         "url": "/api/2014/features/natural-recovery"
       }
     ],
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
     "subclass": {
-      "index": "land",
+      "id": "land",
       "name": "Land",
       "url": "/api/2014/subclasses/land"
     },
     "url": "/api/2014/subclasses/land/levels/2",
-    "index": "land-2"
+    "id": "land-2"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "druid-lands-stride",
+        "id": "druid-lands-stride",
         "name": "Land's Stride",
         "url": "/api/2014/features/druid-lands-stride"
       }
     ],
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
     "subclass": {
-      "index": "land",
+      "id": "land",
       "name": "Land",
       "url": "/api/2014/subclasses/land"
     },
     "url": "/api/2014/subclasses/land/levels/6",
-    "index": "land-6"
+    "id": "land-6"
   },
   {
     "level": 10,
     "features": [
       {
-        "index": "natures-ward",
+        "id": "natures-ward",
         "name": "Nature's Ward",
         "url": "/api/2014/features/natures-ward"
       }
     ],
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
     "subclass": {
-      "index": "land",
+      "id": "land",
       "name": "Land",
       "url": "/api/2014/subclasses/land"
     },
     "url": "/api/2014/subclasses/land/levels/10",
-    "index": "land-10"
+    "id": "land-10"
   },
   {
     "level": 14,
     "features": [
       {
-        "index": "natures-sanctuary",
+        "id": "natures-sanctuary",
         "name": "Nature's Sanctuary",
         "url": "/api/2014/features/natures-sanctuary"
       }
     ],
     "class": {
-      "index": "druid",
+      "id": "druid",
       "name": "Druid",
       "url": "/api/2014/classes/druid"
     },
     "subclass": {
-      "index": "land",
+      "id": "land",
       "name": "Land",
       "url": "/api/2014/subclasses/land"
     },
     "url": "/api/2014/subclasses/land/levels/14",
-    "index": "land-14"
+    "id": "land-14"
   },
   {
     "level": 3,
     "features": [
       {
-        "index": "improved-critical",
+        "id": "improved-critical",
         "name": "Improved Critical",
         "url": "/api/2014/features/improved-critical"
       }
     ],
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
     "subclass": {
-      "index": "champion",
+      "id": "champion",
       "name": "Champion",
       "url": "/api/2014/subclasses/champion"
     },
     "url": "/api/2014/subclasses/champion/levels/3",
-    "index": "champion-3"
+    "id": "champion-3"
   },
   {
     "level": 7,
     "features": [
       {
-        "index": "remarkable-athlete",
+        "id": "remarkable-athlete",
         "name": "Remarkable Athlete",
         "url": "/api/2014/features/remarkable-athlete"
       }
     ],
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
     "subclass": {
-      "index": "champion",
+      "id": "champion",
       "name": "Champion",
       "url": "/api/2014/subclasses/champion"
     },
     "url": "/api/2014/subclasses/champion/levels/7",
-    "index": "champion-7"
+    "id": "champion-7"
   },
   {
     "level": 10,
     "features": [
       {
-        "index": "additional-fighting-style",
+        "id": "additional-fighting-style",
         "name": "Additional Fighting Style",
         "url": "/api/2014/features/additional-fighting-style"
       }
     ],
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
     "subclass": {
-      "index": "champion",
+      "id": "champion",
       "name": "Champion",
       "url": "/api/2014/subclasses/champion"
     },
     "url": "/api/2014/subclasses/champion/levels/10",
-    "index": "champion-10"
+    "id": "champion-10"
   },
   {
     "level": 15,
     "features": [
       {
-        "index": "superior-critical",
+        "id": "superior-critical",
         "name": "Superior Critical",
         "url": "/api/2014/features/superior-critical"
       }
     ],
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
     "subclass": {
-      "index": "champion",
+      "id": "champion",
       "name": "Champion",
       "url": "/api/2014/subclasses/champion"
     },
     "url": "/api/2014/subclasses/champion/levels/15",
-    "index": "champion-15"
+    "id": "champion-15"
   },
   {
     "level": 18,
     "features": [
       {
-        "index": "survivor",
+        "id": "survivor",
         "name": "Survivor",
         "url": "/api/2014/features/survivor"
       }
     ],
     "class": {
-      "index": "fighter",
+      "id": "fighter",
       "name": "Fighter",
       "url": "/api/2014/classes/fighter"
     },
     "subclass": {
-      "index": "champion",
+      "id": "champion",
       "name": "Champion",
       "url": "/api/2014/subclasses/champion"
     },
     "url": "/api/2014/subclasses/champion/levels/18",
-    "index": "champion-18"
+    "id": "champion-18"
   },
   {
     "level": 3,
     "features": [
       {
-        "index": "open-hand-technique",
+        "id": "open-hand-technique",
         "name": "Open Hand Technique",
         "url": "/api/2014/features/open-hand-technique"
       }
     ],
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
     "subclass": {
-      "index": "open-hand",
+      "id": "open-hand",
       "name": "Open Hand",
       "url": "/api/2014/subclasses/open-hand"
     },
     "url": "/api/2014/subclasses/open-hand/levels/3",
-    "index": "open-hand-3"
+    "id": "open-hand-3"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "wholeness-of-body",
+        "id": "wholeness-of-body",
         "name": "Wholeness of Body",
         "url": "/api/2014/features/wholeness-of-body"
       }
     ],
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
     "subclass": {
-      "index": "open-hand",
+      "id": "open-hand",
       "name": "Open Hand",
       "url": "/api/2014/subclasses/open-hand"
     },
     "url": "/api/2014/subclasses/open-hand/levels/6",
-    "index": "open-hand-6"
+    "id": "open-hand-6"
   },
   {
     "level": 11,
     "features": [
       {
-        "index": "tranquility",
+        "id": "tranquility",
         "name": "Tranquility",
         "url": "/api/2014/features/tranquility"
       }
     ],
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
     "subclass": {
-      "index": "open-hand",
+      "id": "open-hand",
       "name": "Open Hand",
       "url": "/api/2014/subclasses/open-hand"
     },
     "url": "/api/2014/subclasses/open-hand/levels/11",
-    "index": "open-hand-11"
+    "id": "open-hand-11"
   },
   {
     "level": 17,
     "features": [
       {
-        "index": "quivering-palm",
+        "id": "quivering-palm",
         "name": "Quivering Palm",
         "url": "/api/2014/features/quivering-palm"
       }
     ],
     "class": {
-      "index": "monk",
+      "id": "monk",
       "name": "Monk",
       "url": "/api/2014/classes/monk"
     },
     "subclass": {
-      "index": "open-hand",
+      "id": "open-hand",
       "name": "Open Hand",
       "url": "/api/2014/subclasses/open-hand"
     },
     "url": "/api/2014/subclasses/open-hand/levels/17",
-    "index": "open-hand-17"
+    "id": "open-hand-17"
   },
   {
     "level": 3,
     "features": [
       {
-        "index": "channel-divinity-sacred-weapon",
+        "id": "channel-divinity-sacred-weapon",
         "name": "Channel Divinity: Sacred Weapon",
         "url": "/api/2014/features/channel-divinity-sacred-weapon"
       },
       {
-        "index": "channel-divinity-turn-the-unholy",
+        "id": "channel-divinity-turn-the-unholy",
         "name": "Channel Divinity: Turn the Unholy",
         "url": "/api/2014/features/channel-divinity-turn-the-unholy"
       }
     ],
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
     "subclass": {
-      "index": "devotion",
+      "id": "devotion",
       "name": "Devotion",
       "url": "/api/2014/subclasses/devotion"
     },
     "url": "/api/2014/subclasses/devotion/levels/3",
-    "index": "devotion-3"
+    "id": "devotion-3"
   },
   {
     "level": 7,
     "features": [
       {
-        "index": "aura-of-devotion",
+        "id": "aura-of-devotion",
         "name": "Aura of Devotion",
         "url": "/api/2014/features/aura-of-devotion"
       }
@@ -8681,23 +8681,23 @@
       "aura_range": 10
     },
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
     "subclass": {
-      "index": "devotion",
+      "id": "devotion",
       "name": "Devotion",
       "url": "/api/2014/subclasses/devotion"
     },
     "url": "/api/2014/subclasses/devotion/levels/7",
-    "index": "devotion-7"
+    "id": "devotion-7"
   },
   {
     "level": 15,
     "features": [
       {
-        "index": "purity-of-spirit",
+        "id": "purity-of-spirit",
         "name": "Purity of Spirit",
         "url": "/api/2014/features/purity-of-spirit"
       }
@@ -8706,17 +8706,17 @@
       "aura_range": 10
     },
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
     "subclass": {
-      "index": "devotion",
+      "id": "devotion",
       "name": "Devotion",
       "url": "/api/2014/subclasses/devotion"
     },
     "url": "/api/2014/subclasses/devotion/levels/15",
-    "index": "devotion-15"
+    "id": "devotion-15"
   },
   {
     "level": 18,
@@ -8725,23 +8725,23 @@
       "aura_range": 30
     },
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
     "subclass": {
-      "index": "devotion",
+      "id": "devotion",
       "name": "Devotion",
       "url": "/api/2014/subclasses/devotion"
     },
     "url": "/api/2014/subclasses/devotion/levels/18",
-    "index": "devotion-18"
+    "id": "devotion-18"
   },
   {
     "level": 20,
     "features": [
       {
-        "index": "holy-nimbus",
+        "id": "holy-nimbus",
         "name": "Holy Nimbus",
         "url": "/api/2014/features/holy-nimbus"
       }
@@ -8750,471 +8750,471 @@
       "aura_range": 30
     },
     "class": {
-      "index": "paladin",
+      "id": "paladin",
       "name": "Paladin",
       "url": "/api/2014/classes/paladin"
     },
     "subclass": {
-      "index": "devotion",
+      "id": "devotion",
       "name": "Devotion",
       "url": "/api/2014/subclasses/devotion"
     },
     "url": "/api/2014/subclasses/devotion/levels/20",
-    "index": "devotion-20"
+    "id": "devotion-20"
   },
   {
     "level": 3,
     "features": [
       {
-        "index": "hunters-prey",
+        "id": "hunters-prey",
         "name": "Hunter's Prey",
         "url": "/api/2014/features/hunters-prey"
       }
     ],
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
     "subclass": {
-      "index": "hunter",
+      "id": "hunter",
       "name": "Hunter",
       "url": "/api/2014/subclasses/hunter"
     },
     "url": "/api/2014/subclasses/hunter/levels/3",
-    "index": "hunter-3"
+    "id": "hunter-3"
   },
   {
     "level": 7,
     "features": [
       {
-        "index": "defensive-tactics",
+        "id": "defensive-tactics",
         "name": "Defensive Tactics",
         "url": "/api/2014/features/defensive-tactics"
       }
     ],
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
     "subclass": {
-      "index": "hunter",
+      "id": "hunter",
       "name": "Hunter",
       "url": "/api/2014/subclasses/hunter"
     },
     "url": "/api/2014/subclasses/hunter/levels/7",
-    "index": "hunter-7"
+    "id": "hunter-7"
   },
   {
     "level": 11,
     "features": [
       {
-        "index": "multiattack",
+        "id": "multiattack",
         "name": "Multiattack",
         "url": "/api/2014/features/multiattack"
       }
     ],
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
     "subclass": {
-      "index": "hunter",
+      "id": "hunter",
       "name": "Hunter",
       "url": "/api/2014/subclasses/hunter"
     },
     "url": "/api/2014/subclasses/hunter/levels/11",
-    "index": "hunter-11"
+    "id": "hunter-11"
   },
   {
     "level": 15,
     "features": [
       {
-        "index": "superior-hunters-defense",
+        "id": "superior-hunters-defense",
         "name": "Superior Hunter's Defense",
         "url": "/api/2014/features/superior-hunters-defense"
       }
     ],
     "class": {
-      "index": "ranger",
+      "id": "ranger",
       "name": "Ranger",
       "url": "/api/2014/classes/ranger"
     },
     "subclass": {
-      "index": "hunter",
+      "id": "hunter",
       "name": "Hunter",
       "url": "/api/2014/subclasses/hunter"
     },
     "url": "/api/2014/subclasses/hunter/levels/15",
-    "index": "hunter-15"
+    "id": "hunter-15"
   },
   {
     "level": 3,
     "features": [
       {
-        "index": "fast-hands",
+        "id": "fast-hands",
         "name": "Fast Hands",
         "url": "/api/2014/features/fast-hands"
       },
       {
-        "index": "second-story-work",
+        "id": "second-story-work",
         "name": "Second-Story Work",
         "url": "/api/2014/features/second-story-work"
       }
     ],
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
     "subclass": {
-      "index": "thief",
+      "id": "thief",
       "name": "Thief",
       "url": "/api/2014/subclasses/thief"
     },
     "url": "/api/2014/subclasses/thief/levels/3",
-    "index": "thief-3"
+    "id": "thief-3"
   },
   {
     "level": 9,
     "features": [
       {
-        "index": "supreme-sneak",
+        "id": "supreme-sneak",
         "name": "Supreme Sneak",
         "url": "/api/2014/features/supreme-sneak"
       }
     ],
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
     "subclass": {
-      "index": "thief",
+      "id": "thief",
       "name": "Thief",
       "url": "/api/2014/subclasses/thief"
     },
     "url": "/api/2014/subclasses/thief/levels/9",
-    "index": "thief-9"
+    "id": "thief-9"
   },
   {
     "level": 13,
     "features": [
       {
-        "index": "use-magic-device",
+        "id": "use-magic-device",
         "name": "Use Magic Device",
         "url": "/api/2014/features/use-magic-device"
       }
     ],
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
     "subclass": {
-      "index": "thief",
+      "id": "thief",
       "name": "Thief",
       "url": "/api/2014/subclasses/thief"
     },
     "url": "/api/2014/subclasses/thief/levels/13",
-    "index": "thief-13"
+    "id": "thief-13"
   },
   {
     "level": 17,
     "features": [
       {
-        "index": "thiefs-reflexes",
+        "id": "thiefs-reflexes",
         "name": "Thief's Reflexes",
         "url": "/api/2014/features/thiefs-reflexes"
       }
     ],
     "class": {
-      "index": "rogue",
+      "id": "rogue",
       "name": "Rogue",
       "url": "/api/2014/classes/rogue"
     },
     "subclass": {
-      "index": "thief",
+      "id": "thief",
       "name": "Thief",
       "url": "/api/2014/subclasses/thief"
     },
     "url": "/api/2014/subclasses/thief/levels/17",
-    "index": "thief-17"
+    "id": "thief-17"
   },
   {
     "level": 1,
     "features": [
       {
-        "index": "dragon-ancestor",
+        "id": "dragon-ancestor",
         "name": "Dragon Ancestor",
         "url": "/api/2014/features/dragon-ancestor"
       },
       {
-        "index": "draconic-resilience",
+        "id": "draconic-resilience",
         "name": "Draconic Resilience",
         "url": "/api/2014/features/draconic-resilience"
       }
     ],
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
     "subclass": {
-      "index": "draconic",
+      "id": "draconic",
       "name": "Draconic",
       "url": "/api/2014/subclasses/draconic"
     },
     "url": "/api/2014/subclasses/draconic/levels/1",
-    "index": "draconic-1"
+    "id": "draconic-1"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "elemental-affinity",
+        "id": "elemental-affinity",
         "name": "Elemental Affinity",
         "url": "/api/2014/features/elemental-affinity"
       }
     ],
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
     "subclass": {
-      "index": "draconic",
+      "id": "draconic",
       "name": "Draconic",
       "url": "/api/2014/subclasses/draconic"
     },
     "url": "/api/2014/subclasses/draconic/levels/6",
-    "index": "draconic-6"
+    "id": "draconic-6"
   },
   {
     "level": 14,
     "features": [
       {
-        "index": "dragon-wings",
+        "id": "dragon-wings",
         "name": "Dragon Wings",
         "url": "/api/2014/features/dragon-wings"
       }
     ],
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
     "subclass": {
-      "index": "draconic",
+      "id": "draconic",
       "name": "Draconic",
       "url": "/api/2014/subclasses/draconic"
     },
     "url": "/api/2014/subclasses/draconic/levels/14",
-    "index": "draconic-14"
+    "id": "draconic-14"
   },
   {
     "level": 18,
     "features": [
       {
-        "index": "draconic-presence",
+        "id": "draconic-presence",
         "name": "Draconic Presence",
         "url": "/api/2014/features/draconic-presence"
       }
     ],
     "class": {
-      "index": "sorcerer",
+      "id": "sorcerer",
       "name": "Sorcerer",
       "url": "/api/2014/classes/sorcerer"
     },
     "subclass": {
-      "index": "draconic",
+      "id": "draconic",
       "name": "Draconic",
       "url": "/api/2014/subclasses/draconic"
     },
     "url": "/api/2014/subclasses/draconic/levels/18",
-    "index": "draconic-18"
+    "id": "draconic-18"
   },
   {
     "level": 1,
     "features": [
       {
-        "index": "dark-ones-blessing",
+        "id": "dark-ones-blessing",
         "name": "Dark One's Blessing",
         "url": "/api/2014/features/dark-ones-blessing"
       }
     ],
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
     "subclass": {
-      "index": "fiend",
+      "id": "fiend",
       "name": "Fiend",
       "url": "/api/2014/subclasses/fiend"
     },
     "url": "/api/2014/subclasses/fiend/levels/1",
-    "index": "fiend-1"
+    "id": "fiend-1"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "dark-ones-own-luck",
+        "id": "dark-ones-own-luck",
         "name": "Dark One's Own Luck",
         "url": "/api/2014/features/dark-ones-own-luck"
       }
     ],
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
     "subclass": {
-      "index": "fiend",
+      "id": "fiend",
       "name": "Fiend",
       "url": "/api/2014/subclasses/fiend"
     },
     "url": "/api/2014/subclasses/fiend/levels/6",
-    "index": "fiend-6"
+    "id": "fiend-6"
   },
   {
     "level": 10,
     "features": [
       {
-        "index": "fiendish-resilience",
+        "id": "fiendish-resilience",
         "name": "Fiendish Resilience",
         "url": "/api/2014/features/fiendish-resilience"
       }
     ],
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
     "subclass": {
-      "index": "fiend",
+      "id": "fiend",
       "name": "Fiend",
       "url": "/api/2014/subclasses/fiend"
     },
     "url": "/api/2014/subclasses/fiend/levels/10",
-    "index": "fiend-10"
+    "id": "fiend-10"
   },
   {
     "level": 14,
     "features": [
       {
-        "index": "hurl-through-hell",
+        "id": "hurl-through-hell",
         "name": "Hurl Through Hell",
         "url": "/api/2014/features/hurl-through-hell"
       }
     ],
     "class": {
-      "index": "warlock",
+      "id": "warlock",
       "name": "Warlock",
       "url": "/api/2014/classes/warlock"
     },
     "subclass": {
-      "index": "fiend",
+      "id": "fiend",
       "name": "Fiend",
       "url": "/api/2014/subclasses/fiend"
     },
     "url": "/api/2014/subclasses/fiend/levels/14",
-    "index": "fiend-14"
+    "id": "fiend-14"
   },
   {
     "level": 2,
     "features": [
       {
-        "index": "evocation-savant",
+        "id": "evocation-savant",
         "name": "Evocation Savant",
         "url": "/api/2014/features/evocation-savant"
       },
       {
-        "index": "sculpt-spells",
+        "id": "sculpt-spells",
         "name": "Sculpt Spells",
         "url": "/api/2014/features/sculpt-spells"
       }
     ],
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
     "subclass": {
-      "index": "evocation",
+      "id": "evocation",
       "name": "Evocation",
       "url": "/api/2014/subclasses/evocation"
     },
     "url": "/api/2014/subclasses/evocation/levels/2",
-    "index": "evocation-2"
+    "id": "evocation-2"
   },
   {
     "level": 6,
     "features": [
       {
-        "index": "potent-cantrip",
+        "id": "potent-cantrip",
         "name": "Potent Cantrip",
         "url": "/api/2014/features/potent-cantrip"
       }
     ],
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
     "subclass": {
-      "index": "evocation",
+      "id": "evocation",
       "name": "Evocation",
       "url": "/api/2014/subclasses/evocation"
     },
     "url": "/api/2014/subclasses/evocation/levels/6",
-    "index": "evocation-6"
+    "id": "evocation-6"
   },
   {
     "level": 10,
     "features": [
       {
-        "index": "empowered-evocation",
+        "id": "empowered-evocation",
         "name": "Empowered Evocation",
         "url": "/api/2014/features/empowered-evocation"
       }
     ],
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
     "subclass": {
-      "index": "evocation",
+      "id": "evocation",
       "name": "Evocation",
       "url": "/api/2014/subclasses/evocation"
     },
     "url": "/api/2014/subclasses/evocation/levels/10",
-    "index": "evocation-10"
+    "id": "evocation-10"
   },
   {
     "level": 14,
     "features": [
       {
-        "index": "overchannel",
+        "id": "overchannel",
         "name": "Overchannel",
         "url": "/api/2014/features/overchannel"
       }
     ],
     "class": {
-      "index": "wizard",
+      "id": "wizard",
       "name": "Wizard",
       "url": "/api/2014/classes/wizard"
     },
     "subclass": {
-      "index": "evocation",
+      "id": "evocation",
       "name": "Evocation",
       "url": "/api/2014/subclasses/evocation"
     },
     "url": "/api/2014/subclasses/evocation/levels/14",
-    "index": "evocation-14"
+    "id": "evocation-14"
   }
 ]
