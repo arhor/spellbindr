@@ -2,16 +2,16 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,25 +19,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 
-private val backgrounds = listOf(
-    "Acolyte",
-    "Charlatan",
-    "Criminal",
-    "Entertainer",
-    "Folk Hero",
-    "Guild Artisan",
-    "Hermit",
-    "Noble",
-    "Outlander",
-    "Sage",
-    "Sailor",
-    "Soldier",
-    "Urchin"
-)
 private val alignments = listOf(
     "Lawful Good", "Neutral Good", "Chaotic Good",
     "Lawful Neutral", "True Neutral", "Chaotic Neutral",
@@ -47,102 +33,65 @@ private val alignments = listOf(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NameAndBackgroundScreen(
-    onNext: () -> Unit = {},
-    viewModel: CharacterCreationViewModel = hiltViewModel()
+    onNext: () -> Unit,
+    viewModel: CharacterCreationViewModel,
 ) {
     val state by viewModel.state.collectAsState()
-    var backgroundExpanded = remember { mutableStateOf(false) }
-    var alignmentExpanded = remember { mutableStateOf(false) }
-
-    val isNextEnabled = state.name.isNotBlank() && state.background.isNotBlank()
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text("Step 1 of 9: Name & Background", style = MaterialTheme.typography.titleLarge)
         OutlinedTextField(
-            value = state.name,
-            onValueChange = viewModel::onNameChanged,
-            label = { Text("Character Name*") },
-            singleLine = true,
+            value = state.characterName,
+            onValueChange = { viewModel.handleEvent(CharacterCreationEvent.NameChanged(it)) },
+            label = { Text("Character Name") },
             modifier = Modifier.fillMaxWidth()
         )
+
+        var expanded by remember { mutableStateOf(false) }
+
         ExposedDropdownMenuBox(
-            expanded = backgroundExpanded.value,
-            onExpandedChange = { backgroundExpanded.value = !backgroundExpanded.value }
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded }
         ) {
             OutlinedTextField(
-                value = state.background,
+                value = state.background?.name ?: "",
                 onValueChange = {},
                 readOnly = true,
-                label = { Text("Background*") },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = backgroundExpanded.value) },
+                label = { Text("Background") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                 modifier = Modifier
-                    .menuAnchor()
                     .fillMaxWidth()
+                    .menuAnchor()
             )
+
             ExposedDropdownMenu(
-                expanded = backgroundExpanded.value,
-                onDismissRequest = { backgroundExpanded.value = false }
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
             ) {
-                backgrounds.forEach { bg ->
+                for (background in state.backgrounds) {
                     DropdownMenuItem(
-                        text = { Text(bg) },
+                        text = { Text(background.name) },
                         onClick = {
-                            viewModel.onBackgroundChanged(bg)
-                            backgroundExpanded.value = false
+                            viewModel.handleEvent(CharacterCreationEvent.BackgroundChanged(background.name))
+                            expanded = false
                         }
                     )
                 }
             }
         }
-        ExposedDropdownMenuBox(
-            expanded = alignmentExpanded.value,
-            onExpandedChange = { alignmentExpanded.value = !alignmentExpanded.value }
-        ) {
-            OutlinedTextField(
-                value = state.alignment ?: "",
-                onValueChange = {},
-                readOnly = true,
-                label = { Text("Alignment (optional)") },
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = alignmentExpanded.value) },
-                modifier = Modifier
-                    .menuAnchor()
-                    .fillMaxWidth()
-            )
-            ExposedDropdownMenu(
-                expanded = alignmentExpanded.value,
-                onDismissRequest = { alignmentExpanded.value = false }
-            ) {
-                alignments.forEach { align ->
-                    DropdownMenuItem(
-                        text = { Text(align) },
-                        onClick = {
-                            viewModel.onAlignmentChanged(align)
-                            alignmentExpanded.value = false
-                        }
-                    )
-                }
-            }
-        }
-        OutlinedTextField(
-            value = state.backstory ?: "",
-            onValueChange = { viewModel.onBackstoryChanged(it) },
-            label = { Text("Backstory (optional)") },
+
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            maxLines = 5,
-            singleLine = false
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = onNext,
-            enabled = isNextEnabled,
-            modifier = Modifier.fillMaxWidth()
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Next")
+            Button(onClick = onNext) {
+                Text(text = "Next")
+            }
         }
     }
 }

@@ -21,10 +21,16 @@ sealed class AppRoute(val title: String) {
         data object Search : AppRoute(title = "Characters List")
 
         @Serializable
+        data class Details(val characterId: String) : AppRoute(title = "Character Details")
+
+        @Serializable
         data object Create : AppRoute(title = "Create character") {
 
             @Serializable
             data object NameAndBackground : AppRoute(title = "Name and Background")
+
+            @Serializable
+            data object BackgroundDetails : AppRoute(title = "Background Details")
 
             @Serializable
             data object Race : AppRoute(title = "Race")

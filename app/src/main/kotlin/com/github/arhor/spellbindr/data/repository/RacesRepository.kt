@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
-import com.github.arhor.spellbindr.data.datasource.local.RacesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
 import com.github.arhor.spellbindr.data.model.Race
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -17,6 +17,6 @@ class RacesRepository @Inject constructor(
     val allRaces: Flow<List<Race>>
         get() = racesDataStore.data.map { it ?: emptyList() }
 
-    suspend fun findBackgroundById(id: String): Race? =
+    suspend fun findRaceById(id: String): Race? =
         allRaces.firstOrNull()?.find { it.id == id }
 } 

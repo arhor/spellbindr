@@ -2,22 +2,18 @@ package com.github.arhor.spellbindr.data.model
 
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents a playable race in the game.
+ *
+ * @property id The unique identifier of the race.
+ * @property name The name of the race.
+ * @property traits A list of trait IDs associated with the race.
+ * @property subraces A list of subraces available for this race.
+ */
 @Serializable
 data class Race(
     val id: String,
     val name: String,
-    val age: String,
-    val alignment: String,
-    val size: String,
-    val sizeDescription: String,
-    val speed: Int,
-    val abilityBonuses: List<RaceAbilityBonus>,
-    val abilityBonusOptions: Choice? = null,
-    val languageDesc: String,
-    val languageOptions: Choice,
-    val languages: List<EntityRef>,
-    val startingProficiencies: List<EntityRef>? = null,
-    val startingProficiencyOptions: Choice? = null,
-    val subraces: List<EntityRef>? = null,
-    val traits: List<EntityRef>? = null
+    val traits: List<String>,
+    val subraces: List<Subrace>,
 )

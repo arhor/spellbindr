@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.datasource.local
+package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
 import com.github.arhor.spellbindr.util.Logger.Companion.createLogger

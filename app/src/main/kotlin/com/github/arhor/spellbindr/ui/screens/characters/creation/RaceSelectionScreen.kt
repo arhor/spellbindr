@@ -21,19 +21,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun RaceSelectionScreen(
-    onNext: () -> Unit = {},
-    viewModel: CharacterCreationViewModel = hiltViewModel()
+    onNext: () -> Unit,
+    viewModel: CharacterCreationViewModel,
 ) {
     val state by viewModel.state.collectAsState()
     val selectedRace = state.race
     val selectedSubrace = state.subrace
     val races = state.races
-    val isLoading = state.isLoadingRaces
-    val error = state.raceLoadError
+    val isLoading = state.isLoading
+    val error = state.error
 
     val subraces = selectedRace?.subraces ?: emptyList()
     val isSubraceRequired = selectedRace != null && subraces.isNotEmpty()
@@ -63,14 +62,16 @@ fun RaceSelectionScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 4.dp)
-                            .clickable { viewModel.onRaceSelected(race) },
+                            .clickable {
+                                viewModel.handleEvent(CharacterCreationEvent.RaceChanged(race.id))
+                            },
                         colors = if (race == selectedRace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
                     ) {
                         Column(Modifier.padding(12.dp)) {
                             Text(race.name, style = MaterialTheme.typography.titleMedium)
-                            if (race.traits?.isNotEmpty() == true) {
+                            if (race.traits.isNotEmpty()) {
                                 Text(
-                                    race.traits.joinToString { trait -> trait.id },
+                                    race.traits.joinToString(),
                                     style = MaterialTheme.typography.bodySmall
                                 )
                             }
@@ -85,18 +86,13 @@ fun RaceSelectionScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 4.dp)
-                                .clickable { viewModel.onSubraceSelected(subrace) },
+                                .clickable {
+                                    viewModel.handleEvent(CharacterCreationEvent.SubraceChanged(subrace.id))
+                                },
                             colors = if (subrace == selectedSubrace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
                         ) {
                             Column(Modifier.padding(12.dp)) {
-                                Text(subrace.id, style = MaterialTheme.typography.titleMedium)
-//                                if (subrace.traits.isNotEmpty()) {
-//                                // TODO: join with traits
-//                                    Text(
-//                                        subrace.traits.joinToString { trait -> trait.name },
-//                                        style = MaterialTheme.typography.bodySmall
-//                                    )
-//                                }
+                                Text(subrace.name, style = MaterialTheme.typography.titleMedium)
                             }
                         }
                     }

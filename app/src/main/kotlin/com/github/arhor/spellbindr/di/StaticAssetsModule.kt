@@ -1,10 +1,11 @@
 package com.github.arhor.spellbindr.di
 
-import com.github.arhor.spellbindr.data.datasource.local.BackgroundsAssetDataStore
-import com.github.arhor.spellbindr.data.datasource.local.CharacterClassesAssetDataStore
-import com.github.arhor.spellbindr.data.datasource.local.EquipmentAssetDataStore
-import com.github.arhor.spellbindr.data.datasource.local.InitializingStaticAssetDataStore
-import com.github.arhor.spellbindr.data.datasource.local.SpellsAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.CharacterClassesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.InitializingStaticAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.SpellsAssetDataStore
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,7 +15,7 @@ import dagger.multibindings.IntoSet
 @Module
 @Suppress("UNUSED")
 @InstallIn(SingletonComponent::class)
-abstract class StaticAssetLoaderModule {
+abstract class StaticAssetsModule {
 
     @Binds
     @IntoSet
@@ -34,5 +35,10 @@ abstract class StaticAssetLoaderModule {
     @Binds
     @IntoSet
     abstract fun bindEquipmentAssetDataStore(equipmentDataStore: EquipmentAssetDataStore)
+        : InitializingStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindRacesAssetDataStore(dacesAssetDataStore: RacesAssetDataStore)
         : InitializingStaticAssetDataStore
 }
