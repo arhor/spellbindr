@@ -6,7 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 private val NAV_ITEMS = listOf(
-    AppRoute.Spells,
+    AppRoute.Library,
     AppRoute.Characters,
 )
 
@@ -16,11 +16,11 @@ fun AppNavBar(
     isItemSelected: (AppRoute) -> Boolean,
 ) {
     NavigationBar {
-        for (item in NAV_ITEMS) {
+        NAV_ITEMS.forEach {
             NavigationBarItem(
-                selected = isItemSelected(item),
-                onClick = { onItemClick(item) },
-                label = { Text(item.title) },
+                selected = isItemSelected(it),
+                onClick = { onItemClick(it) },
+                label = { Text(it.title) },
                 icon = { }
             )
         }
