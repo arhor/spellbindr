@@ -62,8 +62,13 @@ class SpellSearchViewModel @Inject constructor(
     }
 
     fun onQueryChanged(query: String) {
-        if (query != _state.value.query) {
-            _state.update { it.copy(query = query) }
+        val currQuery = _state.value.query
+        val nextQuery = query.trim()
+
+        if (!nextQuery.equals(currQuery, ignoreCase = true)) {
+            _state.update {
+                it.copy(query = nextQuery)
+            }
         }
     }
 
