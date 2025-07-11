@@ -3,15 +3,22 @@ package com.github.arhor.spellbindr.ui.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class AppRoute(val title: String) {
+sealed class AppRoute(val title: String = "") {
 
     @Serializable
-    data object Spells : AppRoute(title = "Spell Book") {
-        @Serializable
-        data object Search : AppRoute(title = "Spell Book")
+    data object Library : AppRoute(title = "Library") {
 
         @Serializable
-        data class Details(val spellName: String) : AppRoute(title = "Spell Details")
+        data object Main : AppRoute()
+
+        @Serializable
+        data object Spells : AppRoute(title = "Spell Book") {
+            @Serializable
+            data object Search : AppRoute()
+
+            @Serializable
+            data class Details(val spellName: String) : AppRoute(title = "Spell Details")
+        }
     }
 
     @Serializable

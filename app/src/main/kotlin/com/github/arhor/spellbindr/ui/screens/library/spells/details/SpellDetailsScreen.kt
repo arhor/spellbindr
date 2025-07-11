@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.spells.details
+package com.github.arhor.spellbindr.ui.screens.library.spells.details
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
