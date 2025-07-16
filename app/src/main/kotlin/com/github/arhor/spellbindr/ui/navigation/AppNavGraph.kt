@@ -37,6 +37,8 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SpellsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
+import com.github.arhor.spellbindr.ui.screens.library.conditions.details.ConditionDetailsScreen
+import com.github.arhor.spellbindr.ui.screens.library.conditions.search.ConditionListScreen
 import com.github.arhor.spellbindr.ui.screens.library.main.LibraryMainScreen
 import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
@@ -84,6 +86,7 @@ fun NavGraphBuilder.libraryBaseNavGraph(controller: NavController) {
             )
         }
         spellsNavGraph(controller)
+        conditionsNavGraph(controller)
     }
 }
 
@@ -99,6 +102,25 @@ fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
         composable<AppRoute.Library.Spells.Details> {
             SpellDetailScreen(
                 spellName = it.toRoute<AppRoute.Library.Spells.Details>().spellName,
+                onBackClick = { controller.navigateUp() },
+            )
+        }
+    }
+}
+
+fun NavGraphBuilder.conditionsNavGraph(controller: NavController) {
+    navigation<AppRoute.Library.Conditions>(
+        startDestination = AppRoute.Library.Conditions.Search
+    ) {
+        composable<AppRoute.Library.Conditions.Search> {
+            ConditionListScreen(
+                onConditionClick = { controller navigateTo AppRoute.Library.Conditions.Details(it) },
+            )
+        }
+        composable<AppRoute.Library.Conditions.Details> {
+            val details = it.toRoute<AppRoute.Library.Conditions.Details>()
+            ConditionDetailsScreen(
+                conditionName = details.conditionName,
                 onBackClick = { controller.navigateUp() },
             )
         }

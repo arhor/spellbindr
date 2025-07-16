@@ -19,6 +19,15 @@ sealed class AppRoute(val title: String = "") {
             @Serializable
             data class Details(val spellName: String) : AppRoute(title = "Spell Details")
         }
+
+        @Serializable
+        data object Conditions : AppRoute(title = "Conditions") {
+            @Serializable
+            data object Search : AppRoute()
+
+            @Serializable
+            data class Details(val conditionName: String) : AppRoute(title = "Condition Details")
+        }
     }
 
     @Serializable
