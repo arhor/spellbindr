@@ -1,10 +1,10 @@
 package com.github.arhor.spellbindr.di
 
+import com.github.arhor.spellbindr.core.assets.InitializableStaticAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.ConditionsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.InitializingStaticAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.SpellsAssetDataStore
 import dagger.Binds
@@ -21,30 +21,30 @@ abstract class StaticAssetsModule {
     @Binds
     @IntoSet
     abstract fun bindSpellsAssetDataStore(spellsDataStore: SpellsAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindCharacterClassesAssetDataStore(characterClassesDataStore: CharacterClassesAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindBackgroundsAssetDataStore(backgroundsDataStore: BackgroundsAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindEquipmentAssetDataStore(equipmentDataStore: EquipmentAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindRacesAssetDataStore(dacesAssetDataStore: RacesAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindConditionsAssetDataStore(conditionsAssetDataStore: ConditionsAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 }

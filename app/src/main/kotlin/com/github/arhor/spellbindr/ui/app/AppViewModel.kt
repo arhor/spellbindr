@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.local.assets.InitializingStaticAssetDataStore
-import com.github.arhor.spellbindr.util.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.core.assets.InitializableStaticAssetDataStore
+import com.github.arhor.spellbindr.core.logging.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -22,7 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 @Stable
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    private val loaders: Set<@JvmSuppressWildcards InitializingStaticAssetDataStore>,
+    private val loaders: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>,
 ) : ViewModel() {
 
     @Immutable

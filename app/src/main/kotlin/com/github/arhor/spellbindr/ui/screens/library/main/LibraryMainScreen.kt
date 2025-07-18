@@ -60,15 +60,9 @@ fun LibraryMainScreen(
                             .background(color = Color.Transparent),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = null,
-                        )
+                        Icon(imageVector = icon, contentDescription = null)
                     }
-                    Text(
-                        text = route.title,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
+                    Text(text = route.title, style = MaterialTheme.typography.bodyMedium)
                 }
                 Spacer(modifier = Modifier.height(7.dp))
             }

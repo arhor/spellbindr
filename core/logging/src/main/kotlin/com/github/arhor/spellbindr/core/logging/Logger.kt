@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.util
+package com.github.arhor.spellbindr.core.logging
 
 import android.util.Log
 import kotlin.reflect.KClass
@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 @JvmInline
 @Suppress("UNUSED", "NOTHING_TO_INLINE")
 value class Logger(val tag: String) {
-    constructor(type: Class<*>) : this(tag = type.simpleName)
+    constructor(type: Class<*>) : this(tag = type.simpleName ?: "<unknown>")
     constructor(type: KClass<*>) : this(type = type.let { if (it.isCompanion) it.java.enclosingClass else it.java })
 
     inline fun info(msg: () -> String) {
