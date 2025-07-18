@@ -26,11 +26,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.core.theme.CardBg
-import com.github.arhor.spellbindr.ui.navigation.AppRoute
+import com.github.arhor.spellbindr.core.utils.AppRoute
+import com.github.arhor.spellbindr.ui.navigation.Library
 
 private val ITEMS = listOf(
-    AppRoute.Library.Spells to Icons.AutoMirrored.Filled.MenuBook,
-    AppRoute.Library.Conditions to Icons.Default.Bookmark,
+    Library.Spells to Icons.AutoMirrored.Filled.MenuBook,
+    Library.Conditions to Icons.Default.Bookmark,
 )
 
 @Composable

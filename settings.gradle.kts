@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":data:classes")
-
-
 pluginManagement {
     repositories {
         google {
@@ -35,6 +32,7 @@ include(":core:logging")
 include(":core:theme")
 include(":core:utils")
 
+include(":data:classes")
 include(":data:common")
 include(":data:conditions")
 include(":data:spells")
