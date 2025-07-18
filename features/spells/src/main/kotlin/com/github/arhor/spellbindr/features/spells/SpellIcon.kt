@@ -27,7 +27,7 @@ fun SpellIcon(
     iconSize: Dp = 30.dp,
 ) {
     val context = LocalContext.current
-    val assetName = "icons/spells/${spellName.lowercase().replace(" ", "_")}.png"
+    val assetName = "icons/${spellName.lowercase().replace(" ", "_")}.png"
     val bitmap: ImageBitmap? = remember(spellName) {
         try {
             context.assets.open(assetName).use { stream ->
