@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.local.assets
+package com.github.arhor.spellbindr.data.spells
 
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FavoriteSpellsDataStore @Inject constructor(
-    @ApplicationContext
+    @param:ApplicationContext
     private val context: Context,
     private val json: Json,
 ) {

@@ -32,3 +32,4 @@ include(":core:utils")
 
 include(":data:common")
 include(":data:conditions")
+include(":data:spells")

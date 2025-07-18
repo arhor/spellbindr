@@ -1,8 +1,7 @@
-package com.github.arhor.spellbindr.data.local.assets
+package com.github.arhor.spellbindr.data.spells
 
 import android.content.Context
 import com.github.arhor.spellbindr.core.assets.StaticAssetDataStoreBase
-import com.github.arhor.spellbindr.data.model.Spell
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject

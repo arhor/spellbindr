@@ -51,6 +51,7 @@ dependencies {
     implementation(project(":core:utils"))
     implementation(project(":data:common"))
     implementation(project(":data:conditions"))
+    implementation(project(":data:spells"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
