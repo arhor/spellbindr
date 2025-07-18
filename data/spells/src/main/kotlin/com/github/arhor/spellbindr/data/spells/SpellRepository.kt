@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SpellRepository @Inject constructor(
-    private val allSpellsDataStore: SpellsAssetDataStore,
+    private val allSpellsDataStore: SpellAssetDataStore,
     private val favSpellsDataStore: FavoriteSpellsDataStore,
 ) {
     val allSpells: Flow<List<Spell>>

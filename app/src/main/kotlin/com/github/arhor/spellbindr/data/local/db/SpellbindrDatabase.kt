@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.github.arhor.spellbindr.data.model.CharacterEntity
+import com.github.arhor.spellbindr.data.CharacterEntity
 
 @Database(
     entities = [CharacterEntity::class],

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.github.arhor.spellbindr.data.model.CharacterEntity
+import com.github.arhor.spellbindr.data.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

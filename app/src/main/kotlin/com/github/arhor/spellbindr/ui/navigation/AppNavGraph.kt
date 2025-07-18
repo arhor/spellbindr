@@ -24,6 +24,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
+import com.github.arhor.spellbindr.features.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.features.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.BackgroundDetailsScreen
@@ -40,8 +42,6 @@ import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScr
 import com.github.arhor.spellbindr.ui.screens.library.conditions.details.ConditionDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.library.conditions.search.ConditionListScreen
 import com.github.arhor.spellbindr.ui.screens.library.main.LibraryMainScreen
-import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
 
 @Composable
 fun AppNavGraph() {

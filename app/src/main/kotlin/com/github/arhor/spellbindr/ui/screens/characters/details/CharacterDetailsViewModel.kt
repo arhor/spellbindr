@@ -3,8 +3,8 @@ package com.github.arhor.spellbindr.ui.screens.characters.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.data.common.Character
 import com.github.arhor.spellbindr.data.common.EntityRef
-import com.github.arhor.spellbindr.data.model.Character
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
