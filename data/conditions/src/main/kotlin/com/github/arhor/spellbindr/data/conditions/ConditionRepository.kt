@@ -1,8 +1,5 @@
-package com.github.arhor.spellbindr.data.repository
+package com.github.arhor.spellbindr.data.conditions
 
-import androidx.compose.runtime.Stable
-import com.github.arhor.spellbindr.data.local.assets.ConditionsAssetDataStore
-import com.github.arhor.spellbindr.data.model.Condition
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -10,10 +7,9 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Stable
 @Singleton
 class ConditionRepository @Inject constructor(
-    private val conditionsDataStore: ConditionsAssetDataStore,
+    private val conditionsDataStore: ConditionAssetDataStore,
 ) {
     val allConditions: Flow<List<Condition>>
         get() = conditionsDataStore.data.map { it ?: emptyList() }
@@ -25,4 +21,4 @@ class ConditionRepository @Inject constructor(
         allConditions.first().filter {
             it.name.contains(query, ignoreCase = true)
         }
-} 
+}

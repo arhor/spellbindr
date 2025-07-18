@@ -1,15 +1,14 @@
-package com.github.arhor.spellbindr.data.local.assets
+package com.github.arhor.spellbindr.data.conditions
 
 import android.content.Context
 import com.github.arhor.spellbindr.core.assets.StaticAssetDataStoreBase
-import com.github.arhor.spellbindr.data.model.Condition
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ConditionsAssetDataStore @Inject constructor(
+class ConditionAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
@@ -18,4 +17,4 @@ class ConditionsAssetDataStore @Inject constructor(
     path = "data/conditions.json",
     context = context,
     serializer = Condition.serializer(),
-) 
+)

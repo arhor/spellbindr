@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.Condition
-import com.github.arhor.spellbindr.data.repository.ConditionRepository
+import com.github.arhor.spellbindr.data.conditions.Condition
+import com.github.arhor.spellbindr.data.conditions.ConditionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow

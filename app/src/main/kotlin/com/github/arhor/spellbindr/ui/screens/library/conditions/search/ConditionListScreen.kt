@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.data.model.Condition
+import com.github.arhor.spellbindr.data.conditions.Condition
 
 @Composable
 fun ConditionListScreen(
