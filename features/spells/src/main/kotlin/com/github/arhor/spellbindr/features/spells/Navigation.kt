@@ -21,9 +21,7 @@ data object Spells : AppRoute(title = "Spells") {
 }
 
 fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
-    navigation<Spells>(
-        startDestination = Spells.Search
-    ) {
+    navigation<Spells>(startDestination = Spells.Search) {
         composable<Spells.Search> {
             SpellSearchScreen(
                 onSpellClick = { controller navigateTo Spells.Details(it) },

@@ -5,18 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data object Library : AppRoute(title = "Library") {
-
     @Serializable
-    data object Main : AppRoute()
-
-    @Serializable
-    data object Conditions : AppRoute(title = "Conditions") {
-        @Serializable
-        data object Search : AppRoute()
-
-        @Serializable
-        data class Details(val conditionName: String) : AppRoute(title = "Condition Details")
-    }
+    data object Main : AppRoute(title = "Library")
 }
 
 @Serializable

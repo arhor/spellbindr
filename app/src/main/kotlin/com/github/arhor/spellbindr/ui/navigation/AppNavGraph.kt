@@ -22,11 +22,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.core.utils.AppRoute
-import com.github.arhor.spellbindr.features.conditions.details.ConditionDetailsScreen
-import com.github.arhor.spellbindr.features.conditions.search.ConditionListScreen
+import com.github.arhor.spellbindr.features.conditions.conditionsNavGraph
 import com.github.arhor.spellbindr.features.spells.spellsNavGraph
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
@@ -77,9 +75,7 @@ fun AppNavGraph() {
 }
 
 fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
-    navigation<Library>(
-        startDestination = Library.Main
-    ) {
+    navigation<Library>(startDestination = Library.Main) {
         composable<Library.Main> {
             LibraryMainScreen(
                 onItemClick = { controller navigateTo it }
@@ -90,29 +86,8 @@ fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
     }
 }
 
-fun NavGraphBuilder.conditionsNavGraph(controller: NavController) {
-    navigation<Library.Conditions>(
-        startDestination = Library.Conditions.Search
-    ) {
-        composable<Library.Conditions.Search> {
-            ConditionListScreen(
-                onConditionClick = { controller navigateTo Library.Conditions.Details(it) },
-            )
-        }
-        composable<Library.Conditions.Details> {
-            val details = it.toRoute<Library.Conditions.Details>()
-            ConditionDetailsScreen(
-                conditionName = details.conditionName,
-                onBackClick = { controller.navigateUp() },
-            )
-        }
-    }
-}
-
 fun NavGraphBuilder.charactersNavGraph(controller: NavController) {
-    navigation<Characters>(
-        startDestination = Characters.Search
-    ) {
+    navigation<Characters>(startDestination = Characters.Search) {
         composable<Characters.Search> {
             CharacterListScreen(
                 navigateToCreate = { controller.navigate(route = Characters.Create) },
