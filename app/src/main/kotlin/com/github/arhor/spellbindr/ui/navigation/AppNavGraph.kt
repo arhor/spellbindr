@@ -27,8 +27,7 @@ import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.core.utils.AppRoute
 import com.github.arhor.spellbindr.features.conditions.details.ConditionDetailsScreen
 import com.github.arhor.spellbindr.features.conditions.search.ConditionListScreen
-import com.github.arhor.spellbindr.features.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.features.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.features.spells.spellsNavGraph
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.BackgroundDetailsScreen
@@ -70,14 +69,14 @@ fun AppNavGraph() {
                 startDestination = Library,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                libraryBaseNavGraph(controller)
+                libraryNavGraph(controller)
                 charactersNavGraph(controller)
             }
         }
     }
 }
 
-fun NavGraphBuilder.libraryBaseNavGraph(controller: NavController) {
+fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
     navigation<Library>(
         startDestination = Library.Main
     ) {
@@ -88,24 +87,6 @@ fun NavGraphBuilder.libraryBaseNavGraph(controller: NavController) {
         }
         spellsNavGraph(controller)
         conditionsNavGraph(controller)
-    }
-}
-
-fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
-    navigation<Library.Spells>(
-        startDestination = Library.Spells.Search
-    ) {
-        composable<Library.Spells.Search> {
-            SpellSearchScreen(
-                onSpellClick = { controller navigateTo Library.Spells.Details(it) },
-            )
-        }
-        composable<Library.Spells.Details> {
-            SpellDetailScreen(
-                spellName = it.toRoute<Library.Spells.Details>().spellName,
-                onBackClick = { controller.navigateUp() },
-            )
-        }
     }
 }
 
