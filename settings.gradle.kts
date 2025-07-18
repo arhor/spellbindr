@@ -25,6 +25,10 @@ dependencyResolutionManagement {
 rootProject.name = "Spellbindr"
 
 include(":app")
+
 include(":core:assets")
 include(":core:logging")
+include(":core:utils")
+
+include(":data:common")
 include(":data:conditions")

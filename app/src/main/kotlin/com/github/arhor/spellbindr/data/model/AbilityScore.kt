@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.data.common.EntityRef
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,7 +10,7 @@ import kotlinx.serialization.Serializable
  * @property name The short name of the ability score (e.g., "STR").
  * @property desc A list of strings describing the ability score.
  * @property fullName The full name of the ability score (e.g., "Strength").
- * @property skills A list of skills associated with this ability score. Each skill is represented by an [EntityRef].
+ * @property skills A list of skills associated with this ability score. Each skill is represented by an [com.github.arhor.spellbindr.data.common.EntityRef].
  */
 @Serializable
 data class AbilityScore(

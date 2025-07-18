@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.util
+package com.github.arhor.spellbindr.core.utils
 
 /**
  * Creates a shallow copy of the map, applying the provided initialization block to the mutable copy.

@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
+import com.github.arhor.spellbindr.data.common.EntityRef
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassesAssetDataStore
-import com.github.arhor.spellbindr.data.model.EntityRef
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

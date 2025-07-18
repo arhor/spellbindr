@@ -1,6 +1,6 @@
-package com.github.arhor.spellbindr.util
+package com.github.arhor.spellbindr.core.utils
 
-internal fun String.toTitleCase(separator: Char = ' '): String =
+fun String.toTitleCase(separator: Char = ' '): String =
     this.lowercase()
         .splitToSequence(separator)
         .map(String::trim)

@@ -5,10 +5,10 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.data.common.EntityRef
 import com.github.arhor.spellbindr.data.model.Background
 import com.github.arhor.spellbindr.data.model.Character
 import com.github.arhor.spellbindr.data.model.CharacterClass
-import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Equipment
 import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Skill

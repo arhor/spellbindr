@@ -5,7 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.common.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.SpellRepository

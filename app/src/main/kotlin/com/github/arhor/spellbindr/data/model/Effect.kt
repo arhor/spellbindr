@@ -2,7 +2,8 @@
 
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.util.copy
+import com.github.arhor.spellbindr.core.utils.copy
+import com.github.arhor.spellbindr.data.common.EntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
