@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.arhor.spellbindr.features.spells"
+    namespace = "com.github.arhor.spellbindr.features.conditions"
     compileSdk = 36
 
     defaultConfig {
@@ -45,8 +45,7 @@ dependencies {
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
     implementation(project(":data:common"))
-    implementation(project(":data:classes"))
-    implementation(project(":data:spells"))
+    implementation(project(":data:conditions"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.conditions.details
+package com.github.arhor.spellbindr.features.conditions.details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

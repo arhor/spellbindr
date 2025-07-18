@@ -25,6 +25,8 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.core.utils.AppRoute
+import com.github.arhor.spellbindr.features.conditions.details.ConditionDetailsScreen
+import com.github.arhor.spellbindr.features.conditions.search.ConditionListScreen
 import com.github.arhor.spellbindr.features.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.features.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
@@ -40,8 +42,6 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SpellsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
-import com.github.arhor.spellbindr.ui.screens.library.conditions.details.ConditionDetailsScreen
-import com.github.arhor.spellbindr.ui.screens.library.conditions.search.ConditionListScreen
 import com.github.arhor.spellbindr.ui.screens.library.main.LibraryMainScreen
 
 @Composable

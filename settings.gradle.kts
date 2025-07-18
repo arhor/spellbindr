@@ -37,4 +37,5 @@ include(":data:common")
 include(":data:conditions")
 include(":data:spells")
 
+include(":features:conditions")
 include(":features:spells")
