@@ -28,8 +28,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.conditions.Condition
 
 @Composable
-fun ConditionListScreen(
-    viewModel: ConditionListViewModel = hiltViewModel(),
+fun ConditionSearchScreen(
+    viewModel: ConditionSearchViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
     var expandedItemName by remember { mutableStateOf<String?>(null) }
