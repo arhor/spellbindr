@@ -7,51 +7,28 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.conditions.Condition
 import com.github.arhor.spellbindr.data.conditions.ConditionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 
 @Stable
 @HiltViewModel
 class ConditionListViewModel @Inject constructor(
-    private val conditionRepository: ConditionRepository,
+    conditionRepository: ConditionRepository,
 ) : ViewModel() {
 
     @Immutable
     data class State(
-        val query: String = "",
         val conditions: List<Condition> = emptyList(),
-        val isLoading: Boolean = false,
     )
 
-    private val _state = MutableStateFlow(State())
-    val state = _state.asStateFlow()
-
-    init {
-        observeStateChanges()
-    }
-
-    fun onQueryChanged(query: String) {
-        _state.update { it.copy(query = query) }
-    }
-
-    @OptIn(FlowPreview::class)
-    private fun observeStateChanges() {
-        _state
-            .debounce(350.milliseconds)
-            .distinctUntilChanged()
-            .onEach { state ->
-                _state.update { it.copy(isLoading = true) }
-                val conditions = conditionRepository.findConditions(state.query)
-                _state.update { it.copy(conditions = conditions, isLoading = false) }
-            }
-            .launchIn(viewModelScope)
-    }
+    val state: StateFlow<State> = conditionRepository.allConditions
+        .map(::State)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = State(),
+        )
 } 

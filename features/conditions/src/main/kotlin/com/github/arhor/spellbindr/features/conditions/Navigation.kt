@@ -23,9 +23,7 @@ data object Conditions : AppRoute(title = "Conditions") {
 fun NavGraphBuilder.conditionsNavGraph(controller: NavController) {
     navigation<Conditions>(startDestination = Conditions.Search) {
         composable<Conditions.Search> {
-            ConditionListScreen(
-                onConditionClick = { controller navigateTo Conditions.Details(it) },
-            )
+            ConditionListScreen()
         }
         composable<Conditions.Details> {
             val details = it.toRoute<Conditions.Details>()
