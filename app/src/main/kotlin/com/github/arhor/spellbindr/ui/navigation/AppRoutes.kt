@@ -16,6 +16,15 @@ data object Conditions : AppRoute(title = "Conditions") {
 }
 
 @Serializable
+data object Spells : AppRoute(title = "Spells") {
+    @Serializable
+    data object Search : AppRoute(title = "Spell Book")
+
+    @Serializable
+    data class Details(val spellName: String) : AppRoute(title = "Spell Details")
+}
+
+@Serializable
 data object Characters : AppRoute(title = "Characters") {
 
     @Serializable

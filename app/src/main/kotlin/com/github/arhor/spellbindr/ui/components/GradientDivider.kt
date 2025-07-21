@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.core.components
+package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth

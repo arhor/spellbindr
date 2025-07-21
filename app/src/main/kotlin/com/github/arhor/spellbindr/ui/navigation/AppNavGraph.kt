@@ -22,10 +22,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.core.utils.AppRoute
 import com.github.arhor.spellbindr.features.conditions.ConditionSearchScreen
-import com.github.arhor.spellbindr.features.spells.spellsNavGraph
+import com.github.arhor.spellbindr.features.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.features.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.BackgroundDetailsScreen
@@ -90,6 +92,22 @@ fun NavGraphBuilder.conditionsNavGraph(controller: NavController) {
     navigation<Conditions>(startDestination = Conditions.Search) {
         composable<Conditions.Search> {
             ConditionSearchScreen()
+        }
+    }
+}
+
+fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
+    navigation<Spells>(startDestination = Spells.Search) {
+        composable<Spells.Search> {
+            SpellSearchScreen(
+                onSpellClick = { controller navigateTo Spells.Details(it) },
+            )
+        }
+        composable<Spells.Details> {
+            SpellDetailScreen(
+                spellName = it.toRoute<Spells.Details>().spellName,
+                onBackClick = { controller.navigateUp() },
+            )
         }
     }
 }

@@ -38,12 +38,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.core.components.GradientDivider
 import com.github.arhor.spellbindr.core.theme.Accent
 import com.github.arhor.spellbindr.core.theme.CardBg
 import com.github.arhor.spellbindr.core.theme.DescriptionText
 import com.github.arhor.spellbindr.core.theme.HeaderText
 import com.github.arhor.spellbindr.features.spells.SpellIcon
+import com.github.arhor.spellbindr.ui.components.GradientDivider
 
 @Composable
 fun SpellDetailScreen(

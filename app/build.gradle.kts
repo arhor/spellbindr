@@ -53,7 +53,6 @@ dependencies {
     implementation(project(":data:common"))
     implementation(project(":data:classes"))
     implementation(project(":data:spells"))
-    implementation(project(":features:spells"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
