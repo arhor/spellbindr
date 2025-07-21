@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.classes
+package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.data.common.EntityRef
 import com.github.arhor.spellbindr.data.common.EquipmentRef

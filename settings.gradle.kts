@@ -32,6 +32,5 @@ include(":core:logging")
 include(":core:theme")
 include(":core:utils")
 
-include(":data:classes")
 include(":data:common")
 include(":data:spells")

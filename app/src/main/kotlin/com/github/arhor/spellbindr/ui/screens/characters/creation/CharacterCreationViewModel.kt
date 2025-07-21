@@ -5,8 +5,6 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.classes.CharacterClass
-import com.github.arhor.spellbindr.data.classes.CharacterClassRepository
 import com.github.arhor.spellbindr.data.common.Background
 import com.github.arhor.spellbindr.data.common.Character
 import com.github.arhor.spellbindr.data.common.EntityRef
@@ -14,7 +12,9 @@ import com.github.arhor.spellbindr.data.common.Equipment
 import com.github.arhor.spellbindr.data.common.Race
 import com.github.arhor.spellbindr.data.common.Skill
 import com.github.arhor.spellbindr.data.common.Subrace
+import com.github.arhor.spellbindr.data.model.CharacterClass
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
+import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.data.repository.RacesRepository
 import com.github.arhor.spellbindr.data.spells.Spell
