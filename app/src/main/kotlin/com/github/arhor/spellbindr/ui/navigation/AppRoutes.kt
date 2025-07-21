@@ -10,6 +10,12 @@ data object Library : AppRoute(title = "Library") {
 }
 
 @Serializable
+data object Conditions : AppRoute(title = "Conditions") {
+    @Serializable
+    data object Search : AppRoute(title = "Conditions")
+}
+
+@Serializable
 data object Characters : AppRoute(title = "Characters") {
 
     @Serializable

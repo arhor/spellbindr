@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.features.conditions.search
+package com.github.arhor.spellbindr.features.conditions
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.data.conditions.Condition
+import com.github.arhor.spellbindr.data.model.Condition
 
 @Composable
 fun ConditionSearchScreen(

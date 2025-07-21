@@ -34,8 +34,6 @@ include(":core:utils")
 
 include(":data:classes")
 include(":data:common")
-include(":data:conditions")
 include(":data:spells")
 
-include(":features:conditions")
 include(":features:spells")

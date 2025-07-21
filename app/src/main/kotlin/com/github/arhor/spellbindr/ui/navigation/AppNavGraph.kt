@@ -24,7 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.core.utils.AppRoute
-import com.github.arhor.spellbindr.features.conditions.conditionsNavGraph
+import com.github.arhor.spellbindr.features.conditions.ConditionSearchScreen
 import com.github.arhor.spellbindr.features.spells.spellsNavGraph
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
@@ -83,6 +83,14 @@ fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
         }
         spellsNavGraph(controller)
         conditionsNavGraph(controller)
+    }
+}
+
+fun NavGraphBuilder.conditionsNavGraph(controller: NavController) {
+    navigation<Conditions>(startDestination = Conditions.Search) {
+        composable<Conditions.Search> {
+            ConditionSearchScreen()
+        }
     }
 }
 
