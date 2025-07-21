@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.spells
+package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.data.common.AreaOfEffect
 import com.github.arhor.spellbindr.data.common.EntityRef

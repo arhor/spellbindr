@@ -33,4 +33,3 @@ include(":core:theme")
 include(":core:utils")
 
 include(":data:common")
-include(":data:spells")

@@ -13,11 +13,11 @@ import com.github.arhor.spellbindr.data.common.Race
 import com.github.arhor.spellbindr.data.common.Skill
 import com.github.arhor.spellbindr.data.common.Subrace
 import com.github.arhor.spellbindr.data.model.CharacterClass
+import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.data.repository.RacesRepository
-import com.github.arhor.spellbindr.data.spells.Spell
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
