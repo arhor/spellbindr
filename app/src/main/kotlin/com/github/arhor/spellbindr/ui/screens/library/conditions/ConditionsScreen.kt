@@ -32,7 +32,7 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.CardBg
 
 @Composable
-fun ConditionSearchScreen(
+fun ConditionsScreen(
     viewModel: ConditionSearchViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()

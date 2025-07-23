@@ -10,10 +10,7 @@ data object Library : AppRoute(title = "Library") {
 }
 
 @Serializable
-data object Conditions : AppRoute(title = "Conditions") {
-    @Serializable
-    data object Search : AppRoute(title = "Conditions")
-}
+data object Conditions : AppRoute(title = "Conditions")
 
 @Serializable
 data object Spells : AppRoute(title = "Spells") {

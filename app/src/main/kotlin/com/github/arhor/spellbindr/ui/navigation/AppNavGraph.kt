@@ -24,9 +24,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
-import com.github.arhor.spellbindr.ui.screens.library.conditions.ConditionSearchScreen
-import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.BackgroundDetailsScreen
@@ -41,6 +38,9 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
 import com.github.arhor.spellbindr.ui.screens.library.LibraryMainScreen
+import com.github.arhor.spellbindr.ui.screens.library.conditions.ConditionsScreen
+import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.utils.AppRoute
 
 @Composable
@@ -83,31 +83,21 @@ fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
                 onItemClick = { controller navigateTo it }
             )
         }
-        spellsNavGraph(controller)
-        conditionsNavGraph(controller)
-    }
-}
-
-fun NavGraphBuilder.conditionsNavGraph(controller: NavController) {
-    navigation<Conditions>(startDestination = Conditions.Search) {
-        composable<Conditions.Search> {
-            ConditionSearchScreen()
+        composable<Conditions> {
+            ConditionsScreen()
         }
-    }
-}
-
-fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
-    navigation<Spells>(startDestination = Spells.Search) {
-        composable<Spells.Search> {
-            SpellSearchScreen(
-                onSpellClick = { controller navigateTo Spells.Details(it) },
-            )
-        }
-        composable<Spells.Details> {
-            SpellDetailScreen(
-                spellName = it.toRoute<Spells.Details>().spellName,
-                onBackClick = { controller.navigateUp() },
-            )
+        navigation<Spells>(startDestination = Spells.Search) {
+            composable<Spells.Search> {
+                SpellSearchScreen(
+                    onSpellClick = { controller navigateTo Spells.Details(it) },
+                )
+            }
+            composable<Spells.Details> {
+                SpellDetailScreen(
+                    spellName = it.toRoute<Spells.Details>().spellName,
+                    onBackClick = { controller.navigateUp() },
+                )
+            }
         }
     }
 }
