@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.core.theme.Accent
+import com.github.arhor.spellbindr.ui.theme.Accent
 
 @Composable
 fun GradientDivider(

@@ -25,10 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.core.theme.CardBg
 import com.github.arhor.spellbindr.core.utils.AppRoute
 import com.github.arhor.spellbindr.ui.navigation.Conditions
 import com.github.arhor.spellbindr.ui.navigation.Spells
+import com.github.arhor.spellbindr.ui.theme.CardBg
 
 private val ITEMS = listOf(
     Spells to Icons.AutoMirrored.Filled.MenuBook,

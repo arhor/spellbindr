@@ -34,8 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.core.theme.CardBg
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.ui.theme.CardBg
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

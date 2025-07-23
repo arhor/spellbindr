@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.core.theme
+package com.github.arhor.spellbindr.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
