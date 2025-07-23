@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.features.spells.search
+package com.github.arhor.spellbindr.ui.screens.library.spells.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.features.spells.SpellList
+import com.github.arhor.spellbindr.ui.screens.library.spells.SpellList
 
 @Composable
 fun SpellSearchScreen(

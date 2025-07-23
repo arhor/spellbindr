@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.features.spells.search
+package com.github.arhor.spellbindr.ui.screens.library.spells.search
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically

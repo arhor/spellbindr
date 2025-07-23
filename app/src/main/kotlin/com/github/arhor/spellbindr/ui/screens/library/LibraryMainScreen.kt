@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.main
+package com.github.arhor.spellbindr.ui.screens.library
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

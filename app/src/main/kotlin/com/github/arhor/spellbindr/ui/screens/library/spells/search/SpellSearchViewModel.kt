@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.features.spells.search
+package com.github.arhor.spellbindr.ui.screens.library.spells.search
 
 import android.util.Log
 import androidx.compose.runtime.Immutable

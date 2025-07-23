@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.features.conditions
+package com.github.arhor.spellbindr.ui.screens.library.conditions
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
