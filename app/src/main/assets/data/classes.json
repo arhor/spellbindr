@@ -1727,9 +1727,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "song-of-rest-d12",
-            "name": "Song of Rest (d12)",
-            "url": "/api/2014/features/song-of-rest-d12"
+            "id": "song-of-rest-d12"
           }
         ],
         "spellcasting": {
@@ -1752,13 +1750,7 @@
           "magical_secrets_max_7": 2,
           "magical_secrets_max_9": 0
         },
-        "id": "bard-17",
-        "class": {
-          "id": "bard",
-          "name": "Bard",
-          "url": "/api/2014/classes/bard"
-        },
-        "url": "/api/2014/classes/bard/levels/17"
+        "id": "bard-17"
       },
       {
         "level": 18,
@@ -1766,9 +1758,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "magical-secrets-3",
-            "name": "Magical Secrets",
-            "url": "/api/2014/features/magical-secrets-3"
+            "id": "magical-secrets-3"
           }
         ],
         "spellcasting": {
@@ -1791,13 +1781,7 @@
           "magical_secrets_max_7": 2,
           "magical_secrets_max_9": 2
         },
-        "id": "bard-18",
-        "class": {
-          "id": "bard",
-          "name": "Bard",
-          "url": "/api/2014/classes/bard"
-        },
-        "url": "/api/2014/classes/bard/levels/18"
+        "id": "bard-18"
       },
       {
         "level": 19,
@@ -1805,9 +1789,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "bard-ability-score-improvement-5",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/bard-ability-score-improvement-5"
+            "id": "bard-ability-score-improvement-5"
           }
         ],
         "spellcasting": {
@@ -1830,13 +1812,7 @@
           "magical_secrets_max_7": 2,
           "magical_secrets_max_9": 2
         },
-        "id": "bard-19",
-        "class": {
-          "id": "bard",
-          "name": "Bard",
-          "url": "/api/2014/classes/bard"
-        },
-        "url": "/api/2014/classes/bard/levels/19"
+        "id": "bard-19"
       },
       {
         "level": 20,
@@ -1844,9 +1820,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "superior-inspiration",
-            "name": "Superior Inspiration",
-            "url": "/api/2014/features/superior-inspiration"
+            "id": "superior-inspiration"
           }
         ],
         "spellcasting": {
@@ -1869,13 +1843,7 @@
           "magical_secrets_max_7": 2,
           "magical_secrets_max_9": 2
         },
-        "id": "bard-20",
-        "class": {
-          "id": "bard",
-          "name": "Bard",
-          "url": "/api/2014/classes/bard"
-        },
-        "url": "/api/2014/classes/bard/levels/20"
+        "id": "bard-20"
       }
     ]
   },
@@ -2137,11 +2105,6 @@
     "subclasses": [
       {
         "id": "life",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
         "name": "Life",
         "subclassFlavor": "Divine Domain",
         "desc": [
@@ -2152,254 +2115,149 @@
             "prerequisites": [
               {
                 "id": "cleric-1",
-                "type": "level",
-                "name": "Cleric 1",
-                "url": "/api/2014/classes/cleric/levels/1"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "bless",
-              "name": "Bless",
-              "url": "/api/2014/spells/bless"
+              "id": "bless"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-1",
-                "type": "level",
-                "name": "Cleric 1",
-                "url": "/api/2014/classes/cleric/levels/1"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "cure-wounds",
-              "name": "Cure Wounds",
-              "url": "/api/2014/spells/cure-wounds"
+              "id": "cure-wounds"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-3",
-                "type": "level",
-                "name": "Cleric 3",
-                "url": "/api/2014/classes/cleric/levels/3"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "lesser-restoration",
-              "name": "Lesser Restoration",
-              "url": "/api/2014/spells/lesser-restoration"
+              "id": "lesser-restoration"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-3",
-                "type": "level",
-                "name": "Cleric 3",
-                "url": "/api/2014/classes/cleric/levels/3"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "spiritual-weapon",
-              "name": "Spiritual Weapon",
-              "url": "/api/2014/spells/spiritual-weapon"
+              "id": "spiritual-weapon"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-5",
-                "type": "level",
-                "name": "Cleric 5",
-                "url": "/api/2014/classes/cleric/levels/5"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "beacon-of-hope",
-              "name": "Beacon of Hope",
-              "url": "/api/2014/spells/beacon-of-hope"
+              "id": "beacon-of-hope"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-5",
-                "type": "level",
-                "name": "Cleric 5",
-                "url": "/api/2014/classes/cleric/levels/5"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "revivify",
-              "name": "Revivify",
-              "url": "/api/2014/spells/revivify"
+              "id": "revivify"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-7",
-                "type": "level",
-                "name": "Cleric 7",
-                "url": "/api/2014/classes/cleric/levels/7"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "death-ward",
-              "name": "Death Ward",
-              "url": "/api/2014/spells/death-ward"
+              "id": "death-ward"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-9",
-                "type": "level",
-                "name": "Cleric 9",
-                "url": "/api/2014/classes/cleric/levels/9"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "mass-cure-wounds",
-              "name": "Mass Cure Wounds",
-              "url": "/api/2014/spells/mass-cure-wounds"
+              "id": "mass-cure-wounds"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "cleric-9",
-                "type": "level",
-                "name": "Cleric 9",
-                "url": "/api/2014/classes/cleric/levels/9"
+                "type": "level"
               }
             ],
             "spell": {
-              "id": "raise-dead",
-              "name": "Raise Dead",
-              "url": "/api/2014/spells/raise-dead"
+              "id": "raise-dead"
             }
           }
         ],
-        "subclassLevels": "/api/2014/subclasses/life/levels",
-        "url": "/api/2014/subclasses/life",
         "levels": [
           {
             "level": 1,
             "features": [
               {
-                "id": "bonus-proficiency",
-                "name": "Bonus Proficiency",
-                "url": "/api/2014/features/bonus-proficiency"
+                "id": "bonus-proficiency"
               },
               {
-                "id": "disciple-of-life",
-                "name": "Disciple of Life",
-                "url": "/api/2014/features/disciple-of-life"
+                "id": "disciple-of-life"
               }
             ],
-            "class": {
-              "id": "cleric",
-              "name": "Cleric",
-              "url": "/api/2014/classes/cleric"
-            },
-            "subclass": {
-              "id": "life",
-              "name": "Life",
-              "url": "/api/2014/subclasses/life"
-            },
-            "url": "/api/2014/subclasses/life/levels/1",
             "id": "life-1"
           },
           {
             "level": 2,
             "features": [
               {
-                "id": "channel-divinity-preserve-life",
-                "name": "Channel Divinity: Preserve Life",
-                "url": "/api/2014/features/channel-divinity-preserve-life"
+                "id": "channel-divinity-preserve-life"
               }
             ],
-            "class": {
-              "id": "cleric",
-              "name": "Cleric",
-              "url": "/api/2014/classes/cleric"
-            },
-            "subclass": {
-              "id": "life",
-              "name": "Life",
-              "url": "/api/2014/subclasses/life"
-            },
-            "url": "/api/2014/subclasses/life/levels/2",
             "id": "life-2"
           },
           {
             "level": 6,
             "features": [
               {
-                "id": "blessed-healer",
-                "name": "Blessed Healer",
-                "url": "/api/2014/features/blessed-healer"
+                "id": "blessed-healer"
               }
             ],
-            "class": {
-              "id": "cleric",
-              "name": "Cleric",
-              "url": "/api/2014/classes/cleric"
-            },
-            "subclass": {
-              "id": "life",
-              "name": "Life",
-              "url": "/api/2014/subclasses/life"
-            },
-            "url": "/api/2014/subclasses/life/levels/6",
             "id": "life-6"
           },
           {
             "level": 8,
             "features": [
               {
-                "id": "divine-strike",
-                "name": "Divine Strike",
-                "url": "/api/2014/features/divine-strike"
+                "id": "divine-strike"
               }
             ],
-            "class": {
-              "id": "cleric",
-              "name": "Cleric",
-              "url": "/api/2014/classes/cleric"
-            },
-            "subclass": {
-              "id": "life",
-              "name": "Life",
-              "url": "/api/2014/subclasses/life"
-            },
-            "url": "/api/2014/subclasses/life/levels/8",
             "id": "life-8"
           },
           {
             "level": 17,
             "features": [
               {
-                "id": "supreme-healing",
-                "name": "Supreme Healing",
-                "url": "/api/2014/features/supreme-healing"
+                "id": "supreme-healing"
               }
             ],
-            "class": {
-              "id": "cleric",
-              "name": "Cleric",
-              "url": "/api/2014/classes/cleric"
-            },
-            "subclass": {
-              "id": "life",
-              "name": "Life",
-              "url": "/api/2014/subclasses/life"
-            },
-            "url": "/api/2014/subclasses/life/levels/17",
             "id": "life-17"
           }
         ]
@@ -2455,19 +2313,13 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "spellcasting-cleric",
-            "name": "Spellcasting: Cleric",
-            "url": "/api/2014/features/spellcasting-cleric"
+            "id": "spellcasting-cleric"
           },
           {
-            "id": "divine-domain",
-            "name": "Divine Domain",
-            "url": "/api/2014/features/divine-domain"
+            "id": "divine-domain"
           },
           {
-            "id": "domain-spells-1",
-            "name": "Domain Spells",
-            "url": "/api/2014/features/domain-spells-1"
+            "id": "domain-spells-1"
           }
         ],
         "spellcasting": {
@@ -2486,13 +2338,7 @@
           "channel_divinity_charges": 0,
           "destroy_undead_cr": 0
         },
-        "id": "cleric-1",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/1"
+        "id": "cleric-1"
       },
       {
         "level": 2,
@@ -2500,19 +2346,13 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "channel-divinity-1-rest",
-            "name": "Channel Divinity (1/rest)",
-            "url": "/api/2014/features/channel-divinity-1-rest"
+            "id": "channel-divinity-1-rest"
           },
           {
-            "id": "channel-divinity-turn-undead",
-            "name": "Channel Divinity: Turn Undead",
-            "url": "/api/2014/features/channel-divinity-turn-undead"
+            "id": "channel-divinity-turn-undead"
           },
           {
-            "id": "divine-domain-improvement-1",
-            "name": "Divine Domain feature",
-            "url": "/api/2014/features/divine-domain-improvement-1"
+            "id": "divine-domain-improvement-1"
           }
         ],
         "spellcasting": {
@@ -2531,13 +2371,7 @@
           "channel_divinity_charges": 1,
           "destroy_undead_cr": 0
         },
-        "id": "cleric-2",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/2"
+        "id": "cleric-2"
       },
       {
         "level": 3,
@@ -2545,9 +2379,7 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "domain-spells-2",
-            "name": "Domain Spells",
-            "url": "/api/2014/features/domain-spells-2"
+            "id": "domain-spells-2"
           }
         ],
         "spellcasting": {
@@ -2566,13 +2398,7 @@
           "channel_divinity_charges": 1,
           "destroy_undead_cr": 0
         },
-        "id": "cleric-3",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/3"
+        "id": "cleric-3"
       },
       {
         "level": 4,
@@ -2580,9 +2406,7 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "cleric-ability-score-improvement-1",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/cleric-ability-score-improvement-1"
+            "id": "cleric-ability-score-improvement-1"
           }
         ],
         "spellcasting": {
@@ -2601,13 +2425,7 @@
           "channel_divinity_charges": 1,
           "destroy_undead_cr": 0
         },
-        "id": "cleric-4",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/4"
+        "id": "cleric-4"
       },
       {
         "level": 5,
@@ -2615,14 +2433,10 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "domain-spells-3",
-            "name": "Domain Spells",
-            "url": "/api/2014/features/domain-spells-3"
+            "id": "domain-spells-3"
           },
           {
-            "id": "destroy-undead-cr-1-2-or-below",
-            "name": "Destroy Undead (CR 1/2 or below)",
-            "url": "/api/2014/features/destroy-undead-cr-1-2-or-below"
+            "id": "destroy-undead-cr-1-2-or-below"
           }
         ],
         "spellcasting": {
@@ -2641,13 +2455,7 @@
           "channel_divinity_charges": 1,
           "destroy_undead_cr": 0.5
         },
-        "id": "cleric-5",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/5"
+        "id": "cleric-5"
       },
       {
         "level": 6,
@@ -2655,14 +2463,10 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "channel-divinity-2-rest",
-            "name": "Channel Divinity (2/rest)",
-            "url": "/api/2014/features/channel-divinity-2-rest"
+            "id": "channel-divinity-2-rest"
           },
           {
-            "id": "divine-domain-improvement-2",
-            "name": "Divine Domain feature",
-            "url": "/api/2014/features/divine-domain-improvement-2"
+            "id": "divine-domain-improvement-2"
           }
         ],
         "spellcasting": {
@@ -2681,13 +2485,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 0.5
         },
-        "id": "cleric-6",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/6"
+        "id": "cleric-6"
       },
       {
         "level": 7,
@@ -2695,9 +2493,7 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "domain-spells-4",
-            "name": "Domain Spells",
-            "url": "/api/2014/features/domain-spells-4"
+            "id": "domain-spells-4"
           }
         ],
         "spellcasting": {
@@ -2716,13 +2512,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 0.5
         },
-        "id": "cleric-7",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/7"
+        "id": "cleric-7"
       },
       {
         "level": 8,
@@ -2730,19 +2520,13 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "cleric-ability-score-improvement-2",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/cleric-ability-score-improvement-2"
+            "id": "cleric-ability-score-improvement-2"
           },
           {
-            "id": "destroy-undead-cr-1-or-below",
-            "name": "Destroy Undead (CR 1 or below)",
-            "url": "/api/2014/features/destroy-undead-cr-1-or-below"
+            "id": "destroy-undead-cr-1-or-below"
           },
           {
-            "id": "divine-domain-improvement-3",
-            "name": "Divine Domain feature",
-            "url": "/api/2014/features/divine-domain-improvement-3"
+            "id": "divine-domain-improvement-3"
           }
         ],
         "spellcasting": {
@@ -2761,13 +2545,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 1
         },
-        "id": "cleric-8",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/8"
+        "id": "cleric-8"
       },
       {
         "level": 9,
@@ -2775,9 +2553,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "domain-spells-5",
-            "name": "Domain Spells",
-            "url": "/api/2014/features/domain-spells-5"
+            "id": "domain-spells-5"
           }
         ],
         "spellcasting": {
@@ -2796,13 +2572,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 1
         },
-        "id": "cleric-9",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/9"
+        "id": "cleric-9"
       },
       {
         "level": 10,
@@ -2810,9 +2580,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "divine-intervention",
-            "name": "Divine Intervention",
-            "url": "/api/2014/features/divine-intervention"
+            "id": "divine-intervention"
           }
         ],
         "spellcasting": {
@@ -2831,13 +2599,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 1
         },
-        "id": "cleric-10",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/10"
+        "id": "cleric-10"
       },
       {
         "level": 11,
@@ -2845,9 +2607,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "destroy-undead-cr-2-or-below",
-            "name": "Destroy Undead (CR 2 or below)",
-            "url": "/api/2014/features/destroy-undead-cr-2-or-below"
+            "id": "destroy-undead-cr-2-or-below"
           }
         ],
         "spellcasting": {
@@ -2866,13 +2626,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 2
         },
-        "id": "cleric-11",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/11"
+        "id": "cleric-11"
       },
       {
         "level": 12,
@@ -2880,9 +2634,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "cleric-ability-score-improvement-3",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/cleric-ability-score-improvement-3"
+            "id": "cleric-ability-score-improvement-3"
           }
         ],
         "spellcasting": {
@@ -2901,13 +2653,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 2
         },
-        "id": "cleric-12",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/12"
+        "id": "cleric-12"
       },
       {
         "level": 13,
@@ -2930,13 +2676,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 2
         },
-        "id": "cleric-13",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/13"
+        "id": "cleric-13"
       },
       {
         "level": 14,
@@ -2944,9 +2684,7 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "destroy-undead-cr-3-or-below",
-            "name": "Destroy Undead (CR 3 or below)",
-            "url": "/api/2014/features/destroy-undead-cr-3-or-below"
+            "id": "destroy-undead-cr-3-or-below"
           }
         ],
         "spellcasting": {
@@ -2965,13 +2703,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 3
         },
-        "id": "cleric-14",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/14"
+        "id": "cleric-14"
       },
       {
         "level": 15,
@@ -2994,13 +2726,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 3
         },
-        "id": "cleric-15",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/15"
+        "id": "cleric-15"
       },
       {
         "level": 16,
@@ -3008,9 +2734,7 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "cleric-ability-score-improvement-4",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/cleric-ability-score-improvement-4"
+            "id": "cleric-ability-score-improvement-4"
           }
         ],
         "spellcasting": {
@@ -3029,13 +2753,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 3
         },
-        "id": "cleric-16",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/16"
+        "id": "cleric-16"
       },
       {
         "level": 17,
@@ -3043,14 +2761,10 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "destroy-undead-cr-4-or-below",
-            "name": "Destroy Undead (CR 4 or below)",
-            "url": "/api/2014/features/destroy-undead-cr-4-or-below"
+            "id": "destroy-undead-cr-4-or-below"
           },
           {
-            "id": "divine-domain-improvement-4",
-            "name": "Divine Domain feature",
-            "url": "/api/2014/features/divine-domain-improvement-4"
+            "id": "divine-domain-improvement-4"
           }
         ],
         "spellcasting": {
@@ -3069,13 +2783,7 @@
           "channel_divinity_charges": 2,
           "destroy_undead_cr": 4
         },
-        "id": "cleric-17",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/17"
+        "id": "cleric-17"
       },
       {
         "level": 18,
@@ -3083,9 +2791,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "channel-divinity-3-rest",
-            "name": "Channel Divinity (3/rest)",
-            "url": "/api/2014/features/channel-divinity-3-rest"
+            "id": "channel-divinity-3-rest"
           }
         ],
         "spellcasting": {
@@ -3104,13 +2810,7 @@
           "channel_divinity_charges": 3,
           "destroy_undead_cr": 4
         },
-        "id": "cleric-18",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/18"
+        "id": "cleric-18"
       },
       {
         "level": 19,
@@ -3118,9 +2818,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "cleric-ability-score-improvement-5",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/cleric-ability-score-improvement-5"
+            "id": "cleric-ability-score-improvement-5"
           }
         ],
         "spellcasting": {
@@ -3139,13 +2837,7 @@
           "channel_divinity_charges": 3,
           "destroy_undead_cr": 4
         },
-        "id": "cleric-19",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/19"
+        "id": "cleric-19"
       },
       {
         "level": 20,
@@ -3153,9 +2845,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "divine-intervention-improvement",
-            "name": "Divine Intervention Improvement",
-            "url": "/api/2014/features/divine-intervention-improvement"
+            "id": "divine-intervention-improvement"
           }
         ],
         "spellcasting": {
@@ -3174,13 +2864,7 @@
           "channel_divinity_charges": 3,
           "destroy_undead_cr": 4
         },
-        "id": "cleric-20",
-        "class": {
-          "id": "cleric",
-          "name": "Cleric",
-          "url": "/api/2014/classes/cleric"
-        },
-        "url": "/api/2014/classes/cleric/levels/20"
+        "id": "cleric-20"
       }
     ]
   },
@@ -3422,11 +3106,6 @@
     "subclasses": [
       {
         "id": "land",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
         "name": "Land",
         "subclassFlavor": "Druid Circle",
         "desc": [
@@ -3437,36 +3116,630 @@
             "prerequisites": [
               {
                 "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
+                "type": "feature"
               }
             ],
             "spell": {
-              "id": "hold-person",
-              "name": "Hold Person",
-              "url": "/api/2014/spells/hold-person"
+              "id": "hold-person"
             }
           },
           {
             "prerequisites": [
               {
                 "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "spike-growth"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "sleet-storm"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "slow"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "freedom-of-movement"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "ice-storm"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "commune-with-nature"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-arctic",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "cone-of-cold"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "mirror-image"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "misty-step"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "water-breathing"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "water-walk"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "control-water"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "freedom-of-movement"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "conjure-elemental"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-coast",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "scrying"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "blur"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "silence"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "create-food-and-water"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "protection-from-energy"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "blight"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "hallucinatory-terrain"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "insect-plague"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-desert",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "wall-of-stone"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "barkskin"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "spider-climb"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "call-lightning"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "plant-growth"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "divination"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "freedom-of-movement"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-forest",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "commune-with-nature"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level",
+                "name": "Druid 9",
+                "url": "/api/2014/classes/druid/levels/9"
+              },
+              {
+                "id": "circle-of-the-land-forest",
                 "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
+                "name": "Circle of the Land: Forest",
+                "url": "/api/2014/features/circle-of-the-land-forest"
+              }
+            ],
+            "spell": {
+              "id": "tree-stride"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "invisibility"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "pass-without-trace"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "daylight"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-5",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "haste"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "divination"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-7",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "freedom-of-movement"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "dream"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-9",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-grassland",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "insect-plague"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-mountain",
+                "type": "feature"
+              }
+            ],
+            "spell": {
+              "id": "spider-climb"
+            }
+          },
+          {
+            "prerequisites": [
+              {
+                "id": "druid-3",
+                "type": "level"
+              },
+              {
+                "id": "circle-of-the-land-mountain",
+                "type": "feature"
               }
             ],
             "spell": {
@@ -3479,855 +3752,11 @@
             "prerequisites": [
               {
                 "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
-              }
-            ],
-            "spell": {
-              "id": "sleet-storm",
-              "name": "Sleet Storm",
-              "url": "/api/2014/spells/sleet-storm"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
-              }
-            ],
-            "spell": {
-              "id": "slow",
-              "name": "Slow",
-              "url": "/api/2014/spells/slow"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
-              }
-            ],
-            "spell": {
-              "id": "freedom-of-movement",
-              "name": "Freedom of Movement",
-              "url": "/api/2014/spells/freedom-of-movement"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
-              }
-            ],
-            "spell": {
-              "id": "ice-storm",
-              "name": "Ice Storm",
-              "url": "/api/2014/spells/ice-storm"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
-              }
-            ],
-            "spell": {
-              "id": "commune-with-nature",
-              "name": "Commune With Nature",
-              "url": "/api/2014/spells/commune-with-nature"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature",
-                "name": "Circle of the Land: Arctic",
-                "url": "/api/2014/features/circle-of-the-land-arctic"
-              }
-            ],
-            "spell": {
-              "id": "cone-of-cold",
-              "name": "Cone of Cold",
-              "url": "/api/2014/spells/cone-of-cold"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "mirror-image",
-              "name": "Mirror Image",
-              "url": "/api/2014/spells/mirror-image"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "misty-step",
-              "name": "Misty Step",
-              "url": "/api/2014/spells/misty-step"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "water-breathing",
-              "name": "Water Breathing",
-              "url": "/api/2014/spells/water-breathing"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "water-walk",
-              "name": "Water Walk",
-              "url": "/api/2014/spells/water-walk"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "control-water",
-              "name": "Control Water",
-              "url": "/api/2014/spells/control-water"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "freedom-of-movement",
-              "name": "Freedom of Movement",
-              "url": "/api/2014/spells/freedom-of-movement"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "conjure-elemental",
-              "name": "Conjure Elemental",
-              "url": "/api/2014/spells/conjure-elemental"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-coast",
-                "type": "feature",
-                "name": "Circle of the Land: Coast",
-                "url": "/api/2014/features/circle-of-the-land-coast"
-              }
-            ],
-            "spell": {
-              "id": "scrying",
-              "name": "Scrying",
-              "url": "/api/2014/spells/scrying"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "blur",
-              "name": "Blur",
-              "url": "/api/2014/spells/blur"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "silence",
-              "name": "Silence",
-              "url": "/api/2014/spells/silence"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "create-food-and-water",
-              "name": "Create Food and Water",
-              "url": "/api/2014/spells/create-food-and-water"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "protection-from-energy",
-              "name": "Protection From Energy",
-              "url": "/api/2014/spells/protection-from-energy"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "blight",
-              "name": "Blight",
-              "url": "/api/2014/spells/blight"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "hallucinatory-terrain",
-              "name": "Hallucinatory Terrain",
-              "url": "/api/2014/spells/hallucinatory-terrain"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "insect-plague",
-              "name": "Insect Plague",
-              "url": "/api/2014/spells/insect-plague"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-desert",
-                "type": "feature",
-                "name": "Circle of the Land: Desert",
-                "url": "/api/2014/features/circle-of-the-land-desert"
-              }
-            ],
-            "spell": {
-              "id": "wall-of-stone",
-              "name": "Wall of Stone",
-              "url": "/api/2014/spells/wall-of-stone"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "barkskin",
-              "name": "Barkskin",
-              "url": "/api/2014/spells/barkskin"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "spider-climb",
-              "name": "Spider Climb",
-              "url": "/api/2014/spells/spider-climb"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "call-lightning",
-              "name": "Call Lightning",
-              "url": "/api/2014/spells/call-lightning"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "plant-growth",
-              "name": "Plant Growth",
-              "url": "/api/2014/spells/plant-growth"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "divination",
-              "name": "Divination",
-              "url": "/api/2014/spells/divination"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "freedom-of-movement",
-              "name": "Freedom of Movement",
-              "url": "/api/2014/spells/freedom-of-movement"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "commune-with-nature",
-              "name": "Commune With Nature",
-              "url": "/api/2014/spells/commune-with-nature"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-forest",
-                "type": "feature",
-                "name": "Circle of the Land: Forest",
-                "url": "/api/2014/features/circle-of-the-land-forest"
-              }
-            ],
-            "spell": {
-              "id": "tree-stride",
-              "name": "Tree Stride",
-              "url": "/api/2014/spells/tree-stride"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "invisibility",
-              "name": "Invisibility",
-              "url": "/api/2014/spells/invisibility"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "pass-without-trace",
-              "name": "Pass Without Trace",
-              "url": "/api/2014/spells/pass-without-trace"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "daylight",
-              "name": "Daylight",
-              "url": "/api/2014/spells/daylight"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "haste",
-              "name": "Haste",
-              "url": "/api/2014/spells/haste"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "divination",
-              "name": "Divination",
-              "url": "/api/2014/spells/divination"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "freedom-of-movement",
-              "name": "Freedom of Movement",
-              "url": "/api/2014/spells/freedom-of-movement"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "dream",
-              "name": "Dream",
-              "url": "/api/2014/spells/dream"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
-              },
-              {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature",
-                "name": "Circle of the Land: Grassland",
-                "url": "/api/2014/features/circle-of-the-land-grassland"
-              }
-            ],
-            "spell": {
-              "id": "insect-plague",
-              "name": "Insect Plague",
-              "url": "/api/2014/spells/insect-plague"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
-              }
-            ],
-            "spell": {
-              "id": "spider-climb",
-              "name": "Spider Climb",
-              "url": "/api/2014/spells/spider-climb"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
-              },
-              {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
-              }
-            ],
-            "spell": {
-              "id": "spike-growth",
-              "name": "Spike Growth",
-              "url": "/api/2014/spells/spike-growth"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
-              },
-              {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4340,15 +3769,11 @@
             "prerequisites": [
               {
                 "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4361,15 +3786,11 @@
             "prerequisites": [
               {
                 "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4382,15 +3803,11 @@
             "prerequisites": [
               {
                 "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4403,15 +3820,11 @@
             "prerequisites": [
               {
                 "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-mountain",
-                "type": "feature",
-                "name": "Circle of the Land: Mountain",
-                "url": "/api/2014/features/circle-of-the-land-mountain"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4445,15 +3858,11 @@
             "prerequisites": [
               {
                 "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4466,15 +3875,11 @@
             "prerequisites": [
               {
                 "id": "druid-3",
-                "type": "level",
-                "name": "Druid 3",
-                "url": "/api/2014/classes/druid/levels/3"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4487,15 +3892,11 @@
             "prerequisites": [
               {
                 "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4508,15 +3909,11 @@
             "prerequisites": [
               {
                 "id": "druid-5",
-                "type": "level",
-                "name": "Druid 5",
-                "url": "/api/2014/classes/druid/levels/5"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4529,15 +3926,11 @@
             "prerequisites": [
               {
                 "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4550,15 +3943,11 @@
             "prerequisites": [
               {
                 "id": "druid-7",
-                "type": "level",
-                "name": "Druid 7",
-                "url": "/api/2014/classes/druid/levels/7"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4571,15 +3960,11 @@
             "prerequisites": [
               {
                 "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
@@ -4592,118 +3977,56 @@
             "prerequisites": [
               {
                 "id": "druid-9",
-                "type": "level",
-                "name": "Druid 9",
-                "url": "/api/2014/classes/druid/levels/9"
+                "type": "level"
               },
               {
                 "id": "circle-of-the-land-swamp",
-                "type": "feature",
-                "name": "Circle of the Land: Swamp",
-                "url": "/api/2014/features/circle-of-the-land-swamp"
+                "type": "feature"
               }
             ],
             "spell": {
-              "id": "scrying",
-              "name": "Scrying",
-              "url": "/api/2014/spells/scrying"
+              "id": "scrying"
             }
           }
         ],
-        "subclassLevels": "/api/2014/subclasses/land/levels",
-        "url": "/api/2014/subclasses/land",
         "levels": [
           {
             "level": 2,
             "features": [
               {
-                "id": "bonus-cantrip",
-                "name": "Bonus Cantrip",
-                "url": "/api/2014/features/bonus-cantrip"
+                "id": "bonus-cantrip"
               },
               {
-                "id": "natural-recovery",
-                "name": "Natural Recovery",
-                "url": "/api/2014/features/natural-recovery"
+                "id": "natural-recovery"
               }
             ],
-            "class": {
-              "id": "druid",
-              "name": "Druid",
-              "url": "/api/2014/classes/druid"
-            },
-            "subclass": {
-              "id": "land",
-              "name": "Land",
-              "url": "/api/2014/subclasses/land"
-            },
-            "url": "/api/2014/subclasses/land/levels/2",
             "id": "land-2"
           },
           {
             "level": 6,
             "features": [
               {
-                "id": "druid-lands-stride",
-                "name": "Land's Stride",
-                "url": "/api/2014/features/druid-lands-stride"
+                "id": "druid-lands-stride"
               }
             ],
-            "class": {
-              "id": "druid",
-              "name": "Druid",
-              "url": "/api/2014/classes/druid"
-            },
-            "subclass": {
-              "id": "land",
-              "name": "Land",
-              "url": "/api/2014/subclasses/land"
-            },
-            "url": "/api/2014/subclasses/land/levels/6",
             "id": "land-6"
           },
           {
             "level": 10,
             "features": [
               {
-                "id": "natures-ward",
-                "name": "Nature's Ward",
-                "url": "/api/2014/features/natures-ward"
+                "id": "natures-ward"
               }
             ],
-            "class": {
-              "id": "druid",
-              "name": "Druid",
-              "url": "/api/2014/classes/druid"
-            },
-            "subclass": {
-              "id": "land",
-              "name": "Land",
-              "url": "/api/2014/subclasses/land"
-            },
-            "url": "/api/2014/subclasses/land/levels/10",
             "id": "land-10"
           },
           {
             "level": 14,
             "features": [
               {
-                "id": "natures-sanctuary",
-                "name": "Nature's Sanctuary",
-                "url": "/api/2014/features/natures-sanctuary"
+                "id": "natures-sanctuary"
               }
             ],
-            "class": {
-              "id": "druid",
-              "name": "Druid",
-              "url": "/api/2014/classes/druid"
-            },
-            "subclass": {
-              "id": "land",
-              "name": "Land",
-              "url": "/api/2014/subclasses/land"
-            },
-            "url": "/api/2014/subclasses/land/levels/14",
             "id": "land-14"
           }
         ]
@@ -4759,14 +4082,10 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "spellcasting-druid",
-            "name": "Spellcasting: Druid",
-            "url": "/api/2014/features/spellcasting-druid"
+            "id": "spellcasting-druid"
           },
           {
-            "id": "druidic",
-            "name": "Druidic",
-            "url": "/api/2014/features/druidic"
+            "id": "druidic"
           }
         ],
         "spellcasting": {
@@ -4786,13 +4105,7 @@
           "wild_shape_swim": false,
           "wild_shape_fly": false
         },
-        "id": "druid-1",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/1"
+        "id": "druid-1"
       },
       {
         "level": 2,
@@ -4800,14 +4113,10 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "wild-shape-cr-1-4-or-below-no-flying-or-swim-speed",
-            "name": "Wild Shape (CR 1/4 or below, no flying or swim speed)",
-            "url": "/api/2014/features/wild-shape-cr-1-4-or-below-no-flying-or-swim-speed"
+            "id": "wild-shape-cr-1-4-or-below-no-flying-or-swim-speed"
           },
           {
-            "id": "druid-circle",
-            "name": "Druid Circle",
-            "url": "/api/2014/features/druid-circle"
+            "id": "druid-circle"
           }
         ],
         "spellcasting": {
@@ -4827,13 +4136,7 @@
           "wild_shape_swim": false,
           "wild_shape_fly": false
         },
-        "id": "druid-2",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/2"
+        "id": "druid-2"
       },
       {
         "level": 3,
@@ -4857,13 +4160,7 @@
           "wild_shape_swim": false,
           "wild_shape_fly": false
         },
-        "id": "druid-3",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/3"
+        "id": "druid-3"
       },
       {
         "level": 4,
@@ -4871,14 +4168,10 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "wild-shape-cr-1-2-or-below-no-flying-speed",
-            "name": "Wild Shape (CR 1/2 or below, no flying speed)",
-            "url": "/api/2014/features/wild-shape-cr-1-2-or-below-no-flying-speed"
+            "id": "wild-shape-cr-1-2-or-below-no-flying-speed"
           },
           {
-            "id": "druid-ability-score-improvement-1",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/druid-ability-score-improvement-1"
+            "id": "druid-ability-score-improvement-1"
           }
         ],
         "spellcasting": {
@@ -4898,13 +4191,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": false
         },
-        "id": "druid-4",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/4"
+        "id": "druid-4"
       },
       {
         "level": 5,
@@ -4928,13 +4215,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": false
         },
-        "id": "druid-5",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/5"
+        "id": "druid-5"
       },
       {
         "level": 6,
@@ -4942,9 +4223,7 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "druid-circle-improvement-1",
-            "name": "Druid Circle feature",
-            "url": "/api/2014/features/druid-circle-improvement-1"
+            "id": "druid-circle-improvement-1"
           }
         ],
         "spellcasting": {
@@ -4964,13 +4243,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": false
         },
-        "id": "druid-6",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/6"
+        "id": "druid-6"
       },
       {
         "level": 7,
@@ -4994,13 +4267,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": false
         },
-        "id": "druid-7",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/7"
+        "id": "druid-7"
       },
       {
         "level": 8,
@@ -5008,14 +4275,10 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "wild-shape-cr-1-or-below",
-            "name": "Wild Shape (CR 1 or below)",
-            "url": "/api/2014/features/wild-shape-cr-1-or-below"
+            "id": "wild-shape-cr-1-or-below"
           },
           {
-            "id": "druid-ability-score-improvement-2",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/druid-ability-score-improvement-2"
+            "id": "druid-ability-score-improvement-2"
           }
         ],
         "spellcasting": {
@@ -5035,13 +4298,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-8",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/8"
+        "id": "druid-8"
       },
       {
         "level": 9,
@@ -5065,13 +4322,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-9",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/9"
+        "id": "druid-9"
       },
       {
         "level": 10,
@@ -5079,9 +4330,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "druid-circle-improvement-2",
-            "name": "Druid Circle feature",
-            "url": "/api/2014/features/druid-circle-improvement-2"
+            "id": "druid-circle-improvement-2"
           }
         ],
         "spellcasting": {
@@ -5101,13 +4350,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-10",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/10"
+        "id": "druid-10"
       },
       {
         "level": 11,
@@ -5131,13 +4374,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-11",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/11"
+        "id": "druid-11"
       },
       {
         "level": 12,
@@ -5145,9 +4382,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "druid-ability-score-improvement-3",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/druid-ability-score-improvement-3"
+            "id": "druid-ability-score-improvement-3"
           }
         ],
         "spellcasting": {
@@ -5167,13 +4402,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-12",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/12"
+        "id": "druid-12"
       },
       {
         "level": 13,
@@ -5197,13 +4426,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-13",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/13"
+        "id": "druid-13"
       },
       {
         "level": 14,
@@ -5233,13 +4456,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-14",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/14"
+        "id": "druid-14"
       },
       {
         "level": 15,
@@ -5263,13 +4480,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-15",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/15"
+        "id": "druid-15"
       },
       {
         "level": 16,
@@ -5299,13 +4510,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-16",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/16"
+        "id": "druid-16"
       },
       {
         "level": 17,
@@ -5329,13 +4534,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-17",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/17"
+        "id": "druid-17"
       },
       {
         "level": 18,
@@ -5370,13 +4569,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-18",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/18"
+        "id": "druid-18"
       },
       {
         "level": 19,
@@ -5406,13 +4599,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-19",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/19"
+        "id": "druid-19"
       },
       {
         "level": 20,
@@ -5442,13 +4629,7 @@
           "wild_shape_swim": true,
           "wild_shape_fly": true
         },
-        "id": "druid-20",
-        "class": {
-          "id": "druid",
-          "name": "Druid",
-          "url": "/api/2014/classes/druid"
-        },
-        "url": "/api/2014/classes/druid/levels/20"
+        "id": "druid-20"
       }
     ]
   },
@@ -5747,127 +4928,55 @@
     "subclasses": [
       {
         "id": "champion",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
         "name": "Champion",
         "subclassFlavor": "Martial Archetype",
         "desc": [
           "The archetypal Champion focuses on the development of raw physical power honed to deadly perfection. Those who model themselves on this archetype combine rigorous training with physical excellence to deal devastating blows."
         ],
-        "subclassLevels": "/api/2014/subclasses/champion/levels",
-        "url": "/api/2014/subclasses/champion",
         "levels": [
           {
             "level": 3,
             "features": [
               {
-                "id": "improved-critical",
-                "name": "Improved Critical",
-                "url": "/api/2014/features/improved-critical"
+                "id": "improved-critical"
               }
             ],
-            "class": {
-              "id": "fighter",
-              "name": "Fighter",
-              "url": "/api/2014/classes/fighter"
-            },
-            "subclass": {
-              "id": "champion",
-              "name": "Champion",
-              "url": "/api/2014/subclasses/champion"
-            },
-            "url": "/api/2014/subclasses/champion/levels/3",
             "id": "champion-3"
           },
           {
             "level": 7,
             "features": [
               {
-                "id": "remarkable-athlete",
-                "name": "Remarkable Athlete",
-                "url": "/api/2014/features/remarkable-athlete"
+                "id": "remarkable-athlete"
               }
             ],
-            "class": {
-              "id": "fighter",
-              "name": "Fighter",
-              "url": "/api/2014/classes/fighter"
-            },
-            "subclass": {
-              "id": "champion",
-              "name": "Champion",
-              "url": "/api/2014/subclasses/champion"
-            },
-            "url": "/api/2014/subclasses/champion/levels/7",
             "id": "champion-7"
           },
           {
             "level": 10,
             "features": [
               {
-                "id": "additional-fighting-style",
-                "name": "Additional Fighting Style",
-                "url": "/api/2014/features/additional-fighting-style"
+                "id": "additional-fighting-style"
               }
             ],
-            "class": {
-              "id": "fighter",
-              "name": "Fighter",
-              "url": "/api/2014/classes/fighter"
-            },
-            "subclass": {
-              "id": "champion",
-              "name": "Champion",
-              "url": "/api/2014/subclasses/champion"
-            },
-            "url": "/api/2014/subclasses/champion/levels/10",
             "id": "champion-10"
           },
           {
             "level": 15,
             "features": [
               {
-                "id": "superior-critical",
-                "name": "Superior Critical",
-                "url": "/api/2014/features/superior-critical"
+                "id": "superior-critical"
               }
             ],
-            "class": {
-              "id": "fighter",
-              "name": "Fighter",
-              "url": "/api/2014/classes/fighter"
-            },
-            "subclass": {
-              "id": "champion",
-              "name": "Champion",
-              "url": "/api/2014/subclasses/champion"
-            },
-            "url": "/api/2014/subclasses/champion/levels/15",
             "id": "champion-15"
           },
           {
             "level": 18,
             "features": [
               {
-                "id": "survivor",
-                "name": "Survivor",
-                "url": "/api/2014/features/survivor"
+                "id": "survivor"
               }
             ],
-            "class": {
-              "id": "fighter",
-              "name": "Fighter",
-              "url": "/api/2014/classes/fighter"
-            },
-            "subclass": {
-              "id": "champion",
-              "name": "Champion",
-              "url": "/api/2014/subclasses/champion"
-            },
-            "url": "/api/2014/subclasses/champion/levels/18",
             "id": "champion-18"
           }
         ]
@@ -5895,13 +5004,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 0
         },
-        "id": "fighter-1",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/1"
+        "id": "fighter-1"
       },
       {
         "level": 2,
@@ -5919,13 +5022,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 0
         },
-        "id": "fighter-2",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/2"
+        "id": "fighter-2"
       },
       {
         "level": 3,
@@ -5943,13 +5040,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 0
         },
-        "id": "fighter-3",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/3"
+        "id": "fighter-3"
       },
       {
         "level": 4,
@@ -5967,13 +5058,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 0
         },
-        "id": "fighter-4",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/4"
+        "id": "fighter-4"
       },
       {
         "level": 5,
@@ -5991,13 +5076,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 1
         },
-        "id": "fighter-5",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/5"
+        "id": "fighter-5"
       },
       {
         "level": 6,
@@ -6015,13 +5094,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 1
         },
-        "id": "fighter-6",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/6"
+        "id": "fighter-6"
       },
       {
         "level": 7,
@@ -6039,13 +5112,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 1
         },
-        "id": "fighter-7",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/7"
+        "id": "fighter-7"
       },
       {
         "level": 8,
@@ -6063,13 +5130,7 @@
           "indomitable_uses": 0,
           "extra_attacks": 1
         },
-        "id": "fighter-8",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/8"
+        "id": "fighter-8"
       },
       {
         "level": 9,
@@ -6087,13 +5148,7 @@
           "indomitable_uses": 1,
           "extra_attacks": 1
         },
-        "id": "fighter-9",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/9"
+        "id": "fighter-9"
       },
       {
         "level": 10,
@@ -6111,13 +5166,7 @@
           "indomitable_uses": 1,
           "extra_attacks": 1
         },
-        "id": "fighter-10",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/10"
+        "id": "fighter-10"
       },
       {
         "level": 11,
@@ -6135,13 +5184,7 @@
           "indomitable_uses": 1,
           "extra_attacks": 2
         },
-        "id": "fighter-11",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/11"
+        "id": "fighter-11"
       },
       {
         "level": 12,
@@ -6159,13 +5202,7 @@
           "indomitable_uses": 1,
           "extra_attacks": 2
         },
-        "id": "fighter-12",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/12"
+        "id": "fighter-12"
       },
       {
         "level": 13,
@@ -6183,13 +5220,7 @@
           "indomitable_uses": 2,
           "extra_attacks": 2
         },
-        "id": "fighter-13",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/13"
+        "id": "fighter-13"
       },
       {
         "level": 14,
@@ -6207,13 +5238,7 @@
           "indomitable_uses": 2,
           "extra_attacks": 2
         },
-        "id": "fighter-14",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/14"
+        "id": "fighter-14"
       },
       {
         "level": 15,
@@ -6231,13 +5256,7 @@
           "indomitable_uses": 2,
           "extra_attacks": 2
         },
-        "id": "fighter-15",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/15"
+        "id": "fighter-15"
       },
       {
         "level": 16,
@@ -6255,13 +5274,7 @@
           "indomitable_uses": 2,
           "extra_attacks": 2
         },
-        "id": "fighter-16",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/16"
+        "id": "fighter-16"
       },
       {
         "level": 17,
@@ -6284,13 +5297,7 @@
           "indomitable_uses": 3,
           "extra_attacks": 2
         },
-        "id": "fighter-17",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/17"
+        "id": "fighter-17"
       },
       {
         "level": 18,
@@ -6308,13 +5315,7 @@
           "indomitable_uses": 3,
           "extra_attacks": 2
         },
-        "id": "fighter-18",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/18"
+        "id": "fighter-18"
       },
       {
         "level": 19,
@@ -6332,13 +5333,7 @@
           "indomitable_uses": 3,
           "extra_attacks": 2
         },
-        "id": "fighter-19",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/19"
+        "id": "fighter-19"
       },
       {
         "level": 20,
@@ -6356,13 +5351,7 @@
           "indomitable_uses": 3,
           "extra_attacks": 3
         },
-        "id": "fighter-20",
-        "class": {
-          "id": "fighter",
-          "name": "Fighter",
-          "url": "/api/2014/classes/fighter"
-        },
-        "url": "/api/2014/classes/fighter/levels/20"
+        "id": "fighter-20"
       }
     ]
   },
@@ -6743,105 +5732,46 @@
     "subclasses": [
       {
         "id": "open-hand",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
         "name": "Open Hand",
         "subclassFlavor": "Monastic Tradition",
         "desc": [
           "Monks of the Way of the Open Hand are the ultimate masters of martial arts combat, whether armed or unarmed. They learn techniques to push and trip their opponents, manipulate ki to heal damage to their bodies, and practice advanced meditation that can protect them from harm."
         ],
-        "subclassLevels": "/api/2014/subclasses/open-hand/levels",
-        "url": "/api/2014/subclasses/open-hand",
         "levels": [
           {
             "level": 3,
             "features": [
               {
-                "id": "open-hand-technique",
-                "name": "Open Hand Technique",
-                "url": "/api/2014/features/open-hand-technique"
+                "id": "open-hand-technique"
               }
             ],
-            "class": {
-              "id": "monk",
-              "name": "Monk",
-              "url": "/api/2014/classes/monk"
-            },
-            "subclass": {
-              "id": "open-hand",
-              "name": "Open Hand",
-              "url": "/api/2014/subclasses/open-hand"
-            },
-            "url": "/api/2014/subclasses/open-hand/levels/3",
             "id": "open-hand-3"
           },
           {
             "level": 6,
             "features": [
               {
-                "id": "wholeness-of-body",
-                "name": "Wholeness of Body",
-                "url": "/api/2014/features/wholeness-of-body"
+                "id": "wholeness-of-body"
               }
             ],
-            "class": {
-              "id": "monk",
-              "name": "Monk",
-              "url": "/api/2014/classes/monk"
-            },
-            "subclass": {
-              "id": "open-hand",
-              "name": "Open Hand",
-              "url": "/api/2014/subclasses/open-hand"
-            },
-            "url": "/api/2014/subclasses/open-hand/levels/6",
             "id": "open-hand-6"
           },
           {
             "level": 11,
             "features": [
               {
-                "id": "tranquility",
-                "name": "Tranquility",
-                "url": "/api/2014/features/tranquility"
+                "id": "tranquility"
               }
             ],
-            "class": {
-              "id": "monk",
-              "name": "Monk",
-              "url": "/api/2014/classes/monk"
-            },
-            "subclass": {
-              "id": "open-hand",
-              "name": "Open Hand",
-              "url": "/api/2014/subclasses/open-hand"
-            },
-            "url": "/api/2014/subclasses/open-hand/levels/11",
             "id": "open-hand-11"
           },
           {
             "level": 17,
             "features": [
               {
-                "id": "quivering-palm",
-                "name": "Quivering Palm",
-                "url": "/api/2014/features/quivering-palm"
+                "id": "quivering-palm"
               }
             ],
-            "class": {
-              "id": "monk",
-              "name": "Monk",
-              "url": "/api/2014/classes/monk"
-            },
-            "subclass": {
-              "id": "open-hand",
-              "name": "Open Hand",
-              "url": "/api/2014/subclasses/open-hand"
-            },
-            "url": "/api/2014/subclasses/open-hand/levels/17",
             "id": "open-hand-17"
           }
         ]
@@ -6872,13 +5802,7 @@
           "ki_points": 0,
           "unarmored_movement": 0
         },
-        "id": "monk-1",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/1"
+        "id": "monk-1"
       },
       {
         "level": 2,
@@ -6919,13 +5843,7 @@
           "ki_points": 2,
           "unarmored_movement": 10
         },
-        "id": "monk-2",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/2"
+        "id": "monk-2"
       },
       {
         "level": 3,
@@ -6951,13 +5869,7 @@
           "ki_points": 3,
           "unarmored_movement": 10
         },
-        "id": "monk-3",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/3"
+        "id": "monk-3"
       },
       {
         "level": 4,
@@ -6983,13 +5895,7 @@
           "ki_points": 4,
           "unarmored_movement": 10
         },
-        "id": "monk-4",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/4"
+        "id": "monk-4"
       },
       {
         "level": 5,
@@ -7015,13 +5921,7 @@
           "ki_points": 5,
           "unarmored_movement": 10
         },
-        "id": "monk-5",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/5"
+        "id": "monk-5"
       },
       {
         "level": 6,
@@ -7047,13 +5947,7 @@
           "ki_points": 6,
           "unarmored_movement": 15
         },
-        "id": "monk-6",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/6"
+        "id": "monk-6"
       },
       {
         "level": 7,
@@ -7079,13 +5973,7 @@
           "ki_points": 7,
           "unarmored_movement": 15
         },
-        "id": "monk-7",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/7"
+        "id": "monk-7"
       },
       {
         "level": 8,
@@ -7106,13 +5994,7 @@
           "ki_points": 8,
           "unarmored_movement": 15
         },
-        "id": "monk-8",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/8"
+        "id": "monk-8"
       },
       {
         "level": 9,
@@ -7133,13 +6015,7 @@
           "ki_points": 9,
           "unarmored_movement": 15
         },
-        "id": "monk-9",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/9"
+        "id": "monk-9"
       },
       {
         "level": 10,
@@ -7160,13 +6036,7 @@
           "ki_points": 10,
           "unarmored_movement": 20
         },
-        "id": "monk-10",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/10"
+        "id": "monk-10"
       },
       {
         "level": 11,
@@ -7187,13 +6057,7 @@
           "ki_points": 11,
           "unarmored_movement": 20
         },
-        "id": "monk-11",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/11"
+        "id": "monk-11"
       },
       {
         "level": 12,
@@ -7214,13 +6078,7 @@
           "ki_points": 12,
           "unarmored_movement": 20
         },
-        "id": "monk-12",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/12"
+        "id": "monk-12"
       },
       {
         "level": 13,
@@ -7241,13 +6099,7 @@
           "ki_points": 13,
           "unarmored_movement": 20
         },
-        "id": "monk-13",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/13"
+        "id": "monk-13"
       },
       {
         "level": 14,
@@ -7268,13 +6120,7 @@
           "ki_points": 14,
           "unarmored_movement": 25
         },
-        "id": "monk-14",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/14"
+        "id": "monk-14"
       },
       {
         "level": 15,
@@ -7295,13 +6141,7 @@
           "ki_points": 15,
           "unarmored_movement": 25
         },
-        "id": "monk-15",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/15"
+        "id": "monk-15"
       },
       {
         "level": 16,
@@ -7322,13 +6162,7 @@
           "ki_points": 16,
           "unarmored_movement": 25
         },
-        "id": "monk-16",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/16"
+        "id": "monk-16"
       },
       {
         "level": 17,
@@ -7349,13 +6183,7 @@
           "ki_points": 17,
           "unarmored_movement": 25
         },
-        "id": "monk-17",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/17"
+        "id": "monk-17"
       },
       {
         "level": 18,
@@ -7376,13 +6204,7 @@
           "ki_points": 18,
           "unarmored_movement": 30
         },
-        "id": "monk-18",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/18"
+        "id": "monk-18"
       },
       {
         "level": 19,
@@ -7403,13 +6225,7 @@
           "ki_points": 19,
           "unarmored_movement": 30
         },
-        "id": "monk-19",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/19"
+        "id": "monk-19"
       },
       {
         "level": 20,
@@ -7430,13 +6246,7 @@
           "ki_points": 20,
           "unarmored_movement": 30
         },
-        "id": "monk-20",
-        "class": {
-          "id": "monk",
-          "name": "Monk",
-          "url": "/api/2014/classes/monk"
-        },
-        "url": "/api/2014/classes/monk/levels/20"
+        "id": "monk-20"
       }
     ]
   },
@@ -7685,11 +6495,6 @@
     "subclasses": [
       {
         "id": "devotion",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
         "name": "Devotion",
         "subclassFlavor": "Sacred Oath",
         "desc": [
@@ -7847,84 +6652,41 @@
             }
           }
         ],
-        "subclassLevels": "/api/2014/subclasses/devotion/levels",
-        "url": "/api/2014/subclasses/devotion",
         "levels": [
           {
             "level": 3,
             "features": [
               {
-                "id": "channel-divinity-sacred-weapon",
-                "name": "Channel Divinity: Sacred Weapon",
-                "url": "/api/2014/features/channel-divinity-sacred-weapon"
+                "id": "channel-divinity-sacred-weapon"
               },
               {
-                "id": "channel-divinity-turn-the-unholy",
-                "name": "Channel Divinity: Turn the Unholy",
-                "url": "/api/2014/features/channel-divinity-turn-the-unholy"
+                "id": "channel-divinity-turn-the-unholy"
               }
             ],
-            "class": {
-              "id": "paladin",
-              "name": "Paladin",
-              "url": "/api/2014/classes/paladin"
-            },
-            "subclass": {
-              "id": "devotion",
-              "name": "Devotion",
-              "url": "/api/2014/subclasses/devotion"
-            },
-            "url": "/api/2014/subclasses/devotion/levels/3",
             "id": "devotion-3"
           },
           {
             "level": 7,
             "features": [
               {
-                "id": "aura-of-devotion",
-                "name": "Aura of Devotion",
-                "url": "/api/2014/features/aura-of-devotion"
+                "id": "aura-of-devotion"
               }
             ],
             "subclass_specific": {
               "aura_range": 10
-            },
-            "class": {
-              "id": "paladin",
-              "name": "Paladin",
-              "url": "/api/2014/classes/paladin"
-            },
-            "subclass": {
-              "id": "devotion",
-              "name": "Devotion",
-              "url": "/api/2014/subclasses/devotion"
-            },
-            "url": "/api/2014/subclasses/devotion/levels/7",
+            },            
             "id": "devotion-7"
           },
           {
             "level": 15,
             "features": [
               {
-                "id": "purity-of-spirit",
-                "name": "Purity of Spirit",
-                "url": "/api/2014/features/purity-of-spirit"
+                "id": "purity-of-spirit"
               }
             ],
             "subclass_specific": {
               "aura_range": 10
-            },
-            "class": {
-              "id": "paladin",
-              "name": "Paladin",
-              "url": "/api/2014/classes/paladin"
-            },
-            "subclass": {
-              "id": "devotion",
-              "name": "Devotion",
-              "url": "/api/2014/subclasses/devotion"
-            },
-            "url": "/api/2014/subclasses/devotion/levels/15",
+            },            
             "id": "devotion-15"
           },
           {
@@ -7933,17 +6695,6 @@
             "subclass_specific": {
               "aura_range": 30
             },
-            "class": {
-              "id": "paladin",
-              "name": "Paladin",
-              "url": "/api/2014/classes/paladin"
-            },
-            "subclass": {
-              "id": "devotion",
-              "name": "Devotion",
-              "url": "/api/2014/subclasses/devotion"
-            },
-            "url": "/api/2014/subclasses/devotion/levels/18",
             "id": "devotion-18"
           },
           {
@@ -7958,17 +6709,6 @@
             "subclass_specific": {
               "aura_range": 30
             },
-            "class": {
-              "id": "paladin",
-              "name": "Paladin",
-              "url": "/api/2014/classes/paladin"
-            },
-            "subclass": {
-              "id": "devotion",
-              "name": "Devotion",
-              "url": "/api/2014/subclasses/devotion"
-            },
-            "url": "/api/2014/subclasses/devotion/levels/20",
             "id": "devotion-20"
           }
         ]
@@ -8032,13 +6772,7 @@
         "class_specific": {
           "aura_range": 0
         },
-        "id": "paladin-1",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/1"
+        "id": "paladin-1"
       },
       {
         "level": 2,
@@ -8071,13 +6805,7 @@
         "class_specific": {
           "aura_range": 0
         },
-        "id": "paladin-2",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/2"
+        "id": "paladin-2"
       },
       {
         "level": 3,
@@ -8115,13 +6843,7 @@
         "class_specific": {
           "aura_range": 0
         },
-        "id": "paladin-3",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/3"
+        "id": "paladin-3"
       },
       {
         "level": 4,
@@ -8144,13 +6866,7 @@
         "class_specific": {
           "aura_range": 0
         },
-        "id": "paladin-4",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/4"
+        "id": "paladin-4"
       },
       {
         "level": 5,
@@ -8173,13 +6889,7 @@
         "class_specific": {
           "aura_range": 0
         },
-        "id": "paladin-5",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/5"
+        "id": "paladin-5"
       },
       {
         "level": 6,
@@ -8202,13 +6912,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-6",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/6"
+        "id": "paladin-6"
       },
       {
         "level": 7,
@@ -8231,13 +6935,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-7",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/7"
+        "id": "paladin-7"
       },
       {
         "level": 8,
@@ -8260,13 +6958,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-8",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/8"
+        "id": "paladin-8"
       },
       {
         "level": 9,
@@ -8283,13 +6975,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-9",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/9"
+        "id": "paladin-9"
       },
       {
         "level": 10,
@@ -8312,13 +6998,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-10",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/10"
+        "id": "paladin-10"
       },
       {
         "level": 11,
@@ -8341,13 +7021,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-11",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/11"
+        "id": "paladin-11"
       },
       {
         "level": 12,
@@ -8370,13 +7044,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-12",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/12"
+        "id": "paladin-12"
       },
       {
         "level": 13,
@@ -8393,13 +7061,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-13",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/13"
+        "id": "paladin-13"
       },
       {
         "level": 14,
@@ -8422,13 +7084,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-14",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/14"
+        "id": "paladin-14"
       },
       {
         "level": 15,
@@ -8451,13 +7107,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-15",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/15"
+        "id": "paladin-15"
       },
       {
         "level": 16,
@@ -8480,13 +7130,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-16",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/16"
+        "id": "paladin-16"
       },
       {
         "level": 17,
@@ -8503,13 +7147,7 @@
         "class_specific": {
           "aura_range": 10
         },
-        "id": "paladin-17",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/17"
+        "id": "paladin-17"
       },
       {
         "level": 18,
@@ -8532,13 +7170,7 @@
         "class_specific": {
           "aura_range": 30
         },
-        "id": "paladin-18",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/18"
+        "id": "paladin-18"
       },
       {
         "level": 19,
@@ -8561,13 +7193,7 @@
         "class_specific": {
           "aura_range": 30
         },
-        "id": "paladin-19",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/19"
+        "id": "paladin-19"
       },
       {
         "level": 20,
@@ -8590,13 +7216,7 @@
         "class_specific": {
           "aura_range": 30
         },
-        "id": "paladin-20",
-        "class": {
-          "id": "paladin",
-          "name": "Paladin",
-          "url": "/api/2014/classes/paladin"
-        },
-        "url": "/api/2014/classes/paladin/levels/20"
+        "id": "paladin-20"
       }
     ]
   },
@@ -8886,105 +7506,46 @@
     "subclasses": [
       {
         "id": "hunter",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
         "name": "Hunter",
         "subclassFlavor": "Ranger Archetype",
         "desc": [
           "Emulating the Hunter archetype means accepting your place as a bulwark between civilization and the terrors of the wilderness. As you walk the Hunter's path, you learn specialized techniques for fighting the threats you face, from rampaging ogres and hordes of orcs to towering giants and terrifying dragons."
         ],
-        "subclassLevels": "/api/2014/subclasses/hunter/levels",
-        "url": "/api/2014/subclasses/hunter",
         "levels": [
           {
             "level": 3,
             "features": [
               {
-                "id": "hunters-prey",
-                "name": "Hunter's Prey",
-                "url": "/api/2014/features/hunters-prey"
+                "id": "hunters-prey"
               }
             ],
-            "class": {
-              "id": "ranger",
-              "name": "Ranger",
-              "url": "/api/2014/classes/ranger"
-            },
-            "subclass": {
-              "id": "hunter",
-              "name": "Hunter",
-              "url": "/api/2014/subclasses/hunter"
-            },
-            "url": "/api/2014/subclasses/hunter/levels/3",
             "id": "hunter-3"
           },
           {
             "level": 7,
             "features": [
               {
-                "id": "defensive-tactics",
-                "name": "Defensive Tactics",
-                "url": "/api/2014/features/defensive-tactics"
+                "id": "defensive-tactics"
               }
             ],
-            "class": {
-              "id": "ranger",
-              "name": "Ranger",
-              "url": "/api/2014/classes/ranger"
-            },
-            "subclass": {
-              "id": "hunter",
-              "name": "Hunter",
-              "url": "/api/2014/subclasses/hunter"
-            },
-            "url": "/api/2014/subclasses/hunter/levels/7",
             "id": "hunter-7"
           },
           {
             "level": 11,
             "features": [
               {
-                "id": "multiattack",
-                "name": "Multiattack",
-                "url": "/api/2014/features/multiattack"
+                "id": "multiattack"
               }
             ],
-            "class": {
-              "id": "ranger",
-              "name": "Ranger",
-              "url": "/api/2014/classes/ranger"
-            },
-            "subclass": {
-              "id": "hunter",
-              "name": "Hunter",
-              "url": "/api/2014/subclasses/hunter"
-            },
-            "url": "/api/2014/subclasses/hunter/levels/11",
             "id": "hunter-11"
           },
           {
             "level": 15,
             "features": [
               {
-                "id": "superior-hunters-defense",
-                "name": "Superior Hunter's Defense",
-                "url": "/api/2014/features/superior-hunters-defense"
+                "id": "superior-hunters-defense"
               }
             ],
-            "class": {
-              "id": "ranger",
-              "name": "Ranger",
-              "url": "/api/2014/classes/ranger"
-            },
-            "subclass": {
-              "id": "hunter",
-              "name": "Hunter",
-              "url": "/api/2014/subclasses/hunter"
-            },
-            "url": "/api/2014/subclasses/hunter/levels/15",
             "id": "hunter-15"
           }
         ]
@@ -9050,13 +7611,7 @@
           "favored_enemies": 1,
           "favored_terrain": 1
         },
-        "id": "ranger-1",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/1"
+        "id": "ranger-1"
       },
       {
         "level": 2,
@@ -9086,13 +7641,7 @@
           "favored_enemies": 1,
           "favored_terrain": 1
         },
-        "id": "ranger-2",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/2"
+        "id": "ranger-2"
       },
       {
         "level": 3,
@@ -9122,13 +7671,7 @@
           "favored_enemies": 1,
           "favored_terrain": 1
         },
-        "id": "ranger-3",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/3"
+        "id": "ranger-3"
       },
       {
         "level": 4,
@@ -9153,13 +7696,7 @@
           "favored_enemies": 1,
           "favored_terrain": 1
         },
-        "id": "ranger-4",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/4"
+        "id": "ranger-4"
       },
       {
         "level": 5,
@@ -9184,13 +7721,7 @@
           "favored_enemies": 1,
           "favored_terrain": 1
         },
-        "id": "ranger-5",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/5"
+        "id": "ranger-5"
       },
       {
         "level": 6,
@@ -9220,13 +7751,7 @@
           "favored_enemies": 2,
           "favored_terrain": 2
         },
-        "id": "ranger-6",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/6"
+        "id": "ranger-6"
       },
       {
         "level": 7,
@@ -9251,13 +7776,7 @@
           "favored_enemies": 2,
           "favored_terrain": 2
         },
-        "id": "ranger-7",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/7"
+        "id": "ranger-7"
       },
       {
         "level": 8,
@@ -9287,13 +7806,7 @@
           "favored_enemies": 2,
           "favored_terrain": 2
         },
-        "id": "ranger-8",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/8"
+        "id": "ranger-8"
       },
       {
         "level": 9,
@@ -9312,13 +7825,7 @@
           "favored_enemies": 2,
           "favored_terrain": 2
         },
-        "id": "ranger-9",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/9"
+        "id": "ranger-9"
       },
       {
         "level": 10,
@@ -9348,13 +7855,7 @@
           "favored_enemies": 2,
           "favored_terrain": 3
         },
-        "id": "ranger-10",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/10"
+        "id": "ranger-10"
       },
       {
         "level": 11,
@@ -9379,13 +7880,7 @@
           "favored_enemies": 2,
           "favored_terrain": 3
         },
-        "id": "ranger-11",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/11"
+        "id": "ranger-11"
       },
       {
         "level": 12,
@@ -9410,13 +7905,7 @@
           "favored_enemies": 2,
           "favored_terrain": 3
         },
-        "id": "ranger-12",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/12"
+        "id": "ranger-12"
       },
       {
         "level": 13,
@@ -9435,13 +7924,7 @@
           "favored_enemies": 2,
           "favored_terrain": 3
         },
-        "id": "ranger-13",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/13"
+        "id": "ranger-13"
       },
       {
         "level": 14,
@@ -9471,13 +7954,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-14",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/14"
+        "id": "ranger-14"
       },
       {
         "level": 15,
@@ -9502,13 +7979,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-15",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/15"
+        "id": "ranger-15"
       },
       {
         "level": 16,
@@ -9533,13 +8004,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-16",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/16"
+        "id": "ranger-16"
       },
       {
         "level": 17,
@@ -9558,13 +8023,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-17",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/17"
+        "id": "ranger-17"
       },
       {
         "level": 18,
@@ -9589,13 +8048,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-18",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/18"
+        "id": "ranger-18"
       },
       {
         "level": 19,
@@ -9620,13 +8073,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-19",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/19"
+        "id": "ranger-19"
       },
       {
         "level": 20,
@@ -9651,13 +8098,7 @@
           "favored_enemies": 3,
           "favored_terrain": 3
         },
-        "id": "ranger-20",
-        "class": {
-          "id": "ranger",
-          "name": "Ranger",
-          "url": "/api/2014/classes/ranger"
-        },
-        "url": "/api/2014/classes/ranger/levels/20"
+        "id": "ranger-20"
       }
     ]
   },
@@ -9991,110 +8432,49 @@
     "subclasses": [
       {
         "id": "thief",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
         "name": "Thief",
         "subclassFlavor": "Roguish Archetype",
         "desc": [
           "You hone your skills in the larcenous arts. Burglars, bandits, cutpurses, and other criminals typically follow this archetype, but so do rogues who prefer to think of themselves as professional treasure seekers, explorers, delvers, and investigators. In addition to improving your agility and stealth, you learn skills useful for delving into ancient ruins, reading unfamiliar languages, and using magic items you normally couldn't employ."
         ],
-        "subclassLevels": "/api/2014/subclasses/thief/levels",
-        "url": "/api/2014/subclasses/thief",
         "levels": [
           {
             "level": 3,
             "features": [
               {
-                "id": "fast-hands",
-                "name": "Fast Hands",
-                "url": "/api/2014/features/fast-hands"
+                "id": "fast-hands"
               },
               {
-                "id": "second-story-work",
-                "name": "Second-Story Work",
-                "url": "/api/2014/features/second-story-work"
+                "id": "second-story-work"
               }
             ],
-            "class": {
-              "id": "rogue",
-              "name": "Rogue",
-              "url": "/api/2014/classes/rogue"
-            },
-            "subclass": {
-              "id": "thief",
-              "name": "Thief",
-              "url": "/api/2014/subclasses/thief"
-            },
-            "url": "/api/2014/subclasses/thief/levels/3",
             "id": "thief-3"
           },
           {
             "level": 9,
             "features": [
               {
-                "id": "supreme-sneak",
-                "name": "Supreme Sneak",
-                "url": "/api/2014/features/supreme-sneak"
+                "id": "supreme-sneak"
               }
             ],
-            "class": {
-              "id": "rogue",
-              "name": "Rogue",
-              "url": "/api/2014/classes/rogue"
-            },
-            "subclass": {
-              "id": "thief",
-              "name": "Thief",
-              "url": "/api/2014/subclasses/thief"
-            },
-            "url": "/api/2014/subclasses/thief/levels/9",
             "id": "thief-9"
           },
           {
             "level": 13,
             "features": [
               {
-                "id": "use-magic-device",
-                "name": "Use Magic Device",
-                "url": "/api/2014/features/use-magic-device"
+                "id": "use-magic-device"
               }
             ],
-            "class": {
-              "id": "rogue",
-              "name": "Rogue",
-              "url": "/api/2014/classes/rogue"
-            },
-            "subclass": {
-              "id": "thief",
-              "name": "Thief",
-              "url": "/api/2014/subclasses/thief"
-            },
-            "url": "/api/2014/subclasses/thief/levels/13",
             "id": "thief-13"
           },
           {
             "level": 17,
             "features": [
               {
-                "id": "thiefs-reflexes",
-                "name": "Thief's Reflexes",
-                "url": "/api/2014/features/thiefs-reflexes"
+                "id": "thiefs-reflexes"
               }
             ],
-            "class": {
-              "id": "rogue",
-              "name": "Rogue",
-              "url": "/api/2014/classes/rogue"
-            },
-            "subclass": {
-              "id": "thief",
-              "name": "Thief",
-              "url": "/api/2014/subclasses/thief"
-            },
-            "url": "/api/2014/subclasses/thief/levels/17",
             "id": "thief-17"
           }
         ]
@@ -10128,13 +8508,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-1",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/1"
+        "id": "rogue-1"
       },
       {
         "level": 2,
@@ -10153,13 +8527,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-2",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/2"
+        "id": "rogue-2"
       },
       {
         "level": 3,
@@ -10178,13 +8546,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-3",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/3"
+        "id": "rogue-3"
       },
       {
         "level": 4,
@@ -10203,13 +8565,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-4",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/4"
+        "id": "rogue-4"
       },
       {
         "level": 5,
@@ -10228,13 +8584,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-5",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/5"
+        "id": "rogue-5"
       },
       {
         "level": 6,
@@ -10253,13 +8603,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-6",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/6"
+        "id": "rogue-6"
       },
       {
         "level": 7,
@@ -10278,13 +8622,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-7",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/7"
+        "id": "rogue-7"
       },
       {
         "level": 8,
@@ -10303,13 +8641,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-8",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/8"
+        "id": "rogue-8"
       },
       {
         "level": 9,
@@ -10328,13 +8660,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-9",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/9"
+        "id": "rogue-9"
       },
       {
         "level": 10,
@@ -10353,13 +8679,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-10",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/10"
+        "id": "rogue-10"
       },
       {
         "level": 11,
@@ -10378,13 +8698,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-11",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/11"
+        "id": "rogue-11"
       },
       {
         "level": 12,
@@ -10403,13 +8717,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-12",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/12"
+        "id": "rogue-12"
       },
       {
         "level": 13,
@@ -10428,13 +8736,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-13",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/13"
+        "id": "rogue-13"
       },
       {
         "level": 14,
@@ -10453,13 +8755,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-14",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/14"
+        "id": "rogue-14"
       },
       {
         "level": 15,
@@ -10478,13 +8774,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-15",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/15"
+        "id": "rogue-15"
       },
       {
         "level": 16,
@@ -10503,13 +8793,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-16",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/16"
+        "id": "rogue-16"
       },
       {
         "level": 17,
@@ -10528,13 +8812,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-17",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/17"
+        "id": "rogue-17"
       },
       {
         "level": 18,
@@ -10553,13 +8831,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-18",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/18"
+        "id": "rogue-18"
       },
       {
         "level": 19,
@@ -10578,13 +8850,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-19",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/19"
+        "id": "rogue-19"
       },
       {
         "level": 20,
@@ -10603,13 +8869,7 @@
             "dice_value": 6
           }
         },
-        "id": "rogue-20",
-        "class": {
-          "id": "rogue",
-          "name": "Rogue",
-          "url": "/api/2014/classes/rogue"
-        },
-        "url": "/api/2014/classes/rogue/levels/20"
+        "id": "rogue-20"
       }
     ]
   },
@@ -10819,110 +9079,49 @@
     "subclasses": [
       {
         "id": "draconic",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
         "name": "Draconic",
         "subclassFlavor": "Sorcerous Origin",
         "desc": [
           "Your innate magic comes from draconic magic that was mingled with your blood or that of your ancestors. Most often, sorcerers with this origin trace their descent back to a mighty sorcerer of ancient times who made a bargain with a dragon or who might even have claimed a dragon parent. Some of these bloodlines are well established in the world, but most are obscure. Any given sorcerer could be the first of a new bloodline, as a result of a pact or some other exceptional circumstance."
         ],
-        "subclassLevels": "/api/2014/subclasses/draconic/levels",
-        "url": "/api/2014/subclasses/draconic",
         "levels": [
           {
             "level": 1,
             "features": [
               {
-                "id": "dragon-ancestor",
-                "name": "Dragon Ancestor",
-                "url": "/api/2014/features/dragon-ancestor"
+                "id": "dragon-ancestor"
               },
               {
-                "id": "draconic-resilience",
-                "name": "Draconic Resilience",
-                "url": "/api/2014/features/draconic-resilience"
+                "id": "draconic-resilience"
               }
             ],
-            "class": {
-              "id": "sorcerer",
-              "name": "Sorcerer",
-              "url": "/api/2014/classes/sorcerer"
-            },
-            "subclass": {
-              "id": "draconic",
-              "name": "Draconic",
-              "url": "/api/2014/subclasses/draconic"
-            },
-            "url": "/api/2014/subclasses/draconic/levels/1",
             "id": "draconic-1"
           },
           {
             "level": 6,
             "features": [
               {
-                "id": "elemental-affinity",
-                "name": "Elemental Affinity",
-                "url": "/api/2014/features/elemental-affinity"
+                "id": "elemental-affinity"
               }
             ],
-            "class": {
-              "id": "sorcerer",
-              "name": "Sorcerer",
-              "url": "/api/2014/classes/sorcerer"
-            },
-            "subclass": {
-              "id": "draconic",
-              "name": "Draconic",
-              "url": "/api/2014/subclasses/draconic"
-            },
-            "url": "/api/2014/subclasses/draconic/levels/6",
             "id": "draconic-6"
           },
           {
             "level": 14,
             "features": [
               {
-                "id": "dragon-wings",
-                "name": "Dragon Wings",
-                "url": "/api/2014/features/dragon-wings"
+                "id": "dragon-wings"
               }
             ],
-            "class": {
-              "id": "sorcerer",
-              "name": "Sorcerer",
-              "url": "/api/2014/classes/sorcerer"
-            },
-            "subclass": {
-              "id": "draconic",
-              "name": "Draconic",
-              "url": "/api/2014/subclasses/draconic"
-            },
-            "url": "/api/2014/subclasses/draconic/levels/14",
             "id": "draconic-14"
           },
           {
             "level": 18,
             "features": [
               {
-                "id": "draconic-presence",
-                "name": "Draconic Presence",
-                "url": "/api/2014/features/draconic-presence"
+                "id": "draconic-presence"
               }
             ],
-            "class": {
-              "id": "sorcerer",
-              "name": "Sorcerer",
-              "url": "/api/2014/classes/sorcerer"
-            },
-            "subclass": {
-              "id": "draconic",
-              "name": "Draconic",
-              "url": "/api/2014/subclasses/draconic"
-            },
-            "url": "/api/2014/subclasses/draconic/levels/18",
             "id": "draconic-18"
           }
         ]
@@ -10978,14 +9177,10 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "spellcasting-sorcerer",
-            "name": "Spellcasting: Sorcerer",
-            "url": "/api/2014/features/spellcasting-sorcerer"
+            "id": "spellcasting-sorcerer"
           },
           {
-            "id": "sorcerous-origin",
-            "name": "Sorcerous Origin",
-            "url": "/api/2014/features/sorcerous-origin"
+            "id": "sorcerous-origin"
           }
         ],
         "spellcasting": {
@@ -11006,13 +9201,7 @@
           "metamagic_known": 0,
           "creating_spell_slots": []
         },
-        "id": "sorcerer-1",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/1"
+        "id": "sorcerer-1"
       },
       {
         "level": 2,
@@ -11020,19 +9209,13 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "font-of-magic",
-            "name": "Font of Magic",
-            "url": "/api/2014/features/font-of-magic"
+            "id": "font-of-magic"
           },
           {
-            "id": "flexible-casting-creating-spell-slots",
-            "name": "Flexible Casting: Creating Spell Slots",
-            "url": "/api/2014/features/flexible-casting-creating-spell-slots"
+            "id": "flexible-casting-creating-spell-slots"
           },
           {
-            "id": "flexible-casting-converting-spell-slot",
-            "name": "Flexible Casting: Converting Spell Slot",
-            "url": "/api/2014/features/flexible-casting-converting-spell-slot"
+            "id": "flexible-casting-converting-spell-slot"
           }
         ],
         "spellcasting": {
@@ -11074,13 +9257,7 @@
             }
           ]
         },
-        "id": "sorcerer-2",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/2"
+        "id": "sorcerer-2"
       },
       {
         "level": 3,
@@ -11088,9 +9265,7 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "metamagic-1",
-            "name": "Metamagic",
-            "url": "/api/2014/features/metamagic-1"
+            "id": "metamagic-1"
           }
         ],
         "spellcasting": {
@@ -11132,13 +9307,7 @@
             }
           ]
         },
-        "id": "sorcerer-3",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/3"
+        "id": "sorcerer-3"
       },
       {
         "level": 4,
@@ -11146,9 +9315,7 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "sorcerer-ability-score-improvement-1",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/sorcerer-ability-score-improvement-1"
+            "id": "sorcerer-ability-score-improvement-1"
           }
         ],
         "spellcasting": {
@@ -11190,13 +9357,7 @@
             }
           ]
         },
-        "id": "sorcerer-4",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/4"
+        "id": "sorcerer-4"
       },
       {
         "level": 5,
@@ -11242,13 +9403,7 @@
             }
           ]
         },
-        "id": "sorcerer-5",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/5"
+        "id": "sorcerer-5"
       },
       {
         "level": 6,
@@ -11300,13 +9455,7 @@
             }
           ]
         },
-        "id": "sorcerer-6",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/6"
+        "id": "sorcerer-6"
       },
       {
         "level": 7,
@@ -11352,13 +9501,7 @@
             }
           ]
         },
-        "id": "sorcerer-7",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/7"
+        "id": "sorcerer-7"
       },
       {
         "level": 8,
@@ -11410,13 +9553,7 @@
             }
           ]
         },
-        "id": "sorcerer-8",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/8"
+        "id": "sorcerer-8"
       },
       {
         "level": 9,
@@ -11462,13 +9599,7 @@
             }
           ]
         },
-        "id": "sorcerer-9",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/9"
+        "id": "sorcerer-9"
       },
       {
         "level": 10,
@@ -11520,13 +9651,7 @@
             }
           ]
         },
-        "id": "sorcerer-10",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/10"
+        "id": "sorcerer-10"
       },
       {
         "level": 11,
@@ -11572,13 +9697,7 @@
             }
           ]
         },
-        "id": "sorcerer-11",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/11"
+        "id": "sorcerer-11"
       },
       {
         "level": 12,
@@ -11630,13 +9749,7 @@
             }
           ]
         },
-        "id": "sorcerer-12",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/12"
+        "id": "sorcerer-12"
       },
       {
         "level": 13,
@@ -11682,13 +9795,7 @@
             }
           ]
         },
-        "id": "sorcerer-13",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/13"
+        "id": "sorcerer-13"
       },
       {
         "level": 14,
@@ -11740,13 +9847,7 @@
             }
           ]
         },
-        "id": "sorcerer-14",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/14"
+        "id": "sorcerer-14"
       },
       {
         "level": 15,
@@ -11792,13 +9893,7 @@
             }
           ]
         },
-        "id": "sorcerer-15",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/15"
+        "id": "sorcerer-15"
       },
       {
         "level": 16,
@@ -11850,13 +9945,7 @@
             }
           ]
         },
-        "id": "sorcerer-16",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/16"
+        "id": "sorcerer-16"
       },
       {
         "level": 17,
@@ -11908,13 +9997,7 @@
             }
           ]
         },
-        "id": "sorcerer-17",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/17"
+        "id": "sorcerer-17"
       },
       {
         "level": 18,
@@ -11966,13 +10049,7 @@
             }
           ]
         },
-        "id": "sorcerer-18",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/18"
+        "id": "sorcerer-18"
       },
       {
         "level": 19,
@@ -12024,13 +10101,7 @@
             }
           ]
         },
-        "id": "sorcerer-19",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/19"
+        "id": "sorcerer-19"
       },
       {
         "level": 20,
@@ -12038,9 +10109,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "sorcerous-restoration",
-            "name": "Sorcerous Restoration",
-            "url": "/api/2014/features/sorcerous-restoration"
+            "id": "sorcerous-restoration"
           }
         ],
         "spellcasting": {
@@ -12082,13 +10151,7 @@
             }
           ]
         },
-        "id": "sorcerer-20",
-        "class": {
-          "id": "sorcerer",
-          "name": "Sorcerer",
-          "url": "/api/2014/classes/sorcerer"
-        },
-        "url": "/api/2014/classes/sorcerer/levels/20"
+        "id": "sorcerer-20"
       }
     ]
   },
@@ -12320,11 +10383,6 @@
     "subclasses": [
       {
         "id": "fiend",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
         "name": "Fiend",
         "subclassFlavor": "Otherworldly Patron",
         "desc": [
@@ -12482,51 +10540,23 @@
             }
           }
         ],
-        "subclassLevels": "/api/2014/subclasses/fiend/levels",
-        "url": "/api/2014/subclasses/fiend",
         "levels": [
           {
             "level": 1,
             "features": [
               {
-                "id": "dark-ones-blessing",
-                "name": "Dark One's Blessing",
-                "url": "/api/2014/features/dark-ones-blessing"
+                "id": "dark-ones-blessing"
               }
             ],
-            "class": {
-              "id": "warlock",
-              "name": "Warlock",
-              "url": "/api/2014/classes/warlock"
-            },
-            "subclass": {
-              "id": "fiend",
-              "name": "Fiend",
-              "url": "/api/2014/subclasses/fiend"
-            },
-            "url": "/api/2014/subclasses/fiend/levels/1",
             "id": "fiend-1"
           },
           {
             "level": 6,
             "features": [
               {
-                "id": "dark-ones-own-luck",
-                "name": "Dark One's Own Luck",
-                "url": "/api/2014/features/dark-ones-own-luck"
+                "id": "dark-ones-own-luck"
               }
             ],
-            "class": {
-              "id": "warlock",
-              "name": "Warlock",
-              "url": "/api/2014/classes/warlock"
-            },
-            "subclass": {
-              "id": "fiend",
-              "name": "Fiend",
-              "url": "/api/2014/subclasses/fiend"
-            },
-            "url": "/api/2014/subclasses/fiend/levels/6",
             "id": "fiend-6"
           },
           {
@@ -12538,17 +10568,6 @@
                 "url": "/api/2014/features/fiendish-resilience"
               }
             ],
-            "class": {
-              "id": "warlock",
-              "name": "Warlock",
-              "url": "/api/2014/classes/warlock"
-            },
-            "subclass": {
-              "id": "fiend",
-              "name": "Fiend",
-              "url": "/api/2014/subclasses/fiend"
-            },
-            "url": "/api/2014/subclasses/fiend/levels/10",
             "id": "fiend-10"
           },
           {
@@ -12560,17 +10579,6 @@
                 "url": "/api/2014/features/hurl-through-hell"
               }
             ],
-            "class": {
-              "id": "warlock",
-              "name": "Warlock",
-              "url": "/api/2014/classes/warlock"
-            },
-            "subclass": {
-              "id": "fiend",
-              "name": "Fiend",
-              "url": "/api/2014/subclasses/fiend"
-            },
-            "url": "/api/2014/subclasses/fiend/levels/14",
             "id": "fiend-14"
           }
         ]
@@ -12657,13 +10665,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-1",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/1"
+        "id": "warlock-1"
       },
       {
         "level": 2,
@@ -12696,13 +10698,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-2",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/2"
+        "id": "warlock-2"
       },
       {
         "level": 3,
@@ -12735,13 +10731,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-3",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/3"
+        "id": "warlock-3"
       },
       {
         "level": 4,
@@ -12774,13 +10764,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-4",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/4"
+        "id": "warlock-4"
       },
       {
         "level": 5,
@@ -12807,13 +10791,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-5",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/5"
+        "id": "warlock-5"
       },
       {
         "level": 6,
@@ -12846,13 +10824,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-6",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/6"
+        "id": "warlock-6"
       },
       {
         "level": 7,
@@ -12879,13 +10851,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-7",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/7"
+        "id": "warlock-7"
       },
       {
         "level": 8,
@@ -12918,13 +10884,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-8",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/8"
+        "id": "warlock-8"
       },
       {
         "level": 9,
@@ -12951,13 +10911,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-9",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/9"
+        "id": "warlock-9"
       },
       {
         "level": 10,
@@ -12990,13 +10944,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-10",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/10"
+        "id": "warlock-10"
       },
       {
         "level": 11,
@@ -13029,13 +10977,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-11",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/11"
+        "id": "warlock-11"
       },
       {
         "level": 12,
@@ -13068,13 +11010,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-12",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/12"
+        "id": "warlock-12"
       },
       {
         "level": 13,
@@ -13107,13 +11043,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-13",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/13"
+        "id": "warlock-13"
       },
       {
         "level": 14,
@@ -13146,13 +11076,7 @@
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-14",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/14"
+        "id": "warlock-14"
       },
       {
         "level": 15,
@@ -13160,9 +11084,7 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "mystic-arcanum-8th-level",
-            "name": "Mystic Arcanum (8th level)",
-            "url": "/api/2014/features/mystic-arcanum-8th-level"
+            "id": "mystic-arcanum-8th-level"
           }
         ],
         "spellcasting": {
@@ -13185,13 +11107,7 @@
           "mystic_arcanum_level_8": 1,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-15",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/15"
+        "id": "warlock-15"
       },
       {
         "level": 16,
@@ -13199,9 +11115,7 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "warlock-ability-score-improvement-4",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/warlock-ability-score-improvement-4"
+            "id": "warlock-ability-score-improvement-4"
           }
         ],
         "spellcasting": {
@@ -13224,13 +11138,7 @@
           "mystic_arcanum_level_8": 1,
           "mystic_arcanum_level_9": 0
         },
-        "id": "warlock-16",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/16"
+        "id": "warlock-16"
       },
       {
         "level": 17,
@@ -13238,9 +11146,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "mystic-arcanum-9th-level",
-            "name": "Mystic Arcanum (9th level)",
-            "url": "/api/2014/features/mystic-arcanum-9th-level"
+            "id": "mystic-arcanum-9th-level"
           }
         ],
         "spellcasting": {
@@ -13263,13 +11169,7 @@
           "mystic_arcanum_level_8": 1,
           "mystic_arcanum_level_9": 1
         },
-        "id": "warlock-17",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/17"
+        "id": "warlock-17"
       },
       {
         "level": 18,
@@ -13296,13 +11196,7 @@
           "mystic_arcanum_level_8": 1,
           "mystic_arcanum_level_9": 1
         },
-        "id": "warlock-18",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/18"
+        "id": "warlock-18"
       },
       {
         "level": 19,
@@ -13310,9 +11204,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "warlock-ability-score-improvement-5",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/warlock-ability-score-improvement-5"
+            "id": "warlock-ability-score-improvement-5"
           }
         ],
         "spellcasting": {
@@ -13335,13 +11227,7 @@
           "mystic_arcanum_level_8": 1,
           "mystic_arcanum_level_9": 1
         },
-        "id": "warlock-19",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/19"
+        "id": "warlock-19"
       },
       {
         "level": 20,
@@ -13349,9 +11235,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "eldritch-master",
-            "name": "Eldritch Master",
-            "url": "/api/2014/features/eldritch-master"
+            "id": "eldritch-master"
           }
         ],
         "spellcasting": {
@@ -13374,13 +11258,7 @@
           "mystic_arcanum_level_8": 1,
           "mystic_arcanum_level_9": 1
         },
-        "id": "warlock-20",
-        "class": {
-          "id": "warlock",
-          "name": "Warlock",
-          "url": "/api/2014/classes/warlock"
-        },
-        "url": "/api/2014/classes/warlock/levels/20"
+        "id": "warlock-20"
       }
     ]
   },
@@ -13570,110 +11448,49 @@
     "subclasses": [
       {
         "id": "evocation",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
         "name": "Evocation",
         "subclassFlavor": "Arcane Tradition",
         "desc": [
           "You focus your study on magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid. Some evokers find employment in military forces, serving as artillery to blast enemy armies from afar. Others use their spectacular power to protect the weak, while some seek their own gain as bandits, adventurers, or aspiring tyrants."
         ],
-        "subclassLevels": "/api/2014/subclasses/evocation/levels",
-        "url": "/api/2014/subclasses/evocation",
         "levels": [
           {
             "level": 2,
             "features": [
               {
-                "id": "evocation-savant",
-                "name": "Evocation Savant",
-                "url": "/api/2014/features/evocation-savant"
+                "id": "evocation-savant"
               },
               {
-                "id": "sculpt-spells",
-                "name": "Sculpt Spells",
-                "url": "/api/2014/features/sculpt-spells"
+                "id": "sculpt-spells"
               }
             ],
-            "class": {
-              "id": "wizard",
-              "name": "Wizard",
-              "url": "/api/2014/classes/wizard"
-            },
-            "subclass": {
-              "id": "evocation",
-              "name": "Evocation",
-              "url": "/api/2014/subclasses/evocation"
-            },
-            "url": "/api/2014/subclasses/evocation/levels/2",
             "id": "evocation-2"
           },
           {
             "level": 6,
             "features": [
               {
-                "id": "potent-cantrip",
-                "name": "Potent Cantrip",
-                "url": "/api/2014/features/potent-cantrip"
+                "id": "potent-cantrip"
               }
             ],
-            "class": {
-              "id": "wizard",
-              "name": "Wizard",
-              "url": "/api/2014/classes/wizard"
-            },
-            "subclass": {
-              "id": "evocation",
-              "name": "Evocation",
-              "url": "/api/2014/subclasses/evocation"
-            },
-            "url": "/api/2014/subclasses/evocation/levels/6",
             "id": "evocation-6"
           },
           {
             "level": 10,
             "features": [
               {
-                "id": "empowered-evocation",
-                "name": "Empowered Evocation",
-                "url": "/api/2014/features/empowered-evocation"
+                "id": "empowered-evocation"
               }
             ],
-            "class": {
-              "id": "wizard",
-              "name": "Wizard",
-              "url": "/api/2014/classes/wizard"
-            },
-            "subclass": {
-              "id": "evocation",
-              "name": "Evocation",
-              "url": "/api/2014/subclasses/evocation"
-            },
-            "url": "/api/2014/subclasses/evocation/levels/10",
             "id": "evocation-10"
           },
           {
             "level": 14,
             "features": [
               {
-                "id": "overchannel",
-                "name": "Overchannel",
-                "url": "/api/2014/features/overchannel"
+                "id": "overchannel"
               }
             ],
-            "class": {
-              "id": "wizard",
-              "name": "Wizard",
-              "url": "/api/2014/classes/wizard"
-            },
-            "subclass": {
-              "id": "evocation",
-              "name": "Evocation",
-              "url": "/api/2014/subclasses/evocation"
-            },
-            "url": "/api/2014/subclasses/evocation/levels/14",
             "id": "evocation-14"
           }
         ]
@@ -13735,14 +11552,10 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "spellcasting-wizard",
-            "name": "Spellcasting: Wizard",
-            "url": "/api/2014/features/spellcasting-wizard"
+            "id": "spellcasting-wizard"
           },
           {
-            "id": "arcane-recovery",
-            "name": "Arcane Recovery",
-            "url": "/api/2014/features/arcane-recovery"
+            "id": "arcane-recovery"
           }
         ],
         "spellcasting": {
@@ -13760,13 +11573,7 @@
         "class_specific": {
           "arcane_recovery_levels": 1
         },
-        "id": "wizard-1",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/1"
+        "id": "wizard-1"
       },
       {
         "level": 2,
@@ -13774,9 +11581,7 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "arcane-tradition",
-            "name": "Arcane Tradition",
-            "url": "/api/2014/features/arcane-tradition"
+            "id": "arcane-tradition"
           }
         ],
         "spellcasting": {
@@ -13794,13 +11599,7 @@
         "class_specific": {
           "arcane_recovery_levels": 1
         },
-        "id": "wizard-2",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/2"
+        "id": "wizard-2"
       },
       {
         "level": 3,
@@ -13822,13 +11621,7 @@
         "class_specific": {
           "arcane_recovery_levels": 2
         },
-        "id": "wizard-3",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/3"
+        "id": "wizard-3"
       },
       {
         "level": 4,
@@ -13836,9 +11629,7 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "wizard-ability-score-improvement-1",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/wizard-ability-score-improvement-1"
+            "id": "wizard-ability-score-improvement-1"
           }
         ],
         "spellcasting": {
@@ -13856,13 +11647,7 @@
         "class_specific": {
           "arcane_recovery_levels": 2
         },
-        "id": "wizard-4",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/4"
+        "id": "wizard-4"
       },
       {
         "level": 5,
@@ -13884,13 +11669,7 @@
         "class_specific": {
           "arcane_recovery_levels": 3
         },
-        "id": "wizard-5",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/5"
+        "id": "wizard-5"
       },
       {
         "level": 6,
@@ -13898,9 +11677,7 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "arcane-tradition-improvement-1",
-            "name": "Arcane Tradition feature",
-            "url": "/api/2014/features/arcane-tradition-improvement-1"
+            "id": "arcane-tradition-improvement-1"
           }
         ],
         "spellcasting": {
@@ -13918,13 +11695,7 @@
         "class_specific": {
           "arcane_recovery_levels": 3
         },
-        "id": "wizard-6",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/6"
+        "id": "wizard-6"
       },
       {
         "level": 7,
@@ -13946,13 +11717,7 @@
         "class_specific": {
           "arcane_recovery_levels": 4
         },
-        "id": "wizard-7",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/7"
+        "id": "wizard-7"
       },
       {
         "level": 8,
@@ -13960,9 +11725,7 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "wizard-ability-score-improvement-2",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/wizard-ability-score-improvement-2"
+            "id": "wizard-ability-score-improvement-2"
           }
         ],
         "spellcasting": {
@@ -13980,13 +11743,7 @@
         "class_specific": {
           "arcane_recovery_levels": 4
         },
-        "id": "wizard-8",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/8"
+        "id": "wizard-8"
       },
       {
         "level": 9,
@@ -14008,13 +11765,7 @@
         "class_specific": {
           "arcane_recovery_levels": 5
         },
-        "id": "wizard-9",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/9"
+        "id": "wizard-9"
       },
       {
         "level": 10,
@@ -14022,9 +11773,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "arcane-tradition-improvement-2",
-            "name": "Arcane Tradition feature",
-            "url": "/api/2014/features/arcane-tradition-improvement-2"
+            "id": "arcane-tradition-improvement-2"
           }
         ],
         "spellcasting": {
@@ -14042,13 +11791,7 @@
         "class_specific": {
           "arcane_recovery_levels": 5
         },
-        "id": "wizard-10",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/10"
+        "id": "wizard-10"
       },
       {
         "level": 11,
@@ -14070,13 +11813,7 @@
         "class_specific": {
           "arcane_recovery_levels": 6
         },
-        "id": "wizard-11",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/11"
+        "id": "wizard-11"
       },
       {
         "level": 12,
@@ -14084,9 +11821,7 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "wizard-ability-score-improvement-3",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/wizard-ability-score-improvement-3"
+            "id": "wizard-ability-score-improvement-3"
           }
         ],
         "spellcasting": {
@@ -14104,13 +11839,7 @@
         "class_specific": {
           "arcane_recovery_levels": 6
         },
-        "id": "wizard-12",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/12"
+        "id": "wizard-12"
       },
       {
         "level": 13,
@@ -14132,13 +11861,7 @@
         "class_specific": {
           "arcane_recovery_levels": 7
         },
-        "id": "wizard-13",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/13"
+        "id": "wizard-13"
       },
       {
         "level": 14,
@@ -14146,9 +11869,7 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "arcane-tradition-improvement-3",
-            "name": "Arcane Tradition feature",
-            "url": "/api/2014/features/arcane-tradition-improvement-3"
+            "id": "arcane-tradition-improvement-3"
           }
         ],
         "spellcasting": {
@@ -14166,13 +11887,7 @@
         "class_specific": {
           "arcane_recovery_levels": 7
         },
-        "id": "wizard-14",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/14"
+        "id": "wizard-14"
       },
       {
         "level": 15,
@@ -14194,13 +11909,7 @@
         "class_specific": {
           "arcane_recovery_levels": 8
         },
-        "id": "wizard-15",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/15"
+        "id": "wizard-15"
       },
       {
         "level": 16,
@@ -14208,9 +11917,7 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "wizard-ability-score-improvement-4",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/wizard-ability-score-improvement-4"
+            "id": "wizard-ability-score-improvement-4"
           }
         ],
         "spellcasting": {
@@ -14228,13 +11935,7 @@
         "class_specific": {
           "arcane_recovery_levels": 8
         },
-        "id": "wizard-16",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/16"
+        "id": "wizard-16"
       },
       {
         "level": 17,
@@ -14256,13 +11957,7 @@
         "class_specific": {
           "arcane_recovery_levels": 9
         },
-        "id": "wizard-17",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/17"
+        "id": "wizard-17"
       },
       {
         "level": 18,
@@ -14270,9 +11965,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "spell-mastery",
-            "name": "Spell Mastery",
-            "url": "/api/2014/features/spell-mastery"
+            "id": "spell-mastery"
           }
         ],
         "spellcasting": {
@@ -14290,13 +11983,7 @@
         "class_specific": {
           "arcane_recovery_levels": 9
         },
-        "id": "wizard-18",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/18"
+        "id": "wizard-18"
       },
       {
         "level": 19,
@@ -14304,9 +11991,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "wizard-ability-score-improvement-5",
-            "name": "Ability Score Improvement",
-            "url": "/api/2014/features/wizard-ability-score-improvement-5"
+            "id": "wizard-ability-score-improvement-5"
           }
         ],
         "spellcasting": {
@@ -14324,13 +12009,7 @@
         "class_specific": {
           "arcane_recovery_levels": 10
         },
-        "id": "wizard-19",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/19"
+        "id": "wizard-19"
       },
       {
         "level": 20,
@@ -14338,9 +12017,7 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "signature-spell",
-            "name": "Signature Spell",
-            "url": "/api/2014/features/signature-spell"
+            "id": "signature-spell"
           }
         ],
         "spellcasting": {
@@ -14358,13 +12035,7 @@
         "class_specific": {
           "arcane_recovery_levels": 10
         },
-        "id": "wizard-20",
-        "class": {
-          "id": "wizard",
-          "name": "Wizard",
-          "url": "/api/2014/classes/wizard"
-        },
-        "url": "/api/2014/classes/wizard/levels/20"
+        "id": "wizard-20"
       }
     ]
   }
