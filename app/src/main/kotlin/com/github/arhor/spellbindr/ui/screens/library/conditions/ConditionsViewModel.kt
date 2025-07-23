@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @Stable
 @HiltViewModel
-class ConditionSearchViewModel @Inject constructor(
+class ConditionsViewModel @Inject constructor(
     conditionRepository: ConditionRepository,
 ) : ViewModel() {
 
