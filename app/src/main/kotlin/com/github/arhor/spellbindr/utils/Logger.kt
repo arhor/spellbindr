@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.core.logging
+package com.github.arhor.spellbindr.utils
 
 import android.util.Log
 import kotlin.reflect.KClass
