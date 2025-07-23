@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.spells
+package com.github.arhor.spellbindr.ui.screens.library.spells.search
 
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
