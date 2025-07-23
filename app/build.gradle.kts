@@ -50,7 +50,6 @@ dependencies {
     implementation(project(":core:logging"))
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
-    implementation(project(":data:common"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)

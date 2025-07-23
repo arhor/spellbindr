@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.CharacterEntity
-import com.github.arhor.spellbindr.data.common.Character
 import com.github.arhor.spellbindr.data.local.db.CharacterDao
+import com.github.arhor.spellbindr.data.model.Character
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

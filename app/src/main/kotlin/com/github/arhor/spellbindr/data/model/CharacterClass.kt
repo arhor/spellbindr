@@ -1,8 +1,5 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.data.common.EntityRef
-import com.github.arhor.spellbindr.data.common.EquipmentRef
-import com.github.arhor.spellbindr.data.common.Spellcasting
 import kotlinx.serialization.Serializable
 
 @Serializable

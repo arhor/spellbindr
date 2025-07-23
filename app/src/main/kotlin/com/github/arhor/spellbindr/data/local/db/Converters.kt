@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.TypeConverter
-import com.github.arhor.spellbindr.data.common.EntityRef
+import com.github.arhor.spellbindr.data.model.EntityRef
 import kotlinx.serialization.json.Json
 
 class Converters {

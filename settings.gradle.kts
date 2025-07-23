@@ -31,5 +31,3 @@ include(":core:components")
 include(":core:logging")
 include(":core:theme")
 include(":core:utils")
-
-include(":data:common")

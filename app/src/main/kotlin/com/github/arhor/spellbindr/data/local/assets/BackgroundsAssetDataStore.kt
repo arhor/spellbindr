@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
 import com.github.arhor.spellbindr.core.assets.StaticAssetDataStoreBase
-import com.github.arhor.spellbindr.data.common.Background
+import com.github.arhor.spellbindr.data.model.Background
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject

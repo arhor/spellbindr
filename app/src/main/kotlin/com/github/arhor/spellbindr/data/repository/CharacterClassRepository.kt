@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.common.EntityRef
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStore
+import com.github.arhor.spellbindr.data.model.EntityRef
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
