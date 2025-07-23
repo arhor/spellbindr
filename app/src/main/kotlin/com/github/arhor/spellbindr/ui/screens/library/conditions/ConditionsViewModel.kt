@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Condition
 import com.github.arhor.spellbindr.data.repository.ConditionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @Stable
 @HiltViewModel
@@ -22,13 +24,29 @@ class ConditionsViewModel @Inject constructor(
     @Immutable
     data class State(
         val conditions: List<Condition> = emptyList(),
+        val expandedItemName: String? = null,
     )
 
-    val state: StateFlow<State> = conditionRepository.allConditions
-        .map(::State)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = State(),
-        )
+    private val _state = MutableStateFlow(State())
+    val state: StateFlow<State> = _state.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            conditionRepository.allConditions.collect { data ->
+                _state.update { it.copy(conditions = data) }
+            }
+        }
+    }
+
+    fun handleConditionClick(conditionName: String) {
+        _state.update {
+            it.copy(
+                expandedItemName = if (it.expandedItemName == conditionName) {
+                    null
+                } else {
+                    conditionName
+                }
+            )
+        }
+    }
 } 
