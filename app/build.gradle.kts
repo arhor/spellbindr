@@ -47,7 +47,6 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(project(":core:logging"))
-    implementation(project(":core:utils"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)

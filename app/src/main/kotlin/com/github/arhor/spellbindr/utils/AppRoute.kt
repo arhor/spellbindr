@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.core.utils
+package com.github.arhor.spellbindr.utils
 
 import kotlinx.serialization.Serializable
 

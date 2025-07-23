@@ -4,7 +4,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.github.arhor.spellbindr.core.utils.AppRoute
+import com.github.arhor.spellbindr.utils.AppRoute
 
 private val NAV_ITEMS = listOf(
     Library,

@@ -27,4 +27,3 @@ rootProject.name = "Spellbindr"
 include(":app")
 
 include(":core:logging")
-include(":core:utils")

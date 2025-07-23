@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.ui.navigation
 
-import com.github.arhor.spellbindr.core.utils.AppRoute
+import com.github.arhor.spellbindr.utils.AppRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
