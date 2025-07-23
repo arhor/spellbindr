@@ -14,11 +14,12 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 
 @Composable
 fun GradientDivider(
+    modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    color: Color = Accent
+    color: Color = Accent,
 ) {
     Spacer(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(thickness)
             .drawWithCache {
