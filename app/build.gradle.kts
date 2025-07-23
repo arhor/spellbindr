@@ -46,7 +46,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     implementation(platform(libs.androidx.compose.bom))
-    implementation(project(":core:assets"))
     implementation(project(":core:logging"))
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.core.assets
+package com.github.arhor.spellbindr.data.local.assets
 
 import kotlinx.coroutines.flow.StateFlow
 
