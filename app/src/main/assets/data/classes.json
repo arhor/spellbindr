@@ -52,35 +52,17 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "medium-armor"
-      },
-      {
-        "id": "shields"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "martial-weapons"
-      },
-      {
-        "id": "saving-throw-str"
-      },
-      {
-        "id": "saving-throw-con"
-      }
+      "light-armor",
+      "medium-armor",
+      "shields",
+      "simple-weapons",
+      "martial-weapons",
+      "saving-throw-str",
+      "saving-throw-con"
     ],
     "savingThrows": [
-      {
-        "id": "str"
-      },
-      {
-        "id": "con"
-      }
+      "str",
+      "con"
     ],
     "startingEquipment": [
       {
@@ -173,15 +155,9 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "shields"
-        },
-        {
-          "id": "simple-weapons"
-        },
-        {
-          "id": "martial-weapons"
-        }
+        "shields",
+        "simple-weapons",
+        "martial-weapons"
       ]
     },
     "subclasses": [
@@ -759,38 +735,18 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "longswords"
-      },
-      {
-        "id": "rapiers"
-      },
-      {
-        "id": "shortswords"
-      },
-      {
-        "id": "hand-crossbows"
-      },
-      {
-        "id": "saving-throw-dex"
-      },
-      {
-        "id": "saving-throw-cha"
-      }
+      "light-armor",
+      "simple-weapons",
+      "longswords",
+      "rapiers",
+      "shortswords",
+      "hand-crossbows",
+      "saving-throw-dex",
+      "saving-throw-cha"
     ],
     "savingThrows": [
-      {
-        "id": "dex"
-      },
-      {
-        "id": "cha"
-      }
+      "dex",
+      "cha"
     ],
     "startingEquipment": [
       {
@@ -912,9 +868,7 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        }
+        "light-armor"
       ],
       "proficiencyChoices": [
         {
@@ -1894,32 +1848,16 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "medium-armor"
-      },
-      {
-        "id": "shields"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "saving-throw-wis"
-      },
-      {
-        "id": "saving-throw-cha"
-      }
+      "light-armor",
+      "medium-armor",
+      "shields",
+      "simple-weapons",
+      "saving-throw-wis",
+      "saving-throw-cha"
     ],
     "savingThrows": [
-      {
-        "id": "wis"
-      },
-      {
-        "id": "cha"
-      }
+      "wis",
+      "cha"
     ],
     "startingEquipment": [
       {
@@ -2091,15 +2029,9 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "medium-armor"
-        },
-        {
-          "id": "shields"
-        }
+        "light-armor",
+        "medium-armor",
+        "shields"
       ]
     },
     "subclasses": [
@@ -2933,62 +2865,26 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "medium-armor"
-      },
-      {
-        "id": "shields"
-      },
-      {
-        "id": "clubs"
-      },
-      {
-        "id": "daggers"
-      },
-      {
-        "id": "javelins"
-      },
-      {
-        "id": "maces"
-      },
-      {
-        "id": "quarterstaffs"
-      },
-      {
-        "id": "sickles"
-      },
-      {
-        "id": "spears"
-      },
-      {
-        "id": "darts"
-      },
-      {
-        "id": "slings"
-      },
-      {
-        "id": "scimitars"
-      },
-      {
-        "id": "herbalism-kit"
-      },
-      {
-        "id": "saving-throw-int"
-      },
-      {
-        "id": "saving-throw-wis"
-      }
+      "light-armor",
+      "medium-armor",
+      "shields",
+      "clubs",
+      "daggers",
+      "javelins",
+      "maces",
+      "quarterstaffs",
+      "sickles",
+      "spears",
+      "darts",
+      "slings",
+      "scimitars",
+      "herbalism-kit",
+      "saving-throw-int",
+      "saving-throw-wis"
     ],
     "savingThrows": [
-      {
-        "id": "int"
-      },
-      {
-        "id": "wis"
-      }
+      "int",
+      "wis"
     ],
     "startingEquipment": [
       {
@@ -3092,15 +2988,9 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "medium-armor"
-        },
-        {
-          "id": "shields"
-        }
+        "light-armor",
+        "medium-armor",
+        "shields"
       ]
     },
     "subclasses": [
@@ -4650,32 +4540,16 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "all-armor"
-      },
-      {
-        "id": "shields"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "martial-weapons"
-      },
-      {
-        "id": "saving-throw-str"
-      },
-      {
-        "id": "saving-throw-con"
-      }
+      "all-armor",
+      "shields",
+      "simple-weapons",
+      "martial-weapons",
+      "saving-throw-str",
+      "saving-throw-con"
     ],
     "savingThrows": [
-      {
-        "id": "str"
-      },
-      {
-        "id": "con"
-      }
+      "str",
+      "con"
     ],
     "startingEquipment": [],
     "startingEquipmentOptions": [
@@ -4860,21 +4734,11 @@
         }
       },
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "medium-armor"
-        },
-        {
-          "id": "shields"
-        },
-        {
-          "id": "simple-weapons"
-        },
-        {
-          "id": "martial-weapons"
-        }
+        "light-armor",
+        "medium-armor",
+        "shields",
+        "simple-weapons",
+        "martial-weapons"
       ]
     },
     "subclasses": [
@@ -5526,26 +5390,14 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "shortswords"
-      },
-      {
-        "id": "saving-throw-dex"
-      },
-      {
-        "id": "saving-throw-str"
-      }
+      "simple-weapons",
+      "shortswords",
+      "saving-throw-dex",
+      "saving-throw-str"
     ],
     "savingThrows": [
-      {
-        "id": "str"
-      },
-      {
-        "id": "dex"
-      }
+      "str",
+      "dex"
     ],
     "startingEquipment": [
       {
@@ -5629,12 +5481,8 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "simple-weapons"
-        },
-        {
-          "id": "shortswords"
-        }
+        "simple-weapons",
+        "shortswords"
       ]
     },
     "subclasses": [
@@ -6151,32 +5999,16 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "all-armor"
-      },
-      {
-        "id": "shields"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "martial-weapons"
-      },
-      {
-        "id": "saving-throw-wis"
-      },
-      {
-        "id": "saving-throw-cha"
-      }
+      "all-armor",
+      "shields",
+      "simple-weapons",
+      "martial-weapons",
+      "saving-throw-wis",
+      "saving-throw-cha"
     ],
     "savingThrows": [
-      {
-        "id": "wis"
-      },
-      {
-        "id": "cha"
-      }
+      "wis",
+      "cha"
     ],
     "startingEquipment": [
       {
@@ -6323,21 +6155,11 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "medium-armor"
-        },
-        {
-          "id": "shields"
-        },
-        {
-          "id": "simple-weapons"
-        },
-        {
-          "id": "martial-weapons"
-        }
+        "light-armor",
+        "medium-armor",
+        "shields",
+        "simple-weapons",
+        "martial-weapons"
       ]
     },
     "subclasses": [
@@ -6482,7 +6304,7 @@
             ],
             "subclass_specific": {
               "aura_range": 10
-            },            
+            },
             "id": "devotion-7"
           },
           {
@@ -6494,7 +6316,7 @@
             ],
             "subclass_specific": {
               "aura_range": 10
-            },            
+            },
             "id": "devotion-15"
           },
           {
@@ -7045,35 +6867,17 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "medium-armor"
-      },
-      {
-        "id": "shields"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "martial-weapons"
-      },
-      {
-        "id": "saving-throw-dex"
-      },
-      {
-        "id": "saving-throw-str"
-      }
+      "light-armor",
+      "medium-armor",
+      "shields",
+      "simple-weapons",
+      "martial-weapons",
+      "saving-throw-dex",
+      "saving-throw-str"
     ],
     "savingThrows": [
-      {
-        "id": "str"
-      },
-      {
-        "id": "dex"
-      }
+      "str",
+      "dex"
     ],
     "startingEquipment": [
       {
@@ -7187,21 +6991,11 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "medium-armor"
-        },
-        {
-          "id": "shields"
-        },
-        {
-          "id": "simple-weapons"
-        },
-        {
-          "id": "martial-weapons"
-        }
+        "light-armor",
+        "medium-armor",
+        "shields",
+        "simple-weapons",
+        "martial-weapons"
       ],
       "proficiencyChoices": [
         {
@@ -7897,41 +7691,19 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "longswords"
-      },
-      {
-        "id": "rapiers"
-      },
-      {
-        "id": "shortswords"
-      },
-      {
-        "id": "hand-crossbows"
-      },
-      {
-        "id": "thieves-tools"
-      },
-      {
-        "id": "saving-throw-dex"
-      },
-      {
-        "id": "saving-throw-int"
-      }
+      "light-armor",
+      "simple-weapons",
+      "longswords",
+      "rapiers",
+      "shortswords",
+      "hand-crossbows",
+      "thieves-tools",
+      "saving-throw-dex",
+      "saving-throw-int"
     ],
     "savingThrows": [
-      {
-        "id": "dex"
-      },
-      {
-        "id": "int"
-      }
+      "dex",
+      "int"
     ],
     "startingEquipment": [
       {
@@ -8056,12 +7828,8 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "thieves-tools"
-        }
+        "light-armor",
+        "thieves-tools"
       ],
       "proficiencyChoices": [
         {
@@ -8594,35 +8362,17 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "daggers"
-      },
-      {
-        "id": "darts"
-      },
-      {
-        "id": "slings"
-      },
-      {
-        "id": "quarterstaffs"
-      },
-      {
-        "id": "crossbows-light"
-      },
-      {
-        "id": "saving-throw-con"
-      },
-      {
-        "id": "saving-throw-cha"
-      }
+      "daggers",
+      "darts",
+      "slings",
+      "quarterstaffs",
+      "crossbows-light",
+      "saving-throw-con",
+      "saving-throw-cha"
     ],
     "savingThrows": [
-      {
-        "id": "con"
-      },
-      {
-        "id": "cha"
-      }
+      "con",
+      "cha"
     ],
     "startingEquipment": [
       {
@@ -9864,26 +9614,14 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "light-armor"
-      },
-      {
-        "id": "simple-weapons"
-      },
-      {
-        "id": "saving-throw-wis"
-      },
-      {
-        "id": "saving-throw-cha"
-      }
+      "light-armor",
+      "simple-weapons",
+      "saving-throw-wis",
+      "saving-throw-cha"
     ],
     "savingThrows": [
-      {
-        "id": "wis"
-      },
-      {
-        "id": "cha"
-      }
+      "wis",
+      "cha"
     ],
     "startingEquipment": [
       {
@@ -10022,12 +9760,8 @@
         }
       ],
       "proficiencies": [
-        {
-          "id": "light-armor"
-        },
-        {
-          "id": "simple-weapons"
-        }
+        "light-armor",
+        "simple-weapons"
       ]
     },
     "subclasses": [
@@ -10240,12 +9974,8 @@
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
         "features": [
-          {
-            "id": "otherworldly-patron"
-          },
-          {
-            "id": "pact-magic"
-          }
+          "otherworldly-patron",
+          "pact-magic"
         ],
         "spellcasting": {
           "cantrips_known": 2,
@@ -10274,9 +10004,7 @@
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
         "features": [
-          {
-            "id": "eldritch-invocations"
-          }
+          "eldritch-invocations"
         ],
         "spellcasting": {
           "cantrips_known": 2,
@@ -10305,9 +10033,7 @@
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
         "features": [
-          {
-            "id": "pact-boon"
-          }
+          "pact-boon"
         ],
         "spellcasting": {
           "cantrips_known": 2,
@@ -10336,9 +10062,7 @@
         "ability_score_bonuses": 1,
         "prof_bonus": 2,
         "features": [
-          {
-            "id": "warlock-ability-score-improvement-1"
-          }
+          "warlock-ability-score-improvement-1"
         ],
         "spellcasting": {
           "cantrips_known": 3,
@@ -10394,9 +10118,7 @@
         "ability_score_bonuses": 1,
         "prof_bonus": 3,
         "features": [
-          {
-            "id": "otherworldly-patron-improvement-1"
-          }
+          "otherworldly-patron-improvement-1"
         ],
         "spellcasting": {
           "cantrips_known": 3,
@@ -10452,9 +10174,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 3,
         "features": [
-          {
-            "id": "warlock-ability-score-improvement-2"
-          }
+          "warlock-ability-score-improvement-2"
         ],
         "spellcasting": {
           "cantrips_known": 3,
@@ -10510,9 +10230,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 4,
         "features": [
-          {
-            "id": "otherworldly-patron-improvement-2"
-          }
+          "otherworldly-patron-improvement-2"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10541,9 +10259,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 4,
         "features": [
-          {
-            "id": "mystic-arcanum-6th-level"
-          }
+          "mystic-arcanum-6th-level"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10572,9 +10288,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 4,
         "features": [
-          {
-            "id": "warlock-ability-score-improvement-3"
-          }
+          "warlock-ability-score-improvement-3"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10634,9 +10348,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 5,
         "features": [
-          {
-            "id": "otherworldly-patron-improvement-3"
-          }
+          "otherworldly-patron-improvement-3"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10665,9 +10377,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 5,
         "features": [
-          {
-            "id": "mystic-arcanum-8th-level"
-          }
+          "mystic-arcanum-8th-level"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10696,9 +10406,7 @@
         "ability_score_bonuses": 4,
         "prof_bonus": 5,
         "features": [
-          {
-            "id": "warlock-ability-score-improvement-4"
-          }
+          "warlock-ability-score-improvement-4"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10727,9 +10435,7 @@
         "ability_score_bonuses": 4,
         "prof_bonus": 6,
         "features": [
-          {
-            "id": "mystic-arcanum-9th-level"
-          }
+          "mystic-arcanum-9th-level"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10785,9 +10491,7 @@
         "ability_score_bonuses": 5,
         "prof_bonus": 6,
         "features": [
-          {
-            "id": "warlock-ability-score-improvement-5"
-          }
+          "warlock-ability-score-improvement-5"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10816,9 +10520,7 @@
         "ability_score_bonuses": 5,
         "prof_bonus": 6,
         "features": [
-          {
-            "id": "eldritch-master"
-          }
+          "eldritch-master"
         ],
         "spellcasting": {
           "cantrips_known": 4,
@@ -10897,35 +10599,17 @@
       }
     ],
     "proficiencies": [
-      {
-        "id": "daggers"
-      },
-      {
-        "id": "darts"
-      },
-      {
-        "id": "slings"
-      },
-      {
-        "id": "quarterstaffs"
-      },
-      {
-        "id": "crossbows-light"
-      },
-      {
-        "id": "saving-throw-int"
-      },
-      {
-        "id": "saving-throw-wis"
-      }
+      "daggers",
+      "darts",
+      "slings",
+      "quarterstaffs",
+      "crossbows-light",
+      "saving-throw-int",
+      "saving-throw-wis"
     ],
     "savingThrows": [
-      {
-        "id": "int"
-      },
-      {
-        "id": "wis"
-      }
+      "int",
+      "wis"
     ],
     "startingEquipment": [
       {

@@ -8,11 +8,11 @@ data class CharacterClass(
     val name: String,
 //    val multiClassing: MultiClassing,
     val hitDie: Int,
-    val proficiencies: List<EntityRef>,
+    val proficiencies: List<String>,
 //    val proficiencyChoices: List<Choice>,
-    val savingThrows: List<EntityRef>,
+    val savingThrows: List<String>,
     val spellcasting: Spellcasting? = null,
     val startingEquipment: List<EquipmentRef>,
 //    val startingEquipmentOptions: List<Choice>,
-    val subclasses: List<EntityRef>
+    val subclasses: List<Subclass>
 )
