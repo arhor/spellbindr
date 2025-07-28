@@ -174,7 +174,11 @@
             "level": 3,
             "features": [
               {
-                "id": "frenzy"
+                "id": "frenzy",
+                "name": "Frenzy",
+                "desc": [
+                  "Starting when you choose this path at 3rd level, you can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion (as described in appendix A)."
+                ]
               }
             ]
           },
@@ -183,7 +187,11 @@
             "level": 6,
             "features": [
               {
-                "id": "mindless-rage"
+                "id": "mindless-rage",
+                "name": "Mindless Rage",
+                "desc": [
+                  "Beginning at 6th level, you can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage."
+                ]
               }
             ]
           },
@@ -192,7 +200,12 @@
             "level": 10,
             "features": [
               {
-                "id": "intimidating-presence"
+                "id": "intimidating-presence",
+                "name": "Intimidating Presence",
+                "desc": [
+                  "Beginning at 10th level, you can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Charisma modifier) or be frightened of you until the end of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you.",
+                  " If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours."
+                ]
               }
             ]
           },
@@ -201,7 +214,11 @@
             "level": 14,
             "features": [
               {
-                "id": "retaliation"
+                "id": "retaliation",
+                "name": "Retaliation",
+                "desc": [
+                  "Starting at 14th level, when you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon Attack against that creature."
+                ]
               }
             ]
           }
@@ -216,10 +233,24 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "rage"
+            "id": "rage",
+            "name": "Rage",
+            "desc": [
+              "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren't wearing heavy armor:",
+              "- You have advantage on Strength checks and Strength saving throws.",
+              "- When you make a melee weapon Attack using Strength, you gain a +2 bonus to the damage roll. This bonus increases as you level.",
+              "- You have Resistance to bludgeoning, piercing, and slashing damage.",
+              "If you are able to cast Spells, you can't cast them or concentrate on them while raging.",
+              "Your rage lasts for 1 minute. It ends early if you are knocked Unconscious or if Your Turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on Your Turn as a Bonus Action.",
+              "Once you have raged the maximum number of times for your barbarian level, you must finish a Long Rest before you can rage again. You may rage 2 times at 1st level, 3 at 3rd, 4 at 6th, 5 at 12th, and 6 at 17th."
+            ]
           },
           {
-            "id": "barbarian-unarmored-defense"
+            "id": "barbarian-unarmored-defense",
+            "name": "Unarmored Defense",
+            "desc": [
+              "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit."
+            ]
           }
         ],
         "class_specific": {
@@ -235,10 +266,18 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "reckless-attack"
+            "id": "reckless-attack",
+            "name": "Reckless Attack",
+            "desc": [
+              "Starting at 2nd level, you can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn."
+            ]
           },
           {
-            "id": "danger-sense"
+            "id": "danger-sense",
+            "name": "Danger Sense",
+            "desc": [
+              "At 2nd level, you gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can't be blinded, deafened, or incapacitated."
+            ]
           }
         ],
         "class_specific": {
@@ -254,7 +293,11 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "primal-path"
+            "id": "primal-path",
+            "name": "Primal Path",
+            "desc": [
+              "At 3rd level, you choose a path that shapes the nature of your rage. Choose the Path of the Berserker or the Path of the Totem Warrior, both detailed at the end of the class description. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+            ]
           }
         ],
         "class_specific": {
@@ -270,7 +313,11 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "barbarian-ability-score-improvement-1"
+            "id": "barbarian-ability-score-improvement-1",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "class_specific": {
@@ -286,10 +333,18 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "barbarian-extra-attack"
+            "id": "barbarian-extra-attack",
+            "name": "Extra Attack",
+            "desc": [
+              "Beginning at 5th level, you can attack twice, instead of once, whenever you take the Attack action on your turn."
+            ]
           },
           {
-            "id": "fast-movement"
+            "id": "fast-movement",
+            "name": "Fast Movement",
+            "desc": [
+              "Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor."
+            ]
           }
         ],
         "class_specific": {
@@ -305,7 +360,11 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "primal-path-improvement-1"
+            "id": "primal-path-improvement-1",
+            "name": "Path feature",
+            "desc": [
+              "At 3rd level, you choose a path that shapes the nature of your rage. Choose the Path of the Berserker or the Path of the Totem Warrior, both detailed at the end of the class description. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+            ]
           }
         ],
         "class_specific": {
@@ -321,7 +380,12 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "feral-instinct"
+            "id": "feral-instinct",
+            "name": "Feral Instinct",
+            "desc": [
+              "By 7th level, your instincts are so honed that you have advantage on initiative rolls.",
+              "Additionally, if you are surprised at the beginning of combat and aren't incapacitated, you can act normally on your first turn, but only if you enter your rage before doing anything else on that turn."
+            ]
           }
         ],
         "class_specific": {
@@ -337,7 +401,11 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "barbarian-ability-score-improvement-2"
+            "id": "barbarian-ability-score-improvement-2",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "class_specific": {
@@ -353,7 +421,11 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "brutal-critical-1-die"
+            "id": "brutal-critical-1-die",
+            "name": "Brutal Critical (1 die)",
+            "desc": [
+              "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two additional dice at 13th level and three additional dice at 17th level."
+            ]
           }
         ],
         "class_specific": {
@@ -369,7 +441,11 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "primal-path-improvement-2"
+            "id": "primal-path-improvement-2",
+            "name": "Path feature",
+            "desc": [
+              "At 3rd level, you choose a path that shapes the nature of your rage. Choose the Path of the Berserker or the Path of the Totem Warrior, both detailed at the end of the class description. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+            ]
           }
         ],
         "class_specific": {
@@ -385,7 +461,12 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "relentless-rage"
+            "id": "relentless-rage",
+            "name": "Relentless Rage",
+            "desc": [
+              "Starting at 11th level, your rage can keep you fighting despite grievous wounds. If you drop to 0 hit points while you're raging and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, you drop to 1 hit point instead.",
+              "Each time you use this feature after the first, the DC increases by 5. When you finish a short or long rest, the DC resets to 10."
+            ]
           }
         ],
         "class_specific": {
@@ -401,7 +482,11 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "barbarian-ability-score-improvement-3"
+            "id": "barbarian-ability-score-improvement-3",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "class_specific": {
@@ -417,7 +502,11 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "brutal-critical-2-dice"
+            "id": "brutal-critical-2-dice",
+            "name": "Brutal Critical (2 dice)",
+            "desc": [
+              "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two additional dice at 13th level and three additional dice at 17th level."
+            ]
           }
         ],
         "class_specific": {
@@ -433,7 +522,11 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "primal-path-improvement-3"
+            "id": "primal-path-improvement-3",
+            "name": "Path feature",
+            "desc": [
+              "At 3rd level, you choose a path that shapes the nature of your rage. Choose the Path of the Berserker or the Path of the Totem Warrior, both detailed at the end of the class description. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+            ]
           }
         ],
         "class_specific": {
@@ -449,7 +542,11 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "persistent-rage"
+            "id": "persistent-rage",
+            "name": "Persistent Rage",
+            "desc": [
+              "Beginning at 15th level, your rage is so fierce that it ends early only if you fall unconscious or if you choose to end it."
+            ]
           }
         ],
         "class_specific": {
@@ -465,7 +562,11 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "barbarian-ability-score-improvement-4"
+            "id": "barbarian-ability-score-improvement-4",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "class_specific": {
@@ -481,7 +582,11 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "brutal-critical-3-dice"
+            "id": "brutal-critical-3-dice",
+            "name": "Brutal Critical (3 dice)",
+            "desc": [
+              "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two additional dice at 13th level and three additional dice at 17th level."
+            ]
           }
         ],
         "class_specific": {
@@ -497,7 +602,11 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "indomitable-might"
+            "id": "indomitable-might",
+            "name": "Indomitable Might",
+            "desc": [
+              "Beginning at 18th level, if your total for a Strength check is less than your Strength score, you can use that score in place of the total."
+            ]
           }
         ],
         "class_specific": {
@@ -513,7 +622,11 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "barbarian-ability-score-improvement-5"
+            "id": "barbarian-ability-score-improvement-5",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "class_specific": {
@@ -529,7 +642,11 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "primal-champion"
+            "id": "primal-champion",
+            "name": "Primal Champion",
+            "desc": [
+              "At 20th level, you embody the power of the wilds. Your Strength and Constitution scores increase by 4. Your maximum for those scores is now 24."
+            ]
           }
         ],
         "class_specific": {
@@ -1075,10 +1192,20 @@
             "level": 3,
             "features": [
               {
-                "id": "bonus-proficiencies"
+                "id": "bonus-proficiencies",
+                "name": "Bonus Proficiencies",
+                "desc": [
+                  "When you join the College of Lore at 3rd level, you gain proficiency with three skills of your choice."
+                ]
               },
               {
-                "id": "cutting-words"
+                "id": "cutting-words",
+                "name": "Cutting Words",
+                "desc": [
+                  "Also at 3rd level, you learn how to use your wit to distract, confuse, and otherwise sap the confidence and competence of others.",
+                  "When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature's roll.",
+                  "You can choose to use this feature after the creature makes its roll, but before the GM determines whether the attack roll or ability check succeeds or fails, or before the creature deals its damage. The creature is immune if it can't hear you or if it's immune to being charmed."
+                ]
               }
             ],
             "subclass_specific": {
@@ -1090,7 +1217,11 @@
             "level": 6,
             "features": [
               {
-                "id": "additional-magical-secrets"
+                "id": "additional-magical-secrets",
+                "name": "Additional Magical Secrets",
+                "desc": [
+                  "At 6th level, you learn two spells of your choice from any class. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you but don't count against the number of bard spells you know."
+                ]
               }
             ],
             "subclass_specific": {
@@ -1102,7 +1233,11 @@
             "level": 14,
             "features": [
               {
-                "id": "peerless-skill"
+                "id": "peerless-skill",
+                "name": "Peerless Skill",
+                "desc": [
+                  "Starting at 14th level, when you make an ability check, you can expend one use of Bardic Inspiration. Roll a Bardic Inspiration die and add the number rolled to your ability check. You can choose to do so after you roll the die for the ability check, but before the GM tells you whether you succeed or fail."
+                ]
               }
             ],
             "subclass_specific": {
@@ -1170,10 +1305,20 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "spellcasting-bard"
+            "id": "spellcasting-bard",
+            "name": "Spellcasting: Bard",
+            "desc": [
+              "You have learned to untangle and reshape the fabric of reality in harmony with your wishes and music. Your spells are part of your vast repertoire, magic that you can tune to different situations."
+            ]
           },
           {
-            "id": "bardic-inspiration-d6"
+            "id": "bardic-inspiration-d6",
+            "name": "Bardic Inspiration (d6)",
+            "desc": [
+              "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.",
+              "You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain any expended uses when you finish a long rest. ",
+              "Your Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1204,10 +1349,19 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "jack-of-all-trades"
+            "id": "jack-of-all-trades",
+            "name": "Jack of All Trades",
+            "desc": [
+              "Starting at 2nd level, you can add half your proficiency bonus, rounded down, to any ability check you make that doesn't already include your proficiency bonus."
+            ]
           },
           {
-            "id": "song-of-rest-d6"
+            "id": "song-of-rest-d6",
+            "name": "Song of Rest (d6)",
+            "desc": [
+              "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points. ",
+              "The extra hit points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1238,10 +1392,138 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "bard-expertise-1"
+            "id": "bard-college",
+            "name": "Bard College",
+            "desc": [
+              "At 3rd level, you delve into the advanced techniques of a bard college of your choice, such as the College of Lore. Your choice grants you features at 3rd level and again at 6th and 14th level."
+            ]
           },
           {
-            "id": "bard-college"
+            "id": "bard-expertise-1",
+            "name": "Expertise",
+            "level": 3,
+            "desc": [
+              "At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose another two skill proficiencies to gain this benefit."
+            ],
+            "featureSpecific": {
+              "expertiseOptions": {
+                "choose": 2,
+                "type": "proficiency",
+                "from": {
+                  "type": "options_array",
+                  "options": [
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-acrobatics"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-animal-handling"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-arcana"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-athletics"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-deception"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-history"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-insight"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-intimidation"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-investigation"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-medicine"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-nature"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-perception"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-performance"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-persuasion"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-religion"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-sleight-of-hand"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-stealth"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-survival"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           }
         ],
         "spellcasting": {
@@ -1272,7 +1554,11 @@
         "prof_bonus": 2,
         "features": [
           {
-            "id": "bard-ability-score-improvement-1"
+            "id": "bard-ability-score-improvement-1",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "spellcasting": {
@@ -1303,10 +1589,20 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "bardic-inspiration-d8"
+            "id": "bardic-inspiration-d8",
+            "name": "Bardic Inspiration (d8)",
+            "desc": [
+              "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.",
+              "You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain any expended uses when you finish a long rest. ",
+              "Your Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level."
+            ]
           },
           {
-            "id": "font-of-inspiration"
+            "id": "font-of-inspiration",
+            "name": "Font of Inspiration",
+            "desc": [
+              "Beginning when you reach 5th level, you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest."
+            ]
           }
         ],
         "spellcasting": {
@@ -1337,10 +1633,18 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "countercharm"
+            "id": "countercharm",
+            "name": "Countercharm",
+            "desc": [
+              "At 6th level, you gain the ability to use musical notes or words of power to disrupt mind-influencing effects. As an action, you can start a performance that lasts until the end of your next turn. During that time, you and any friendly creatures within 30 feet of you have advantage on saving throws against being frightened or charmed. A creature must be able to hear you to gain this benefit. The performance ends early if you are incapacitated or silenced or if you voluntarily end it (no action required)."
+            ]
           },
           {
-            "id": "bard-college-improvement-1"
+            "id": "bard-college-improvement-1",
+            "name": "Bard College feature",
+            "desc": [
+              "At 3rd level, you delve into the advanced techniques of a bard college of your choice, such as the College of Lore. Your choice grants you features at 3rd level and again at 6th and 14th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1398,7 +1702,11 @@
         "prof_bonus": 3,
         "features": [
           {
-            "id": "bard-ability-score-improvement-2"
+            "id": "bard-ability-score-improvement-2",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "spellcasting": {
@@ -1429,7 +1737,12 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "song-of-rest-d8"
+            "id": "song-of-rest-d8",
+            "name": "Song of Rest (d8)",
+            "desc": [
+              "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points. ",
+              "The extra hit points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1460,13 +1773,148 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "bard-expertise-2"
+            "id": "bard-expertise-2",
+            "name": "Expertise",
+            "desc": [
+              "At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose another two skill proficiencies to gain this benefit."
+            ],
+            "featureSpecific": {
+              "expertiseOptions": {
+                "choose": 2,
+                "type": "proficiency",
+                "from": {
+                  "type": "options_array",
+                  "options": [
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-acrobatics"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-animal-handling"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-arcana"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-athletics"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-deception"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-history"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-insight"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-intimidation"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-investigation"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-medicine"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-nature"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-perception"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-performance"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-persuasion"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-religion"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-sleight-of-hand"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-stealth"
+                      }
+                    },
+                    {
+                      "type": "reference",
+                      "item": {
+                        "id": "skill-survival"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
           },
           {
-            "id": "bardic-inspiration-d10"
+            "id": "bardic-inspiration-d10",
+            "name": "Bardic Inspiration (d10)",
+            "desc": [
+              "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.",
+              "You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain any expended uses when you finish a long rest. ",
+              "Your Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level."
+            ]
           },
           {
-            "id": "magical-secrets-1"
+            "id": "magical-secrets-1",
+            "name": "Magical Secrets",
+            "desc": [
+              "By 10th level, you have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. ",
+              "The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table. ",
+              "You learn two additional spells from any class at 14th level and again at 18th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1524,7 +1972,11 @@
         "prof_bonus": 4,
         "features": [
           {
-            "id": "bard-ability-score-improvement-3"
+            "id": "bard-ability-score-improvement-3",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "spellcasting": {
@@ -1555,7 +2007,12 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "song-of-rest-d10"
+            "id": "song-of-rest-d10",
+            "name": "Song of Rest (d10)",
+            "desc": [
+              "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points. ",
+              "The extra hit points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1586,10 +2043,20 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "magical-secrets-2"
+            "id": "magical-secrets-2",
+            "name": "Magical Secrets",
+            "desc": [
+              "By 10th level, you have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. ",
+              "The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table. ",
+              "You learn two additional spells from any class at 14th level and again at 18th level."
+            ]
           },
           {
-            "id": "bard-college-improvement-2"
+            "id": "bard-college-improvement-2",
+            "name": "Bard College feature",
+            "desc": [
+              "At 3rd level, you delve into the advanced techniques of a bard college of your choice, such as the College of Lore. Your choice grants you features at 3rd level and again at 6th and 14th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1620,7 +2087,13 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "bardic-inspiration-d12"
+            "id": "bardic-inspiration-d12",
+            "name": "Bardic Inspiration (d12)",
+            "desc": [
+              "You can inspire others through stirring words or music. To do so, you use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Bardic Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Bardic Inspiration die is rolled, it is lost. A creature can have only one Bardic Inspiration die at a time.",
+              "You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain any expended uses when you finish a long rest. ",
+              "Your Bardic Inspiration die changes when you reach certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1651,7 +2124,11 @@
         "prof_bonus": 5,
         "features": [
           {
-            "id": "bard-ability-score-improvement-4"
+            "id": "bard-ability-score-improvement-4",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "spellcasting": {
@@ -1681,7 +2158,12 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "song-of-rest-d12"
+            "id": "song-of-rest-d12",
+            "name": "Song of Rest (d12)",
+            "desc": [
+              "Beginning at 2nd level, you can use soothing music or oration to help revitalize your wounded allies during a short rest. If you or any friendly creatures who can hear your performance regain hit points at the end of the short rest by spending one or more Hit Dice, each of those creatures regains an extra 1d6 hit points. ",
+              "The extra hit points increase when you reach certain levels in this class: to 1d8 at 9th level, to 1d10 at 13th level, and to 1d12 at 17th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1712,7 +2194,13 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "magical-secrets-3"
+            "id": "magical-secrets-3",
+            "name": "Magical Secrets",
+            "desc": [
+              "By 10th level, you have plundered magical knowledge from a wide spectrum of disciplines. Choose two spells from any class, including this one. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. ",
+              "The chosen spells count as bard spells for you and are included in the number in the Spells Known column of the Bard table. ",
+              "You learn two additional spells from any class at 14th level and again at 18th level."
+            ]
           }
         ],
         "spellcasting": {
@@ -1743,7 +2231,11 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "bard-ability-score-improvement-5"
+            "id": "bard-ability-score-improvement-5",
+            "name": "Ability Score Improvement",
+            "desc": [
+              "When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can't increase an ability score above 20 using this feature."
+            ]
           }
         ],
         "spellcasting": {
@@ -1774,7 +2266,11 @@
         "prof_bonus": 6,
         "features": [
           {
-            "id": "superior-inspiration"
+            "id": "superior-inspiration",
+            "name": "Superior Inspiration",
+            "desc": [
+              "At 20th level, when you roll initiative and have no uses of Bardic Inspiration left, you regain one use."
+            ]
           }
         ],
         "spellcasting": {
