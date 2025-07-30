@@ -11,8 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
-import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Balance
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.People
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.navigation.Alignments
 import com.github.arhor.spellbindr.ui.navigation.Conditions
+import com.github.arhor.spellbindr.ui.navigation.Races
 import com.github.arhor.spellbindr.ui.navigation.Spells
 import com.github.arhor.spellbindr.utils.AppRoute
 
@@ -30,6 +32,7 @@ private val ITEMS = listOf(
     Spells to Icons.AutoMirrored.Filled.MenuBook,
     Conditions to Icons.Default.Bookmark,
     Alignments to Icons.Default.Balance,
+    Races to Icons.Default.People,
 )
 
 @Composable

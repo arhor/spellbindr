@@ -16,6 +16,9 @@ data object Conditions : AppRoute(title = "Conditions")
 data object Alignments : AppRoute(title = "Alignments")
 
 @Serializable
+data object Races : AppRoute(title = "Races")
+
+@Serializable
 data object Spells : AppRoute(title = "Spells") {
     @Serializable
     data object Search : AppRoute(title = "Spell Book")
