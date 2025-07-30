@@ -46,6 +46,7 @@ fun RacesScreen(
         items(items = state.races, key = { it.name }) {
             RaceListItem(
                 race = it,
+                traits = state.traits,
                 isExpanded = it.name == state.expandedItemName,
                 onItemClick = { viewModel.handleRaceClick(it.name) }
             )
