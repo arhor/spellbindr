@@ -1,7 +1,5 @@
 package com.github.arhor.spellbindr.ui.screens.library
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,19 +9,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.navigation.Conditions
 import com.github.arhor.spellbindr.ui.navigation.Spells
@@ -45,26 +40,32 @@ fun LibraryMainScreen(
                 .padding(16.dp)
         ) {
             for ((route, icon) in ITEMS) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(shape = RoundedCornerShape(12.dp))
-                        .clickable { onItemClick(route) }
-                        .padding(vertical = 10.dp, horizontal = 20.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                ElevatedCard(
+                    onClick = { onItemClick(route) },
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Box(
+                    Row(
                         modifier = Modifier
-                            .minimumInteractiveComponentSize()
-                            .size(40.dp)
-                            .background(color = Color.Transparent),
-                        contentAlignment = Alignment.Center
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp, horizontal = 20.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Icon(imageVector = icon, contentDescription = null)
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(32.dp)
+                                .padding(end = 16.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = route.title,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
-                    Text(text = route.title, style = MaterialTheme.typography.bodyMedium)
                 }
-                Spacer(modifier = Modifier.height(7.dp))
+                Spacer(modifier = Modifier.height(12.dp))
             }
         }
     }
