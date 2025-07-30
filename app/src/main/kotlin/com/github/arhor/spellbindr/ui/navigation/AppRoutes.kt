@@ -13,6 +13,9 @@ data object Library : AppRoute(title = "Library") {
 data object Conditions : AppRoute(title = "Conditions")
 
 @Serializable
+data object Alignments : AppRoute(title = "Alignments")
+
+@Serializable
 data object Spells : AppRoute(title = "Spells") {
     @Serializable
     data object Search : AppRoute(title = "Spell Book")

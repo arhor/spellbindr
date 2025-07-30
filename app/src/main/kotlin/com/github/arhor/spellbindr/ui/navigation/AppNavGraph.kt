@@ -38,6 +38,7 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
 import com.github.arhor.spellbindr.ui.screens.library.LibraryMainScreen
+import com.github.arhor.spellbindr.ui.screens.library.alignments.AlignmentsScreen
 import com.github.arhor.spellbindr.ui.screens.library.conditions.ConditionsScreen
 import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
@@ -85,6 +86,9 @@ fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
         }
         composable<Conditions> {
             ConditionsScreen()
+        }
+        composable<Alignments> {
+            AlignmentsScreen()
         }
         navigation<Spells>(startDestination = Spells.Search) {
             composable<Spells.Search> {
