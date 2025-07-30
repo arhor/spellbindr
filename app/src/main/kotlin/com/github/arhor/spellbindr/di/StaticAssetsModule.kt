@@ -8,6 +8,7 @@ import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.TraitsAssetDataStore
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -52,5 +53,10 @@ abstract class StaticAssetsModule {
     @Binds
     @IntoSet
     abstract fun bindSpellsAssetDataStore(spellsDataStore: SpellAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindTraitsAssetDataStore(traitsDataStore: TraitsAssetDataStore)
         : InitializableStaticAssetDataStore
 }
