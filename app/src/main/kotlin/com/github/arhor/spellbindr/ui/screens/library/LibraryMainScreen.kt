@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.navigation.Conditions
 import com.github.arhor.spellbindr.ui.navigation.Spells
-import com.github.arhor.spellbindr.ui.theme.CardBg
 import com.github.arhor.spellbindr.utils.AppRoute
 
 private val ITEMS = listOf(
@@ -50,7 +49,6 @@ fun LibraryMainScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(12.dp))
-                        .background(color = CardBg, shape = RoundedCornerShape(12.dp))
                         .clickable { onItemClick(route) }
                         .padding(vertical = 10.dp, horizontal = 20.dp),
                     verticalAlignment = Alignment.CenterVertically,

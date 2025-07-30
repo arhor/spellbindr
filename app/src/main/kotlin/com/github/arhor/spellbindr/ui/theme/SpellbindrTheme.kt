@@ -10,11 +10,7 @@ fun SpellbindrTheme(
 ) {
     MaterialTheme(
         colorScheme = darkColorScheme(
-            primary = Purple40,
-            secondary = PurpleGrey40,
-            tertiary = Pink40,
             onBackground = Accent,
-            surfaceContainer = Purple40,
         ),
         typography = SpellbindrTypography,
         content = content,
