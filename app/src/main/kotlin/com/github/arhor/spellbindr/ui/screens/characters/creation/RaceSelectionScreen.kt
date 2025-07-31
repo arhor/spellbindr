@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,9 +17,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.BaseScreen
+import com.github.arhor.spellbindr.ui.components.NavButtons
 
 @Composable
 fun RaceSelectionScreen(
+    onPrev: () -> Unit,
     onNext: () -> Unit,
     viewModel: CharacterCreationViewModel,
 ) {
@@ -33,7 +34,7 @@ fun RaceSelectionScreen(
 
     val subraces = selectedRace?.subraces ?: emptyList()
     val isSubraceRequired = selectedRace != null && subraces.isNotEmpty()
-    val isNextEnabled = selectedRace != null && (!isSubraceRequired || selectedSubrace != null)
+    selectedRace != null && (!isSubraceRequired || selectedSubrace != null)
 
     BaseScreen {
         Text("Step 2 of 9: Race Selection", style = MaterialTheme.typography.titleLarge)
@@ -91,12 +92,6 @@ fun RaceSelectionScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = onNext,
-            enabled = isNextEnabled,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Next")
-        }
+        NavButtons(onPrev = onPrev, onNext = onNext)
     }
 }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -17,9 +16,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.BaseScreen
+import com.github.arhor.spellbindr.ui.components.NavButtons
 
 @Composable
 fun ClassSelectionScreen(
+    onPrev: () -> Unit,
     onNext: () -> Unit,
     viewModel: CharacterCreationViewModel,
 ) {
@@ -28,8 +29,6 @@ fun ClassSelectionScreen(
     val classes = state.classes
     val isLoading = state.isLoading
     val error = state.error
-
-    val isNextEnabled = selectedClass != null
 
     BaseScreen {
         Text("Step 3 of 9: Class Selection", style = MaterialTheme.typography.titleLarge)
@@ -60,12 +59,6 @@ fun ClassSelectionScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = onNext,
-            enabled = isNextEnabled,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Next")
-        }
+        NavButtons(onPrev = onPrev, onNext = onNext)
     }
 }

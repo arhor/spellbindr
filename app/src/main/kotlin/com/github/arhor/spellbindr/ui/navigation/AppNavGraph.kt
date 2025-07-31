@@ -137,10 +137,9 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             val creationGraphEntry = remember(it) {
                 controller.getBackStackEntry(Characters.Create)
             }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             NameAndBackgroundScreen(
                 onNext = { controller.navigate(route = Characters.Create.BackgroundDetails) },
-                viewModel = viewModel
+                viewModel = hiltViewModel(creationGraphEntry)
             )
         }
         composable<Characters.Create.BackgroundDetails> {
@@ -149,8 +148,9 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             BackgroundDetailsScreen(
+                onPrev = { controller.popBackStack() },
                 onNext = { controller.navigate(route = Characters.Create.Race) },
-                viewModel = viewModel
+                viewModel = viewModel,
             )
         }
         composable<Characters.Create.Race> {
@@ -159,6 +159,7 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             RaceSelectionScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Class) },
                 viewModel = viewModel
             )
@@ -169,6 +170,7 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             ClassSelectionScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Abilities) },
                 viewModel = viewModel
             )
@@ -179,6 +181,7 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             AbilitiesScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Skills) },
                 viewModel = viewModel
             )
@@ -189,18 +192,15 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             SkillsScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Equipment) },
                 viewModel = viewModel
             )
         }
         composable<Characters.Create.Equipment> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             EquipmentScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Spells) },
-                viewModel = viewModel
             )
         }
         composable<Characters.Create.Spells> {
@@ -209,6 +209,7 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             SpellsScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Appearance) },
                 viewModel = viewModel
             )
@@ -219,6 +220,7 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
             }
             val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
             AppearanceScreen(
+                onPrev = { controller.navigateUp() },
                 onNext = { controller.navigate(route = Characters.Create.Summary) },
                 viewModel = viewModel
             )

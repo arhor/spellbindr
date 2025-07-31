@@ -1,9 +1,6 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -16,9 +13,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.github.arhor.spellbindr.ui.components.BaseScreen
+import com.github.arhor.spellbindr.ui.components.NavButtons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,14 +66,6 @@ fun NameAndBackgroundScreen(
             }
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Button(onClick = onNext) {
-                Text(text = "Next")
-            }
-        }
+        NavButtons(onNext = onNext)
     }
 }

@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Choice
 import com.github.arhor.spellbindr.ui.components.BaseScreen
+import com.github.arhor.spellbindr.ui.components.NavButtons
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.BondsChanged
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.FlawsChanged
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.IdealsChanged
@@ -21,6 +21,7 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreat
 
 @Composable
 fun BackgroundDetailsScreen(
+    onPrev: () -> Unit,
     onNext: () -> Unit,
     viewModel: CharacterCreationViewModel,
 ) {
@@ -64,9 +65,7 @@ fun BackgroundDetailsScreen(
                 onSelectionChanged = { viewModel.handleEvent(FlawsChanged(it)) }
             )
         }
-        Button(onClick = onNext) {
-            Text("Next")
-        }
+        NavButtons(onPrev = onPrev, onNext = onNext)
     }
 }
 
