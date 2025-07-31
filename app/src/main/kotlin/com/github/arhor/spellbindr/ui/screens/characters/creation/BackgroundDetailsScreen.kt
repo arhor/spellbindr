@@ -2,9 +2,7 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -15,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Choice
+import com.github.arhor.spellbindr.ui.components.BaseScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.BondsChanged
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.FlawsChanged
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.IdealsChanged
@@ -28,48 +27,43 @@ fun BackgroundDetailsScreen(
     val state by viewModel.state.collectAsState()
     val background = state.background
 
-    if (background == null) {
-        // Handle case where background is not selected
-        Text("Please select a background first.")
-        return
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(text = "Background Details", style = MaterialTheme.typography.titleLarge)
-
-        ChoiceSection(
-            title = "Personality Traits",
-            choice = background.personalityTraits,
-            selection = state.selectedPersonalityTraits,
-            onSelectionChanged = { viewModel.handleEvent(PersonalityTraitsChanged(it)) }
+    BaseScreen {
+        Text(
+            text = "Background Details",
+            style = MaterialTheme.typography.titleLarge,
         )
+        if (background == null) {
+            Text("Please select a background first.")
+        } else {
 
-        ChoiceSection(
-            title = "Ideals",
-            choice = background.ideals,
-            selection = state.selectedIdeals,
-            onSelectionChanged = { viewModel.handleEvent(IdealsChanged(it)) }
-        )
+            ChoiceSection(
+                title = "Personality Traits",
+                choice = background.personalityTraits,
+                selection = state.selectedPersonalityTraits,
+                onSelectionChanged = { viewModel.handleEvent(PersonalityTraitsChanged(it)) }
+            )
 
-        ChoiceSection(
-            title = "Bonds",
-            choice = background.bonds,
-            selection = state.selectedBonds,
-            onSelectionChanged = { viewModel.handleEvent(BondsChanged(it)) }
-        )
+            ChoiceSection(
+                title = "Ideals",
+                choice = background.ideals,
+                selection = state.selectedIdeals,
+                onSelectionChanged = { viewModel.handleEvent(IdealsChanged(it)) }
+            )
 
-        ChoiceSection(
-            title = "Flaws",
-            choice = background.flaws,
-            selection = state.selectedFlaws,
-            onSelectionChanged = { viewModel.handleEvent(FlawsChanged(it)) }
-        )
+            ChoiceSection(
+                title = "Bonds",
+                choice = background.bonds,
+                selection = state.selectedBonds,
+                onSelectionChanged = { viewModel.handleEvent(BondsChanged(it)) }
+            )
 
+            ChoiceSection(
+                title = "Flaws",
+                choice = background.flaws,
+                selection = state.selectedFlaws,
+                onSelectionChanged = { viewModel.handleEvent(FlawsChanged(it)) }
+            )
+        }
         Button(onClick = onNext) {
             Text("Next")
         }

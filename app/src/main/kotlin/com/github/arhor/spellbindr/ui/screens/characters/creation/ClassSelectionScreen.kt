@@ -1,10 +1,8 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -18,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.BaseScreen
 
 @Composable
 fun ClassSelectionScreen(
@@ -32,12 +31,7 @@ fun ClassSelectionScreen(
 
     val isNextEnabled = selectedClass != null
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
+    BaseScreen {
         Text("Step 3 of 9: Class Selection", style = MaterialTheme.typography.titleLarge)
         when {
             isLoading -> {
