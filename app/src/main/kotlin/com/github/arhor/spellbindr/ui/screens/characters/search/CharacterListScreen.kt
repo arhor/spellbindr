@@ -12,7 +12,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,25 +29,11 @@ fun CharacterListScreen(
 ) {
     val characters by viewModel.characters.collectAsState(initial = emptyList())
 
-    Scaffold(
-        floatingActionButton = {
-            Box(modifier = Modifier.fillMaxSize()) {
-                FloatingActionButton(
-                    onClick = navigateToCreate,
-                    shape = MaterialTheme.shapes.extraLarge,
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(16.dp)
-                ) {
-                    Icon(Icons.Default.PersonAdd, "Create new character")
-                }
-            }
-        }
-    ) { paddingValues ->
+    Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(16.dp)
         ) {
             if (characters.isEmpty()) {
                 item {
@@ -65,6 +50,16 @@ fun CharacterListScreen(
                     )
                 }
             }
+        }
+
+        FloatingActionButton(
+            onClick = navigateToCreate,
+            shape = MaterialTheme.shapes.extraLarge,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            Icon(Icons.Default.PersonAdd, "Create new character")
         }
     }
 }
