@@ -96,7 +96,8 @@ sealed interface Choice {
         /**
          * Represents an option for choosing equipment based on categories.
          *
-         * @property categories A list of strings representing the equipment categories to choose from.
+         * @property categories A list of strings representing the equipment categories which an equipment
+         *                      item must belong to in order to be chosen.
          */
         @Serializable
         data class EquipmentOption(
@@ -115,5 +116,5 @@ sealed interface Choice {
     data class NestedChoice(
         override val choose: Int,
         val from: List<Choice>,
-    ): Choice
+    ) : Choice
 }

@@ -33,83 +33,63 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "explorers-pack"
-        },
+        "id": "explorers-pack",
         "quantity": 1
       },
       {
-        "equipment": {
-          "id": "javelin"
-        },
+        "id": "javelin",
         "quantity": 4
       }
     ],
     "startingEquipmentOptions": [
       {
         "desc": "(a) a greataxe or (b) any martial melee weapon",
-        "choose": 1,
-        "type": "equipment",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "counted_reference",
-              "count": 1,
-              "of": {
-                "id": "greataxe"
-              }
+        "type": "nested-choice",
+        "from": [
+          {
+            "type": "equipment",
+            "from": [
+              "greataxe"
+            ],
+            "choose": 1
+          },
+          {
+            "type": "equipment-categories",
+            "from": {
+              "categories": [
+                "weapon",
+                "martial",
+                "melee"
+              ]
             },
-            {
-              "type": "choice",
-              "choice": {
-                "desc": "any martial melee weapon",
-                "choose": 1,
-                "type": "equipment",
-                "from": {
-                  "type": "equipment",
-                  "categories": [
-                    "weapon",
-                    "martial",
-                    "melee"
-                  ]
-                }
-              }
-            }
-          ]
-        }
+            "choose": 1
+          }
+        ],
+        "choose": 1
       },
       {
         "desc": "(a) two handaxes or (b) any simple weapon",
-        "choose": 1,
-        "type": "equipment",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "counted_reference",
-              "count": 2,
-              "of": {
-                "id": "handaxe"
-              }
+        "type": "nested-choice",
+        "from": [
+          {
+            "type": "equipment",
+            "from": [
+              "handaxe"
+            ],
+            "choose": 2
+          },
+          {
+            "type": "equipment-categories",
+            "from": {
+              "categories": [
+                "weapon",
+                "simple"
+              ]
             },
-            {
-              "type": "choice",
-              "choice": {
-                "desc": "any simple weapon",
-                "choose": 1,
-                "type": "equipment",
-                "from": {
-                  "type": "equipment",
-                  "category": [
-                    "weapon",
-                    "simple"
-                  ]
-                }
-              }
-            }
-          ]
-        }
+            "choose": 1
+          }
+        ],
+        "choose": 1
       }
     ],
     "multiClassing": {
@@ -688,15 +668,11 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "leather-armor"
-        },
+        "id": "leather-armor",
         "quantity": 1
       },
       {
-        "equipment": {
-          "id": "dagger"
-        },
+        "id": "dagger",
         "quantity": 1
       }
     ],
@@ -2003,9 +1979,7 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "shield"
-        },
+        "id": "shield",
         "quantity": 1
       }
     ],
@@ -3138,15 +3112,11 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "leather-armor"
-        },
+        "id": "leather-armor",
         "quantity": 1
       },
       {
-        "equipment": {
-          "id": "explorers-pack"
-        },
+        "id": "explorers-pack",
         "quantity": 1
       }
     ],
@@ -4873,7 +4843,6 @@
       "str",
       "con"
     ],
-    "startingEquipment": [],
     "startingEquipmentOptions": [
       {
         "desc": "(a) chain mail or (b) leather armor, longbow, and 20 arrows",
@@ -5720,9 +5689,7 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "dart"
-        },
+        "id": "dart",
         "quantity": 10
       }
     ],
@@ -6452,9 +6419,7 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "chain-mail"
-        },
+        "id": "chain-mail",
         "quantity": 1
       }
     ],
@@ -7444,15 +7409,11 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "longbow"
-        },
+        "id": "longbow",
         "quantity": 1
       },
       {
-        "equipment": {
-          "id": "arrow"
-        },
+        "id": "arrow",
         "quantity": 20
       }
     ],
@@ -8609,21 +8570,15 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "leather-armor"
-        },
+        "id": "leather-armor",
         "quantity": 1
       },
       {
-        "equipment": {
-          "id": "dagger"
-        },
+        "id": "dagger",
         "quantity": 2
       },
       {
-        "equipment": {
-          "id": "thieves-tools"
-        },
+        "id": "thieves-tools",
         "quantity": 1
       }
     ],
@@ -9689,9 +9644,7 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "dagger"
-        },
+        "id": "dagger",
         "quantity": 2
       }
     ],
@@ -11249,15 +11202,11 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "dagger"
-        },
+        "id": "dagger",
         "quantity": 2
       },
       {
-        "equipment": {
-          "id": "leather-armor"
-        },
+        "id": "leather-armor",
         "quantity": 1
       }
     ],
@@ -12229,9 +12178,7 @@
     ],
     "startingEquipment": [
       {
-        "equipment": {
-          "id": "spellbook"
-        },
+        "id": "spellbook",
         "quantity": 1
       }
     ],
