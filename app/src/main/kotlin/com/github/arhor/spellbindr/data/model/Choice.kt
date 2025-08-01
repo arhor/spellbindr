@@ -34,6 +34,7 @@ sealed interface Choice {
      * This is used when the choices are dynamically generated or selected from a larger set.
      *
      * @property from A list of strings representing the available options.
+     * @property desc An optional description of the options.
      * @property where An optional map of conditions that filter the options.
      *                 The keys represent property names, and the values represent the required value.
      */
@@ -42,6 +43,7 @@ sealed interface Choice {
     data class OptionsArrayChoice(
         override val choose: Int,
         val from: List<String>,
+        val desc: String? = null,
         val where: Map<String, String>? = null,
     ) : Choice
 
@@ -57,24 +59,23 @@ sealed interface Choice {
     data class IdealChoice(
         override val choose: Int,
         val from: List<IdealOption>,
-    ) : Choice
+    ) : Choice {
+        @Serializable
+        data class IdealOption(
+            val desc: String,
+            val alignments: List<String>
+        )
+    }
 
     @Serializable
     @SerialName("equipment")
     data class EquipmentChoice(
         override val choose: Int,
         val from: EquipmentOption,
-    ) : Choice
+    ) : Choice {
+        @Serializable
+        data class EquipmentOption(
+            val categories: List<String>,
+        )
+    }
 }
-
-@Serializable
-data class IdealOption(
-    val desc: String,
-    val alignments: List<String>
-)
-
-
-@Serializable
-data class EquipmentOption(
-    val categories: List<String>,
-)

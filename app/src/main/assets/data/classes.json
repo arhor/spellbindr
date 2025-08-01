@@ -6,49 +6,16 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-animal-handling",
+          "skill-athletics",
+          "skill-intimidation",
+          "skill-nature",
+          "skill-perception",
+          "skill-survival"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -664,191 +631,45 @@
     "proficiencyChoices": [
       {
         "desc": "Choose any three",
-        "choose": 3,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-performance"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-sleight-of-hand"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-acrobatics",
+          "skill-animal-handling",
+          "skill-arcana",
+          "skill-athletics",
+          "skill-deception",
+          "skill-history",
+          "skill-insight",
+          "skill-intimidation",
+          "skill-investigation",
+          "skill-medicine",
+          "skill-nature",
+          "skill-perception",
+          "skill-performance",
+          "skill-persuasion",
+          "skill-religion",
+          "skill-sleight-of-hand",
+          "skill-stealth",
+          "skill-survival"
+        ],
+        "choose": 3
       },
       {
         "desc": "Three musical instruments of your choice",
-        "choose": 3,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "bagpipes"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "drum"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dulcimer"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "flute"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "lute"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "lyre"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "horn"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "pan-flute"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "shawm"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "viol"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "bagpipes",
+          "drum",
+          "dulcimer",
+          "flute",
+          "lute",
+          "lyre",
+          "horn",
+          "pan-flute",
+          "shawm",
+          "viol"
+        ],
+        "choose": 3
       }
     ],
     "proficiencies": [
@@ -990,191 +811,45 @@
       "proficiencyChoices": [
         {
           "desc": "skill",
-          "choose": 1,
-          "type": "proficiencies",
-          "from": {
-            "type": "options_array",
-            "options": [
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-acrobatics"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-animal-handling"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-arcana"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-athletics"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-deception"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-history"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-insight"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-intimidation"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-investigation"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-medicine"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-nature"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-perception"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-performance"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-persuasion"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-religion"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-sleight-of-hand"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-stealth"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-survival"
-                }
-              }
-            ]
-          }
+          "type": "options-array",
+          "from": [
+            "skill-acrobatics",
+            "skill-animal-handling",
+            "skill-arcana",
+            "skill-athletics",
+            "skill-deception",
+            "skill-history",
+            "skill-insight",
+            "skill-intimidation",
+            "skill-investigation",
+            "skill-medicine",
+            "skill-nature",
+            "skill-perception",
+            "skill-performance",
+            "skill-persuasion",
+            "skill-religion",
+            "skill-sleight-of-hand",
+            "skill-stealth",
+            "skill-survival"
+          ],
+          "choose": 1
         },
         {
           "desc": "musical instrument",
-          "choose": 1,
-          "type": "proficiencies",
-          "from": {
-            "type": "options_array",
-            "options": [
-              {
-                "type": "reference",
-                "item": {
-                  "id": "bagpipes"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "drum"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "dulcimer"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "flute"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "lute"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "lyre"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "horn"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "pan-flute"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "shawm"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "viol"
-                }
-              }
-            ]
-          }
+          "type": "options-array",
+          "from": [
+            "bagpipes",
+            "drum",
+            "dulcimer",
+            "flute",
+            "lute",
+            "lyre",
+            "horn",
+            "pan-flute",
+            "shawm",
+            "viol"
+          ],
+          "choose": 1
         }
       ]
     },
@@ -2303,43 +1978,15 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from History, Insight, Medicine, Persuasion, and Religion",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-history",
+          "skill-insight",
+          "skill-medicine",
+          "skill-persuasion",
+          "skill-religion"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -3453,61 +3100,18 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, and Survival",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-arcana",
+          "skill-animal-handling",
+          "skill-insight",
+          "skill-medicine",
+          "skill-nature",
+          "skill-perception",
+          "skill-religion",
+          "skill-survival"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -5243,61 +4847,18 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two skills from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-acrobatics",
+          "skill-animal-handling",
+          "skill-athletics",
+          "skill-history",
+          "skill-insight",
+          "skill-intimidation",
+          "skill-perception",
+          "skill-survival"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -6099,259 +5660,52 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-acrobatics",
+          "skill-athletics",
+          "skill-history",
+          "skill-insight",
+          "skill-religion",
+          "skill-stealth"
+        ],
+        "choose": 2
       },
       {
-        "desc": "Choose one type of artisan’s tools or one musical instrument",
-        "type": "proficiencies",
+        "desc": "Choose one type of artisan's tools or one musical instrument",
+        "type": "options-array",
         "choose": 1,
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "choice",
-              "choice": {
-                "desc": "artisan's tools",
-                "type": "proficiencies",
-                "choose": 1,
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "alchemists-supplies"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "brewers-supplies"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "calligraphers-supplies"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "carpenters-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "cartographers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "cobblers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "cooks-utensils"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "glassblowers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "jewelers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "leatherworkers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "masons-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "painters-supplies"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "potters-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "smiths-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "tinkers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "weavers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "woodcarvers-tools"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "disguise-kit"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "forgery-kit"
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "type": "choice",
-              "choice": {
-                "desc": "musical instrument",
-                "type": "proficiencies",
-                "choose": 1,
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "bagpipes"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "drum"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "dulcimer"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "flute"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "lute"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "lyre"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "horn"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "pan-flute"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "shawm"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "viol"
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
+        "from": [
+          "alchemists-supplies",
+          "brewers-supplies",
+          "calligraphers-supplies",
+          "carpenters-tools",
+          "cartographers-tools",
+          "cobblers-tools",
+          "cooks-utensils",
+          "glassblowers-tools",
+          "jewelers-tools",
+          "leatherworkers-tools",
+          "masons-tools",
+          "painters-supplies",
+          "potters-tools",
+          "smiths-tools",
+          "tinkers-tools",
+          "weavers-tools",
+          "woodcarvers-tools",
+          "disguise-kit",
+          "forgery-kit",
+          "bagpipes",
+          "drum",
+          "dulcimer",
+          "flute",
+          "lute",
+          "lyre",
+          "horn",
+          "pan-flute",
+          "shawm",
+          "viol"
+        ]
       }
     ],
     "proficiencies": [
@@ -7072,49 +6426,16 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion, and Religion",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-athletics",
+          "skill-insight",
+          "skill-intimidation",
+          "skill-medicine",
+          "skill-persuasion",
+          "skill-religion"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -8094,61 +7415,18 @@
     "proficiencyChoices": [
       {
         "desc": "Choose three from Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, and Survival",
-        "choose": 3,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-animal-handling",
+          "skill-athletics",
+          "skill-insight",
+          "skill-investigation",
+          "skill-nature",
+          "skill-perception",
+          "skill-stealth",
+          "skill-survival"
+        ],
+        "choose": 3
       }
     ],
     "proficiencies": [
@@ -8284,61 +7562,18 @@
       ],
       "proficiencyChoices": [
         {
-          "choose": 1,
-          "type": "proficiencies",
-          "from": {
-            "type": "options_array",
-            "options": [
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-animal-handling"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-athletics"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-insight"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-investigation"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-nature"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-perception"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-stealth"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-survival"
-                }
-              }
-            ]
-          }
+          "type": "options-array",
+          "from": [
+            "skill-animal-handling",
+            "skill-athletics",
+            "skill-insight",
+            "skill-investigation",
+            "skill-nature",
+            "skill-perception",
+            "skill-stealth",
+            "skill-survival"
+          ],
+          "choose": 1
         }
       ]
     },
@@ -9340,79 +8575,21 @@
     "proficiencyChoices": [
       {
         "desc": "Choose four from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, and Stealth",
-        "choose": 4,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-performance"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-sleight-of-hand"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-acrobatics",
+          "skill-athletics",
+          "skill-deception",
+          "skill-insight",
+          "skill-intimidation",
+          "skill-investigation",
+          "skill-perception",
+          "skill-performance",
+          "skill-persuasion",
+          "skill-sleight-of-hand",
+          "skill-stealth"
+        ],
+        "choose": 4
       }
     ],
     "proficiencies": [
@@ -9558,79 +8735,21 @@
       ],
       "proficiencyChoices": [
         {
-          "choose": 1,
-          "type": "proficiencies",
-          "from": {
-            "type": "options_array",
-            "options": [
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-acrobatics"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-athletics"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-deception"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-insight"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-intimidation"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-investigation"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-perception"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-performance"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-persuasion"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-sleight-of-hand"
-                }
-              },
-              {
-                "type": "reference",
-                "item": {
-                  "id": "skill-stealth"
-                }
-              }
-            ]
-          }
+          "type": "options-array",
+          "from": [
+            "skill-acrobatics",
+            "skill-athletics",
+            "skill-deception",
+            "skill-insight",
+            "skill-intimidation",
+            "skill-investigation",
+            "skill-perception",
+            "skill-performance",
+            "skill-persuasion",
+            "skill-sleight-of-hand",
+            "skill-stealth"
+          ],
+          "choose": 1
         }
       ]
     },
@@ -10543,49 +9662,16 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from Arcana, Deception, Insight, Intimidation, Persuasion, and Religion",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-arcana",
+          "skill-deception",
+          "skill-insight",
+          "skill-intimidation",
+          "skill-persuasion",
+          "skill-religion"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -12138,55 +11224,17 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two skills from Arcana, Deception, History, Intimidation, Investigation, Nature, and Religion",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-arcana",
+          "skill-deception",
+          "skill-history",
+          "skill-intimidation",
+          "skill-investigation",
+          "skill-nature",
+          "skill-religion"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [
@@ -13154,49 +12202,16 @@
     "proficiencyChoices": [
       {
         "desc": "Choose two from Arcana, History, Insight, Investigation, Medicine, and Religion",
-        "choose": 2,
-        "type": "proficiencies",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "skill-arcana",
+          "skill-history",
+          "skill-insight",
+          "skill-investigation",
+          "skill-medicine",
+          "skill-religion"
+        ],
+        "choose": 2
       }
     ],
     "proficiencies": [

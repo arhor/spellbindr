@@ -9,7 +9,7 @@ data class CharacterClass(
 //    val multiClassing: MultiClassing,
     val hitDie: Int,
     val proficiencies: List<String>,
-//    val proficiencyChoices: List<Choice>,
+    val proficiencyChoices: List<Choice>,
     val savingThrows: List<String>,
     val spellcasting: Spellcasting? = null,
     val startingEquipment: List<EquipmentRef>,
