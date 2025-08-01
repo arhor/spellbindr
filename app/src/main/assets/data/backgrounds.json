@@ -37,7 +37,7 @@
       "choose": 2
     },
     "equipmentChoice": {
-      "type": "equipment",
+      "type": "equipment-categories",
       "from": {
         "categories": [
           "holy-symbol"
