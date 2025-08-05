@@ -13,6 +13,6 @@ data class CharacterClass(
     val savingThrows: List<String>,
     val spellcasting: Spellcasting? = null,
     val startingEquipment: List<EquipmentRef>? = null,
-    val startingEquipmentOptions: List<Choice>,
+//    val startingEquipmentOptions: List<Choice>,
     val subclasses: List<Subclass>,
 )
