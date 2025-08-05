@@ -973,17 +973,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spells_known": 4,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spells": 4,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 6,
@@ -1016,17 +1010,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spells_known": 5,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spells": 5,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 6,
@@ -1177,17 +1165,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spells_known": 6,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spells": 6,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 6,
@@ -1212,17 +1195,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 7,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 7,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 6,
@@ -1256,17 +1234,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 8,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 8,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 8,
@@ -1298,17 +1272,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 9,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 9,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 8,
@@ -1325,17 +1295,14 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 10,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 10,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 8,
@@ -1360,17 +1327,14 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 11,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 11,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 8,
@@ -1396,17 +1360,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 12,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 12,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 8,
@@ -1568,17 +1530,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 14,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 14,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 10,
@@ -1595,17 +1555,16 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 15,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 15,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 10,
@@ -1630,17 +1589,16 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 15,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 15,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 10,
@@ -1666,17 +1624,17 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 16,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 16,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 10,
@@ -1710,17 +1668,17 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 18,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 18,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 10,
@@ -1747,17 +1705,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 19,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 19,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 12,
@@ -1782,17 +1741,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 19,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 19,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 12,
@@ -1817,17 +1777,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 20,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spells": 20,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 12,
@@ -1854,17 +1816,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 22,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spells": 22,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 12,
@@ -1889,17 +1853,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 22,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spells": 22,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 12,
@@ -1924,17 +1890,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 22,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 2,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spells": 22,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "bardic_inspiration_die": 12,
@@ -2411,16 +2379,10 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 0,
@@ -2461,16 +2423,10 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 1,
@@ -2493,16 +2449,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 1,
@@ -2524,16 +2475,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 1,
@@ -2563,16 +2509,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 1,
@@ -2602,16 +2544,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2634,16 +2572,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2680,16 +2615,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2712,16 +2644,14 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2746,16 +2676,14 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2777,16 +2705,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2808,16 +2735,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2831,16 +2757,16 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2862,16 +2788,16 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2885,16 +2811,17 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2916,16 +2843,17 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2955,16 +2883,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 2,
@@ -2986,16 +2916,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 3,
@@ -3017,16 +2949,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 3,
@@ -3048,16 +2982,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 2,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "channel_divinity_charges": 3,
@@ -4193,16 +4129,10 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 0,
@@ -4240,16 +4170,10 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 0.25,
@@ -4264,16 +4188,11 @@
         "prof_bonus": 2,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 0.25,
@@ -4311,16 +4230,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 0.5,
@@ -4335,16 +4249,12 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 0.5,
@@ -4367,16 +4277,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 0.5,
@@ -4391,16 +4297,13 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4438,16 +4341,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4462,16 +4362,14 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4494,16 +4392,14 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4518,16 +4414,15 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4550,16 +4445,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4574,16 +4468,16 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4606,16 +4500,16 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4630,16 +4524,17 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4662,16 +4557,17 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4686,16 +4582,18 @@
         "prof_bonus": 6,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4725,16 +4623,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4757,16 +4657,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -4790,16 +4692,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 2,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "wild_shape_max_cr": 1,
@@ -6829,11 +6733,7 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {}
         },
         "class_specific": {
           "aura_range": 0
@@ -6903,11 +6803,9 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "aura_range": 0
@@ -6953,11 +6851,9 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "aura_range": 0
@@ -6978,11 +6874,9 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "aura_range": 0
@@ -7003,11 +6897,10 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "aura_range": 0
@@ -7029,11 +6922,10 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7055,11 +6947,10 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7080,11 +6971,10 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7097,11 +6987,11 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7123,11 +7013,11 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7148,11 +7038,11 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7173,11 +7063,11 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7190,11 +7080,12 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7216,11 +7107,12 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7242,11 +7134,12 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7267,11 +7160,12 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7284,11 +7178,13 @@
         "prof_bonus": 6,
         "features": [],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "aura_range": 10
@@ -7309,11 +7205,13 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "aura_range": 30
@@ -7334,11 +7232,13 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "aura_range": 30
@@ -7360,11 +7260,13 @@
           }
         ],
         "spellcasting": {
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "aura_range": 30
@@ -7831,12 +7733,8 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 0,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 0,
+          "spellSlots": {}
         },
         "class_specific": {
           "favored_enemies": 1,
@@ -7900,12 +7798,10 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 2,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 2,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 1,
@@ -7934,12 +7830,10 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 3,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 3,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "favored_enemies": 1,
@@ -7961,12 +7855,10 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 3,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 3,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "favored_enemies": 1,
@@ -7988,12 +7880,11 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 1,
@@ -8079,12 +7970,11 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8106,12 +7996,11 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8141,12 +8030,11 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8160,12 +8048,12 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "spells_known": 6,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 6,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8222,12 +8110,12 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 6,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 6,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8249,12 +8137,12 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 7,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 7,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8276,12 +8164,12 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 7,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0
+          "spells": 7,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8295,12 +8183,13 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "spells_known": 8,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0
+          "spells": 8,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "favored_enemies": 2,
@@ -8359,12 +8248,13 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 8,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0
+          "spells": 8,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -8386,12 +8276,13 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 9,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0
+          "spells": 9,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -8413,12 +8304,13 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 9,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0
+          "spells": 9,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -8432,12 +8324,14 @@
         "prof_bonus": 6,
         "features": [],
         "spellcasting": {
-          "spells_known": 10,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1
+          "spells": 10,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -8460,12 +8354,14 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 10,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1
+          "spells": 10,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -8487,12 +8383,14 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 11,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2
+          "spells": 11,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -8514,12 +8412,14 @@
           }
         ],
         "spellcasting": {
-          "spells_known": 11,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2
+          "spells": 11,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "favored_enemies": 3,
@@ -9971,17 +9871,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 2,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 2,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "sorcery_points": 0,
@@ -10021,17 +9915,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 3,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 3,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "sorcery_points": 2,
@@ -10135,17 +10023,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "sorcery_points": 3,
@@ -10189,17 +10072,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spells_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spells": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "sorcery_points": 4,
@@ -10235,17 +10113,13 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spells_known": 6,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spells": 6,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "sorcery_points": 5,
@@ -10290,17 +10164,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spells_known": 7,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spells": 7,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "sorcery_points": 6,
@@ -10336,17 +10206,14 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spells_known": 8,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spells": 8,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 7,
@@ -10390,17 +10257,14 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spells_known": 9,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spells": 9,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "sorcery_points": 8,
@@ -10436,17 +10300,15 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spells_known": 10,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spells": 10,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 9,
@@ -10550,17 +10412,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 11,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 11,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "sorcery_points": 10,
@@ -10596,17 +10456,16 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 12,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 12,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 11,
@@ -10650,17 +10509,16 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 12,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 12,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 12,
@@ -10696,17 +10554,17 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 13,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 13,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 13,
@@ -10751,17 +10609,17 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 13,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 13,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 14,
@@ -10797,17 +10655,18 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 14,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 14,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 15,
@@ -10851,17 +10710,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 14,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 6,
+          "spells": 14,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 16,
@@ -10965,17 +10825,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 15,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 6,
+          "spells": 15,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 17,
@@ -11020,17 +10882,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 15,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 6,
+          "spells": 15,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 18,
@@ -11074,17 +10938,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 15,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 6,
+          "spells": 15,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 19,
@@ -11128,17 +10994,19 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 6,
-          "spells_known": 15,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 2,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 6,
+          "spells": 15,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "sorcery_points": 20,
@@ -11570,17 +11438,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spells_known": 2,
-          "spell_slots_level_1": 1,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spells": 2,
+          "spellSlots": {
+            "1": 1
+          }
         },
         "class_specific": {
           "invocations_known": 0,
@@ -11599,17 +11461,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spells_known": 3,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spells": 3,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "invocations_known": 2,
@@ -11628,17 +11484,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 2,
-          "spells_known": 4,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 2,
+          "spells": 4,
+          "spellSlots": {
+            "2": 2
+          }
         },
         "class_specific": {
           "invocations_known": 2,
@@ -11657,17 +11507,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 5,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 5,
+          "spellSlots": {
+            "2": 2
+          }
         },
         "class_specific": {
           "invocations_known": 3,
@@ -11684,17 +11528,11 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 6,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 6,
+          "spellSlots": {
+            "3": 2
+          }
         },
         "class_specific": {
           "invocations_known": 3,
@@ -11713,17 +11551,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 7,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 7,
+          "spellSlots": {
+            "3": 2
+          }
         },
         "class_specific": {
           "invocations_known": 4,
@@ -11740,17 +11572,11 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 8,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 8,
+          "spellSlots": {
+            "4": 2
+          }
         },
         "class_specific": {
           "invocations_known": 4,
@@ -11769,17 +11595,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 9,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 9,
+          "spellSlots": {
+            "4": 2
+          }
         },
         "class_specific": {
           "invocations_known": 4,
@@ -11796,17 +11616,11 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spells_known": 10,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spells": 10,
+          "spellSlots": {
+            "5": 2
+          }
         },
         "class_specific": {
           "invocations_known": 5,
@@ -11825,17 +11639,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 10,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 10,
+          "spellSlots": {
+            "5": 2
+          }
         },
         "class_specific": {
           "invocations_known": 5,
@@ -11854,17 +11662,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 11,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 11,
+          "spellSlots": {
+            "5": 3
+          }
         },
         "class_specific": {
           "invocations_known": 5,
@@ -11883,17 +11685,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 11,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 11,
+          "spellSlots": {
+            "5": 3
+          }
         },
         "class_specific": {
           "invocations_known": 6,
@@ -11920,17 +11716,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 12,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 12,
+          "spellSlots": {
+            "5": 3
+          }
         },
         "class_specific": {
           "invocations_known": 6,
@@ -11949,17 +11739,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 12,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 12,
+          "spellSlots": {
+            "5": 3
+          }
         },
         "class_specific": {
           "invocations_known": 6,
@@ -11978,17 +11762,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 13,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 13,
+          "spellSlots": {
+            "5": 3
+          }
         },
         "class_specific": {
           "invocations_known": 7,
@@ -12007,17 +11785,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 13,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 13,
+          "spellSlots": {
+            "5": 3
+          }
         },
         "class_specific": {
           "invocations_known": 7,
@@ -12036,17 +11808,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 14,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 4,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 14,
+          "spellSlots": {
+            "5": 4
+          }
         },
         "class_specific": {
           "invocations_known": 7,
@@ -12063,17 +11829,11 @@
         "prof_bonus": 6,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 14,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 4,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 14,
+          "spellSlots": {
+            "5": 4
+          }
         },
         "class_specific": {
           "invocations_known": 8,
@@ -12092,17 +11852,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 15,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 4,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 15,
+          "spellSlots": {
+            "5": 4
+          }
         },
         "class_specific": {
           "invocations_known": 8,
@@ -12121,17 +11875,11 @@
           {}
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spells_known": 15,
-          "spell_slots_level_1": 0,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 4,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spells": 15,
+          "spellSlots": {
+            "5": 4
+          }
         },
         "class_specific": {
           "invocations_known": 8,
@@ -12185,27 +11933,12 @@
     "startingEquipmentOptions": [
       {
         "desc": "(a) a quarterstaff or (b) a dagger",
-        "choose": 1,
-        "type": "equipment",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "counted_reference",
-              "count": 1,
-              "of": {
-                "id": "quarterstaff"
-              }
-            },
-            {
-              "type": "counted_reference",
-              "count": 1,
-              "of": {
-                "id": "dagger"
-              }
-            }
-          ]
-        }
+        "type": "options-array",
+        "from": [
+          "quarterstaff",
+          "dagger"
+        ],
+        "choose": 1
       },
       {
         "desc": "(a) a component pouch or (b) an arcane focus",
@@ -12418,16 +12151,10 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 2,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 2
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 1
@@ -12449,16 +12176,10 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 3,
-          "spell_slots_level_2": 0,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 3
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 1
@@ -12471,16 +12192,11 @@
         "prof_bonus": 2,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 3,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 2,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 3,
+          "spellSlots": {
+            "1": 4,
+            "2": 2
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 2
@@ -12501,16 +12217,11 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 0,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 2
@@ -12523,16 +12234,12 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 2,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 2
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 3
@@ -12554,16 +12261,12 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 0,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 3
@@ -12576,16 +12279,13 @@
         "prof_bonus": 3,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 1,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 4
@@ -12606,16 +12306,13 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 2,
-          "spell_slots_level_5": 0,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 2
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 4
@@ -12628,16 +12325,14 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 4,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 1,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 4,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 5
@@ -12659,16 +12354,14 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 0,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 5
@@ -12681,16 +12374,15 @@
         "prof_bonus": 4,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 6
@@ -12711,16 +12403,15 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 0,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 6
@@ -12733,16 +12424,16 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 7
@@ -12764,16 +12455,16 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 0,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 7
@@ -12786,16 +12477,17 @@
         "prof_bonus": 5,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 8
@@ -12816,16 +12508,17 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 0
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 8
@@ -12838,16 +12531,18 @@
         "prof_bonus": 6,
         "features": [],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 2,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 9
@@ -12869,16 +12564,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 1,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 9
@@ -12899,16 +12596,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 1,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 10
@@ -12930,16 +12629,18 @@
           }
         ],
         "spellcasting": {
-          "cantrips_known": 5,
-          "spell_slots_level_1": 4,
-          "spell_slots_level_2": 3,
-          "spell_slots_level_3": 3,
-          "spell_slots_level_4": 3,
-          "spell_slots_level_5": 3,
-          "spell_slots_level_6": 2,
-          "spell_slots_level_7": 2,
-          "spell_slots_level_8": 1,
-          "spell_slots_level_9": 1
+          "cantrips": 5,
+          "spellSlots": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 3,
+            "5": 3,
+            "6": 2,
+            "7": 2,
+            "8": 1,
+            "9": 1
+          }
         },
         "class_specific": {
           "arcane_recovery_levels": 10
