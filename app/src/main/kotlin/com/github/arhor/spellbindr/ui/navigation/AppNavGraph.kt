@@ -26,7 +26,6 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.BackgroundDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationViewModel
 import com.github.arhor.spellbindr.ui.screens.characters.creation.ClassSelectionScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.EquipmentScreen
@@ -138,19 +137,8 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
                 controller.getBackStackEntry(Characters.Create)
             }
             NameAndBackgroundScreen(
-                onNext = { controller.navigate(route = Characters.Create.BackgroundDetails) },
-                viewModel = hiltViewModel(creationGraphEntry)
-            )
-        }
-        composable<Characters.Create.BackgroundDetails> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
-            BackgroundDetailsScreen(
-                onPrev = { controller.popBackStack() },
                 onNext = { controller.navigate(route = Characters.Create.Race) },
-                viewModel = viewModel,
+                viewModel = hiltViewModel(creationGraphEntry)
             )
         }
         composable<Characters.Create.Race> {
