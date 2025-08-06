@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model
+package com.github.arhor.spellbindr.data.model.predefined
 
 import kotlinx.serialization.Serializable
 
@@ -63,4 +63,3 @@ enum class AbilityScore(
     val associatedSkills: List<Skill>
         get() = Skill.entries.filter { it.abilityScore == this }
 }
-
