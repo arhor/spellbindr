@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.di
 import com.github.arhor.spellbindr.data.local.assets.AlignmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.ConditionAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
@@ -33,11 +32,6 @@ abstract class StaticAssetsModule {
     @Binds
     @IntoSet
     abstract fun bindRacesAssetDataStore(dacesAssetDataStore: RacesAssetDataStore)
-        : InitializableStaticAssetDataStore
-
-    @Binds
-    @IntoSet
-    abstract fun bindConditionsAssetDataStore(conditionAssetDataStore: ConditionAssetDataStore)
         : InitializableStaticAssetDataStore
 
     @Binds

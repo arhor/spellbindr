@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.arhor.spellbindr.data.model.predefined.Condition
 
 @Composable
 fun ConditionsScreen(
@@ -22,7 +23,7 @@ fun ConditionsScreen(
     val listState = rememberLazyListState()
 
     LaunchedEffect(state) {
-        val index = state.conditions.indexOfFirst { it.name == state.expandedItemName }
+        val index = Condition.entries.indexOfFirst { it == state.expandedItem }
         if (index != -1) {
             val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
             if (itemInfo != null) {
@@ -43,11 +44,11 @@ fun ConditionsScreen(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = state.conditions, key = { it.name }) {
+        items(items = Condition.entries, key = { it.displayName }) {
             ConditionListItem(
                 condition = it,
-                isExpanded = it.name == state.expandedItemName,
-                onItemClick = { viewModel.handleConditionClick(it.name) }
+                isExpanded = it == state.expandedItem,
+                onItemClick = { viewModel.handleConditionClick(it) }
             )
         }
     }

@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.Condition
+import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 
 @Composable
@@ -30,7 +30,7 @@ fun ConditionListItem(
                 .animateContentSize(),
         ) {
             Text(
-                text = condition.name,
+                text = condition.displayName,
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
@@ -39,7 +39,7 @@ fun ConditionListItem(
                 Column {
                     GradientDivider(modifier = Modifier.padding(vertical = 8.dp))
                     Text(
-                        text = condition.desc.joinToString(separator = "\n\n"),
+                        text = condition.description.joinToString(separator = "\n\n"),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }
