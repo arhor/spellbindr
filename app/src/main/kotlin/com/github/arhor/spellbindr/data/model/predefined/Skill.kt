@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.model.predefined
 
+import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
 /**
@@ -11,7 +13,7 @@ import kotlinx.serialization.Serializable
  * @property description A list of strings, where each string is a paragraph describing the skill.
  * @property abilityScore The primary [AbilityScore] that governs this skill.
  */
-@Serializable
+@Serializable(with = Skill.Companion::class)
 enum class Skill(
     val displayName: String,
     val description: List<String>,
@@ -143,4 +145,6 @@ enum class Skill(
         ),
         AbilityScore.WIS
     );
+
+    companion object : KSerializer<Skill> by CaseInsensitiveEnumSerializer()
 }
