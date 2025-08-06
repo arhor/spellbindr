@@ -10,27 +10,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.NavButtons
+import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
 
 @Composable
 fun EquipmentScreen(
     onPrev: () -> Unit,
     onNext: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    BaseScreenWithNavigation(
+        padding = 24.dp,
+        onPrev = onPrev,
+        onNext = onNext
     ) {
         Text("Step 6 of 9: Equipment", style = MaterialTheme.typography.titleLarge)
 
         // TODO: Implement equipment selection based on class and background
 
-        Spacer(modifier = Modifier.weight(1f))
-        NavButtons(
-            onPrev = onPrev,
-            onNext = onNext,
-        )
+
     }
 }

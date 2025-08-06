@@ -25,7 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.NavButtons
+import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,11 +36,10 @@ fun AbilitiesScreen(
     @Suppress("UNUSED_PARAMETER")
     viewModel: CharacterCreationViewModel
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    BaseScreenWithNavigation(
+        padding = 24.dp,
+        onPrev = onPrev,
+        onNext = onNext
     ) {
         Text("Step 4 of 9: Abilities", style = MaterialTheme.typography.titleLarge)
 
@@ -156,7 +155,5 @@ fun AbilitiesScreen(
         }
 
 
-        Spacer(modifier = Modifier.weight(1f))
-        NavButtons(onPrev = onPrev, onNext = onNext)
     }
 }

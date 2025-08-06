@@ -15,8 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.BaseScreen
-import com.github.arhor.spellbindr.ui.components.NavButtons
+import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
 
 @Composable
 fun ClassSelectionScreen(
@@ -30,7 +29,10 @@ fun ClassSelectionScreen(
     val isLoading = state.isLoading
     val error = state.error
 
-    BaseScreen {
+    BaseScreenWithNavigation(
+        onPrev = onPrev,
+        onNext = onNext
+    ) {
         Text("Step 3 of 9: Class Selection", style = MaterialTheme.typography.titleLarge)
         when {
             isLoading -> {
@@ -58,7 +60,6 @@ fun ClassSelectionScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
-        NavButtons(onPrev = onPrev, onNext = onNext)
+
     }
 }

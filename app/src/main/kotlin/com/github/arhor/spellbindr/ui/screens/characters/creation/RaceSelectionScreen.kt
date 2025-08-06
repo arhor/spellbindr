@@ -16,8 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.BaseScreen
-import com.github.arhor.spellbindr.ui.components.NavButtons
+import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
 
 @Composable
 fun RaceSelectionScreen(
@@ -36,7 +35,10 @@ fun RaceSelectionScreen(
     val isSubraceRequired = selectedRace != null && subraces.isNotEmpty()
     selectedRace != null && (!isSubraceRequired || selectedSubrace != null)
 
-    BaseScreen {
+    BaseScreenWithNavigation(
+        onPrev = onPrev,
+        onNext = onNext
+    ) {
         Text("Step 2 of 9: Race Selection", style = MaterialTheme.typography.titleLarge)
         when {
             isLoading -> {
@@ -91,7 +93,6 @@ fun RaceSelectionScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
-        NavButtons(onPrev = onPrev, onNext = onNext)
+
     }
 }
