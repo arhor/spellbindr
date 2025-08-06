@@ -49,6 +49,9 @@ class CharacterCreationViewModel @Inject constructor(
 
         // Abilities
         val abilityScores: Map<String, Int> = emptyMap(),
+        val abilityScoresRolled: List<Int> = emptyList(),
+        val abilityScoresInEdit: Map<String, Int> = emptyMap(),
+        val pointBuyPoints: Int = 27,
 
         // Skills
         val skillProficiencies: List<String> = emptyList(),
@@ -216,6 +219,10 @@ class CharacterCreationViewModel @Inject constructor(
         _state.update { it.copy(selectedFlaws = flaws) }
     }
 
+    private fun onAbilityScoresChanged(scores: Map<String, Int>) {
+        _state.update { it.copy(abilityScores = scores) }
+    }
+
     private fun onSaveCharacter() {
         if (!state.value.isCharacterComplete) {
             return
@@ -252,6 +259,7 @@ class CharacterCreationViewModel @Inject constructor(
             is CharacterCreationEvent.IdealsChanged -> onIdealsChanged(event.ideals)
             is CharacterCreationEvent.BondsChanged -> onBondsChanged(event.bonds)
             is CharacterCreationEvent.FlawsChanged -> onFlawsChanged(event.flaws)
+            is CharacterCreationEvent.AbilityScoresChanged -> onAbilityScoresChanged(event.scores)
         }
     }
 }
@@ -269,5 +277,6 @@ sealed interface CharacterCreationEvent {
     data class IdealsChanged(val ideals: List<String>) : CharacterCreationEvent
     data class BondsChanged(val bonds: List<String>) : CharacterCreationEvent
     data class FlawsChanged(val flaws: List<String>) : CharacterCreationEvent
+    data class AbilityScoresChanged(val scores: Map<String, Int>) : CharacterCreationEvent
     data object SaveCharacter : CharacterCreationEvent
 }
