@@ -13,16 +13,19 @@ class CaseInsensitiveEnumSerializer<T : Enum<T>>(
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Enum", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: T) {
-        encoder.encodeString(value.name.lowercase())
+        encoder.encodeString(value.name.lowercase().replace(DELIMITER_ENUM, DELIMITER_JSON))
     }
 
     override fun deserialize(decoder: Decoder): T {
-        val value = decoder.decodeString()
+        val value = decoder.decodeString().replace(DELIMITER_JSON, DELIMITER_ENUM)
         return enumValues.firstOrNull { it.name.equals(value, ignoreCase = true) }
             ?: throw IllegalArgumentException("Unknown enum value: $value")
     }
 
     companion object {
+        private const val DELIMITER_ENUM = "_"
+        private const val DELIMITER_JSON = "-"
+
         inline operator fun <reified T : Enum<T>> invoke(): KSerializer<T> =
             CaseInsensitiveEnumSerializer(enumValues<T>())
     }
