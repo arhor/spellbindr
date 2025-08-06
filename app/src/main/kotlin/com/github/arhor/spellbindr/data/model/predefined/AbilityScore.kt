@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.model.predefined
 
+import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
 /**
@@ -12,7 +14,7 @@ import kotlinx.serialization.Serializable
  * @property description A detailed explanation of what the ability score measures and how it's used.
  * @property associatedSkills A list of skill names that are typically associated with this ability score.
  */
-@Serializable
+@Serializable(with = AbilityScore.Companion::class)
 enum class AbilityScore(
     val displayName: String,
     val description: List<String>,
@@ -62,4 +64,6 @@ enum class AbilityScore(
 
     val associatedSkills: List<Skill>
         get() = Skill.entries.filter { it.abilityScore == this }
+
+    companion object : KSerializer<AbilityScore> by CaseInsensitiveEnumSerializer()
 }
