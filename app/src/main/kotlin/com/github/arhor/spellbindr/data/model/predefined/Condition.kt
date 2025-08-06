@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.model.predefined
 
+import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
 /**
@@ -8,7 +10,7 @@ import kotlinx.serialization.Serializable
  * @property displayName The name of the condition.
  * @property description A list of strings describing the effects of the condition.
  */
-@Serializable
+@Serializable(with = Condition.Companion::class)
 enum class Condition(
     val displayName: String,
     val description: List<String>
@@ -132,4 +134,6 @@ enum class Condition(
             "Finishing a long rest reduces a creature's exhaustion level by 1, provided that the creature has also ingested some food and drink."
         )
     );
+
+    companion object : KSerializer<Condition> by CaseInsensitiveEnumSerializer()
 }
