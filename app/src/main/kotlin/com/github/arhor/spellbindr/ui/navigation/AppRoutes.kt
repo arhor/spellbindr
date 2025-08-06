@@ -58,13 +58,7 @@ data object Characters : AppRoute(title = "Characters") {
         data object Skills : AppRoute(title = "Skills")
 
         @Serializable
-        data object Equipment : AppRoute(title = "Equipment")
-
-        @Serializable
         data object Spells : AppRoute(title = "Spells")
-
-        @Serializable
-        data object Appearance : AppRoute(title = "Appearance")
 
         @Serializable
         data object Summary : AppRoute(title = "Summary")

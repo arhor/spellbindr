@@ -2,7 +2,6 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Background
@@ -35,7 +34,6 @@ class CharacterCreationViewModel @Inject constructor(
     private val characterClassRepository: CharacterClassRepository,
     private val racesRepository: RacesRepository,
     private val characterRepository: CharacterRepository,
-    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     @Immutable
