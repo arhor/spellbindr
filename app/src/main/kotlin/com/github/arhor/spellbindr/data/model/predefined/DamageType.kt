@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.model.predefined
 
+import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
 /**
@@ -8,7 +10,7 @@ import kotlinx.serialization.Serializable
  * @property displayName The name of the damage type.
  * @property description A list of strings describing the damage type.
  */
-@Serializable
+@Serializable(with = DamageType.Companion::class)
 enum class DamageType(
     val displayName: String,
     val description: List<String>
@@ -91,4 +93,6 @@ enum class DamageType(
             "A concussive burst of sound, such as the effect of the thunderwave spell, deals thunder damage."
         )
     );
+
+    companion object : KSerializer<DamageType> by CaseInsensitiveEnumSerializer()
 }
