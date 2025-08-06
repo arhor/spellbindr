@@ -50,7 +50,7 @@ fun BaseScreenWithNavigation(
             NavButtons(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = padding, vertical = 16.dp),
+                    .padding(horizontal = padding, vertical = padding),
                 onPrev = onPrev,
                 onNext = onNext,
                 prevText = prevText,
