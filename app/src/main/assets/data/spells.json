@@ -36,9 +36,7 @@
         "9": "11d4"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -88,9 +86,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -137,9 +133,7 @@
       "8": "35",
       "9": "40"
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -179,9 +173,7 @@
       "type": "cube",
       "size": 20
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "ranger"
@@ -216,9 +208,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -258,9 +248,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -297,9 +285,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -336,9 +322,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -370,9 +354,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 3,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -418,9 +400,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -457,9 +437,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -499,9 +477,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -540,9 +516,7 @@
       "type": "cube",
       "size": 200
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "druid"
@@ -578,9 +552,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -619,9 +591,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -649,9 +619,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "wizard"
@@ -692,9 +660,7 @@
         "7": "3d10"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -727,9 +693,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "wizard"
@@ -765,9 +729,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 9,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -806,9 +768,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -840,9 +800,7 @@
     "concentration": false,
     "castingTime": "8 hours",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -881,9 +839,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -928,9 +884,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -969,9 +923,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -1006,9 +958,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -1058,9 +1008,7 @@
       "dcSuccess": "none",
       "desc": "On fail, become cursed for the duration of the spell."
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -1118,9 +1066,7 @@
       "type": "cube",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -1164,9 +1110,7 @@
       "type": "line",
       "size": 100
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -1196,9 +1140,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "cleric"
@@ -1257,9 +1199,7 @@
       },
       "dcSuccess": "half"
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "druid"
@@ -1305,9 +1245,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -1349,9 +1287,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -1382,9 +1318,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "sorcerer"
@@ -1436,9 +1370,7 @@
         "9": "9d6"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "paladin"
@@ -1493,9 +1425,7 @@
       "type": "cone",
       "size": 15
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -1553,9 +1483,7 @@
       "type": "sphere",
       "size": 5
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -1598,9 +1526,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -1652,9 +1578,7 @@
       },
       "dcSuccess": "half"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -1691,9 +1615,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -1748,9 +1670,7 @@
         "17": "4d8"
       }
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "sorcerer"
@@ -1811,9 +1731,7 @@
       "type": "sphere",
       "size": 60
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "sorcerer"
@@ -1848,9 +1766,7 @@
     "concentration": true,
     "castingTime": "10 minutes",
     "level": 3,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -1891,9 +1807,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 8,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "wizard"
@@ -1946,9 +1860,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -1990,9 +1902,7 @@
       "type": "cone",
       "size": 15
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "sorcerer"
@@ -2038,9 +1948,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "cleric"
@@ -2079,9 +1987,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 5,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -2117,9 +2023,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 5,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "druid"
@@ -2154,9 +2058,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -2201,9 +2103,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -2257,9 +2157,7 @@
       "type": "cone",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -2314,9 +2212,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -2360,9 +2256,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -2399,9 +2293,7 @@
     "concentration": true,
     "castingTime": "1 minute",
     "level": 7,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -2438,9 +2330,7 @@
       "type": "cube",
       "size": 10
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -2478,9 +2368,7 @@
     "concentration": true,
     "castingTime": "1 minute",
     "level": 6,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -2518,9 +2406,7 @@
     "concentration": true,
     "castingTime": "1 minute",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -2560,9 +2446,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -2597,9 +2481,7 @@
       "dcSuccess": "other",
       "desc": "On a failure, you take 6d6 psychic damage and are insane until you finish a long rest."
     },
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "warlock"
@@ -2643,9 +2525,7 @@
       "dcSuccess": "other",
       "desc": "After succeeding on three of these saving throws, the creature recovers from the disease, and the spell ends."
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -2677,9 +2557,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 6,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -2706,9 +2584,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -2768,9 +2644,7 @@
       "type": "cube",
       "size": 100
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -2830,9 +2704,7 @@
     "concentration": true,
     "castingTime": "10 minutes",
     "level": 8,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -2869,9 +2741,7 @@
     "concentration": false,
     "castingTime": "1 reaction",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -2902,9 +2772,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -2949,9 +2817,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 6,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -2993,9 +2859,7 @@
       "type": "cube",
       "size": 30
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -3045,9 +2909,7 @@
       "type": "cube",
       "size": 5
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "sorcerer"
@@ -3089,9 +2951,7 @@
       "8": "8d8 + MOD",
       "9": "9d8 + MOD"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -3138,9 +2998,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -3182,9 +3040,7 @@
       "type": "sphere",
       "size": 15
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -3224,9 +3080,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -3270,9 +3124,7 @@
       "type": "sphere",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -3318,9 +3170,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -3380,9 +3230,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -3410,9 +3258,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "warlock"
@@ -3445,9 +3291,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -3484,9 +3328,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -3540,9 +3382,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -3586,9 +3426,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -3632,9 +3470,7 @@
         "4": "4d6"
       }
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -3670,9 +3506,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -3733,9 +3567,7 @@
       "type": "cube",
       "size": 10
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -3775,9 +3607,7 @@
       "dcSuccess": "other",
       "desc": "The creature must succeed on a charisma saving throw or be sent back to its home plane (if it isn't there already)"
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -3808,9 +3638,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -3864,9 +3692,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "druid"
@@ -3903,9 +3729,7 @@
         "1": "1d4"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "paladin"
@@ -3945,9 +3769,7 @@
       "dcSuccess": "none",
       "desc": "On a failed save, a creature suffers an effect based on its current hit points."
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -3983,9 +3805,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "druid"
@@ -4026,9 +3846,7 @@
       "dcSuccess": "none",
       "desc": "On failure, the creature is charmed by you for the duration."
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -4075,9 +3893,7 @@
       "dcSuccess": "other",
       "desc": "Each time the target takes damage, it makes a new wisdom saving throw against the spell. If the saving throw succeeds, the spell ends."
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -4129,9 +3945,7 @@
       "dcSuccess": "none",
       "desc": "On a failed save, echoes of the phantasmal monstrosity spawn a nightmare that lasts the duration of the target's sleep and prevents the target from gaining any benefit from that rest."
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -4170,9 +3984,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -4209,9 +4021,7 @@
       "type": "sphere",
       "size": 100
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -4254,9 +4064,7 @@
         "17": "4d10"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "warlock"
@@ -4296,9 +4104,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -4347,9 +4153,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -4393,9 +4197,7 @@
       "type": "cube",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -4430,9 +4232,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -4471,9 +4271,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -4510,9 +4308,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -4557,9 +4353,7 @@
       "dcSuccess": "none",
       "desc": "On failure, the target can be affected by one of the following effects of your choice for the duration. [Asleep. The target falls unconscious. It wakes up if it takes any damage or if another creature uses its action to shake the sleeper awake.] [Panicked. The target is frightened of you. On each of its turns, the frightened creature must take the Dash action and move away from you by the safest and shortest available route, unless there is nowhere to move. If the target moves to a place at least 60 feet away from you where it can no longer see you, this effect ends.] [Sickened. The target has disadvantage on attack rolls and ability checks. At the end of each of its turns, it can make another wisdom saving throw. If it succeeds, the effect ends.]"
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -4595,9 +4389,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 4,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -4632,9 +4424,7 @@
       "type": "cube",
       "size": 20
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -4676,9 +4466,7 @@
         "4": "4d8"
       }
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -4719,9 +4507,7 @@
       "8": "1d4 + 39",
       "9": "1d4 + 44"
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "sorcerer"
@@ -4767,9 +4553,7 @@
       "type": "cone",
       "size": 30
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -4808,9 +4592,7 @@
     "concentration": false,
     "castingTime": "1 reaction",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -4865,9 +4647,7 @@
       "dcSuccess": "other",
       "desc": "The target always takes the damage. On a failed save, the creature's Intelligence and Charisma scores become 1."
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -4909,9 +4689,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 1,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -4940,9 +4718,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 2,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "paladin"
@@ -4972,9 +4748,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -5012,9 +4786,7 @@
     "concentration": true,
     "castingTime": "1 minute",
     "level": 6,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -5060,9 +4832,7 @@
       },
       "dcSuccess": "half"
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "sorcerer"
@@ -5106,9 +4876,7 @@
         "17": "4d10"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -5152,9 +4920,7 @@
       "type": "sphere",
       "size": 5
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -5202,9 +4968,7 @@
       "type": "cube",
       "size": 100
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -5265,9 +5029,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -5320,9 +5082,7 @@
         "8": "6d6"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -5378,9 +5138,7 @@
       "type": "cylinder",
       "size": 40
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -5434,9 +5192,7 @@
         "9": "9d6"
       }
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -5480,9 +5236,7 @@
       "dcSuccess": "none",
       "desc": "On a failed save, the target is restrained as its flesh begins to harden."
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "warlock"
@@ -5514,9 +5268,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -5550,9 +5302,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -5594,9 +5344,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -5643,9 +5391,7 @@
       "type": "cube",
       "size": 40000
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -5681,9 +5427,7 @@
       "type": "cube",
       "size": 20
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -5717,9 +5461,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 9,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -5756,9 +5498,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -5824,9 +5564,7 @@
       "type": "sphere",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -5855,9 +5593,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -5900,9 +5636,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -5943,9 +5677,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -5985,9 +5717,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -6022,9 +5752,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -6048,9 +5776,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -6088,9 +5814,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -6129,9 +5853,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -6169,9 +5891,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -6212,9 +5932,7 @@
       "type": "cube",
       "size": 10
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -6243,9 +5961,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -6286,9 +6002,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -6337,9 +6051,7 @@
       "type": "cylinder",
       "size": 10
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -6383,9 +6095,7 @@
       "type": "cube",
       "size": 2500
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -6413,9 +6123,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "cleric"
@@ -6467,9 +6175,7 @@
         "9": "12d6"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -6513,9 +6219,7 @@
       "type": "line",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -6574,9 +6278,7 @@
       "type": "sphere",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -6612,9 +6314,7 @@
       "type": "cube",
       "size": 150
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -6666,9 +6366,7 @@
       },
       "dcSuccess": "half"
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -6696,9 +6394,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -6742,9 +6438,7 @@
       "8": "90",
       "9": "100"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -6785,9 +6479,7 @@
       "8": "8d4 + MOD",
       "9": "9d4 + MOD"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -6850,9 +6542,7 @@
       "dcSuccess": "other",
       "desc": "Can choose to not drop the object"
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -6909,9 +6599,7 @@
       },
       "dcSuccess": "half"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "warlock"
@@ -6939,9 +6627,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 6,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -6969,9 +6655,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -7012,9 +6696,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -7057,9 +6739,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -7104,9 +6784,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -7159,9 +6837,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -7188,9 +6864,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 1,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "ranger"
@@ -7224,9 +6898,7 @@
       "dcSuccess": "none",
       "desc": "On a failed save, the creature becomes charmed for the duration."
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -7293,9 +6965,7 @@
       "type": "cylinder",
       "size": 20
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -7333,9 +7003,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 1,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -7371,9 +7039,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 1,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -7431,9 +7097,7 @@
       "dcSuccess": "none",
       "desc": "If the creature succeeds, it is immune to this spell if you cast it again"
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "warlock"
@@ -7481,9 +7145,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -7531,9 +7193,7 @@
         "9": "11d10"
       }
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -7590,9 +7250,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -7632,9 +7290,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 6,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -7664,9 +7320,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -7707,9 +7361,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -7739,9 +7391,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -7781,9 +7431,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -7821,9 +7469,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 5,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -7854,9 +7500,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -7907,9 +7551,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -7949,9 +7591,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -8019,9 +7659,7 @@
       "type": "line",
       "size": 100
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -8058,9 +7696,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -8099,9 +7735,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -8149,9 +7783,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -8200,9 +7832,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -8242,9 +7872,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -8278,9 +7906,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -8339,9 +7965,7 @@
       "dcSuccess": "other",
       "desc": "If the creature tries to use teleportation or interplanar travel to do so, it must first succeed on a Charisma saving throw."
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -8394,9 +8018,7 @@
       "dcSuccess": "other",
       "desc": "On a failure, your soul moves into the target's body, and the target's soul becomes trapped in the container. On a success, the target resists your efforts to possess it, and you can't attempt to possess it again for 24 hours."
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "wizard"
@@ -8440,9 +8062,7 @@
         "9": "1d4 + 1"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -8479,9 +8099,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 2,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -8516,9 +8134,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "paladin"
@@ -8558,9 +8174,7 @@
       "type": "cube",
       "size": 5
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -8595,9 +8209,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -8649,9 +8261,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -8689,9 +8299,7 @@
     "healAtSlotLevel": {
       "9": "700"
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -8727,9 +8335,7 @@
       "8": "6d4 + MOD",
       "9": "7d4 + MOD"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -8771,9 +8377,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -8809,9 +8413,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -8838,9 +8440,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -8875,9 +8475,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -8921,9 +8519,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -8977,9 +8573,7 @@
       "type": "sphere",
       "size": 40
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -9007,9 +8601,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -9041,9 +8633,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -9088,9 +8678,7 @@
       "type": "cube",
       "size": 5280
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -9125,9 +8713,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "sorcerer"
@@ -9166,9 +8752,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -9195,9 +8779,7 @@
     "concentration": false,
     "castingTime": "1 bonus action",
     "level": 2,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -9248,9 +8830,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -9311,9 +8891,7 @@
       "type": "cylinder",
       "size": 5
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -9352,9 +8930,7 @@
       "type": "cone",
       "size": 40
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -9387,9 +8963,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -9426,9 +9000,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -9466,9 +9038,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -9514,9 +9084,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "wizard"
@@ -9542,9 +9110,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 3,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "wizard"
@@ -9578,9 +9144,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 6,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -9617,9 +9181,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -9665,9 +9227,7 @@
       "dcSuccess": "none",
       "desc": "If the creature fails this save, it is transported to a random location on the plane of existence you specify. A creature so transported must find its own way back to your current plane of existence."
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -9707,9 +9267,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -9765,9 +9323,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -9813,9 +9369,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -9848,9 +9402,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -9884,9 +9436,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -9932,9 +9482,7 @@
       "8": "8d8 + MOD",
       "9": "9d8 + MOD"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -9970,9 +9518,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -10034,9 +9580,7 @@
       "type": "cone",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -10079,9 +9623,7 @@
       "type": "line",
       "size": 90
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "wizard"
@@ -10123,9 +9665,7 @@
       "type": "cube",
       "size": 100
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "wizard"
@@ -10164,9 +9704,7 @@
         "17": "4d8"
       }
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -10204,9 +9742,7 @@
       "type": "cube",
       "size": 30
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -10239,9 +9775,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -10269,9 +9803,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -10318,9 +9850,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -10362,9 +9892,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -10402,9 +9930,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -10444,9 +9970,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 5,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -10489,9 +10013,7 @@
       "dcSuccess": "none"
     },
     "attackType": "ranged",
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "warlock"
@@ -10536,9 +10058,7 @@
         "17": "4d8"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -10576,9 +10096,7 @@
     "healAtSlotLevel": {
       "7": "4d8 + 15"
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -10629,9 +10147,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -10656,9 +10172,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -10707,9 +10221,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -10736,9 +10248,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -10776,9 +10286,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 7,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -10821,9 +10329,7 @@
       "type": "cylinder",
       "size": 50
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -10856,9 +10362,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -10898,9 +10402,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -10947,9 +10449,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -10981,9 +10481,7 @@
     "concentration": false,
     "castingTime": "1 bonus action",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -11027,9 +10525,7 @@
         "2": "2d6"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -11086,9 +10582,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -11133,9 +10627,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -11162,9 +10654,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -11202,9 +10692,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -11238,9 +10726,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -11279,9 +10765,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -11313,9 +10797,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -11374,9 +10856,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -11414,9 +10894,7 @@
     "concentration": false,
     "castingTime": "1 reaction",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -11450,9 +10928,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -11486,9 +10962,7 @@
     "concentration": false,
     "castingTime": "1 bonus action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -11530,9 +11004,7 @@
         "17": "4d8"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -11569,9 +11041,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -11617,9 +11087,7 @@
       "type": "cube",
       "size": 15
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "bard"
@@ -11659,9 +11127,7 @@
     "concentration": false,
     "castingTime": "12 hours",
     "level": 7,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "wizard"
@@ -11702,9 +11168,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -11747,9 +11211,7 @@
       "type": "cylinder",
       "size": 40
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -11803,9 +11265,7 @@
       "type": "cube",
       "size": 40
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -11840,9 +11300,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -11867,9 +11325,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -11907,9 +11363,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -11949,9 +11403,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -11988,9 +11440,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -12035,9 +11485,7 @@
       "type": "cylinder",
       "size": 20
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -12078,9 +11526,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -12130,9 +11576,7 @@
         "9": "4d8 + MOD"
       }
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -12179,9 +11623,7 @@
       "type": "sphere",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -12224,9 +11666,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -12263,9 +11703,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -12327,9 +11765,7 @@
       "type": "sphere",
       "size": 360
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -12364,9 +11800,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -12427,9 +11861,7 @@
       "type": "line",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -12483,9 +11915,7 @@
       "type": "cylinder",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -12534,9 +11964,7 @@
       "type": "cube",
       "size": 10
     },
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "bard"
@@ -12576,9 +12004,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -12609,9 +12035,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "wizard"
@@ -12660,9 +12084,7 @@
       "type": "cube",
       "size": 10
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -12700,9 +12122,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -12739,9 +12159,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -12800,9 +12218,7 @@
       "type": "cube",
       "size": 15
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -12840,9 +12256,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -12878,9 +12292,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -12913,9 +12325,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -12956,9 +12366,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -12984,9 +12392,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -13028,9 +12434,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -13065,9 +12469,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 9,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -13097,9 +12499,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -13135,9 +12535,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "bard"
@@ -13179,9 +12577,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "bard"
@@ -13234,9 +12630,7 @@
         "9": "9d6"
       }
     },
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "warlock"
@@ -13285,9 +12679,7 @@
       },
       "dcSuccess": "none"
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -13338,9 +12730,7 @@
       "type": "line",
       "size": 60
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -13378,9 +12768,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -13433,9 +12821,7 @@
       "type": "sphere",
       "size": 10
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -13467,9 +12853,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -13532,9 +12916,7 @@
       "type": "line",
       "size": 60
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -13563,9 +12945,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -13596,9 +12976,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -13642,9 +13020,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "cleric"
@@ -13695,9 +13071,7 @@
       "type": "cube",
       "size": 20
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -13742,9 +13116,7 @@
       "type": "sphere",
       "size": 30
     },
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "wizard"
@@ -13772,9 +13144,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -13821,9 +13191,7 @@
       "type": "line",
       "size": 50
     },
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -13863,9 +13231,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -13897,9 +13263,7 @@
       "type": "sphere",
       "size": 5
     },
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -13929,9 +13293,7 @@
       "type": "sphere",
       "size": 15
     },
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -13965,9 +13327,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "sorcerer"
@@ -13998,9 +13358,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -14032,9 +13390,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -14062,9 +13418,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "druid"
@@ -14098,9 +13452,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -14124,9 +13476,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -14159,9 +13509,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -14190,9 +13538,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -14225,9 +13571,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "archetype": "Paladin: Conquest",
     "oaths": "Conquest",
     "classes": [
@@ -14261,9 +13605,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "cleric"
@@ -14297,9 +13639,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -14326,9 +13666,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -14364,9 +13702,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -14396,9 +13732,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -14432,9 +13766,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -14465,9 +13797,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -14498,9 +13828,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -14531,9 +13859,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -14562,9 +13888,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -14594,9 +13918,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -14629,9 +13951,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -14659,9 +13979,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -14694,9 +14012,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "warlock"
@@ -14723,9 +14039,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -14756,9 +14070,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -14786,9 +14098,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 6,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -14820,9 +14130,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -14860,9 +14168,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -14899,9 +14205,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -14936,9 +14240,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "archetype": "Cleric: Grave",
     "domains": "Grave",
     "classes": [
@@ -14970,9 +14272,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -15008,9 +14308,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "sorcerer"
@@ -15043,9 +14341,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15076,9 +14372,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 5,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -15107,9 +14401,7 @@
     "concentration": false,
     "castingTime": "10 minutes",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "paladin"
@@ -15136,9 +14428,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15171,9 +14461,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -15206,9 +14494,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -15238,9 +14524,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 4,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15266,9 +14550,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15301,9 +14583,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 2,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -15331,9 +14611,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 1,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "warlock"
@@ -15358,9 +14636,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -15390,9 +14666,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 1,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -15422,9 +14696,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "wizard"
@@ -15447,9 +14719,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -15478,9 +14748,7 @@
     "concentration": true,
     "castingTime": "1 minute",
     "level": 5,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "warlock"
@@ -15508,9 +14776,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -15535,9 +14801,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15570,9 +14834,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15605,9 +14867,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15640,9 +14900,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15675,9 +14933,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "wizard"
@@ -15705,9 +14961,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -15734,9 +14988,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -15765,9 +15017,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 8,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "warlock"
@@ -15794,9 +15044,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -15821,9 +15069,7 @@
     "concentration": false,
     "castingTime": "1 bonus action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -15850,9 +15096,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -15883,9 +15127,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -15916,9 +15158,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "sorcerer"
@@ -15946,9 +15186,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "sorcerer"
@@ -15977,9 +15215,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 8,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "wizard"
@@ -16007,9 +15243,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "divination"
-    },
+    "school": "divination",
     "classes": [
       {
         "id": "sorcerer"
@@ -16038,9 +15272,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -16069,9 +15301,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "warlock"
@@ -16098,9 +15328,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "sorcerer"
@@ -16129,9 +15357,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -16154,9 +15380,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -16180,9 +15404,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 9,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -16214,9 +15436,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -16246,9 +15466,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -16280,9 +15498,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "illusion"
-    },
+    "school": "illusion",
     "classes": [
       {
         "id": "sorcerer"
@@ -16312,9 +15528,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "warlock"
@@ -16339,9 +15553,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -16370,9 +15582,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -16402,9 +15612,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -16434,9 +15642,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "bard"
@@ -16469,9 +15675,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 1,
-    "school": {
-      "id": "abjuration"
-    },
+    "school": "abjuration",
     "classes": [
       {
         "id": "druid"
@@ -16504,9 +15708,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -16534,9 +15736,7 @@
     "concentration": false,
     "castingTime": "1 reaction",
     "level": 6,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "cleric"
@@ -16561,9 +15761,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "ranger"
@@ -16593,9 +15791,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -16625,9 +15821,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "warlock"
@@ -16658,9 +15852,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "warlock"
@@ -16688,9 +15880,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -16719,9 +15909,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "enchantment"
-    },
+    "school": "enchantment",
     "classes": [
       {
         "id": "bard"
@@ -16754,9 +15942,7 @@
     "concentration": false,
     "castingTime": "1 hour",
     "level": 7,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "cleric"
@@ -16781,9 +15967,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -16808,9 +15992,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -16852,9 +16034,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "sorcerer"
@@ -16883,9 +16063,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -16916,9 +16094,7 @@
     "concentration": false,
     "castingTime": "1 minute",
     "level": 3,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "wizard"
@@ -16942,9 +16118,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "necromancy"
-    },
+    "school": "necromancy",
     "classes": [
       {
         "id": "bard"
@@ -16980,9 +16154,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "druid"
@@ -17013,9 +16185,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -17046,9 +16216,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 6,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "sorcerer"
@@ -17079,9 +16247,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "wizard"
@@ -17106,9 +16272,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 3,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -17139,9 +16303,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 2,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "bard"
@@ -17170,9 +16332,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 4,
-    "school": {
-      "id": "conjuration"
-    },
+    "school": "conjuration",
     "classes": [
       {
         "id": "druid"
@@ -17203,9 +16363,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 7,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -17233,9 +16391,7 @@
     "concentration": false,
     "castingTime": "1 action",
     "level": 0,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "cleric"
@@ -17263,9 +16419,7 @@
     "concentration": true,
     "castingTime": "1 action",
     "level": 5,
-    "school": {
-      "id": "evocation"
-    },
+    "school": "evocation",
     "classes": [
       {
         "id": "druid"
@@ -17292,9 +16446,7 @@
     "concentration": true,
     "castingTime": "1 bonus action",
     "level": 1,
-    "school": {
-      "id": "transmutation"
-    },
+    "school": "transmutation",
     "classes": [
       {
         "id": "ranger"
