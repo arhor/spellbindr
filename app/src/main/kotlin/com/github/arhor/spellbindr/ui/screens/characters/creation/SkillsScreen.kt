@@ -16,7 +16,7 @@ fun SkillsScreen(
         onPrev = onPrev,
         onNext = onNext
     ) {
-        Text("Step 5 of 9: Skills", style = MaterialTheme.typography.titleLarge)
+        Text("Step 5 of 7: Skills", style = MaterialTheme.typography.titleLarge)
 
         // TODO: Implement skill selection based on class and background
 

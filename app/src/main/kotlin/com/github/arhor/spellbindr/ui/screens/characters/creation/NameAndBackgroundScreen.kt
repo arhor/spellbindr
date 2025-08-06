@@ -38,6 +38,8 @@ fun NameAndBackgroundScreen(
     BaseScreenWithNavigation(
         onNext = onNext
     ) {
+        Text("Step 1 of 7: Background", style = MaterialTheme.typography.titleLarge)
+
         OutlinedTextField(
             value = state.characterName,
             onValueChange = { viewModel.handleEvent(CharacterCreationEvent.NameChanged(it)) },

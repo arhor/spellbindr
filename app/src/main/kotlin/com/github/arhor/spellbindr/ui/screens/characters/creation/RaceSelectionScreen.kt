@@ -39,7 +39,7 @@ fun RaceSelectionScreen(
         onPrev = onPrev,
         onNext = onNext
     ) {
-        Text("Step 2 of 9: Race Selection", style = MaterialTheme.typography.titleLarge)
+        Text("Step 2 of 7: Race", style = MaterialTheme.typography.titleLarge)
         when {
             isLoading -> {
                 CircularProgressIndicator()

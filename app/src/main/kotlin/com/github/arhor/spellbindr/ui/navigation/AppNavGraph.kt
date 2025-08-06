@@ -174,6 +174,7 @@ fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
         }
         composable<Characters.Create.Summary> {
             SummaryScreen(
+                onPrev = { controller.navigateUp() },
                 onFinish = { controller.popBackStack(route = Characters, inclusive = false) },
                 viewModel = useCharacterCreationViewModel(it, controller)
             )

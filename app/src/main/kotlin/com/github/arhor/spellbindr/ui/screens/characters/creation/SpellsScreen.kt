@@ -16,7 +16,7 @@ fun SpellsScreen(
         onPrev = onPrev,
         onNext = onNext
     ) {
-        Text("Step 7 of 9: Spells", style = MaterialTheme.typography.titleLarge)
+        Text("Step 6 of 7: Spells", style = MaterialTheme.typography.titleLarge)
 
         // TODO: Implement spell selection for spellcasting classes
 

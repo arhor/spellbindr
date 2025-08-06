@@ -33,7 +33,7 @@ fun AbilitiesScreen(
         onPrev = onPrev,
         onNext = onNext
     ) {
-        Text("Step 4 of 9: Abilities", style = MaterialTheme.typography.titleLarge)
+        Text("Step 4 of 7: Abilities", style = MaterialTheme.typography.titleLarge)
 
         var selectedMethod by remember { mutableStateOf<AbilityScoreGenerator.GenerationMethod>(AbilityScoreGenerator.GenerationMethod.PointBuy) }
 

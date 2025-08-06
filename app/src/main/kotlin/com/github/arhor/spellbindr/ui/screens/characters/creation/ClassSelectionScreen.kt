@@ -33,7 +33,7 @@ fun ClassSelectionScreen(
         onPrev = onPrev,
         onNext = onNext
     ) {
-        Text("Step 3 of 9: Class Selection", style = MaterialTheme.typography.titleLarge)
+        Text("Step 3 of 7: Class", style = MaterialTheme.typography.titleLarge)
         when {
             isLoading -> {
                 CircularProgressIndicator()

@@ -1,12 +1,6 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,22 +8,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
 
 @Composable
 fun SummaryScreen(
+    onPrev: () -> Unit,
     onFinish: () -> Unit,
     viewModel: CharacterCreationViewModel,
-    modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
 
-    Column(
-        modifier = modifier
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+    BaseScreenWithNavigation(
+        onPrev = onPrev,
+        onNext = if (state.isCharacterComplete) {
+            {
+                viewModel.handleEvent(CharacterCreationEvent.SaveCharacter)
+                onFinish()
+            }
+        } else {
+            null
+        },
+        nextText = "Done"
     ) {
-        Text("Step 9 of 9: Summary", style = MaterialTheme.typography.titleLarge)
+        Text("Step 7 of 7: Summary", style = MaterialTheme.typography.titleLarge)
 
         SummaryItem(label = "Name", value = state.characterName)
         SummaryItem(label = "Race", value = state.race?.name)
@@ -46,18 +47,6 @@ fun SummaryScreen(
             for (missing in state.requiredSelections) {
                 Text(text = "- $missing", color = MaterialTheme.colorScheme.error)
             }
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = {
-                viewModel.handleEvent(CharacterCreationEvent.SaveCharacter)
-                onFinish()
-            },
-            enabled = state.isCharacterComplete,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Finish")
         }
     }
 }
