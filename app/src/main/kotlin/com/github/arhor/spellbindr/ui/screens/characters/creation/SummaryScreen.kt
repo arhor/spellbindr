@@ -32,7 +32,7 @@ fun SummaryScreen(
     ) {
         Text("Step 7 of 7: Summary", style = MaterialTheme.typography.titleLarge)
 
-        SummaryItem(label = "Name", value = state.characterName)
+        SummaryItem(label = "Name", value = state.characterName.ifBlank { " - " })
         SummaryItem(label = "Race", value = state.race?.name)
         SummaryItem(label = "Subrace", value = state.subrace?.name)
         SummaryItem(label = "Class", value = state.characterClass?.name)
