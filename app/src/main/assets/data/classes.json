@@ -4736,7 +4736,9 @@
       }
     ],
     "proficiencies": [
-      "all-armor",
+      "light-armor",
+      "medium-armor",
+      "heavy-armor",
       "shields",
       "simple-weapons",
       "martial-weapons",
@@ -6310,7 +6312,9 @@
       }
     ],
     "proficiencies": [
-      "all-armor",
+      "light-armor",
+      "medium-armor",
+      "heavy-armor",
       "shields",
       "simple-weapons",
       "martial-weapons",
