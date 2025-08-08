@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 data class Language(
     val id: String,
     val name: String,
-    val desc: String?,
+    val desc: String? = null,
     val type: String,
-    val script: String?,
+    val script: String? = null,
     val typicalSpeakers: List<String>,
 )

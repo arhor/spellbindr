@@ -8,6 +8,9 @@ import com.github.arhor.spellbindr.data.model.Background
 import com.github.arhor.spellbindr.data.model.Character
 import com.github.arhor.spellbindr.data.model.CharacterClass
 import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.model.Equipment
+import com.github.arhor.spellbindr.data.model.Language
+import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.Subrace
@@ -16,6 +19,8 @@ import com.github.arhor.spellbindr.data.repository.BackgroundRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.data.repository.RacesRepository
+import com.github.arhor.spellbindr.data.repository.LanguagesRepository
+import com.github.arhor.spellbindr.data.repository.EquipmentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,6 +38,8 @@ class CharacterCreationViewModel @Inject constructor(
     private val characterClassRepository: CharacterClassRepository,
     private val racesRepository: RacesRepository,
     private val characterRepository: CharacterRepository,
+    private val languagesRepository: LanguagesRepository,
+    private val equipmentRepository: EquipmentRepository,
 ) : ViewModel() {
 
     @Immutable
@@ -67,12 +74,17 @@ class CharacterCreationViewModel @Inject constructor(
         val races: List<Race> = emptyList(),
         val classes: List<CharacterClass> = emptyList(),
         val backgrounds: List<Background> = emptyList(),
+        val languages: List<Language> = emptyList(),
+        val allEquipment: List<Equipment> = emptyList(),
         val selectedSkills: List<Skill> = emptyList(),
         val selectedSpells: List<Spell> = emptyList(),
         val selectedPersonalityTraits: List<String> = emptyList(),
         val selectedIdeals: List<String> = emptyList(),
         val selectedBonds: List<String> = emptyList(),
         val selectedFlaws: List<String> = emptyList(),
+        val selectedLanguages: List<String> = emptyList(),
+        val selectedBackgroundEquipment: List<String> = emptyList(),
+        val availableBackgroundEquipment: List<Equipment> = emptyList(),
     ) {
         val isCharacterComplete: Boolean
             get() = (background != null
@@ -107,12 +119,16 @@ class CharacterCreationViewModel @Inject constructor(
                 val backgrounds = backgroundRepository.allBackgrounds.first()
                 val characterClasses = characterClassRepository.allClasses.first()
                 val races = racesRepository.allRaces.first()
+                val languages = languagesRepository.allLanguages.first()
+                val equipment = equipmentRepository.allEquipment.first()
                 _state.update {
                     it.copy(
                         isLoading = false,
                         backgrounds = backgrounds,
                         classes = characterClasses,
                         races = races,
+                        languages = languages,
+                        allEquipment = equipment,
                     )
                 }
             } catch (e: Exception) {
@@ -129,6 +145,25 @@ class CharacterCreationViewModel @Inject constructor(
         if (state.value.background?.name != backgroundName) {
             viewModelScope.launch {
                 val background = state.value.backgrounds.find { it.name == backgroundName }
+                val availableEquipment = background?.equipmentChoice
+                    ?.let { choice ->
+                        when (choice) {
+                            is com.github.arhor.spellbindr.data.model.Choice.EquipmentCategoriesChoice -> {
+                                val allowedCategories: Set<EquipmentCategory> = choice.from.categories
+                                    .map { it.replace('-', '_').uppercase() }
+                                    .mapNotNull { value -> runCatching { EquipmentCategory.valueOf(value) }.getOrNull() }
+                                    .toSet()
+                                state.value.allEquipment.filter { equipment ->
+                                    equipment.categories.any { category -> category in allowedCategories }
+                                }
+                            }
+                            is com.github.arhor.spellbindr.data.model.Choice.EquipmentChoice -> {
+                                val ids = choice.from.toSet()
+                                state.value.allEquipment.filter { it.id in ids }
+                            }
+                            else -> emptyList()
+                        }
+                    } ?: emptyList()
                 _state.update {
                     it.copy(
                         background = background,
@@ -136,6 +171,9 @@ class CharacterCreationViewModel @Inject constructor(
                         selectedIdeals = emptyList(),
                         selectedBonds = emptyList(),
                         selectedFlaws = emptyList(),
+                        selectedLanguages = emptyList(),
+                        selectedBackgroundEquipment = emptyList(),
+                        availableBackgroundEquipment = availableEquipment,
                     )
                 }
             }
@@ -194,6 +232,14 @@ class CharacterCreationViewModel @Inject constructor(
         _state.update { it.copy(selectedFlaws = flaws) }
     }
 
+    private fun onLanguagesChanged(languages: List<String>) {
+        _state.update { it.copy(selectedLanguages = languages) }
+    }
+
+    private fun onBackgroundEquipmentChanged(equipmentIds: List<String>) {
+        _state.update { it.copy(selectedBackgroundEquipment = equipmentIds) }
+    }
+
     private fun onAbilityScoresChanged(scores: Map<String, Int>) {
         _state.update { it.copy(abilityScores = scores) }
     }
@@ -234,6 +280,8 @@ class CharacterCreationViewModel @Inject constructor(
             is CharacterCreationEvent.BondsChanged -> onBondsChanged(event.bonds)
             is CharacterCreationEvent.FlawsChanged -> onFlawsChanged(event.flaws)
             is CharacterCreationEvent.AbilityScoresChanged -> onAbilityScoresChanged(event.scores)
+            is CharacterCreationEvent.LanguagesChanged -> onLanguagesChanged(event.languageIds)
+            is CharacterCreationEvent.BackgroundEquipmentChanged -> onBackgroundEquipmentChanged(event.equipmentIds)
         }
     }
 }
@@ -251,5 +299,7 @@ sealed interface CharacterCreationEvent {
     data class BondsChanged(val bonds: List<String>) : CharacterCreationEvent
     data class FlawsChanged(val flaws: List<String>) : CharacterCreationEvent
     data class AbilityScoresChanged(val scores: Map<String, Int>) : CharacterCreationEvent
+    data class LanguagesChanged(val languageIds: List<String>) : CharacterCreationEvent
+    data class BackgroundEquipmentChanged(val equipmentIds: List<String>) : CharacterCreationEvent
     data object SaveCharacter : CharacterCreationEvent
 }
