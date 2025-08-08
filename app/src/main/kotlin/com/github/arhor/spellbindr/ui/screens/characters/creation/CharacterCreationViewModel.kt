@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Background
 import com.github.arhor.spellbindr.data.model.Character
 import com.github.arhor.spellbindr.data.model.CharacterClass
+import com.github.arhor.spellbindr.data.model.Choice.EquipmentCategoriesChoice
+import com.github.arhor.spellbindr.data.model.Choice.EquipmentChoice
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Equipment
-import com.github.arhor.spellbindr.data.model.Language
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
+import com.github.arhor.spellbindr.data.model.Language
 import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.Subrace
@@ -18,9 +20,9 @@ import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
-import com.github.arhor.spellbindr.data.repository.RacesRepository
-import com.github.arhor.spellbindr.data.repository.LanguagesRepository
 import com.github.arhor.spellbindr.data.repository.EquipmentRepository
+import com.github.arhor.spellbindr.data.repository.LanguagesRepository
+import com.github.arhor.spellbindr.data.repository.RacesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -148,7 +150,7 @@ class CharacterCreationViewModel @Inject constructor(
                 val availableEquipment = background?.equipmentChoice
                     ?.let { choice ->
                         when (choice) {
-                            is com.github.arhor.spellbindr.data.model.Choice.EquipmentCategoriesChoice -> {
+                            is EquipmentCategoriesChoice -> {
                                 val allowedCategories: Set<EquipmentCategory> = choice.from.categories
                                     .map { it.replace('-', '_').uppercase() }
                                     .mapNotNull { value -> runCatching { EquipmentCategory.valueOf(value) }.getOrNull() }
@@ -157,10 +159,12 @@ class CharacterCreationViewModel @Inject constructor(
                                     equipment.categories.any { category -> category in allowedCategories }
                                 }
                             }
-                            is com.github.arhor.spellbindr.data.model.Choice.EquipmentChoice -> {
+
+                            is EquipmentChoice -> {
                                 val ids = choice.from.toSet()
                                 state.value.allEquipment.filter { it.id in ids }
                             }
+
                             else -> emptyList()
                         }
                     } ?: emptyList()
