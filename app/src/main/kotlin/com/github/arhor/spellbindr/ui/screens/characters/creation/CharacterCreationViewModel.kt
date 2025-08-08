@@ -24,6 +24,7 @@ import com.github.arhor.spellbindr.data.repository.EquipmentRepository
 import com.github.arhor.spellbindr.data.repository.LanguagesRepository
 import com.github.arhor.spellbindr.data.repository.RacesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -118,19 +119,20 @@ class CharacterCreationViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             try {
-                val backgrounds = backgroundRepository.allBackgrounds.first()
-                val characterClasses = characterClassRepository.allClasses.first()
-                val races = racesRepository.allRaces.first()
-                val languages = languagesRepository.allLanguages.first()
-                val equipment = equipmentRepository.allEquipment.first()
+                val backgrounds = async { backgroundRepository.allBackgrounds.first() }
+                val characterClasses = async { characterClassRepository.allClasses.first() }
+                val races = async { racesRepository.allRaces.first() }
+                val languages = async { languagesRepository.allLanguages.first() }
+                val equipment = async { equipmentRepository.allEquipment.first() }
+
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        backgrounds = backgrounds,
-                        classes = characterClasses,
-                        races = races,
-                        languages = languages,
-                        allEquipment = equipment,
+                        backgrounds = backgrounds.await(),
+                        classes = characterClasses.await(),
+                        races = races.await(),
+                        languages = languages.await(),
+                        allEquipment = equipment.await(),
                     )
                 }
             } catch (e: Exception) {
