@@ -2,11 +2,9 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -14,7 +12,6 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -164,83 +161,33 @@ private fun ChoiceSection(
         when (choice) {
             is Choice.OptionsArrayChoice -> {
                 val options = choice.from
-                if (choice.choose == 1) {
-                    SingleSelectList(
-                        options = options,
-                        selected = selection.firstOrNull(),
-                        onSelected = { value -> onSelectionChanged(if (value == null) emptyList() else listOf(value)) }
-                    )
-                } else {
-                    MultiSelectList(
-                        options = options,
-                        selected = selection,
-                        limit = choice.choose,
-                        onSelectionChanged = onSelectionChanged,
-                    )
+                val labelPrefix = when {
+                    title == "Personality Traits" -> "Personality Trait"
+                    title.endsWith("s") -> title.dropLast(1)
+                    else -> title
                 }
+                OptionsSelection(
+                    choose = choice.choose,
+                    options = options,
+                    selected = selection,
+                    labelPrefix = labelPrefix,
+                    onSelectionChanged = onSelectionChanged,
+                )
             }
 
             is Choice.IdealChoice -> {
                 val options = choice.from.map { it.desc }
-                SingleSelectList(
+                OptionsSelection(
+                    choose = choice.choose,
                     options = options,
-                    selected = selection.firstOrNull(),
-                    onSelected = { value -> onSelectionChanged(if (value == null) emptyList() else listOf(value)) }
+                    selected = selection,
+                    labelPrefix = "Ideal",
+                    onSelectionChanged = onSelectionChanged,
                 )
             }
 
             else -> {
                 Text(text = "Unsupported choice type")
-            }
-        }
-    }
-}
-
-@Composable
-private fun MultiSelectList(
-    options: List<String>,
-    selected: List<String>,
-    limit: Int,
-    onSelectionChanged: (List<String>) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        options.forEach { option ->
-            val checked = option in selected
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Checkbox(
-                    checked = checked,
-                    onCheckedChange = { isChecked ->
-                        val current = selected.toMutableList()
-                        if (isChecked) {
-                            if (current.size < limit && option !in current) current.add(option)
-                        } else {
-                            current.remove(option)
-                        }
-                        onSelectionChanged(current)
-                    }
-                )
-                Text(option)
-            }
-        }
-    }
-}
-
-@Composable
-private fun SingleSelectList(
-    options: List<String>,
-    selected: String?,
-    onSelected: (String?) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        options.forEach { option ->
-            Row(modifier = Modifier.fillMaxWidth()) {
-                RadioButton(
-                    selected = selected == option,
-                    onClick = {
-                        onSelected(if (selected == option) null else option)
-                    }
-                )
-                Text(option)
             }
         }
     }
@@ -329,32 +276,141 @@ private fun EquipmentSelection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(text = "Background Equipment", style = MaterialTheme.typography.titleMedium)
-        if (choose == 1) {
-            SingleSelectList(
-                options = items.map { it.first },
-                selected = selected.firstOrNull(),
-                onSelected = { value -> onSelectionChanged(value?.let { listOf(it) } ?: emptyList()) }
-            )
-        } else {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                items.forEach { (id, name) ->
-                    val checked = id in selected
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Checkbox(
-                            checked = checked,
-                            onCheckedChange = { isChecked ->
-                                val current = selected.toMutableList()
-                                if (isChecked) {
-                                    if (current.size < choose && id !in current) current.add(id)
-                                } else {
-                                    current.remove(id)
-                                }
-                                onSelectionChanged(current)
-                            }
-                        )
-                        Text(name)
-                    }
+        val currentSelections: List<String?> = (0 until choose).map { idx -> selected.getOrNull(idx) }
+        for (index in 0 until choose) {
+            val selectedId = currentSelections[index]
+            val excluded = selected.toSet() - setOfNotNull(selectedId)
+            EquipmentDropdown(
+                index = index,
+                selectedId = selectedId,
+                options = items,
+                excludedIds = excluded,
+                onSelected = { idx, id ->
+                    val mutable = selected.toMutableList()
+                    while (mutable.size <= idx) mutable.add("")
+                    mutable[idx] = id
+                    onSelectionChanged(mutable.filter { it.isNotBlank() })
                 }
+            )
+            if (index < choose - 1) Spacer(modifier = Modifier.height(4.dp))
+        }
+    }
+}
+
+@Composable
+private fun OptionsSelection(
+    choose: Int,
+    options: List<String>,
+    selected: List<String>,
+    labelPrefix: String,
+    onSelectionChanged: (List<String>) -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        val currentSelections: List<String?> = (0 until choose).map { idx -> selected.getOrNull(idx) }
+        for (index in 0 until choose) {
+            val selectedValue = currentSelections[index]
+            val excluded = selected.toSet() - setOfNotNull(selectedValue)
+            OptionDropdown(
+                index = index,
+                label = "$labelPrefix ${index + 1}",
+                selected = selectedValue,
+                options = options,
+                excluded = excluded,
+                onSelected = { idx, value ->
+                    val mutable = selected.toMutableList()
+                    while (mutable.size <= idx) mutable.add("")
+                    mutable[idx] = value
+                    onSelectionChanged(mutable.filter { it.isNotBlank() })
+                }
+            )
+            if (index < choose - 1) Spacer(modifier = Modifier.height(4.dp))
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun OptionDropdown(
+    index: Int,
+    label: String,
+    selected: String?,
+    options: List<String>,
+    excluded: Set<String>,
+    onSelected: (index: Int, value: String) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val available = options.filter { it == selected || it !in excluded }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
+    ) {
+        OutlinedTextField(
+            value = selected ?: "",
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(label) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true)
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            available.forEach { value ->
+                DropdownMenuItem(
+                    text = { Text(value) },
+                    onClick = {
+                        onSelected(index, value)
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun EquipmentDropdown(
+    index: Int,
+    selectedId: String?,
+    options: List<Pair<String, String>>, // id to name
+    excludedIds: Set<String>,
+    onSelected: (index: Int, id: String) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val selectedName = options.firstOrNull { it.first == selectedId }?.second ?: ""
+    val available = options.filter { (id, _) -> id == selectedId || id !in excludedIds }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
+    ) {
+        OutlinedTextField(
+            value = selectedName,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("Equipment ${index + 1}") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true)
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            available.forEach { (id, name) ->
+                DropdownMenuItem(
+                    text = { Text(name) },
+                    onClick = {
+                        onSelected(index, id)
+                        expanded = false
+                    }
+                )
             }
         }
     }
