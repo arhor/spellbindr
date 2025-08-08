@@ -95,21 +95,23 @@ fun NameAndBackgroundScreen(
 
             if (background.languageChoice is Choice.ResourceListChoice) {
                 GradientDivider()
-                LanguageSelection(
-                    choose = background.languageChoice.choose,
-                    selected = state.selectedLanguages,
-                    allLanguages = state.languages.map { it.id to it.name },
-                    onSelectionChanged = { viewModel.handleEvent(LanguagesChanged(it)) }
+                ChoiceSection(
+                    title = "Languages",
+                    choice = background.languageChoice,
+                    selection = state.selectedLanguages,
+                    onSelectionChanged = { viewModel.handleEvent(LanguagesChanged(it)) },
+                    externalOptions = state.languages.map { it.id to it.name },
                 )
             }
 
             if (background.equipmentChoice != null) {
                 GradientDivider()
-                EquipmentSelection(
-                    choose = background.equipmentChoice.choose,
-                    items = state.availableBackgroundEquipment.map { it.id to it.name },
-                    selected = state.selectedBackgroundEquipment,
-                    onSelectionChanged = { viewModel.handleEvent(BackgroundEquipmentChanged(it)) }
+                ChoiceSection(
+                    title = "Background Equipment",
+                    choice = background.equipmentChoice,
+                    selection = state.selectedBackgroundEquipment,
+                    onSelectionChanged = { viewModel.handleEvent(BackgroundEquipmentChanged(it)) },
+                    externalOptions = state.availableBackgroundEquipment.map { it.id to it.name },
                 )
             }
             GradientDivider()
@@ -153,12 +155,25 @@ private fun ChoiceSection(
     title: String,
     choice: Choice,
     selection: List<String>,
-    onSelectionChanged: (List<String>) -> Unit
+    onSelectionChanged: (List<String>) -> Unit,
+    externalOptions: List<Pair<String, String>>? = null,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(text = title, style = MaterialTheme.typography.titleMedium)
 
-        when (choice) {
+        if (externalOptions != null) {
+            val labelPrefix = when {
+                title.endsWith("s") -> title.dropLast(1)
+                else -> title
+            }
+            PairOptionsSelection(
+                choose = choice.choose,
+                options = externalOptions,
+                selected = selection,
+                labelPrefix = labelPrefix,
+                onSelectionChanged = onSelectionChanged,
+            )
+        } else when (choice) {
             is Choice.OptionsArrayChoice -> {
                 val options = choice.from
                 val labelPrefix = when {
@@ -193,109 +208,11 @@ private fun ChoiceSection(
     }
 }
 
-@Composable
-private fun LanguageSelection(
-    choose: Int,
-    selected: List<String>,
-    allLanguages: List<Pair<String, String>>,
-    onSelectionChanged: (List<String>) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(text = "Languages", style = MaterialTheme.typography.titleMedium)
-        val currentSelections: List<String?> = (0 until choose).map { idx -> selected.getOrNull(idx) }
-        for (index in 0 until choose) {
-            val selectedId = currentSelections[index]
-            // Prevent duplicates across dropdowns; allow the currently selected id
-            val excluded = selected.toSet() - setOfNotNull(selectedId)
-            LanguageDropdown(
-                index = index,
-                selectedId = selectedId,
-                options = allLanguages,
-                excludedIds = excluded,
-                onSelected = { idx, id ->
-                    val mutable = selected.toMutableList()
-                    while (mutable.size <= idx) mutable.add("")
-                    mutable[idx] = id
-                    onSelectionChanged(mutable.filter { it.isNotBlank() })
-                }
-            )
-        }
-    }
-}
+// LanguageSelection and LanguageDropdown were redundant with ChoiceSection and
+// are removed in favor of a generic IdLabelDropdown used by PairOptionsSelection.
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun LanguageDropdown(
-    index: Int,
-    selectedId: String?,
-    options: List<Pair<String, String>>, // id to name
-    excludedIds: Set<String>,
-    onSelected: (index: Int, id: String) -> Unit,
-) {
-    var expanded by remember { mutableStateOf(false) }
-    val selectedName = options.firstOrNull { it.first == selectedId }?.second ?: ""
-    val available = options.filter { (id, _) -> id == selectedId || id !in excludedIds }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded }
-    ) {
-        OutlinedTextField(
-            value = selectedName,
-            onValueChange = {},
-            readOnly = true,
-            label = { Text("Language ${index + 1}") },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true)
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            available.forEach { (id, name) ->
-                DropdownMenuItem(
-                    text = { Text(name) },
-                    onClick = {
-                        onSelected(index, id)
-                        expanded = false
-                    }
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun EquipmentSelection(
-    choose: Int,
-    items: List<Pair<String, String>>,
-    selected: List<String>,
-    onSelectionChanged: (List<String>) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(text = "Background Equipment", style = MaterialTheme.typography.titleMedium)
-        val currentSelections: List<String?> = (0 until choose).map { idx -> selected.getOrNull(idx) }
-        for (index in 0 until choose) {
-            val selectedId = currentSelections[index]
-            val excluded = selected.toSet() - setOfNotNull(selectedId)
-            EquipmentDropdown(
-                index = index,
-                selectedId = selectedId,
-                options = items,
-                excludedIds = excluded,
-                onSelected = { idx, id ->
-                    val mutable = selected.toMutableList()
-                    while (mutable.size <= idx) mutable.add("")
-                    mutable[idx] = id
-                    onSelectionChanged(mutable.filter { it.isNotBlank() })
-                }
-            )
-            if (index < choose - 1) Spacer(modifier = Modifier.height(4.dp))
-        }
-    }
-}
+// EquipmentSelection and EquipmentDropdown were redundant with ChoiceSection and
+// are removed in favor of a generic IdLabelDropdown used by PairOptionsSelection.
 
 @Composable
 private fun OptionsSelection(
@@ -316,6 +233,82 @@ private fun OptionsSelection(
                 selected = selectedValue,
                 options = options,
                 excluded = excluded,
+                onSelected = { idx, value ->
+                    val mutable = selected.toMutableList()
+                    while (mutable.size <= idx) mutable.add("")
+                    mutable[idx] = value
+                    onSelectionChanged(mutable.filter { it.isNotBlank() })
+                }
+            )
+            if (index < choose - 1) Spacer(modifier = Modifier.height(4.dp))
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun IdLabelDropdown(
+    index: Int,
+    label: String,
+    selectedValue: String?,
+    options: List<Pair<String, String>>, // value to label
+    excludedValues: Set<String>,
+    onSelected: (index: Int, value: String) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val selectedLabel = options.firstOrNull { it.first == selectedValue }?.second ?: ""
+    val available = options.filter { (value, _) -> value == selectedValue || value !in excludedValues }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
+    ) {
+        OutlinedTextField(
+            value = selectedLabel,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(label) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true)
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            available.forEach { (value, text) ->
+                DropdownMenuItem(
+                    text = { Text(text) },
+                    onClick = {
+                        onSelected(index, value)
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun PairOptionsSelection(
+    choose: Int,
+    options: List<Pair<String, String>>, // value to label
+    selected: List<String>,
+    labelPrefix: String,
+    onSelectionChanged: (List<String>) -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        val currentSelections: List<String?> = (0 until choose).map { idx -> selected.getOrNull(idx) }
+        for (index in 0 until choose) {
+            val selectedValue = currentSelections[index]
+            val excludedValues = selected.toSet() - setOfNotNull(selectedValue)
+            IdLabelDropdown(
+                index = index,
+                label = "$labelPrefix ${index + 1}",
+                selectedValue = selectedValue,
+                options = options,
+                excludedValues = excludedValues,
                 onSelected = { idx, value ->
                     val mutable = selected.toMutableList()
                     while (mutable.size <= idx) mutable.add("")
@@ -372,46 +365,4 @@ private fun OptionDropdown(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun EquipmentDropdown(
-    index: Int,
-    selectedId: String?,
-    options: List<Pair<String, String>>, // id to name
-    excludedIds: Set<String>,
-    onSelected: (index: Int, id: String) -> Unit,
-) {
-    var expanded by remember { mutableStateOf(false) }
-    val selectedName = options.firstOrNull { it.first == selectedId }?.second ?: ""
-    val available = options.filter { (id, _) -> id == selectedId || id !in excludedIds }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded }
-    ) {
-        OutlinedTextField(
-            value = selectedName,
-            onValueChange = {},
-            readOnly = true,
-            label = { Text("Equipment ${index + 1}") },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true)
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            available.forEach { (id, name) ->
-                DropdownMenuItem(
-                    text = { Text(name) },
-                    onClick = {
-                        onSelected(index, id)
-                        expanded = false
-                    }
-                )
-            }
-        }
-    }
-}
+// EquipmentDropdown was redundant with IdLabelDropdown; removed.
