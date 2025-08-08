@@ -100,7 +100,7 @@ fun NameAndBackgroundScreen(
                     choice = background.languageChoice,
                     selection = state.selectedLanguages,
                     onSelectionChanged = { viewModel.handleEvent(LanguagesChanged(it)) },
-                    externalOptions = state.languages.map { it.id to it.name },
+                    externalOptions = state.languages.map { LabeledOption(it.id, it.name) },
                 )
             }
 
@@ -111,7 +111,7 @@ fun NameAndBackgroundScreen(
                     choice = background.equipmentChoice,
                     selection = state.selectedBackgroundEquipment,
                     onSelectionChanged = { viewModel.handleEvent(BackgroundEquipmentChanged(it)) },
-                    externalOptions = state.availableBackgroundEquipment.map { it.id to it.name },
+                    externalOptions = state.availableBackgroundEquipment.map { LabeledOption(it.id, it.name) },
                 )
             }
             GradientDivider()
@@ -156,7 +156,7 @@ private fun ChoiceSection(
     choice: Choice,
     selection: List<String>,
     onSelectionChanged: (List<String>) -> Unit,
-    externalOptions: List<Pair<String, String>>? = null,
+    externalOptions: List<LabeledOption<String>>? = null,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(text = title, style = MaterialTheme.typography.titleMedium)
@@ -165,76 +165,17 @@ private fun ChoiceSection(
             title.endsWith("s") -> title.dropLast(1)
             else -> title
         }
-        if (externalOptions != null) {
-            PairOptionsSelection(
-                choose = choice.choose,
-                options = externalOptions,
-                selected = selection,
-                labelPrefix = labelPrefix,
-                onSelectionChanged = onSelectionChanged,
-            )
-        } else when (choice) {
-            is Choice.OptionsArrayChoice -> {
-                OptionsSelection(
-                    choose = choice.choose,
-                    options = choice.from,
-                    selected = selection,
-                    labelPrefix = labelPrefix,
-                    onSelectionChanged = onSelectionChanged,
-                )
-            }
-
-            is Choice.IdealChoice -> {
-                OptionsSelection(
-                    choose = choice.choose,
-                    options = choice.from.map { it.desc },
-                    selected = selection,
-                    labelPrefix = "Ideal",
-                    onSelectionChanged = onSelectionChanged,
-                )
-            }
-
-            else -> {
-                Text(text = "Unsupported choice type")
-            }
-        }
-    }
-}
-
-// LanguageSelection and LanguageDropdown were redundant with ChoiceSection and
-// are removed in favor of a generic IdLabelDropdown used by PairOptionsSelection.
-
-// EquipmentSelection and EquipmentDropdown were redundant with ChoiceSection and
-// are removed in favor of a generic IdLabelDropdown used by PairOptionsSelection.
-
-@Composable
-private fun OptionsSelection(
-    choose: Int,
-    options: List<String>,
-    selected: List<String>,
-    labelPrefix: String,
-    onSelectionChanged: (List<String>) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        val currentSelections: List<String?> = (0 until choose).map { idx -> selected.getOrNull(idx) }
-        for (index in 0 until choose) {
-            val selectedValue = currentSelections[index]
-            val excluded = selected.toSet() - setOfNotNull(selectedValue)
-            OptionDropdown(
-                index = index,
-                label = "$labelPrefix ${index + 1}",
-                selected = selectedValue,
-                options = options,
-                excluded = excluded,
-                onSelected = { idx, value ->
-                    val mutable = selected.toMutableList()
-                    while (mutable.size <= idx) mutable.add("")
-                    mutable[idx] = value
-                    onSelectionChanged(mutable.filter { it.isNotBlank() })
-                }
-            )
-            if (index < choose - 1) Spacer(modifier = Modifier.height(4.dp))
-        }
+        PairOptionsSelection(
+            choose = choice.choose,
+            options = externalOptions ?: when (choice) {
+                is Choice.OptionsArrayChoice -> choice.from.map { LabeledOption(it, it) }
+                is Choice.IdealChoice -> choice.from.map { LabeledOption(it.desc, it.desc) }
+                else -> emptyList()
+            },
+            selected = selection,
+            labelPrefix = labelPrefix,
+            onSelectionChanged = onSelectionChanged,
+        )
     }
 }
 
@@ -244,12 +185,12 @@ private fun IdLabelDropdown(
     index: Int,
     label: String,
     selectedValue: String?,
-    options: List<Pair<String, String>>, // value to label
+    options: List<LabeledOption<String>>,
     excludedValues: Set<String>,
     onSelected: (index: Int, value: String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val selectedLabel = options.firstOrNull { it.first == selectedValue }?.second ?: ""
+    val selectedLabel = options.firstOrNull { it.value == selectedValue }?.label ?: ""
     val available = options.filter { (value, _) -> value == selectedValue || value !in excludedValues }
 
     ExposedDropdownMenuBox(
@@ -286,7 +227,7 @@ private fun IdLabelDropdown(
 @Composable
 private fun PairOptionsSelection(
     choose: Int,
-    options: List<Pair<String, String>>, // value to label
+    options: List<LabeledOption<String>>,
     selected: List<String>,
     labelPrefix: String,
     onSelectionChanged: (List<String>) -> Unit,
@@ -314,48 +255,14 @@ private fun PairOptionsSelection(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun OptionDropdown(
-    index: Int,
-    label: String,
-    selected: String?,
-    options: List<String>,
-    excluded: Set<String>,
-    onSelected: (index: Int, value: String) -> Unit,
-) {
-    var expanded by remember { mutableStateOf(false) }
-    val available = options.filter { it == selected || it !in excluded }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded }
-    ) {
-        OutlinedTextField(
-            value = selected ?: "",
-            onValueChange = {},
-            readOnly = true,
-            label = { Text(label) },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(MenuAnchorType.PrimaryEditable, enabled = true)
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            available.forEach { value ->
-                DropdownMenuItem(
-                    text = { Text(value) },
-                    onClick = {
-                        onSelected(index, value)
-                        expanded = false
-                    }
-                )
-            }
-        }
-    }
-}
-
-// EquipmentDropdown was redundant with IdLabelDropdown; removed.
+/**
+ * Represents an option with a value and a corresponding label.
+ *
+ * @param T The type of the value.
+ * @property value The actual value of the option.
+ * @property label The display label for the option.
+ */
+data class LabeledOption<T>(
+    val value: T,
+    val label: String,
+)
