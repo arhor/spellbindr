@@ -117,4 +117,10 @@ sealed interface Choice {
         override val choose: Int,
         val from: List<Choice>,
     ) : Choice
+
+    @Serializable
+    @SerialName("from-all")
+    data class FromAllChoice(
+        override val choose: Int,
+    ) : Choice
 }

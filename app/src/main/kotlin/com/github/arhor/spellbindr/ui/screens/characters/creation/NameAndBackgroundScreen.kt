@@ -93,7 +93,7 @@ fun NameAndBackgroundScreen(
                 Text(text = line, style = MaterialTheme.typography.bodyMedium)
             }
 
-            if (background.languageChoice is Choice.ResourceListChoice) {
+            if (background.languageChoice is Choice.FromAllChoice) {
                 GradientDivider()
                 ChoiceSection(
                     title = "Languages",
@@ -161,11 +161,11 @@ private fun ChoiceSection(
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(text = title, style = MaterialTheme.typography.titleMedium)
 
+        val labelPrefix = when {
+            title.endsWith("s") -> title.dropLast(1)
+            else -> title
+        }
         if (externalOptions != null) {
-            val labelPrefix = when {
-                title.endsWith("s") -> title.dropLast(1)
-                else -> title
-            }
             PairOptionsSelection(
                 choose = choice.choose,
                 options = externalOptions,
@@ -175,15 +175,9 @@ private fun ChoiceSection(
             )
         } else when (choice) {
             is Choice.OptionsArrayChoice -> {
-                val options = choice.from
-                val labelPrefix = when {
-                    title == "Personality Traits" -> "Personality Trait"
-                    title.endsWith("s") -> title.dropLast(1)
-                    else -> title
-                }
                 OptionsSelection(
                     choose = choice.choose,
-                    options = options,
+                    options = choice.from,
                     selected = selection,
                     labelPrefix = labelPrefix,
                     onSelectionChanged = onSelectionChanged,
@@ -191,10 +185,9 @@ private fun ChoiceSection(
             }
 
             is Choice.IdealChoice -> {
-                val options = choice.from.map { it.desc }
                 OptionsSelection(
                     choose = choice.choose,
-                    options = options,
+                    options = choice.from.map { it.desc },
                     selected = selection,
                     labelPrefix = "Ideal",
                     onSelectionChanged = onSelectionChanged,

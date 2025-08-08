@@ -32,8 +32,7 @@
       }
     ],
     "languageChoice": {
-      "type": "resource-list",
-      "from": "languages",
+      "type": "from-all",
       "choose": 2
     },
     "equipmentChoice": {
