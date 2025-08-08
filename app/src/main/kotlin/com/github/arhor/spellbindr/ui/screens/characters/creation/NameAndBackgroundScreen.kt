@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.Choice
 import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
+import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.BackgroundEquipmentChanged
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.BondsChanged
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationEvent.FlawsChanged
@@ -88,16 +89,17 @@ fun NameAndBackgroundScreen(
         }
 
         if (background != null) {
-            Spacer(modifier = Modifier.height(8.dp))
+
             Text(text = background.feature.name, style = MaterialTheme.typography.titleMedium)
+
             background.feature.desc.forEach { line ->
                 Text(text = line, style = MaterialTheme.typography.bodyMedium)
             }
 
             if (background.languageChoice is Choice.ResourceListChoice) {
-                val langChoice = background.languageChoice
+                GradientDivider()
                 LanguageSelection(
-                    choose = langChoice.choose,
+                    choose = background.languageChoice.choose,
                     selected = state.selectedLanguages,
                     allLanguages = state.languages.map { it.id to it.name },
                     onSelectionChanged = { viewModel.handleEvent(LanguagesChanged(it)) }
@@ -105,14 +107,15 @@ fun NameAndBackgroundScreen(
             }
 
             if (background.equipmentChoice != null) {
-                val choose = background.equipmentChoice.choose
+                GradientDivider()
                 EquipmentSelection(
-                    choose = choose,
+                    choose = background.equipmentChoice.choose,
                     items = state.availableBackgroundEquipment.map { it.id to it.name },
                     selected = state.selectedBackgroundEquipment,
                     onSelectionChanged = { viewModel.handleEvent(BackgroundEquipmentChanged(it)) }
                 )
             }
+            GradientDivider()
 
             ChoiceSection(
                 title = "Personality Traits",
@@ -120,6 +123,7 @@ fun NameAndBackgroundScreen(
                 selection = state.selectedPersonalityTraits,
                 onSelectionChanged = { viewModel.handleEvent(PersonalityTraitsChanged(it)) }
             )
+            GradientDivider()
 
             ChoiceSection(
                 title = "Ideals",
@@ -127,6 +131,7 @@ fun NameAndBackgroundScreen(
                 selection = state.selectedIdeals,
                 onSelectionChanged = { viewModel.handleEvent(IdealsChanged(it)) }
             )
+            GradientDivider()
 
             ChoiceSection(
                 title = "Bonds",
@@ -134,6 +139,7 @@ fun NameAndBackgroundScreen(
                 selection = state.selectedBonds,
                 onSelectionChanged = { viewModel.handleEvent(BondsChanged(it)) }
             )
+            GradientDivider()
 
             ChoiceSection(
                 title = "Flaws",
