@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.data.model.predefined.MagicSchool
 import kotlinx.serialization.Serializable
 
 /**
@@ -35,7 +34,7 @@ data class Spell(
     val level: Int,
     val range: String,
     val ritual: Boolean,
-    val school: MagicSchool,
+    val school: EntityRef,
     val duration: String,
     val castingTime: String,
     val classes: List<EntityRef>,

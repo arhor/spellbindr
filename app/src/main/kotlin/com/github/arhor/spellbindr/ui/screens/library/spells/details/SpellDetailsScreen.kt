@@ -87,7 +87,7 @@ fun SpellDetailScreen(
             }
         }
 
-        spell?.let {
+        spell?.also {
             Text(
                 text = it.name,
                 fontSize = 36.sp,
