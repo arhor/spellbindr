@@ -97,10 +97,10 @@ fun NameAndBackgroundScreen(
                 GradientDivider()
                 ChoiceSection(
                     title = "Languages",
-                    choice = background.languageChoice,
+                    choose = background.languageChoice.choose,
+                    options = state.languages.map { LabeledOption(it.id, it.name) },
                     selection = state.selectedLanguages,
                     onSelectionChanged = { viewModel.handleEvent(LanguagesChanged(it)) },
-                    externalOptions = state.languages.map { LabeledOption(it.id, it.name) },
                 )
             }
 
@@ -108,10 +108,10 @@ fun NameAndBackgroundScreen(
                 GradientDivider()
                 ChoiceSection(
                     title = "Background Equipment",
-                    choice = background.equipmentChoice,
+                    choose = background.equipmentChoice.choose,
+                    options = state.availableBackgroundEquipment.map { LabeledOption(it.id, it.name) },
                     selection = state.selectedBackgroundEquipment,
                     onSelectionChanged = { viewModel.handleEvent(BackgroundEquipmentChanged(it)) },
-                    externalOptions = state.availableBackgroundEquipment.map { LabeledOption(it.id, it.name) },
                 )
             }
             GradientDivider()
@@ -156,7 +156,23 @@ private fun ChoiceSection(
     choice: Choice,
     selection: List<String>,
     onSelectionChanged: (List<String>) -> Unit,
-    externalOptions: List<LabeledOption<String>>? = null,
+) {
+    ChoiceSection(
+        title = title,
+        choose = choice.choose,
+        options = choiceToOptions(choice),
+        selection = selection,
+        onSelectionChanged = onSelectionChanged,
+    )
+}
+
+@Composable
+private fun ChoiceSection(
+    title: String,
+    choose: Int,
+    options: List<LabeledOption<String>>,
+    selection: List<String>,
+    onSelectionChanged: (List<String>) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(text = title, style = MaterialTheme.typography.titleMedium)
@@ -166,17 +182,19 @@ private fun ChoiceSection(
             else -> title
         }
         PairOptionsSelection(
-            choose = choice.choose,
-            options = externalOptions ?: when (choice) {
-                is Choice.OptionsArrayChoice -> choice.from.map { LabeledOption(it, it) }
-                is Choice.IdealChoice -> choice.from.map { LabeledOption(it.desc, it.desc) }
-                else -> emptyList()
-            },
+            choose = choose,
+            options = options,
             selected = selection,
             labelPrefix = labelPrefix,
             onSelectionChanged = onSelectionChanged,
         )
     }
+}
+
+private fun choiceToOptions(choice: Choice) = when (choice) {
+    is Choice.OptionsArrayChoice -> choice.from.map { LabeledOption(it, it) }
+    is Choice.IdealChoice -> choice.from.map { LabeledOption(it.desc, it.desc) }
+    else -> emptyList()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
