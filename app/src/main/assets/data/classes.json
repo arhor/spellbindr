@@ -1047,119 +1047,26 @@
               "expertiseOptions": {
                 "choose": 2,
                 "type": "proficiency",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-acrobatics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-animal-handling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-arcana"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-athletics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-deception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-history"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-insight"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-intimidation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-investigation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-medicine"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-nature"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-perception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-performance"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-persuasion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-religion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-sleight-of-hand"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-stealth"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-survival"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "skill-acrobatics",
+                  "skill-animal-handling",
+                  "skill-arcana",
+                  "skill-athletics",
+                  "skill-deception",
+                  "skill-history",
+                  "skill-insight",
+                  "skill-intimidation",
+                  "skill-investigation",
+                  "skill-medicine",
+                  "skill-nature",
+                  "skill-perception",
+                  "skill-performance",
+                  "skill-persuasion",
+                  "skill-religion",
+                  "skill-sleight-of-hand",
+                  "skill-stealth",
+                  "skill-survival"
+                ]
               }
             }
           }
@@ -1394,119 +1301,26 @@
               "expertiseOptions": {
                 "choose": 2,
                 "type": "proficiency",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-acrobatics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-animal-handling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-arcana"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-athletics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-deception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-history"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-insight"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-intimidation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-investigation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-medicine"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-nature"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-perception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-performance"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-persuasion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-religion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-sleight-of-hand"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-stealth"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-survival"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "skill-acrobatics",
+                  "skill-animal-handling",
+                  "skill-arcana",
+                  "skill-athletics",
+                  "skill-deception",
+                  "skill-history",
+                  "skill-insight",
+                  "skill-intimidation",
+                  "skill-investigation",
+                  "skill-medicine",
+                  "skill-nature",
+                  "skill-perception",
+                  "skill-performance",
+                  "skill-persuasion",
+                  "skill-religion",
+                  "skill-sleight-of-hand",
+                  "skill-stealth",
+                  "skill-survival"
+                ]
               }
             }
           },
@@ -4983,7 +4797,7 @@
                   "At 10th level, you can choose a second option from the Fighting Style class feature."
                 ],
                 "featureSpecific": {
-                  "subfeature_options": {
+                  "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
                     "from": {
@@ -5075,7 +4889,7 @@
               "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
             ],
             "featureSpecific": {
-              "subfeature_options": {
+              "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
                 "from": {
@@ -6756,7 +6570,7 @@
               "At 2nd level, you adopt a style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
             ],
             "featureSpecific": {
-              "subfeature_options": {
+              "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
                 "from": {
@@ -7466,7 +7280,7 @@
                   "Horde Breaker"
                 ],
                 "featureSpecific": {
-                  "subfeature_options": {
+                  "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
                     "from": {
@@ -7509,7 +7323,7 @@
                   "Steel Will"
                 ],
                 "featureSpecific": {
-                  "subfeature_options": {
+                  "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
                     "from": {
@@ -7553,7 +7367,7 @@
                   "Whirlwind Attack"
                 ],
                 "featureSpecific": {
-                  "subfeature_options": {
+                  "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
                     "from": {
@@ -7592,7 +7406,7 @@
                   "Uncanny Dodge"
                 ],
                 "featureSpecific": {
-                  "subfeature_options": {
+                  "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
                     "from": {
@@ -7675,7 +7489,7 @@
               "You choose one additional favored enemy, as well as an associated language, at 6th and 14th level. As you gain levels, your choices should reflect the types of monsters you have encountered on your adventures."
             ],
             "featureSpecific": {
-              "enemy_type_options": {
+              "enemyTypeOptions": {
                 "desc": "one enemy type",
                 "choose": 1,
                 "type": "string",
@@ -7716,7 +7530,7 @@
               "You choose additional favored terrain types at 6th and 10th level."
             ],
             "featureSpecific": {
-              "terrain_type_options": {
+              "terrainTypeOptions": {
                 "desc": "one terrain type",
                 "choose": 1,
                 "type": "string",
@@ -7758,7 +7572,7 @@
               "At 2nd level, you adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
             ],
             "featureSpecific": {
-              "subfeature_options": {
+              "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
                 "from": {
@@ -7912,7 +7726,7 @@
               "You choose one additional favored enemy, as well as an associated language, at 6th and 14th level. As you gain levels, your choices should reflect the types of monsters you have encountered on your adventures."
             ],
             "featureSpecific": {
-              "enemy_type_options": {
+              "enemyTypeOptions": {
                 "desc": "one enemy type",
                 "choose": 1,
                 "type": "string",
@@ -7953,7 +7767,7 @@
               "You choose additional favored terrain types at 6th and 10th level."
             ],
             "featureSpecific": {
-              "terrain_type_options": {
+              "terrainTypeOptions": {
                 "desc": "one terrain type",
                 "choose": 1,
                 "type": "string",
@@ -8085,7 +7899,7 @@
               "You choose additional favored terrain types at 6th and 10th level."
             ],
             "featureSpecific": {
-              "terrain_type_options": {
+              "terrainTypeOptions": {
                 "desc": "one terrain type",
                 "choose": 1,
                 "type": "string",
@@ -8217,7 +8031,7 @@
               "You choose one additional favored enemy, as well as an associated language, at 6th and 14th level. As you gain levels, your choices should reflect the types of monsters you have encountered on your adventures."
             ],
             "featureSpecific": {
-              "enemy_type_options": {
+              "enemyTypeOptions": {
                 "desc": "one enemy type",
                 "choose": 1,
                 "type": "string",
@@ -8699,264 +8513,29 @@
             ],
             "featureSpecific": {
               "expertiseOptions": {
-                "choose": 1,
+                "choose": 2,
                 "type": "proficiency",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "choice",
-                      "choice": {
-                        "choose": 2,
-                        "type": "proficiency",
-                        "from": {
-                          "type": "options_array",
-                          "options": [
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-acrobatics"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-animal-handling"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-arcana"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-athletics"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-deception"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-history"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-insight"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-intimidation"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-investigation"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-medicine"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-nature"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-perception"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-performance"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-persuasion"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-religion"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-sleight-of-hand"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-stealth"
-                              }
-                            },
-                            {
-                              "type": "reference",
-                              "item": {
-                                "id": "skill-survival"
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    {
-                      "type": "multiple",
-                      "items": [
-                        {
-                          "type": "choice",
-                          "choice": {
-                            "choose": 1,
-                            "type": "proficiency",
-                            "from": {
-                              "type": "options_array",
-                              "options": [
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-acrobatics"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-animal-handling"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-arcana"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-athletics"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-deception"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-history"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-insight"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-intimidation"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-investigation"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-medicine"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-nature"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-perception"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-performance"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-persuasion"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-religion"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-sleight-of-hand"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-stealth"
-                                  }
-                                },
-                                {
-                                  "type": "reference",
-                                  "item": {
-                                    "id": "skill-survival"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "thieves-tools"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
+                "from": [
+                  "skill-acrobatics",
+                  "skill-animal-handling",
+                  "skill-arcana",
+                  "skill-athletics",
+                  "skill-deception",
+                  "skill-history",
+                  "skill-insight",
+                  "skill-intimidation",
+                  "skill-investigation",
+                  "skill-medicine",
+                  "skill-nature",
+                  "skill-perception",
+                  "skill-performance",
+                  "skill-persuasion",
+                  "skill-religion",
+                  "skill-sleight-of-hand",
+                  "skill-stealth",
+                  "skill-survival",
+                  "thieves-tools"
+                ]
               }
             }
           },
@@ -9086,125 +8665,27 @@
               "expertiseOptions": {
                 "choose": 2,
                 "type": "proficiency",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-acrobatics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-animal-handling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-arcana"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-athletics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-deception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-history"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-insight"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-intimidation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-investigation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-medicine"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-nature"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-perception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-performance"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-persuasion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-religion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-sleight-of-hand"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-stealth"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-survival"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "thieves-tools"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "skill-acrobatics",
+                  "skill-animal-handling",
+                  "skill-arcana",
+                  "skill-athletics",
+                  "skill-deception",
+                  "skill-history",
+                  "skill-insight",
+                  "skill-intimidation",
+                  "skill-investigation",
+                  "skill-medicine",
+                  "skill-nature",
+                  "skill-perception",
+                  "skill-performance",
+                  "skill-persuasion",
+                  "skill-religion",
+                  "skill-sleight-of-hand",
+                  "skill-stealth",
+                  "skill-survival",
+                  "thieves-tools"
+                ]
               }
             }
           }
@@ -9684,7 +9165,7 @@
                   "You can speak, read, and write Draconic. Additionally, whenever you make a Charisma check when interacting with dragons, your proficiency bonus is doubled if it applies to the check."
                 ],
                 "featureSpecific": {
-                  "subfeature_options": {
+                  "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
                     "from": {
@@ -9966,7 +9447,7 @@
               "You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
             ],
             "featureSpecific": {
-              "subfeature_options": {
+              "subfeatureOptions": {
                 "choose": 2,
                 "type": "feature",
                 "from": {
@@ -10355,7 +9836,7 @@
               "You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
             ],
             "featureSpecific": {
-              "subfeature_options": {
+              "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
                 "from": {
@@ -10768,7 +10249,7 @@
               "You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
             ],
             "featureSpecific": {
-              "subfeature_options": {
+              "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
                 "from": {
