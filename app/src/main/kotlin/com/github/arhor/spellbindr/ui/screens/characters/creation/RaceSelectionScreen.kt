@@ -1,10 +1,9 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,8 +30,7 @@ fun RaceSelectionScreen(
     val isLoading = state.isLoading
     val error = state.error
 
-    val subraces = selectedRace?.subraces ?: emptyList()
-    val isSubraceRequired = selectedRace != null && subraces.isNotEmpty()
+    val isSubraceRequired = selectedRace != null && (selectedRace.subraces?.isNotEmpty() == true)
     selectedRace != null && (!isSubraceRequired || selectedSubrace != null)
 
     BaseScreenWithNavigation(
@@ -71,28 +69,28 @@ fun RaceSelectionScreen(
                             }
                         }
                     }
-                }
-                if (isSubraceRequired) {
-                    Spacer(Modifier.height(16.dp))
-                    Text("Choose a subrace:", style = MaterialTheme.typography.titleMedium)
-                    subraces.forEach { subrace ->
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 4.dp)
-                                .clickable {
-                                    viewModel.handleEvent(CharacterCreationEvent.SubraceChanged(subrace.id))
-                                },
-                            colors = if (subrace == selectedSubrace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
-                        ) {
-                            Column(Modifier.padding(12.dp)) {
-                                Text(subrace.name, style = MaterialTheme.typography.titleMedium)
+                    AnimatedVisibility(visible = race == selectedRace && race.subraces.isNotEmpty()) {
+                        Column { // This Column is added to group subraces for AnimatedVisibility
+                            race.subraces.forEach { subrace ->
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 4.dp, horizontal = 16.dp) // Indent subraces
+                                        .clickable {
+                                            viewModel.handleEvent(CharacterCreationEvent.SubraceChanged(subrace.id))
+                                        },
+                                    colors = if (subrace == selectedSubrace) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer) else CardDefaults.cardColors()
+                                ) {
+                                    Column(Modifier.padding(12.dp)) {
+                                        Text(subrace.name, style = MaterialTheme.typography.titleMedium)
+                                        // Optionally, display subrace traits here if they exist
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
-
     }
 }
