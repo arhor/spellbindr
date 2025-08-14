@@ -15,6 +15,7 @@ import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.Language
 import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.model.Subclass
 import com.github.arhor.spellbindr.data.model.Subrace
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
@@ -53,6 +54,7 @@ class CharacterCreationViewModel @Inject constructor(
         val race: Race? = null,
         val subrace: Subrace? = null,
         val characterClass: CharacterClass? = null,
+        val characterSubclass: Subclass? = null,
 
         // Abilities
         val abilityScores: Map<String, Int> = emptyMap(),
@@ -94,6 +96,7 @@ class CharacterCreationViewModel @Inject constructor(
                 && race != null
                 && subrace != null
                 && characterClass != null
+                && isSubclassRequirementSatisfied
                 && selectedSkills.isNotEmpty())
 
         val requiredSelections: List<String>
@@ -103,9 +106,28 @@ class CharacterCreationViewModel @Inject constructor(
                     if (race == null) add("Race")
                     if (subrace == null) add("Subrace")
                     if (characterClass == null) add("Class")
+                    if (!isSubclassRequirementSatisfied) add(subclassSelectionLabel ?: "Subclass")
                     if (selectedSkills.isEmpty()) add("Skills")
                 }
             }
+
+        val subclassSelectionLabel: String?
+            get() = characterClass
+                ?.subclasses
+                ?.firstOrNull()
+                ?.subclassFlavor
+
+        val requiresSubclassAtLevel1: Boolean
+            get() = characterClass
+                ?.subclasses
+                ?.isNotEmpty() == true && characterClass.subclasses.any { subclass ->
+                subclass.levels?.any { it.level == 1 } == true || subclass.spells?.any { prereq ->
+                    prereq.prerequisites?.any { it.id.endsWith("-1") } == true
+                } == true
+            }
+
+        val isSubclassRequirementSatisfied: Boolean
+            get() = !requiresSubclassAtLevel1 || characterSubclass != null
     }
 
     private val _state = MutableStateFlow(State())
@@ -201,7 +223,13 @@ class CharacterCreationViewModel @Inject constructor(
     }
 
     private fun onClassChanged(characterClass: CharacterClass) {
-        _state.update { it.copy(characterClass = characterClass) }
+        _state.update { it.copy(characterClass = characterClass, characterSubclass = null) }
+    }
+
+    private fun onSubclassChanged(subclassId: String) {
+        val currentClass = state.value.characterClass ?: return
+        val selected = currentClass.subclasses.firstOrNull { it.id == subclassId }
+        _state.update { it.copy(characterSubclass = selected) }
     }
 
     private fun onSkillSelected(skill: Skill, isSelected: Boolean) {
@@ -278,6 +306,7 @@ class CharacterCreationViewModel @Inject constructor(
             is CharacterCreationEvent.RaceChanged -> onRaceChanged(event.raceId)
             is CharacterCreationEvent.SubraceChanged -> onSubraceChanged(event.subraceId)
             is CharacterCreationEvent.ClassSelection -> onClassChanged(event.characterClass)
+            is CharacterCreationEvent.SubclassChanged -> onSubclassChanged(event.subclassId)
             is CharacterCreationEvent.SkillsSelected -> onSkillSelected(event.skill, event.isSelected)
             is CharacterCreationEvent.SpellsSelected -> onSpellSelected(event.spell, event.isSelected)
             is CharacterCreationEvent.SaveCharacter -> onSaveCharacter()
@@ -298,6 +327,7 @@ sealed interface CharacterCreationEvent {
     data class RaceChanged(val raceId: String) : CharacterCreationEvent
     data class SubraceChanged(val subraceId: String) : CharacterCreationEvent
     data class ClassSelection(val characterClass: CharacterClass) : CharacterCreationEvent
+    data class SubclassChanged(val subclassId: String) : CharacterCreationEvent
     data class SkillsSelected(val skill: Skill, val isSelected: Boolean) : CharacterCreationEvent
     data class SpellsSelected(val spell: Spell, val isSelected: Boolean) : CharacterCreationEvent
     data class PersonalityTraitsChanged(val traits: List<String>) : CharacterCreationEvent

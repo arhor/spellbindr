@@ -9,4 +9,12 @@ data class Subclass(
     val desc: List<String>,
     val spells: List<SubclassSpell>? = null,
     val subclassFlavor: String,
+    val levels: List<SubclassLevel>? = null,
+)
+
+@Serializable
+data class SubclassLevel(
+    val id: String? = null,
+    val level: Int,
+    val features: List<Feature>
 )

@@ -24,6 +24,13 @@ sealed interface Choice {
         val from: List<String>,
     ) : Choice
 
+    @Serializable
+    @SerialName("feature")
+    data class FeatureChoice(
+        override val choose: Int,
+        val from: List<String>,
+    ) : Choice
+
     /**
      * Represents a set of options where the character can choose from a predefined list of resources.
      *

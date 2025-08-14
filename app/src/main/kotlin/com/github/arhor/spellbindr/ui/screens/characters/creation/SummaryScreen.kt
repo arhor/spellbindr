@@ -38,6 +38,7 @@ fun SummaryScreen(
         }
 
         SummaryItem(label = "Class", value = state.characterClass?.name)
+        SummaryItem(label = state.subclassSelectionLabel ?: "Subclass", value = state.characterSubclass?.name)
         SummaryItem(label = "Background", value = state.background?.name)
 
         if (!state.isCharacterComplete) {

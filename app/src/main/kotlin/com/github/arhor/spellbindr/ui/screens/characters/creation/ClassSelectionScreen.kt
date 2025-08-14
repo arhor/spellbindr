@@ -25,6 +25,7 @@ fun ClassSelectionScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val selectedClass = state.characterClass
+    val selectedSubclass = state.characterSubclass
     val classes = state.classes
     val isLoading = state.isLoading
     val error = state.error
@@ -55,6 +56,30 @@ fun ClassSelectionScreen(
                     ) {
                         Column(Modifier.padding(12.dp)) {
                             Text(characterClass.name, style = MaterialTheme.typography.titleMedium)
+                        }
+                    }
+                }
+
+                selectedClass?.let { clazz ->
+                    val subclasses = clazz.subclasses
+                    val requiresSubclass = state.requiresSubclassAtLevel1
+                    if (requiresSubclass && subclasses.isNotEmpty()) {
+                        Spacer(modifier = Modifier.padding(top = 12.dp))
+                        val flavor = state.subclassSelectionLabel ?: "Subclass"
+                        Text("Select a $flavor:", style = MaterialTheme.typography.titleMedium)
+
+                        subclasses.forEach { subclass ->
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp)
+                                    .clickable { viewModel.handleEvent(CharacterCreationEvent.SubclassChanged(subclass.id)) },
+                                colors = if (subclass == selectedSubclass) CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer) else CardDefaults.cardColors()
+                            ) {
+                                Column(Modifier.padding(12.dp)) {
+                                    Text(subclass.name, style = MaterialTheme.typography.titleMedium)
+                                }
+                            }
                         }
                     }
                 }
