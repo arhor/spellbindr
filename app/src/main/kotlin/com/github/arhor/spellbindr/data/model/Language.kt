@@ -1,15 +1,13 @@
 package com.github.arhor.spellbindr.data.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Language(
     val id: String,
     val name: String,
-    val desc: String,
+    val desc: String? = null,
     val type: String,
-    val script: String,
-    @SerialName("typical_speakers")
-    val typicalSpeakers: List<String>
+    val script: String? = null,
+    val typicalSpeakers: List<String>,
 )

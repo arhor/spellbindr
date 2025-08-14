@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  *                                  The keys are character levels (e.g., "1", "5", "11"), and the values
  *                                  are strings describing the damage at that level. This is typically
  *                                  used for cantrips. This is optional.
- * @see [DamageType] for more information about damage types.
+ * @see [com.github.arhor.spellbindr.data.model.predefined.DamageType] for more information about damage types.
  */
 @Serializable
 data class SpellDamage(

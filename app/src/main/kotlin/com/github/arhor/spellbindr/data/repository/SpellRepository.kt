@@ -1,8 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
-import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.FavoriteSpellsDataStore
-import com.github.arhor.spellbindr.data.local.assets.SpellsAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import kotlinx.coroutines.flow.Flow
@@ -12,10 +11,9 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Stable
 @Singleton
 class SpellRepository @Inject constructor(
-    private val allSpellsDataStore: SpellsAssetDataStore,
+    private val allSpellsDataStore: SpellAssetDataStore,
     private val favSpellsDataStore: FavoriteSpellsDataStore,
 ) {
     val allSpells: Flow<List<Spell>>

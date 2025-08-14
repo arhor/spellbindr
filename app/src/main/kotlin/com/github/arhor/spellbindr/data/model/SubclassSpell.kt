@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SubclassSpell(
     val spell: EntityRef,
-    val prerequisites: List<Prerequisite>
+    val prerequisites: List<Prerequisite>? = null,
 )

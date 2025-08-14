@@ -1,15 +1,10 @@
 package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -20,9 +15,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.BaseScreenWithNavigation
 
 @Composable
 fun ClassSelectionScreen(
+    onPrev: () -> Unit,
     onNext: () -> Unit,
     viewModel: CharacterCreationViewModel,
 ) {
@@ -32,16 +29,11 @@ fun ClassSelectionScreen(
     val isLoading = state.isLoading
     val error = state.error
 
-    val isNextEnabled = selectedClass != null
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    BaseScreenWithNavigation(
+        onPrev = onPrev,
+        onNext = onNext
     ) {
-        Text("Step 3 of 9: Class Selection", style = MaterialTheme.typography.titleLarge)
+        Text("Step 3 of 7: Class", style = MaterialTheme.typography.titleLarge)
         when {
             isLoading -> {
                 CircularProgressIndicator()
@@ -68,13 +60,6 @@ fun ClassSelectionScreen(
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
-        Button(
-            onClick = onNext,
-            enabled = isNextEnabled,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Next")
-        }
+
     }
 }

@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FavoriteSpellsDataStore @Inject constructor(
-    @ApplicationContext
+    @param:ApplicationContext
     private val context: Context,
     private val json: Json,
 ) {

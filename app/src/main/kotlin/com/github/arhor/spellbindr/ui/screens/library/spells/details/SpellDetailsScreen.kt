@@ -18,7 +18,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -39,11 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.components.GradientDivider
-import com.github.arhor.spellbindr.ui.components.SpellIcon
+import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
-import com.github.arhor.spellbindr.ui.theme.CardBg
-import com.github.arhor.spellbindr.ui.theme.DescriptionText
-import com.github.arhor.spellbindr.ui.theme.HeaderText
 
 @Composable
 fun SpellDetailScreen(
@@ -91,7 +87,7 @@ fun SpellDetailScreen(
             }
         }
 
-        spell?.let {
+        spell?.also {
             Text(
                 text = it.name,
                 fontSize = 36.sp,
@@ -109,7 +105,6 @@ fun SpellDetailScreen(
             Spacer(Modifier.height(16.dp))
 
             Card(
-                colors = CardDefaults.cardColors(containerColor = CardBg.copy(alpha = 0.2f)),
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -149,15 +144,14 @@ fun SpellDetailScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     TableRow(label = "Casting Time", text = it.castingTime)
-                    TableRow(label = "Range", text = it.range.toString())
+                    TableRow(label = "Range", text = it.range)
                     TableRow(label = "Components", text = it.components.joinToString())
                     TableRow(label = "Duration", text = it.duration)
                     TableRow(label = "Classes") {
                         FlowRow(horizontalArrangement = Arrangement.End) {
-                            it.classes.forEachIndexed { i, classRef ->
+                            it.classes.forEachIndexed { _, classRef ->
                                 Text(
                                     text = " [${classRef.prettyString()}]",
-                                    color = HeaderText,
                                     fontStyle = FontStyle.Italic,
                                     fontFamily = FontFamily.Serif,
                                 )
@@ -173,9 +167,8 @@ fun SpellDetailScreen(
 
             DescriptionRow(it.desc)
 
-            if (!it.higherLevel.isNullOrEmpty()) {
-                DescriptionRow(it.higherLevel)
-
+            it.higherLevel?.takeIf(List<*>::isNotEmpty)?.let { higherLevelText ->
+                DescriptionRow(higherLevelText)
             }
         } ?: run {
             Text("Loading or spell not found")
@@ -188,7 +181,6 @@ private fun DescriptionRow(text: Iterable<String>) {
     for (paragraph in text) {
         Text(
             text = paragraph,
-            color = DescriptionText,
             fontSize = 16.sp,
             lineHeight = 22.sp,
             fontFamily = FontFamily.Serif,
@@ -202,7 +194,6 @@ private fun TableRow(label: String, text: String) {
     TableRow(label) {
         Text(
             text = text,
-            color = HeaderText,
             fontFamily = FontFamily.Serif,
             maxLines = Int.MAX_VALUE,
             softWrap = true
@@ -223,7 +214,6 @@ private fun TableRow(label: String, content: @Composable () -> Unit) {
         ) {
             Text(
                 text = label,
-                color = HeaderText,
                 fontFamily = FontFamily.Serif,
                 maxLines = Int.MAX_VALUE,
                 softWrap = true

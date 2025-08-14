@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -25,11 +26,8 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.AppearanceScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.BackgroundDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationViewModel
 import com.github.arhor.spellbindr.ui.screens.characters.creation.ClassSelectionScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.EquipmentScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.NameAndBackgroundScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.RaceSelectionScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.SkillsScreen
@@ -37,9 +35,13 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SpellsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
-import com.github.arhor.spellbindr.ui.screens.library.main.LibraryMainScreen
+import com.github.arhor.spellbindr.ui.screens.library.LibraryMainScreen
+import com.github.arhor.spellbindr.ui.screens.library.alignments.AlignmentsScreen
+import com.github.arhor.spellbindr.ui.screens.library.conditions.ConditionsScreen
+import com.github.arhor.spellbindr.ui.screens.library.races.RacesScreen
 import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.utils.AppRoute
 
 @Composable
 fun AppNavGraph() {
@@ -64,60 +66,59 @@ fun AppNavGraph() {
             )
             NavHost(
                 navController = controller,
-                startDestination = AppRoute.Library,
+                startDestination = Library,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                libraryBaseNavGraph(controller)
+                libraryNavGraph(controller)
                 charactersNavGraph(controller)
             }
         }
     }
 }
 
-fun NavGraphBuilder.libraryBaseNavGraph(controller: NavController) {
-    navigation<AppRoute.Library>(
-        startDestination = AppRoute.Library.Main
-    ) {
-        composable<AppRoute.Library.Main> {
+fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
+    navigation<Library>(startDestination = Library.Main) {
+        composable<Library.Main> {
             LibraryMainScreen(
                 onItemClick = { controller navigateTo it }
             )
         }
-        spellsNavGraph(controller)
-    }
-}
-
-fun NavGraphBuilder.spellsNavGraph(controller: NavController) {
-    navigation<AppRoute.Library.Spells>(
-        startDestination = AppRoute.Library.Spells.Search
-    ) {
-        composable<AppRoute.Library.Spells.Search> {
-            SpellSearchScreen(
-                onSpellClick = { controller navigateTo AppRoute.Library.Spells.Details(it) },
-            )
+        composable<Conditions> {
+            ConditionsScreen()
         }
-        composable<AppRoute.Library.Spells.Details> {
-            SpellDetailScreen(
-                spellName = it.toRoute<AppRoute.Library.Spells.Details>().spellName,
-                onBackClick = { controller.navigateUp() },
-            )
+        composable<Alignments> {
+            AlignmentsScreen()
+        }
+        composable<Races> {
+            RacesScreen()
+        }
+        navigation<Spells>(startDestination = Spells.Search) {
+            composable<Spells.Search> {
+                SpellSearchScreen(
+                    onSpellClick = { controller navigateTo Spells.Details(it) },
+                )
+            }
+            composable<Spells.Details> {
+                SpellDetailScreen(
+                    spellName = it.toRoute<Spells.Details>().spellName,
+                    onBackClick = { controller.navigateUp() },
+                )
+            }
         }
     }
 }
 
 fun NavGraphBuilder.charactersNavGraph(controller: NavController) {
-    navigation<AppRoute.Characters>(
-        startDestination = AppRoute.Characters.Search
-    ) {
-        composable<AppRoute.Characters.Search> {
+    navigation<Characters>(startDestination = Characters.Search) {
+        composable<Characters.Search> {
             CharacterListScreen(
-                navigateToCreate = { controller.navigate(route = AppRoute.Characters.Create) },
+                navigateToCreate = { controller.navigate(route = Characters.Create) },
                 navigateToDetails = { characterId ->
-                    controller.navigate(route = AppRoute.Characters.Details(characterId = characterId))
+                    controller.navigate(route = Characters.Details(characterId = characterId))
                 }
             )
         }
-        composable<AppRoute.Characters.Details> {
+        composable<Characters.Details> {
             CharacterDetailsScreen(
                 onBackClick = { controller.navigateUp() }
             )
@@ -127,110 +128,69 @@ fun NavGraphBuilder.charactersNavGraph(controller: NavController) {
 }
 
 fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
-    navigation<AppRoute.Characters.Create>(
-        startDestination = AppRoute.Characters.Create.NameAndBackground
+    navigation<Characters.Create>(
+        startDestination = Characters.Create.NameAndBackground
     ) {
-        composable<AppRoute.Characters.Create.NameAndBackground> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.NameAndBackground> {
             NameAndBackgroundScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.BackgroundDetails) },
-                viewModel = viewModel
+                onNext = { controller.navigate(route = Characters.Create.Race) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
-        composable<AppRoute.Characters.Create.BackgroundDetails> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
-            BackgroundDetailsScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Race) },
-                viewModel = viewModel
-            )
-        }
-        composable<AppRoute.Characters.Create.Race> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.Race> {
             RaceSelectionScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Class) },
-                viewModel = viewModel
+                onPrev = { controller.navigateUp() },
+                onNext = { controller.navigate(route = Characters.Create.Class) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
-        composable<AppRoute.Characters.Create.Class> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.Class> {
             ClassSelectionScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Abilities) },
-                viewModel = viewModel
+                onPrev = { controller.navigateUp() },
+                onNext = { controller.navigate(route = Characters.Create.Abilities) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
-        composable<AppRoute.Characters.Create.Abilities> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.Abilities> {
             AbilitiesScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Skills) },
-                viewModel = viewModel
+                onPrev = { controller.navigateUp() },
+                onNext = { controller.navigate(route = Characters.Create.Skills) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
-        composable<AppRoute.Characters.Create.Skills> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.Skills> {
             SkillsScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Equipment) },
-                viewModel = viewModel
+                onPrev = { controller.navigateUp() },
+                onNext = { controller.navigate(route = Characters.Create.Spells) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
-        composable<AppRoute.Characters.Create.Equipment> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
-            EquipmentScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Spells) },
-                viewModel = viewModel
-            )
-        }
-        composable<AppRoute.Characters.Create.Spells> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.Spells> {
             SpellsScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Appearance) },
-                viewModel = viewModel
+                onPrev = { controller.navigateUp() },
+                onNext = { controller.navigate(route = Characters.Create.Summary) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
-        composable<AppRoute.Characters.Create.Appearance> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
-            AppearanceScreen(
-                onNext = { controller.navigate(route = AppRoute.Characters.Create.Summary) },
-                viewModel = viewModel
-            )
-        }
-        composable<AppRoute.Characters.Create.Summary> {
-            val creationGraphEntry = remember(it) {
-                controller.getBackStackEntry(AppRoute.Characters.Create)
-            }
-            val viewModel: CharacterCreationViewModel = hiltViewModel(creationGraphEntry)
+        composable<Characters.Create.Summary> {
             SummaryScreen(
-                onFinish = { controller.popBackStack(route = AppRoute.Characters, inclusive = false) },
-                viewModel = viewModel
+                onPrev = { controller.navigateUp() },
+                onFinish = { controller.popBackStack(route = Characters, inclusive = false) },
+                viewModel = useCharacterCreationViewModel(it, controller)
             )
         }
     }
+}
+
+@Composable
+private fun useCharacterCreationViewModel(
+    entry: NavBackStackEntry,
+    controller: NavController
+): CharacterCreationViewModel {
+    val creationGraphEntry = remember(entry) {
+        controller.getBackStackEntry(Characters.Create)
+    }
+    return hiltViewModel(creationGraphEntry)
 }
 
 private infix fun NavController.navigateTo(route: AppRoute) {

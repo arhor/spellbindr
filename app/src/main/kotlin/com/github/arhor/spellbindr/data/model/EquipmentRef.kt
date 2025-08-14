@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EquipmentRef(
-    val equipment: EntityRef,
-    val quantity: Int
+    val id: String,
+    val quantity: Int,
 )

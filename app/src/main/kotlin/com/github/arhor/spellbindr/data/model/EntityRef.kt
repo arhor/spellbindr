@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.util.toTitleCase
+import com.github.arhor.spellbindr.utils.toTitleCase
 import kotlinx.serialization.Serializable
 
 /**

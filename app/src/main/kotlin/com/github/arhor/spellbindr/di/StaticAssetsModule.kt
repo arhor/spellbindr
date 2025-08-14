@@ -1,11 +1,14 @@
 package com.github.arhor.spellbindr.di
 
+import com.github.arhor.spellbindr.data.local.assets.AlignmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.CharacterClassesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.InitializingStaticAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.SpellsAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.LanguagesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.TraitsAssetDataStore
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,26 +22,41 @@ abstract class StaticAssetsModule {
 
     @Binds
     @IntoSet
-    abstract fun bindSpellsAssetDataStore(spellsDataStore: SpellsAssetDataStore)
-        : InitializingStaticAssetDataStore
-
-    @Binds
-    @IntoSet
-    abstract fun bindCharacterClassesAssetDataStore(characterClassesDataStore: CharacterClassesAssetDataStore)
-        : InitializingStaticAssetDataStore
-
-    @Binds
-    @IntoSet
     abstract fun bindBackgroundsAssetDataStore(backgroundsDataStore: BackgroundsAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindEquipmentAssetDataStore(equipmentDataStore: EquipmentAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindRacesAssetDataStore(dacesAssetDataStore: RacesAssetDataStore)
-        : InitializingStaticAssetDataStore
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindAlignmentsAssetDataStore(alignmentAssetDataStore: AlignmentAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindCharacterClassesAssetDataStore(characterClassesDataStore: CharacterClassAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindSpellsAssetDataStore(spellsDataStore: SpellAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindTraitsAssetDataStore(traitsDataStore: TraitsAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindLanguagesAssetDataStore(languagesAssetDataStore: LanguagesAssetDataStore)
+        : InitializableStaticAssetDataStore
 }

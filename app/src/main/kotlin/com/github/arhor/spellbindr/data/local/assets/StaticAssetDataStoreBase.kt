@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.util.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

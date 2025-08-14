@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  * @property level The spell's level.
  * @property range The range of the spell.
  * @property ritual Indicates if the spell can be cast as a ritual.
- * @property school A reference to the school of magic the spell belongs to.
+ * @property school The school of magic this spell belongs to.
  * @property duration The duration of the spell.
  * @property castingTime The time it takes to cast the spell.
  * @property classes A list of references to classes that can use this spell.

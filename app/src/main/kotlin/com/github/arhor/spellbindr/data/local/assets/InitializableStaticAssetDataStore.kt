@@ -1,5 +1,5 @@
 package com.github.arhor.spellbindr.data.local.assets
 
-interface InitializingStaticAssetDataStore {
+interface InitializableStaticAssetDataStore {
     suspend fun initialize()
 }

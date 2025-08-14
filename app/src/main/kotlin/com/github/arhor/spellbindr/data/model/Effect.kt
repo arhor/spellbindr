@@ -2,7 +2,7 @@
 
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.util.copy
+import com.github.arhor.spellbindr.utils.copy
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,18 +19,18 @@ sealed interface Effect {
     /**
      * Represents an effect that modifies a state's ability scores.
      *
-     * @property abilities A map where each key is an [EntityRef] to the ability being affected,
+     * @property abilities A map where each key is a string representing the ability being affected,
      *                     and each value is the amount by which the ability score is modified.
      */
     @Serializable
     @SerialName("modify-abilities")
     data class ModifyAbilityEffect(
-        val abilities: Map<EntityRef, Int>,
+        val abilities: Map<String, Int>,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
             abilityScores = state.abilityScores.copy {
-                abilities.forEach { (ability, value) ->
-                    merge(ability, value, Int::plus)
+                abilities.forEach { (abilityId, value) ->
+                    merge(EntityRef(abilityId), value, Int::plus)
                 }
             },
         )

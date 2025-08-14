@@ -2,23 +2,29 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Background
 import com.github.arhor.spellbindr.data.model.Character
 import com.github.arhor.spellbindr.data.model.CharacterClass
+import com.github.arhor.spellbindr.data.model.Choice.EquipmentCategoriesChoice
+import com.github.arhor.spellbindr.data.model.Choice.EquipmentChoice
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Equipment
+import com.github.arhor.spellbindr.data.model.EquipmentCategory
+import com.github.arhor.spellbindr.data.model.Language
 import com.github.arhor.spellbindr.data.model.Race
-import com.github.arhor.spellbindr.data.model.Skill
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.Subrace
+import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
+import com.github.arhor.spellbindr.data.repository.EquipmentRepository
+import com.github.arhor.spellbindr.data.repository.LanguagesRepository
 import com.github.arhor.spellbindr.data.repository.RacesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,7 +41,8 @@ class CharacterCreationViewModel @Inject constructor(
     private val characterClassRepository: CharacterClassRepository,
     private val racesRepository: RacesRepository,
     private val characterRepository: CharacterRepository,
-    private val savedStateHandle: SavedStateHandle,
+    private val languagesRepository: LanguagesRepository,
+    private val equipmentRepository: EquipmentRepository,
 ) : ViewModel() {
 
     @Immutable
@@ -49,6 +56,9 @@ class CharacterCreationViewModel @Inject constructor(
 
         // Abilities
         val abilityScores: Map<String, Int> = emptyMap(),
+        val abilityScoresRolled: List<Int> = emptyList(),
+        val abilityScoresInEdit: Map<String, Int> = emptyMap(),
+        val pointBuyPoints: Int = 27,
 
         // Skills
         val skillProficiencies: List<String> = emptyList(),
@@ -67,41 +77,33 @@ class CharacterCreationViewModel @Inject constructor(
         val races: List<Race> = emptyList(),
         val classes: List<CharacterClass> = emptyList(),
         val backgrounds: List<Background> = emptyList(),
+        val languages: List<Language> = emptyList(),
+        val allEquipment: List<Equipment> = emptyList(),
         val selectedSkills: List<Skill> = emptyList(),
-        val selectedEquipment: List<Equipment> = emptyList(),
         val selectedSpells: List<Spell> = emptyList(),
         val selectedPersonalityTraits: List<String> = emptyList(),
         val selectedIdeals: List<String> = emptyList(),
         val selectedBonds: List<String> = emptyList(),
         val selectedFlaws: List<String> = emptyList(),
+        val selectedLanguages: List<String> = emptyList(),
+        val selectedBackgroundEquipment: List<String> = emptyList(),
+        val availableBackgroundEquipment: List<Equipment> = emptyList(),
     ) {
         val isCharacterComplete: Boolean
-            get() = (characterName.isNotBlank()
-                && background != null
+            get() = (background != null
                 && race != null
                 && subrace != null
                 && characterClass != null
-                && selectedSkills.isNotEmpty()
-                && selectedEquipment.isNotEmpty()
-                && selectedPersonalityTraits.isNotEmpty()
-                && selectedIdeals.isNotEmpty()
-                && selectedBonds.isNotEmpty()
-                && selectedFlaws.isNotEmpty())
+                && selectedSkills.isNotEmpty())
 
         val requiredSelections: List<String>
             get() {
                 return buildList {
-                    if (characterName.isBlank()) add("Character Name")
                     if (background == null) add("Background")
                     if (race == null) add("Race")
                     if (subrace == null) add("Subrace")
                     if (characterClass == null) add("Class")
                     if (selectedSkills.isEmpty()) add("Skills")
-                    if (selectedEquipment.isEmpty()) add("Starting Equipment")
-                    if (selectedPersonalityTraits.isEmpty()) add("Personality Traits")
-                    if (selectedIdeals.isEmpty()) add("Ideals")
-                    if (selectedBonds.isEmpty()) add("Bonds")
-                    if (selectedFlaws.isEmpty()) add("Flaws")
                 }
             }
     }
@@ -117,15 +119,20 @@ class CharacterCreationViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             try {
-                val backgrounds = backgroundRepository.allBackgrounds.first()
-                val characterClasses = characterClassRepository.allClasses.first()
-                val races = racesRepository.allRaces.first()
+                val backgrounds = async { backgroundRepository.allBackgrounds.first() }
+                val characterClasses = async { characterClassRepository.allClasses.first() }
+                val races = async { racesRepository.allRaces.first() }
+                val languages = async { languagesRepository.allLanguages.first() }
+                val equipment = async { equipmentRepository.allEquipment.first() }
+
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        backgrounds = backgrounds,
-                        classes = characterClasses,
-                        races = races,
+                        backgrounds = backgrounds.await(),
+                        classes = characterClasses.await(),
+                        races = races.await(),
+                        languages = languages.await(),
+                        allEquipment = equipment.await(),
                     )
                 }
             } catch (e: Exception) {
@@ -142,6 +149,27 @@ class CharacterCreationViewModel @Inject constructor(
         if (state.value.background?.name != backgroundName) {
             viewModelScope.launch {
                 val background = state.value.backgrounds.find { it.name == backgroundName }
+                val availableEquipment = background?.equipmentChoice
+                    ?.let { choice ->
+                        when (choice) {
+                            is EquipmentCategoriesChoice -> {
+                                val allowedCategories: Set<EquipmentCategory> = choice.from.categories
+                                    .map { it.replace('-', '_').uppercase() }
+                                    .mapNotNull { value -> runCatching { EquipmentCategory.valueOf(value) }.getOrNull() }
+                                    .toSet()
+                                state.value.allEquipment.filter { equipment ->
+                                    equipment.categories.any { category -> category in allowedCategories }
+                                }
+                            }
+
+                            is EquipmentChoice -> {
+                                val ids = choice.from.toSet()
+                                state.value.allEquipment.filter { it.id in ids }
+                            }
+
+                            else -> emptyList()
+                        }
+                    } ?: emptyList()
                 _state.update {
                     it.copy(
                         background = background,
@@ -149,6 +177,9 @@ class CharacterCreationViewModel @Inject constructor(
                         selectedIdeals = emptyList(),
                         selectedBonds = emptyList(),
                         selectedFlaws = emptyList(),
+                        selectedLanguages = emptyList(),
+                        selectedBackgroundEquipment = emptyList(),
+                        availableBackgroundEquipment = availableEquipment,
                     )
                 }
             }
@@ -182,15 +213,6 @@ class CharacterCreationViewModel @Inject constructor(
         _state.update { it.copy(selectedSkills = updatedSkills) }
     }
 
-    private fun onEquipmentSelected(equipment: Equipment, isSelected: Boolean) {
-        val updatedEquipment = if (isSelected) {
-            state.value.selectedEquipment + equipment
-        } else {
-            state.value.selectedEquipment - equipment
-        }
-        _state.update { it.copy(selectedEquipment = updatedEquipment) }
-    }
-
     private fun onSpellSelected(spell: Spell, isSelected: Boolean) {
         val updatedSpells = if (isSelected) {
             state.value.selectedSpells + spell
@@ -216,6 +238,18 @@ class CharacterCreationViewModel @Inject constructor(
         _state.update { it.copy(selectedFlaws = flaws) }
     }
 
+    private fun onLanguagesChanged(languages: List<String>) {
+        _state.update { it.copy(selectedLanguages = languages) }
+    }
+
+    private fun onBackgroundEquipmentChanged(equipmentIds: List<String>) {
+        _state.update { it.copy(selectedBackgroundEquipment = equipmentIds) }
+    }
+
+    private fun onAbilityScoresChanged(scores: Map<String, Int>) {
+        _state.update { it.copy(abilityScores = scores) }
+    }
+
     private fun onSaveCharacter() {
         if (!state.value.isCharacterComplete) {
             return
@@ -225,7 +259,7 @@ class CharacterCreationViewModel @Inject constructor(
             val currentState = state.value
             val character = Character(
                 id = UUID.randomUUID().toString(),
-                name = currentState.characterName,
+                name = currentState.characterName.ifBlank { "Unnamed Character" },
                 race = EntityRef(currentState.race!!.id),
                 subrace = currentState.subrace?.let { EntityRef(it.id) },
                 classes = mapOf(EntityRef(currentState.characterClass!!.id) to 1),
@@ -244,7 +278,6 @@ class CharacterCreationViewModel @Inject constructor(
             is CharacterCreationEvent.RaceChanged -> onRaceChanged(event.raceId)
             is CharacterCreationEvent.SubraceChanged -> onSubraceChanged(event.subraceId)
             is CharacterCreationEvent.ClassSelection -> onClassChanged(event.characterClass)
-            is CharacterCreationEvent.EquipmentSelected -> onEquipmentSelected(event.equipment, event.isSelected)
             is CharacterCreationEvent.SkillsSelected -> onSkillSelected(event.skill, event.isSelected)
             is CharacterCreationEvent.SpellsSelected -> onSpellSelected(event.spell, event.isSelected)
             is CharacterCreationEvent.SaveCharacter -> onSaveCharacter()
@@ -252,6 +285,9 @@ class CharacterCreationViewModel @Inject constructor(
             is CharacterCreationEvent.IdealsChanged -> onIdealsChanged(event.ideals)
             is CharacterCreationEvent.BondsChanged -> onBondsChanged(event.bonds)
             is CharacterCreationEvent.FlawsChanged -> onFlawsChanged(event.flaws)
+            is CharacterCreationEvent.AbilityScoresChanged -> onAbilityScoresChanged(event.scores)
+            is CharacterCreationEvent.LanguagesChanged -> onLanguagesChanged(event.languageIds)
+            is CharacterCreationEvent.BackgroundEquipmentChanged -> onBackgroundEquipmentChanged(event.equipmentIds)
         }
     }
 }
@@ -263,11 +299,13 @@ sealed interface CharacterCreationEvent {
     data class SubraceChanged(val subraceId: String) : CharacterCreationEvent
     data class ClassSelection(val characterClass: CharacterClass) : CharacterCreationEvent
     data class SkillsSelected(val skill: Skill, val isSelected: Boolean) : CharacterCreationEvent
-    data class EquipmentSelected(val equipment: Equipment, val isSelected: Boolean) : CharacterCreationEvent
     data class SpellsSelected(val spell: Spell, val isSelected: Boolean) : CharacterCreationEvent
     data class PersonalityTraitsChanged(val traits: List<String>) : CharacterCreationEvent
     data class IdealsChanged(val ideals: List<String>) : CharacterCreationEvent
     data class BondsChanged(val bonds: List<String>) : CharacterCreationEvent
     data class FlawsChanged(val flaws: List<String>) : CharacterCreationEvent
+    data class AbilityScoresChanged(val scores: Map<String, Int>) : CharacterCreationEvent
+    data class LanguagesChanged(val languageIds: List<String>) : CharacterCreationEvent
+    data class BackgroundEquipmentChanged(val equipmentIds: List<String>) : CharacterCreationEvent
     data object SaveCharacter : CharacterCreationEvent
 }
