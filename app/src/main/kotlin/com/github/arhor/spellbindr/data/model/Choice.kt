@@ -17,6 +17,13 @@ import kotlinx.serialization.Serializable
 sealed interface Choice {
     val choose: Int
 
+    @Serializable
+    @SerialName("proficiency")
+    data class ProficiencyChoice(
+        override val choose: Int,
+        val from: List<String>,
+    ) : Choice
+
     /**
      * Represents a set of options where the character can choose from a predefined list of resources.
      *
