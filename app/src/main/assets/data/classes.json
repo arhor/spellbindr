@@ -4800,47 +4800,14 @@
                   "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "fighter-fighting-style-archery"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "fighter-fighting-style-defense"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "fighter-fighting-style-dueling"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "fighter-fighting-style-great-weapon-fighting"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "fighter-fighting-style-protection"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "fighter-fighting-style-two-weapon-fighting"
-                          }
-                        }
-                      ]
-                    }
+                    "from": [
+                      "fighter-fighting-style-archery",
+                      "fighter-fighting-style-defense",
+                      "fighter-fighting-style-dueling",
+                      "fighter-fighting-style-great-weapon-fighting",
+                      "fighter-fighting-style-protection",
+                      "fighter-fighting-style-two-weapon-fighting"
+                    ]
                   }
                 }
               }
@@ -4892,47 +4859,14 @@
               "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighter-fighting-style-archery"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighter-fighting-style-defense"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighter-fighting-style-dueling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighter-fighting-style-great-weapon-fighting"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighter-fighting-style-protection"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighter-fighting-style-two-weapon-fighting"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "fighter-fighting-style-archery",
+                  "fighter-fighting-style-defense",
+                  "fighter-fighting-style-dueling",
+                  "fighter-fighting-style-great-weapon-fighting",
+                  "fighter-fighting-style-protection",
+                  "fighter-fighting-style-two-weapon-fighting"
+                ]
               }
             }
           },
@@ -6576,30 +6510,10 @@
                 "from": {
                   "type": "options_array",
                   "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighting-style-defense"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighting-style-dueling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighting-style-great-weapon-fighting"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "fighting-style-protection"
-                      }
-                    }
+                    "fighting-style-defense",
+                    "fighting-style-dueling",
+                    "fighting-style-great-weapon-fighting",
+                    "fighting-style-protection"
                   ]
                 }
               }
@@ -7283,27 +7197,11 @@
                   "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "hunters-prey-colossus-slayer"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "hunters-prey-giant-killer"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {}
-                        }
-                      ]
-                    }
+                    "from": [
+                      "hunters-prey-colossus-slayer",
+                      "hunters-prey-giant-killer",
+                      "hunters-prey-horde-breaker"
+                    ]
                   }
                 }
               }
@@ -7326,29 +7224,11 @@
                   "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "defensive-tactics-escape-the-horde"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "defensive-tactics-multiattack-defense"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "defensive-tactics-steel-will"
-                          }
-                        }
-                      ]
-                    }
+                    "from": [
+                      "defensive-tactics-escape-the-horde",
+                      "defensive-tactics-multiattack-defense",
+                      "defensive-tactics-steel-will"
+                    ]
                   }
                 }
               }
@@ -7370,23 +7250,10 @@
                   "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "multiattack-volley"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "multiattack-whirlwind-attack"
-                          }
-                        }
-                      ]
-                    }
+                    "from": [
+                      "multiattack-volley",
+                      "multiattack-whirlwind-attack"
+                    ]
                   }
                 }
               }
@@ -7409,29 +7276,11 @@
                   "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "superior-hunters-defense-evasion"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "superior-hunters-defense-stand-against-the-tide"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "superior-hunters-defense-uncanny-dodge"
-                          }
-                        }
-                      ]
-                    }
+                    "from": [
+                      "superior-hunters-defense-evasion",
+                      "superior-hunters-defense-stand-against-the-tide",
+                      "superior-hunters-defense-uncanny-dodge"
+                    ]
                   }
                 }
               }
@@ -7575,35 +7424,12 @@
               "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "ranger-fighting-style-archery"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "ranger-fighting-style-defense"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "ranger-fighting-style-dueling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "ranger-fighting-style-two-weapon-fighting"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "ranger-fighting-style-archery",
+                  "ranger-fighting-style-defense",
+                  "ranger-fighting-style-dueling",
+                  "ranger-fighting-style-two-weapon-fighting"
+                ]
               }
             }
           },
@@ -9168,71 +8994,18 @@
                   "subfeatureOptions": {
                     "choose": 1,
                     "type": "feature",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-black---acid-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-blue---lightning-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-brass---fire-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-bronze---lightning-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-copper---acid-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-gold---fire-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-green---poison-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-red---fire-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-silver---cold-damage"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "dragon-ancestor-white---cold-damage"
-                          }
-                        }
-                      ]
-                    }
+                    "from": [
+                      "dragon-ancestor-black---acid-damage",
+                      "dragon-ancestor-blue---lightning-damage",
+                      "dragon-ancestor-brass---fire-damage",
+                      "dragon-ancestor-bronze---lightning-damage",
+                      "dragon-ancestor-copper---acid-damage",
+                      "dragon-ancestor-gold---fire-damage",
+                      "dragon-ancestor-green---poison-damage",
+                      "dragon-ancestor-red---fire-damage",
+                      "dragon-ancestor-silver---cold-damage",
+                      "dragon-ancestor-white---cold-damage"
+                    ]
                   }
                 }
               },
@@ -9450,59 +9223,16 @@
               "subfeatureOptions": {
                 "choose": 2,
                 "type": "feature",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-careful-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-distant-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-empowered-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-extended-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-heightened-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-quickened-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-subtle-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-twinned-spell"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "metamagic-careful-spell",
+                  "metamagic-distant-spell",
+                  "metamagic-empowered-spell",
+                  "metamagic-extended-spell",
+                  "metamagic-heightened-spell",
+                  "metamagic-quickened-spell",
+                  "metamagic-subtle-spell",
+                  "metamagic-twinned-spell"
+                ]
               }
             }
           }
@@ -9839,59 +9569,16 @@
               "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-careful-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-distant-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-empowered-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-extended-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-heightened-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-quickened-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-subtle-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-twinned-spell"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "metamagic-careful-spell",
+                  "metamagic-distant-spell",
+                  "metamagic-empowered-spell",
+                  "metamagic-extended-spell",
+                  "metamagic-heightened-spell",
+                  "metamagic-quickened-spell",
+                  "metamagic-subtle-spell",
+                  "metamagic-twinned-spell"
+                ]
               }
             }
           }
@@ -10252,59 +9939,16 @@
               "subfeatureOptions": {
                 "choose": 1,
                 "type": "feature",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-careful-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-distant-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-empowered-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-extended-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-heightened-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-quickened-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-subtle-spell"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "metamagic-twinned-spell"
-                      }
-                    }
-                  ]
-                }
+                "from": [
+                  "metamagic-careful-spell",
+                  "metamagic-distant-spell",
+                  "metamagic-empowered-spell",
+                  "metamagic-extended-spell",
+                  "metamagic-heightened-spell",
+                  "metamagic-quickened-spell",
+                  "metamagic-subtle-spell",
+                  "metamagic-twinned-spell"
+                ]
               }
             }
           }
