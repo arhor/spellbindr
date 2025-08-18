@@ -7,5 +7,5 @@ data class Feature(
     val id: String,
     val name: String,
     val desc: List<String>,
-    val featureSpecific: FeatureSpecific? = null
+    val choice: Choice? = null
 )

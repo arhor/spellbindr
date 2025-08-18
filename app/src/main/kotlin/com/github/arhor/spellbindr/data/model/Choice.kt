@@ -18,6 +18,20 @@ sealed interface Choice {
     val choose: Int
 
     @Serializable
+    @SerialName("favored-enemy")
+    data class FavoredEnemyChoice(
+        override val choose: Int,
+        val from: List<String>,
+    ) : Choice
+
+    @Serializable
+    @SerialName("terrain-type")
+    data class TerrainTypeChoice(
+        override val choose: Int,
+        val from: List<String>,
+    ) : Choice
+
+    @Serializable
     @SerialName("proficiency")
     data class ProficiencyChoice(
         override val choose: Int,

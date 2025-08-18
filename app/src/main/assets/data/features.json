@@ -416,124 +416,29 @@
     "desc": [
       "At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose another two skill proficiencies to gain this benefit."
     ],
-    "featureSpecific": {
-      "expertiseOptions": {
-        "choose": 2,
-        "type": "proficiency",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-performance"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-sleight-of-hand"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 2,
+      "type": "proficiency",
+      "from": [
+        "skill-acrobatics",
+        "skill-animal-handling",
+        "skill-arcana",
+        "skill-athletics",
+        "skill-deception",
+        "skill-history",
+        "skill-insight",
+        "skill-intimidation",
+        "skill-investigation",
+        "skill-medicine",
+        "skill-nature",
+        "skill-perception",
+        "skill-performance",
+        "skill-persuasion",
+        "skill-religion",
+        "skill-sleight-of-hand",
+        "skill-stealth",
+        "skill-survival"
+      ]
     }
   },
   {
@@ -653,124 +558,29 @@
     "desc": [
       "At 3rd level, choose two of your skill proficiencies. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 10th level, you can choose another two skill proficiencies to gain this benefit."
     ],
-    "featureSpecific": {
-      "expertiseOptions": {
-        "choose": 2,
-        "type": "proficiency",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-performance"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-sleight-of-hand"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            }
-          ]
-        }
-      }
+    "choice":  {
+      "choose": 2,
+      "type": "proficiency",
+      "from": [
+        "skill-acrobatics",
+        "skill-animal-handling",
+        "skill-arcana",
+        "skill-athletics",
+        "skill-deception",
+        "skill-history",
+        "skill-insight",
+        "skill-intimidation",
+        "skill-investigation",
+        "skill-medicine",
+        "skill-nature",
+        "skill-perception",
+        "skill-performance",
+        "skill-persuasion",
+        "skill-religion",
+        "skill-sleight-of-hand",
+        "skill-stealth",
+        "skill-survival"
+      ]
     }
   },
   {
@@ -1382,58 +1192,18 @@
     "desc": [
       "The Circle of the Land is made up of mystics and sages who safeguard ancient knowledge and rites through a vast oral tradition. These druids meet within sacred circles of trees or standing stones to whisper primal secrets in Druidic. The circle's wisest members preside as the chief priests of communities that hold to the Old Faith and serve as advisors to the rulers of those folk. As a member of this circle, your magic is influenced by the land where you were initiated into the circle's mysterious rites."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-arctic"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-coast"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-desert"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-forest"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-grassland"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-mountain"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "circle-of-the-land-swamp"
-              }
-            }
-          ]
-        }
-      }
+    "choice":  {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "circle-of-the-land-arctic",
+        "circle-of-the-land-coast",
+        "circle-of-the-land-desert",
+        "circle-of-the-land-forest",
+        "circle-of-the-land-grassland",
+        "circle-of-the-land-mountain",
+        "circle-of-the-land-swamp"
+      ]
     }
   },
   {
@@ -1861,52 +1631,17 @@
     "desc": [
       "You adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-archery"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-defense"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-dueling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-great-weapon-fighting"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-protection"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-two-weapon-fighting"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "fighter-fighting-style-archery",
+        "fighter-fighting-style-defense",
+        "fighter-fighting-style-dueling",
+        "fighter-fighting-style-great-weapon-fighting",
+        "fighter-fighting-style-protection",
+        "fighter-fighting-style-two-weapon-fighting"
+      ]
     }
   },
   {
@@ -2134,52 +1869,17 @@
     "desc": [
       "At 10th level, you can choose a second option from the Fighting Style class feature."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-archery"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-defense"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-dueling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-great-weapon-fighting"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-protection"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighter-fighting-style-two-weapon-fighting"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "fighter-fighting-style-archery",
+        "fighter-fighting-style-defense",
+        "fighter-fighting-style-dueling",
+        "fighter-fighting-style-great-weapon-fighting",
+        "fighter-fighting-style-protection",
+        "fighter-fighting-style-two-weapon-fighting"
+      ]
     }
   },
   {
@@ -2783,40 +2483,15 @@
     "desc": [
       "At 2nd level, you adopt a style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighting-style-defense"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighting-style-dueling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighting-style-great-weapon-fighting"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "fighting-style-protection"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "fighting-style-defense",
+        "fighting-style-dueling",
+        "fighting-style-great-weapon-fighting",
+        "fighting-style-protection"
+      ]
     }
   },
   {
@@ -3195,31 +2870,25 @@
       "When you gain this feature, you also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.",
       "You choose one additional favored enemy, as well as an associated language, at 6th and 14th level. As you gain levels, your choices should reflect the types of monsters you have encountered on your adventures."
     ],
-    "featureSpecific": {
-      "enemy_type_options": {
-        "desc": "one enemy type",
-        "choose": 1,
-        "type": "string",
-        "from": {
-          "type": "options_array",
-          "options": [
-            "aberrations",
-            "beasts",
-            "celestials",
-            "constructs",
-            "dragons",
-            "elementals",
-            "fey",
-            "fiends",
-            "giants",
-            "monstrosities",
-            "oozes",
-            "plants",
-            "undead",
-            "humanoids"
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "favored-enemy",
+      "from": [
+        "aberrations",
+        "beasts",
+        "celestials",
+        "constructs",
+        "dragons",
+        "elementals",
+        "fey",
+        "fiends",
+        "giants",
+        "monstrosities",
+        "oozes",
+        "plants",
+        "undead",
+        "humanoids"
+      ]
     }
   },
   {
@@ -3240,24 +2909,18 @@
       "- While tracking other creatures, you also learn their exact number, their sizes, and how long ago they passed through the area.",
       "You choose additional favored terrain types at 6th and 10th level."
     ],
-    "featureSpecific": {
-      "terrain_type_options": {
-        "desc": "one terrain type",
-        "choose": 1,
-        "type": "string",
-        "from": {
-          "type": "options_array",
-          "options": [
-            "arctic",
-            "coast",
-            "desert",
-            "forest",
-            "grassland",
-            "mountain",
-            "swamp"
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "terrain-type",
+      "from": [
+        "arctic",
+        "coast",
+        "desert",
+        "forest",
+        "grassland",
+        "mountain",
+        "swamp"
+      ]
     }
   },
   {
@@ -3270,40 +2933,15 @@
     "desc": [
       "At 2nd level, you adopt a particular style of fighting as your specialty. Choose one of the following options. You can't take a Fighting Style option more than once, even if you later get to choose again."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "ranger-fighting-style-archery"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "ranger-fighting-style-defense"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "ranger-fighting-style-dueling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "ranger-fighting-style-two-weapon-fighting"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "ranger-fighting-style-archery",
+        "ranger-fighting-style-defense",
+        "ranger-fighting-style-dueling",
+        "ranger-fighting-style-two-weapon-fighting"
+      ]
     }
   },
   {
@@ -3401,33 +3039,14 @@
       "Giant Killer",
       "Horde Breaker"
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "hunters-prey-colossus-slayer"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "hunters-prey-giant-killer"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "hunters-prey-colossus-slayer",
+        "hunters-prey-giant-killer",
+        "hunters-prey-horde-breaker"
+      ]
     }
   },
   {
@@ -3528,31 +3147,25 @@
       "When you gain this feature, you also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.",
       "You choose one additional favored enemy, as well as an associated language, at 6th and 14th level. As you gain levels, your choices should reflect the types of monsters you have encountered on your adventures."
     ],
-    "featureSpecific": {
-      "enemy_type_options": {
-        "desc": "one enemy type",
-        "choose": 1,
-        "type": "string",
-        "from": {
-          "type": "options_array",
-          "options": [
-            "aberrations",
-            "beasts",
-            "celestials",
-            "constructs",
-            "dragons",
-            "elementals",
-            "fey",
-            "fiends",
-            "giants",
-            "monstrosities",
-            "oozes",
-            "plants",
-            "undead",
-            "humanoids"
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "favored-enemy",
+      "from": [
+        "aberrations",
+        "beasts",
+        "celestials",
+        "constructs",
+        "dragons",
+        "elementals",
+        "fey",
+        "fiends",
+        "giants",
+        "monstrosities",
+        "oozes",
+        "plants",
+        "undead",
+        "humanoids"
+      ]
     }
   },
   {
@@ -3573,24 +3186,18 @@
       "- While tracking other creatures, you also learn their exact number, their sizes, and how long ago they passed through the area.",
       "You choose additional favored terrain types at 6th and 10th level."
     ],
-    "featureSpecific": {
-      "terrain_type_options": {
-        "desc": "one terrain type",
-        "choose": 1,
-        "type": "string",
-        "from": {
-          "type": "options_array",
-          "options": [
-            "arctic",
-            "coast",
-            "desert",
-            "forest",
-            "grassland",
-            "mountain",
-            "swamp"
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "terrain-type",
+      "from": [
+        "arctic",
+        "coast",
+        "desert",
+        "forest",
+        "grassland",
+        "mountain",
+        "swamp"
+      ]
     }
   },
   {
@@ -3620,34 +3227,14 @@
       "Multiattack Defense",
       "Steel Will"
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "defensive-tactics-escape-the-horde"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "defensive-tactics-multiattack-defense"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "defensive-tactics-steel-will"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "defensive-tactics-escape-the-horde",
+        "defensive-tactics-multiattack-defense",
+        "defensive-tactics-steel-will"
+      ]
     }
   },
   {
@@ -3742,24 +3329,18 @@
       "- While tracking other creatures, you also learn their exact number, their sizes, and how long ago they passed through the area.",
       "You choose additional favored terrain types at 6th and 10th level."
     ],
-    "featureSpecific": {
-      "terrain_type_options": {
-        "desc": "one terrain type",
-        "choose": 1,
-        "type": "string",
-        "from": {
-          "type": "options_array",
-          "options": [
-            "arctic",
-            "coast",
-            "desert",
-            "forest",
-            "grassland",
-            "mountain",
-            "swamp"
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "terrain-type",
+      "from": [
+        "arctic",
+        "coast",
+        "desert",
+        "forest",
+        "grassland",
+        "mountain",
+        "swamp"
+      ]
     }
   },
   {
@@ -3800,28 +3381,13 @@
       "Volley",
       "Whirlwind Attack"
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "multiattack-volley"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "multiattack-whirlwind-attack"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "multiattack-volley",
+        "multiattack-whirlwind-attack"
+      ]
     }
   },
   {
@@ -3883,31 +3449,25 @@
       "When you gain this feature, you also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.",
       "You choose one additional favored enemy, as well as an associated language, at 6th and 14th level. As you gain levels, your choices should reflect the types of monsters you have encountered on your adventures."
     ],
-    "featureSpecific": {
-      "enemy_type_options": {
-        "desc": "one enemy type",
-        "choose": 1,
-        "type": "string",
-        "from": {
-          "type": "options_array",
-          "options": [
-            "aberrations",
-            "beasts",
-            "celestials",
-            "constructs",
-            "dragons",
-            "elementals",
-            "fey",
-            "fiends",
-            "giants",
-            "monstrosities",
-            "oozes",
-            "plants",
-            "undead",
-            "humanoids"
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "favored-enemy",
+      "from": [
+        "aberrations",
+        "beasts",
+        "celestials",
+        "constructs",
+        "dragons",
+        "elementals",
+        "fey",
+        "fiends",
+        "giants",
+        "monstrosities",
+        "oozes",
+        "plants",
+        "undead",
+        "humanoids"
+      ]
     }
   },
   {
@@ -3948,34 +3508,14 @@
       "Stand Against the Tide",
       "Uncanny Dodge"
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "superior-hunters-defense-evasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "superior-hunters-defense-stand-against-the-tide"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "superior-hunters-defense-uncanny-dodge"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "superior-hunters-defense-evasion",
+        "superior-hunters-defense-stand-against-the-tide",
+        "superior-hunters-defense-uncanny-dodge"
+      ]
     }
   },
   {
@@ -4085,267 +3625,30 @@
       "At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.",
       "At 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit"
     ],
-    "featureSpecific": {
-      "expertiseOptions": {
-        "choose": 1,
-        "type": "proficiency",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "choice",
-              "choice": {
-                "choose": 2,
-                "type": "proficiency",
-                "from": {
-                  "type": "options_array",
-                  "options": [
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-acrobatics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-animal-handling"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-arcana"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-athletics"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-deception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-history"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-insight"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-intimidation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-investigation"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-medicine"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-nature"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-perception"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-performance"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-persuasion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-religion"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-sleight-of-hand"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-stealth"
-                      }
-                    },
-                    {
-                      "type": "reference",
-                      "item": {
-                        "id": "skill-survival"
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "type": "multiple",
-              "items": [
-                {
-                  "type": "choice",
-                  "choice": {
-                    "choose": 1,
-                    "type": "proficiency",
-                    "from": {
-                      "type": "options_array",
-                      "options": [
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-acrobatics"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-animal-handling"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-arcana"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-athletics"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-deception"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-history"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-insight"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-intimidation"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-investigation"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-medicine"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-nature"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-perception"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-performance"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-persuasion"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-religion"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-sleight-of-hand"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-stealth"
-                          }
-                        },
-                        {
-                          "type": "reference",
-                          "item": {
-                            "id": "skill-survival"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                },
-                {
-                  "type": "reference",
-                  "item": {
-                    "id": "thieves-tools"
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "proficiency",
+      "from": [
+        "skill-acrobatics",
+        "skill-animal-handling",
+        "skill-arcana",
+        "skill-athletics",
+        "skill-deception",
+        "skill-history",
+        "skill-insight",
+        "skill-intimidation",
+        "skill-investigation",
+        "skill-medicine",
+        "skill-nature",
+        "skill-perception",
+        "skill-performance",
+        "skill-persuasion",
+        "skill-religion",
+        "skill-sleight-of-hand",
+        "skill-stealth",
+        "skill-survival",
+        "thieves-tools"
+      ]
     }
   },
   {
@@ -4457,130 +3760,30 @@
       "At 1st level, choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves' tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.",
       "At 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit"
     ],
-    "featureSpecific": {
-      "expertiseOptions": {
-        "choose": 2,
-        "type": "proficiency",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-acrobatics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-animal-handling"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-arcana"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-athletics"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-deception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-history"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-insight"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-intimidation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-investigation"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-medicine"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-nature"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-perception"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-performance"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-persuasion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-religion"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-sleight-of-hand"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-stealth"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "skill-survival"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "thieves-tools"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 2,
+      "type": "proficiency",
+      "from": [
+        "skill-acrobatics",
+        "skill-animal-handling",
+        "skill-arcana",
+        "skill-athletics",
+        "skill-deception",
+        "skill-history",
+        "skill-insight",
+        "skill-intimidation",
+        "skill-investigation",
+        "skill-medicine",
+        "skill-nature",
+        "skill-perception",
+        "skill-performance",
+        "skill-persuasion",
+        "skill-religion",
+        "skill-sleight-of-hand",
+        "skill-stealth",
+        "skill-survival",
+        "thieves-tools"
+      ]
     }
   },
   {
@@ -4818,76 +4021,21 @@
       "At 1st level, you choose one type of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.",
       "You can speak, read, and write Draconic. Additionally, whenever you make a Charisma check when interacting with dragons, your proficiency bonus is doubled if it applies to the check."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-black---acid-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-blue---lightning-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-brass---fire-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-bronze---lightning-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-copper---acid-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-gold---fire-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-green---poison-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-red---fire-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-silver---cold-damage"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "dragon-ancestor-white---cold-damage"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "dragon-ancestor-black---acid-damage",
+        "dragon-ancestor-blue---lightning-damage",
+        "dragon-ancestor-brass---fire-damage",
+        "dragon-ancestor-bronze---lightning-damage",
+        "dragon-ancestor-copper---acid-damage",
+        "dragon-ancestor-gold---fire-damage",
+        "dragon-ancestor-green---poison-damage",
+        "dragon-ancestor-red---fire-damage",
+        "dragon-ancestor-silver---cold-damage",
+        "dragon-ancestor-white---cold-damage"
+      ]
     }
   },
   {
@@ -5132,64 +4280,19 @@
       "At 3rd level, you gain the ability to twist your spells to suit your needs. You gain two of the following Metamagic options of your choice. You gain another one at 10th and 17th level.",
       "You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 2,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-careful-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-distant-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-empowered-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-extended-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-heightened-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-quickened-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-subtle-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-twinned-spell"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 2,
+      "type": "feature",
+      "from": [
+        "metamagic-careful-spell",
+        "metamagic-distant-spell",
+        "metamagic-empowered-spell",
+        "metamagic-extended-spell",
+        "metamagic-heightened-spell",
+        "metamagic-quickened-spell",
+        "metamagic-subtle-spell",
+        "metamagic-twinned-spell"
+      ]
     }
   },
   {
@@ -5364,64 +4467,19 @@
       "At 3rd level, you gain the ability to twist your spells to suit your needs. You gain two of the following Metamagic options of your choice. You gain another one at 10th and 17th level.",
       "You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-careful-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-distant-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-empowered-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-extended-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-heightened-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-quickened-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-subtle-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-twinned-spell"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "metamagic-careful-spell",
+        "metamagic-distant-spell",
+        "metamagic-empowered-spell",
+        "metamagic-extended-spell",
+        "metamagic-heightened-spell",
+        "metamagic-quickened-spell",
+        "metamagic-subtle-spell",
+        "metamagic-twinned-spell"
+      ]
     }
   },
   {
@@ -5484,64 +4542,19 @@
       "At 3rd level, you gain the ability to twist your spells to suit your needs. You gain two of the following Metamagic options of your choice. You gain another one at 10th and 17th level.",
       "You can use only one Metamagic option on a spell when you cast it, unless otherwise noted."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-careful-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-distant-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-empowered-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-extended-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-heightened-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-quickened-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-subtle-spell"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "metamagic-twinned-spell"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "metamagic-careful-spell",
+        "metamagic-distant-spell",
+        "metamagic-empowered-spell",
+        "metamagic-extended-spell",
+        "metamagic-heightened-spell",
+        "metamagic-quickened-spell",
+        "metamagic-subtle-spell",
+        "metamagic-twinned-spell"
+      ]
     }
   },
   {
@@ -5641,104 +4654,42 @@
       "At 2nd level, you gain two eldritch invocations of your choice. Your invocation options are detailed at the end of the class description. When you gain certain warlock levels, you gain additional invocations of your choice, as shown in the Invocations Known column of the Warlock table.",
       "Additionally, when you gain a level in this class, you can choose one of the invocations you know and replace it with another invocation that you could learn at that level."
     ],
-    "featureSpecific": {
-      "invocations": [
-        {
-          "id": "eldritch-invocation-agonizing-blast"
-        },
-        {
-          "id": "eldritch-invocation-armor-of-shadows"
-        },
-        {
-          "id": "eldritch-invocation-beast-speech"
-        },
-        {
-          "id": "eldritch-invocation-beguiling-influence"
-        },
-        {
-          "id": "eldritch-invocation-book-of-ancient-secrets"
-        },
-        {
-          "id": "eldritch-invocation-devils-sight"
-        },
-        {
-          "id": "eldritch-invocation-eldritch-sight"
-        },
-        {
-          "id": "eldritch-invocation-eldritch-spear"
-        },
-        {
-          "id": "eldritch-invocation-eyes-of-the-rune-keeper"
-        },
-        {
-          "id": "eldritch-invocation-fiendish-vigor"
-        },
-        {
-          "id": "eldritch-invocation-gaze-of-two-minds"
-        },
-        {
-          "id": "eldritch-invocation-mask-of-many-faces"
-        },
-        {
-          "id": "eldritch-invocation-misty-visions"
-        },
-        {
-          "id": "eldritch-invocation-repelling-blast"
-        },
-        {
-          "id": "eldritch-invocation-thief-of-five-fates"
-        },
-        {
-          "id": "eldritch-invocation-voice-of-the-chain-master"
-        },
-        {
-          "id": "eldritch-invocation-mire-the-mind"
-        },
-        {
-          "id": "eldritch-invocation-one-with-shadows"
-        },
-        {
-          "id": "eldritch-invocation-sign-of-ill-omen"
-        },
-        {
-          "id": "eldritch-invocation-thirsting-blade"
-        },
-        {
-          "id": "eldritch-invocation-bewitching-whispers"
-        },
-        {
-          "id": "eldritch-invocation-dreadful-word"
-        },
-        {
-          "id": "eldritch-invocation-sculptor-of-flesh"
-        },
-        {
-          "id": "eldritch-invocation-ascendant-step"
-        },
-        {
-          "id": "eldritch-invocation-minions-of-chaos"
-        },
-        {
-          "id": "eldritch-invocation-otherworldly-leap"
-        },
-        {
-          "id": "eldritch-invocation-whispers-of-the-grave"
-        },
-        {
-          "id": "eldritch-invocation-lifedrinker"
-        },
-        {
-          "id": "eldritch-invocation-chains-of-carceri"
-        },
-        {
-          "id": "eldritch-invocation-master-of-myriad-forms"
-        },
-        {
-          "id": "eldritch-invocation-visions-of-distant-realms"
-        },
-        {
-          "id": "eldritch-invocation-witch-sight"
-        }
+    "choice": {
+      "choose": 2,
+      "type": "feature",
+      "from": [
+        "eldritch-invocation-agonizing-blast",
+        "eldritch-invocation-armor-of-shadows",
+        "eldritch-invocation-beast-speech",
+        "eldritch-invocation-beguiling-influence",
+        "eldritch-invocation-book-of-ancient-secrets",
+        "eldritch-invocation-devils-sight",
+        "eldritch-invocation-eldritch-sight",
+        "eldritch-invocation-eldritch-spear",
+        "eldritch-invocation-eyes-of-the-rune-keeper",
+        "eldritch-invocation-fiendish-vigor",
+        "eldritch-invocation-gaze-of-two-minds",
+        "eldritch-invocation-mask-of-many-faces",
+        "eldritch-invocation-misty-visions",
+        "eldritch-invocation-repelling-blast",
+        "eldritch-invocation-thief-of-five-fates",
+        "eldritch-invocation-voice-of-the-chain-master",
+        "eldritch-invocation-mire-the-mind",
+        "eldritch-invocation-one-with-shadows",
+        "eldritch-invocation-sign-of-ill-omen",
+        "eldritch-invocation-thirsting-blade",
+        "eldritch-invocation-bewitching-whispers",
+        "eldritch-invocation-dreadful-word",
+        "eldritch-invocation-sculptor-of-flesh",
+        "eldritch-invocation-ascendant-step",
+        "eldritch-invocation-minions-of-chaos",
+        "eldritch-invocation-otherworldly-leap",
+        "eldritch-invocation-whispers-of-the-grave",
+        "eldritch-invocation-lifedrinker",
+        "eldritch-invocation-chains-of-carceri",
+        "eldritch-invocation-master-of-myriad-forms",
+        "eldritch-invocation-visions-of-distant-realms",
+        "eldritch-invocation-witch-sight"
       ]
     }
   },
@@ -6373,34 +5324,14 @@
     "desc": [
       "At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. You gain one of the following features of your choice."
     ],
-    "featureSpecific": {
-      "subfeature_options": {
-        "choose": 1,
-        "type": "feature",
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "reference",
-              "item": {
-                "id": "pact-of-the-chain"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "pact-of-the-blade"
-              }
-            },
-            {
-              "type": "reference",
-              "item": {
-                "id": "pact-of-the-tome"
-              }
-            }
-          ]
-        }
-      }
+    "choice": {
+      "choose": 1,
+      "type": "feature",
+      "from": [
+        "pact-of-the-chain",
+        "pact-of-the-blade",
+        "pact-of-the-tome"
+      ]
     }
   },
   {
