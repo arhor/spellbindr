@@ -8089,7 +8089,8 @@
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
         "features": [
-          "otherworldly-patron"
+          "otherworldly-patron",
+          "pact-magic"
         ],
         "spellcasting": {
           "cantrips": 2,
@@ -8133,7 +8134,9 @@
         "level": 3,
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
-        "features": [],
+        "features": [
+          "pact-boon"
+        ],
         "spellcasting": {
           "cantrips": 2,
           "spells": 4,
@@ -8154,7 +8157,9 @@
         "level": 4,
         "ability_score_bonuses": 1,
         "prof_bonus": 2,
-        "features": [        ],
+        "features": [
+          "warlock-ability-score-improvement-1"
+        ],
         "spellcasting": {
           "cantrips": 3,
           "spells": 5,
@@ -8197,7 +8202,7 @@
         "ability_score_bonuses": 1,
         "prof_bonus": 3,
         "features": [
-          
+          "otherworldly-patron-improvement-1"
         ],
         "spellcasting": {
           "cantrips": 3,
@@ -8241,7 +8246,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 3,
         "features": [
-          
+          "warlock-ability-score-improvement-2"
         ],
         "spellcasting": {
           "cantrips": 3,
@@ -8285,7 +8290,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 4,
         "features": [
-          
+          "otherworldly-patron-improvement-2"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8308,7 +8313,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 4,
         "features": [
-          
+          "mystic-arcanum-6th-level"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8331,7 +8336,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 4,
         "features": [
-          
+          "warlock-ability-score-improvement-3"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8377,7 +8382,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 5,
         "features": [
-          
+          "otherworldly-patron-improvement-3"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8400,7 +8405,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 5,
         "features": [
-          
+          "mystic-arcanum-8th-level"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8423,7 +8428,7 @@
         "ability_score_bonuses": 4,
         "prof_bonus": 5,
         "features": [
-          
+          "warlock-ability-score-improvement-4"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8446,7 +8451,7 @@
         "ability_score_bonuses": 4,
         "prof_bonus": 6,
         "features": [
-          
+          "mystic-arcanum-9th-level"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8490,7 +8495,7 @@
         "ability_score_bonuses": 5,
         "prof_bonus": 6,
         "features": [
-          
+          "warlock-ability-score-improvement-5"
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8513,7 +8518,7 @@
         "ability_score_bonuses": 5,
         "prof_bonus": 6,
         "features": [
-          
+          "eldritch-master"
         ],
         "spellcasting": {
           "cantrips": 4,
