@@ -673,22 +673,8 @@
             "id": "lore-3",
             "level": 3,
             "features": [
-              {
-                "id": "bonus-proficiencies",
-                "name": "Bonus Proficiencies",
-                "desc": [
-                  "When you join the College of Lore at 3rd level, you gain proficiency with three skills of your choice."
-                ]
-              },
-              {
-                "id": "cutting-words",
-                "name": "Cutting Words",
-                "desc": [
-                  "Also at 3rd level, you learn how to use your wit to distract, confuse, and otherwise sap the confidence and competence of others.",
-                  "When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature's roll.",
-                  "You can choose to use this feature after the creature makes its roll, but before the GM determines whether the attack roll or ability check succeeds or fails, or before the creature deals its damage. The creature is immune if it can't hear you or if it's immune to being charmed."
-                ]
-              }
+              "bonus-proficiencies",
+              "cutting-words"
             ],
             "subclass_specific": {
               "additional_magical_secrets_max_lvl": 0
@@ -698,13 +684,7 @@
             "id": "lore-6",
             "level": 6,
             "features": [
-              {
-                "id": "additional-magical-secrets",
-                "name": "Additional Magical Secrets",
-                "desc": [
-                  "At 6th level, you learn two spells of your choice from any class. A spell you choose must be of a level you can cast, as shown on the Bard table, or a cantrip. The chosen spells count as bard spells for you but don't count against the number of bard spells you know."
-                ]
-              }
+              "additional-magical-secrets"
             ],
             "subclass_specific": {
               "additional_magical_secrets_max_lvl": 3
@@ -714,13 +694,7 @@
             "id": "lore-14",
             "level": 14,
             "features": [
-              {
-                "id": "peerless-skill",
-                "name": "Peerless Skill",
-                "desc": [
-                  "Starting at 14th level, when you make an ability check, you can expend one use of Bardic Inspiration. Roll a Bardic Inspiration die and add the number rolled to your ability check. You can choose to do so after you roll the die for the ability check, but before the GM tells you whether you succeed or fail."
-                ]
-              }
+              "peerless-skill"
             ],
             "subclass_specific": {
               "additional_magical_secrets_max_lvl": 3
@@ -3071,19 +3045,19 @@
         ],
         "levels": [
           {
+            "id": "land-2",
             "level": 2,
             "features": [
               "bonus-cantrip",
               "natural-recovery"
-            ],
-            "id": "land-2"
+            ]
           },
           {
+            "id": "land-6",
             "level": 6,
             "features": [
               "druid-lands-stride"
-            ],
-            "id": "land-6"
+            ]
           },
           {
             "level": 10,
@@ -3093,11 +3067,11 @@
             "id": "land-10"
           },
           {
+            "id": "land-14",
             "level": 14,
             "features": [
               "natures-sanctuary"
-            ],
-            "id": "land-14"
+            ]
           }
         ]
       }
@@ -3847,39 +3821,39 @@
         ],
         "levels": [
           {
+            "id": "champion-3",
             "level": 3,
             "features": [
               "improved-critical"
-            ],
-            "id": "champion-3"
+            ]
           },
           {
+            "id": "champion-7",
             "level": 7,
             "features": [
               "remarkable-athlete"
-            ],
-            "id": "champion-7"
+            ]
           },
           {
+            "id": "champion-10",
             "level": 10,
             "features": [
               "additional-fighting-style"
-            ],
-            "id": "champion-10"
+            ]
           },
           {
+            "id": "champion-15",
             "level": 15,
             "features": [
               "superior-critical"
-            ],
-            "id": "champion-15"
+            ]
           },
           {
+            "id": "champion-18",
             "level": 18,
             "features": [
               "survivor"
-            ],
-            "id": "champion-18"
+            ]
           }
         ]
       }
@@ -4324,32 +4298,32 @@
         ],
         "levels": [
           {
+            "id": "open-hand-3",
             "level": 3,
             "features": [
               "open-hand-technique"
-            ],
-            "id": "open-hand-3"
+            ]
           },
           {
+            "id": "open-hand-6",
             "level": 6,
             "features": [
               "wholeness-of-body"
-            ],
-            "id": "open-hand-6"
+            ]
           },
           {
+            "id": "open-hand-11",
             "level": 11,
             "features": [
               "tranquility"
-            ],
-            "id": "open-hand-11"
+            ]
           },
           {
+            "id": "open-hand-17",
             "level": 17,
             "features": [
               "quivering-palm"
-            ],
-            "id": "open-hand-17"
+            ]
           }
         ]
       }
@@ -4988,50 +4962,50 @@
         ],
         "levels": [
           {
+            "id": "devotion-3",
             "level": 3,
             "features": [
               "channel-divinity-sacred-weapon",
               "channel-divinity-turn-the-unholy"
-            ],
-            "id": "devotion-3"
+            ]
           },
           {
+            "id": "devotion-7",
             "level": 7,
             "features": [
               "aura-of-devotion"
             ],
             "subclass_specific": {
               "aura_range": 10
-            },
-            "id": "devotion-7"
+            }
           },
           {
+            "id": "devotion-15",
             "level": 15,
             "features": [
               "purity-of-spirit"
             ],
             "subclass_specific": {
               "aura_range": 10
-            },
-            "id": "devotion-15"
+            }
           },
           {
+            "id": "devotion-18",
             "level": 18,
             "features": [],
             "subclass_specific": {
               "aura_range": 30
-            },
-            "id": "devotion-18"
+            }
           },
           {
             "level": 20,
+            "id": "devotion-20",
             "features": [
               "holy-nimbus"
             ],
             "subclass_specific": {
               "aura_range": 30
-            },
-            "id": "devotion-20"
+            }
           }
         ]
       }
@@ -5619,32 +5593,32 @@
         ],
         "levels": [
           {
+            "id": "hunter-3",
             "level": 3,
             "features": [
               "hunters-prey"
-            ],
-            "id": "hunter-3"
+            ]
           },
           {
+            "id": "hunter-7",
             "level": 7,
             "features": [
               "defensive-tactics"
-            ],
-            "id": "hunter-7"
+            ]
           },
           {
+            "id": "hunter-11",
             "level": 11,
             "features": [
               "multiattack"
-            ],
-            "id": "hunter-11"
+            ]
           },
           {
+            "id": "hunter-15",
             "level": 15,
             "features": [
               "superior-hunters-defense"
-            ],
-            "id": "hunter-15"
+            ]
           }
         ]
       }
@@ -6292,64 +6266,33 @@
         ],
         "levels": [
           {
+            "id": "thief-3",
             "level": 3,
             "features": [
-              {
-                "id": "fast-hands",
-                "name": "Fast Hands",
-                "desc": [
-                  "Starting at 3rd level, you can use the bonus action granted by your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves' tools to disarm a trap or open a lock, or take the Use an Object action."
-                ]
-              },
-              {
-                "id": "second-story-work",
-                "name": "Second-Story Work",
-                "desc": [
-                  "When you choose this archetype at 3rd level, you gain the ability to climb faster than normal; climbing no longer costs you extra movement.",
-                  "In addition, when you make a running jump, the distance you cover increases by a number of feet equal to your Dexterity modifier."
-                ]
-              }
-            ],
-            "id": "thief-3"
+              "fast-hands",
+              "second-story-work"
+            ]
           },
           {
+            "id": "thief-9",
             "level": 9,
             "features": [
-              {
-                "id": "supreme-sneak",
-                "name": "Supreme Sneak",
-                "desc": [
-                  "Starting at 9th level, you have advantage on a Dexterity (Stealth) check if you move no more than half your speed on the same turn."
-                ]
-              }
-            ],
-            "id": "thief-9"
+              "supreme-sneak"
+            ]
           },
           {
+            "id": "thief-13",
             "level": 13,
             "features": [
-              {
-                "id": "use-magic-device",
-                "name": "Use Magic Device",
-                "desc": [
-                  "By 13th level, you have learned enough about the workings of magic that you can improvise the use of items even when they are not intended for you. You ignore all class, race, and level requirements on the use of magic items."
-                ]
-              }
-            ],
-            "id": "thief-13"
+              "use-magic-device"
+            ]
           },
           {
+            "id": "thief-17",
             "level": 17,
             "features": [
-              {
-                "id": "thiefs-reflexes",
-                "name": "Thief's Reflexes",
-                "desc": [
-                  "When you reach 17th level, you have become adept at laying ambushes and quickly escaping danger. You can take two turns during the first round of any combat. You take your first turn at your normal initiative and your second turn at your initiative minus 10. You can't use this feature when you are surprised."
-                ]
-              }
-            ],
-            "id": "thief-17"
+              "thiefs-reflexes"
+            ]
           }
         ]
       }
@@ -6820,84 +6763,33 @@
         ],
         "levels": [
           {
+            "id": "draconic-1",
             "level": 1,
             "features": [
-              {
-                "id": "dragon-ancestor",
-                "name": "Dragon Ancestor",
-                "desc": [
-                  "At 1st level, you choose one type of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.",
-                  "You can speak, read, and write Draconic. Additionally, whenever you make a Charisma check when interacting with dragons, your proficiency bonus is doubled if it applies to the check."
-                ],
-                "featureSpecific": {
-                  "subfeatureOptions": {
-                    "choose": 1,
-                    "type": "feature",
-                    "from": [
-                      "dragon-ancestor-black---acid-damage",
-                      "dragon-ancestor-blue---lightning-damage",
-                      "dragon-ancestor-brass---fire-damage",
-                      "dragon-ancestor-bronze---lightning-damage",
-                      "dragon-ancestor-copper---acid-damage",
-                      "dragon-ancestor-gold---fire-damage",
-                      "dragon-ancestor-green---poison-damage",
-                      "dragon-ancestor-red---fire-damage",
-                      "dragon-ancestor-silver---cold-damage",
-                      "dragon-ancestor-white---cold-damage"
-                    ]
-                  }
-                }
-              },
-              {
-                "id": "draconic-resilience",
-                "name": "Draconic Resilience",
-                "desc": [
-                  "As magic flows through your body, it causes physical traits of your dragon ancestors to emerge. At 1st level, your hit point maximum increases by 1 and increases by 1 again whenever you gain a level in this class.",
-                  "Additionally, parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals 13 + your Dexterity modifier."
-                ]
-              }
-            ],
-            "id": "draconic-1"
+              "dragon-ancestor",
+              "draconic-resilience"
+            ]
           },
           {
+            "id": "draconic-6",
             "level": 6,
             "features": [
-              {
-                "id": "elemental-affinity",
-                "name": "Elemental Affinity",
-                "desc": [
-                  "Starting at 6th level, when you cast a spell that deals damage of the type associated with your draconic ancestry, you can add your Charisma modifier to one damage roll of that spell. At the same time, you can spend 1 sorcery point to gain resistance to that damage type for 1 hour."
-                ]
-              }
-            ],
-            "id": "draconic-6"
+              "elemental-affinity"
+            ]
           },
           {
+            "id": "draconic-14",
             "level": 14,
             "features": [
-              {
-                "id": "dragon-wings",
-                "name": "Dragon Wings",
-                "desc": [
-                  "At 14th level, you gain the ability to sprout a pair of dragon wings from your back, gaining a flying speed equal to your current speed. You can create these wings as a bonus action on your turn. They last until you dismiss them as a bonus action on your turn.",
-                  "You can't manifest your wings while wearing armor unless the armor is made to accommodate them, and clothing not made to accommodate your wings might be destroyed when you manifest them."
-                ]
-              }
-            ],
-            "id": "draconic-14"
+              "dragon-wings"
+            ]
           },
           {
+            "id": "draconic-18",
             "level": 18,
             "features": [
-              {
-                "id": "draconic-presence",
-                "name": "Draconic Presence",
-                "desc": [
-                  "Beginning at 18th level, you can channel the dread presence of your dragon ancestor, causing those around you to become awestruck or frightened. As an action, you can spend 5 sorcery points to draw on this power and exude an aura of awe or fear (your choice) to a distance of 60 feet. For 1 minute or until you lose your concentration (as if you were casting a concentration spell), each hostile creature that starts its turn in this aura must succeed on a Wisdom saving throw or be charmed (if you chose awe) or frightened (if you chose fear) until the aura ends. A creature that succeeds on this saving throw is immune to your aura for 24 hours."
-                ]
-              }
-            ],
-            "id": "draconic-18"
+              "draconic-presence"
+            ]
           }
         ]
       }
@@ -8116,59 +8008,32 @@
         ],
         "levels": [
           {
+            "id": "fiend-1",
             "level": 1,
             "features": [
-              {
-                "id": "dark-ones-blessing",
-                "name": "Dark One's Blessing",
-                "desc": [
-                  "Starting at 1st level, when you reduce a hostile creature to 0 hit points, you gain temporary hit points equal to your Charisma modifier + your warlock level (minimum of 1)."
-                ]
-              }
-            ],
-            "id": "fiend-1"
+              "dark-ones-blessing"
+            ]
           },
           {
+            "id": "fiend-6",
             "level": 6,
             "features": [
-              {
-                "id": "dark-ones-own-luck",
-                "name": "Dark One's Own Luck",
-                "desc": [
-                  "Starting at 6th level, you can call on your patron to alter fate in your favor. When you make an ability check or a saving throw, you can use this feature to add a d10 to your roll. You can do so after seeing the initial roll but before any of the roll's effects occur.",
-                  "Once you use this feature, you can't use it again until you finish a short or long rest."
-                ]
-              }
-            ],
-            "id": "fiend-6"
+              "dark-ones-own-luck"
+            ]
           },
           {
+            "id": "fiend-10",
             "level": 10,
             "features": [
-              {
-                "id": "fiendish-resilience",
-                "name": "Fiendish Resilience",
-                "desc": [
-                  "Starting at 10th level, you can choose one damage type when you finish a short or long rest. You gain resistance to that damage type until you choose a different one with this feature. Damage from magical weapons or silver weapons ignores this resistance."
-                ]
-              }
-            ],
-            "id": "fiend-10"
+              "fiendish-resilience"
+            ]
           },
           {
+            "id": "fiend-14",
             "level": 14,
             "features": [
-              {
-                "id": "hurl-through-hell",
-                "name": "Hurl Through Hell",
-                "desc": [
-                  "Starting at 14th level, when you hit a creature with an attack, you can use this feature to instantly transport the target through the lower planes. The creature disappears and hurtles through a nightmare landscape.",
-                  "At the end of your next turn, the target returns to the space it previously occupied, or the nearest unoccupied space. If the target is not a fiend, it takes 10d10 psychic damage as it reels from its horrific experience.",
-                  "Once you use this feature, you can't use it again until you finish a long rest."
-                ]
-              }
-            ],
-            "id": "fiend-14"
+              "hurl-through-hell"
+            ]
           }
         ]
       }
@@ -8219,12 +8084,12 @@
     },
     "levels": [
       {
+        "id": "warlock-1",
         "level": 1,
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
         "features": [
-          null,
-          null
+          "otherworldly-patron"
         ],
         "spellcasting": {
           "cantrips": 2,
@@ -8239,15 +8104,14 @@
           "mystic_arcanum_level_7": 0,
           "mystic_arcanum_level_8": 0,
           "mystic_arcanum_level_9": 0
-        },
-        "id": "warlock-1"
+        }
       },
       {
         "level": 2,
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
         "features": [
-          null
+          "eldritch-invocations"
         ],
         "spellcasting": {
           "cantrips": 2,
@@ -8269,9 +8133,7 @@
         "level": 3,
         "ability_score_bonuses": 0,
         "prof_bonus": 2,
-        "features": [
-          null
-        ],
+        "features": [],
         "spellcasting": {
           "cantrips": 2,
           "spells": 4,
@@ -8292,9 +8154,7 @@
         "level": 4,
         "ability_score_bonuses": 1,
         "prof_bonus": 2,
-        "features": [
-          null
-        ],
+        "features": [        ],
         "spellcasting": {
           "cantrips": 3,
           "spells": 5,
@@ -8337,7 +8197,7 @@
         "ability_score_bonuses": 1,
         "prof_bonus": 3,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 3,
@@ -8381,7 +8241,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 3,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 3,
@@ -8425,7 +8285,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 4,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8448,7 +8308,7 @@
         "ability_score_bonuses": 2,
         "prof_bonus": 4,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8471,7 +8331,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 4,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8517,7 +8377,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 5,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8540,7 +8400,7 @@
         "ability_score_bonuses": 3,
         "prof_bonus": 5,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8563,7 +8423,7 @@
         "ability_score_bonuses": 4,
         "prof_bonus": 5,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8586,7 +8446,7 @@
         "ability_score_bonuses": 4,
         "prof_bonus": 6,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8630,7 +8490,7 @@
         "ability_score_bonuses": 5,
         "prof_bonus": 6,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8653,7 +8513,7 @@
         "ability_score_bonuses": 5,
         "prof_bonus": 6,
         "features": [
-          null
+          
         ],
         "spellcasting": {
           "cantrips": 4,
@@ -8799,64 +8659,33 @@
         ],
         "levels": [
           {
+            "id": "evocation-2",
             "level": 2,
             "features": [
-              {
-                "id": "evocation-savant",
-                "name": "Evocation Savant",
-                "desc": [
-                  "Beginning when you select this school at 2nd level, the gold and time you must spend to copy an evocation spell into your spellbook is halved."
-                ]
-              },
-              {
-                "id": "sculpt-spells",
-                "name": "Sculpt Spells",
-                "desc": [
-                  "Beginning at 2nd level, you can create pockets of relative safety within the effects of your evocation spells. When you cast an evocation spell that affects other creatures that you can see, you can choose a number of them equal to 1 + the spell's level. The chosen creatures automatically succeed on their saving throws against the spell, and they take no damage if they would normally take half damage on a successful save."
-                ]
-              }
-            ],
-            "id": "evocation-2"
+              "evocation-savant",
+              "sculpt-spells"
+            ]
           },
           {
+            "id": "evocation-6",
             "level": 6,
             "features": [
-              {
-                "id": "potent-cantrip",
-                "name": "Potent Cantrip",
-                "desc": [
-                  "Starting at 6th level, your damaging cantrips affect even creatures that avoid the brunt of the effect. When a creature succeeds on a saving throw against your cantrip, the creature takes half the cantrip's damage (if any) but suffers no additional effect from the cantrip."
-                ]
-              }
-            ],
-            "id": "evocation-6"
+              "potent-cantrip"
+            ]
           },
           {
+            "id": "evocation-10",
             "level": 10,
             "features": [
-              {
-                "id": "empowered-evocation",
-                "name": "Empowered Evocation",
-                "desc": [
-                  "Beginning at 10th level, you can add your Intelligence modifier to one damage roll of any wizard evocation spell you cast."
-                ]
-              }
-            ],
-            "id": "evocation-10"
+              "empowered-evocation"
+            ]
           },
           {
+            "id": "evocation-14",
             "level": 14,
             "features": [
-              {
-                "id": "overchannel",
-                "name": "Overchannel",
-                "desc": [
-                  "Starting at 14th level, you can increase the power of your simpler spells. When you cast a wizard spell of 1st through 5th level that deals damage, you can deal maximum damage with that spell.",
-                  "The first time you do so, you suffer no adverse effect. If you use this feature again before you finish a long rest, you take 2d12 necrotic damage for each level of the spell, immediately after you cast it. Each time you use this feature again before finishing a long rest, the necrotic damage per spell level increases by 1d12. This damage ignores resistance and immunity."
-                ]
-              }
-            ],
-            "id": "evocation-14"
+              "overchannel"
+            ]
           }
         ]
       }
