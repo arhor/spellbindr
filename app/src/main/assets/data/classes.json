@@ -1394,9 +1394,7 @@
               "prerequisites": [
                 {
                   "type": "proficiency",
-                  "proficiency": {
-                    "id": "warhammers"
-                  }
+                  "id": "warhammers"
                 }
               ]
             }
@@ -1433,9 +1431,7 @@
               "prerequisites": [
                 {
                   "type": "proficiency",
-                  "proficiency": {
-                    "id": "chain-mail"
-                  }
+                  "id": "chain-mail"
                 }
               ]
             }
@@ -1550,101 +1546,83 @@
           {
             "prerequisites": [
               {
-                "id": "cleric-1",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-1"
               }
             ],
-            "spell": {
-              "id": "bless"
-            }
+            "spell": "bless"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-1",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-1"
               }
             ],
-            "spell": {
-              "id": "cure-wounds"
-            }
+            "spell": "cure-wounds"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-3"
               }
             ],
-            "spell": {
-              "id": "lesser-restoration"
-            }
+            "spell": "lesser-restoration"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-3"
               }
             ],
-            "spell": {
-              "id": "spiritual-weapon"
-            }
+            "spell": "spiritual-weapon"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-5"
               }
             ],
-            "spell": {
-              "id": "beacon-of-hope"
-            }
+            "spell": "beacon-of-hope"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-5"
               }
             ],
-            "spell": {
-              "id": "revivify"
-            }
+            "spell": "revivify"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-7"
               }
             ],
-            "spell": {
-              "id": "death-ward"
-            }
+            "spell": "death-ward"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-9"
               }
             ],
-            "spell": {
-              "id": "mass-cure-wounds"
-            }
+            "spell": "mass-cure-wounds"
           },
           {
             "prerequisites": [
               {
-                "id": "cleric-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "cleric-9"
               }
             ],
-            "spell": {
-              "id": "raise-dead"
-            }
+            "spell": "raise-dead"
           }
         ],
         "levels": [
@@ -2365,842 +2343,730 @@
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "hold-person"
-            }
+            "spell": "hold-person"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "spike-growth"
-            }
+            "spell": "spike-growth"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "sleet-storm"
-            }
+            "spell": "sleet-storm"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "slow"
-            }
+            "spell": "slow"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "freedom-of-movement"
-            }
+            "spell": "freedom-of-movement"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "ice-storm"
-            }
+            "spell": "ice-storm"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "commune-with-nature"
-            }
+            "spell": "commune-with-nature"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-arctic",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-arctic"
               }
             ],
-            "spell": {
-              "id": "cone-of-cold"
-            }
+            "spell": "cone-of-cold"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "mirror-image"
-            }
+            "spell": "mirror-image"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "misty-step"
-            }
+            "spell": "misty-step"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "water-breathing"
-            }
+            "spell": "water-breathing"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "water-walk"
-            }
+            "spell": "water-walk"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "control-water"
-            }
+            "spell": "control-water"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "freedom-of-movement"
-            }
+            "spell": "freedom-of-movement"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "conjure-elemental"
-            }
+            "spell": "conjure-elemental"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-coast",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-coast"
               }
             ],
-            "spell": {
-              "id": "scrying"
-            }
+            "spell": "scrying"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "blur"
-            }
+            "spell": "blur"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "silence"
-            }
+            "spell": "silence"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "create-food-and-water"
-            }
+            "spell": "create-food-and-water"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "protection-from-energy"
-            }
+            "spell": "protection-from-energy"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "blight"
-            }
+            "spell": "blight"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "hallucinatory-terrain"
-            }
+            "spell": "hallucinatory-terrain"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "insect-plague"
-            }
+            "spell": "insect-plague"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-desert",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-desert"
               }
             ],
-            "spell": {
-              "id": "wall-of-stone"
-            }
+            "spell": "wall-of-stone"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "barkskin"
-            }
+            "spell": "barkskin"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "spider-climb"
-            }
+            "spell": "spider-climb"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "call-lightning"
-            }
+            "spell": "call-lightning"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "plant-growth"
-            }
+            "spell": "plant-growth"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "divination"
-            }
+            "spell": "divination"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "freedom-of-movement"
-            }
+            "spell": "freedom-of-movement"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "commune-with-nature"
-            }
+            "spell": "commune-with-nature"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-forest",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-forest"
               }
             ],
-            "spell": {
-              "id": "tree-stride"
-            }
+            "spell": "tree-stride"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
+              },
+              {
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
+              }
+            ],
+            "spell": "invisibility"
+          },
+          {
+            "prerequisites": [
+              {
+                "type": "class-level",
+                "id": "druid-3"
+              },
+              {
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
+              }
+            ],
+            "spell": "pass-without-trace"
+          },
+          {
+            "prerequisites": [
+              {
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
                 "id": "circle-of-the-land-grassland",
                 "type": "feature"
               }
             ],
-            "spell": {
-              "id": "invisibility"
-            }
+            "spell": "daylight"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
               }
             ],
-            "spell": {
-              "id": "pass-without-trace"
-            }
+            "spell": "haste"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
               }
             ],
-            "spell": {
-              "id": "daylight"
-            }
+            "spell": "divination"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
               }
             ],
-            "spell": {
-              "id": "haste"
-            }
+            "spell": "freedom-of-movement"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
               }
             ],
-            "spell": {
-              "id": "divination"
-            }
+            "spell": "dream"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-grassland"
               }
             ],
-            "spell": {
-              "id": "freedom-of-movement"
-            }
+            "spell": "insect-plague"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "dream"
-            }
+            "spell": "spider-climb"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-grassland",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "insect-plague"
-            }
+            "spell": "spike-growth"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "spider-climb"
-            }
+            "spell": "lightning-bolt"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "spike-growth"
-            }
+            "spell": "meld-into-stone"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "lightning-bolt"
-            }
+            "spell": "stone-shape"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "meld-into-stone"
-            }
+            "spell": "stoneskin"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "stone-shape"
-            }
+            "spell": "passwall"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-mountain"
               }
             ],
-            "spell": {
-              "id": "stoneskin"
-            }
+            "spell": "wall-of-stone"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "passwall"
-            }
+            "spell": "acid-arrow"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-3"
               },
               {
-                "id": "circle-of-the-land-mountain",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "wall-of-stone"
-            }
+            "spell": "darkness"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "acid-arrow"
-            }
+            "spell": "water-walk"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-5"
               },
               {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "darkness"
-            }
+            "spell": "stinking-cloud"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "water-walk"
-            }
+            "spell": "freedom-of-movement"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-7"
               },
               {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "stinking-cloud"
-            }
+            "spell": "locate-creature"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "freedom-of-movement"
-            }
+            "spell": "insect-plague"
           },
           {
             "prerequisites": [
               {
-                "id": "druid-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "druid-9"
               },
               {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
+                "type": "feature",
+                "id": "circle-of-the-land-swamp"
               }
             ],
-            "spell": {
-              "id": "locate-creature"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level"
-              },
-              {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
-              }
-            ],
-            "spell": {
-              "id": "insect-plague"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "druid-9",
-                "type": "level"
-              },
-              {
-                "id": "circle-of-the-land-swamp",
-                "type": "feature"
-              }
-            ],
-            "spell": {
-              "id": "scrying"
-            }
+            "spell": "scrying"
           }
         ],
         "levels": [
@@ -5032,112 +4898,92 @@
           {
             "prerequisites": [
               {
-                "id": "paladin-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-3"
               }
             ],
-            "spell": {
-              "id": "protection-from-evil-and-good"
-            }
+            "spell": "protection-from-evil-and-good"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-3"
               }
             ],
-            "spell": {
-              "id": "sanctuary"
-            }
+            "spell": "sanctuary"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-5"
               }
             ],
-            "spell": {
-              "id": "lesser-restoration"
-            }
+            "spell": "lesser-restoration"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-5"
               }
             ],
-            "spell": {
-              "id": "zone-of-truth"
-            }
+            "spell": "zone-of-truth"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-9"
               }
             ],
-            "spell": {
-              "id": "beacon-of-hope"
-            }
+            "spell": "beacon-of-hope"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-9"
               }
             ],
-            "spell": {
-              "id": "dispel-magic"
-            }
+            "spell": "dispel-magic"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-13",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-13"
               }
             ],
-            "spell": {
-              "id": "freedom-of-movement"
-            }
+            "spell": "freedom-of-movement"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-13",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-13"
               }
             ],
-            "spell": {
-              "id": "guardian-of-faith"
-            }
+            "spell": "guardian-of-faith"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-17",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-17"
               }
             ],
-            "spell": {
-              "id": "commune"
-            }
+            "spell": "commune"
           },
           {
             "prerequisites": [
               {
-                "id": "paladin-17",
-                "type": "level"
+                "type": "class-level",
+                "id": "paladin-17"
               }
             ],
-            "spell": {
-              "id": "flame-strike"
-            }
+            "spell": "flame-strike"
           }
         ],
         "levels": [
@@ -8180,112 +8026,92 @@
           {
             "prerequisites": [
               {
-                "id": "warlock-1",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-1"
               }
             ],
-            "spell": {
-              "id": "burning-hands"
-            }
+            "spell": "burning-hands"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-1",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-1"
               }
             ],
-            "spell": {
-              "id": "command"
-            }
+            "spell": "command"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-3"
               }
             ],
-            "spell": {
-              "id": "blindness-deafness"
-            }
+            "spell": "blindness-deafness"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-3",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-3"
               }
             ],
-            "spell": {
-              "id": "scorching-ray"
-            }
+            "spell": "scorching-ray"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-5"
               }
             ],
-            "spell": {
-              "id": "fireball"
-            }
+            "spell": "fireball"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-5",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-5"
               }
             ],
-            "spell": {
-              "id": "stinking-cloud"
-            }
+            "spell": "stinking-cloud"
+          },
+          {
+            "spell": "fire-shield",
+            "prerequisites": [
+              {
+                "type": "class-level",
+                "id": "warlock-7"
+              }
+            ]
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-7"
               }
             ],
-            "spell": {
-              "id": "fire-shield"
-            }
+            "spell": "wall-of-fire"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-7",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-9"
               }
             ],
-            "spell": {
-              "id": "wall-of-fire"
-            }
+            "spell": "flame-strike"
           },
           {
             "prerequisites": [
               {
-                "id": "warlock-9",
-                "type": "level"
+                "type": "class-level",
+                "id": "warlock-9"
               }
             ],
-            "spell": {
-              "id": "flame-strike"
-            }
-          },
-          {
-            "prerequisites": [
-              {
-                "id": "warlock-9",
-                "type": "level"
-              }
-            ],
-            "spell": {
-              "id": "hallow"
-            }
+            "spell": "hallow"
           }
         ],
         "levels": [

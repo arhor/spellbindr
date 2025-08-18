@@ -24,25 +24,47 @@ sealed interface Prerequisite {
     ) : Prerequisite
 
     /**
+     * Requires a specific class level to access the feature.
+     *
+     * @property id The id of the class level required.
+     */
+    @Serializable
+    @SerialName("class-level")
+    data class ClassLevelPrerequisite(
+        val id: String,
+    ) : Prerequisite
+
+    /**
      * Requires a specific feature to be already known.
      *
-     * @property feature The id of the required feature.
+     * @property id The id of the required feature.
      */
     @Serializable
     @SerialName("feature")
     data class FeaturePrerequisite(
-        val feature: String,
+        val id: String,
     ) : Prerequisite
 
     /**
      * Requires knowledge of a particular spell as a condition.
      *
-     * @property spell The id of the required spell.
+     * @property id The id of the required spell.
      */
     @Serializable
     @SerialName("spell")
     data class SpellPrerequisite(
-        val spell: String,
+        val id: String,
+    ) : Prerequisite
+
+    /**
+     * Requires proficiency in a specific skill or tool.
+     *
+     * @property id The id of the required proficiency.
+     */
+    @Serializable
+    @SerialName("proficiency")
+    data class ProficiencyPrerequisite(
+        val id: String,
     ) : Prerequisite
 
     /**
