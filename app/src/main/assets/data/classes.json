@@ -120,53 +120,28 @@
             "id": "berserker-3",
             "level": 3,
             "features": [
-              {
-                "id": "frenzy",
-                "name": "Frenzy",
-                "desc": [
-                  "Starting when you choose this path at 3rd level, you can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion (as described in appendix A)."
-                ]
-              }
+              "frenzy"
             ]
           },
           {
             "id": "berserker-6",
             "level": 6,
             "features": [
-              {
-                "id": "mindless-rage",
-                "name": "Mindless Rage",
-                "desc": [
-                  "Beginning at 6th level, you can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage."
-                ]
-              }
+              "mindless-rage"
             ]
           },
           {
             "id": "berserker-10",
             "level": 10,
             "features": [
-              {
-                "id": "intimidating-presence",
-                "name": "Intimidating Presence",
-                "desc": [
-                  "Beginning at 10th level, you can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency bonus + your Charisma modifier) or be frightened of you until the end of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened creature until the end of your next turn. This effect ends if the creature ends its turn out of line of sight or more than 60 feet away from you.",
-                  " If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours."
-                ]
-              }
+              "intimidating-presence"
             ]
           },
           {
             "id": "berserker-14",
             "level": 14,
             "features": [
-              {
-                "id": "retaliation",
-                "name": "Retaliation",
-                "desc": [
-                  "Starting at 14th level, when you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon Attack against that creature."
-                ]
-              }
+              "retaliation"
             ]
           }
         ]
@@ -1673,74 +1648,36 @@
           {
             "level": 1,
             "features": [
-              {
-                "id": "bonus-proficiency",
-                "name": "Bonus Proficiency",
-                "desc": [
-                  "When you choose this domain at 1st level, you gain proficiency with heavy armor."
-                ]
-              },
-              {
-                "id": "disciple-of-life",
-                "name": "Disciple of Life",
-                "desc": [
-                  "Also starting at 1st level, your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell's level."
-                ]
-              }
+              "bonus-proficiency",
+              "disciple-of-life"
             ],
             "id": "life-1"
           },
           {
             "level": 2,
             "features": [
-              {
-                "id": "channel-divinity-preserve-life",
-                "name": "Channel Divinity: Preserve Life",
-                "desc": [
-                  "Starting at 2nd level, you can use your Channel Divinity to heal the badly injured.",
-                  "As an action, you present your holy symbol and evoke healing energy that can restore a number of hit points equal to five times your cleric level.",
-                  "Choose any creatures within 30 feet of you, and divide those hit points among them. This feature can restore a creature to no more than half of its hit point maximum. You can't use this feature on an undead or a construct."
-                ]
-              }
+              "channel-divinity-preserve-life"
             ],
             "id": "life-2"
           },
           {
             "level": 6,
             "features": [
-              {
-                "id": "blessed-healer",
-                "name": "Blessed Healer",
-                "desc": [
-                  "Beginning at 6th level, the healing spells you cast on others heal you as well. When you cast a spell of 1st level or higher that restores hit points to a creature other than you, you regain hit points equal to 2 + the spell's level."
-                ]
-              }
+              "blessed-healer"
             ],
             "id": "life-6"
           },
           {
             "level": 8,
             "features": [
-              {
-                "id": "divine-strike",
-                "name": "Divine Strike",
-                "desc": [
-                  "At 8th level, you gain the ability to infuse your weapon strikes with divine energy. Once on each of your turns when you hit a creature with a weapon attack, you can cause the attack to deal an extra 1d8 radiant damage to the target. When you reach 14th level, the extra damage increases to 2d8."
-                ]
-              }
+              "divine-strike"
             ],
             "id": "life-8"
           },
           {
             "level": 17,
             "features": [
-              {
-                "id": "supreme-healing",
-                "name": "Supreme Healing",
-                "desc": [
-                  "Starting at 17th level, when you would normally roll one or more dice to restore hit points with a spell, you instead use the highest number possible for each die. For example, instead of restoring 2d6 hit points to a creature, you restore 12."
-                ]
-              }
+              "supreme-healing"
             ],
             "id": "life-17"
           }
@@ -3266,61 +3203,29 @@
           {
             "level": 2,
             "features": [
-              {
-                "id": "bonus-cantrip",
-                "name": "Bonus Cantrip",
-                "desc": [
-                  "When you choose this circle at 2nd level, you learn one additional druid cantrip of your choice."
-                ]
-              },
-              {
-                "id": "natural-recovery",
-                "name": "Natural Recovery",
-                "desc": [
-                  "Starting at 2nd level, you can regain some of your magical energy by sitting in meditation and communing with nature. During a short rest, you choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your druid level (rounded up), and none of the slots can be 6th level or higher. You can't use this feature again until you finish a long rest.",
-                  "For example, when you are a 4th-level druid, you can recover up to two levels worth of spell slots. You can recover either a 2nd-level slot or two 1st-level slots."
-                ]
-              }
+              "bonus-cantrip",
+              "natural-recovery"
             ],
             "id": "land-2"
           },
           {
             "level": 6,
             "features": [
-              {
-                "id": "druid-lands-stride",
-                "name": "Land's Stride",
-                "desc": [
-                  "Starting at 6th level, moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard.",
-                  "In addition, you have advantage on saving throws against plants that are magically created or manipulated to impede movement, such those created by the entangle spell."
-                ]
-              }
+              "druid-lands-stride"
             ],
             "id": "land-6"
           },
           {
             "level": 10,
             "features": [
-              {
-                "id": "natures-ward",
-                "name": "Nature's Ward",
-                "desc": [
-                  "When you reach 10th level, you can't be charmed or frightened by elementals or fey, and you are immune to poison and disease."
-                ]
-              }
+              "natures-ward"
             ],
             "id": "land-10"
           },
           {
             "level": 14,
             "features": [
-              {
-                "id": "natures-sanctuary",
-                "name": "Nature's Sanctuary",
-                "desc": [
-                  "When you reach 14th level, creatures of the natural world sense your connection to nature and become hesitant to attack you. When a beast or plant creature attacks you, that creature must make a Wisdom saving throw against your druid spell save DC. On a failed save, the creature must choose a different target, or the attack automatically misses. On a successful save, the creature is immune to this effect for 24 hours. The creature is aware of this effect before it makes its attack against you."
-                ]
-              }
+              "natures-sanctuary"
             ],
             "id": "land-14"
           }
@@ -4086,79 +3991,35 @@
           {
             "level": 3,
             "features": [
-              {
-                "id": "improved-critical",
-                "name": "Improved Critical",
-                "desc": [
-                  "Beginning when you choose this archetype at 3rd level, your weapon attacks score a critical hit on a roll of 19 or 20."
-                ]
-              }
+              "improved-critical"
             ],
             "id": "champion-3"
           },
           {
             "level": 7,
             "features": [
-              {
-                "id": "remarkable-athlete",
-                "name": "Remarkable Athlete",
-                "desc": [
-                  "Starting at 7th level, you can add half your proficiency bonus (round up) to any Strength, Dexterity, or Constitution check you make that doesn't already use your proficiency bonus. In addition, when you make a running long jump, the distance you can cover increases by a number of feet equal to your Strength modifier."
-                ]
-              }
+              "remarkable-athlete"
             ],
             "id": "champion-7"
           },
           {
             "level": 10,
             "features": [
-              {
-                "id": "additional-fighting-style",
-                "name": "Additional Fighting Style",
-                "desc": [
-                  "At 10th level, you can choose a second option from the Fighting Style class feature."
-                ],
-                "featureSpecific": {
-                  "subfeatureOptions": {
-                    "choose": 1,
-                    "type": "feature",
-                    "from": [
-                      "fighter-fighting-style-archery",
-                      "fighter-fighting-style-defense",
-                      "fighter-fighting-style-dueling",
-                      "fighter-fighting-style-great-weapon-fighting",
-                      "fighter-fighting-style-protection",
-                      "fighter-fighting-style-two-weapon-fighting"
-                    ]
-                  }
-                }
-              }
+              "additional-fighting-style"
             ],
             "id": "champion-10"
           },
           {
             "level": 15,
             "features": [
-              {
-                "id": "superior-critical",
-                "name": "Superior Critical",
-                "desc": [
-                  "Starting at 15th level, your weapon attacks score a critical hit on a roll of 18-20."
-                ]
-              }
+              "superior-critical"
             ],
             "id": "champion-15"
           },
           {
             "level": 18,
             "features": [
-              {
-                "id": "survivor",
-                "name": "Survivor",
-                "desc": [
-                  "At 18th level, you attain the pinnacle of resilience in battle. At the start of each of your turns, you regain hit points equal to 5 + your Constitution modifier if you have no more than half of your hit points left. You don't gain this benefit if you have 0 hit points."
-                ]
-              }
+              "survivor"
             ],
             "id": "champion-18"
           }
@@ -4611,56 +4472,28 @@
           {
             "level": 3,
             "features": [
-              {
-                "id": "open-hand-technique",
-                "name": "Open Hand Technique",
-                "desc": [
-                  "Starting when you choose this tradition at 3rd level, you can manipulate your enemy's ki when you harness your own. Whenever you hit a creature with one of the attacks granted by your Flurry of Blows, you can impose one of the following effects on that target:",
-                  "- It must succeed on a Dexterity saving throw or be knocked prone.",
-                  "- It must make a Strength saving throw. If it fails, you can push it up to 15 feet away from you.",
-                  "- It can't take reactions until the end of your next turn."
-                ]
-              }
+              "open-hand-technique"
             ],
             "id": "open-hand-3"
           },
           {
             "level": 6,
             "features": [
-              {
-                "id": "wholeness-of-body",
-                "name": "Wholeness of Body",
-                "desc": [
-                  "At 6th level, you gain the ability to heal yourself. As an action, you can regain hit points equal to three times your monk level. You must finish a long rest before you can use this feature again."
-                ]
-              }
+              "wholeness-of-body"
             ],
             "id": "open-hand-6"
           },
           {
             "level": 11,
             "features": [
-              {
-                "id": "tranquility",
-                "name": "Tranquility",
-                "desc": [
-                  "Beginning at 11th level, you can enter a special meditation that surrounds you with an aura of peace. At the end of a long rest, you gain the effect of a sanctuary spell that lasts until the start of your next long rest (the spell can end early as normal). The saving throw DC for the spell equals 8 + your Wisdom modifier + your proficiency bonus."
-                ]
-              }
+              "tranquility"
             ],
             "id": "open-hand-11"
           },
           {
             "level": 17,
             "features": [
-              {
-                "id": "quivering-palm",
-                "name": "Quivering Palm",
-                "desc": [
-                  "At 17th level, you gain the ability to set up lethal vibrations in someone's body. When you hit a creature with an unarmed strike, you can spend 3 ki points to start these imperceptible vibrations, which last for a number of days equal to your monk level. The vibrations are harmless unless you use your action to end them. To do so, you and the target must be on the same plane of existence. When you use this action, the creature must make a Constitution saving throw. If it fails, it is reduced to 0 hit points. If it succeeds, it takes 10d10 necrotic damage.",
-                  "You can have only one creature under the effect of this feature at a time. You can choose to end the vibrations harmlessly without using an action."
-                ]
-              }
+              "quivering-palm"
             ],
             "id": "open-hand-17"
           }
@@ -5327,36 +5160,15 @@
           {
             "level": 3,
             "features": [
-              {
-                "id": "channel-divinity-sacred-weapon",
-                "name": "Channel Divinity: Sacred Weapon",
-                "desc": [
-                  "As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity. For 1 minute, you add your Charisma modifier to attack rolls made with that weapon (with a minimum bonus of +1). The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. If the weapon is not already magical, it becomes magical for the duration.",
-                  "You can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends."
-                ]
-              },
-              {
-                "id": "channel-divinity-turn-the-unholy",
-                "name": "Channel Divinity: Turn the Unholy",
-                "desc": [
-                  "As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw. If the creature fails its saving throw, it is turned for 1 minute or until it takes damage.",
-                  "A turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action."
-                ]
-              }
+              "channel-divinity-sacred-weapon",
+              "channel-divinity-turn-the-unholy"
             ],
             "id": "devotion-3"
           },
           {
             "level": 7,
             "features": [
-              {
-                "id": "aura-of-devotion",
-                "name": "Aura of Devotion",
-                "desc": [
-                  "Starting at 7th level, you and friendly creatures within 10 feet of you can't be charmed while you are conscious.",
-                  "At 18th level, the range of this aura increases to 30 feet."
-                ]
-              }
+              "aura-of-devotion"
             ],
             "subclass_specific": {
               "aura_range": 10
@@ -5366,13 +5178,7 @@
           {
             "level": 15,
             "features": [
-              {
-                "id": "purity-of-spirit",
-                "name": "Purity of Spirit",
-                "desc": [
-                  "Beginning at 15th level, you are always under the effects of a protection from evil and good spell."
-                ]
-              }
+              "purity-of-spirit"
             ],
             "subclass_specific": {
               "aura_range": 10
@@ -5390,15 +5196,7 @@
           {
             "level": 20,
             "features": [
-              {
-                "id": "holy-nimbus",
-                "name": "Holy Nimbus",
-                "desc": [
-                  "At 20th level, as an action, you can emanate an aura of sunlight. For 1 minute, bright light shines from you in a 30-foot radius, and dim light shines 30 feet beyond that.",
-                  "Whenever an enemy creature starts its turn in the bright light, the creature takes 10 radiant damage.",
-                  "In addition, for the duration, you have advantage on saving throws against spells cast by fiends or undead."
-                ]
-              }
+              "holy-nimbus"
             ],
             "subclass_specific": {
               "aura_range": 30
@@ -5997,106 +5795,28 @@
           {
             "level": 3,
             "features": [
-              {
-                "id": "hunters-prey",
-                "name": "Hunter's Prey",
-                "desc": [
-                  "At 3rd level, you gain one of the following features of your choice.",
-                  "Colossus Slayer",
-                  "Giant Killer",
-                  "Horde Breaker"
-                ],
-                "featureSpecific": {
-                  "subfeatureOptions": {
-                    "choose": 1,
-                    "type": "feature",
-                    "from": [
-                      "hunters-prey-colossus-slayer",
-                      "hunters-prey-giant-killer",
-                      "hunters-prey-horde-breaker"
-                    ]
-                  }
-                }
-              }
+              "hunters-prey"
             ],
             "id": "hunter-3"
           },
           {
             "level": 7,
             "features": [
-              {
-                "id": "defensive-tactics",
-                "name": "Defensive Tactics",
-                "desc": [
-                  "At 7th level, you gain one of the following features of your choice.",
-                  "Escape the Horde",
-                  "Multiattack Defense",
-                  "Steel Will"
-                ],
-                "featureSpecific": {
-                  "subfeatureOptions": {
-                    "choose": 1,
-                    "type": "feature",
-                    "from": [
-                      "defensive-tactics-escape-the-horde",
-                      "defensive-tactics-multiattack-defense",
-                      "defensive-tactics-steel-will"
-                    ]
-                  }
-                }
-              }
+              "defensive-tactics"
             ],
             "id": "hunter-7"
           },
           {
             "level": 11,
             "features": [
-              {
-                "id": "multiattack",
-                "name": "Multiattack",
-                "desc": [
-                  "At 11th level, you gain one of the following features of your choice.",
-                  "Volley",
-                  "Whirlwind Attack"
-                ],
-                "featureSpecific": {
-                  "subfeatureOptions": {
-                    "choose": 1,
-                    "type": "feature",
-                    "from": [
-                      "multiattack-volley",
-                      "multiattack-whirlwind-attack"
-                    ]
-                  }
-                }
-              }
+              "multiattack"
             ],
             "id": "hunter-11"
           },
           {
             "level": 15,
             "features": [
-              {
-                "id": "superior-hunters-defense",
-                "name": "Superior Hunter's Defense",
-                "desc": [
-                  "At 15th level, you gain one of the following features of your choice.",
-                  "Evasion",
-                  "Stand Against the Tide",
-                  "Uncanny Dodge"
-                ],
-                "featureSpecific": {
-                  "subfeatureOptions": {
-                    "choose": 1,
-                    "type": "feature",
-                    "from": [
-                      "superior-hunters-defense-evasion",
-                      "superior-hunters-defense-stand-against-the-tide",
-                      "superior-hunters-defense-uncanny-dodge"
-                    ]
-                  }
-                }
-              }
+              "superior-hunters-defense"
             ],
             "id": "hunter-15"
           }
