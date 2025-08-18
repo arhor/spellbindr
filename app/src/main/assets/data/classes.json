@@ -95,10 +95,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "str"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "str"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -604,10 +605,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "cha"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "cha"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -1523,10 +1525,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "wis"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "wis"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -2337,10 +2340,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "wis"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "wis"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -3948,29 +3952,17 @@
       }
     ],
     "multiClassing": {
-      "prerequisiteOptions": {
-        "type": "ability-scores",
-        "choose": 1,
-        "from": {
-          "type": "options_array",
-          "options": [
-            {
-              "type": "score_prerequisite",
-              "abilityScore": {
-                "id": "str"
-              },
-              "minimumScore": 13
-            },
-            {
-              "type": "score_prerequisite",
-              "abilityScore": {
-                "id": "dex"
-              },
-              "minimumScore": 13
-            }
-          ]
+      "prerequisites": [
+        {
+          "type": "ability-score",
+          "abilityScore": [
+            "str",
+            "dex"
+          ],
+          "minimumValue": 13,
+          "atLeastOne": true
         }
-      },
+      ],
       "proficiencies": [
         "light-armor",
         "medium-armor",
@@ -4443,16 +4435,12 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "dex"
-          },
-          "minimumScore": 13
-        },
-        {
-          "abilityScore": {
-            "id": "wis"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "dex",
+            "wis"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -5016,16 +5004,12 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "str"
-          },
-          "minimumScore": 13
-        },
-        {
-          "abilityScore": {
-            "id": "cha"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "str",
+            "cha"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -5747,16 +5731,12 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "dex"
-          },
-          "minimumScore": 13
-        },
-        {
-          "abilityScore": {
-            "id": "wis"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "dex",
+            "wis"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -6425,10 +6405,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "dex"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "dex"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -6974,10 +6955,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "cha"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "cha"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": []
@@ -8174,10 +8156,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "cha"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "cha"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": [
@@ -8971,10 +8954,11 @@
     "multiClassing": {
       "prerequisites": [
         {
-          "abilityScore": {
-            "id": "int"
-          },
-          "minimumScore": 13
+          "type": "ability-score",
+          "abilityScore": [
+            "int"
+          ],
+          "minimumValue": 13
         }
       ],
       "proficiencies": []
