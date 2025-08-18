@@ -326,8 +326,7 @@
     "level": 1,
     "desc": [
       "You have learned to untangle and reshape the fabric of reality in harmony with your wishes and music. Your spells are part of your vast repertoire, magic that you can tune to different situations."
-    ],
-    "reference": "/api/2014/classes/bard/spellcasting"
+    ]
   },
   {
     "id": "bardic-inspiration-d6",
@@ -737,8 +736,7 @@
     "level": 1,
     "desc": [
       "As a conduit for divine power, you can cast cleric spells."
-    ],
-    "reference": "/api/2014/classes/cleric/spellcasting"
+    ]
   },
   {
     "id": "divine-domain",
@@ -1135,8 +1133,7 @@
     "level": 1,
     "desc": [
       "Drawing on the divine essence of nature itself, you can cast spells to shape that essence to your will."
-    ],
-    "reference": "/api/2014/classes/druid/spellcasting"
+    ]
   },
   {
     "id": "druidic",
@@ -2559,8 +2556,7 @@
     "level": 2,
     "desc": [
       "By 2nd level, you have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does."
-    ],
-    "reference": "/api/2014/classes/paladin/spellcasting"
+    ]
   },
   {
     "id": "divine-smite",
@@ -3009,8 +3005,7 @@
     "level": 2,
     "desc": [
       "By the time you reach 2nd level, you have learned to use the magical essence of nature to cast spells, much as a druid does."
-    ],
-    "reference": "/api/2014/classes/ranger/spellcasting"
+    ]
   },
   {
     "id": "ranger-archetype",
@@ -3992,8 +3987,7 @@
     "level": 1,
     "desc": [
       "An event in your past, or in the life of a parent or ancestor, left an indelible mark on you, infusing you with arcane magic. This font of magic, whatever its origin, fuels your spells."
-    ],
-    "reference": "/api/2014/classes/sorcerer/spellcasting"
+    ]
   },
   {
     "id": "sorcerous-origin",
@@ -4442,8 +4436,7 @@
     "level": 6,
     "desc": [
       "Starting at 6th level, when you cast a spell that deals damage of the type associated with your draconic ancestry, you can add your Charisma modifier to one damage roll of that spell. At the same time, you can spend 1 sorcery point to gain resistance to that damage type for 1 hour."
-    ],
-    "reference": "/api/2014/subclasses/draconic"
+    ]
   },
   {
     "id": "sorcerer-ability-score-improvement-2",
@@ -4639,8 +4632,7 @@
     "level": 1,
     "desc": [
       "Your arcane research and the magic bestowed on you by your patron have given you facility with spells."
-    ],
-    "reference": "/api/2014/classes/warlock/spellcasting"
+    ]
   },
   {
     "id": "eldritch-invocations",
@@ -4703,7 +4695,7 @@
     "prerequisites": [
       {
         "type": "spell",
-        "spell": "/api/2014/spells/eldritch-blast"
+        "id": "eldritch-blast"
       }
     ],
     "desc": [
@@ -4765,7 +4757,7 @@
     "prerequisites": [
       {
         "type": "feature",
-        "feature": "/api/2014/features/pact-of-the-tome"
+        "id": "pact-of-the-tome"
       }
     ],
     "desc": [
@@ -4814,7 +4806,7 @@
     "prerequisites": [
       {
         "type": "spell",
-        "spell": "/api/2014/spells/eldritch-blast"
+        "id": "eldritch-blast"
       }
     ],
     "desc": [
@@ -4904,7 +4896,7 @@
     "prerequisites": [
       {
         "type": "spell",
-        "spell": "/api/2014/spells/eldritch-blast"
+        "id": "eldritch-blast"
       }
     ],
     "desc": [
@@ -4938,7 +4930,7 @@
     "prerequisites": [
       {
         "type": "feature",
-        "feature": "/api/2014/features/pact-of-the-chain"
+        "id": "pact-of-the-chain"
       }
     ],
     "desc": [
@@ -5023,7 +5015,7 @@
       },
       {
         "type": "feature",
-        "feature": "/api/2014/features/pact-of-the-blade"
+        "id": "pact-of-the-blade"
       }
     ],
     "desc": [
@@ -5209,7 +5201,7 @@
       },
       {
         "type": "feature",
-        "feature": "/api/2014/features/pact-of-the-blade"
+        "id": "pact-of-the-blade"
       }
     ],
     "desc": [
@@ -5244,7 +5236,7 @@
       },
       {
         "type": "feature",
-        "feature": "/api/2014/features/pact-of-the-chain"
+        "id": "pact-of-the-chain"
       }
     ],
     "desc": [
@@ -5557,8 +5549,7 @@
     "level": 1,
     "desc": [
       "As a student of arcane magic, you have a spellbook containing spells that show the first glimmerings of your true power."
-    ],
-    "reference": "/api/2014/classes/wizard/spellcasting"
+    ]
   },
   {
     "id": "arcane-recovery",
