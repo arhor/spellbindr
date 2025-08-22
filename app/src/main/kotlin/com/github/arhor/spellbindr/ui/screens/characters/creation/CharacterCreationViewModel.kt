@@ -13,6 +13,7 @@ import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Equipment
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.Language
+import com.github.arhor.spellbindr.data.model.Prerequisite
 import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.Subclass
@@ -120,11 +121,14 @@ class CharacterCreationViewModel @Inject constructor(
         val requiresSubclassAtLevel1: Boolean
             get() = characterClass
                 ?.subclasses
-                ?.isNotEmpty() == true && characterClass.subclasses.any { subclass ->
-                subclass.levels?.any { it.level == 1 } == true || subclass.spells?.any { prereq ->
-                    prereq.prerequisites?.any { it.id.endsWith("-1") } == true
-                } == true
-            }
+                ?.isNotEmpty() == true &&
+                characterClass.subclasses.any { subclass ->
+                    subclass.levels?.any { it.level == 1 } == true || subclass.spells?.any { prereq ->
+                        prereq.prerequisites
+                            ?.filterIsInstance<Prerequisite.ClassLevelPrerequisite>()
+                            ?.any { it.id.endsWith("-1") } == true
+                    } == true
+                }
 
         val isSubclassRequirementSatisfied: Boolean
             get() = !requiresSubclassAtLevel1 || characterSubclass != null

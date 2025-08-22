@@ -4,9 +4,10 @@ import com.github.arhor.spellbindr.data.local.assets.AlignmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.FeaturesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.LanguagesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.RacesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.TraitsAssetDataStore
 import dagger.Binds
@@ -53,6 +54,11 @@ abstract class StaticAssetsModule {
     @Binds
     @IntoSet
     abstract fun bindTraitsAssetDataStore(traitsDataStore: TraitsAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindFeaturesAssetDataStore(featuresDataStore: FeaturesAssetDataStore)
         : InitializableStaticAssetDataStore
 
     @Binds
