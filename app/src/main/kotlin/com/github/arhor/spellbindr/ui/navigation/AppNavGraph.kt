@@ -52,7 +52,15 @@ fun AppNavGraph() {
     Scaffold(
         bottomBar = {
             AppNavBar(
-                onItemClick = { controller navigateTo it },
+                onItemClick = {
+                    controller.navigate(route = it) {
+                        popUpTo(controller.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
                 isItemSelected = { currentDest inSameHierarchyWith it },
             )
         }
@@ -80,7 +88,7 @@ fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
     navigation<Library>(startDestination = Library.Main) {
         composable<Library.Main> {
             LibraryMainScreen(
-                onItemClick = { controller navigateTo it }
+                onItemClick = { controller.navigate(it) }
             )
         }
         composable<Conditions> {
@@ -95,7 +103,7 @@ fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
         navigation<Spells>(startDestination = Spells.Search) {
             composable<Spells.Search> {
                 SpellSearchScreen(
-                    onSpellClick = { controller navigateTo Spells.Details(it) },
+                    onSpellClick = { controller.navigate(route = Spells.Details(it)) },
                 )
             }
             composable<Spells.Details> {
@@ -191,16 +199,6 @@ private fun useCharacterCreationViewModel(
         controller.getBackStackEntry(Characters.Create)
     }
     return hiltViewModel(creationGraphEntry)
-}
-
-private infix fun NavController.navigateTo(route: AppRoute) {
-    navigate(route) {
-        popUpTo(graph.findStartDestination().id) {
-            saveState = true
-        }
-        launchSingleTop = true
-        restoreState = true
-    }
 }
 
 private infix fun NavDestination?.inSameHierarchyWith(route: AppRoute): Boolean = when (this) {
