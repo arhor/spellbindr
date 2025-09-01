@@ -1,0 +1,2195 @@
+[
+  {
+    "name": "Alert",
+    "source": "CRB",
+    "previewtext": "You don't grant advantage vs hidden creatures, you are never surprised, and you gain +5 to initiative",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyinitiativebonus": "5"
+      }
+    ]
+  },
+  {
+    "name": "Athlete",
+    "source": "CRB",
+    "previewtext": "You can climb at full speed, you can make a running jump after 5 feet, standing up costs you just 5 feet, and you gain +1 to either Str or Dex",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Athlete: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Actor",
+    "source": "CRB",
+    "previewtext": "You gain advantage on deception and performance checks to impersonate someone else, you can imitate the sounds or speech of another creature, and you gain +1 Cha",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "charisma": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Charger",
+    "source": "CRB",
+    "previewtext": "You can make a bonus action attack after dashing and can either gain +5 damage or push the target 10 feet if you moved in a straight line and 10 feet or more",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Crossbow Expert",
+    "source": "CRB",
+    "previewtext": "You don't have disadvantage from adjacent enemies on ranged attacks, you can load crossbows faster, and you can make a bonus action attack with a hand crossbow after attacking with a one-handed weapon",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Defensive Duelist",
+    "source": "CRB",
+    "previewtext": "You can use a reaction to gain proficiency bonus to AC when wielding a finesse weapon",
+    "prerequisites": [
+      {
+        "greaterthanorequal": {
+          "first": "dexterity",
+          "second": "13"
+        }
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Dual Wielder",
+    "source": "CRB",
+    "previewtext": "You can draw/stow two weapons per round, you can dual wield non-light weapons, and you gain +1 AC while dual wielding",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyarmorclassbonus": "1"
+      }
+    ]
+  },
+  {
+    "name": "Dungeon Delver",
+    "source": "CRB",
+    "previewtext": "You gain advantage on checks to find secret doors and saves vs traps, you gain resistance vs traps, and you don't need to move slowly to look for traps",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Durable",
+    "source": "CRB",
+    "previewtext": "You always regain at least 2x Con mod from a hit die and you gain +1 Con",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "constitution": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Elemental Adept",
+    "source": "CRB",
+    "previewtext": "Your spells that deal one of acid/cold/fire/lightning/thunder ignore resistance, and you can treat rolled 1s as 2s for those spells",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Grappler",
+    "source": "CRB",
+    "previewtext": "You can restrain a grappled foe as an action, you gain advantage on attacks vs foe you grapple, and you can grapple creatures one size larger",
+    "prerequisites": [
+      {
+        "greaterthanorequal": {
+          "first": "strength",
+          "second": "13"
+        }
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Great Weapon Master",
+    "source": "CRB",
+    "previewtext": "You can make a bonus action attack after critting or killing a creature and you can take -5 to a melee attack for +10 damage",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Healer",
+    "source": "CRB",
+    "previewtext": "You can use a healer's kit to heal a creature 1d6 + 4 hp as an action, and a dying creature you stabilize gains 1 hp",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Heavily Armored",
+    "source": "CRB",
+    "previewtext": "You are proficient with heavy armor and you gain +1 Str",
+    "prerequisites": [
+      {
+        "armorproficiency": "medium armor"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "addarmorproficiencies": [
+          "Heavy Armor"
+        ]
+      },
+      {
+        "modifyabilityscore": {
+          "strength": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Heavy Armor Master",
+    "source": "CRB",
+    "previewtext": "You take 3 less bludgeoning, piercing, and slashing damage while in heavy armor and you gain +1 Str",
+    "prerequisites": [
+      {
+        "armorproficiency": "heavy armor"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "strength": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Inspiring Leader",
+    "source": "CRB",
+    "previewtext": "You can take ten minutes to give six creatures your level + Cha temp hp once between rests",
+    "prerequisites": [
+      {
+        "greaterthanorequal": {
+          "first": "charisma",
+          "second": "13"
+        }
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Keen Mind",
+    "source": "CRB",
+    "previewtext": "You can clearly recall anything seen or heard within a month, you can determine north, you know when sunrise/sunset will happen, and gain +1 to Int",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "intelligence": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Lightly Armored",
+    "source": "CRB",
+    "previewtext": "You are proficient with light armor and gain +1 to either Str or Dex",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "addarmorproficiencies": [
+          "Light Armor"
+        ]
+      },
+      {
+        "menu": {
+          "title": "Lightly Armored: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Linguist",
+    "source": "CRB",
+    "previewtext": "You know three additional languages, can create coded ciphers, and gain +1 Int",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "intelligence": "1"
+        }
+      },
+      {
+        "languagesknowntext": "Three Extra Languages"
+      }
+    ]
+  },
+  {
+    "name": "Lucky",
+    "source": "CRB",
+    "previewtext": "You can reroll a d20 roll you make or an attack against you 3/day",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "setresource": {
+          "name": "Lucky",
+          "amount": "3"
+        }
+      },
+      {
+        "showresource": "Lucky"
+      }
+    ]
+  },
+  {
+    "name": "Mage Slayer",
+    "source": "CRB",
+    "previewtext": "You gain advantage on saves vs spells from adjacent creatures, can attack an adjacent creature who casts a spell as a reaction, and concentration checks caused by your damage have disadvantage",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Magic Initiate",
+    "source": "CRB",
+    "previewtext": "You gain two cantrips and a first level spell which you can cast 1/day from a single spellcasting class",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "ifthenelse": {
+          "if": [
+            {
+              "greaterthanorequal": {
+                "first": {
+                  "customspellslots": "1"
+                },
+                "second": "1"
+              }
+            }
+          ],
+          "else": [
+            {
+              "setcustomspellslots": {
+                "level1": "-1"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Martial Adept",
+    "source": "CRB",
+    "previewtext": "You gain a superiority die and two battle master maneuvers",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "ifthenelse": {
+          "if": [
+            {
+              "resource": "Superiority Dice"
+            }
+          ],
+          "else": [
+            {
+              "setresource": {
+                "name": "Superiority Dice",
+                "displayname": "Superiority",
+                "diesize": "6",
+                "reset": "shortrest"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "modifyresource": {
+          "name": "Superiority Dice",
+          "amount": "1"
+        }
+      },
+      {
+        "showresource": "Superiority Dice"
+      },
+      {
+        "sharedclassfeaturemenu": {
+          "name": "Combat Superiority Maneuvers",
+          "selections": "2",
+          "replace": "0"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Medium Armor Master",
+    "source": "CRB",
+    "previewtext": "Your max Dex to AC in medium armor increases to 3, and medium armor no longer causes disadvantage on stealth",
+    "prerequisites": [
+      {
+        "armorproficiency": "medium armor"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "setmediumarmormaxdex": "3"
+      }
+    ]
+  },
+  {
+    "name": "Mobile",
+    "source": "CRB",
+    "previewtext": "You gain +10 to speed, ignore difficult terrain when you dash, and you don't provoke from creatures you've attacked that turn",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyspeedbonus": "10"
+      }
+    ]
+  },
+  {
+    "name": "Moderately Armored",
+    "source": "CRB",
+    "previewtext": "You are proficient with shields and medium armor, and gain +1 to either Str or Dex",
+    "prerequisites": [
+      {
+        "armorproficiency": "light armor"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "addarmorproficiencies": [
+          "Medium Armor",
+          "Shields"
+        ]
+      },
+      {
+        "menu": {
+          "title": "Moderately Armored: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Mounted Combatant",
+    "source": "CRB",
+    "previewtext": "You can redirect an attack against your mount to yourself, you gain advantage vs unmounted foes, and your mount gains Evasion",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Observant",
+    "source": "CRB",
+    "previewtext": "You gain +5 to passive perception and investigation, can read lips, and gain +1 to either Int or Wis",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Observant: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Polearm Master",
+    "source": "CRB",
+    "previewtext": "You can make a bonus action attack with the shaft of a polearm dealing d4 damage after attacking with that polearm, and you can make opportunity attack with a polearm when a creature comes within reach",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Resilient",
+    "source": "CRB",
+    "previewtext": "You gain proficiency with one save and +1 to that ability",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Resilient: Save &amp; +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "setsaveproficiency": {
+                    "strength": "true"
+                  }
+                },
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "setsaveproficiency": {
+                    "dexterity": "true"
+                  }
+                },
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "setsaveproficiency": {
+                    "constitution": "true"
+                  }
+                },
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "setsaveproficiency": {
+                    "intelligence": "true"
+                  }
+                },
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "setsaveproficiency": {
+                    "wisdom": "true"
+                  }
+                },
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "setsaveproficiency": {
+                    "charisma": "true"
+                  }
+                },
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ritual Caster",
+    "source": "CRB",
+    "previewtext": "You can cast spells as rituals (see rules)",
+    "prerequisites": [
+      {
+        "or": [
+          {
+            "greaterthanorequal": {
+              "first": "intelligence",
+              "second": "13"
+            }
+          },
+          {
+            "greaterthanorequal": {
+              "first": "wisdom",
+              "second": "13"
+            }
+          }
+        ]
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Savage Attacker",
+    "source": "CRB",
+    "previewtext": "You can reroll melee weapon damage 1/turn",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Sentinel",
+    "source": "CRB",
+    "previewtext": "You stop creatures hit with opportunity attacks, ignore the disengage action, and can use a reaction to attack an adjacent creature that attacks someone else",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Sharpshooter",
+    "source": "CRB",
+    "previewtext": "Your ranged attacks ignore � and � cover, don't have disadvantage from long range, and you can take -5 to a ranged attack for +10 damage",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Shield Master",
+    "source": "CRB",
+    "previewtext": "You can shove with your shield as a bonus action after attacking, you gain your shield bonus to dex saves vs single target effects, and can use a reaction to not take half damage when you pass a dex save",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Skilled",
+    "source": "CRB",
+    "previewtext": "You gain three skill or tool proficiencies",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "skillmenu": {
+          "skills": [
+            "acrobatics",
+            "animal handling",
+            "arcana",
+            "athletics",
+            "deception",
+            "history",
+            "insight",
+            "intimidation",
+            "investigation",
+            "medicine",
+            "nature",
+            "perception",
+            "performance",
+            "persuasion",
+            "religion",
+            "sleight of hand",
+            "stealth",
+            "survival"
+          ],
+          "selections": "3",
+          "title": "Skilled Feat - 3 Skills"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Skulker",
+    "source": "CRB",
+    "previewtext": "You can hide when only lightly obscured, missed attacks don't reveal you, and you can see in dim light",
+    "prerequisites": [
+      {
+        "greaterthanorequal": {
+          "first": "dexterity",
+          "second": "13"
+        }
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Spell Sniper",
+    "source": "CRB",
+    "previewtext": "Your spells ignore � and � cover, your ranged attack roll spells have doubled range, and you gain one attack roll cantrip (see rules)",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Tavern Brawler",
+    "source": "CRB",
+    "previewtext": "Your unarmed strikes deal d4 damage, you are proficient in unarmed strikes and improvised weapons, can make a grapple as a bonus action after hitting with one, and +1 to either Str or Con",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "addweaponproficiencies": [
+          "Improvised Weapons",
+          "Unarmed Strikes"
+        ]
+      },
+      {
+        "increaseunarmedstrikedamage": {
+          "dienumber": "1",
+          "diesize": "4"
+        }
+      },
+      {
+        "menu": {
+          "title": "Tavern Brawler: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Tough",
+    "source": "CRB",
+    "previewtext": "You gain 2 extra hp per level",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyhitpointslevelupbonus": "2"
+      }
+    ]
+  },
+  {
+    "name": "War Caster",
+    "source": "CRB",
+    "previewtext": "You gain advantage on concentration vs damage, can still cast while holding weapons, and can cast a single target 1 action spell as an opportunity attack",
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Weapon Master",
+    "source": "CRB",
+    "previewtext": "You gain four weapon proficiencies and +1 to either Str or Dex",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Weapon Master: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Svirfneblin Magic",
+    "displayname": "Deep Gnome Magic",
+    "source": "EEPC",
+    "othersources": [
+      "SCAG"
+    ],
+    "previewtext": "You can cast disguise self, blindness/deafness, and blur 1/day, and nondetection (self only) at will",
+    "prerequisites": [
+      {
+        "race": "Gnome"
+      },
+      {
+        "subrace": "Deep Gnome"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Bountiful Luck",
+    "source": "XGtE",
+    "previewtext": "As a reaction you can give up your Lucky ability until the end of your next turn to grant a use of it to a creature within 30 feet",
+    "prerequisites": [
+      {
+        "race": "Halfling"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Dragon Fear",
+    "source": "XGtE",
+    "previewtext": "You can use your breathe to instead frighten creatures within 30 feet for 1 minute (see rules) and +1 to Str, Con, or Cha",
+    "prerequisites": [
+      {
+        "race": "Dragonborn"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Dragon Fear: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Dragon Hide",
+    "source": "XGtE",
+    "previewtext": "You can use your claws as 1d4 slashing natural weapons, have a base AC of 13 without armor, and +1 to Str, Con, or Cha",
+    "prerequisites": [
+      {
+        "race": "Dragonborn"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Dragon Hide: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Drow High Magic",
+    "displayname": "Dark Elf Magic",
+    "source": "XGtE",
+    "previewtext": "1/day you can cast dispel magic and levitate, and can at will cast detect magic",
+    "prerequisites": [
+      {
+        "race": "Elf"
+      },
+      {
+        "subrace": "Dark Elf"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Dwarven Fortitude",
+    "source": "XGtE",
+    "previewtext": "You can spend a hit die to heal when you dodge, and +1 Con",
+    "prerequisites": [
+      {
+        "race": "Dwarf"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "constitution": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Elven Accuracy",
+    "source": "XGtE",
+    "previewtext": "You can reroll a Dex, Int, Wis, or Cha attack, and +1 Dex, Int, Wis, or Cha",
+    "prerequisites": [
+      {
+        "or": [
+          {
+            "race": "Elf"
+          },
+          {
+            "race": "Half-Elf"
+          }
+        ]
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Elven Accuracy: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Fade Away",
+    "source": "XGtE",
+    "previewtext": "1/rest you can become invisible until the end of your next turn as a reaction after taking damage, and +1 Dex or Int",
+    "prerequisites": [
+      {
+        "race": "Gnome"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Fade Away: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Fey Teleportation",
+    "displayname": "Fey Teleport",
+    "source": "XGtE",
+    "previewtext": "1/rest you can cast misty step, you learn the spell, you know Sylvan, and +1 to Int or Cha",
+    "prerequisites": [
+      {
+        "race": "Elf"
+      },
+      {
+        "subrace": "High Elf"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "addlanguagesknown": [
+          "Sylvan"
+        ]
+      },
+      {
+        "menu": {
+          "title": "Fey Teleport: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Flames of Phlegethos",
+    "displayname": "Flames of the Nine Hells",
+    "source": "XGtE",
+    "previewtext": "You deal 1d4 fire damage when hit by melee and shed 30 feet of bright light after casting a fire spell, you can reroll 1s on spell fire damage rolls, and +1 Int or Cha",
+    "prerequisites": [
+      {
+        "race": "Tiefling"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Flames of the Nine Hells: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Infernal Constitution",
+    "source": "XGtE",
+    "previewtext": "You have advantage vs poison, resist poison and cold, and +1 Con",
+    "prerequisites": [
+      {
+        "race": "Tiefling"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "constitution": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Orcish Fury",
+    "source": "XGtE",
+    "previewtext": "As a reaction you can make an attack when you prevent yourself from dropping to 0 hp, 1/rest you can roll an extra die of damage on a weapon attack, and +1 Str or Con",
+    "prerequisites": [
+      {
+        "race": "Half-Orc"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Orcish Fury: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Prodigy",
+    "source": "XGtE",
+    "previewtext": "You gain one language, one skill proficiency, one skill double proficiency, and one tool proficiency",
+    "prerequisites": [
+      {
+        "or": [
+          {
+            "race": "Half-Elf"
+          },
+          {
+            "race": "Half-Orc"
+          },
+          {
+            "race": "Human"
+          }
+        ]
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "skillmenu": {
+          "skills": [
+            "Acrobatics",
+            "Animal Handling",
+            "Arcana",
+            "Athletics",
+            "Deception",
+            "History",
+            "Insight",
+            "Intimidation",
+            "Investigation",
+            "Medicine",
+            "Nature",
+            "Perception",
+            "Performance",
+            "Persuasion",
+            "Religion",
+            "Sleight of Hand",
+            "Stealth",
+            "Survival"
+          ],
+          "selections": "1"
+        }
+      },
+      {
+        "toolproficiencytext": "One tool proficiency"
+      },
+      {
+        "languagesknowntext": "One extra language"
+      },
+      {
+        "sharedclassfeaturemenu": {
+          "name": "Expertise",
+          "class": "Bard",
+          "selections": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Second Chance",
+    "source": "XGtE",
+    "previewtext": "1/combat you can make a creature you can see that hit you reroll, and +1 Dex, Con, or Cha",
+    "prerequisites": [
+      {
+        "race": "Halfling"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Second Chance: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Squat Nimbleness",
+    "source": "XGtE",
+    "previewtext": "You have advantage on grapple escape attempts, +5 feet to speed, gain Athletics or Acrobatics proficiency, and +1 Str or Dex",
+    "prerequisites": [
+      {
+        "or": [
+          {
+            "race": "Dwarf"
+          },
+          {
+            "race": "Gnome"
+          },
+          {
+            "race": "Halfling"
+          },
+          {
+            "race": "Goblin"
+          },
+          {
+            "race": "Kobold"
+          }
+        ]
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Squat Nimbleness: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "modifyspeedbonus": "5"
+      },
+      {
+        "skillmenu": {
+          "skills": [
+            "Acrobatics",
+            "Athletics"
+          ],
+          "selections": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Wood Elf Magic",
+    "source": "XGtE",
+    "previewtext": "1/day you can cast pass without trace and longstrider, and gain a druid cantrip",
+    "prerequisites": [
+      {
+        "race": "Elf"
+      },
+      {
+        "subrace": "Wood Elf"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true"
+  },
+  {
+    "name": "Revenant Blade",
+    "source": "XGtE",
+    "displayname": "Double Blade",
+    "previewtext": "+1 AC with double scimitar, gain finesse, and +1 Str or Dex",
+    "prerequisites": [
+      {
+        "race": "Elf"
+      }
+    ],
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Double Blade: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Aberrant Dragonmark",
+    "displayname": "Aberrant Mark",
+    "source": "ERftLW",
+    "previewtext": "Can cast a sorcerer cantrip at will, sorcerer 1st lvl spell (1/day) with additional random effect (see rules), and +1 Con",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "constitution": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Artificer Initiate",
+    "source": "TCoE",
+    "previewtext": "You gain one artisan's tool proficiency, can cast a level 1 Artificer spell 1/day, an Artificer cantrip at will, and those spells become known to you.",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": []
+  },
+  {
+    "name": "Chef",
+    "source": "TCoE",
+    "previewtext": "You can increase creature's hit dice healing by 1d8 during a short rest, can grant temp hp through cooking (see rules), gain cooking tools proficiency, and +1 to either Con or Wis",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Chef: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Crusher",
+    "source": "TCoE",
+    "previewtext": "Creatures you critically bludgeon grant advantage to attackers until your next turn. You can move a creature 5 feet with a bludgeoning attack 1/turn. +1 to either Str or Con",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Crusher: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Eldritch Adept",
+    "source": "TCoE",
+    "previewtext": "Gain a Warlock invocation",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "sharedclassfeaturemenu": {
+          "name": "Eldritch Invocations",
+          "selections": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Fey Touched",
+    "source": "TCoE",
+    "previewtext": "Can cast a level 1 enchantment or divination spell 1/day, misty step 1/day, and those spells become known to you. +1 to Int, Wis, or Cha",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Shadow Touched: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Fighting Initiate",
+    "source": "TCoE",
+    "previewtext": "You gain a Fighter fighting style",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "sharedclassfeaturemenu": {
+          "name": "Fighting Style",
+          "class": "Fighter",
+          "selections": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Gunner",
+    "source": "TCoE",
+    "previewtext": "You are proficient with firearms, you don't have disadvantage when firing at adjacent targets, you can fire the same weapon more than 1/round, and +1 Dex",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyabilityscore": {
+          "dexterity": "1"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Metamagic Adept",
+    "source": "TCoE",
+    "previewtext": "You gain two sorcery points and metamagic options",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "ifthenelse": {
+          "if": [
+            {
+              "resource": "Sorcery Points"
+            }
+          ],
+          "else": [
+            {
+              "setresource": {
+                "name": "Sorcery Points",
+                "displayname": "Sorcery Pts"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "modifyresource": {
+          "name": "Sorcery Points",
+          "amount": "2"
+        }
+      },
+      {
+        "showresource": "Sorcery Points"
+      },
+      {
+        "sharedclassfeaturemenu": {
+          "name": "Metamagic",
+          "selections": "2"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Piercer",
+    "source": "TCoE",
+    "previewtext": "You can reroll a piercing damage die 1/turn, gain a die of damage when you critically pierce, and +1 to either Str or Dex",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Piercer: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Poisoner",
+    "source": "TCoE",
+    "previewtext": "You learn poisoner's kit proficiency, can use a bonus action to poison weapons, ignore poison resistance, and can create proficiency doses of a 2d8 dmg poison (DC 14) for 50 gold (see rules)",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "modifyinitiativebonus": "5"
+      }
+    ]
+  },
+  {
+    "name": "Shadow Touched",
+    "source": "TCoE",
+    "previewtext": "Can cast a level 1 necromancy or illusion spell 1/day, invisibility 1/day, and those spells become known to you. +1 to Int, Wis, or Cha",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Shadow Touched: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Skill Expert",
+    "source": "TCoE",
+    "previewtext": "Train an extra skill, gain expertise in a skill, and +1 to an ability score",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "skillmenu": {
+          "skills": [
+            "acrobatics",
+            "animal handling",
+            "arcana",
+            "athletics",
+            "deception",
+            "history",
+            "insight",
+            "intimidation",
+            "investigation",
+            "medicine",
+            "nature",
+            "perception",
+            "performance",
+            "persuasion",
+            "religion",
+            "sleight of hand",
+            "stealth",
+            "survival"
+          ],
+          "selections": "1",
+          "title": "Racial Skill Selection"
+        }
+      },
+      {
+        "sharedclassfeaturemenu": {
+          "name": "Expertise",
+          "class": "Bard",
+          "selections": "1"
+        }
+      },
+      {
+        "menu": {
+          "title": "Skill Expert: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Constitution",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "constitution": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Slasher",
+    "source": "TCoE",
+    "previewtext": "Creatures you critically slash suffer disadvantage when attacking until your next turn. You can slow a creature by 10 feet with a slashing attack 1/turn. +1 to either Str or Dex",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Slasher: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Strength",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "strength": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Dexterity",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "dexterity": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Telekinetic",
+    "source": "TCoE",
+    "previewtext": "You can pull or push a creature 5 feet with your mind as a bonus action unless they make a strength save. You can cast an invisible version of mage hand with your mind.  +1 to Int, Wis, or Cha",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Telekinetic: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Telepathic",
+    "source": "TCoE",
+    "previewtext": "You can cast detect thoughts 1/day and the spell becomes known to you. You can speak directly into the mind of a creature within 60 feet. +1 to Int, Wis, or Cha",
+    "usepreviewtextasfeaturetext": "true",
+    "effects": [
+      {
+        "menu": {
+          "title": "Telepathic: +1",
+          "selections": "1",
+          "singleselectionmenu": "true",
+          "hidepreviewtext": "true",
+          "entries": [
+            {
+              "name": "Intelligence",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "intelligence": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Wisdom",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "wisdom": "1"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Charisma",
+              "effects": [
+                {
+                  "modifyabilityscore": {
+                    "charisma": "1"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "menu": {
+      "name": "Draconic Ancestry",
+      "title": "Draconic Ancestry",
+      "selections": "1",
+      "singleselectionmenu": "true",
+      "entries": [
+        {
+          "name": "Black",
+          "previewtext": "Breath Weapon: 30 ft line of acid\nGain acid resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Black Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 30 ft line of acid (once between rests), dealing 2d6 acid damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Blue",
+          "previewtext": "Breath Weapon: 30 ft line of lightning\nGain lightning resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Blue Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 30 ft line of lightning (once between rests), dealing 2d6 lightning damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Brass",
+          "previewtext": "Breath Weapon: 30 ft line of fire\nGain fire resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Brass Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 30 ft line of fire (once between rests), dealing 2d6 fire damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Bronze",
+          "previewtext": "Breath Weapon: 30 ft line of lightning\nGain lightning resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Bronze Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 30 ft line of lightning (once between rests), dealing 2d6 lightning damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Copper",
+          "previewtext": "Breath Weapon: 30 ft line of acid\nGain acid resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Copper Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 30 ft line of acid (once between rests), dealing 2d6 acid damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Gold",
+          "previewtext": "Breath Weapon: 15 ft cone of fire\nGain fire resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Gold Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 15 ft cone of fire (once between rests), dealing 2d6 fire damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Green",
+          "previewtext": "Breath Weapon: 15 ft cone of poison\nGain poison resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Green Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 15 ft cone of poison (once between rests), dealing 2d6 poison damage, Con save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Red",
+          "previewtext": "Breath Weapon: 15 ft cone of fire\nGain fire resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Red Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 15 ft cone of fire (once between rests), dealing 2d6 fire damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "Silver",
+          "previewtext": "Breath Weapon: 15 ft cone of cold\nGain cold resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "Silver Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 15 ft cone of cold (once between rests), dealing 2d6 cold damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        },
+        {
+          "name": "White",
+          "previewtext": "Breath Weapon: 15 ft cone of cold\nGain cold resistance",
+          "effects": [
+            {
+              "featuretextwithbullet": "White Dragon"
+            },
+            {
+              "featuretextwithbullet": "You can breathe a 15 ft cone of cold (once between rests), dealing 2d6 cold damage, Dex save for half damage. DC = 8 + Con mod + prof"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

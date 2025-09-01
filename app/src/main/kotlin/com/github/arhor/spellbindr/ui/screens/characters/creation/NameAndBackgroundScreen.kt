@@ -116,36 +116,44 @@ fun NameAndBackgroundScreen(
             }
             GradientDivider()
 
-            ChoiceSection(
-                title = "Personality Traits",
-                choice = background.personalityTraits,
-                selection = state.selectedPersonalityTraits,
-                onSelectionChanged = { viewModel.handleEvent(PersonalityTraitsChanged(it)) }
-            )
-            GradientDivider()
+            if (background.personalityTraits != null) {
+                ChoiceSection(
+                    title = "Personality Traits",
+                    choice = background.personalityTraits,
+                    selection = state.selectedPersonalityTraits,
+                    onSelectionChanged = { viewModel.handleEvent(PersonalityTraitsChanged(it)) }
+                )
+                GradientDivider()
+            }
 
-            ChoiceSection(
-                title = "Ideals",
-                choice = background.ideals,
-                selection = state.selectedIdeals,
-                onSelectionChanged = { viewModel.handleEvent(IdealsChanged(it)) }
-            )
-            GradientDivider()
+            if (background.ideals != null) {
+                ChoiceSection(
+                    title = "Ideals",
+                    choice = background.ideals,
+                    selection = state.selectedIdeals,
+                    onSelectionChanged = { viewModel.handleEvent(IdealsChanged(it)) }
+                )
+                GradientDivider()
+            }
 
-            ChoiceSection(
-                title = "Bonds",
-                choice = background.bonds,
-                selection = state.selectedBonds,
-                onSelectionChanged = { viewModel.handleEvent(BondsChanged(it)) }
-            )
-            GradientDivider()
+            if (background.bonds != null) {
+                ChoiceSection(
+                    title = "Bonds",
+                    choice = background.bonds,
+                    selection = state.selectedBonds,
+                    onSelectionChanged = { viewModel.handleEvent(BondsChanged(it)) }
+                )
+                GradientDivider()
+            }
 
-            ChoiceSection(
-                title = "Flaws",
-                choice = background.flaws,
-                selection = state.selectedFlaws,
-                onSelectionChanged = { viewModel.handleEvent(FlawsChanged(it)) }
-            )
+            if (background.flaws != null) {
+                ChoiceSection(
+                    title = "Flaws",
+                    choice = background.flaws,
+                    selection = state.selectedFlaws,
+                    onSelectionChanged = { viewModel.handleEvent(FlawsChanged(it)) }
+                )
+            }
         }
     }
 }

@@ -1,0 +1,3870 @@
+[
+  {
+    "name": "Barbarian",
+    "source": "PHB",
+    "hitdie": "12",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons, Martial Weapons"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "greataxe"
+            }
+          },
+          {
+            "weapon": {
+              "type": "martial",
+              "range": "melee"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "handaxe",
+              "quantity": "2"
+            }
+          },
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      "explorer's pack",
+      {
+        "weapon": {
+          "name": "javelin",
+          "quantity": "4"
+        }
+      }
+    ],
+    "saveproficiencies": [
+      "Strength",
+      "Constitution"
+    ],
+    "classskills": [
+      "Animal Handling",
+      "Athletics",
+      "Intimidation",
+      "Nature",
+      "Perception",
+      "Survival"
+    ],
+    "skillcount": "2",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "strength",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Shields"
+      ],
+      "weaponproficiencies": [
+        "Simple Weapons, Martial Weapons"
+      ],
+      "skillcount": "0"
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Barbarian Features:"
+        },
+        {
+          "featuretextwithbullet": "2/day you gain advantage on Str checks and saves, deal +2 damage on strength based melee attacks, and resistance vs bludgeoning, piercing, and slashing damage"
+        },
+        {
+          "setresource": {
+            "name": "Rage",
+            "amount": "2"
+          }
+        },
+        {
+          "showresource": "Rage"
+        },
+        {
+          "ifthenelse": {
+            "if": {
+              "not": {
+                "classfeature": "Unarmored Defense"
+              }
+            },
+            "then": [
+              {
+                "setextraabilitymodifiertoarmorclass": "constitution"
+              },
+              {
+                "featuretextwithbullet": "Add Con mod to AC when not wearing armor"
+              },
+              {
+                "addclassfeatureflag": "Unarmored Defense"
+              }
+            ]
+          }
+        }
+      ],
+      "2": [
+        {
+          "featuretextwithbullet": "You can gain advantage on Str based melee attacks by granting advantage to attacks against you for the round"
+        },
+        {
+          "featuretextwithbullet": "You gain advantage on Dex saves vs things you can see"
+        }
+      ],
+      "3": [
+        {
+          "setresource": {
+            "name": "Rage",
+            "amount": "3"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can rage an additional time per day"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Additional Barbarian Skills",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "skillmenu": {
+                  "skills": [
+                    "Animal Handling",
+                    "Athletics",
+                    "Intimidation",
+                    "Nature",
+                    "Perception",
+                    "Survival"
+                  ],
+                  "selections": "1"
+                }
+              },
+              {
+                "addclassfeatureflag": "Primal Knowledge"
+              }
+            ]
+          }
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "5": [
+        {
+          "sharedclassfeature": {
+            "name": "Extra Attack"
+          }
+        },
+        {
+          "modifyspeedbonus": "10"
+        },
+        {
+          "featuretextwithbullet": "If not in heavy armor, your speed improves by 10 feet"
+        }
+      ],
+      "6": [
+        {
+          "setresource": {
+            "name": "Rage",
+            "amount": "4"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can rage an additional time per day"
+        }
+      ],
+      "7": [
+        {
+          "featuretextwithbullet": "Gain advantage on initiative rolls, and you can enter a rage to not be surprised"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Pounce",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Move half your speed when you rage"
+              }
+            ]
+          }
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "9": [
+        {
+          "featuretextwithbullet": "Your rage damage bonus increases to +3"
+        },
+        {
+          "featuretextwithbullet": "Gain one additional weapon die of damage on a melee critical hit"
+        }
+      ],
+      "10": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Primal Knowledge"
+              }
+            ],
+            "then": [
+              {
+                "skillmenu": {
+                  "skills": [
+                    "Animal Handling",
+                    "Athletics",
+                    "Intimidation",
+                    "Nature",
+                    "Perception",
+                    "Survival"
+                  ],
+                  "selections": "1"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "11": [
+        {
+          "featuretextwithbullet": "Your rage can prevent being reduced to 0 hp (see rules)"
+        }
+      ],
+      "12": [
+        {
+          "setresource": {
+            "name": "Rage",
+            "amount": "5"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can rage an additional time per day"
+        },
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "13": [
+        {
+          "featuretextwithbullet": "Two additional dice on crits"
+        }
+      ],
+      "15": [
+        {
+          "featuretextwithbullet": "Your rages will no longer end early unless you choose"
+        }
+      ],
+      "16": [
+        {
+          "featuretextwithbullet": "Your rage damage bonus increases to +4"
+        },
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "17": [
+        {
+          "setresource": {
+            "name": "Rage",
+            "amount": "6"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can rage an additional time per day"
+        },
+        {
+          "featuretextwithbullet": "Three additional dice on crits"
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "Can use your Str score in place of a Str check"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "setabilityscoremax": {
+            "strength": "24"
+          }
+        },
+        {
+          "setabilityscoremax": {
+            "constitution": "24"
+          }
+        },
+        {
+          "modifyabilityscore": {
+            "strength": "4"
+          }
+        },
+        {
+          "modifyabilityscore": {
+            "constitution": "4"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can rage any number of times per day"
+        },
+        {
+          "featuretextwithbullet": "Your max Str and Con score is 24 and they increase by 4"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Bard",
+    "source": "PHB",
+    "hitdie": "8",
+    "armorproficiencies": [
+      "Light Armor"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons, Hand Crossbows, Longswords, Rapiers, Shortswords"
+    ],
+    "toolproficiencies": [
+      "Any three musical instruments"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "rapier"
+            }
+          },
+          {
+            "weapon": {
+              "name": "longsword"
+            }
+          },
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "diplomat's pouch",
+          "entertainer's pack"
+        ]
+      },
+      {
+        "selection": [
+          "lute",
+          "any musical instrument"
+        ]
+      },
+      {
+        "armor": {
+          "name": "leather armor"
+        }
+      },
+      {
+        "weapon": {
+          "name": "dagger"
+        }
+      }
+    ],
+    "saveproficiencies": [
+      "dexterity",
+      "charisma"
+    ],
+    "classskills": [
+      "Acrobatics",
+      "Animal Handling",
+      "Arcana",
+      "Athletics",
+      "Deception",
+      "History",
+      "Insight",
+      "Intimidation",
+      "Investigation",
+      "Medicine",
+      "Nature",
+      "Perception",
+      "Performance",
+      "Persuasion",
+      "Religion",
+      "Sleight of Hand",
+      "Stealth",
+      "Survival"
+    ],
+    "skillcount": "3",
+    "spellprogression": "full",
+    "spellcastingability": "charisma",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "charisma",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Light Armor"
+      ],
+      "toolproficiencies": [
+        "One musical instrument"
+      ],
+      "skillcount": "1"
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Bard Features:"
+        },
+        {
+          "setresource": {
+            "name": "Inspiration",
+            "amount": "charismamodifier",
+            "diesize": "6"
+          }
+        },
+        {
+          "showresource": "Inspiration"
+        },
+        {
+          "featuretextwithbullet": "Inspire an ally within 60 feet, giving them a bonus 1d6 on one ability check, attack roll, or save (Cha mod per day)"
+        }
+      ],
+      "2": [
+        {
+          "sethalfproficiencyabilitycheck": {
+            "strength": "true"
+          }
+        },
+        {
+          "sethalfproficiencyabilitycheck": {
+            "dexterity": "true"
+          }
+        },
+        {
+          "sethalfproficiencyabilitycheck": {
+            "intelligence": "true"
+          }
+        },
+        {
+          "sethalfproficiencyabilitycheck": {
+            "wisdom": "true"
+          }
+        },
+        {
+          "sethalfproficiencyabilitycheck": {
+            "charisma": "true"
+          }
+        },
+        {
+          "featuretextwithbullet": "Gain half your proficiency bonus on ability checks you aren't proficient in"
+        },
+        {
+          "featuretextwithbullet": "You can perform during a short rest to cause any ally or yourself to gain an additional 1d6 hp (once) if healed during the rest"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Spell Inspiration",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Inspiration can increase spell damage/healing"
+              }
+            ]
+          }
+        }
+      ],
+      "3": [
+        {
+          "archetypemenu": ""
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Expertise",
+            "class": "Bard",
+            "selections": "2"
+          }
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Bardic Versatility"
+          }
+        }
+      ],
+      "5": [
+        {
+          "setresource": {
+            "name": "Inspiration",
+            "diesize": "8",
+            "reset": "shortrest"
+          }
+        },
+        {
+          "featuretextwithbullet": "Inspiration improves to d8"
+        },
+        {
+          "featuretextwithbullet": "Regain Bardic Inspiration with short rest"
+        }
+      ],
+      "6": [
+        {
+          "featuretextwithbullet": "You can perform as an action to give yourself and allies who can hear you advantage on saves vs charm and frightened for one round"
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Bardic Versatility"
+          }
+        }
+      ],
+      "9": [
+        {
+          "featuretextwithbullet": "Rest healing bonus improves to 1d8"
+        }
+      ],
+      "10": [
+        {
+          "setresource": {
+            "name": "Inspiration",
+            "diesize": "10"
+          }
+        },
+        {
+          "featuretextwithbullet": "Inspiration improves to d10"
+        },
+        {
+          "featuretextwithbullet": "You can learn two spells from any class"
+        },
+        {
+          "featuretextwithbullet": "Two additional double proficient skills"
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Expertise",
+            "class": "Bard",
+            "selections": "2"
+          }
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Bardic Versatility"
+          }
+        }
+      ],
+      "13": [
+        {
+          "featuretextwithbullet": "Rest healing bonus improves to 1d10"
+        }
+      ],
+      "14": [
+        {
+          "featuretextwithbullet": "You can learn two more spells from any class"
+        }
+      ],
+      "15": [
+        {
+          "setresource": {
+            "name": "Inspiration",
+            "diesize": "12"
+          }
+        },
+        {
+          "featuretextwithbullet": "Inspiration improves to d12"
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Bardic Versatility"
+          }
+        }
+      ],
+      "17": [
+        {
+          "featuretextwithbullet": "Rest healing bonus improves to 1d12"
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "You can learn two more spells from any class"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Bardic Versatility"
+          }
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "You regain a use of inspiration when you roll initiative and have none"
+        }
+      ],
+      "all": [
+        {
+          "setresource": {
+            "name": "Inspiration",
+            "amount": "charismamodifier"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Cleric",
+    "source": "PHB",
+    "default": "true",
+    "hitdie": "8",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "mace"
+            }
+          },
+          {
+            "weapon": {
+              "name": "warhammer",
+              "checkforproficiency": "true"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          {
+            "armor": {
+              "name": "scale mail"
+            }
+          },
+          {
+            "armor": {
+              "name": "leather armor"
+            }
+          },
+          {
+            "armor": {
+              "name": "chain mail",
+              "checkforproficiency": "true"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          [
+            {
+              "weapon": {
+                "name": "light crossbow"
+              }
+            },
+            "bolts (20)"
+          ],
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "priest's pouch",
+          "explorer's pack"
+        ]
+      },
+      {
+        "armor": {
+          "name": "shield"
+        }
+      },
+      "holy symbol"
+    ],
+    "saveproficiencies": [
+      "wisdom",
+      "charisma"
+    ],
+    "classskills": [
+      "History",
+      "Insight",
+      "Medicine",
+      "Persuasion",
+      "Religion"
+    ],
+    "skillcount": "2",
+    "spellprogression": "full",
+    "spellcastingability": "wisdom",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "wisdom",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Light Armor, Medium Armor, Shields"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Cleric Features:"
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "2": [
+        {
+          "setresource": {
+            "name": "Channel Divinity",
+            "displayname": "Channel Div",
+            "amount": "1",
+            "reset": "shortrest"
+          }
+        },
+        {
+          "showresource": "Channel Divinity"
+        },
+        {
+          "featuretextwithbullet": "Turn Undead (see rules)"
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Harness Divine Power"
+          }
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "5": [
+        {
+          "featuretextwithbullet": "Kill CR � undead that fail save vs turning"
+        }
+      ],
+      "6": [
+        {
+          "setresource": {
+            "name": "Channel Divinity",
+            "amount": "2"
+          }
+        },
+        {
+          "featuretextwithbullet": "Additional divinity per rest"
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Harness Divine Power"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "You can channel to restore spell slots 2/day"
+              }
+            ]
+          }
+        }
+      ],
+      "8": [
+        {
+          "featuretextwithbullet": "CR 1 undead can now be killed"
+        },
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "10": [
+        {
+          "featuretextwithbullet": "Seek aid from your deity (see rules)"
+        }
+      ],
+      "11": [
+        {
+          "featuretextwithbullet": "CR 2 undead can now be killed"
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "14": [
+        {
+          "featuretextwithbullet": "CR 3 undead can now be killed"
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "17": [
+        {
+          "featuretextwithbullet": "CR 4 undead can now be killed"
+        }
+      ],
+      "18": [
+        {
+          "setresource": {
+            "name": "Channel Divinity",
+            "amount": "3"
+          }
+        },
+        {
+          "featuretextwithbullet": "Additional divinity per rest"
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Harness Divine Power"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "You can channel to restore spell slots 3/day"
+              }
+            ]
+          }
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "Calls to your deity for aid are always answered"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Druid",
+    "source": "PHB",
+    "hitdie": "8",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Clubs, Daggers, Darts, Javelins, Maces, Quarterstaffs, Scimitars, Sickles, Slings, Spears"
+    ],
+    "toolproficiencies": [
+      "Herbalism Kit"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "armor": {
+              "name": "shield"
+            }
+          },
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "scimitar"
+            }
+          },
+          {
+            "weapon": {
+              "type": "simple",
+              "range": "melee"
+            }
+          }
+        ]
+      },
+      {
+        "armor": {
+          "name": "leather armor"
+        }
+      },
+      "explorer's pack",
+      "druidic focus"
+    ],
+    "saveproficiencies": [
+      "intelligence",
+      "wisdom"
+    ],
+    "classskills": [
+      "Animal Handling",
+      "Arcana",
+      "Insight",
+      "Medicine",
+      "Nature",
+      "Perception",
+      "Religion",
+      "Survival"
+    ],
+    "skillcount": "2",
+    "spellprogression": "full",
+    "spellcastingability": "wisdom",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "wisdom",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Light Armor, Medium Armor, Shields"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Druid Features:"
+        },
+        {
+          "languagesknowntext": "Druidic"
+        },
+        {
+          "featuretextwithbullet": "Understand a secret druid language"
+        }
+      ],
+      "2": [
+        {
+          "setresource": {
+            "name": "Wild Shape",
+            "amount": "2",
+            "reset": "shortrest"
+          }
+        },
+        {
+          "showresource": "Wild Shape"
+        },
+        {
+          "featuretextwithbullet": "You can shapeshift into the form of a beast as an action (see rules)"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Familiar",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "You can use wild shape to call a familiar (see rules)"
+              }
+            ]
+          }
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "You age slower than normal"
+        },
+        {
+          "featuretextwithbullet": "You can cast Druid spells while wild shaped"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "You can wild shape at will"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Fighter",
+    "source": "PHB",
+    "hitdie": "10",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Heavy Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons, Martial Weapons"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "armor": {
+              "name": "chain mail"
+            }
+          },
+          [
+            {
+              "armor": {
+                "name": "leather armor"
+              }
+            },
+            {
+              "weapon": {
+                "name": "longbow"
+              }
+            },
+            "arrows (20)"
+          ]
+        ]
+      },
+      {
+        "weapon": {
+          "type": "martial"
+        }
+      },
+      {
+        "selection": [
+          {
+            "weapon": {
+              "type": "martial"
+            }
+          },
+          {
+            "armor": {
+              "name": "shield"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          [
+            {
+              "weapon": {
+                "name": "light crossbow"
+              }
+            },
+            "bolts (20)"
+          ],
+          {
+            "weapon": {
+              "name": "handaxe",
+              "quantity": "2"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "dungeoneer's pack",
+          "explorer's pack"
+        ]
+      }
+    ],
+    "saveproficiencies": [
+      "strength",
+      "constitution"
+    ],
+    "classskills": [
+      "Acrobatics",
+      "Animal Handling",
+      "Athletics",
+      "History",
+      "Insight",
+      "Intimidation",
+      "Perception",
+      "Survival"
+    ],
+    "skillcount": "2",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "or": [
+          {
+            "greaterthanorequal": {
+              "first": "strength",
+              "second": "13"
+            }
+          },
+          {
+            "greaterthanorequal": {
+              "first": "dexterity",
+              "second": "13"
+            }
+          }
+        ]
+      },
+      "armorproficiencies": [
+        "Light Armor, Medium Armor, Shields"
+      ],
+      "weaponproficiencies": [
+        "Simple Weapons, Martial Weapons"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Fighter Features:"
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Fighting Style",
+            "class": "Fighter",
+            "selections": "1"
+          }
+        },
+        {
+          "featuretextwithbullet": "Heal 1d10 + level hit points as a bonus action (once between rests)"
+        }
+      ],
+      "2": [
+        {
+          "featuretextwithbullet": "Take an extra action once between rests"
+        },
+        {
+          "setresource": {
+            "name": "Action Surge",
+            "displayname": "Act. Surge",
+            "amount": "1",
+            "reset": "shortrest"
+          }
+        },
+        {
+          "showresource": "Action Surge"
+        }
+      ],
+      "3": [
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Change Style/Maneuver",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility"
+                }
+              },
+              {
+                "addclassfeatureflag": "Martial Versatility"
+              }
+            ]
+          }
+        }
+      ],
+      "5": [
+        {
+          "sharedclassfeature": {
+            "name": "Extra Attack"
+          }
+        }
+      ],
+      "6": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "9": [
+        {
+          "featuretextwithbullet": "Reroll a failed save 1/day"
+        },
+        {
+          "setresource": {
+            "name": "Indomitable",
+            "amount": "1"
+          }
+        },
+        {
+          "showresource": "Indomitable"
+        }
+      ],
+      "11": [
+        {
+          "featuretextwithbullet": "Extra Attack: Three attacks"
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "13": [
+        {
+          "featuretextwithbullet": "Reroll a failed save 2/day"
+        },
+        {
+          "setresource": {
+            "name": "Indomitable",
+            "amount": "2"
+          }
+        }
+      ],
+      "14": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "17": [
+        {
+          "featuretextwithbullet": "Can take an extra action twice between rests"
+        },
+        {
+          "setresource": {
+            "name": "Action Surge",
+            "amount": "2"
+          }
+        },
+        {
+          "featuretextwithbullet": "Reroll a failed save 3/day"
+        },
+        {
+          "setresource": {
+            "name": "Indomitable",
+            "amount": "3"
+          }
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "Extra Attack: Four attacks"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Monk",
+    "source": "PHB",
+    "hitdie": "8",
+    "weaponproficiencies": [
+      "Simple Weapons, Shortswords"
+    ],
+    "toolproficiencies": [
+      "One type of artisan's tools OR one musical instrument"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "shortsword"
+            }
+          },
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "dungeoneer's pack",
+          "explorer's pack"
+        ]
+      },
+      {
+        "weapon": {
+          "name": "dart",
+          "quantity": "10"
+        }
+      },
+      {
+        "weapon": {
+          "name": "unarmed strike"
+        }
+      }
+    ],
+    "saveproficiencies": [
+      "strength",
+      "dexterity"
+    ],
+    "classskills": [
+      "Acrobatics",
+      "Athletics",
+      "History",
+      "Insight",
+      "Religion",
+      "Stealth"
+    ],
+    "skillcount": "2",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "and": [
+          {
+            "greaterthanorequal": {
+              "first": "dexterity",
+              "second": "13"
+            }
+          },
+          {
+            "greaterthanorequal": {
+              "first": "wisdom",
+              "second": "13"
+            }
+          }
+        ]
+      },
+      "armorproficiencies": [
+        "Light Armor, Shortswords"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Monk Features:"
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "not": {
+                  "classfeature": "Unarmored Defense"
+                }
+              }
+            ],
+            "then": [
+              {
+                "setextraabilitymodifiertoarmorclass": "wisdom"
+              },
+              {
+                "addclassfeatureflag": "Unarmored Defense"
+              },
+              {
+                "featuretextwithbullet": "Add Wis mod to AC when not wearing armor or using a shield"
+              }
+            ]
+          }
+        },
+        {
+          "increaseunarmedstrikedamage": {
+            "dienumber": "1",
+            "diesize": "4"
+          }
+        },
+        {
+          "useunarmedstrikedamageforclassweapons": "Monk"
+        },
+        {
+          "meleeclassweaponscanusedexterity": "Monk"
+        },
+        {
+          "featuretextwithbullet": "When unarmed or using monk weapons, can use dex for attack and damage rolls, unarmed strikes deal more damage (d4), and can make an unarmed attack as a bonus action after normal attack action"
+        }
+      ],
+      "2": [
+        {
+          "setresource": {
+            "name": "Ki Points",
+            "amount": "2",
+            "reset": "shortrest"
+          }
+        },
+        {
+          "showresource": "Ki Points"
+        },
+        {
+          "featuretextwithbullet": "You gain a reservoir of energy (ki points = monk level) which is restored during a rest"
+        },
+        {
+          "featuretextwithbullet": "You can use a bonus action and spend 1 ki point to make two unarmed strikes right after using the attack action"
+        },
+        {
+          "featuretextwithbullet": "You can use a bonus action and spend 1 ki point to Dodge"
+        },
+        {
+          "featuretextwithbullet": "You can use a bonus action and spend 1 ki point to Dash or Disengage and double the distance you can jump"
+        },
+        {
+          "modifyspeedbonus": "10"
+        },
+        {
+          "featuretextwithbullet": "When you are not in armor or using a shield your speed improves by 10 feet"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Monk Weapon",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Treat a single weapon as a monk weapon (see rules)"
+              }
+            ]
+          }
+        }
+      ],
+      "3": [
+        {
+          "archetypemenu": ""
+        },
+        {
+          "featuretextwithbullet": "When you are hit by a ranged weapon attack you can use a reaction to reduce the damage by 1d10 + Dex mod + Monk level, and you can catch and throw the weapon if you would take 0 damage (see rules)"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Bonus Attack",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Gain a bonus action monk attack after a ki action"
+              }
+            ]
+          }
+        }
+      ],
+      "4": [
+        {
+          "featuretextwithbullet": "You can use a reaction to reduce fall damage by 5 x Monk level"
+        },
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Ki Healing",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Heal martial arts die + proficiency with two ki points and an action"
+              }
+            ]
+          }
+        }
+      ],
+      "5": [
+        {
+          "increaseunarmedstrikedamage": {
+            "dienumber": "1",
+            "diesize": "6"
+          }
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Extra Attack"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can spend 1 ki point when you hit a creature with a melee attack to force it to make a Con save or be stunned for a round"
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Ki Accuracy",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Use kl points to add 2 per (max 3) to a missed attack"
+              }
+            ]
+          }
+        }
+      ],
+      "6": [
+        {
+          "featuretextwithbullet": "Your unarmed attacks ignore resistance and immunity to nonmagical attacks/damage"
+        },
+        {
+          "modifyspeedbonus": "5"
+        },
+        {
+          "featuretextwithbullet": "When you are not in armor or using a shield your speed improves by 5 more feet"
+        }
+      ],
+      "7": [
+        {
+          "featuretextwithbullet": "When you would make a Dex save for half damage, you take no damage if you pass or half damage if you do not"
+        },
+        {
+          "featuretextwithbullet": "If you are under an effect that is frightening or charming you, you can use an action to end it"
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "9": [
+        {
+          "featuretextwithbullet": "While moving you can walk across liquids and vertical surfaces"
+        }
+      ],
+      "10": [
+        {
+          "featuretextwithbullet": "You are immune to poison and disease"
+        },
+        {
+          "modifyspeedbonus": "5"
+        },
+        {
+          "featuretextwithbullet": "When you are not in armor or using a shield your speed improves by 5 more feet"
+        }
+      ],
+      "11": [
+        {
+          "increaseunarmedstrikedamage": {
+            "dienumber": "1",
+            "diesize": "8"
+          }
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "13": [
+        {
+          "featuretextwithbullet": "You can understand all spoken languages and anyone who can speak can understand you"
+        }
+      ],
+      "14": [
+        {
+          "setsaveproficiency": {
+            "strength": "true"
+          }
+        },
+        {
+          "setsaveproficiency": {
+            "dexterity": "true"
+          }
+        },
+        {
+          "setsaveproficiency": {
+            "constitution": "true"
+          }
+        },
+        {
+          "setsaveproficiency": {
+            "intelligence": "true"
+          }
+        },
+        {
+          "setsaveproficiency": {
+            "wisdom": "true"
+          }
+        },
+        {
+          "setsaveproficiency": {
+            "charisma": "true"
+          }
+        },
+        {
+          "featuretextwithbullet": "You are proficient in all saves and you can spend a ki point to reroll a failed save"
+        },
+        {
+          "modifyspeedbonus": "5"
+        },
+        {
+          "featuretextwithbullet": "When you are not in armor or using a shield your speed improves by 5 more feet"
+        }
+      ],
+      "15": [
+        {
+          "featuretextwithbullet": "You no longer need to eat or drink, can not be magically aged, and are unaffected by old age"
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "17": [
+        {
+          "increaseunarmedstrikedamage": {
+            "dienumber": "1",
+            "diesize": "10"
+          }
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "You can use an action and spend 4 ki points to gain resistance to all damage except force and become invisible for 1 minute; You can cast astral projection on yourself by spending 8 ki points"
+        },
+        {
+          "modifyspeedbonus": "5"
+        },
+        {
+          "featuretextwithbullet": "When you are not in armor or using a shield your speed improves by 5 more feet"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "You regain 4 ki points when you roll for initiative if you have none"
+        }
+      ],
+      "all": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "greaterthan": {
+                  "first": {
+                    "classlevel": "Monk"
+                  },
+                  "second": "2"
+                }
+              }
+            ],
+            "then": [
+              {
+                "setresource": {
+                  "name": "Ki Points",
+                  "amount": {
+                    "classlevel": "Monk"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Paladin",
+    "source": "PHB",
+    "hitdie": "10",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Heavy Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons, Martial Weapons"
+    ],
+    "equipment": [
+      {
+        "weapon": {
+          "type": "martial"
+        }
+      },
+      {
+        "selection": [
+          {
+            "weapon": {
+              "type": "martial"
+            }
+          },
+          {
+            "armor": {
+              "name": "shield"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "javelin",
+              "quantity": "5"
+            }
+          },
+          {
+            "weapon": {
+              "type": "simple",
+              "range": "melee"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "priest's pack",
+          "explorer's pack"
+        ]
+      },
+      {
+        "armor": {
+          "name": "chain mail"
+        }
+      },
+      "holy symbol"
+    ],
+    "saveproficiencies": [
+      "wisdom",
+      "charisma"
+    ],
+    "classskills": [
+      "Athletics",
+      "Insight",
+      "Intimidation",
+      "Medicine",
+      "Persuasion",
+      "Religion"
+    ],
+    "skillcount": "2",
+    "spellprogression": "half",
+    "spellcastingability": "charisma",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "and": [
+          {
+            "greaterthanorequal": {
+              "first": "strength",
+              "second": "13"
+            }
+          },
+          {
+            "greaterthanorequal": {
+              "first": "charisma",
+              "second": "13"
+            }
+          }
+        ]
+      },
+      "armorproficiencies": [
+        "Light Armor, Medium Armor, Shields"
+      ],
+      "weaponproficiencies": [
+        "Simple Weapons, Martial Weapons"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Paladin Features:"
+        },
+        {
+          "setresource": {
+            "name": "Lay on Hands",
+            "displayname": "Lay Hands",
+            "amount": "5"
+          }
+        },
+        {
+          "showresource": "Lay on Hands"
+        },
+        {
+          "featuretextwithbullet": "As an action, detect the location of any celestial, fiend or undead and any consecrated or desecrated place or object within 60 feet (1 + Cha mod per day)"
+        },
+        {
+          "featuretextwithbullet": "Gain a reservoir of healing power (5hp), and as an action, you can heal a creature you touch by draining that power. You can also cure one poison or disease from the creature by sacrificing 5hp from the reservoir"
+        }
+      ],
+      "2": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Fighting Style",
+            "class": "Paladin",
+            "selections": "1"
+          }
+        },
+        {
+          "featuretextwithbullet": "You can sacrifice a spell slot to deal (1 + spell level)d8 radiant damage plus 1d8 extra damage vs undead/fiends, when you hit with a melee weapon attack"
+        }
+      ],
+      "3": [
+        {
+          "featuretextwithbullet": "Gain immunity to disease"
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Harness Divine Power"
+          }
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Change Style",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Paladin"
+                }
+              },
+              {
+                "addclassfeatureflag": "Martial Versatility"
+              }
+            ]
+          }
+        }
+      ],
+      "5": [
+        {
+          "sharedclassfeature": {
+            "name": "Extra Attack"
+          }
+        }
+      ],
+      "6": [
+        {
+          "setabilitymodifiertoallsaves": "charisma"
+        },
+        {
+          "featuretextwithbullet": "You and allies within 10 feet gain your Cha mod as bonus on saves"
+        }
+      ],
+      "7": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Harness Divine Power"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "You can channel to restore spell slots 2/day"
+              }
+            ]
+          }
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Paladin"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "10": [
+        {
+          "featuretextwithbullet": "You and allies within 10 feet gain immunity vs frightened"
+        }
+      ],
+      "11": [
+        {
+          "featuretextwithbullet": "You deal an extra 1d8 radiant damage on melee weapon attacks"
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Paladin"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "14": [
+        {
+          "setresource": {
+            "name": "Cleansing Touch",
+            "displayname": "Cleansing",
+            "amount": "charismamodifier"
+          }
+        },
+        {
+          "featuretextwithbullet": "Touch a creature as an action to end one spell effect Cha mod/day"
+        }
+      ],
+      "15": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Harness Divine Power"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "You can channel to restore spell slots 3/day"
+              }
+            ]
+          }
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Paladin"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "30 foot auras"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Paladin"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "all": [
+        {
+          "setresource": {
+            "name": "Lay on Hands",
+            "amount": {
+              "multiply": {
+                "first": "5",
+                "second": {
+                  "classlevel": "Paladin"
+                }
+              }
+            }
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "greaterthan": {
+                  "first": {
+                    "classlevel": "Paladin"
+                  },
+                  "second": "1"
+                }
+              }
+            ],
+            "then": [
+              {
+                "replacelinefromfeaturetext": {
+                  "linestarts": "� Gain a reservoir of healing power ",
+                  "lineends": "sacrificing 5hp from the reservoir",
+                  "replacementtext": {
+                    "combinestrings": [
+                      "� Gain a reservoir of healing power (",
+                      {
+                        "value": {
+                          "multiply": {
+                            "first": "5",
+                            "second": {
+                              "classlevel": "Paladin"
+                            }
+                          }
+                        }
+                      },
+                      "hp), and as an action, you can heal a creature you touch by draining that power. You can also cure one poison or disease from the creature by sacrificing 5hp from the reservoir"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "greaterthan": {
+                  "first": {
+                    "classlevel": "Paladin"
+                  },
+                  "second": "13"
+                }
+              }
+            ],
+            "then": [
+              {
+                "setresource": {
+                  "name": "Cleansing Touch",
+                  "amount": "charismamodifier"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Ranger",
+    "source": "PHB",
+    "hitdie": "10",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons, Martial Weapons"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "armor": {
+              "name": "scale mail"
+            }
+          },
+          {
+            "armor": {
+              "name": "leather armor"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "shortsword",
+              "quantity": "2"
+            }
+          },
+          [
+            {
+              "weapon": {
+                "type": "simple",
+                "range": "melee"
+              }
+            },
+            {
+              "weapon": {
+                "type": "simple",
+                "range": "melee"
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "selection": [
+          "dungeoneer's pack",
+          "explorer's pack"
+        ]
+      },
+      {
+        "weapon": {
+          "name": "longbow"
+        }
+      },
+      "arrows (20)"
+    ],
+    "saveproficiencies": [
+      "strength",
+      "dexterity"
+    ],
+    "classskills": [
+      "Animal Handling",
+      "Athletics",
+      "Insight",
+      "Investigation",
+      "Nature",
+      "Perception",
+      "Stealth",
+      "Survival"
+    ],
+    "skillcount": "3",
+    "spellprogression": "half",
+    "spellcastingability": "wisdom",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "and": [
+          {
+            "greaterthanorequal": {
+              "first": "dexterity",
+              "second": "13"
+            }
+          },
+          {
+            "greaterthanorequal": {
+              "first": "wisdom",
+              "second": "13"
+            }
+          }
+        ]
+      },
+      "armorproficiencies": [
+        "Light Armor, Medium Armor, Shields"
+      ],
+      "weaponproficiencies": [
+        "Simple Weapons, Martial Weapons"
+      ],
+      "skillcount": "1"
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Ranger Features:"
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Optional Favored Enemy",
+            "selections": "1"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Optional Natural Explorer",
+            "selections": "1"
+          }
+        }
+      ],
+      "2": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Fighting Style",
+            "class": "Ranger",
+            "selections": "1"
+          }
+        }
+      ],
+      "3": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Optional Primeval Awareness",
+            "selections": "1"
+          }
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "showyesnodialog": {
+            "title": "Optional: Change Style",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Ranger"
+                }
+              },
+              {
+                "addclassfeatureflag": "Martial Versatility"
+              }
+            ]
+          }
+        }
+      ],
+      "5": [
+        {
+          "sharedclassfeature": {
+            "name": "Extra Attack"
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Primal Awareness"
+              }
+            ],
+            "then": [
+              {
+                "addspell": {
+                  "name": "Beast Sense",
+                  "spelllevel": "2"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "6": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Favored Enemy"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "Additional chosen enemy"
+              }
+            ]
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Natural Explorer"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "Additional chosen terrain"
+              }
+            ]
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Favored Foe"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "Mark extra damage increases to 1d6"
+              }
+            ]
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Canny"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "You can swim and climb at your normal pace and your speed improves by 5 feet"
+              },
+              {
+                "modifyspeedbonus": "5"
+              }
+            ]
+          }
+        }
+      ],
+      "8": [
+        {
+          "sharedclassfeature": {
+            "name": "Land's Stride"
+          }
+        },
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Ranger"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "9": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Primal Awareness"
+              }
+            ],
+            "then": [
+              {
+                "addspell": {
+                  "name": "Speak with Plants",
+                  "spelllevel": "3"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "10": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Optional Hide in Plain Sight",
+            "selections": "1"
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Natural Explorer"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "Additional chosen terrain"
+              }
+            ]
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Canny"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "You reduce exhaustion by 1 per short rest and proficiency/day you can gain 1d8 + Wis temp hp as an action"
+              }
+            ]
+          }
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Ranger"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "13": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Primal Awareness"
+              }
+            ],
+            "then": [
+              {
+                "addspell": {
+                  "name": "Locate Creature",
+                  "spelllevel": "4"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "14": [
+        {
+          "featuretextwithbullet": "You are untrackable without magic and you can hide as a bonus action"
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Favored Enemy"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "Additional chosen enemy"
+              }
+            ]
+          }
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Favored Foe"
+              }
+            ],
+            "then": [
+              {
+                "featuretextwithbullet": "Mark extra damage increases to 1d8"
+              }
+            ]
+          }
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Ranger"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "17": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Primal Awareness"
+              }
+            ],
+            "then": [
+              {
+                "addspell": {
+                  "name": "Commune with Nature",
+                  "spelllevel": "5"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "You do not have disadvantage for attacking blind, and can sense the location of invisible creatures within 30 feet"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "classfeature": "Martial Versatility"
+              }
+            ],
+            "then": [
+              {
+                "sharedclassfeature": {
+                  "name": "Martial Versatility - Ranger"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "You can add Wis mod 1/turn to an attack or damage roll vs a favored enemy"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Rogue",
+    "source": "PHB",
+    "hitdie": "8",
+    "armorproficiencies": [
+      "Light Armor"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons, Hand Crossbows, Longswords, Rapiers, Shortswords"
+    ],
+    "toolproficiencies": [
+      "Thieves' Tools"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "rapier"
+            }
+          },
+          {
+            "weapon": {
+              "name": "shortsword"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          [
+            {
+              "weapon": {
+                "name": "shortbow"
+              }
+            },
+            "arrows (20)"
+          ],
+          {
+            "weapon": {
+              "name": "shortsword"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "burglar's pack",
+          "dungeoneer's pack",
+          "explorer's pack"
+        ]
+      },
+      {
+        "armor": {
+          "name": "leather armor"
+        }
+      },
+      {
+        "weapon": {
+          "name": "dagger",
+          "quantity": "2"
+        }
+      },
+      "thieves' tools"
+    ],
+    "saveproficiencies": [
+      "dexterity",
+      "intelligence"
+    ],
+    "classskills": [
+      "Acrobatics",
+      "Athletics",
+      "Deception",
+      "Insight",
+      "Intimidation",
+      "Investigation",
+      "Perception",
+      "Performance",
+      "Persuasion",
+      "Sleight of Hand",
+      "Stealth"
+    ],
+    "skillcount": "4",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "dexterity",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Light Armor"
+      ],
+      "toolproficiencies": [
+        "Thieves' Tools"
+      ],
+      "skillcount": "1"
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Rogue Features:"
+        },
+        {
+          "setresource": {
+            "name": "Sneak Attack",
+            "displayname": "Sneak Atk",
+            "amount": "1",
+            "diesize": "6",
+            "spendable": "false"
+          }
+        },
+        {
+          "showresource": "Sneak Attack"
+        },
+        {
+          "featuretextwithbullet": "Double proficiency with chosen skills"
+        },
+        {
+          "featuretextwithbullet": "Sneak Attack (1d6)"
+        },
+        {
+          "languagesknowntext": "Thieves' Cant"
+        },
+        {
+          "featuretextwithbullet": "Understand a secret language"
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Expertise",
+            "class": "Rogue",
+            "selections": "2"
+          }
+        }
+      ],
+      "2": [
+        {
+          "featuretextwithbullet": "You can dash, disengage, or hide as a bonus action"
+        }
+      ],
+      "3": [
+        {
+          "showyesnodialog": {
+            "title": "Optional: Aim",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "Gain advantage on an attack as a bonus action when you are motionless"
+              }
+            ]
+          }
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "5": [
+        {
+          "featuretextwithbullet": "You can use a reaction to take half damage when hit by a foe that you see"
+        }
+      ],
+      "6": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Expertise",
+            "class": "Rogue",
+            "selections": "2"
+          }
+        }
+      ],
+      "7": [
+        {
+          "featuretextwithbullet": "When you would make a Dex save for half damage, you take no damage if you pass or half damage if you do not"
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "10": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "11": [
+        {
+          "featuretextwithbullet": "When you make a proficient check, you can take 10 after the roll"
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "14": [
+        {
+          "featuretextwithbullet": "You can locate creatures within 10 feet by hearing"
+        }
+      ],
+      "15": [
+        {
+          "setsaveproficiency": {
+            "wisdom": "true"
+          }
+        },
+        {
+          "featuretextwithbullet": "You are proficient in Wis saves"
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "Attackers never have advantage vs you"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "You can take 20 instead of failing a check or hit when you would have missed once between rests"
+        }
+      ],
+      "all": [
+        {
+          "setresource": {
+            "name": "Sneak Attack",
+            "amount": {
+              "divide": {
+                "first": {
+                  "add": {
+                    "first": {
+                      "classlevel": "Rogue"
+                    },
+                    "second": "1"
+                  }
+                },
+                "second": "2"
+              }
+            }
+          }
+        },
+        {
+          "replacelinefromfeaturetext": {
+            "linestarts": "� Sneak Attack (",
+            "replacementtext": {
+              "combinestrings": [
+                "� Sneak Attack (",
+                {
+                  "value": {
+                    "divide": {
+                      "first": {
+                        "add": {
+                          "first": {
+                            "classlevel": "Rogue"
+                          },
+                          "second": "1"
+                        }
+                      },
+                      "second": "2"
+                    }
+                  }
+                },
+                "d6)"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Sorcerer",
+    "source": "PHB",
+    "hitdie": "6",
+    "weaponproficiencies": [
+      "Daggers, Darts, Slings, Quarterstaffs, Light Crossbows"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          [
+            {
+              "weapon": {
+                "name": "light crossbow"
+              }
+            },
+            "bolts (20)"
+          ],
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "component pouch",
+          "arcane focus"
+        ]
+      },
+      {
+        "selection": [
+          "dungeoneer's pack",
+          "explorer's pack"
+        ]
+      },
+      {
+        "weapon": {
+          "name": "dagger",
+          "quantity": "2"
+        }
+      }
+    ],
+    "saveproficiencies": [
+      "constitution",
+      "charisma"
+    ],
+    "classskills": [
+      "Arcana",
+      "Deception",
+      "Insight",
+      "Intimidation",
+      "Persuasion",
+      "Religion"
+    ],
+    "skillcount": "2",
+    "spellprogression": "full",
+    "spellcastingability": "charisma",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "charisma",
+          "second": "13"
+        }
+      }
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Sorcerer Features:"
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "2": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "resource": "Sorcery Points"
+              }
+            ],
+            "else": [
+              {
+                "setresource": {
+                  "name": "Sorcery Points",
+                  "displayname": "Sorcery Pts"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "modifyresource": {
+            "name": "Sorcery Points",
+            "amount": "2"
+          }
+        },
+        {
+          "showresource": "Sorcery Points"
+        },
+        {
+          "featuretextwithbullet": "You have a max of 2 sorcery points used to alter spells and regain spell slots"
+        }
+      ],
+      "3": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Metamagic",
+            "selections": "2"
+          }
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Sorcerous Versatility"
+          }
+        }
+      ],
+      "5": [
+        {
+          "showyesnodialog": {
+            "title": "Optional: Ability Reroll",
+            "acceptbuttontext": "Accept",
+            "declinebuttontext": "Decline",
+            "accepteffects": [
+              {
+                "featuretextwithbullet": "You can reroll an ability check for a sorcery point"
+              }
+            ]
+          }
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Sorcerous Versatility"
+          }
+        }
+      ],
+      "10": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Metamagic",
+            "selections": "1"
+          }
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Sorcerous Versatility"
+          }
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Sorcerous Versatility"
+          }
+        }
+      ],
+      "17": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Metamagic",
+            "selections": "1"
+          }
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Sorcerous Versatility"
+          }
+        }
+      ],
+      "20": [
+        {
+          "setresource": {
+            "name": "Sorcery Points",
+            "restoreshortrest": "4"
+          }
+        },
+        {
+          "featuretextwithbullet": "Short rests restore 4 sorcery points"
+        }
+      ],
+      "all": [
+        {
+          "ifthenelse": {
+            "if": [
+              {
+                "greaterthan": {
+                  "first": {
+                    "classlevel": "Sorcerer"
+                  },
+                  "second": "2"
+                }
+              }
+            ],
+            "then": [
+              {
+                "modifyresource": {
+                  "name": "Sorcery Points",
+                  "amount": "1"
+                }
+              },
+              {
+                "replacelinefromfeaturetext": {
+                  "linestarts": "� You have a max of ",
+                  "lineends": "sorcery points used to alter spells and regain spell slots",
+                  "replacementtext": {
+                    "combinestrings": [
+                      "� You have a max of ",
+                      {
+                        "value": {
+                          "classlevel": "Sorcerer"
+                        }
+                      },
+                      " sorcery points used to alter spells and regain spell slots"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Warlock",
+    "source": "PHB",
+    "hitdie": "8",
+    "armorproficiencies": [
+      "Light Armor"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          [
+            {
+              "weapon": {
+                "name": "light crossbow"
+              }
+            },
+            "bolts (20)"
+          ],
+          {
+            "weapon": {
+              "type": "simple"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "component pouch",
+          "arcane focus"
+        ]
+      },
+      {
+        "selection": [
+          "scholar's pack",
+          "dungeoneer's pack"
+        ]
+      },
+      {
+        "armor": {
+          "name": "leather armor"
+        }
+      },
+      {
+        "weapon": {
+          "type": "simple"
+        }
+      },
+      {
+        "weapon": {
+          "name": "dagger",
+          "quantity": "2"
+        }
+      }
+    ],
+    "saveproficiencies": [
+      "wisdom",
+      "charisma"
+    ],
+    "classskills": [
+      "Arcana",
+      "Deception",
+      "History",
+      "Intimidation",
+      "Investigation",
+      "Nature",
+      "Religion"
+    ],
+    "skillcount": "2",
+    "spellprogression": "custom",
+    "spellcastingability": "charisma",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "charisma",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Light Armor"
+      ],
+      "weaponproficiencies": [
+        "Simple Weapons"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Warlock Features:"
+        },
+        {
+          "modifycustomspellslots": {
+            "level1": "1"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level1": "1"
+          }
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "2": [
+        {
+          "modifycustomspellslots": {
+            "level1": "1"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level1": "1"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "2"
+          }
+        }
+      ],
+      "3": [
+        {
+          "modifycustomspellslots": {
+            "level1": "-2",
+            "level2": "2"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level1": "-2",
+            "level2": "2"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Pact Boon",
+            "selections": "1"
+          }
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Eldritch Versatility"
+          }
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "5": [
+        {
+          "modifycustomspellslots": {
+            "level2": "-2",
+            "level3": "2"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level2": "-2",
+            "level3": "2"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "1",
+            "replace": "1"
+          }
+        }
+      ],
+      "6": [
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "7": [
+        {
+          "modifycustomspellslots": {
+            "level3": "-2",
+            "level4": "2"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level3": "-2",
+            "level4": "2"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "1",
+            "replace": "1"
+          }
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Eldritch Versatility"
+          }
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "9": [
+        {
+          "modifycustomspellslots": {
+            "level4": "-2",
+            "level5": "2"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level4": "-2",
+            "level5": "2"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "1",
+            "replace": "1"
+          }
+        }
+      ],
+      "10": [
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "11": [
+        {
+          "modifycustomspellslots": {
+            "level5": "1"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level5": "1"
+          }
+        },
+        {
+          "featuretextwithbullet": "Gain one 6th level spell that can be cast 1/day"
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Eldritch Versatility"
+          }
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "1",
+            "replace": "1"
+          }
+        }
+      ],
+      "13": [
+        {
+          "featuretextwithbullet": "Gain one 7th level spell"
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "14": [
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "15": [
+        {
+          "featuretextwithbullet": "Gain one 8th level spell"
+        },
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "1",
+            "replace": "1"
+          }
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Eldritch Versatility"
+          }
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "17": [
+        {
+          "modifycustomspellslots": {
+            "level5": "1"
+          }
+        },
+        {
+          "modifyrestorecustomspellslotsonshortrest": {
+            "level5": "1"
+          }
+        },
+        {
+          "featuretextwithbullet": "Gain one 9th level spell"
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "18": [
+        {
+          "sharedclassfeaturemenu": {
+            "name": "Eldritch Invocations",
+            "selections": "1",
+            "replace": "1"
+          }
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Eldritch Versatility"
+          }
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "Take one minute to regain all spell slots 1/day"
+        },
+        {
+          "sharedclassfeature": {
+            "name": "Replace Warlock Invocations"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "Wizard",
+    "source": "PHB",
+    "hitdie": "6",
+    "weaponproficiencies": [
+      "Daggers, Darts, Slings, Quarterstaffs, Light Crossbows"
+    ],
+    "equipment": [
+      {
+        "selection": [
+          {
+            "weapon": {
+              "name": "quarterstaff"
+            }
+          },
+          {
+            "weapon": {
+              "name": "dagger"
+            }
+          }
+        ]
+      },
+      {
+        "selection": [
+          "component pouch",
+          "arcane focus"
+        ]
+      },
+      {
+        "selection": [
+          "scholar's pack",
+          "explorer's pack"
+        ]
+      },
+      "spellbook"
+    ],
+    "saveproficiencies": [
+      "intelligence",
+      "wisdom"
+    ],
+    "classskills": [
+      "Arcana",
+      "History",
+      "Insight",
+      "Investigation",
+      "Medicine",
+      "Religion"
+    ],
+    "skillcount": "2",
+    "spellprogression": "full",
+    "spellcastingability": "intelligence",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "intelligence",
+          "second": "13"
+        }
+      }
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Wizard Features:"
+        },
+        {
+          "featuretextwithbullet": "Regain half your level (min 1) worth of spell slots during a short rest (once per day)"
+        }
+      ],
+      "2": [
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "You choose a 1st and 2nd level spell which you can cast at will at their given spell level"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "You choose two 3rd level spells which you no longer need to prepare and can each be cast at 3rd level without a spell slot once between rests"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Artificer",
+    "source": "ERftLW",
+    "hitdie": "8",
+    "armorproficiencies": [
+      "Light Armor, Medium Armor, Shields"
+    ],
+    "weaponproficiencies": [
+      "Simple Weapons"
+    ],
+    "toolproficiencies": [
+      "Thieves' Tools",
+      "Tinker's Tools",
+      "One Artisan's Tools"
+    ],
+    "equipment": [
+      {
+        "weapon": {
+          "type": "simple"
+        }
+      },
+      {
+        "weapon": {
+          "type": "simple"
+        }
+      },
+      {
+        "weapon": {
+          "name": "light crossbow"
+        }
+      },
+      "bolts (20)",
+      {
+        "selection": [
+          {
+            "armor": {
+              "name": "studded leather armor"
+            }
+          },
+          {
+            "armor": {
+              "name": "scale mail"
+            }
+          }
+        ]
+      },
+      "thieves' tools",
+      "dungeoneer's pack"
+    ],
+    "saveproficiencies": [
+      "constitution",
+      "intelligence"
+    ],
+    "classskills": [
+      "Arcana",
+      "History",
+      "Investigation",
+      "Medicine",
+      "Nature",
+      "Perception",
+      "Sleight of Hand"
+    ],
+    "skillcount": "2",
+    "spellprogression": "half",
+    "spellroundup": "true",
+    "spellcastingability": "intelligence",
+    "multiclass": {
+      "abilityscoreprerequisites": {
+        "greaterthanorequal": {
+          "first": "intelligence",
+          "second": "13"
+        }
+      },
+      "armorproficiencies": [
+        "Light Armor, Medium Armor, Shields"
+      ],
+      "toolproficiencies": [
+        "Thieves' Tools",
+        "Tinker's Tools"
+      ]
+    },
+    "level": {
+      "1": [
+        {
+          "featuretext": "Artificer Features:"
+        },
+        {
+          "featuretextwithbullet": "As an action, use tools to give a tiny object a visual, auditory, or olfactory effect (see rules)."
+        }
+      ],
+      "2": [
+        {
+          "featuretextwithbullet": "You learn four infusions which you can use on two objects at once (see rules)."
+        }
+      ],
+      "3": [
+        {
+          "featuretextwithbullet": "You can take an hour to make a set of artisan's tools (see rules)"
+        },
+        {
+          "archetypemenu": ""
+        }
+      ],
+      "4": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "6": [
+        {
+          "featuretextwithbullet": "Double proficiency with tools"
+        }
+      ],
+      "7": [
+        {
+          "featuretextwithbullet": "Add your Int mod to a save or check within 30 feet (Int mod/day)"
+        }
+      ],
+      "8": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "10": [
+        {
+          "featuretextwithbullet": "You can make magic items for half the price at x4 speed and can attune a 4th magic item"
+        }
+      ],
+      "11": [
+        {
+          "featuretextwithbullet": "You can put a 1st or 2nd level spell within an object (see rules)"
+        }
+      ],
+      "12": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "14": [
+        {
+          "featuretextwithbullet": "You can ignore most magic item restrictions and attune a 5th item"
+        }
+      ],
+      "16": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "18": [
+        {
+          "featuretextwithbullet": "You can attune a 6th item"
+        }
+      ],
+      "19": [
+        {
+          "abilityscoreimprovement": ""
+        }
+      ],
+      "20": [
+        {
+          "featuretextwithbullet": "As a reaction you can expend an infusion to prevent going unconcious, and item attunement increases saves (see rules)"
+        }
+      ]
+    }
+  }
+]
