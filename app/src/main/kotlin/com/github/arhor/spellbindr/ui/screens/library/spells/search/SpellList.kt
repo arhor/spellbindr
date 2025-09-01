@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.screens.library.spells.search
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -69,6 +70,10 @@ fun SpellList(
                             .fillMaxWidth()
                             .clip(shape = SpellSearchResultListShapes.GroupHeader)
                             .clickable { expandedState[level] = !expanded }
+                            .background(
+                                color = MaterialTheme.colorScheme.surface,
+                                shape = SpellSearchResultListShapes.GroupHeader
+                            )
                             .padding(vertical = 10.dp, horizontal = 20.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
