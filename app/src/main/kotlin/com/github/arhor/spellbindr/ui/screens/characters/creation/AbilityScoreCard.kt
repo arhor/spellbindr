@@ -2,8 +2,10 @@ package com.github.arhor.spellbindr.ui.screens.characters.creation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -31,21 +33,19 @@ fun AbilityScoreCard(
     name: String,
     value: Int,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
 ) {
+    val mainBoxShape = CutCornerShape(15.dp)
+
     Box(modifier = Modifier.padding(10.dp)) {
         Box(
             modifier = modifier
                 .width(90.dp)
                 .height(90.dp)
-                .border(
-                    width = 1.dp,
-                    color = Color.Gray,
-                    shape = CutCornerShape(15.dp)
-                )
-                .background(
-                    color = MaterialTheme.colorScheme.surface,
-                    shape = CutCornerShape(15.dp)
-                ),
+                .clip(mainBoxShape)
+                .border(width = 1.dp, color = Color.Gray, shape = mainBoxShape)
+                .background(color = MaterialTheme.colorScheme.surface)
+                .clickable(enabled = onClick != null, onClick = { onClick?.invoke() }),
             contentAlignment = Alignment.TopCenter,
         ) {
             Column(
@@ -94,9 +94,11 @@ fun AbilityScoreCard(
 @Composable
 private fun AbilityScoreCardPreview() {
     SpellbindrTheme {
-        AbilityScoreCard(
-            name = "Strength",
-            value = 13,
-        )
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            AbilityScoreCard(
+                name = "STR",
+                value = 13,
+            )
+        }
     }
 }
