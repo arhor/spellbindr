@@ -1,5 +1,8 @@
 package com.github.arhor.spellbindr.utils
 
+const val ABILITY_SCORE_DEFAULT_VALUE = 10
+const val ABILITY_SCORE_DEFAULT_BONUS = 0
+
 /**
  * Calculates the ability score modifier based on the provided score.
  *
@@ -16,9 +19,19 @@ package com.github.arhor.spellbindr.utils
  * @param score The ability score (e.g., Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma).
  * @return A string representation of the ability score modifier (e.g., "+2", "-1", "+0").
  */
-fun calculateAbilityScoreModifier(score: Int): String {
-    val result = (score - 10) / 2
-    val prefix = if (result >= 0) "+" else ""
+fun calculateAbilityScoreModifier(score: Int): String =
+    signed((score - ABILITY_SCORE_DEFAULT_VALUE) / 2)
 
-    return "$prefix$result"
-}
+/**
+ * Converts an integer value to a string, prefixing it with a "+" sign if the value is non-negative.
+ *
+ * For example:
+ * - `signed(5)` returns `"+5"`
+ * - `signed(0)` returns `"+0"`
+ * - `signed(-3)` returns `"-3"`
+ *
+ * @param value The integer value to be converted.
+ * @return A string representation of the value, with a leading "+" sign if the value is non-negative.
+ */
+fun signed(value: Int): String =
+    if (value >= 0) "+$value" else value.toString()
