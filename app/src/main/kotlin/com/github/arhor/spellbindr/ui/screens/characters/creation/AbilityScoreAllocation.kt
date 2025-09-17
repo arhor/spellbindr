@@ -20,14 +20,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.utils.PreviewScope
+import com.github.arhor.spellbindr.utils.calculatePointBuyCost
 
 @Composable
 fun PointBuyUI(
     scores: Map<String, Int>,
     onScoreChanged: (String, Int) -> Unit
 ) {
-    val pointCost = AbilityScoreGenerator.calculatePointBuyCost(scores)
+    val pointCost = calculatePointBuyCost(scores)
 
     Column {
         Text("Points Remaining: ${27 - pointCost}")
@@ -52,6 +55,17 @@ fun PointBuyUI(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun PointBuyUIPreview() {
+    PreviewScope {
+        PointBuyUI(
+            scores = mapOf("STR" to 8, "DEX" to 8, "CON" to 8, "INT" to 8, "WIS" to 8, "CHA" to 8),
+            onScoreChanged = { _, _ -> }
+        )
     }
 }
 
