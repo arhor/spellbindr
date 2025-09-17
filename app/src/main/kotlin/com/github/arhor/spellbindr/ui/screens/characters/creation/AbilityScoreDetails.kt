@@ -15,7 +15,7 @@ import com.github.arhor.spellbindr.utils.PreviewScope
 import com.github.arhor.spellbindr.utils.signed
 
 @Composable
-fun AbilityScoresScreen(
+fun AbilityScoreDetails(
     abilityScores: Map<AbilityScore, Int> = emptyMap(),
     racialBonuses: Map<AbilityScore, Int> = emptyMap(),
 ) {
@@ -30,22 +30,22 @@ fun AbilityScoresScreen(
         )
 
         Text(
-            text = "Racial bonuses: ${
-                racialBonuses
-                    .filterValues { it != 0 }
-                    .map { (ability, bonus) -> "$ability: ${signed(bonus)}" }
-                    .joinToString()
-            }",
+            text = "Racial bonuses: ${racialBonuses.asCommaSeparatedString()}",
             color = Accent,
         )
     }
 }
 
+private fun Map<AbilityScore, Int>.asCommaSeparatedString(): String =
+    this.asSequence()
+        .filter { it.value != 0 }
+        .joinToString { "${it.key}: ${signed(it.value)}" }
+
 @Preview
 @Composable
-private fun AbilityScoresScreenPreview() {
+private fun AbilityScoreDetailsPreview() {
     PreviewScope {
-        AbilityScoresScreen(
+        AbilityScoreDetails(
             racialBonuses = mapOf(
                 AbilityScore.STR to +2,
                 AbilityScore.DEX to +1,
