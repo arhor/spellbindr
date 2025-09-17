@@ -22,7 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.utils.EllipseShape
 import com.github.arhor.spellbindr.utils.PreviewScope
 import com.github.arhor.spellbindr.utils.calculateAbilityScoreModifier
@@ -56,13 +55,13 @@ fun AbilityScoreCard(
                 Text(
                     text = name,
                     textAlign = TextAlign.Center,
-                    color = Accent,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         text = value.toString(),
                         textAlign = TextAlign.Center,
-                        color = Accent,
+                        color = MaterialTheme.colorScheme.onBackground,
                         fontSize = 30.sp,
                     )
                 }
@@ -83,7 +82,7 @@ fun AbilityScoreCard(
             Text(
                 text = calculateAbilityScoreModifier(value),
                 textAlign = TextAlign.Center,
-                color = Accent,
+                color = MaterialTheme.colorScheme.onBackground,
             )
         }
     }

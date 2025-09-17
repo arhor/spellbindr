@@ -4,9 +4,6 @@ import com.github.arhor.spellbindr.data.model.predefined.AbilityScore
 import kotlin.math.floor
 import kotlin.random.Random
 
-const val ABILITY_SCORE_DEFAULT_VALUE = 10
-const val ABILITY_SCORE_DEFAULT_BONUS = 0
-
 /**
  * Calculates the ability score modifier based on the provided score.
  *
@@ -23,8 +20,7 @@ const val ABILITY_SCORE_DEFAULT_BONUS = 0
  * @param score The ability score (e.g., Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma).
  * @return A string representation of the ability score modifier (e.g., "+2", "-1", "+0").
  */
-fun calculateAbilityScoreModifier(score: Int): String =
-    signed((score - ABILITY_SCORE_DEFAULT_VALUE) / 2)
+fun calculateAbilityScoreModifier(score: Int): String = signed((score - 10) / 2)
 
 /**
  * Converts an integer value to a string, prefixing it with a "+" sign if the value is non-negative.
@@ -37,8 +33,7 @@ fun calculateAbilityScoreModifier(score: Int): String =
  * @param value The integer value to be converted.
  * @return A string representation of the value, with a leading "+" sign if the value is non-negative.
  */
-fun signed(value: Int): String =
-    if (value >= 0) "+$value" else value.toString()
+fun signed(value: Int): String = if (value >= 0) "+$value" else value.toString()
 
 fun Map<AbilityScore, Int>.asCommaSeparatedString(): String =
     this.asSequence()

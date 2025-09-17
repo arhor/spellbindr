@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.AbilityScore
-import com.github.arhor.spellbindr.utils.ABILITY_SCORE_DEFAULT_BONUS
-import com.github.arhor.spellbindr.utils.ABILITY_SCORE_DEFAULT_VALUE
 import com.github.arhor.spellbindr.utils.PreviewScope
 
 private const val ITEMS_PER_ROW = 3
+private const val ABILITY_SCORE_DEFAULT_VALUE = 8
+private const val ABILITY_SCORE_DEFAULT_BONUS = 0
 
 @Composable
 fun AbilityScoresGrid(

@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.AbilityScore
-import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.utils.PreviewScope
 import com.github.arhor.spellbindr.utils.asCommaSeparatedString
 
@@ -31,7 +31,7 @@ fun AbilityScoreDetails(
         )
         Text(
             text = "Racial bonuses: ${racialBonuses.asCommaSeparatedString()}",
-            color = Accent,
+            color = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
