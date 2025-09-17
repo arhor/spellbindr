@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.characters.creation
+package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
