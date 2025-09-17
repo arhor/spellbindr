@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.AbilityScore
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.utils.PreviewScope
-import com.github.arhor.spellbindr.utils.signed
+import com.github.arhor.spellbindr.utils.asCommaSeparatedString
 
 @Composable
 fun AbilityScoreDetails(
@@ -35,11 +35,6 @@ fun AbilityScoreDetails(
         )
     }
 }
-
-private fun Map<AbilityScore, Int>.asCommaSeparatedString(): String =
-    this.asSequence()
-        .filter { it.value != 0 }
-        .joinToString { "${it.key}: ${signed(it.value)}" }
 
 @Preview
 @Composable
