@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.AbilityScore
+import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.utils.PreviewScope
 
 private const val ITEMS_PER_ROW = 3
@@ -18,15 +18,15 @@ private const val ABILITY_SCORE_DEFAULT_BONUS = 0
 
 @Composable
 fun AbilityScoresGrid(
-    abilityScores: Map<AbilityScore, Int> = emptyMap(),
-    racialBonuses: Map<AbilityScore, Int> = emptyMap(),
+    abilityScores: Map<Ability, Int> = emptyMap(),
+    racialBonuses: Map<Ability, Int> = emptyMap(),
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        for (abilityScoresChunk in AbilityScore.entries.chunked(ITEMS_PER_ROW)) {
+        for (abilityScoresChunk in Ability.entries.chunked(ITEMS_PER_ROW)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -51,9 +51,9 @@ private fun AbilityScoresGridPreview() {
     PreviewScope {
         AbilityScoresGrid(
             racialBonuses = mapOf(
-                AbilityScore.STR to +2,
-                AbilityScore.DEX to +1,
-                AbilityScore.INT to -3,
+                Ability.STR to +2,
+                Ability.DEX to +1,
+                Ability.INT to -3,
             )
         )
     }
