@@ -14,8 +14,8 @@ import kotlinx.serialization.Serializable
  * @property description A detailed explanation of what the ability score measures and how it's used.
  * @property associatedSkills A list of skill names that are typically associated with this ability score.
  */
-@Serializable(with = AbilityScore.Companion::class)
-enum class AbilityScore(
+@Serializable(with = Ability.Companion::class)
+enum class Ability(
     val displayName: String,
     val description: List<String>,
 ) {
@@ -63,7 +63,7 @@ enum class AbilityScore(
     );
 
     val associatedSkills: List<Skill>
-        get() = Skill.entries.filter { it.abilityScore == this }
+        get() = Skill.entries.filter { it.ability == this }
 
-    companion object : KSerializer<AbilityScore> by CaseInsensitiveEnumSerializer()
+    companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer()
 }
