@@ -74,7 +74,7 @@ fun AbilityScoreIncrease(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "Character Ability Scores",
+            text = "Ability Scores",
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground,
         )
