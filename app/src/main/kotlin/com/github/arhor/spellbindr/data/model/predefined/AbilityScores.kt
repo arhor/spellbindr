@@ -20,6 +20,7 @@ data class AbilityScores(
 
     companion object {
         const val MIN_SCORE = 8
+        val STANDARD_ARRAY = AbilityScores(str = 8, dex = 10, con = 12, int = 13, wis = 14, cha = 15)
 
         fun fromMap(map: Map<Ability, Int>) = AbilityScores(
             str = map[Ability.STR] ?: MIN_SCORE,

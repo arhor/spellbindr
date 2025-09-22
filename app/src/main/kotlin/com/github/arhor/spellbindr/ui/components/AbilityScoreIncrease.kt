@@ -52,7 +52,7 @@ fun AbilityScoreIncrease() {
         mutableStateOf(
             when (currentMethod) {
                 Method.POINT_BUY -> AbilityScores()
-                Method.STD_ARRAY -> AbilityScores(str = 8, dex = 10, con = 12, int = 13, wis = 14, cha = 15)
+                Method.STD_ARRAY -> AbilityScores.STANDARD_ARRAY
             }
         )
     }
@@ -111,7 +111,9 @@ fun AbilityScoreIncrease() {
 
             Method.STD_ARRAY -> {
                 Text(
-                    text = "Distribute standard points array across your abilities",
+                    text = "Distribute standard points array across your abilities: ${
+                        AbilityScores.STANDARD_ARRAY.values.joinToString()
+                    }",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
