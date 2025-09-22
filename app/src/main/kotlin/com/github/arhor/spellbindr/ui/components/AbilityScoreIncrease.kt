@@ -40,13 +40,17 @@ import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.AbilityScores
 import com.github.arhor.spellbindr.utils.PreviewScope
 import com.github.arhor.spellbindr.utils.calculatePointBuyCost
+import com.github.arhor.spellbindr.utils.signed
 
 private const val TOTAL_POINTS = 27
 private const val ABILITY_SCORE_MIN = 8
 private const val ABILITY_SCORE_MAX = 15
+private const val ABILITY_BONUS_MIN = 0
 
 @Composable
-fun AbilityScoreIncrease() {
+fun AbilityScoreIncrease(
+    racialBonuses: Map<Ability, Int>,
+) {
     var currentMethod by remember { mutableStateOf(Method.POINT_BUY) }
     var abilityScores by remember(currentMethod) {
         mutableStateOf(
@@ -99,6 +103,7 @@ fun AbilityScoreIncrease() {
                 method = currentMethod,
                 ability = ability,
                 abilityScores = abilityScores,
+                racialBonuses = racialBonuses,
                 onAbilitiesChanged = { abilityScores = abilityScores.copy(it) },
             )
         }
@@ -134,10 +139,17 @@ private fun AbilitiesListItem(
     method: Method,
     ability: Ability,
     abilityScores: AbilityScores,
+    racialBonuses: Map<Ability, Int>,
     onAbilitiesChanged: (Map<Ability, Int>) -> Unit,
 ) {
     val abilityScore = abilityScores[ability] ?: ABILITY_SCORE_MIN
+    val abilityBonus = racialBonuses[ability] ?: ABILITY_BONUS_MIN
     val controller = createAbilityListItemController(method, ability, abilityScore, abilityScores, onAbilitiesChanged)
+    val abilityScoreDisplayValue = if (abilityBonus != 0) {
+        "$abilityScore (${signed(abilityBonus)})"
+    } else {
+        "$abilityScore"
+    }
 
     ListItem(
         headlineContent = {
@@ -150,7 +162,7 @@ private fun AbilitiesListItem(
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(0.25f)
+                modifier = Modifier.fillMaxWidth(0.35f)
             ) {
                 AbilityScoreChangeButton(
                     icon = Icons.Default.KeyboardArrowDown,
@@ -158,7 +170,7 @@ private fun AbilitiesListItem(
                     onClick = controller::handleDecreaseClick,
                 )
                 Text(
-                    text = "$abilityScore",
+                    text = abilityScoreDisplayValue,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -284,6 +296,12 @@ enum class Method(val displayName: String) {
 @Composable
 private fun AbilityScoreIncreasePreview() {
     PreviewScope {
-        AbilityScoreIncrease()
+        AbilityScoreIncrease(
+            racialBonuses = mapOf(
+                Ability.STR to +2,
+                Ability.DEX to +1,
+                Ability.INT to -3,
+            ),
+        )
     }
 }
