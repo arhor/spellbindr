@@ -73,6 +73,11 @@ fun AbilityScoreIncrease(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Text(
+            text = "Character Ability Scores",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
         Row(modifier = Modifier.selectableGroup()) {
             Method.entries.forEach { method ->
                 Column(
