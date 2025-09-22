@@ -78,6 +78,7 @@ fun AbilityScoreIncrease(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground,
         )
+        GradientDivider(modifier = Modifier.padding(vertical = 16.dp))
         Row(modifier = Modifier.selectableGroup()) {
             Method.entries.forEach { method ->
                 Column(
@@ -103,6 +104,7 @@ fun AbilityScoreIncrease(
                 }
             }
         }
+        GradientDivider(modifier = Modifier.padding(vertical = 16.dp))
         for (ability in Ability.entries) {
             AbilitiesListItem(
                 method = currentMethod,
