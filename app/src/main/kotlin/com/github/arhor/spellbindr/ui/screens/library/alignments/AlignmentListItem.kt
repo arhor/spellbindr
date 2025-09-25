@@ -18,10 +18,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.data.model.Alignment as CharacterAlignment
 
 @Composable
 fun AlignmentListItem(
-    alignment: com.github.arhor.spellbindr.data.model.Alignment,
+    alignment: CharacterAlignment,
     isExpanded: Boolean,
     onItemClick: () -> Unit,
 ) {
