@@ -1,54 +1,62 @@
 package com.github.arhor.spellbindr.ui.screens.library.alignments
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.github.arhor.spellbindr.ui.components.SelectableGrid
 
 @Composable
 fun AlignmentsScreen(
     viewModel: AlignmentsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    val listState = rememberLazyListState()
 
-    LaunchedEffect(state) {
-        val index = state.alignments.indexOfFirst { it.name == state.expandedItemName }
-        if (index != -1) {
-            val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
-            if (itemInfo != null) {
-                val viewportHeight = listState.layoutInfo.viewportSize.height
-                if (itemInfo.offset + itemInfo.size > viewportHeight) {
-                    listState.animateScrollToItem(index)
-                }
-            } else {
-                listState.animateScrollToItem(index)
+    SelectableGrid(
+        items = state.alignments,
+        smallContent = {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = it.abbr,
+                    style = MaterialTheme.typography.headlineSmall,
+                    textAlign = TextAlign.Center
+                )
             }
-        }
-    }
-
-    LazyColumn(
-        state = listState,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        items(items = state.alignments, key = { it.name }) {
-            AlignmentListItem(
-                alignment = it,
-                isExpanded = it.name == state.expandedItemName,
-                onItemClick = { viewModel.handleAlignmentClick(it.name) }
-            )
-        }
-    }
+        },
+        largeContent = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = it.name,
+                    style = MaterialTheme.typography.displayMedium,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = it.desc,
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
+        },
+    )
 }
