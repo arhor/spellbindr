@@ -31,14 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.next.CharacterRace
-import com.github.arhor.spellbindr.data.model.next.CharacterSubrace
 import com.github.arhor.spellbindr.utils.PreviewScope
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CharacterRaceSelection(
     races: List<CharacterRace>,
-    onRaceSelected: (CharacterRace, CharacterSubrace?) -> Unit,
+    onRaceSelected: (CharacterRace, CharacterRace.Subrace?) -> Unit,
 ) {
     val pagerState = rememberPagerState { races.size }
     val selectedRace by remember { derivedStateOf { races[pagerState.currentPage] } }
@@ -78,9 +77,9 @@ fun CharacterRaceSelection(
 @Composable
 private fun RaceDetails(
     race: CharacterRace,
-    onSubraceSelected: (CharacterSubrace?) -> Unit,
+    onSubraceSelected: (CharacterRace.Subrace?) -> Unit,
 ) {
-    var selectedSubrace by remember { mutableStateOf<CharacterSubrace?>(null) }
+    var selectedSubrace by remember { mutableStateOf<CharacterRace.Subrace?>(null) }
 
     Text(
         text = race.name,
@@ -142,8 +141,8 @@ private fun CharacterRaceSelectionPreview() {
                     name = "Human",
                     traits = emptyList(),
                     subraces = listOf(
-                        CharacterSubrace("human-1", "Variant 1", "Human", emptyList()),
-                        CharacterSubrace("human-2", "Variant 2", "Human", emptyList()),
+                        CharacterRace.Subrace("human-1", "Variant 1", "Human", emptyList()),
+                        CharacterRace.Subrace("human-2", "Variant 2", "Human", emptyList()),
                     ),
                 ),
                 CharacterRace(
@@ -151,8 +150,8 @@ private fun CharacterRaceSelectionPreview() {
                     name = "Elf",
                     traits = emptyList(),
                     subraces = listOf(
-                        CharacterSubrace("elf-1", "High Elf", "High Elf", emptyList()),
-                        CharacterSubrace("elf-2", "Drow", "Drow", emptyList()),
+                        CharacterRace.Subrace("elf-1", "High Elf", "High Elf", emptyList()),
+                        CharacterRace.Subrace("elf-2", "Drow", "Drow", emptyList()),
                     ),
                 ),
                 CharacterRace(

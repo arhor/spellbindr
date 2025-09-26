@@ -17,7 +17,6 @@ import com.github.arhor.spellbindr.data.model.Prerequisite
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.Subclass
 import com.github.arhor.spellbindr.data.model.next.CharacterRace
-import com.github.arhor.spellbindr.data.model.next.CharacterSubrace
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
@@ -53,7 +52,7 @@ class CharacterCreationViewModel @Inject constructor(
         val characterName: String = "",
         val background: Background? = null,
         val race: CharacterRace? = null,
-        val subrace: CharacterSubrace? = null,
+        val subrace: CharacterRace.Subrace? = null,
         val characterClass: CharacterClass? = null,
         val characterSubclass: Subclass? = null,
 
