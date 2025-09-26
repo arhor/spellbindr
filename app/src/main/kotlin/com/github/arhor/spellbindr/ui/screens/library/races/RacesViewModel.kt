@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Trait
+import com.github.arhor.spellbindr.data.model.next.CharacterRace
 import com.github.arhor.spellbindr.data.repository.RacesRepository
 import com.github.arhor.spellbindr.data.repository.TraitsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +26,7 @@ class RacesViewModel @Inject constructor(
 
     @Immutable
     data class State(
-        val races: List<Race> = emptyList(),
+        val races: List<CharacterRace> = emptyList(),
         val traits: Map<String, Trait> = emptyMap(),
         val expandedItemName: String? = null,
     )

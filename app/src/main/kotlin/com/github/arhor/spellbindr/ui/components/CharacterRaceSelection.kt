@@ -30,15 +30,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.Race
-import com.github.arhor.spellbindr.data.model.Subrace
+import com.github.arhor.spellbindr.data.model.next.CharacterRace
+import com.github.arhor.spellbindr.data.model.next.CharacterSubrace
 import com.github.arhor.spellbindr.utils.PreviewScope
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CharacterRaceSelection(
-    races: List<Race>,
-    onRaceSelected: (Race, Subrace?) -> Unit,
+    races: List<CharacterRace>,
+    onRaceSelected: (CharacterRace, CharacterSubrace?) -> Unit,
 ) {
     val pagerState = rememberPagerState { races.size }
     val selectedRace by remember { derivedStateOf { races[pagerState.currentPage] } }
@@ -77,10 +77,10 @@ fun CharacterRaceSelection(
 
 @Composable
 private fun RaceDetails(
-    race: Race,
-    onSubraceSelected: (Subrace?) -> Unit,
+    race: CharacterRace,
+    onSubraceSelected: (CharacterSubrace?) -> Unit,
 ) {
-    var selectedSubrace by remember { mutableStateOf<Subrace?>(null) }
+    var selectedSubrace by remember { mutableStateOf<CharacterSubrace?>(null) }
 
     Text(
         text = race.name,
@@ -110,7 +110,7 @@ private fun RaceDetails(
 }
 
 @Composable
-private fun RacePlaceholder(race: Race) {
+private fun RacePlaceholder(race: CharacterRace) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
@@ -137,25 +137,25 @@ private fun CharacterRaceSelectionPreview() {
     PreviewScope {
         CharacterRaceSelection(
             races = listOf(
-                Race(
+                CharacterRace(
                     id = "human",
                     name = "Human",
                     traits = emptyList(),
                     subraces = listOf(
-                        Subrace("human-1", "Variant 1", "Human", emptyList()),
-                        Subrace("human-2", "Variant 2", "Human", emptyList()),
+                        CharacterSubrace("human-1", "Variant 1", "Human", emptyList()),
+                        CharacterSubrace("human-2", "Variant 2", "Human", emptyList()),
                     ),
                 ),
-                Race(
+                CharacterRace(
                     id = "elf",
                     name = "Elf",
                     traits = emptyList(),
                     subraces = listOf(
-                        Subrace("elf-1", "High Elf", "High Elf", emptyList()),
-                        Subrace("elf-2", "Drow", "Drow", emptyList()),
+                        CharacterSubrace("elf-1", "High Elf", "High Elf", emptyList()),
+                        CharacterSubrace("elf-2", "Drow", "Drow", emptyList()),
                     ),
                 ),
-                Race(
+                CharacterRace(
                     id = "tiefling",
                     name = "Tiefling",
                     traits = emptyList(),

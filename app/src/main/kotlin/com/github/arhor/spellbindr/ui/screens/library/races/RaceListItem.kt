@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.Race
+import com.github.arhor.spellbindr.data.model.next.CharacterRace
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 
 @Composable
 fun RaceListItem(
-    race: Race,
+    race: CharacterRace,
     traits: Map<String, com.github.arhor.spellbindr.data.model.Trait>,
     isExpanded: Boolean,
     onItemClick: () -> Unit,
@@ -48,8 +48,8 @@ fun RaceListItem(
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(bottom = 4.dp)
                         )
-                        race.traits.forEach { traitId ->
-                            traits[traitId]?.let { trait ->
+                        race.traits.forEach {
+                            traits[it.id]?.let { trait ->
                                 TraitDisplay(
                                     trait = trait,
                                     modifier = Modifier.padding(bottom = 6.dp)
@@ -72,9 +72,9 @@ fun RaceListItem(
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier.padding(start = 8.dp, bottom = 2.dp)
                             )
-                            if (subrace.description.isNotEmpty()) {
+                            if (subrace.desc.isNotEmpty()) {
                                 Text(
-                                    text = subrace.description,
+                                    text = subrace.desc,
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     modifier = Modifier.padding(start = 16.dp, bottom = 4.dp)
@@ -87,8 +87,8 @@ fun RaceListItem(
                                     color = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier.padding(start = 16.dp, bottom = 2.dp)
                                 )
-                                subrace.traits.forEach { traitId ->
-                                    traits[traitId]?.let { trait ->
+                                subrace.traits.forEach {
+                                    traits[it.id]?.let { trait ->
                                         TraitDisplay(
                                             trait = trait,
                                             modifier = Modifier.padding(start = 24.dp, bottom = 4.dp),

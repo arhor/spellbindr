@@ -14,10 +14,10 @@ import com.github.arhor.spellbindr.data.model.Equipment
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.Language
 import com.github.arhor.spellbindr.data.model.Prerequisite
-import com.github.arhor.spellbindr.data.model.Race
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.Subclass
-import com.github.arhor.spellbindr.data.model.Subrace
+import com.github.arhor.spellbindr.data.model.next.CharacterRace
+import com.github.arhor.spellbindr.data.model.next.CharacterSubrace
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.BackgroundRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
@@ -52,8 +52,8 @@ class CharacterCreationViewModel @Inject constructor(
         // Basic Info
         val characterName: String = "",
         val background: Background? = null,
-        val race: Race? = null,
-        val subrace: Subrace? = null,
+        val race: CharacterRace? = null,
+        val subrace: CharacterSubrace? = null,
         val characterClass: CharacterClass? = null,
         val characterSubclass: Subclass? = null,
 
@@ -77,7 +77,7 @@ class CharacterCreationViewModel @Inject constructor(
         val error: String? = null,
 
         // Selections
-        val races: List<Race> = emptyList(),
+        val races: List<CharacterRace> = emptyList(),
         val classes: List<CharacterClass> = emptyList(),
         val backgrounds: List<Background> = emptyList(),
         val languages: List<Language> = emptyList(),

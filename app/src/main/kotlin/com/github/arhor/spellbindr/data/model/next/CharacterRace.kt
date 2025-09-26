@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model
+package com.github.arhor.spellbindr.data.model.next
 
 import kotlinx.serialization.Serializable
 
@@ -11,9 +11,9 @@ import kotlinx.serialization.Serializable
  * @property subraces A list of subraces available for this race.
  */
 @Serializable
-data class Race(
+data class CharacterRace(
     val id: String,
     val name: String,
-    val traits: List<String>,
-    val subraces: List<Subrace>,
+    val traits: List<Reference>,
+    val subraces: List<CharacterSubrace>,
 )
