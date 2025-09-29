@@ -36,7 +36,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent

@@ -4,17 +4,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.navigation.AppNavGraph
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 
 @Composable
-fun App(onLoaded: () -> Unit) {
-    val appViewModel = hiltViewModel<AppViewModel>()
-    val appViewState by appViewModel.state.collectAsState()
+fun App(
+    onLoaded: () -> Unit,
+    viewModel: AppViewModel = hiltViewModel(),
+) {
+    val state by viewModel.state.collectAsState()
 
-    LaunchedEffect(appViewState.ready) {
-        if (appViewState.ready) {
+    LaunchedEffect(state.ready) {
+        if (state.ready) {
             onLoaded()
         }
     }
