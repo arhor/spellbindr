@@ -1,6 +1,9 @@
 package com.github.arhor.spellbindr.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -13,16 +16,36 @@ import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.utils.PreviewScope
 import com.github.arhor.spellbindr.utils.asCommaSeparatedString
 
+private const val ITEMS_PER_ROW = 3
+private const val ABILITY_SCORE_DEFAULT_VALUE = 8
+private const val ABILITY_SCORE_DEFAULT_BONUS = 0
+
 @Composable
 fun AbilityScoreDetails(
     abilityScores: Map<Ability, Int> = emptyMap(),
     racialBonuses: Map<Ability, Int> = emptyMap(),
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        AbilityScoresGrid(
-            abilityScores = abilityScores,
-            racialBonuses = racialBonuses,
-        )
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        for (abilityScoresChunk in Ability.entries.chunked(ITEMS_PER_ROW)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                for (abilityScore in abilityScoresChunk) {
+                    val value = abilityScores[abilityScore] ?: ABILITY_SCORE_DEFAULT_VALUE
+                    val bonus = racialBonuses[abilityScore] ?: ABILITY_SCORE_DEFAULT_BONUS
+
+                    AbilityScoreCard(
+                        name = abilityScore.name,
+                        value = value + bonus,
+                    )
+                }
+            }
+        }
         GradientDivider(
             modifier = Modifier.padding(
                 horizontal = 15.dp,
