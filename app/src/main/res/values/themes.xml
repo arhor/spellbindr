@@ -6,6 +6,5 @@
         <item name="postSplashScreenTheme">@style/Theme.Spellbindr</item>
     </style>
 
-    <style name="Theme.Spellbindr" parent="android:Theme.Material.NoActionBar">
-    </style>
+    <style name="Theme.Spellbindr" parent="android:Theme.Material.NoActionBar" />
 </resources>
