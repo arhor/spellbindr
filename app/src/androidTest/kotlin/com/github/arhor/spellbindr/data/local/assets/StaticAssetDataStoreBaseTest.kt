@@ -39,13 +39,10 @@ class StaticAssetDataStoreBaseTest {
         // Then
         if (errors.isNotEmpty()) {
             fail(
-                "Static asset stores failed to initialize:${
-                    errors.joinToString(
-                        separator = "\n\t",
-                        prefix = "\n\t",
-                        postfix = "\n",
-                    )
-                }"
+                """
+                Static asset stores failed to initialize:
+                    ${errors.joinToString(separator = "\n\t")}
+                """.trimIndent()
             )
         }
     }
