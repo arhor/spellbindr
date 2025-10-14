@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
@@ -13,8 +12,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -29,7 +26,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationViewModel
 import com.github.arhor.spellbindr.ui.screens.characters.creation.ClassSelectionScreen
@@ -73,12 +69,6 @@ fun SpellbindrApp(
         Scaffold(
             content = { innerPadding ->
                 Box {
-                    Image(
-                        painter = painterResource(id = R.drawable.bg_stars),
-                        modifier = Modifier.matchParentSize(),
-                        contentScale = ContentScale.Crop,
-                        contentDescription = "Global background",
-                    )
                     NavHost(
                         navController = controller,
                         startDestination = Compendium,
