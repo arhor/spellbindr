@@ -4,9 +4,9 @@ import com.github.arhor.spellbindr.utils.AppRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Library : AppRoute(title = "Library") {
+data object Compendium : AppRoute(title = "Compendium") {
     @Serializable
-    data object Main : AppRoute(title = "Library")
+    data object Main : AppRoute(title = "Compendium")
 }
 
 @Serializable

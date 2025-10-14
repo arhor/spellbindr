@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.spells.search
+package com.github.arhor.spellbindr.ui.screens.compendium.spells.search
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape

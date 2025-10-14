@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library
+package com.github.arhor.spellbindr.ui.screens.compendium
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +36,7 @@ private val ITEMS = listOf(
 )
 
 @Composable
-fun LibraryMainScreen(
+fun CompendiumMainScreen(
     onItemClick: (AppRoute) -> Unit = {},
 ) {
     Box(modifier = Modifier.fillMaxSize()) {

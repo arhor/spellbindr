@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import com.github.arhor.spellbindr.utils.AppRoute
 
 private val NAV_ITEMS = listOf(
-    Library,
+    Compendium,
     Characters,
 )
 

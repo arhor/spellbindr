@@ -35,12 +35,12 @@ import com.github.arhor.spellbindr.ui.screens.characters.creation.SpellsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
 import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
 import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
-import com.github.arhor.spellbindr.ui.screens.library.LibraryMainScreen
-import com.github.arhor.spellbindr.ui.screens.library.alignments.AlignmentsScreen
-import com.github.arhor.spellbindr.ui.screens.library.conditions.ConditionsScreen
-import com.github.arhor.spellbindr.ui.screens.library.races.RacesScreen
-import com.github.arhor.spellbindr.ui.screens.library.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.screens.compendium.CompendiumMainScreen
+import com.github.arhor.spellbindr.ui.screens.compendium.alignments.AlignmentsScreen
+import com.github.arhor.spellbindr.ui.screens.compendium.conditions.ConditionsScreen
+import com.github.arhor.spellbindr.ui.screens.compendium.races.RacesScreen
+import com.github.arhor.spellbindr.ui.screens.compendium.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.screens.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.utils.AppRoute
 
 @Composable
@@ -74,20 +74,20 @@ fun AppNavGraph() {
             )
             NavHost(
                 navController = controller,
-                startDestination = Library,
+                startDestination = Compendium,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                libraryNavGraph(controller)
+                compendiumNavGraph(controller)
                 charactersNavGraph(controller)
             }
         }
     }
 }
 
-fun NavGraphBuilder.libraryNavGraph(controller: NavController) {
-    navigation<Library>(startDestination = Library.Main) {
-        composable<Library.Main> {
-            LibraryMainScreen(
+fun NavGraphBuilder.compendiumNavGraph(controller: NavController) {
+    navigation<Compendium>(startDestination = Compendium.Main) {
+        composable<Compendium.Main> {
+            CompendiumMainScreen(
                 onItemClick = { controller.navigate(it) }
             )
         }

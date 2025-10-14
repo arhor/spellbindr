@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.spells.details
+package com.github.arhor.spellbindr.ui.screens.compendium.spells.details
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.components.GradientDivider
-import com.github.arhor.spellbindr.ui.screens.library.spells.search.SpellIcon
+import com.github.arhor.spellbindr.ui.screens.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 
 @Composable

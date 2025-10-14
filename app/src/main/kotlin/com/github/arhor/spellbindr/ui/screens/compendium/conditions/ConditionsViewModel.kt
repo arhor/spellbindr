@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.conditions
+package com.github.arhor.spellbindr.ui.screens.compendium.conditions
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable

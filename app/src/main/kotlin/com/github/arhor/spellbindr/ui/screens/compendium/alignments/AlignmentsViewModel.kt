@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.alignments
+package com.github.arhor.spellbindr.ui.screens.compendium.alignments
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable

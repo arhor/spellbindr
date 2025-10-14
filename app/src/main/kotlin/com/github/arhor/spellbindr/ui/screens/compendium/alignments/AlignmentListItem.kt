@@ -1,23 +1,28 @@
-package com.github.arhor.spellbindr.ui.screens.library.conditions
+package com.github.arhor.spellbindr.ui.screens.compendium.alignments
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.data.model.Alignment as CharacterAlignment
 
 @Composable
-fun ConditionListItem(
-    condition: Condition,
+fun AlignmentListItem(
+    alignment: CharacterAlignment,
     isExpanded: Boolean,
     onItemClick: () -> Unit,
 ) {
@@ -29,17 +34,29 @@ fun ConditionListItem(
                 .padding(16.dp)
                 .animateContentSize(),
         ) {
-            Text(
-                text = condition.displayName,
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center,
-            )
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = alignment.name,
+                    modifier = Modifier.weight(1f),
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "(${alignment.abbr})",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
             AnimatedVisibility(visible = isExpanded) {
                 Column {
                     GradientDivider(modifier = Modifier.padding(vertical = 8.dp))
                     Text(
-                        text = condition.description.joinToString(separator = "\n\n"),
+                        text = alignment.desc,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }

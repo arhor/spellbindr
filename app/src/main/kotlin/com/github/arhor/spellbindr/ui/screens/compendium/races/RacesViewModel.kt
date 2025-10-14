@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.screens.library.races
+package com.github.arhor.spellbindr.ui.screens.compendium.races
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
