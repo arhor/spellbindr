@@ -71,6 +71,24 @@ fun SpellbindrApp(
 
     SpellbindrTheme {
         Scaffold(
+            content = { innerPadding ->
+                Box {
+                    Image(
+                        painter = painterResource(id = R.drawable.bg_stars),
+                        modifier = Modifier.matchParentSize(),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = "Global background",
+                    )
+                    NavHost(
+                        navController = controller,
+                        startDestination = Compendium,
+                        modifier = Modifier.padding(innerPadding),
+                    ) {
+                        compendiumNavGraph(controller)
+                        charactersNavGraph(controller)
+                    }
+                }
+            },
             bottomBar = {
                 NavigationBar {
                     NAV_ITEMS.forEach { route ->
@@ -88,24 +106,6 @@ fun SpellbindrApp(
                             label = { Text(route.title) },
                             icon = { }
                         )
-                    }
-                }
-            },
-            content = { innerPadding ->
-                Box {
-                    Image(
-                        painter = painterResource(id = R.drawable.bg_stars),
-                        modifier = Modifier.matchParentSize(),
-                        contentScale = ContentScale.Crop,
-                        contentDescription = "Global background",
-                    )
-                    NavHost(
-                        navController = controller,
-                        startDestination = Compendium,
-                        modifier = Modifier.padding(innerPadding),
-                    ) {
-                        compendiumNavGraph(controller)
-                        charactersNavGraph(controller)
                     }
                 }
             },
