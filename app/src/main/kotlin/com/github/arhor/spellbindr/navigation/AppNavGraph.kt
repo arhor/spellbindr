@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.navigation
+package com.github.arhor.spellbindr.navigation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.github.arhor.spellbindr.ui.navigation.AppNavGraph
+import com.github.arhor.spellbindr.navigation.AppNavGraph
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 
 @Composable

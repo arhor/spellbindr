@@ -22,10 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.navigation.Alignments
-import com.github.arhor.spellbindr.ui.navigation.Conditions
-import com.github.arhor.spellbindr.ui.navigation.Races
-import com.github.arhor.spellbindr.ui.navigation.Spells
+import com.github.arhor.spellbindr.navigation.Alignments
+import com.github.arhor.spellbindr.navigation.Conditions
+import com.github.arhor.spellbindr.navigation.Races
+import com.github.arhor.spellbindr.navigation.Spells
 import com.github.arhor.spellbindr.utils.AppRoute
 
 private val ITEMS = listOf(
