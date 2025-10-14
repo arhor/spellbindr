@@ -44,6 +44,7 @@ import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsSc
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.feature.diceRoller.DiceRollerScreen
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 
 @Composable
@@ -71,6 +72,7 @@ fun SpellbindrApp(
                     ) {
                         compendiumNavGraph(controller)
                         charactersNavGraph(controller)
+                        composable<DiceRoller> { DiceRollerScreen() }
                     }
                 }
             },
@@ -78,6 +80,7 @@ fun SpellbindrApp(
                 NavigationBar {
                     NavBarItem(route = Compendium, controller)
                     NavBarItem(route = Characters, controller)
+                    NavBarItem(route = DiceRoller, controller)
                 }
             },
         )

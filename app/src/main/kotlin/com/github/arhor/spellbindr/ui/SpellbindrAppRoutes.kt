@@ -63,3 +63,6 @@ data object Characters : AppRoute(title = "Characters") {
         data object Summary : AppRoute(title = "Summary")
     }
 }
+
+@Serializable
+data object DiceRoller : AppRoute(title = "Dice Roller")
