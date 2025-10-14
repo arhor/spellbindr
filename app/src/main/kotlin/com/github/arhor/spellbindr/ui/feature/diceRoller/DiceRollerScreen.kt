@@ -32,7 +32,6 @@ fun DiceRollerScreen(
     val state by viewModel.state.collectAsState()
 
     BaseScreen {
-        // Header
         Text(
             text = "Dice Roller",
             style = MaterialTheme.typography.headlineLarge,
@@ -40,30 +39,25 @@ fun DiceRollerScreen(
             color = MaterialTheme.colorScheme.primary
         )
 
-        // Dice Type Selection
         DiceTypeSelector(
             selectedDiceType = state.selectedDiceType,
             onDiceTypeSelected = viewModel::selectDiceType
         )
 
-        // Quantity and Modifier Selection
         QuantityModifierSelector(
             quantity = state.selectedQuantity,
             onQuantityChange = viewModel::updateQuantity,
         )
 
-        // Roll Button
         RollButton(
             isRolling = state.isRolling,
             onClick = viewModel::rollDice
         )
 
-        // Current Roll Result
-        if (state.currentRoll != null) {
-            RollResult(rollSet = state.currentRoll)
+        state.currentRoll?.let {
+            RollResult(rollSet = it)
         }
 
-        // History Section
         if (state.rollHistory.isNotEmpty()) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
