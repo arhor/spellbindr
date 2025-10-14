@@ -3,7 +3,10 @@ package com.github.arhor.spellbindr.navigation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -43,6 +46,11 @@ import com.github.arhor.spellbindr.ui.screens.compendium.spells.details.SpellDet
 import com.github.arhor.spellbindr.ui.screens.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.utils.AppRoute
 
+private val NAV_ITEMS = listOf(
+    Compendium,
+    Characters,
+)
+
 @Composable
 fun AppNavGraph() {
     val controller = rememberNavController()
@@ -51,18 +59,24 @@ fun AppNavGraph() {
 
     Scaffold(
         bottomBar = {
-            AppNavBar(
-                onItemClick = {
-                    controller.navigate(route = it) {
-                        popUpTo(controller.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                },
-                isItemSelected = { currentDest inSameHierarchyWith it },
-            )
+            NavigationBar {
+                NAV_ITEMS.forEach {
+                    NavigationBarItem(
+                        selected = currentDest inSameHierarchyWith it,
+                        onClick = {
+                            controller.navigate(route = it) {
+                                popUpTo(controller.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        label = { Text(it.title) },
+                        icon = { }
+                    )
+                }
+            }
         }
     ) { innerPadding ->
         Box {
