@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.app
+package com.github.arhor.spellbindr.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,9 +9,9 @@ import com.github.arhor.spellbindr.ui.navigation.AppNavGraph
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 
 @Composable
-fun App(
+fun SpellbindrApp(
     onLoaded: () -> Unit,
-    viewModel: AppViewModel = hiltViewModel(),
+    viewModel: SpellbindrAppViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 

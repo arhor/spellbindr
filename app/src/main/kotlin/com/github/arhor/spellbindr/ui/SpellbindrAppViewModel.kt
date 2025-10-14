@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.app
+package com.github.arhor.spellbindr.ui
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
@@ -21,7 +21,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Stable
 @HiltViewModel
-class AppViewModel @Inject constructor(
+class SpellbindrAppViewModel @Inject constructor(
     private val loaders: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>,
 ) : ViewModel() {
 
