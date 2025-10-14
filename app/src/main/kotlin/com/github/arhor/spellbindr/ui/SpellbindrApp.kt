@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,34 +21,30 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.ui.screens.characters.creation.AbilitiesScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.CharacterCreationViewModel
-import com.github.arhor.spellbindr.ui.screens.characters.creation.ClassSelectionScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.NameAndBackgroundScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.RaceSelectionScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.SkillsScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.SpellsScreen
-import com.github.arhor.spellbindr.ui.screens.characters.creation.SummaryScreen
-import com.github.arhor.spellbindr.ui.screens.characters.details.CharacterDetailsScreen
-import com.github.arhor.spellbindr.ui.screens.characters.search.CharacterListScreen
-import com.github.arhor.spellbindr.ui.screens.compendium.CompendiumScreen
-import com.github.arhor.spellbindr.ui.screens.compendium.alignments.AlignmentsScreen
-import com.github.arhor.spellbindr.ui.screens.compendium.conditions.ConditionsScreen
-import com.github.arhor.spellbindr.ui.screens.compendium.races.RacesScreen
-import com.github.arhor.spellbindr.ui.screens.compendium.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.screens.compendium.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.AbilitiesScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.CharacterCreationViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.creation.ClassSelectionScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.NameAndBackgroundScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.RaceSelectionScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.SkillsScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.SpellsScreen
+import com.github.arhor.spellbindr.ui.feature.characters.creation.SummaryScreen
+import com.github.arhor.spellbindr.ui.feature.characters.details.CharacterDetailsScreen
+import com.github.arhor.spellbindr.ui.feature.characters.search.CharacterListScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
-
-private val NAV_ITEMS = listOf(
-    Compendium,
-    Characters,
-)
 
 @Composable
 fun SpellbindrApp(
@@ -56,8 +53,6 @@ fun SpellbindrApp(
 ) {
     val state by viewModel.state.collectAsState()
     val controller = rememberNavController()
-    val stackEntry by controller.currentBackStackEntryAsState()
-    val currDest = stackEntry?.destination
 
     LaunchedEffect(state.ready) {
         if (state.ready) {
@@ -81,22 +76,8 @@ fun SpellbindrApp(
             },
             bottomBar = {
                 NavigationBar {
-                    NAV_ITEMS.forEach { route ->
-                        NavigationBarItem(
-                            selected = currDest inSameHierarchyWith route,
-                            onClick = {
-                                controller.navigate(route = route) {
-                                    popUpTo(controller.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            },
-                            label = { Text(route.title) },
-                            icon = { }
-                        )
-                    }
+                    NavBarItem(route = Compendium, controller)
+                    NavBarItem(route = Characters, controller)
                 }
             },
         )
@@ -218,6 +199,29 @@ private fun useCharacterCreationViewModel(
         controller.getBackStackEntry(Characters.Create)
     }
     return hiltViewModel(creationGraphEntry)
+}
+
+@Composable
+private fun RowScope.NavBarItem(
+    route: AppRoute,
+    controller: NavHostController,
+) {
+    val stackEntry by controller.currentBackStackEntryAsState()
+
+    NavigationBarItem(
+        selected = stackEntry?.destination inSameHierarchyWith route,
+        onClick = {
+            controller.navigate(route = route) {
+                popUpTo(controller.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        },
+        label = { Text(route.title) },
+        icon = { }
+    )
 }
 
 private infix fun NavDestination?.inSameHierarchyWith(route: AppRoute): Boolean = when (this) {
