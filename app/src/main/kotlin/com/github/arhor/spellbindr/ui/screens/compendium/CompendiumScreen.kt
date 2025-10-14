@@ -22,21 +22,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.navigation.Alignments
-import com.github.arhor.spellbindr.navigation.Conditions
-import com.github.arhor.spellbindr.navigation.Races
-import com.github.arhor.spellbindr.navigation.Spells
-import com.github.arhor.spellbindr.utils.AppRoute
+import com.github.arhor.spellbindr.ui.AppRoute
+import com.github.arhor.spellbindr.ui.Compendium
+
 
 private val ITEMS = listOf(
-    Spells to Icons.AutoMirrored.Filled.MenuBook,
-    Conditions to Icons.Default.Bookmark,
-    Alignments to Icons.Default.Balance,
-    Races to Icons.Default.People,
+    Compendium.Spells to Icons.AutoMirrored.Filled.MenuBook,
+    Compendium.Conditions to Icons.Default.Bookmark,
+    Compendium.Alignments to Icons.Default.Balance,
+    Compendium.Races to Icons.Default.People,
 )
 
 @Composable
-fun CompendiumMainScreen(
+fun CompendiumScreen(
     onItemClick: (AppRoute) -> Unit = {},
 ) {
     Box(modifier = Modifier.fillMaxSize()) {

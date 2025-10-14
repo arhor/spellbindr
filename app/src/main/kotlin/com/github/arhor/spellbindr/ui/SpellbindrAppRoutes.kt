@@ -1,30 +1,32 @@
-package com.github.arhor.spellbindr.navigation
+package com.github.arhor.spellbindr.ui
 
-import com.github.arhor.spellbindr.utils.AppRoute
 import kotlinx.serialization.Serializable
+
+@Serializable
+abstract class AppRoute(val title: String = "")
 
 @Serializable
 data object Compendium : AppRoute(title = "Compendium") {
     @Serializable
     data object Main : AppRoute(title = "Compendium")
-}
-
-@Serializable
-data object Conditions : AppRoute(title = "Conditions")
-
-@Serializable
-data object Alignments : AppRoute(title = "Alignments")
-
-@Serializable
-data object Races : AppRoute(title = "Races")
-
-@Serializable
-data object Spells : AppRoute(title = "Spells") {
-    @Serializable
-    data object Search : AppRoute(title = "Spell Book")
 
     @Serializable
-    data class Details(val spellName: String) : AppRoute(title = "Spell Details")
+    data object Conditions : AppRoute(title = "Conditions")
+
+    @Serializable
+    data object Alignments : AppRoute(title = "Alignments")
+
+    @Serializable
+    data object Races : AppRoute(title = "Races")
+
+    @Serializable
+    data object Spells : AppRoute(title = "Spells") {
+        @Serializable
+        data object Search : AppRoute(title = "Spell Book")
+
+        @Serializable
+        data class Details(val spellName: String) : AppRoute(title = "Spell Details")
+    }
 }
 
 @Serializable
@@ -41,9 +43,6 @@ data object Characters : AppRoute(title = "Characters") {
 
         @Serializable
         data object NameAndBackground : AppRoute(title = "Name and Background")
-
-        @Serializable
-        data object BackgroundDetails : AppRoute(title = "Background Details")
 
         @Serializable
         data object Race : AppRoute(title = "Race")
