@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.model.RollHistoryEntry
-import com.github.arhor.spellbindr.data.model.RollSet
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollHistoryEntry
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollSet
 import kotlinx.coroutines.flow.Flow
 
 /**

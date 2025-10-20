@@ -19,8 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.DiceType
-import com.github.arhor.spellbindr.data.model.RollSet
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRoll
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceType
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollSet
 import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
 
 @Composable
@@ -116,20 +117,17 @@ private fun RollResultPreview() {
                 diceType = DiceType.D20,
                 quantity = 3,
                 rolls = listOf(
-                    com.github.arhor.spellbindr.data.model.DiceRoll(
+                    DiceRoll(
                         diceType = DiceType.D20,
                         result = 20,
-                        isCriticalHit = true
                     ),
-                    com.github.arhor.spellbindr.data.model.DiceRoll(
+                    DiceRoll(
                         diceType = DiceType.D20,
                         result = 15,
-                        isCriticalHit = false
                     ),
-                    com.github.arhor.spellbindr.data.model.DiceRoll(
+                    DiceRoll(
                         diceType = DiceType.D20,
                         result = 1,
-                        isCriticalMiss = true
                     )
                 ),
                 total = 37

@@ -4,10 +4,11 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.DiceType
-import com.github.arhor.spellbindr.data.model.RollHistoryEntry
-import com.github.arhor.spellbindr.data.model.RollSet
 import com.github.arhor.spellbindr.data.repository.DiceRollRepository
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRoll
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceType
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollHistoryEntry
+import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollSet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -111,14 +112,12 @@ class DiceRollerViewModel @Inject constructor(
     private fun generateRolls(
         diceType: DiceType,
         quantity: Int
-    ): List<com.github.arhor.spellbindr.data.model.DiceRoll> {
+    ): List<DiceRoll> {
         return (1..quantity).map { _ ->
             val result = (1..diceType.sides).random()
-            com.github.arhor.spellbindr.data.model.DiceRoll(
+            DiceRoll(
                 diceType = diceType,
                 result = result,
-                isCriticalHit = diceType == DiceType.D20 && result == 20,
-                isCriticalMiss = diceType == DiceType.D20 && result == 1
             )
         }
     }
