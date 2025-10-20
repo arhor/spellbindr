@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller
+package com.github.arhor.spellbindr.ui.feature.diceRoller.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
