@@ -1,8 +1,5 @@
 package com.github.arhor.spellbindr.di
 
-import com.github.arhor.spellbindr.data.repository.DiceRollRepository
-import com.github.arhor.spellbindr.data.repository.DiceRollRepositoryImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,14 +17,4 @@ object AppModule {
         ignoreUnknownKeys = true
         classDiscriminator = "type"
     }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
-    abstract fun bindDiceRollRepository(
-        diceRollRepositoryImpl: DiceRollRepositoryImpl
-    ): DiceRollRepository
 }
