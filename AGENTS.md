@@ -6,8 +6,8 @@ Spellbindr currently ships as a single `:app` module. All Kotlin sources live in
 `app/src/main/kotlin/com/github/arhor/spellbindr` (there is no `app/src/main/java` tree), grouped by feature under
 `ui/feature/<feature>` (e.g., `compendium`, `characters`, `diceRoller`), with shared Compose building blocks in
 `ui/components` and theming utilities in `ui/theme`. Data access, Room entities, and repositories reside under `data`,
-while dependency wiring is isolated in `di` and helpers in `utils`. Android resources stay in `app/src/main/res`, SRD
-payloads in `raw_data`, and any static assets in `app/src/main/assets`. JVM tests use `app/src/test/kotlin`;
+while dependency wiring is isolated in `di` and helpers in `utils`. Android resources stay in `app/src/main/res`, and
+any static assets in `app/src/main/assets`. JVM tests use `app/src/test/kotlin`;
 instrumentation and Compose UI suites belong in `app/src/androidTest/kotlin`.
 
 ## Build, Test, and Development Commands
