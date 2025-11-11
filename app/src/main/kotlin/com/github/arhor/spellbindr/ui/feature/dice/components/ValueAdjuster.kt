@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller.components
+package com.github.arhor.spellbindr.ui.feature.dice.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

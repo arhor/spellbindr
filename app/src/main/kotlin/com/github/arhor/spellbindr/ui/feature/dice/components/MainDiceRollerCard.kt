@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller.components
+package com.github.arhor.spellbindr.ui.feature.dice.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,11 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckMode
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroup
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRollerState
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.canRollMain
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.canRollMain
 
 private val QUICK_AMOUNT_DICE = listOf(4, 6, 8, 10, 12)
 

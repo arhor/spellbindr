@@ -32,7 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun <T> SelectableGrid(
@@ -117,7 +117,7 @@ private fun <T> EnlargedItem(item: T, content: @Composable ((T) -> Unit)) {
 @Preview(showBackground = true)
 @Composable
 fun SelectableGridPreview() {
-    SpellbindrTheme {
+    AppTheme {
         SelectableGrid(
             items = List(9) { index -> "Item ${index + 1}" to "Description for item ${index + 1}" },
             smallContent = { (title, _) ->

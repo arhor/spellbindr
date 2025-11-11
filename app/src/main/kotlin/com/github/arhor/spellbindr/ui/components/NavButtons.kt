@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 private typealias NavHandler = () -> Unit
 
@@ -47,7 +47,7 @@ private fun NavButton(text: String, onClick: NavHandler?) {
 @Preview
 @Composable
 private fun NavButtonsPreview() {
-    SpellbindrTheme {
+    AppTheme {
         NavButtons(
             onPrev = {},
             onNext = {},

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller.model
+package com.github.arhor.spellbindr.ui.feature.dice.model
 
 sealed class DiceRollerIntent {
     data object ToggleCheck : DiceRollerIntent()

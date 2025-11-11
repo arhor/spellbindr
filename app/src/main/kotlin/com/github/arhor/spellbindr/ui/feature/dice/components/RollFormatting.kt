@@ -1,7 +1,7 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller.components
+package com.github.arhor.spellbindr.ui.feature.dice.components
 
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckMode
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroupResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
 import kotlin.math.abs
 
 internal fun formatSignedValue(value: Int, showPlusForZero: Boolean = true): String {

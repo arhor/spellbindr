@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller
+package com.github.arhor.spellbindr.ui.feature.dice
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,18 +34,18 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.github.arhor.spellbindr.ui.feature.diceRoller.components.LatestResultBar
-import com.github.arhor.spellbindr.ui.feature.diceRoller.components.MainDiceRollerCard
-import com.github.arhor.spellbindr.ui.feature.diceRoller.components.PercentileCard
-import com.github.arhor.spellbindr.ui.feature.diceRoller.components.RollDetailsSheetContent
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.AmountResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckMode
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroup
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRollerState
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollResult
+import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
+import com.github.arhor.spellbindr.ui.feature.dice.components.MainDiceRollerCard
+import com.github.arhor.spellbindr.ui.feature.dice.components.PercentileCard
+import com.github.arhor.spellbindr.ui.feature.dice.components.RollDetailsSheetContent
+import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import kotlinx.coroutines.launch
 
 @Composable

@@ -1,8 +1,7 @@
 package com.github.arhor.spellbindr.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -11,41 +10,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.ui.feature.characters.creation.AbilitiesScreen
-import com.github.arhor.spellbindr.ui.feature.characters.creation.CharacterCreationViewModel
-import com.github.arhor.spellbindr.ui.feature.characters.creation.ClassSelectionScreen
-import com.github.arhor.spellbindr.ui.feature.characters.creation.NameAndBackgroundScreen
-import com.github.arhor.spellbindr.ui.feature.characters.creation.RaceSelectionScreen
-import com.github.arhor.spellbindr.ui.feature.characters.creation.SkillsScreen
-import com.github.arhor.spellbindr.ui.feature.characters.creation.SpellsScreen
-import com.github.arhor.spellbindr.ui.feature.characters.creation.SummaryScreen
-import com.github.arhor.spellbindr.ui.feature.characters.details.CharacterDetailsScreen
-import com.github.arhor.spellbindr.ui.feature.characters.search.CharacterListScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
-import com.github.arhor.spellbindr.ui.feature.diceRoller.DiceRollerScreen
-import com.github.arhor.spellbindr.ui.theme.SpellbindrTheme
+import com.github.arhor.spellbindr.characters.CharacterCreationScreen
+import com.github.arhor.spellbindr.characters.CharacterLevelUpScreen
+import com.github.arhor.spellbindr.characters.CharacterSheetScreen
+import com.github.arhor.spellbindr.characters.CharactersListScreen
+import com.github.arhor.spellbindr.dice.DiceScreen
+import com.github.arhor.spellbindr.library.LibraryScreen
+import com.github.arhor.spellbindr.library.MonsterDetailScreen
+import com.github.arhor.spellbindr.library.RuleDetailScreen
+import com.github.arhor.spellbindr.library.SpellDetailScreen
+import com.github.arhor.spellbindr.navigation.AppDestination
+import com.github.arhor.spellbindr.navigation.BottomNavItems
+import com.github.arhor.spellbindr.navigation.CharacterCreateDestination
+import com.github.arhor.spellbindr.navigation.CharacterLevelUpDestination
+import com.github.arhor.spellbindr.navigation.CharacterSheetDestination
+import com.github.arhor.spellbindr.navigation.CharactersHomeDestination
+import com.github.arhor.spellbindr.navigation.DiceDestination
+import com.github.arhor.spellbindr.navigation.LibraryDestination
+import com.github.arhor.spellbindr.navigation.MonsterDetailDestination
+import com.github.arhor.spellbindr.navigation.RuleDetailDestination
+import com.github.arhor.spellbindr.navigation.SpellDetailDestination
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellbindrApp(
@@ -54,6 +50,7 @@ fun SpellbindrApp(
 ) {
     val state by viewModel.state.collectAsState()
     val controller = rememberNavController()
+    val backStackEntry by controller.currentBackStackEntryAsState()
 
     LaunchedEffect(state.ready) {
         if (state.ready) {
@@ -61,174 +58,109 @@ fun SpellbindrApp(
         }
     }
 
-    SpellbindrTheme {
+    AppTheme {
         Scaffold(
-            content = { innerPadding ->
-                Box {
-                    NavHost(
-                        navController = controller,
-                        startDestination = Compendium,
-                        modifier = Modifier.padding(innerPadding),
-                    ) {
-                        compendiumNavGraph(controller)
-                        charactersNavGraph(controller)
-                        composable<DiceRoller> { DiceRollerScreen() }
+            bottomBar = {
+                NavigationBar {
+                    BottomNavItems.forEach { item ->
+                        val isSelected = backStackEntry?.destination matches item.destination
+                        NavigationBarItem(
+                            selected = isSelected,
+                            onClick = {
+                                controller.navigate(item.destination) {
+                                    popUpTo(controller.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = item.icon,
+                                    contentDescription = item.label,
+                                )
+                            },
+                            label = { Text(item.label) },
+                        )
                     }
                 }
             },
-            bottomBar = {
-                NavigationBar {
-                    NavBarItem(route = Compendium, controller)
-                    NavBarItem(route = Characters, controller)
-                    NavBarItem(route = DiceRoller, controller)
+        ) { innerPadding ->
+            NavHost(
+                navController = controller,
+                startDestination = CharactersHomeDestination,
+                modifier = Modifier.padding(innerPadding),
+            ) {
+                composable<CharactersHomeDestination> {
+                    CharactersListScreen(
+                        onCharacterSelected = { summary ->
+                            controller.navigate(
+                                CharacterSheetDestination(characterId = summary.id)
+                            )
+                        },
+                        onCreateCharacter = { controller.navigate(CharacterCreateDestination) },
+                    )
                 }
-            },
-        )
-    }
-}
-
-private fun NavGraphBuilder.compendiumNavGraph(controller: NavController) {
-    navigation<Compendium>(startDestination = Compendium.Main) {
-        composable<Compendium.Main> {
-            CompendiumScreen(
-                onItemClick = { controller.navigate(it) }
-            )
-        }
-        composable<Compendium.Conditions> {
-            ConditionsScreen()
-        }
-        composable<Compendium.Alignments> {
-            AlignmentsScreen()
-        }
-        composable<Compendium.Races> {
-            RacesScreen()
-        }
-        navigation<Compendium.Spells>(startDestination = Compendium.Spells.Search) {
-            composable<Compendium.Spells.Search> {
-                SpellSearchScreen(
-                    onSpellClick = { controller.navigate(route = Compendium.Spells.Details(it)) },
-                )
-            }
-            composable<Compendium.Spells.Details> {
-                SpellDetailScreen(
-                    spellName = it.toRoute<Compendium.Spells.Details>().spellName,
-                    onBackClick = { controller.navigateUp() },
-                )
-            }
-        }
-    }
-}
-
-private fun NavGraphBuilder.charactersNavGraph(controller: NavController) {
-    navigation<Characters>(startDestination = Characters.Search) {
-        composable<Characters.Search> {
-            CharacterListScreen(
-                navigateToCreate = { controller.navigate(route = Characters.Create) },
-                navigateToDetails = { characterId ->
-                    controller.navigate(route = Characters.Details(characterId = characterId))
+                composable<CharacterSheetDestination> {
+                    val args = it.toRoute<CharacterSheetDestination>()
+                    CharacterSheetScreen(
+                        characterId = args.characterId,
+                        onBack = { controller.navigateUp() },
+                        onLevelUp = { characterId ->
+                            controller.navigate(
+                                CharacterLevelUpDestination(characterId = characterId)
+                            )
+                        },
+                    )
                 }
-            )
-        }
-        composable<Characters.Details> {
-            CharacterDetailsScreen(
-                onBackClick = { controller.navigateUp() }
-            )
-        }
-        characterCreationNavGraph(controller)
-    }
-}
-
-private fun NavGraphBuilder.characterCreationNavGraph(controller: NavController) {
-    navigation<Characters.Create>(
-        startDestination = Characters.Create.NameAndBackground
-    ) {
-        composable<Characters.Create.NameAndBackground> {
-            NameAndBackgroundScreen(
-                onNext = { controller.navigate(route = Characters.Create.Race) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-        composable<Characters.Create.Race> {
-            RaceSelectionScreen(
-                onPrev = { controller.navigateUp() },
-                onNext = { controller.navigate(route = Characters.Create.Class) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-        composable<Characters.Create.Class> {
-            ClassSelectionScreen(
-                onPrev = { controller.navigateUp() },
-                onNext = { controller.navigate(route = Characters.Create.Abilities) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-        composable<Characters.Create.Abilities> {
-            AbilitiesScreen(
-                onPrev = { controller.navigateUp() },
-                onNext = { controller.navigate(route = Characters.Create.Skills) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-        composable<Characters.Create.Skills> {
-            SkillsScreen(
-                onPrev = { controller.navigateUp() },
-                onNext = { controller.navigate(route = Characters.Create.Spells) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-        composable<Characters.Create.Spells> {
-            SpellsScreen(
-                onPrev = { controller.navigateUp() },
-                onNext = { controller.navigate(route = Characters.Create.Summary) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-        composable<Characters.Create.Summary> {
-            SummaryScreen(
-                onPrev = { controller.navigateUp() },
-                onFinish = { controller.popBackStack(route = Characters, inclusive = false) },
-                viewModel = useCharacterCreationViewModel(it, controller)
-            )
-        }
-    }
-}
-
-@Composable
-private fun useCharacterCreationViewModel(
-    entry: NavBackStackEntry,
-    controller: NavController
-): CharacterCreationViewModel {
-    val creationGraphEntry = remember(entry) {
-        controller.getBackStackEntry(Characters.Create)
-    }
-    return hiltViewModel(creationGraphEntry)
-}
-
-@Composable
-private fun RowScope.NavBarItem(
-    route: AppRoute,
-    controller: NavHostController,
-) {
-    val stackEntry by controller.currentBackStackEntryAsState()
-
-    NavigationBarItem(
-        selected = stackEntry?.destination inSameHierarchyWith route,
-        onClick = {
-            controller.navigate(route = route) {
-                popUpTo(controller.graph.findStartDestination().id) {
-                    saveState = true
+                composable<CharacterCreateDestination> {
+                    CharacterCreationScreen(onBack = { controller.navigateUp() })
                 }
-                launchSingleTop = true
-                restoreState = true
+                composable<CharacterLevelUpDestination> {
+                    val args = it.toRoute<CharacterLevelUpDestination>()
+                    CharacterLevelUpScreen(
+                        characterId = args.characterId,
+                        onBack = { controller.navigateUp() },
+                    )
+                }
+                composable<LibraryDestination> {
+                    LibraryScreen(
+                        onSpellSelected = { controller.navigate(SpellDetailDestination(it)) },
+                        onMonsterSelected = { controller.navigate(MonsterDetailDestination(it)) },
+                        onRuleSelected = { controller.navigate(RuleDetailDestination(it)) },
+                    )
+                }
+                composable<SpellDetailDestination> {
+                    val args = it.toRoute<SpellDetailDestination>()
+                    SpellDetailScreen(
+                        spellId = args.spellId,
+                        onBack = { controller.navigateUp() },
+                    )
+                }
+                composable<MonsterDetailDestination> {
+                    val args = it.toRoute<MonsterDetailDestination>()
+                    MonsterDetailScreen(
+                        monsterId = args.monsterId,
+                        onBack = { controller.navigateUp() },
+                    )
+                }
+                composable<RuleDetailDestination> {
+                    val args = it.toRoute<RuleDetailDestination>()
+                    RuleDetailScreen(
+                        ruleId = args.ruleId,
+                        onBack = { controller.navigateUp() },
+                    )
+                }
+                composable<DiceDestination> {
+                    DiceScreen()
+                }
             }
-        },
-        label = { Text(route.title) },
-        icon = { }
-    )
+        }
+    }
 }
 
-private infix fun NavDestination?.inSameHierarchyWith(route: AppRoute): Boolean = when (this) {
+private infix fun NavDestination?.matches(destination: AppDestination): Boolean = when (this) {
     null -> false
-    else -> hierarchy.any { it.hasRoute(route::class) }
+    else -> hierarchy.any { it.hasRoute(destination::class) }
 }
-

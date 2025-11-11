@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller.components
+package com.github.arhor.spellbindr.ui.feature.dice.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,11 +22,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.AmountResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckMode
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 
 @Composable
 fun RollDetailsSheetContent(

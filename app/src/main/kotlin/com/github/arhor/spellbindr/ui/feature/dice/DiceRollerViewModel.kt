@@ -1,15 +1,15 @@
-package com.github.arhor.spellbindr.ui.feature.diceRoller
+package com.github.arhor.spellbindr.ui.feature.dice
 
 import androidx.lifecycle.ViewModel
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.AmountResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckMode
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.CheckResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroup
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.DiceRollerState
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollConfiguration
-import com.github.arhor.spellbindr.ui.feature.diceRoller.model.RollResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
+import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.RollConfiguration
+import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
