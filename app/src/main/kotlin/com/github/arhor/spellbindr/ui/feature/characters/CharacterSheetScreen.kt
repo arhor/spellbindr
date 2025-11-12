@@ -111,7 +111,11 @@ fun CharacterSheetScreen(
             },
         )
     ) {
-        Box(modifier = modifier.fillMaxSize()) {
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(vertical = 16.dp),
+        ) {
             when {
                 state.isLoading -> {
                     CircularProgressIndicator(

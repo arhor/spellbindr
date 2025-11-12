@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.github.arhor.spellbindr.ui
 
 import androidx.compose.foundation.layout.padding
@@ -18,6 +20,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -33,7 +36,6 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDet
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpellbindrApp(
     onLoaded: () -> Unit,
@@ -41,7 +43,6 @@ fun SpellbindrApp(
 ) {
     val state by viewModel.state.collectAsState()
     val controller = rememberNavController()
-    val backStackEntry by controller.currentBackStackEntryAsState()
 
     LaunchedEffect(state.ready) {
         if (state.ready) {
@@ -52,41 +53,8 @@ fun SpellbindrApp(
     AppTheme {
         AppTopBarControllerProvider { config ->
             Scaffold(
-                topBar = {
-                    if (config.visible) {
-                        TopAppBar(
-                            title = config.title,
-                            navigationIcon = config.navigation.asNavigationIcon(),
-                            actions = config.actions,
-                        )
-                    }
-                },
-                bottomBar = {
-                    NavigationBar {
-                        BottomNavItems.forEach { item ->
-                            val isSelected = backStackEntry?.destination matches item.destination
-                            NavigationBarItem(
-                                selected = isSelected,
-                                onClick = {
-                                    controller.navigate(item.destination) {
-                                        popUpTo(controller.graph.findStartDestination().id) {
-                                            saveState = true
-                                        }
-                                        launchSingleTop = true
-                                        restoreState = true
-                                    }
-                                },
-                                icon = {
-                                    Icon(
-                                        imageVector = item.icon,
-                                        contentDescription = item.label,
-                                    )
-                                },
-                                label = { Text(item.label) },
-                            )
-                        }
-                    }
-                },
+                topBar = createTopBar(config),
+                bottomBar = createBottomBar(controller),
             ) { innerPadding ->
                 NavHost(
                     navController = controller,
@@ -106,9 +74,7 @@ fun SpellbindrApp(
                     composable<AppDestination.CharacterSheet> {
                         CharacterSheetRoute(
                             onBack = { controller.navigateUp() },
-                            onEditCharacter = { characterId ->
-                                controller.navigate(AppDestination.CharacterEditor(characterId = characterId))
-                            },
+                            onEditCharacter = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
                         )
                     }
                     composable<AppDestination.CharacterEditor> {
@@ -133,6 +99,45 @@ fun SpellbindrApp(
                     }
                 }
             }
+        }
+    }
+}
+
+private fun createTopBar(config: AppTopBarConfig): @Composable () -> Unit = {
+    if (config.visible) {
+        TopAppBar(
+            title = config.title,
+            navigationIcon = config.navigation.asNavigationIcon(),
+            actions = config.actions,
+        )
+    }
+}
+
+private fun createBottomBar(controller: NavHostController): @Composable () -> Unit = {
+    val backStackEntry by controller.currentBackStackEntryAsState()
+
+    NavigationBar {
+        BottomNavItems.forEach { item ->
+            val isSelected = backStackEntry?.destination matches item.destination
+            NavigationBarItem(
+                selected = isSelected,
+                onClick = {
+                    controller.navigate(item.destination) {
+                        popUpTo(controller.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                icon = {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.label,
+                    )
+                },
+                label = { Text(item.label) },
+            )
         }
     }
 }
