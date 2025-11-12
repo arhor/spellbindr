@@ -94,7 +94,7 @@ fun SpellList(
                     items(spellsForLevel) { spell ->
                         SpellCard(
                             spell = spell,
-                            onClick = { onSpellClick(spell.name) },
+                            onClick = { onSpellClick(spell.id) },
                         )
                     }
                 }

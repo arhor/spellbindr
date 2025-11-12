@@ -23,7 +23,7 @@ sealed class AppDestination(open val title: String) {
     data class CharacterLevelUp(val characterId: String) : AppDestination(title = "Level Up")
 
     @Serializable
-    data object Library : AppDestination(title = "Library")
+    data object Compendium : AppDestination(title = "Compendium")
 
     @Serializable
     data class SpellDetail(val spellId: String) : AppDestination(title = "Spell Details")
@@ -51,8 +51,8 @@ val BottomNavItems = listOf(
         icon = Icons.Outlined.Groups,
     ),
     BottomNavItem(
-        destination = AppDestination.Library,
-        label = "Library",
+        destination = AppDestination.Compendium,
+        label = "Compendium",
         icon = Icons.AutoMirrored.Outlined.MenuBook,
     ),
     BottomNavItem(

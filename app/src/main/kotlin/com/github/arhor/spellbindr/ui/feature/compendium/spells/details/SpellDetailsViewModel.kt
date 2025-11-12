@@ -46,12 +46,12 @@ class SpellDetailsViewModel @Inject constructor(
         }
     }
 
-    fun loadSpellByName(name: String?) {
-        if (name == null) {
+    fun loadSpell(spellId: String?) {
+        if (spellId == null || spellId == _state.value.spell?.id) {
             return
         }
         viewModelScope.launch {
-            val spell = spellRepository.findSpellByName(name) ?: return@launch
+            val spell = spellRepository.findSpellById(spellId) ?: return@launch
             val isFavorite = spellRepository.isFavorite(spell.id)
 
             _state.update { it.copy(spell = spell, isFavorite = isFavorite) }

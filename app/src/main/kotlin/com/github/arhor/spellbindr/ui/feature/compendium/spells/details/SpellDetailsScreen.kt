@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -43,11 +44,13 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 
 @Composable
 fun SpellDetailScreen(
-    spellName: String?,
+    spellId: String?,
     onBackClick: () -> Unit = {},
     spellDetailsVM: SpellDetailsViewModel = hiltViewModel(),
 ) {
-    spellDetailsVM.loadSpellByName(spellName)
+    LaunchedEffect(spellId) {
+        spellDetailsVM.loadSpell(spellId)
+    }
     val spellDetailState by spellDetailsVM.state.collectAsState()
     val spell = spellDetailState.spell
     val isFavorite = spellDetailState.isFavorite

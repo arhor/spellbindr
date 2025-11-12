@@ -27,12 +27,10 @@ import com.github.arhor.spellbindr.characters.CharacterCreationScreen
 import com.github.arhor.spellbindr.characters.CharacterLevelUpScreen
 import com.github.arhor.spellbindr.characters.CharacterSheetScreen
 import com.github.arhor.spellbindr.characters.CharactersListScreen
-import com.github.arhor.spellbindr.library.LibraryScreen
-import com.github.arhor.spellbindr.library.MonsterDetailScreen
-import com.github.arhor.spellbindr.library.RuleDetailScreen
-import com.github.arhor.spellbindr.library.SpellDetailScreen
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -128,32 +126,16 @@ fun SpellbindrApp(
                             onBack = { controller.navigateUp() },
                         )
                     }
-                    composable<AppDestination.Library> {
-                        LibraryScreen(
+                    composable<AppDestination.Compendium> {
+                        CompendiumScreen(
                             onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
-                            onMonsterSelected = { controller.navigate(AppDestination.MonsterDetail(it)) },
-                            onRuleSelected = { controller.navigate(AppDestination.RuleDetail(it)) },
                         )
                     }
                     composable<AppDestination.SpellDetail> {
                         val args = it.toRoute<AppDestination.SpellDetail>()
                         SpellDetailScreen(
                             spellId = args.spellId,
-                            onBack = { controller.navigateUp() },
-                        )
-                    }
-                    composable<AppDestination.MonsterDetail> {
-                        val args = it.toRoute<AppDestination.MonsterDetail>()
-                        MonsterDetailScreen(
-                            monsterId = args.monsterId,
-                            onBack = { controller.navigateUp() },
-                        )
-                    }
-                    composable<AppDestination.RuleDetail> {
-                        val args = it.toRoute<AppDestination.RuleDetail>()
-                        RuleDetailScreen(
-                            ruleId = args.ruleId,
-                            onBack = { controller.navigateUp() },
+                            onBackClick = { controller.navigateUp() },
                         )
                     }
                     composable<AppDestination.Dice> {
