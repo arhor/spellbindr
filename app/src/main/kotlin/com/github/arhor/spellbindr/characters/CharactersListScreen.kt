@@ -4,6 +4,7 @@ package com.github.arhor.spellbindr.characters
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +18,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -38,41 +38,44 @@ fun CharactersListScreen(
     onCharacterSelected: (CharacterSummary) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        topBar = {
+    Box(modifier = modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
                 title = { Text(text = "Characters") },
             )
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = onCreateCharacter) {
-                Icon(Icons.Default.Add, contentDescription = "Create character")
-            }
-        },
-    ) { innerPadding ->
-        if (characters.isEmpty()) {
-            EmptyCharacterState(
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                onCreateCharacter = onCreateCharacter,
-            )
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                    .fillMaxWidth()
+                    .weight(1f, fill = true),
             ) {
-                items(characters, key = { it.id }) { character ->
-                    CharacterCard(
-                        summary = character,
-                        onClick = { onCharacterSelected(character) },
+                if (characters.isEmpty()) {
+                    EmptyCharacterState(
+                        modifier = Modifier.fillMaxSize(),
+                        onCreateCharacter = onCreateCharacter,
                     )
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                    ) {
+                        items(characters, key = { it.id }) { character ->
+                            CharacterCard(
+                                summary = character,
+                                onClick = { onCharacterSelected(character) },
+                            )
+                        }
+                    }
                 }
             }
+        }
+        FloatingActionButton(
+            onClick = onCreateCharacter,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+        ) {
+            Icon(Icons.Default.Add, contentDescription = "Create character")
         }
     }
 }

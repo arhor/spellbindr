@@ -16,7 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -66,14 +65,14 @@ fun DiceScreen(
         .sortedBy { it.key.ordinal }
         .joinToString(" + ") { (type, count) -> "${count}d${type.sides}" }
 
-    Scaffold(
+    Column(
         modifier = modifier.fillMaxSize(),
-        topBar = { TopAppBar(title = { Text("Dice") }) },
-    ) { innerPadding ->
+    ) {
+        TopAppBar(title = { Text("Dice") })
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .fillMaxWidth()
+                .weight(1f, fill = true)
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {

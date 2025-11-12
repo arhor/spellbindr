@@ -23,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -57,51 +56,49 @@ fun CharacterSheetScreen(
     var selectedTab by rememberSaveable { mutableStateOf(CharacterSheetTab.Sheet) }
     var overflowExpanded by remember { mutableStateOf(false) }
 
-    Scaffold(
+    Column(
         modifier = modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "${details.summary.name} – Level ${details.summary.level}",
-                        maxLines = 1,
+    ) {
+        TopAppBar(
+            title = {
+                Text(
+                    text = "${details.summary.name} – Level ${details.summary.level}",
+                    maxLines = 1,
+                )
+            },
+            navigationIcon = {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
                     )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { overflowExpanded = true }) {
-                        Icon(
-                            imageVector = Icons.Default.MoreVert,
-                            contentDescription = "More actions",
-                        )
-                    }
-                    DropdownMenu(
-                        expanded = overflowExpanded,
-                        onDismissRequest = { overflowExpanded = false },
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Level up") },
-                            onClick = {
-                                overflowExpanded = false
-                                onLevelUp(details.summary.id)
-                            },
-                        )
-                    }
                 }
-            )
-        },
-    ) { innerPadding ->
+            },
+            actions = {
+                IconButton(onClick = { overflowExpanded = true }) {
+                    Icon(
+                        imageVector = Icons.Default.MoreVert,
+                        contentDescription = "More actions",
+                    )
+                }
+                DropdownMenu(
+                    expanded = overflowExpanded,
+                    onDismissRequest = { overflowExpanded = false },
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Level up") },
+                        onClick = {
+                            overflowExpanded = false
+                            onLevelUp(details.summary.id)
+                        },
+                    )
+                }
+            }
+        )
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .fillMaxWidth()
+                .weight(1f, fill = true)
                 .padding(horizontal = 16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {

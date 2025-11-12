@@ -4,6 +4,7 @@ package com.github.arhor.spellbindr.library
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -11,7 +12,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -29,7 +29,7 @@ fun SpellDetailScreen(
     modifier: Modifier = Modifier,
 ) {
     val spell = remember(spellId) { SampleLibraryContent.spell(spellId) }
-    DetailScaffold(
+    DetailScreenContent(
         title = spell.name,
         subtitle = "Level ${spell.level} • ${spell.school}",
         body = "Future versions will load the full spell description from local JSON.",
@@ -45,7 +45,7 @@ fun MonsterDetailScreen(
     modifier: Modifier = Modifier,
 ) {
     val monster = remember(monsterId) { SampleLibraryContent.monster(monsterId) }
-    DetailScaffold(
+    DetailScreenContent(
         title = monster.name,
         subtitle = "${monster.creatureType} • ${monster.challengeRating}",
         body = "Add stat blocks, actions, and traits here once offline data is wired in.",
@@ -61,7 +61,7 @@ fun RuleDetailScreen(
     modifier: Modifier = Modifier,
 ) {
     val rule = remember(ruleId) { SampleLibraryContent.rule(ruleId) }
-    DetailScaffold(
+    DetailScreenContent(
         title = rule.name,
         subtitle = rule.snippet,
         body = "Use this screen for longer-form rule text, clarifications, and quick references.",
@@ -71,33 +71,31 @@ fun RuleDetailScreen(
 }
 
 @Composable
-private fun DetailScaffold(
+private fun DetailScreenContent(
     title: String,
     subtitle: String,
     body: String,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Scaffold(
+    Column(
         modifier = modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                title = { Text(title) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                        )
-                    }
-                },
-            )
-        },
-    ) { padding ->
+    ) {
+        TopAppBar(
+            title = { Text(title) },
+            navigationIcon = {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                    )
+                }
+            },
+        )
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
+                .fillMaxWidth()
+                .weight(1f, fill = true)
                 .padding(24.dp),
         ) {
             Text(

@@ -14,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -47,14 +46,14 @@ fun LibraryScreen(
     val filteredMonsters = SampleLibraryContent.monsters.filter { it.matches(searchQuery) }
     val filteredRules = SampleLibraryContent.rules.filter { it.matches(searchQuery) }
 
-    Scaffold(
+    Column(
         modifier = modifier.fillMaxSize(),
-        topBar = { TopAppBar(title = { Text("Library") }) },
-    ) { innerPadding ->
+    ) {
+        TopAppBar(title = { Text("Library") })
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .fillMaxWidth()
+                .weight(1f, fill = true)
                 .padding(16.dp),
         ) {
             PrimaryTabRow(selectedTabIndex = selectedSegment.ordinal) {
