@@ -97,10 +97,8 @@ fun DiceScreen(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = if (poolDescription.isBlank()) {
+                    text = poolDescription.ifBlank {
                         "Tap a die to build a roll."
-                    } else {
-                        poolDescription
                     },
                     style = MaterialTheme.typography.bodyLarge,
                 )
