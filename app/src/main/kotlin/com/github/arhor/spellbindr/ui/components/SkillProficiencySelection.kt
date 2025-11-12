@@ -1,7 +1,9 @@
 package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -19,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Skill
-import com.github.arhor.spellbindr.utils.PreviewScope
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SkillProficiencySelection(
@@ -99,26 +101,25 @@ private fun SkillsListItem(
 @Preview
 @Composable
 private fun SkillProficiencySelectionPreview() {
-    PreviewScope {
-        SkillProficiencySelection(
-            skillProficiencies = listOf(
-                Skill.ANIMAL_HANDLING,
-                Skill.PERCEPTION,
-                Skill.SURVIVAL,
-            ),
-            skillsToChooseFrom = listOf(
+    AppTheme {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            SkillProficiencySelection(
+                skillProficiencies = listOf(
+                    Skill.ANIMAL_HANDLING,
+                    Skill.PERCEPTION,
+                    Skill.SURVIVAL,
+                ),
+                skillsToChooseFrom = listOf(
 
-                Skill.ACROBATICS,
-                Skill.ATHLETICS,
-                Skill.HISTORY,
-                Skill.INSIGHT,
-                Skill.INTIMIDATION,
-                Skill.PERCEPTION,
-            ),
-            skillsToChoose = 2,
-        )
+                    Skill.ACROBATICS,
+                    Skill.ATHLETICS,
+                    Skill.HISTORY,
+                    Skill.INSIGHT,
+                    Skill.INTIMIDATION,
+                    Skill.PERCEPTION,
+                ),
+                skillsToChoose = 2,
+            )
+        }
     }
 }
-
-// skillProficiencies
-// skillsToChooseFrom

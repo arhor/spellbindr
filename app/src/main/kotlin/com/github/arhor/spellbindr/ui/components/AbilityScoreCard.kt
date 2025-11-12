@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -22,8 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.EllipseShape
-import com.github.arhor.spellbindr.utils.PreviewScope
 import com.github.arhor.spellbindr.utils.calculateAbilityScoreModifier
 
 @Composable
@@ -91,10 +92,12 @@ fun AbilityScoreCard(
 @Preview
 @Composable
 private fun AbilityScoreCardPreview() {
-    PreviewScope {
-        AbilityScoreCard(
-            name = "STR",
-            value = 13,
-        )
+    AppTheme {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            AbilityScoreCard(
+                name = "STR",
+                value = 13,
+            )
+        }
     }
 }

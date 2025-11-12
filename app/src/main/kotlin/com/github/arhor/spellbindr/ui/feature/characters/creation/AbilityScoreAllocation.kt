@@ -1,8 +1,10 @@
 package com.github.arhor.spellbindr.ui.feature.characters.creation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
@@ -22,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.utils.PreviewScope
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.calculatePointBuyCost
 
 @Composable
@@ -61,11 +63,13 @@ fun PointBuyUI(
 @Preview
 @Composable
 private fun PointBuyUIPreview() {
-    PreviewScope {
-        PointBuyUI(
-            scores = mapOf("STR" to 8, "DEX" to 8, "CON" to 8, "INT" to 8, "WIS" to 8, "CHA" to 8),
-            onScoreChanged = { _, _ -> }
-        )
+    AppTheme {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            PointBuyUI(
+                scores = mapOf("STR" to 8, "DEX" to 8, "CON" to 8, "INT" to 8, "WIS" to 8, "CHA" to 8),
+                onScoreChanged = { _, _ -> }
+            )
+        }
     }
 }
 

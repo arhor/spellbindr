@@ -1,8 +1,10 @@
 package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.utils.PreviewScope
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.asCommaSeparatedString
 
 private const val ITEMS_PER_ROW = 3
@@ -62,13 +64,15 @@ fun AbilityScoreDetails(
 @Preview
 @Composable
 private fun AbilityScoreDetailsPreview() {
-    PreviewScope {
-        AbilityScoreDetails(
-            racialBonuses = mapOf(
-                Ability.STR to +2,
-                Ability.DEX to +1,
-                Ability.INT to -3,
+    AppTheme {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            AbilityScoreDetails(
+                racialBonuses = mapOf(
+                    Ability.STR to +2,
+                    Ability.DEX to +1,
+                    Ability.INT to -3,
+                )
             )
-        )
+        }
     }
 }

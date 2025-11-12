@@ -3,10 +3,12 @@ package com.github.arhor.spellbindr.ui.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,7 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.AbilityScores
-import com.github.arhor.spellbindr.utils.PreviewScope
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.calculatePointBuyCost
 import com.github.arhor.spellbindr.utils.signed
 
@@ -302,13 +304,15 @@ enum class Method(val displayName: String) {
 @Preview
 @Composable
 private fun AbilityScoreIncreasePreview() {
-    PreviewScope {
-        AbilityScoreIncrease(
-            racialBonuses = mapOf(
-                Ability.STR to +2,
-                Ability.DEX to +1,
-                Ability.INT to -3,
-            ),
-        )
+    AppTheme {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            AbilityScoreIncrease(
+                racialBonuses = mapOf(
+                    Ability.STR to +2,
+                    Ability.DEX to +1,
+                    Ability.INT to -3,
+                ),
+            )
+        }
     }
 }
