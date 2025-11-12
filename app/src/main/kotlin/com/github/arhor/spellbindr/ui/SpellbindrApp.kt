@@ -26,13 +26,13 @@ import com.github.arhor.spellbindr.characters.CharacterCreationScreen
 import com.github.arhor.spellbindr.characters.CharacterLevelUpScreen
 import com.github.arhor.spellbindr.characters.CharacterSheetScreen
 import com.github.arhor.spellbindr.characters.CharactersListScreen
-import com.github.arhor.spellbindr.dice.DiceScreen
 import com.github.arhor.spellbindr.library.LibraryScreen
 import com.github.arhor.spellbindr.library.MonsterDetailScreen
 import com.github.arhor.spellbindr.library.RuleDetailScreen
 import com.github.arhor.spellbindr.library.SpellDetailScreen
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
+import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -149,7 +149,7 @@ fun SpellbindrApp(
                         )
                     }
                     composable<AppDestination.Dice> {
-                        DiceScreen()
+                        DiceRollerScreen()
                     }
                 }
             }
