@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.characters
+package com.github.arhor.spellbindr.ui.feature.characters
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable

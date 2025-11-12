@@ -23,11 +23,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.characters.CharacterEditorRoute
-import com.github.arhor.spellbindr.characters.CharacterSheetRoute
-import com.github.arhor.spellbindr.characters.CharactersListRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSheetRoute
+import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
