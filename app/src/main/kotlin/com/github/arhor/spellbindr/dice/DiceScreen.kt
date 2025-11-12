@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
@@ -27,6 +26,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.ProvideTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlin.random.Random
 
@@ -65,108 +66,109 @@ fun DiceScreen(
         .sortedBy { it.key.ordinal }
         .joinToString(" + ") { (type, count) -> "${count}d${type.sides}" }
 
+    ProvideTopBar(
+        AppTopBarConfig(
+            visible = true,
+            title = { Text("Dice") },
+        )
+    )
+
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        TopAppBar(title = { Text("Dice") })
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+        Text(
+            text = "Add dice to your pool",
+            style = MaterialTheme.typography.titleMedium,
+        )
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            items(DiceType.entries) { type ->
+                FilledTonalButton(onClick = { addDie(type) }) {
+                    Text(type.label)
+                }
+            }
+        }
+        Surface(
+            shape = MaterialTheme.shapes.large,
+            tonalElevation = 1.dp,
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(
-                text = "Add dice to your pool",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(DiceType.entries) { type ->
-                    FilledTonalButton(onClick = { addDie(type) }) {
-                        Text(type.label)
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = if (poolDescription.isBlank()) {
+                        "Tap a die to build a roll."
+                    } else {
+                        poolDescription
+                    },
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Button(
+                        onClick = ::rollDice,
+                        enabled = dicePool.isNotEmpty(),
+                    ) {
+                        Text("Roll")
+                    }
+                    TextButton(
+                        onClick = ::clearPool,
+                        enabled = dicePool.isNotEmpty(),
+                    ) {
+                        Text("Clear pool")
                     }
                 }
             }
+        }
+
+        HorizontalDivider()
+
+        Text(
+            text = "Recent rolls",
+            style = MaterialTheme.typography.titleMedium,
+        )
+
+        if (history.isEmpty()) {
             Surface(
+                modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.large,
                 tonalElevation = 1.dp,
-                modifier = Modifier.fillMaxWidth(),
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = if (poolDescription.isBlank()) {
-                            "Tap a die to build a roll."
-                        } else {
-                            poolDescription
-                        },
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 12.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-                        Button(
-                            onClick = ::rollDice,
-                            enabled = dicePool.isNotEmpty(),
-                        ) {
-                            Text("Roll")
-                        }
-                        TextButton(
-                            onClick = ::clearPool,
-                            enabled = dicePool.isNotEmpty(),
-                        ) {
-                            Text("Clear pool")
-                        }
-                    }
-                }
+                Text(
+                    text = "Results will appear here. Rolls are kept on device only.",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
-
-            HorizontalDivider()
-
-            Text(
-                text = "Recent rolls",
-                style = MaterialTheme.typography.titleMedium,
-            )
-
-            if (history.isEmpty()) {
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.large,
-                    tonalElevation = 1.dp,
-                ) {
-                    Text(
-                        text = "Results will appear here. Rolls are kept on device only.",
-                        modifier = Modifier.padding(16.dp),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    items(history, key = { it.id }) { result ->
-                        Surface(
-                            shape = MaterialTheme.shapes.large,
-                            tonalElevation = 2.dp,
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
+        } else {
+            LazyColumn(
+                modifier = Modifier.weight(1f, fill = true),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                items(history, key = { it.id }) { result ->
+                    Surface(
+                        shape = MaterialTheme.shapes.large,
+                        tonalElevation = 2.dp,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "${result.total} total",
+                                style = MaterialTheme.typography.titleLarge,
+                            )
+                            result.breakdown.forEach { (type, rolls) ->
                                 Text(
-                                    text = "${result.total} total",
-                                    style = MaterialTheme.typography.titleLarge,
+                                    text = "${rolls.size}d${type.sides}: ${rolls.joinToString()}",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.padding(top = 4.dp),
                                 )
-                                result.breakdown.forEach { (type, rolls) ->
-                                    Text(
-                                        text = "${rolls.size}d${type.sides}: ${rolls.joinToString()}",
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(top = 4.dp),
-                                    )
-                                }
                             }
                         }
                     }

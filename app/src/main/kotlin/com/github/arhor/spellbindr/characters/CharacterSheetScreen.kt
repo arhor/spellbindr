@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -26,7 +25,6 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +38,9 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.characters.model.AbilityScore
 import com.github.arhor.spellbindr.characters.model.CharacterDetails
 import com.github.arhor.spellbindr.characters.model.SampleCharacterRepository
+import com.github.arhor.spellbindr.ui.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.ProvideTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -56,24 +57,16 @@ fun CharacterSheetScreen(
     var selectedTab by rememberSaveable { mutableStateOf(CharacterSheetTab.Sheet) }
     var overflowExpanded by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-    ) {
-        TopAppBar(
+    ProvideTopBar(
+        AppTopBarConfig(
+            visible = true,
             title = {
                 Text(
                     text = "${details.summary.name} – Level ${details.summary.level}",
                     maxLines = 1,
                 )
             },
-            navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
-                    )
-                }
-            },
+            navigation = AppTopBarNavigation.Back(onBack),
             actions = {
                 IconButton(onClick = { overflowExpanded = true }) {
                     Icon(
@@ -93,36 +86,36 @@ fun CharacterSheetScreen(
                         },
                     )
                 }
-            }
+            },
         )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-                .padding(horizontal = 16.dp)
-                .verticalScroll(rememberScrollState()),
+    )
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        CharacterHeroSection(details = details)
+        Spacer(modifier = Modifier.height(24.dp))
+        PrimaryTabRow(
+            selectedTabIndex = selectedTab.ordinal,
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
         ) {
-            CharacterHeroSection(details = details)
-            Spacer(modifier = Modifier.height(24.dp))
-            PrimaryTabRow(
-                selectedTabIndex = selectedTab.ordinal,
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            ) {
-                CharacterSheetTab.entries.forEach { tab ->
-                    Tab(
-                        selected = tab == selectedTab,
-                        onClick = { selectedTab = tab },
-                        text = { Text(tab.label) },
-                    )
-                }
+            CharacterSheetTab.entries.forEach { tab ->
+                Tab(
+                    selected = tab == selectedTab,
+                    onClick = { selectedTab = tab },
+                    text = { Text(tab.label) },
+                )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            when (selectedTab) {
-                CharacterSheetTab.Sheet -> CharacterSheetTabContent(details = details)
-                CharacterSheetTab.Spells -> CharacterSpellsTab(details = details)
-                CharacterSheetTab.Notes -> CharacterNotesTab(details = details)
-            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        when (selectedTab) {
+            CharacterSheetTab.Sheet -> CharacterSheetTabContent(details = details)
+            CharacterSheetTab.Spells -> CharacterSpellsTab(details = details)
+            CharacterSheetTab.Notes -> CharacterNotesTab(details = details)
         }
     }
 }

@@ -20,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.characters.model.CharacterSummary
 import com.github.arhor.spellbindr.characters.model.EmptyCharacterList
 import com.github.arhor.spellbindr.characters.model.SampleCharacterRepository
+import com.github.arhor.spellbindr.ui.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.ProvideTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -38,34 +39,30 @@ fun CharactersListScreen(
     onCharacterSelected: (CharacterSummary) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
+    ProvideTopBar(
+        AppTopBarConfig(
+            visible = true,
+            title = { Text(text = "Characters") },
+        )
+    )
+
     Box(modifier = modifier.fillMaxSize()) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            TopAppBar(
-                title = { Text(text = "Characters") },
+        if (characters.isEmpty()) {
+            EmptyCharacterState(
+                modifier = Modifier.fillMaxSize(),
+                onCreateCharacter = onCreateCharacter,
             )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f, fill = true),
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                if (characters.isEmpty()) {
-                    EmptyCharacterState(
-                        modifier = Modifier.fillMaxSize(),
-                        onCreateCharacter = onCreateCharacter,
+                items(characters, key = { it.id }) { character ->
+                    CharacterCard(
+                        summary = character,
+                        onClick = { onCharacterSelected(character) },
                     )
-                } else {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        items(characters, key = { it.id }) { character ->
-                            CharacterCard(
-                                summary = character,
-                                onClick = { onCharacterSelected(character) },
-                            )
-                        }
-                    }
                 }
             }
         }
