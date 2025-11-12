@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.ProvideTopBar
+import com.github.arhor.spellbindr.ui.WithAppTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,28 +26,29 @@ fun CharacterDetailsScreen(
 ) {
     val character by viewModel.character.collectAsState()
 
-    ProvideTopBar(
+    WithAppTopBar(
         AppTopBarConfig(
             visible = true,
             title = { Text(character?.name ?: "Character Details") },
             navigation = AppTopBarNavigation.Back(onBackClick),
         )
-    )
-
-    character?.let { char ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            DetailRow("Race:", char.race.id)
-            char.subrace?.let { DetailRow("Subrace:", it.id) }
-            DetailRow("Class:", char.classes.keys.first().id)
-            DetailRow("Background:", char.background.id)
-            char.alignment?.let { DetailRow("Alignment:", it.id) }
+    ) {
+        character?.let { char ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                DetailRow("Race:", char.race.id)
+                char.subrace?.let { DetailRow("Subrace:", it.id) }
+                DetailRow("Class:", char.classes.keys.first().id)
+                DetailRow("Background:", char.background.id)
+                char.alignment?.let { DetailRow("Alignment:", it.id) }
+            }
         }
     }
+
 }
 
 @Composable

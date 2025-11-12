@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.library.model.SampleLibraryContent
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.ProvideTopBar
+import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -79,29 +79,30 @@ private fun DetailScreenContent(
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        ProvideTopBar(
+        WithAppTopBar(
             AppTopBarConfig(
                 visible = true,
                 title = { Text(title) },
                 navigation = AppTopBarNavigation.Back(onBack),
             )
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-                .padding(24.dp),
         ) {
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                text = body,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 16.dp),
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f, fill = true)
+                    .padding(24.dp),
+            ) {
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Text(
+                    text = body,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 16.dp),
+                )
+            }
         }
     }
 }

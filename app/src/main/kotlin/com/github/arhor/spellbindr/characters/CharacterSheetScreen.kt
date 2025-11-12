@@ -40,7 +40,7 @@ import com.github.arhor.spellbindr.characters.model.CharacterDetails
 import com.github.arhor.spellbindr.characters.model.SampleCharacterRepository
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.ProvideTopBar
+import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -57,7 +57,7 @@ fun CharacterSheetScreen(
     var selectedTab by rememberSaveable { mutableStateOf(CharacterSheetTab.Sheet) }
     var overflowExpanded by remember { mutableStateOf(false) }
 
-    ProvideTopBar(
+    WithAppTopBar(
         AppTopBarConfig(
             visible = true,
             title = {
@@ -88,36 +88,37 @@ fun CharacterSheetScreen(
                 }
             },
         )
-    )
-
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState()),
     ) {
-        CharacterHeroSection(details = details)
-        Spacer(modifier = Modifier.height(24.dp))
-        PrimaryTabRow(
-            selectedTabIndex = selectedTab.ordinal,
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .verticalScroll(rememberScrollState()),
         ) {
-            CharacterSheetTab.entries.forEach { tab ->
-                Tab(
-                    selected = tab == selectedTab,
-                    onClick = { selectedTab = tab },
-                    text = { Text(tab.label) },
-                )
+            CharacterHeroSection(details = details)
+            Spacer(modifier = Modifier.height(24.dp))
+            PrimaryTabRow(
+                selectedTabIndex = selectedTab.ordinal,
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            ) {
+                CharacterSheetTab.entries.forEach { tab ->
+                    Tab(
+                        selected = tab == selectedTab,
+                        onClick = { selectedTab = tab },
+                        text = { Text(tab.label) },
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            when (selectedTab) {
+                CharacterSheetTab.Sheet -> CharacterSheetTabContent(details = details)
+                CharacterSheetTab.Spells -> CharacterSpellsTab(details = details)
+                CharacterSheetTab.Notes -> CharacterNotesTab(details = details)
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        when (selectedTab) {
-            CharacterSheetTab.Sheet -> CharacterSheetTabContent(details = details)
-            CharacterSheetTab.Spells -> CharacterSpellsTab(details = details)
-            CharacterSheetTab.Notes -> CharacterNotesTab(details = details)
-        }
     }
+
 }
 
 @Composable

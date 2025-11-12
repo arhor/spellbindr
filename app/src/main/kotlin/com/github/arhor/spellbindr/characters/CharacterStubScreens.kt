@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.ProvideTopBar
+import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -57,33 +57,33 @@ private fun StubScreen(
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        ProvideTopBar(
+        WithAppTopBar(
             AppTopBarConfig(
-                visible = true,
                 title = { Text(title) },
                 navigation = AppTopBarNavigation.Back(onBack),
             )
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f, fill = true)
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
-                text = body,
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Text(
-                text = "Use the FAB/back action to return to the character list.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 12.dp),
-            )
+                    .weight(1f, fill = true)
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = body,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Text(
+                    text = "Use the FAB/back action to return to the character list.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                )
+            }
         }
     }
 }

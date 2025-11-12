@@ -1,13 +1,14 @@
 package com.github.arhor.spellbindr.ui
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,6 +36,7 @@ import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpellbindrApp(
     onLoaded: () -> Unit,
@@ -43,8 +45,6 @@ fun SpellbindrApp(
     val state by viewModel.state.collectAsState()
     val controller = rememberNavController()
     val backStackEntry by controller.currentBackStackEntryAsState()
-    val topBarController = rememberAppTopBarController()
-    val topBarConfig by topBarController.config
 
     LaunchedEffect(state.ready) {
         if (state.ready) {
@@ -53,9 +53,17 @@ fun SpellbindrApp(
     }
 
     AppTheme {
-        CompositionLocalProvider(LocalAppTopBarController provides topBarController) {
+        AppTopBarControllerProvider { config ->
             Scaffold(
-                topBar = { AppTopBar(topBarConfig) },
+                topBar = {
+                    if (config.visible) {
+                        TopAppBar(
+                            title = config.title,
+                            navigationIcon = config.navigation.asNavigationIcon(),
+                            actions = config.actions,
+                        )
+                    }
+                },
                 bottomBar = {
                     NavigationBar {
                         BottomNavItems.forEach { item ->

@@ -30,7 +30,7 @@ import com.github.arhor.spellbindr.library.model.RuleSummary
 import com.github.arhor.spellbindr.library.model.SampleLibraryContent
 import com.github.arhor.spellbindr.library.model.SpellSummary
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.ProvideTopBar
+import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -47,77 +47,78 @@ fun LibraryScreen(
     val filteredMonsters = SampleLibraryContent.monsters.filter { it.matches(searchQuery) }
     val filteredRules = SampleLibraryContent.rules.filter { it.matches(searchQuery) }
 
-    ProvideTopBar(
+    WithAppTopBar(
         AppTopBarConfig(
             visible = true,
             title = { Text("Library") },
         )
-    )
-
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
     ) {
-        PrimaryTabRow(selectedTabIndex = selectedSegment.ordinal) {
-            LibrarySegment.entries.forEach { segment ->
-                Tab(
-                    selected = segment == selectedSegment,
-                    onClick = { selectedSegment = segment },
-                    text = { Text(segment.label) },
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp),
+        ) {
+            PrimaryTabRow(selectedTabIndex = selectedSegment.ordinal) {
+                LibrarySegment.entries.forEach { segment ->
+                    Tab(
+                        selected = segment == selectedSegment,
+                        onClick = { selectedSegment = segment },
+                        text = { Text(segment.label) },
+                    )
+                }
+            }
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search ${selectedSegment.label.lowercase()}") },
+                singleLine = true,
+            )
+            when (selectedSegment) {
+                LibrarySegment.Spells -> LibraryList(
+                    items = filteredSpells,
+                    emptyLabel = "No spells found.",
+                    itemContent = { spell ->
+                        LibraryCard(
+                            title = spell.name,
+                            primaryMeta = "Level ${spell.level} • ${spell.school}",
+                            secondaryMeta = spell.classes.joinToString(),
+                            onClick = { onSpellSelected(spell.id) }
+                        )
+                    }
+                )
+
+                LibrarySegment.Monsters -> LibraryList(
+                    items = filteredMonsters,
+                    emptyLabel = "No monsters found.",
+                    itemContent = { monster ->
+                        LibraryCard(
+                            title = monster.name,
+                            primaryMeta = monster.creatureType,
+                            secondaryMeta = "${monster.challengeRating} • ${monster.disposition}",
+                            onClick = { onMonsterSelected(monster.id) }
+                        )
+                    }
+                )
+
+                LibrarySegment.Rules -> LibraryList(
+                    items = filteredRules,
+                    emptyLabel = "No rules found.",
+                    itemContent = { rule ->
+                        LibraryCard(
+                            title = rule.name,
+                            primaryMeta = rule.snippet,
+                            secondaryMeta = "Tap to open details",
+                            onClick = { onRuleSelected(rule.id) }
+                        )
+                    }
                 )
             }
         }
-        OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            label = { Text("Search ${selectedSegment.label.lowercase()}") },
-            singleLine = true,
-        )
-        when (selectedSegment) {
-            LibrarySegment.Spells -> LibraryList(
-                items = filteredSpells,
-                emptyLabel = "No spells found.",
-                itemContent = { spell ->
-                    LibraryCard(
-                        title = spell.name,
-                        primaryMeta = "Level ${spell.level} • ${spell.school}",
-                        secondaryMeta = spell.classes.joinToString(),
-                        onClick = { onSpellSelected(spell.id) }
-                    )
-                }
-            )
-
-            LibrarySegment.Monsters -> LibraryList(
-                items = filteredMonsters,
-                emptyLabel = "No monsters found.",
-                itemContent = { monster ->
-                    LibraryCard(
-                        title = monster.name,
-                        primaryMeta = monster.creatureType,
-                        secondaryMeta = "${monster.challengeRating} • ${monster.disposition}",
-                        onClick = { onMonsterSelected(monster.id) }
-                    )
-                }
-            )
-
-            LibrarySegment.Rules -> LibraryList(
-                items = filteredRules,
-                emptyLabel = "No rules found.",
-                itemContent = { rule ->
-                    LibraryCard(
-                        title = rule.name,
-                        primaryMeta = rule.snippet,
-                        secondaryMeta = "Tap to open details",
-                        onClick = { onRuleSelected(rule.id) }
-                    )
-                }
-            )
-        }
     }
+
 }
 
 @Composable

@@ -29,7 +29,7 @@ import com.github.arhor.spellbindr.characters.model.CharacterSummary
 import com.github.arhor.spellbindr.characters.model.EmptyCharacterList
 import com.github.arhor.spellbindr.characters.model.SampleCharacterRepository
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.ProvideTopBar
+import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -39,42 +39,43 @@ fun CharactersListScreen(
     onCharacterSelected: (CharacterSummary) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
-    ProvideTopBar(
+    WithAppTopBar(
         AppTopBarConfig(
             visible = true,
             title = { Text(text = "Characters") },
         )
-    )
-
-    Box(modifier = modifier.fillMaxSize()) {
-        if (characters.isEmpty()) {
-            EmptyCharacterState(
-                modifier = Modifier.fillMaxSize(),
-                onCreateCharacter = onCreateCharacter,
-            )
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                items(characters, key = { it.id }) { character ->
-                    CharacterCard(
-                        summary = character,
-                        onClick = { onCharacterSelected(character) },
-                    )
+    ) {
+        Box(modifier = modifier.fillMaxSize()) {
+            if (characters.isEmpty()) {
+                EmptyCharacterState(
+                    modifier = Modifier.fillMaxSize(),
+                    onCreateCharacter = onCreateCharacter,
+                )
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    items(characters, key = { it.id }) { character ->
+                        CharacterCard(
+                            summary = character,
+                            onClick = { onCharacterSelected(character) },
+                        )
+                    }
                 }
             }
-        }
-        FloatingActionButton(
-            onClick = onCreateCharacter,
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-        ) {
-            Icon(Icons.Default.Add, contentDescription = "Create character")
+            FloatingActionButton(
+                onClick = onCreateCharacter,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Create character")
+            }
         }
     }
+
 }
 
 @Composable
