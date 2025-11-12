@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.ui.feature.dice.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -95,15 +94,19 @@ private fun QuickDiceRow(
     state: DiceRollerState,
     onIntent: (DiceRollerIntent) -> Unit,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Text(
             text = "Quick dice",
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
         ) {
             for (sides in QUICK_AMOUNT_DICE) {
                 ElevatedAssistChip(
@@ -111,19 +114,20 @@ private fun QuickDiceRow(
                     label = { Text(text = "d$sides") },
                 )
             }
-            FilterChip(
-                selected = state.hasCheck,
-                onClick = { onIntent(DiceRollerIntent.ToggleCheck) },
-                label = { Text(text = "d20 check") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Casino,
-                        contentDescription = null,
-                    )
-                },
-                modifier = Modifier,
-            )
+
         }
+        FilterChip(
+            selected = state.hasCheck,
+            onClick = { onIntent(DiceRollerIntent.ToggleCheck) },
+            label = { Text(text = "d20 check") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Outlined.Casino,
+                    contentDescription = null,
+                )
+            },
+            modifier = Modifier,
+        )
     }
 }
 
