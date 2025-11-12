@@ -1,0 +1,41 @@
+name: Paparazzi Snapshot Tests
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  verify:
+    name: Verify Paparazzi Snapshots
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Verify Paparazzi snapshots
+        run: ./gradlew :app:verifyPaparazziDebug
+
+      - name: Upload Paparazzi reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paparazzi-report
+          path: |
+            app/build/reports/paparazzi
+            app/build/paparazzi
+          if-no-files-found: ignore

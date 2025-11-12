@@ -41,6 +41,22 @@ To build and run the app from the source code, follow these steps:
 3.  Let Android Studio sync the project and download the required Gradle dependencies.
 4.  Build and run the app on an emulator or a physical device.
 
+## 📸 Paparazzi Snapshot Tests
+
+This project uses [Paparazzi](https://github.com/cashapp/paparazzi) to capture and verify Jetpack Compose UI snapshots.
+
+-   **Verify snapshots:**
+    ```bash
+    ./gradlew :app:verifyPaparazziDebug
+    ```
+-   **Record or update snapshots:** (run after intentionally changing the UI)
+    ```bash
+    ./gradlew :app:recordPaparazziDebug
+    ```
+-   Snapshot images are stored under `app/src/test/snapshots` and tracked with Git LFS. Ensure `git lfs` is installed locally and run `git lfs pull` after cloning so baseline images are available.
+
+When verification fails, Paparazzi generates detailed HTML reports and diff images in `app/build/reports/paparazzi` and `app/build/paparazzi`. Review the report, update snapshots if the change is expected, and commit the updated PNG files.
+
 ## 📜 Data Source
 
 Spellbindr uses game content from the Dungeons & Dragons 5th Edition **System Reference Document 5.1** (SRD) provided by Wizards of the Coast. This content is available under the terms of the **Open Gaming License v1.0a**.
