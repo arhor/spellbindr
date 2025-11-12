@@ -19,6 +19,7 @@ object DatabaseModule {
     @Singleton
     fun provideSpellbindrDatabase(@ApplicationContext context: Context): SpellbindrDatabase =
         Room.databaseBuilder<SpellbindrDatabase>(context, "spellbindr.db")
+            .addMigrations(SpellbindrDatabase.MIGRATION_1_2)
             .build()
 
     @Provides

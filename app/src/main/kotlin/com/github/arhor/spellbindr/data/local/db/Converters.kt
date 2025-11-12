@@ -1,11 +1,17 @@
 package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.TypeConverter
+import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.next.Reference
 import kotlinx.serialization.json.Json
 
 object Converters {
+    private val json = Json {
+        encodeDefaults = true
+        ignoreUnknownKeys = true
+    }
+
     @TypeConverter
     fun fromEntityRef(ref: EntityRef?): String? = ref?.id
 
@@ -14,23 +20,23 @@ object Converters {
 
     @TypeConverter
     fun fromEntityRefMap(map: Map<EntityRef, Int>?): String? = map?.let {
-        Json.encodeToString(it.mapKeys { (key, _) -> key.id })
+        json.encodeToString(it.mapKeys { (key, _) -> key.id })
     }
 
     @TypeConverter
     fun toEntityRefMap(json: String?): Map<EntityRef, Int>? = json?.let {
-        Json.decodeFromString<Map<String, Int>>(it)
+        this.json.decodeFromString<Map<String, Int>>(it)
             .mapKeys { (key, _) -> EntityRef(key) }
     }
 
     @TypeConverter
     fun fromEntityRefSet(set: Set<EntityRef>?): String? = set?.let {
-        Json.encodeToString(it.map { ref -> ref.id })
+        json.encodeToString(it.map { ref -> ref.id })
     }
 
     @TypeConverter
     fun toEntityRefSet(json: String?): Set<EntityRef>? = json?.let {
-        Json.decodeFromString<Set<String>>(it)
+        this.json.decodeFromString<Set<String>>(it)
             .map { id -> EntityRef(id) }
             .toSet()
     }
@@ -40,4 +46,12 @@ object Converters {
 
     @TypeConverter
     fun intoReference(id: String?): Reference? = id?.let(::Reference)
-} 
+
+    @TypeConverter
+    fun fromCharacterSheetSnapshot(snapshot: CharacterSheetSnapshot?): String? =
+        snapshot?.let { json.encodeToString(CharacterSheetSnapshot.serializer(), it) }
+
+    @TypeConverter
+    fun toCharacterSheetSnapshot(data: String?): CharacterSheetSnapshot? =
+        data?.let { json.decodeFromString(CharacterSheetSnapshot.serializer(), it) }
+}

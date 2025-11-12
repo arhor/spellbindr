@@ -23,10 +23,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.characters.CharacterCreationScreen
-import com.github.arhor.spellbindr.characters.CharacterLevelUpScreen
-import com.github.arhor.spellbindr.characters.CharacterSheetScreen
-import com.github.arhor.spellbindr.characters.CharactersListScreen
+import com.github.arhor.spellbindr.characters.CharacterEditorRoute
+import com.github.arhor.spellbindr.characters.CharacterSheetRoute
+import com.github.arhor.spellbindr.characters.CharactersListRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
@@ -95,35 +94,26 @@ fun SpellbindrApp(
                     modifier = Modifier.padding(innerPadding),
                 ) {
                     composable<AppDestination.CharactersHome> {
-                        CharactersListScreen(
-                            onCharacterSelected = { summary ->
+                        CharactersListRoute(
+                            onCharacterSelected = { characterId ->
                                 controller.navigate(
-                                    AppDestination.CharacterSheet(characterId = summary.id)
+                                    AppDestination.CharacterSheet(characterId = characterId)
                                 )
                             },
-                            onCreateCharacter = { controller.navigate(AppDestination.CharacterCreate) },
+                            onCreateCharacter = { controller.navigate(AppDestination.CharacterEditor()) },
                         )
                     }
                     composable<AppDestination.CharacterSheet> {
-                        val args = it.toRoute<AppDestination.CharacterSheet>()
-                        CharacterSheetScreen(
-                            characterId = args.characterId,
+                        CharacterSheetRoute(
                             onBack = { controller.navigateUp() },
-                            onLevelUp = { characterId ->
-                                controller.navigate(
-                                    AppDestination.CharacterLevelUp(characterId = characterId)
-                                )
+                            onEditCharacter = { characterId ->
+                                controller.navigate(AppDestination.CharacterEditor(characterId = characterId))
                             },
                         )
                     }
-                    composable<AppDestination.CharacterCreate> {
-                        CharacterCreationScreen(onBack = { controller.navigateUp() })
-                    }
-                    composable<AppDestination.CharacterLevelUp> {
-                        val args = it.toRoute<AppDestination.CharacterLevelUp>()
-                        CharacterLevelUpScreen(
-                            characterId = args.characterId,
-                            onBack = { controller.navigateUp() },
+                    composable<AppDestination.CharacterEditor> {
+                        CharacterEditorRoute(
+                            onFinished = { controller.navigateUp() },
                         )
                     }
                     composable<AppDestination.Compendium> {

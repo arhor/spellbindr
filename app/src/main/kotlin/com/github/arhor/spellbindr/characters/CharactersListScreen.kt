@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -21,47 +22,74 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.characters.model.CharacterSummary
-import com.github.arhor.spellbindr.characters.model.EmptyCharacterList
-import com.github.arhor.spellbindr.characters.model.SampleCharacterRepository
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun CharactersListScreen(
-    modifier: Modifier = Modifier,
-    characters: List<CharacterSummary> = SampleCharacterRepository.summaries(),
-    onCharacterSelected: (CharacterSummary) -> Unit,
+fun CharactersListRoute(
+    onCharacterSelected: (String) -> Unit,
     onCreateCharacter: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: CharactersListViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    CharactersListScreen(
+        uiState = uiState,
+        onCharacterSelected = onCharacterSelected,
+        onCreateCharacter = onCreateCharacter,
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun CharactersListScreen(
+    uiState: CharactersListUiState,
+    onCharacterSelected: (String) -> Unit,
+    onCreateCharacter: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     WithAppTopBar(
         AppTopBarConfig(
             visible = true,
             title = { Text(text = "Characters") },
+            navigation = AppTopBarNavigation.None,
         )
     ) {
         Box(modifier = modifier.fillMaxSize()) {
-            if (characters.isEmpty()) {
-                EmptyCharacterState(
-                    modifier = Modifier.fillMaxSize(),
-                    onCreateCharacter = onCreateCharacter,
-                )
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    items(characters, key = { it.id }) { character ->
-                        CharacterCard(
-                            summary = character,
-                            onClick = { onCharacterSelected(character) },
-                        )
+            when {
+                uiState.isLoading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+
+                uiState.isEmpty -> {
+                    EmptyCharacterState(
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
+
+                else -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                    ) {
+                        items(uiState.characters, key = { it.id }) { character ->
+                            CharacterCard(
+                                item = character,
+                                onClick = { onCharacterSelected(character.id) },
+                            )
+                        }
                     }
                 }
             }
@@ -75,12 +103,11 @@ fun CharactersListScreen(
             }
         }
     }
-
 }
 
 @Composable
 private fun CharacterCard(
-    summary: CharacterSummary,
+    item: CharacterListItem,
     onClick: () -> Unit,
 ) {
     Surface(
@@ -92,21 +119,25 @@ private fun CharacterCard(
     ) {
         Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)) {
             Text(
-                text = summary.name,
+                text = item.name,
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = "Level ${summary.level} ${summary.className} • ${summary.race}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 4.dp),
-            )
-            Text(
-                text = summary.ancestry,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(top = 8.dp),
-            )
+            if (item.headline.isNotBlank()) {
+                Text(
+                    text = item.headline,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp),
+                )
+            }
+            if (item.detail.isNotBlank()) {
+                Text(
+                    text = item.detail,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+            }
         }
     }
 }
@@ -114,7 +145,6 @@ private fun CharacterCard(
 @Composable
 private fun EmptyCharacterState(
     modifier: Modifier = Modifier,
-    onCreateCharacter: () -> Unit,
 ) {
     Column(
         modifier = modifier.padding(32.dp),
@@ -145,7 +175,11 @@ private fun EmptyCharacterState(
 private fun CharactersListPreview() {
     AppTheme {
         CharactersListScreen(
-            characters = SampleCharacterRepository.summaries(),
+            uiState = CharactersListUiState(
+                characters = previewCharacters(),
+                isLoading = false,
+                isEmpty = false,
+            ),
             onCharacterSelected = {},
             onCreateCharacter = {},
         )
@@ -157,9 +191,28 @@ private fun CharactersListPreview() {
 private fun CharactersListEmptyPreview() {
     AppTheme {
         CharactersListScreen(
-            characters = EmptyCharacterList,
+            uiState = CharactersListUiState(
+                characters = emptyList(),
+                isLoading = false,
+                isEmpty = true,
+            ),
             onCharacterSelected = {},
             onCreateCharacter = {},
         )
     }
 }
+
+private fun previewCharacters(): List<CharacterListItem> = listOf(
+    CharacterListItem(
+        id = "1",
+        name = "Astra Moonshadow",
+        headline = "Level 7 Wizard",
+        detail = "Half-elf • Luna Conservatory",
+    ),
+    CharacterListItem(
+        id = "2",
+        name = "Bronn Blackbriar",
+        headline = "Level 5 Fighter",
+        detail = "Human • Knight of the Autumn Guard",
+    ),
+)

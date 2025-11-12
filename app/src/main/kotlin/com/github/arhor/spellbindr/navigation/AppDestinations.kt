@@ -10,17 +10,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class AppDestination(open val title: String) {
     @Serializable
-    data object CharactersHome
-        : AppDestination(title = "Characters")
+    data object CharactersHome : AppDestination(title = "Characters")
 
     @Serializable
-    data class CharacterSheet(val characterId: String) : AppDestination(title = "Character Sheet")
+    data class CharacterSheet(val characterId: String) : AppDestination(title = "Character")
 
     @Serializable
-    data object CharacterCreate : AppDestination(title = "Create Character")
-
-    @Serializable
-    data class CharacterLevelUp(val characterId: String) : AppDestination(title = "Level Up")
+    data class CharacterEditor(val characterId: String? = null) : AppDestination(title = "Character Editor")
 
     @Serializable
     data object Compendium : AppDestination(title = "Compendium")
