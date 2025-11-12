@@ -32,15 +32,6 @@ import com.github.arhor.spellbindr.library.RuleDetailScreen
 import com.github.arhor.spellbindr.library.SpellDetailScreen
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
-import com.github.arhor.spellbindr.navigation.CharacterCreateDestination
-import com.github.arhor.spellbindr.navigation.CharacterLevelUpDestination
-import com.github.arhor.spellbindr.navigation.CharacterSheetDestination
-import com.github.arhor.spellbindr.navigation.CharactersHomeDestination
-import com.github.arhor.spellbindr.navigation.DiceDestination
-import com.github.arhor.spellbindr.navigation.LibraryDestination
-import com.github.arhor.spellbindr.navigation.MonsterDetailDestination
-import com.github.arhor.spellbindr.navigation.RuleDetailDestination
-import com.github.arhor.spellbindr.navigation.SpellDetailDestination
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -89,70 +80,70 @@ fun SpellbindrApp(
         ) { innerPadding ->
             NavHost(
                 navController = controller,
-                startDestination = CharactersHomeDestination,
+                startDestination = AppDestination.CharactersHome,
                 modifier = Modifier.padding(innerPadding),
             ) {
-                composable<CharactersHomeDestination> {
+                composable<AppDestination.CharactersHome> {
                     CharactersListScreen(
                         onCharacterSelected = { summary ->
                             controller.navigate(
-                                CharacterSheetDestination(characterId = summary.id)
+                                AppDestination.CharacterSheet(characterId = summary.id)
                             )
                         },
-                        onCreateCharacter = { controller.navigate(CharacterCreateDestination) },
+                        onCreateCharacter = { controller.navigate(AppDestination.CharacterCreate) },
                     )
                 }
-                composable<CharacterSheetDestination> {
-                    val args = it.toRoute<CharacterSheetDestination>()
+                composable<AppDestination.CharacterSheet> {
+                    val args = it.toRoute<AppDestination.CharacterSheet>()
                     CharacterSheetScreen(
                         characterId = args.characterId,
                         onBack = { controller.navigateUp() },
                         onLevelUp = { characterId ->
                             controller.navigate(
-                                CharacterLevelUpDestination(characterId = characterId)
+                                AppDestination.CharacterLevelUp(characterId = characterId)
                             )
                         },
                     )
                 }
-                composable<CharacterCreateDestination> {
+                composable<AppDestination.CharacterCreate> {
                     CharacterCreationScreen(onBack = { controller.navigateUp() })
                 }
-                composable<CharacterLevelUpDestination> {
-                    val args = it.toRoute<CharacterLevelUpDestination>()
+                composable<AppDestination.CharacterLevelUp> {
+                    val args = it.toRoute<AppDestination.CharacterLevelUp>()
                     CharacterLevelUpScreen(
                         characterId = args.characterId,
                         onBack = { controller.navigateUp() },
                     )
                 }
-                composable<LibraryDestination> {
+                composable<AppDestination.Library> {
                     LibraryScreen(
-                        onSpellSelected = { controller.navigate(SpellDetailDestination(it)) },
-                        onMonsterSelected = { controller.navigate(MonsterDetailDestination(it)) },
-                        onRuleSelected = { controller.navigate(RuleDetailDestination(it)) },
+                        onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
+                        onMonsterSelected = { controller.navigate(AppDestination.MonsterDetail(it)) },
+                        onRuleSelected = { controller.navigate(AppDestination.RuleDetail(it)) },
                     )
                 }
-                composable<SpellDetailDestination> {
-                    val args = it.toRoute<SpellDetailDestination>()
+                composable<AppDestination.SpellDetail> {
+                    val args = it.toRoute<AppDestination.SpellDetail>()
                     SpellDetailScreen(
                         spellId = args.spellId,
                         onBack = { controller.navigateUp() },
                     )
                 }
-                composable<MonsterDetailDestination> {
-                    val args = it.toRoute<MonsterDetailDestination>()
+                composable<AppDestination.MonsterDetail> {
+                    val args = it.toRoute<AppDestination.MonsterDetail>()
                     MonsterDetailScreen(
                         monsterId = args.monsterId,
                         onBack = { controller.navigateUp() },
                     )
                 }
-                composable<RuleDetailDestination> {
-                    val args = it.toRoute<RuleDetailDestination>()
+                composable<AppDestination.RuleDetail> {
+                    val args = it.toRoute<AppDestination.RuleDetail>()
                     RuleDetailScreen(
                         ruleId = args.ruleId,
                         onBack = { controller.navigateUp() },
                     )
                 }
-                composable<DiceDestination> {
+                composable<AppDestination.Dice> {
                     DiceScreen()
                 }
             }

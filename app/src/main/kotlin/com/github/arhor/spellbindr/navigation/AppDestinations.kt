@@ -8,39 +8,35 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class AppDestination(open val title: String)
+sealed class AppDestination(open val title: String) {
+    @Serializable
+    data object CharactersHome
+        : AppDestination(title = "Characters")
 
-@Serializable
-data object CharactersHomeDestination : AppDestination(title = "Characters")
+    @Serializable
+    data class CharacterSheet(val characterId: String) : AppDestination(title = "Character Sheet")
 
-@Serializable
-data class CharacterSheetDestination(val characterId: String) :
-    AppDestination(title = "Character Sheet")
+    @Serializable
+    data object CharacterCreate : AppDestination(title = "Create Character")
 
-@Serializable
-data object CharacterCreateDestination : AppDestination(title = "Create Character")
+    @Serializable
+    data class CharacterLevelUp(val characterId: String) : AppDestination(title = "Level Up")
 
-@Serializable
-data class CharacterLevelUpDestination(val characterId: String) :
-    AppDestination(title = "Level Up")
+    @Serializable
+    data object Library : AppDestination(title = "Library")
 
-@Serializable
-data object LibraryDestination : AppDestination(title = "Library")
+    @Serializable
+    data class SpellDetail(val spellId: String) : AppDestination(title = "Spell Details")
 
-@Serializable
-data class SpellDetailDestination(val spellId: String) :
-    AppDestination(title = "Spell Details")
+    @Serializable
+    data class MonsterDetail(val monsterId: String) : AppDestination(title = "Monster Details")
 
-@Serializable
-data class MonsterDetailDestination(val monsterId: String) :
-    AppDestination(title = "Monster Details")
+    @Serializable
+    data class RuleDetail(val ruleId: String) : AppDestination(title = "Rule Details")
 
-@Serializable
-data class RuleDetailDestination(val ruleId: String) :
-    AppDestination(title = "Rule Details")
-
-@Serializable
-data object DiceDestination : AppDestination(title = "Dice")
+    @Serializable
+    data object Dice : AppDestination(title = "Dice")
+}
 
 data class BottomNavItem(
     val destination: AppDestination,
@@ -50,17 +46,17 @@ data class BottomNavItem(
 
 val BottomNavItems = listOf(
     BottomNavItem(
-        destination = CharactersHomeDestination,
+        destination = AppDestination.CharactersHome,
         label = "Characters",
         icon = Icons.Outlined.Groups,
     ),
     BottomNavItem(
-        destination = LibraryDestination,
+        destination = AppDestination.Library,
         label = "Library",
         icon = Icons.AutoMirrored.Outlined.MenuBook,
     ),
     BottomNavItem(
-        destination = DiceDestination,
+        destination = AppDestination.Dice,
         label = "Dice",
         icon = Icons.Outlined.Casino,
     ),
