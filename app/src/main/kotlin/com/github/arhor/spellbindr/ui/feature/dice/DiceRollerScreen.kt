@@ -27,7 +27,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -68,23 +67,23 @@ fun DiceRollerScreen(
 ) {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
-    var showDetails by remember { mutableStateOf(false) }
-    var latestVisible by remember { mutableStateOf(false) }
-    var dismissedToken by remember { mutableStateOf<Long?>(null) }
+    val showDetails = remember { mutableStateOf(false) }
+    val latestVisible = remember { mutableStateOf(false) }
+    val dismissedToken = remember { mutableStateOf<Long?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(state.latestResultToken, state.latestResult) {
         val result = state.latestResult
         val token = state.latestResultToken
         if (result == null) {
-            showDetails = false
-            latestVisible = false
-            dismissedToken = null
-        } else if (token != dismissedToken) {
-            showDetails = false
-            latestVisible = true
+            showDetails.value = false
+            latestVisible.value = false
+            dismissedToken.value = null
+        } else if (token != dismissedToken.value) {
+            showDetails.value = false
+            latestVisible.value = true
         } else {
-            latestVisible = false
+            latestVisible.value = false
         }
     }
 
@@ -126,24 +125,24 @@ fun DiceRollerScreen(
                 Spacer(modifier = Modifier.height(96.dp))
             }
             val latestResult = state.latestResult
-            if (latestVisible && latestResult != null) {
+            if (latestVisible.value && latestResult != null) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .dismissOnTap {
-                            latestVisible = false
-                            showDetails = false
-                            dismissedToken = state.latestResultToken
+                            latestVisible.value = false
+                            showDetails.value = false
+                            dismissedToken.value = state.latestResultToken
                         },
                 )
                 LatestResultBar(
                     latestResult = latestResult,
                     onReRoll = { onIntent(DiceRollerIntent.ReRollLast) },
-                    onShowDetails = { showDetails = true },
+                    onShowDetails = { showDetails.value = true },
                     onClose = {
-                        showDetails = false
-                        latestVisible = false
-                        dismissedToken = state.latestResultToken
+                        showDetails.value = false
+                        latestVisible.value = false
+                        dismissedToken.value = state.latestResultToken
                     },
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -155,9 +154,9 @@ fun DiceRollerScreen(
     }
 
     val latestResult = state.latestResult
-    if (showDetails && latestResult != null) {
+    if (showDetails.value && latestResult != null) {
         ModalBottomSheet(
-            onDismissRequest = { showDetails = false },
+            onDismissRequest = { showDetails.value = false },
             sheetState = sheetState,
         ) {
             RollDetailsSheetContent(
@@ -167,7 +166,7 @@ fun DiceRollerScreen(
                         sheetState.hide()
                     }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
-                            showDetails = false
+                            showDetails.value = false
                         }
                     }
                 },
