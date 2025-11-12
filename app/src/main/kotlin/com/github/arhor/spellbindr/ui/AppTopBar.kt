@@ -18,7 +18,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.github.arhor.spellbindr.utils.Logger
 
 /**
  * Simple configuration object describing how the shared app bar should look.
@@ -113,17 +112,13 @@ private class AppTopBarControllerImpl(
 fun ProvideTopBar(config: AppTopBarConfig) {
     val controller = LocalAppTopBarController.current
     val owner = remember { Any() }
-    val logger = remember { Logger("ProvideTopBar") }
 
     SideEffect {
         controller.setTopBar(owner, config)
     }
 
     DisposableEffect(owner) {
-        onDispose {
-            logger.info { "ProvideTopBar disposed for owner=$owner config=$config" }
-            controller.clearTopBar(owner)
-        }
+        onDispose { controller.clearTopBar(owner) }
     }
 }
 
