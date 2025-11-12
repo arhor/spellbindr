@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.github.arhor.spellbindr.ui.feature.dice
 
 import androidx.compose.foundation.clickable
@@ -52,13 +54,13 @@ fun DiceRollerScreen(
     viewModel: DiceRollerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+
     DiceRollerScreen(
         state = state,
         onIntent = viewModel::onIntent,
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DiceRollerScreen(
     state: DiceRollerState,
