@@ -2,6 +2,7 @@
 
 package com.github.arhor.spellbindr.ui
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,6 +35,8 @@ import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
+import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
+import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -42,7 +45,11 @@ fun SpellbindrApp(
     viewModel: SpellbindrAppViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
+    val settingsState by settingsViewModel.state.collectAsState()
     val controller = rememberNavController()
+    val systemDarkTheme = isSystemInDarkTheme()
+    val isDarkTheme = settingsState.themeMode?.isDark ?: systemDarkTheme
 
     LaunchedEffect(state.ready) {
         if (state.ready) {
@@ -50,7 +57,11 @@ fun SpellbindrApp(
         }
     }
 
-    AppTheme {
+    LaunchedEffect(settingsState.loaded, systemDarkTheme) {
+        settingsViewModel.ensureThemeInitialized(systemDarkTheme)
+    }
+
+    AppTheme(isDarkTheme = isDarkTheme) {
         AppTopBarControllerProvider { config ->
             Scaffold(
                 topBar = createTopBar(config),
@@ -96,6 +107,13 @@ fun SpellbindrApp(
                     }
                     composable<AppDestination.Dice> {
                         DiceRollerScreen()
+                    }
+                    composable<AppDestination.Settings> {
+                        SettingsScreen(
+                            state = settingsState,
+                            isDarkTheme = isDarkTheme,
+                            onThemeToggle = settingsViewModel::onThemeToggle,
+                        )
                     }
                 }
             }

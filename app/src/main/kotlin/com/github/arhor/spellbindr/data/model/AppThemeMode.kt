@@ -1,0 +1,17 @@
+package com.github.arhor.spellbindr.data.model
+
+enum class AppThemeMode {
+    LIGHT,
+    DARK;
+
+    val isDark: Boolean
+        get() = this == DARK
+
+    override fun toString(): String =
+        name.lowercase().replaceFirstChar { it.titlecase() }
+
+    companion object {
+        fun fromIsDark(isDark: Boolean): AppThemeMode =
+            if (isDark) DARK else LIGHT
+    }
+}

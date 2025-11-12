@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Casino
 import androidx.compose.material.icons.outlined.Groups
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
@@ -32,6 +33,9 @@ sealed class AppDestination(open val title: String) {
 
     @Serializable
     data object Dice : AppDestination(title = "Dice")
+
+    @Serializable
+    data object Settings : AppDestination(title = "Settings")
 }
 
 data class BottomNavItem(
@@ -55,5 +59,10 @@ val BottomNavItems = listOf(
         destination = AppDestination.Dice,
         label = "Dice",
         icon = Icons.Outlined.Casino,
+    ),
+    BottomNavItem(
+        destination = AppDestination.Settings,
+        label = "Settings",
+        icon = Icons.Outlined.Settings,
     ),
 )
