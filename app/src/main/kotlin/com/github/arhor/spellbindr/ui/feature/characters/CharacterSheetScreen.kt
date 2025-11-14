@@ -70,6 +70,8 @@ import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.ui.components.AbilityTokenData
+import com.github.arhor.spellbindr.ui.components.AbilityTokensGrid
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -511,10 +513,18 @@ private fun OverviewTab(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
-            AbilityGrid(abilities = overview.abilities)
-        }
-        item {
-            SavingThrowsCard(savingThrows = overview.savingThrows)
+            AbilityTokensGrid(
+                abilities = overview.abilities.map { ability ->
+                    AbilityTokenData(
+                        abbreviation = ability.label,
+                        score = ability.score,
+                        modifier = ability.modifier,
+                        savingThrowBonus = ability.savingThrowBonus,
+                        proficient = ability.savingThrowProficient,
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
         item {
             DeathSavesCard(
@@ -588,104 +598,6 @@ private fun OverviewTab(
                     title = "Hit Dice",
                     lines = listOf(overview.hitDice.ifBlank { "—" }),
                 )
-            }
-        }
-    }
-}
-
-@Composable
-private fun AbilityGrid(abilities: List<AbilityUiModel>) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        abilities.chunked(2).forEach { row ->
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                row.forEach { ability ->
-                    AbilityCard(
-                        ability = ability,
-                        modifier = Modifier.weight(1f),
-                    )
-                }
-                if (row.size == 1) {
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun AbilityCard(
-    ability: AbilityUiModel,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        shape = MaterialTheme.shapes.medium,
-        tonalElevation = 1.dp,
-        modifier = modifier,
-    ) {
-        Column(
-            modifier = Modifier.padding(vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = ability.label,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.secondary,
-            )
-            Text(
-                text = ability.score.toString(),
-                style = MaterialTheme.typography.headlineSmall,
-            )
-            Text(
-                text = formatBonus(ability.modifier),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
-}
-
-@Composable
-private fun SavingThrowsCard(
-    savingThrows: List<SavingThrowUiModel>,
-) {
-    Surface(
-        shape = MaterialTheme.shapes.large,
-        tonalElevation = 1.dp,
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Saving Throws",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                savingThrows.forEach { save ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Column {
-                            Text(
-                                text = save.name,
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                            if (save.proficient) {
-                                Text(
-                                    text = "Proficient",
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.primary,
-                                )
-                            }
-                        }
-                        Text(
-                            text = formatBonus(save.bonus),
-                            style = MaterialTheme.typography.titleMedium,
-                        )
-                    }
-                }
             }
         }
     }
@@ -1249,14 +1161,8 @@ private fun previewUiState(): CharacterSheetUiState = CharacterSheetUiState(
                 label = ability.name,
                 score = 10 + index * 2,
                 modifier = index - 1,
-            )
-        },
-        savingThrows = Ability.entries.mapIndexed { index, ability ->
-            SavingThrowUiModel(
-                ability = ability,
-                name = ability.displayName,
-                bonus = index,
-                proficient = index % 2 == 0,
+                savingThrowBonus = index + 2,
+                savingThrowProficient = index % 2 == 0,
             )
         },
         hitDice = "7d6",

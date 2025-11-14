@@ -315,7 +315,6 @@ data class HitPointSummary(
 @Immutable
 data class OverviewTabState(
     val abilities: List<AbilityUiModel>,
-    val savingThrows: List<SavingThrowUiModel>,
     val hitDice: String,
     val senses: String,
     val languages: String,
@@ -333,14 +332,8 @@ data class AbilityUiModel(
     val label: String,
     val score: Int,
     val modifier: Int,
-)
-
-@Immutable
-data class SavingThrowUiModel(
-    val ability: Ability,
-    val name: String,
-    val bonus: Int,
-    val proficient: Boolean,
+    val savingThrowBonus: Int,
+    val savingThrowProficient: Boolean,
 )
 
 @Immutable
@@ -446,30 +439,23 @@ private fun CharacterSheet.toHeaderState(): CharacterHeaderUiState {
 }
 
 private fun CharacterSheet.toOverviewState(): OverviewTabState {
+    val savingThrowLookup = savingThrows.associateBy { it.ability }
     val abilityModels = Ability.entries.map { ability ->
+        val modifier = abilityScores.modifierFor(ability)
+        val entry = savingThrowLookup[ability]
+        val proficiencyBonusValue = if (entry?.proficient == true) proficiencyBonus else 0
         AbilityUiModel(
             ability = ability,
             label = ability.name,
             score = abilityScores.scoreFor(ability),
-            modifier = abilityScores.modifierFor(ability),
-        )
-    }
-
-    val savingThrowLookup = savingThrows.associateBy { it.ability }
-    val savingThrowModels = Ability.entries.map { ability ->
-        val entry = savingThrowLookup[ability]
-        val proficiency = if (entry?.proficient == true) proficiencyBonus else 0
-        SavingThrowUiModel(
-            ability = ability,
-            name = ability.displayName,
-            bonus = abilityScores.modifierFor(ability) + (entry?.bonus ?: 0) + proficiency,
-            proficient = entry?.proficient ?: false,
+            modifier = modifier,
+            savingThrowBonus = modifier + (entry?.bonus ?: 0) + proficiencyBonusValue,
+            savingThrowProficient = entry?.proficient ?: false,
         )
     }
 
     return OverviewTabState(
         abilities = abilityModels,
-        savingThrows = savingThrowModels,
         hitDice = hitDice.ifBlank { "—" },
         senses = senses,
         languages = languages,
