@@ -2,63 +2,127 @@
 
 package com.github.arhor.spellbindr.ui.feature.characters
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.github.arhor.spellbindr.data.model.AbilityScores
-import com.github.arhor.spellbindr.data.model.CharacterSheet
+import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CharacterSheetRoute(
     onBack: () -> Unit,
     onEditCharacter: (String) -> Unit,
+    onOpenSpellDetail: (String) -> Unit,
+    onAddSpells: (String) -> Unit,
+    savedStateHandle: SavedStateHandle,
     modifier: Modifier = Modifier,
     viewModel: CharacterSheetViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(savedStateHandle) {
+        savedStateHandle.getStateFlow<List<CharacterSpellAssignment>?>(CHARACTER_SPELL_SELECTION_RESULT_KEY, null)
+            .collectLatest { assignments ->
+                if (!assignments.isNullOrEmpty()) {
+                    viewModel.addSpells(assignments)
+                    savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
+                }
+            }
+    }
+
     CharacterSheetScreen(
         state = state,
         onBack = onBack,
-        onEditCharacter = onEditCharacter,
+        callbacks = CharacterSheetCallbacks(
+            onTabSelected = viewModel::onTabSelected,
+            onEnterEdit = viewModel::enterEditMode,
+            onCancelEdit = viewModel::cancelEditMode,
+            onSaveEdits = viewModel::saveInlineEdits,
+            onAdjustHp = viewModel::adjustCurrentHp,
+            onTempHpChanged = viewModel::setTemporaryHp,
+            onMaxHpEdited = viewModel::onMaxHpEdited,
+            onCurrentHpEdited = viewModel::onCurrentHpEdited,
+            onTempHpEdited = viewModel::onTemporaryHpEdited,
+            onSpeedEdited = viewModel::onSpeedEdited,
+            onHitDiceEdited = viewModel::onHitDiceEdited,
+            onSensesEdited = viewModel::onSensesEdited,
+            onLanguagesEdited = viewModel::onLanguagesEdited,
+            onProficienciesEdited = viewModel::onProficienciesEdited,
+            onEquipmentEdited = viewModel::onEquipmentEdited,
+            onDeathSaveSuccessesChanged = viewModel::setDeathSaveSuccesses,
+            onDeathSaveFailuresChanged = viewModel::setDeathSaveFailures,
+            onSpellSlotToggle = viewModel::toggleSpellSlot,
+            onSpellSlotTotalChanged = viewModel::setSpellSlotTotal,
+            onSpellRemoved = viewModel::removeSpell,
+            onSpellSelected = onOpenSpellDetail,
+            onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
+            onOpenFullEditor = { state.characterId?.let(onEditCharacter) },
+        ),
         modifier = modifier,
     )
 }
@@ -67,46 +131,35 @@ fun CharacterSheetRoute(
 fun CharacterSheetScreen(
     state: CharacterSheetUiState,
     onBack: () -> Unit,
-    onEditCharacter: (String) -> Unit,
+    callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTab by rememberSaveable(state.character?.id) {
-        mutableStateOf(CharacterSheetTab.Sheet)
-    }
-    var overflowExpanded by remember(state.character?.id) {
-        mutableStateOf(false)
-    }
+    var overflowExpanded by remember { mutableStateOf(false) }
+    val headerTitle = state.header?.name ?: "Character"
 
     WithAppTopBar(
         AppTopBarConfig(
             visible = true,
-            title = {
-                Text(
-                    text = state.character?.let(::titleFor) ?: "Character",
-                    maxLines = 1,
-                )
-            },
+            title = { Text(headerTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
             navigation = AppTopBarNavigation.Back(onBack),
             actions = {
-                state.character?.let { sheet ->
-                    IconButton(onClick = { overflowExpanded = true }) {
-                        Icon(
-                            imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "More actions",
-                        )
-                    }
-                    DropdownMenu(
-                        expanded = overflowExpanded,
-                        onDismissRequest = { overflowExpanded = false },
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Edit") },
-                            onClick = {
-                                overflowExpanded = false
-                                onEditCharacter(sheet.id)
-                            },
-                        )
-                    }
+                CharacterSheetTopBarActions(
+                    state = state,
+                    callbacks = callbacks,
+                    onOverflowOpen = { overflowExpanded = true },
+                )
+                DropdownMenu(
+                    expanded = overflowExpanded,
+                    onDismissRequest = { overflowExpanded = false },
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Open full editor") },
+                        onClick = {
+                            overflowExpanded = false
+                            callbacks.onOpenFullEditor()
+                        },
+                        enabled = state.characterId != null,
+                    )
                 }
             },
         )
@@ -114,7 +167,7 @@ fun CharacterSheetScreen(
         Box(
             modifier = modifier
                 .fillMaxSize()
-                .padding(vertical = 16.dp),
+                .padding(bottom = 16.dp),
         ) {
             when {
                 state.isLoading -> {
@@ -123,22 +176,67 @@ fun CharacterSheetScreen(
                     )
                 }
 
-                state.character != null -> {
-                    CharacterSheetContent(
-                        sheet = state.character,
-                        selectedTab = selectedTab,
-                        onTabSelected = { selectedTab = it },
-                    )
-                }
-
-                else -> {
+                state.errorMessage != null -> {
                     CharacterSheetError(
-                        message = state.errorMessage ?: "Unable to load character.",
+                        message = state.errorMessage,
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(horizontal = 32.dp),
                     )
                 }
+
+                state.header != null && state.overview != null && state.skills != null && state.spells != null -> {
+                    CharacterSheetContent(
+                        state = state,
+                        callbacks = callbacks,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CharacterSheetTopBarActions(
+    state: CharacterSheetUiState,
+    callbacks: CharacterSheetCallbacks,
+    onOverflowOpen: () -> Unit,
+) {
+    when (state.editMode) {
+        SheetEditMode.View -> {
+            TextButton(
+                onClick = callbacks.onEnterEdit,
+                enabled = state.header != null,
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Edit,
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("Edit")
+            }
+            IconButton(onClick = onOverflowOpen, enabled = state.characterId != null) {
+                Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
+            }
+        }
+
+        SheetEditMode.Editing -> {
+            TextButton(onClick = callbacks.onCancelEdit) {
+                Icon(
+                    imageVector = Icons.Rounded.Close,
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("Cancel")
+            }
+            TextButton(onClick = callbacks.onSaveEdits) {
+                Icon(
+                    imageVector = Icons.Rounded.Check,
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("Save")
             }
         }
     }
@@ -146,85 +244,249 @@ fun CharacterSheetScreen(
 
 @Composable
 private fun CharacterSheetContent(
-    sheet: CharacterSheet,
-    selectedTab: CharacterSheetTab,
-    onTabSelected: (CharacterSheetTab) -> Unit,
+    state: CharacterSheetUiState,
+    callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .verticalScroll(rememberScrollState()),
+        modifier = modifier.fillMaxSize(),
     ) {
-        CharacterHeroSection(sheet = sheet)
-        Spacer(modifier = Modifier.height(24.dp))
-        PrimaryTabRow(
-            selectedTabIndex = selectedTab.ordinal,
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        ) {
+        state.header?.let {
+            CharacterHeaderCard(
+                header = it,
+                editMode = state.editMode,
+                editingState = state.editingState,
+                callbacks = callbacks,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+            )
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        PrimaryTabRow(selectedTabIndex = state.selectedTab.ordinal) {
             CharacterSheetTab.entries.forEach { tab ->
                 Tab(
-                    selected = tab == selectedTab,
-                    onClick = { onTabSelected(tab) },
-                    text = { Text(tab.label) },
+                    selected = state.selectedTab == tab,
+                    onClick = { callbacks.onTabSelected(tab) },
+                    text = { Text(tab.name.lowercase().replaceFirstChar(Char::titlecase)) },
                 )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        when (selectedTab) {
-            CharacterSheetTab.Sheet -> CharacterSheetOverviewTab(sheet)
-            CharacterSheetTab.Spells -> CharacterSheetSpellsTab(sheet)
-            CharacterSheetTab.Notes -> CharacterSheetNotesTab(sheet)
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-    }
-}
+        Spacer(modifier = Modifier.height(8.dp))
+        Crossfade(
+            targetState = state.selectedTab,
+            label = "character-sheet-tabs",
+            modifier = Modifier.fillMaxSize(),
+        ) { tab ->
+            when (tab) {
+                CharacterSheetTab.Overview -> OverviewTab(
+                    overview = requireNotNull(state.overview),
+                    editMode = state.editMode,
+                    editingState = state.editingState,
+                    callbacks = callbacks,
+                    modifier = Modifier.fillMaxSize(),
+                )
 
-@Composable
-private fun CharacterHeroSection(sheet: CharacterSheet) {
-    Surface(
-        shape = MaterialTheme.shapes.large,
-        tonalElevation = 4.dp,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(
-                text = heroSubtitle(sheet),
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.secondary,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.horizontalScroll(rememberScrollState()),
-            ) {
-                HeroChip(label = "HP", value = hitPointsLabel(sheet))
-                HeroChip(label = "AC", value = sheet.armorClass.toString())
-                HeroChip(label = "Initiative", value = modifierText(sheet.initiative))
-                sheet.speed.takeIf { it.isNotBlank() }?.let {
-                    HeroChip(label = "Speed", value = it)
-                }
-                HeroChip(label = "Prof. Bonus", value = modifierText(sheet.proficiencyBonus))
+                CharacterSheetTab.Skills -> SkillsTab(
+                    skills = requireNotNull(state.skills),
+                    modifier = Modifier.fillMaxSize(),
+                )
+
+                CharacterSheetTab.Spells -> SpellsTab(
+                    spellsState = requireNotNull(state.spells),
+                    editMode = state.editMode,
+                    callbacks = callbacks,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }
 }
 
 @Composable
-private fun HeroChip(label: String, value: String) {
+private fun CharacterHeaderCard(
+    header: CharacterHeaderUiState,
+    editMode: SheetEditMode,
+    editingState: CharacterSheetEditingState?,
+    callbacks: CharacterSheetCallbacks,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.extraLarge,
+        tonalElevation = 4.dp,
+        modifier = modifier,
+    ) {
+        Column(modifier = Modifier.padding(20.dp)) {
+            Text(
+                text = header.name,
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            if (header.subtitle.isNotBlank()) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = header.subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            HitPointBlock(
+                hitPoints = header.hitPoints,
+                editMode = editMode,
+                editingState = editingState,
+                callbacks = callbacks,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            StatsRow(
+                header = header,
+                editMode = editMode,
+                editingState = editingState,
+                callbacks = callbacks,
+            )
+        }
+    }
+}
+
+@Composable
+private fun HitPointBlock(
+    hitPoints: HitPointSummary,
+    editMode: SheetEditMode,
+    editingState: CharacterSheetEditingState?,
+    callbacks: CharacterSheetCallbacks,
+) {
+    Column {
+        Text(
+            text = "Hit Points",
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.secondary,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        when {
+            editMode == SheetEditMode.Editing && editingState != null -> {
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    InlineNumberField(
+                        label = "Current",
+                        value = editingState.currentHp,
+                        onValueChanged = callbacks.onCurrentHpEdited,
+                        modifier = Modifier.weight(1f),
+                    )
+                    InlineNumberField(
+                        label = "Max",
+                        value = editingState.maxHp,
+                        onValueChanged = callbacks.onMaxHpEdited,
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                InlineNumberField(
+                    label = "Temporary",
+                    value = editingState.tempHp,
+                    onValueChanged = callbacks.onTempHpEdited,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+
+            else -> {
+                Text(
+                    text = "${hitPoints.current} / ${hitPoints.max}",
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    HpAdjustButton(label = "-5", onClick = { callbacks.onAdjustHp(-5) })
+                    HpAdjustButton(label = "-1", onClick = { callbacks.onAdjustHp(-1) })
+                    HpAdjustButton(label = "+1", onClick = { callbacks.onAdjustHp(1) })
+                    HpAdjustButton(label = "+5", onClick = { callbacks.onAdjustHp(5) })
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    Text(
+                        text = "Temporary HP ${hitPoints.temporary}",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    AssistChip(
+                        onClick = { callbacks.onTempHpChanged((hitPoints.temporary - 1).coerceAtLeast(0)) },
+                        label = { Text("-1") },
+                        enabled = hitPoints.temporary > 0,
+                    )
+                    AssistChip(
+                        onClick = { callbacks.onTempHpChanged(hitPoints.temporary + 1) },
+                        label = { Text("+1") },
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun StatsRow(
+    header: CharacterHeaderUiState,
+    editMode: SheetEditMode,
+    editingState: CharacterSheetEditingState?,
+    callbacks: CharacterSheetCallbacks,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        StatChip(label = "AC", value = header.armorClass.toString(), modifier = Modifier.weight(1f))
+        StatChip(label = "Initiative", value = formatBonus(header.initiative), modifier = Modifier.weight(1f))
+        if (editMode == SheetEditMode.Editing && editingState != null) {
+            InlineTextField(
+                label = "Speed",
+                value = editingState.speed,
+                onValueChanged = callbacks.onSpeedEdited,
+                modifier = Modifier.weight(1f),
+            )
+        } else {
+            StatChip(label = "Speed", value = header.speed, modifier = Modifier.weight(1f))
+        }
+        StatChip(
+            label = "Prof. Bonus",
+            value = formatBonus(header.proficiencyBonus),
+            modifier = Modifier.weight(1f),
+        )
+    }
+}
+
+@Composable
+private fun HpAdjustButton(label: String, onClick: () -> Unit) {
+    OutlinedButton(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.small,
+        contentPadding = PaddingValues(
+            start = 12.dp,
+            top = ButtonDefaults.ContentPadding.calculateTopPadding(),
+            end = 12.dp,
+            bottom = ButtonDefaults.ContentPadding.calculateBottomPadding(),
+        ),
+    ) {
+        Text(label)
+    }
+}
+
+@Composable
+private fun StatChip(
+    label: String,
+    value: String,
+    modifier: Modifier = Modifier,
+) {
     Surface(
         shape = MaterialTheme.shapes.medium,
-        tonalElevation = 3.dp,
+        tonalElevation = 2.dp,
+        modifier = modifier,
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = value,
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleMedium,
             )
             Text(
                 text = label,
@@ -236,111 +498,116 @@ private fun HeroChip(label: String, value: String) {
 }
 
 @Composable
-private fun CharacterSheetOverviewTab(sheet: CharacterSheet) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        AbilityGrid(abilities = sheet.toAbilityDisplays())
-        InfoCard(
-            title = "Core details",
-            body = buildString {
-                append(heroSubtitle(sheet))
-                sheet.alignment.takeIf { it.isNotBlank() }?.let {
-                    append("\nAlignment: ")
-                    append(it.trim())
-                }
-                sheet.experiencePoints?.let {
-                    append("\nXP: ")
-                    append(it)
-                }
-            },
-        )
-        InfoCard(
-            title = "Senses & Languages",
-            body = listOfNotBlank(
-                sheet.senses.takeIf { it.isNotBlank() }?.let { "Senses: ${it.trim()}" },
-                sheet.languages.takeIf { it.isNotBlank() }?.let { "Languages: ${it.trim()}" },
-            ).joinToString(separator = "\n"),
-        )
-        InfoCard(
-            title = "Proficiencies & Equipment",
-            body = listOfNotBlank(
-                sheet.proficiencies.takeIf { it.isNotBlank() }?.let { "Proficiencies:\n${it.trim()}" },
-                sheet.equipment.takeIf { it.isNotBlank() }?.let { "Equipment:\n${it.trim()}" },
-            ).joinToString(separator = "\n\n"),
-        )
-    }
-}
-
-@Composable
-private fun CharacterSheetSpellsTab(sheet: CharacterSheet) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        InfoCard(
-            title = "Attacks & Cantrips",
-            body = sheet.attacksAndCantrips,
-        )
-        InfoCard(
-            title = "Features & Traits",
-            body = sheet.featuresAndTraits,
-        )
-    }
-}
-
-@Composable
-private fun CharacterSheetNotesTab(sheet: CharacterSheet) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        InfoCard(
-            title = "Personality Traits",
-            body = sheet.personalityTraits,
-        )
-        InfoCard(
-            title = "Ideals",
-            body = sheet.ideals,
-        )
-        InfoCard(
-            title = "Bonds",
-            body = sheet.bonds,
-        )
-        InfoCard(
-            title = "Flaws",
-            body = sheet.flaws,
-        )
-        InfoCard(
-            title = "Notes",
-            body = sheet.notes,
-        )
-    }
-}
-
-@Composable
-private fun AbilityGrid(abilities: List<AbilityDisplay>) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+private fun OverviewTab(
+    overview: OverviewTabState,
+    editMode: SheetEditMode,
+    editingState: CharacterSheetEditingState?,
+    callbacks: CharacterSheetCallbacks,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        abilities.forEach { ability ->
-            Surface(
-                shape = MaterialTheme.shapes.large,
-                tonalElevation = 2.dp,
-            ) {
-                Column(
-                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 14.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Text(
-                        text = ability.label,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.secondary,
+        item {
+            AbilityGrid(abilities = overview.abilities)
+        }
+        item {
+            SavingThrowsCard(savingThrows = overview.savingThrows)
+        }
+        item {
+            DeathSavesCard(
+                state = overview.deathSaves,
+                onSuccessChanged = callbacks.onDeathSaveSuccessesChanged,
+                onFailureChanged = callbacks.onDeathSaveFailuresChanged,
+            )
+        }
+        item {
+            DetailCard(
+                title = "Core details",
+                lines = listOfNotBlank(
+                    overview.race.takeIf { it.isNotBlank() }?.let { "Race: $it" },
+                    overview.background.takeIf { it.isNotBlank() }?.let { "Background: $it" },
+                    overview.alignment.takeIf { it.isNotBlank() }?.let { "Alignment: $it" },
+                ),
+            )
+        }
+        item {
+            if (editMode == SheetEditMode.Editing && editingState != null) {
+                EditableDetailCard(
+                    title = "Senses & Languages",
+                    primaryLabel = "Senses",
+                    primaryValue = editingState.senses,
+                    onPrimaryChanged = callbacks.onSensesEdited,
+                    secondaryLabel = "Languages",
+                    secondaryValue = editingState.languages,
+                    onSecondaryChanged = callbacks.onLanguagesEdited,
+                )
+            } else {
+                DetailCard(
+                    title = "Senses & Languages",
+                    lines = listOfNotBlank(
+                        overview.senses.takeIf { it.isNotBlank() }?.let { "Senses: $it" },
+                        overview.languages.takeIf { it.isNotBlank() }?.let { "Languages: $it" },
+                    ),
+                )
+            }
+        }
+        item {
+            if (editMode == SheetEditMode.Editing && editingState != null) {
+                EditableDetailCard(
+                    title = "Proficiencies & Equipment",
+                    primaryLabel = "Proficiencies",
+                    primaryValue = editingState.proficiencies,
+                    onPrimaryChanged = callbacks.onProficienciesEdited,
+                    secondaryLabel = "Equipment",
+                    secondaryValue = editingState.equipment,
+                    onSecondaryChanged = callbacks.onEquipmentEdited,
+                )
+            } else {
+                DetailCard(
+                    title = "Proficiencies & Equipment",
+                    lines = listOfNotBlank(
+                        overview.proficiencies.takeIf { it.isNotBlank() }?.let { "Proficiencies:\n$it" },
+                        overview.equipment.takeIf { it.isNotBlank() }?.let { "Equipment:\n$it" },
+                    ),
+                )
+            }
+        }
+        item {
+            if (editMode == SheetEditMode.Editing && editingState != null) {
+                InlineTextField(
+                    label = "Hit Dice",
+                    value = editingState.hitDice,
+                    onValueChanged = callbacks.onHitDiceEdited,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            } else {
+                DetailCard(
+                    title = "Hit Dice",
+                    lines = listOf(overview.hitDice.ifBlank { "—" }),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AbilityGrid(abilities: List<AbilityUiModel>) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        abilities.chunked(2).forEach { row ->
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                row.forEach { ability ->
+                    AbilityCard(
+                        ability = ability,
+                        modifier = Modifier.weight(1f),
                     )
-                    Text(
-                        text = ability.score.toString(),
-                        style = MaterialTheme.typography.headlineSmall,
-                    )
-                    Text(
-                        text = modifierText(ability.modifier),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                }
+                if (row.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
                 }
             }
         }
@@ -348,10 +615,165 @@ private fun AbilityGrid(abilities: List<AbilityDisplay>) {
 }
 
 @Composable
-private fun InfoCard(
+private fun AbilityCard(
+    ability: AbilityUiModel,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 1.dp,
+        modifier = modifier,
+    ) {
+        Column(
+            modifier = Modifier.padding(vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = ability.label,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.secondary,
+            )
+            Text(
+                text = ability.score.toString(),
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Text(
+                text = formatBonus(ability.modifier),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SavingThrowsCard(
+    savingThrows: List<SavingThrowUiModel>,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Saving Throws",
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                savingThrows.forEach { save ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column {
+                            Text(
+                                text = save.name,
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            if (save.proficient) {
+                                Text(
+                                    text = "Proficient",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
+                            }
+                        }
+                        Text(
+                            text = formatBonus(save.bonus),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DeathSavesCard(
+    state: DeathSaveUiState,
+    onSuccessChanged: (Int) -> Unit,
+    onFailureChanged: (Int) -> Unit,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Death Saves",
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            DeathSaveTrack(
+                label = "Successes",
+                count = state.successes,
+                color = MaterialTheme.colorScheme.primary,
+                onCountChanged = onSuccessChanged,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            DeathSaveTrack(
+                label = "Failures",
+                count = state.failures,
+                color = MaterialTheme.colorScheme.error,
+                onCountChanged = onFailureChanged,
+            )
+        }
+    }
+}
+
+@Composable
+private fun DeathSaveTrack(
+    label: String,
+    count: Int,
+    color: Color,
+    onCountChanged: (Int) -> Unit,
+) {
+    Column {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            repeat(3) { index ->
+                val isFilled = index < count
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(
+                            color = if (isFilled) color.copy(alpha = 0.2f) else MaterialTheme.colorScheme.surfaceVariant
+                        )
+                        .border(
+                            width = 1.dp,
+                            color = if (isFilled) color else MaterialTheme.colorScheme.outlineVariant,
+                            shape = CircleShape,
+                        )
+                        .padding(6.dp)
+                        .clickable { onCountChanged(if (isFilled) index else index + 1) },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    if (isFilled) {
+                        Icon(
+                            imageVector = if (label == "Failures") Icons.Rounded.Close else Icons.Rounded.Check,
+                            contentDescription = null,
+                            tint = color,
+                            modifier = Modifier.size(18.dp),
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DetailCard(
     title: String,
-    body: String,
-    placeholder: String = "No information yet",
+    lines: List<String>,
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
@@ -363,12 +785,356 @@ private fun InfoCard(
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
             )
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = body.ifBlank { placeholder },
+                text = if (lines.isEmpty()) "No information yet" else lines.joinToString("\n\n"),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 8.dp),
             )
+        }
+    }
+}
+
+@Composable
+private fun EditableDetailCard(
+    title: String,
+    primaryLabel: String,
+    primaryValue: String,
+    onPrimaryChanged: (String) -> Unit,
+    secondaryLabel: String,
+    secondaryValue: String,
+    onSecondaryChanged: (String) -> Unit,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            InlineTextField(
+                label = primaryLabel,
+                value = primaryValue,
+                onValueChanged = onPrimaryChanged,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            InlineTextField(
+                label = secondaryLabel,
+                value = secondaryValue,
+                onValueChanged = onSecondaryChanged,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+}
+
+@Composable
+private fun InlineNumberField(
+    label: String,
+    value: String,
+    onValueChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChanged,
+        label = { Text(label) },
+        singleLine = true,
+        modifier = modifier,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+    )
+}
+
+@Composable
+private fun InlineTextField(
+    label: String,
+    value: String,
+    onValueChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChanged,
+        label = { Text(label) },
+        modifier = modifier,
+        singleLine = true,
+    )
+}
+
+@Composable
+private fun SkillsTab(
+    skills: SkillsTabState,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        items(skills.skills) { skill ->
+            Surface(
+                shape = MaterialTheme.shapes.large,
+                tonalElevation = 1.dp,
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Column {
+                        Text(
+                            text = skill.name,
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            text = "${skill.abilityAbbreviation} • ${formatBonus(skill.totalBonus)}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        if (skill.expertise) {
+                            AssistChip(onClick = {}, label = { Text("Expertise") })
+                        } else if (skill.proficient) {
+                            AssistChip(onClick = {}, label = { Text("Proficient") })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpellsTab(
+    spellsState: SpellsTabState,
+    editMode: SheetEditMode,
+    callbacks: CharacterSheetCallbacks,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        item {
+            FilledTonalButton(
+                onClick = callbacks.onAddSpellsClicked,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Add spells")
+            }
+        }
+        item {
+            SpellSlotsCard(
+                slots = spellsState.spellSlots,
+                editMode = editMode,
+                callbacks = callbacks,
+            )
+        }
+        if (spellsState.spellcastingGroups.isEmpty()) {
+            item {
+                Text(
+                    text = "No spells linked to this character yet.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(vertical = 24.dp),
+                )
+            }
+        } else {
+            items(spellsState.spellcastingGroups) { group ->
+                SpellGroupCard(
+                    group = group,
+                    editMode = editMode,
+                    callbacks = callbacks,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpellSlotsCard(
+    slots: List<SpellSlotUiModel>,
+    editMode: SheetEditMode,
+    callbacks: CharacterSheetCallbacks,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Spell Slots",
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                slots.forEach { slot ->
+                    Column {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text(
+                                text = "Level ${slot.level}",
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            if (editMode == SheetEditMode.Editing) {
+                                Row {
+                                    IconButton(
+                                        onClick = { callbacks.onSpellSlotTotalChanged(slot.level, slot.total - 1) },
+                                        enabled = slot.total > 0,
+                                    ) {
+                                        Text("-")
+                                    }
+                                    IconButton(
+                                        onClick = { callbacks.onSpellSlotTotalChanged(slot.level, slot.total + 1) },
+                                    ) {
+                                        Text("+")
+                                    }
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(6.dp))
+                        if (slot.total == 0) {
+                            Text(
+                                text = "No slots configured for this level",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        } else {
+                            Row(
+                                modifier = Modifier
+                                    .horizontalScroll(rememberScrollState()),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            ) {
+                                repeat(slot.total) { index ->
+                                    val used = index < slot.expended
+                                    SpellSlotChip(
+                                        used = used,
+                                        onClick = { callbacks.onSpellSlotToggle(slot.level, index) },
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpellSlotChip(
+    used: Boolean,
+    onClick: () -> Unit,
+) {
+    Surface(
+        shape = CircleShape,
+        tonalElevation = if (used) 4.dp else 0.dp,
+        color = if (used) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+        onClick = onClick,
+    ) {
+        Box(
+            modifier = Modifier.size(32.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (used) {
+                Icon(
+                    imageVector = Icons.Rounded.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpellGroupCard(
+    group: SpellcastingGroupUiModel,
+    editMode: SheetEditMode,
+    callbacks: CharacterSheetCallbacks,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = group.sourceLabel,
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            group.spells.forEach { spell ->
+                SpellRow(
+                    spell = spell,
+                    editMode = editMode,
+                    onClick = { callbacks.onSpellSelected(spell.spellId) },
+                    onRemove = { callbacks.onSpellRemoved(spell.spellId, group.sourceKey) },
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpellRow(
+    spell: CharacterSpellUiModel,
+    editMode: SheetEditMode,
+    onClick: () -> Unit,
+    onRemove: () -> Unit,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 1.dp,
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(
+                    text = spell.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Text(
+                    text = "Level ${spell.level} • ${spell.school}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                if (spell.castingTime.isNotBlank()) {
+                    Text(
+                        text = spell.castingTime,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            if (editMode == SheetEditMode.Editing) {
+                IconButton(onClick = onRemove) {
+                    Icon(imageVector = Icons.Rounded.Close, contentDescription = "Remove spell")
+                }
+            }
         }
     }
 }
@@ -381,112 +1147,160 @@ private fun CharacterSheetError(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            text = "Something went wrong",
+            text = "Unable to load character",
             style = MaterialTheme.typography.titleLarge,
         )
         Text(
             text = message,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
         )
     }
 }
 
-private enum class CharacterSheetTab(val label: String) {
-    Sheet("Sheet"),
-    Spells("Spells"),
-    Notes("Notes"),
-}
-
-private data class AbilityDisplay(
-    val label: String,
-    val score: Int,
-    val modifier: Int,
+data class CharacterSheetCallbacks(
+    val onTabSelected: (CharacterSheetTab) -> Unit,
+    val onEnterEdit: () -> Unit,
+    val onCancelEdit: () -> Unit,
+    val onSaveEdits: () -> Unit,
+    val onAdjustHp: (Int) -> Unit,
+    val onTempHpChanged: (Int) -> Unit,
+    val onMaxHpEdited: (String) -> Unit,
+    val onCurrentHpEdited: (String) -> Unit,
+    val onTempHpEdited: (String) -> Unit,
+    val onSpeedEdited: (String) -> Unit,
+    val onHitDiceEdited: (String) -> Unit,
+    val onSensesEdited: (String) -> Unit,
+    val onLanguagesEdited: (String) -> Unit,
+    val onProficienciesEdited: (String) -> Unit,
+    val onEquipmentEdited: (String) -> Unit,
+    val onDeathSaveSuccessesChanged: (Int) -> Unit,
+    val onDeathSaveFailuresChanged: (Int) -> Unit,
+    val onSpellSlotToggle: (Int, Int) -> Unit,
+    val onSpellSlotTotalChanged: (Int, Int) -> Unit,
+    val onSpellRemoved: (String, String) -> Unit,
+    val onSpellSelected: (String) -> Unit,
+    val onAddSpellsClicked: () -> Unit,
+    val onOpenFullEditor: () -> Unit,
 )
 
-private fun CharacterSheet.toAbilityDisplays(): List<AbilityDisplay> = listOf(
-    AbilityDisplay("STR", abilityScores.strength, abilityScores.modifierFor(Ability.STR)),
-    AbilityDisplay("DEX", abilityScores.dexterity, abilityScores.modifierFor(Ability.DEX)),
-    AbilityDisplay("CON", abilityScores.constitution, abilityScores.modifierFor(Ability.CON)),
-    AbilityDisplay("INT", abilityScores.intelligence, abilityScores.modifierFor(Ability.INT)),
-    AbilityDisplay("WIS", abilityScores.wisdom, abilityScores.modifierFor(Ability.WIS)),
-    AbilityDisplay("CHA", abilityScores.charisma, abilityScores.modifierFor(Ability.CHA)),
-)
+private fun listOfNotBlank(vararg values: String?): List<String> =
+    values.mapNotNull { value -> value?.takeIf { it.isNotBlank() }?.trim() }
 
-private fun hitPointsLabel(sheet: CharacterSheet): String {
-    val base = "${sheet.currentHitPoints} / ${sheet.maxHitPoints}"
-    return if (sheet.temporaryHitPoints > 0) {
-        "$base (+${sheet.temporaryHitPoints})"
-    } else {
-        base
-    }
-}
-
-private fun heroSubtitle(sheet: CharacterSheet): String {
-    val levelPart = "Level ${sheet.level.coerceAtLeast(1)}"
-    val classPart = sheet.className.takeIf { it.isNotBlank() }?.let { "$levelPart ${it.trim()}" } ?: levelPart
-    return listOfNotBlank(
-        classPart,
-        sheet.race.takeIf { it.isNotBlank() }?.trim(),
-        sheet.background.takeIf { it.isNotBlank() }?.trim(),
-    ).joinToString(separator = " • ")
-}
-
-private fun titleFor(sheet: CharacterSheet): String =
-    if (sheet.name.isNotBlank()) "${sheet.name} – Level ${sheet.level}" else "Level ${sheet.level} hero"
-
-private fun modifierText(value: Int): String = when {
-    value > 0 -> "+$value"
-    else -> value.toString()
-}
-
-private fun listOfNotBlank(vararg items: String?): List<String> =
-    items.mapNotNull { value ->
-        value?.takeIf { it.isNotBlank() }?.trim()
-    }
+private fun formatBonus(value: Int): String = if (value >= 0) "+$value" else value.toString()
 
 @Preview
 @Composable
 private fun CharacterSheetPreview() {
     AppTheme {
         CharacterSheetScreen(
-            state = CharacterSheetUiState(
-                character = CharacterSheet(
-                    id = "preview",
-                    name = "Astra Moonshadow",
-                    level = 7,
-                    className = "Wizard",
-                    race = "Half-elf",
-                    background = "Luna Conservatory",
-                    alignment = "Chaotic Good",
-                    abilityScores = AbilityScores(10, 14, 12, 18, 13, 11),
-                    proficiencyBonus = 3,
-                    inspiration = true,
-                    maxHitPoints = 38,
-                    currentHitPoints = 34,
-                    temporaryHitPoints = 4,
-                    armorClass = 16,
-                    initiative = 2,
-                    speed = "30 ft",
-                    hitDice = "7d6",
-                    senses = "Darkvision 60 ft",
-                    languages = "Common, Elvish, Celestial",
-                    proficiencies = "Arcana, History, Insight",
-                    attacksAndCantrips = "Fire Bolt, Ray of Frost, Shocking Grasp",
-                    featuresAndTraits = "Arcane Recovery, Sculpt Spells",
-                    equipment = "Quarterstaff, Spellbook, Scholar's pack",
-                    personalityTraits = "Inquisitive, quietly confident.",
-                    ideals = "Knowledge is the true power.",
-                    bonds = "The Conservatory that raised me.",
-                    flaws = "Trusts star omens a bit too much.",
-                    notes = "Keep an eye on spell slots.",
-                ),
-            ),
+            state = previewUiState(),
             onBack = {},
-            onEditCharacter = {},
+            callbacks = CharacterSheetCallbacks(
+                onTabSelected = {},
+                onEnterEdit = {},
+                onCancelEdit = {},
+                onSaveEdits = {},
+                onAdjustHp = {},
+                onTempHpChanged = {},
+                onMaxHpEdited = {},
+                onCurrentHpEdited = {},
+                onTempHpEdited = {},
+                onSpeedEdited = {},
+                onHitDiceEdited = {},
+                onSensesEdited = {},
+                onLanguagesEdited = {},
+                onProficienciesEdited = {},
+                onEquipmentEdited = {},
+                onDeathSaveSuccessesChanged = {},
+                onDeathSaveFailuresChanged = {},
+                onSpellSlotToggle = { _, _ -> },
+                onSpellSlotTotalChanged = { _, _ -> },
+                onSpellRemoved = { _, _ -> },
+                onSpellSelected = {},
+                onAddSpellsClicked = {},
+                onOpenFullEditor = {},
+            ),
         )
     }
 }
+
+private fun previewUiState(): CharacterSheetUiState = CharacterSheetUiState(
+    characterId = "preview",
+    selectedTab = CharacterSheetTab.Overview,
+    header = CharacterHeaderUiState(
+        name = "Astra Moonshadow",
+        subtitle = "Level 7 Wizard • Half-elf",
+        hitPoints = HitPointSummary(max = 38, current = 32, temporary = 5),
+        armorClass = 16,
+        initiative = 2,
+        speed = "30 ft",
+        proficiencyBonus = 3,
+        inspiration = true,
+    ),
+    overview = OverviewTabState(
+        abilities = Ability.entries.mapIndexed { index, ability ->
+            AbilityUiModel(
+                ability = ability,
+                label = ability.name,
+                score = 10 + index * 2,
+                modifier = index - 1,
+            )
+        },
+        savingThrows = Ability.entries.mapIndexed { index, ability ->
+            SavingThrowUiModel(
+                ability = ability,
+                name = ability.displayName,
+                bonus = index,
+                proficient = index % 2 == 0,
+            )
+        },
+        hitDice = "7d6",
+        senses = "Darkvision 60 ft",
+        languages = "Common, Elvish",
+        proficiencies = "Arcana, History, Insight",
+        equipment = "Quarterstaff, Spellbook",
+        background = "Sage",
+        race = "Half-elf",
+        alignment = "Chaotic Good",
+        deathSaves = DeathSaveUiState(successes = 1, failures = 0),
+    ),
+    skills = SkillsTabState(
+        skills = Skill.entries.take(6).mapIndexed { index, skill ->
+            SkillUiModel(
+                id = skill,
+                name = skill.displayName,
+                abilityAbbreviation = skill.ability.name,
+                totalBonus = index,
+                proficient = index % 2 == 0,
+                expertise = index == 0,
+            )
+        }
+    ),
+    spells = SpellsTabState(
+        spellcastingGroups = listOf(
+            SpellcastingGroupUiModel(
+                sourceKey = "Wizard",
+                sourceLabel = "Wizard",
+                spells = listOf(
+                    CharacterSpellUiModel(
+                        spellId = "fireball",
+                        name = "Fireball",
+                        level = 3,
+                        school = "Evocation",
+                        castingTime = "1 action",
+                    )
+                )
+            )
+        ),
+        spellSlots = listOf(
+            SpellSlotUiModel(level = 1, total = 4, expended = 1),
+            SpellSlotUiModel(level = 2, total = 3, expended = 2),
+        ),
+        canAddSpells = true,
+    ),
+)

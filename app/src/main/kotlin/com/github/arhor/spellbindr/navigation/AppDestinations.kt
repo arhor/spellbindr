@@ -20,6 +20,9 @@ sealed class AppDestination(open val title: String) {
     data class CharacterEditor(val characterId: String? = null) : AppDestination(title = "Character Editor")
 
     @Serializable
+    data class CharacterSpellPicker(val characterId: String) : AppDestination(title = "Add Spells")
+
+    @Serializable
     data object Compendium : AppDestination(title = "Compendium")
 
     @Serializable

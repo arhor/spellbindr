@@ -33,6 +33,7 @@ class CharacterEditorViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val initialId: String? = savedStateHandle.get<String>("characterId")
+    private var baseSheet: CharacterSheet? = null
 
     private val _uiState = MutableStateFlow(
         CharacterEditorUiState(
@@ -54,6 +55,7 @@ class CharacterEditorViewModel @Inject constructor(
         repository.observeCharacterSheet(id)
             .onEach { sheet ->
                 if (sheet != null) {
+                    baseSheet = sheet
                     _uiState.value = sheet.toEditorState()
                 } else {
                     _uiState.update { it.copy(characterId = id, isLoading = false) }
@@ -184,7 +186,7 @@ class CharacterEditorViewModel @Inject constructor(
         if (validation.hasErrors) return
 
         viewModelScope.launch {
-            val sheet = _uiState.value.toCharacterSheet()
+            val sheet = _uiState.value.toCharacterSheet(baseSheet)
             _uiState.update {
                 it.copy(
                     isSaving = true,
@@ -195,6 +197,7 @@ class CharacterEditorViewModel @Inject constructor(
             }
             runCatching { repository.upsertCharacterSheet(sheet) }
                 .onSuccess {
+                    baseSheet = sheet
                     _uiState.update { it.copy(isSaving = false) }
                     _events.emit(CharacterEditorEvent.Saved)
                 }
@@ -326,10 +329,11 @@ private fun CharacterEditorUiState.validate(): ValidationResult {
     )
 }
 
-private fun CharacterEditorUiState.toCharacterSheet(): CharacterSheet {
-    val ensuredId = characterId ?: UUID.randomUUID().toString()
+private fun CharacterEditorUiState.toCharacterSheet(base: CharacterSheet?): CharacterSheet {
+    val ensuredId = characterId ?: base?.id ?: UUID.randomUUID().toString()
     val abilityLookup = abilities.associateBy { it.ability }
-    return CharacterSheet(
+    val baseline = base ?: CharacterSheet(id = ensuredId)
+    return baseline.copy(
         id = ensuredId,
         name = name.trim(),
         level = level.toIntOrNull() ?: 1,

@@ -29,8 +29,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
+import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSheetRoute
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
@@ -82,10 +84,13 @@ fun SpellbindrApp(
                             onCreateCharacter = { controller.navigate(AppDestination.CharacterEditor()) },
                         )
                     }
-                    composable<AppDestination.CharacterSheet> {
+                    composable<AppDestination.CharacterSheet> { entry ->
                         CharacterSheetRoute(
                             onBack = { controller.navigateUp() },
                             onEditCharacter = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
+                            onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
+                            onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) },
+                            savedStateHandle = entry.savedStateHandle,
                         )
                     }
                     composable<AppDestination.CharacterEditor> {
@@ -103,6 +108,18 @@ fun SpellbindrApp(
                         SpellDetailScreen(
                             spellId = args.spellId,
                             onBackClick = { controller.navigateUp() },
+                        )
+                    }
+                    composable<AppDestination.CharacterSpellPicker> {
+                        CharacterSpellPickerRoute(
+                            onBack = { controller.navigateUp() },
+                            onSpellAdded = { assignment ->
+                                controller.previousBackStackEntry?.savedStateHandle?.set(
+                                    CHARACTER_SPELL_SELECTION_RESULT_KEY,
+                                    arrayListOf(assignment),
+                                )
+                                controller.navigateUp()
+                            },
                         )
                     }
                     composable<AppDestination.Dice> {

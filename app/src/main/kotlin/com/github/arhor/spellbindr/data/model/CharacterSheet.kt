@@ -26,6 +26,8 @@ data class CharacterSheet(
     val initiative: Int = 0,
     val speed: String = "",
     val hitDice: String = "",
+    val deathSaves: DeathSaveState = DeathSaveState(),
+    val spellSlots: List<SpellSlotState> = defaultSpellSlots(),
     val savingThrows: List<SavingThrowEntry> = defaultSavingThrows(),
     val skills: List<SkillEntry> = defaultSkills(),
     val senses: String = "",
@@ -39,6 +41,7 @@ data class CharacterSheet(
     val bonds: String = "",
     val flaws: String = "",
     val notes: String = "",
+    val characterSpells: List<CharacterSpell> = emptyList(),
 )
 
 /**
@@ -63,6 +66,8 @@ data class CharacterSheetSnapshot(
     val initiative: Int = 0,
     val speed: String = "",
     val hitDice: String = "",
+    val deathSaves: DeathSaveState = DeathSaveState(),
+    val spellSlots: List<SpellSlotState> = defaultSpellSlots(),
     val savingThrows: List<SavingThrowEntry> = defaultSavingThrows(),
     val skills: List<SkillEntry> = defaultSkills(),
     val senses: String = "",
@@ -76,6 +81,7 @@ data class CharacterSheetSnapshot(
     val bonds: String = "",
     val flaws: String = "",
     val notes: String = "",
+    val characterSpells: List<CharacterSpell> = emptyList(),
 )
 
 @Serializable
@@ -131,6 +137,8 @@ fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet
     initiative = initiative,
     speed = speed,
     hitDice = hitDice,
+    deathSaves = deathSaves,
+    spellSlots = spellSlots,
     savingThrows = savingThrows,
     skills = skills,
     senses = senses,
@@ -144,6 +152,7 @@ fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet
     bonds = bonds,
     flaws = flaws,
     notes = notes,
+    characterSpells = characterSpells,
 )
 
 fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot(
@@ -164,6 +173,8 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
     initiative = initiative,
     speed = speed,
     hitDice = hitDice,
+    deathSaves = deathSaves,
+    spellSlots = spellSlots,
     savingThrows = savingThrows,
     skills = skills,
     senses = senses,
@@ -177,6 +188,7 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
     bonds = bonds,
     flaws = flaws,
     notes = notes,
+    characterSpells = characterSpells,
 )
 
 fun defaultSavingThrows(): List<SavingThrowEntry> =
@@ -184,3 +196,25 @@ fun defaultSavingThrows(): List<SavingThrowEntry> =
 
 fun defaultSkills(): List<SkillEntry> =
     Skill.entries.map { skill -> SkillEntry(skill = skill) }
+
+@Serializable
+data class DeathSaveState(
+    val successes: Int = 0,
+    val failures: Int = 0,
+)
+
+@Serializable
+data class SpellSlotState(
+    val level: Int,
+    val total: Int = 0,
+    val expended: Int = 0,
+)
+
+@Serializable
+data class CharacterSpell(
+    val spellId: String,
+    val sourceClass: String = "",
+)
+
+fun defaultSpellSlots(): List<SpellSlotState> =
+    (1..9).map { level -> SpellSlotState(level = level) }
