@@ -113,7 +113,7 @@ fun D20HpBar(
             drawPath(
                 path = hexPath,
                 color = outlineColor,
-                style = Stroke(width = size.minDimension * 0.025f),
+                style = Stroke(width = size.minDimension * 0.015f),
             )
         }
 
@@ -340,7 +340,6 @@ private fun DrawScope.drawFacetedHexFill(
     val lightColor = lerp(baseColor, Color.White, 0.35f)
     val darkColor = lerp(baseColor, Color.Black, 0.35f)
 
-    // >>> This is the key bit for Option 2 <<<
     val expansionFactor = 1.003f // try 1.01–1.05 and tweak visually
 
     fun expandFromCentroid(p: Offset, centroid: Offset): Offset {
@@ -352,7 +351,7 @@ private fun DrawScope.drawFacetedHexFill(
         )
     }
 
-    facets.forEach { facet ->
+    for (facet in facets) {
         // Centroid of the (original) triangle
         val originalCentroid = Offset(
             x = (facet.a.x + facet.b.x + facet.c.x) / 3f,
