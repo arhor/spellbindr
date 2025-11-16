@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -72,6 +73,7 @@ import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.components.AbilityTokenData
 import com.github.arhor.spellbindr.ui.components.AbilityTokensGrid
+import com.github.arhor.spellbindr.ui.components.D20HpBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -137,12 +139,12 @@ fun CharacterSheetScreen(
     modifier: Modifier = Modifier,
 ) {
     var overflowExpanded by remember { mutableStateOf(false) }
-    val headerTitle = state.header?.name ?: "Character"
+    val headerState = state.header
 
     WithAppTopBar(
         AppTopBarConfig(
             visible = true,
-            title = { Text(headerTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+            title = { CharacterSheetTopBarTitle(header = headerState) },
             navigation = AppTopBarNavigation.Back(onBack),
             actions = {
                 CharacterSheetTopBarActions(
@@ -189,11 +191,44 @@ fun CharacterSheetScreen(
 
                 state.header != null && state.overview != null && state.skills != null && state.spells != null -> {
                     CharacterSheetContent(
+                        header = state.header,
                         state = state,
                         callbacks = callbacks,
                         modifier = Modifier.fillMaxSize(),
                     )
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CharacterSheetTopBarTitle(
+    header: CharacterHeaderUiState?,
+) {
+    if (header == null) {
+        Text(
+            text = "Character",
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    } else {
+        Column {
+            Text(
+                text = header.name,
+                style = MaterialTheme.typography.titleLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            if (header.subtitle.isNotBlank()) {
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = header.subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
     }
@@ -247,24 +282,14 @@ private fun CharacterSheetTopBarActions(
 @Composable
 private fun CharacterSheetContent(
     state: CharacterSheetUiState,
+    header: CharacterHeaderUiState,
     callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        state.header?.let {
-            CharacterHeaderCard(
-                header = it,
-                editMode = state.editMode,
-                editingState = state.editingState,
-                callbacks = callbacks,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-            )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         PrimaryTabRow(selectedTabIndex = state.selectedTab.ordinal) {
             CharacterSheetTab.entries.forEach { tab ->
                 Tab(
@@ -282,6 +307,7 @@ private fun CharacterSheetContent(
         ) { tab ->
             when (tab) {
                 CharacterSheetTab.Overview -> OverviewTab(
+                    header = header,
                     overview = requireNotNull(state.overview),
                     editMode = state.editMode,
                     editingState = state.editingState,
@@ -306,65 +332,22 @@ private fun CharacterSheetContent(
 }
 
 @Composable
-private fun CharacterHeaderCard(
-    header: CharacterHeaderUiState,
-    editMode: SheetEditMode,
-    editingState: CharacterSheetEditingState?,
-    callbacks: CharacterSheetCallbacks,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        shape = MaterialTheme.shapes.extraLarge,
-        tonalElevation = 4.dp,
-        modifier = modifier,
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(
-                text = header.name,
-                style = MaterialTheme.typography.headlineSmall,
-            )
-            if (header.subtitle.isNotBlank()) {
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = header.subtitle,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            HitPointBlock(
-                hitPoints = header.hitPoints,
-                editMode = editMode,
-                editingState = editingState,
-                callbacks = callbacks,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            StatsRow(
-                header = header,
-                editMode = editMode,
-                editingState = editingState,
-                callbacks = callbacks,
-            )
-        }
-    }
-}
-
-@Composable
 private fun HitPointBlock(
     hitPoints: HitPointSummary,
     editMode: SheetEditMode,
     editingState: CharacterSheetEditingState?,
     callbacks: CharacterSheetCallbacks,
+    onHitPointsClick: (() -> Unit)?,
 ) {
-    Column {
-        Text(
-            text = "Hit Points",
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.secondary,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        when {
-            editMode == SheetEditMode.Editing && editingState != null -> {
+    when {
+        editMode == SheetEditMode.Editing && editingState != null -> {
+            Column {
+                Text(
+                    text = "Hit Points",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     InlineNumberField(
                         label = "Current",
@@ -387,41 +370,156 @@ private fun HitPointBlock(
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
+        }
 
-            else -> {
+        else -> {
+            val hpModifier = if (onHitPointsClick != null) {
+                Modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.medium)
+                    .clickable(onClick = onHitPointsClick)
+            } else {
+                Modifier.fillMaxWidth()
+            }
+            Column(
+                modifier = hpModifier.padding(vertical = 12.dp, horizontal = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 Text(
-                    text = "${hitPoints.current} / ${hitPoints.max}",
-                    style = MaterialTheme.typography.headlineMedium,
+                    text = "Hit Points",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.secondary,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    HpAdjustButton(label = "-5", onClick = { callbacks.onAdjustHp(-5) })
-                    HpAdjustButton(label = "-1", onClick = { callbacks.onAdjustHp(-1) })
-                    HpAdjustButton(label = "+1", onClick = { callbacks.onAdjustHp(1) })
-                    HpAdjustButton(label = "+5", onClick = { callbacks.onAdjustHp(5) })
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    D20HpBar(
+                        currentHp = hitPoints.current,
+                        maxHp = hitPoints.max,
+                    )
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
+                Text(
+                    text = "Temporary HP ${hitPoints.temporary}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
+                if (onHitPointsClick != null) {
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Temporary HP ${hitPoints.temporary}",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    AssistChip(
-                        onClick = { callbacks.onTempHpChanged((hitPoints.temporary - 1).coerceAtLeast(0)) },
-                        label = { Text("-1") },
-                        enabled = hitPoints.temporary > 0,
-                    )
-                    AssistChip(
-                        onClick = { callbacks.onTempHpChanged(hitPoints.temporary + 1) },
-                        label = { Text("+1") },
+                        text = "Tap to adjust",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center,
                     )
                 }
             }
         }
     }
+}
+
+@Composable
+private fun CombatOverviewCard(
+    header: CharacterHeaderUiState,
+    editMode: SheetEditMode,
+    editingState: CharacterSheetEditingState?,
+    callbacks: CharacterSheetCallbacks,
+    onHitPointsClick: (() -> Unit)?,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            HitPointBlock(
+                hitPoints = header.hitPoints,
+                editMode = editMode,
+                editingState = editingState,
+                callbacks = callbacks,
+                onHitPointsClick = onHitPointsClick,
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            StatsRow(
+                header = header,
+                editMode = editMode,
+                editingState = editingState,
+                callbacks = callbacks,
+            )
+        }
+    }
+}
+
+@Composable
+private fun HitPointAdjustDialog(
+    hitPoints: HitPointSummary,
+    onAdjustHp: (Int) -> Unit,
+    onTempHpChanged: (Int) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Done")
+            }
+        },
+        title = { Text("Adjust hit points") },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(
+                    text = "${hitPoints.current} / ${hitPoints.max}",
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                )
+                Column {
+                    Text(
+                        text = "Modify HP",
+                        style = MaterialTheme.typography.labelMedium,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        listOf(-5, -1, 1, 5).forEach { delta ->
+                            val label = if (delta > 0) "+$delta" else delta.toString()
+                            HpAdjustButton(
+                                label = label,
+                                onClick = { onAdjustHp(delta) },
+                                modifier = Modifier.weight(1f),
+                            )
+                        }
+                    }
+                }
+                Column {
+                    Text(
+                        text = "Temporary HP ${hitPoints.temporary}",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        AssistChip(
+                            onClick = { onTempHpChanged((hitPoints.temporary - 1).coerceAtLeast(0)) },
+                            label = { Text("-1") },
+                            enabled = hitPoints.temporary > 0,
+                        )
+                        AssistChip(
+                            onClick = { onTempHpChanged(hitPoints.temporary + 1) },
+                            label = { Text("+1") },
+                        )
+                    }
+                }
+            }
+        },
+    )
 }
 
 @Composable
@@ -456,10 +554,15 @@ private fun StatsRow(
 }
 
 @Composable
-private fun HpAdjustButton(label: String, onClick: () -> Unit) {
+private fun HpAdjustButton(
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     OutlinedButton(
         onClick = onClick,
         shape = MaterialTheme.shapes.small,
+        modifier = modifier,
         contentPadding = PaddingValues(
             start = 12.dp,
             top = ButtonDefaults.ContentPadding.calculateTopPadding(),
@@ -501,17 +604,43 @@ private fun StatChip(
 
 @Composable
 private fun OverviewTab(
+    header: CharacterHeaderUiState,
     overview: OverviewTabState,
     editMode: SheetEditMode,
     editingState: CharacterSheetEditingState?,
     callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
+    var showHpAdjustDialog by remember { mutableStateOf(false) }
+    val onHitPointsClick = if (editMode == SheetEditMode.View) {
+        { showHpAdjustDialog = true }
+    } else {
+        null
+    }
+
+    if (showHpAdjustDialog) {
+        HitPointAdjustDialog(
+            hitPoints = header.hitPoints,
+            onAdjustHp = callbacks.onAdjustHp,
+            onTempHpChanged = callbacks.onTempHpChanged,
+            onDismiss = { showHpAdjustDialog = false },
+        )
+    }
+
     LazyColumn(
         modifier = modifier,
         contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
+        item {
+            CombatOverviewCard(
+                header = header,
+                editMode = editMode,
+                editingState = editingState,
+                callbacks = callbacks,
+                onHitPointsClick = onHitPointsClick,
+            )
+        }
         item {
             AbilityTokensGrid(
                 abilities = overview.abilities.map { ability ->
@@ -1147,7 +1276,7 @@ private fun previewUiState(): CharacterSheetUiState = CharacterSheetUiState(
     header = CharacterHeaderUiState(
         name = "Astra Moonshadow",
         subtitle = "Level 7 Wizard • Half-elf",
-        hitPoints = HitPointSummary(max = 38, current = 32, temporary = 5),
+        hitPoints = HitPointSummary(max = 38, current = 13, temporary = 5),
         armorClass = 16,
         initiative = 2,
         speed = "30 ft",

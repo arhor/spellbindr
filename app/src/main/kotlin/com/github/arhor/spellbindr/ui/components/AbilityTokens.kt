@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -80,7 +81,7 @@ fun AbilityOctagonTile(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedOctagonShape,
+        shape = RoundedCornerShape(24.dp),
         tonalElevation = 2.dp,
     ) {
         Box(
