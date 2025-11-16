@@ -106,7 +106,7 @@ fun D20HpBar(
                 drawFacetLines(
                     points = hexPoints,
                     color = facetColor,
-                    strokeWidth = size.minDimension * 0.015f,
+                    strokeWidth = size.minDimension * 0.01f,
                 )
             }
 
@@ -307,8 +307,6 @@ private fun DrawScope.drawFacetedHexFill(
 
     data class Facet(val a: Offset, val b: Offset, val c: Offset)
 
-    // Triangular facets matching the line structure.
-    // This covers the whole hex interior without gaps/overlaps.
     val facets = listOf(
         // Top cap (split into two triangles)
         Facet(top, topLeft, topInner),
@@ -342,24 +340,45 @@ private fun DrawScope.drawFacetedHexFill(
     val lightColor = lerp(baseColor, Color.White, 0.35f)
     val darkColor = lerp(baseColor, Color.Black, 0.35f)
 
+    // >>> This is the key bit for Option 2 <<<
+    val expansionFactor = 1.003f // try 1.01–1.05 and tweak visually
+
+    fun expandFromCentroid(p: Offset, centroid: Offset): Offset {
+        val vx = p.x - centroid.x
+        val vy = p.y - centroid.y
+        return Offset(
+            x = centroid.x + vx * expansionFactor,
+            y = centroid.y + vy * expansionFactor,
+        )
+    }
+
     facets.forEach { facet ->
-        // Facet centroid
-        val cx = (facet.a.x + facet.b.x + facet.c.x) / 3f
-        val cy = (facet.a.y + facet.b.y + facet.c.y) / 3f
+        // Centroid of the (original) triangle
+        val originalCentroid = Offset(
+            x = (facet.a.x + facet.b.x + facet.c.x) / 3f,
+            y = (facet.a.y + facet.b.y + facet.c.y) / 3f,
+        )
+
+        // Expand vertices slightly away from the facet centroid
+        val a = expandFromCentroid(facet.a, originalCentroid)
+        val b = expandFromCentroid(facet.b, originalCentroid)
+        val c = expandFromCentroid(facet.c, originalCentroid)
+
+        // Recompute centroid for shading using expanded vertices
+        val cx = (a.x + b.x + c.x) / 3f
+        val cy = (a.y + b.y + c.y) / 3f
         val v = Offset(cx - center.x, cy - center.y)
         val vLen = kotlin.math.sqrt(v.x * v.x + v.y * v.y)
         val vNorm = if (vLen > 0f) Offset(v.x / vLen, v.y / vLen) else Offset.Zero
 
-        // How much this facet faces the light direction (-1..1 → 0..1)
         val dot = vNorm.x * lightDir.x + vNorm.y * lightDir.y
         val t = ((dot + 1f) / 2f).coerceIn(0f, 1f)
-
         val facetColor = lerp(darkColor, lightColor, t)
 
         val path = Path().apply {
-            moveTo(facet.a.x, facet.a.y)
-            lineTo(facet.b.x, facet.b.y)
-            lineTo(facet.c.x, facet.c.y)
+            moveTo(a.x, a.y)
+            lineTo(b.x, b.y)
+            lineTo(c.x, c.y)
             close()
         }
 
