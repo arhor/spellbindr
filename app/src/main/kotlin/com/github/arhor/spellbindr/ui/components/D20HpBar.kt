@@ -15,6 +15,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipPath
@@ -249,14 +251,22 @@ private fun DrawScope.drawFacetLines(
         bottomRight to rightInner,
     )
 
-    edges.forEach { (start, end) ->
-        drawLine(
-            color = color,
-            start = start,
-            end = end,
-            strokeWidth = strokeWidth,
-        )
+    val path = Path().apply {
+        edges.forEach { (start, end) ->
+            moveTo(start.x, start.y)
+            lineTo(end.x, end.y)
+        }
     }
+
+    drawPath(
+        path = path,
+        color = color,
+        style = Stroke(
+            width = strokeWidth,
+            cap = StrokeCap.Round,   // or Butt if you want sharp ends
+            join = StrokeJoin.Round, // nicer at intersections
+        ),
+    )
 }
 
 private fun DrawScope.drawFacetedHexFill(
