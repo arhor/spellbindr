@@ -116,7 +116,7 @@ fun D20HpBar(
 
         Text(
             text = "$sanitizedCurrent / $sanitizedMax",
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.titleMedium,
             color = textColor,
             textAlign = TextAlign.Center,
         )

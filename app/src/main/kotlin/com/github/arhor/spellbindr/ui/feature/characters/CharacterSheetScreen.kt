@@ -382,40 +382,21 @@ private fun HitPointBlock(
                 Modifier.fillMaxWidth()
             }
             Column(
-                modifier = hpModifier.padding(vertical = 12.dp, horizontal = 24.dp),
+                modifier = hpModifier,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
-                    text = "Hit Points",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.secondary,
+
+                D20HpBar(
+                    currentHp = hitPoints.current,
+                    maxHp = hitPoints.max,
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    D20HpBar(
-                        currentHp = hitPoints.current,
-                        maxHp = hitPoints.max,
-                    )
-                }
-                Spacer(modifier = Modifier.height(12.dp))
+
                 Text(
-                    text = "Temporary HP ${hitPoints.temporary}",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "HP",
+                    style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
                 )
-                if (onHitPointsClick != null) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Tap to adjust",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        textAlign = TextAlign.Center,
-                    )
-                }
             }
         }
     }
@@ -434,21 +415,61 @@ private fun CombatOverviewCard(
         tonalElevation = 1.dp,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            HitPointBlock(
-                hitPoints = header.hitPoints,
-                editMode = editMode,
-                editingState = editingState,
-                callbacks = callbacks,
-                onHitPointsClick = onHitPointsClick,
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            StatsRow(
-                header = header,
-                editMode = editMode,
-                editingState = editingState,
-                callbacks = callbacks,
-            )
+        if (editMode == SheetEditMode.Editing && editingState != null) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                HitPointBlock(
+                    hitPoints = header.hitPoints,
+                    editMode = editMode,
+                    editingState = editingState,
+                    callbacks = callbacks,
+                    onHitPointsClick = onHitPointsClick,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                StatsRow(
+                    header = header,
+                    editMode = editMode,
+                    editingState = editingState,
+                    callbacks = callbacks,
+                )
+            }
+        } else {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    HitPointBlock(
+                        hitPoints = header.hitPoints,
+                        editMode = editMode,
+                        editingState = editingState,
+                        callbacks = callbacks,
+                        onHitPointsClick = onHitPointsClick,
+                    )
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    CombatStatRow(
+                        label = "AC",
+                        value = header.armorClass.toString(),
+                    )
+                    CombatStatRow(
+                        label = "Initiative",
+                        value = formatBonus(header.initiative),
+                    )
+                    CombatStatRow(
+                        label = "Speed",
+                        value = header.speed,
+                    )
+                }
+            }
         }
     }
 }
@@ -545,11 +566,6 @@ private fun StatsRow(
         } else {
             StatChip(label = "Speed", value = header.speed, modifier = Modifier.weight(1f))
         }
-        StatChip(
-            label = "Prof. Bonus",
-            value = formatBonus(header.proficiencyBonus),
-            modifier = Modifier.weight(1f),
-        )
     }
 }
 
@@ -599,6 +615,29 @@ private fun StatChip(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+    }
+}
+
+@Composable
+private fun CombatStatRow(
+    label: String,
+    value: String,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.titleMedium,
+        )
     }
 }
 
