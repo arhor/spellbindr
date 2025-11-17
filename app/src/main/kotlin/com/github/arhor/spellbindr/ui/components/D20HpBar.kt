@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.lerp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -31,6 +32,7 @@ import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * A reusable d20-inspired HP indicator that renders a hexagonal meter whose fill depletes from top
@@ -51,7 +53,6 @@ fun D20HpBar(
     }
 
     val hexBackgroundColor = MaterialTheme.colorScheme.surface
-    val fillColor = MaterialTheme.colorScheme.error
     val outlineColor = MaterialTheme.colorScheme.outline
     val facetColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.18f)
     val textColor = if (hpFraction > 0.45f) {
@@ -66,22 +67,18 @@ fun D20HpBar(
             .aspectRatio(1f),
         contentAlignment = Alignment.Center,
     ) {
-        Canvas(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            val hexPoints = createHexagonPoints(size)
-            val hexPath = buildRoundedPolygonPath(hexPoints, cornerRadius = size.minDimension * 0.03f)
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val projection = D20Projection.create(size)
+            val polygonPath = buildRoundedPolygonPath(
+                points = projection.outerVertices,
+                cornerRadius = size.minDimension * 0.03f,
+            )
 
-            clipPath(hexPath) {
-                // Base background inside hex
-                // (optional: keep or remove, facets will cover it anyway)
-                // drawRect(color = hexBackgroundColor)
-
+            clipPath(polygonPath) {
                 // 1) Always draw a "base" faceted die for empty HP
-                val emptyColor = lerp(hexBackgroundColor, fillColor, 0.10f)
                 drawFacetedHexFill(
-                    points = hexPoints,
-                    baseColor = emptyColor,
+                    projection = projection,
+                    baseColor = lerp(hexBackgroundColor, Color.Red, 0.10f),
                 )
 
                 // 2) Overlay faceted fill only for the HP portion
@@ -96,27 +93,26 @@ fun D20HpBar(
                         bottom = size.height,
                     ) {
                         drawFacetedHexFill(
-                            points = hexPoints,
-                            baseColor = fillColor,
+                            projection = projection,
+                            baseColor = Color.Red,
                         )
                     }
                 }
 
                 // 3) Lines on top
                 drawFacetLines(
-                    points = hexPoints,
+                    projection = projection,
                     color = facetColor,
                     strokeWidth = size.minDimension * 0.01f,
                 )
             }
 
             drawPath(
-                path = hexPath,
+                path = polygonPath,
                 color = outlineColor,
                 style = Stroke(width = size.minDimension * 0.015f),
             )
         }
-
 
         Text(
             text = "$sanitizedCurrent / $sanitizedMax",
@@ -127,26 +123,38 @@ fun D20HpBar(
     }
 }
 
-private fun createHexagonPoints(size: Size): List<Offset> {
-    val radius = size.minDimension / 2f
-    val center = Offset(x = size.width / 2f, y = size.height / 2f)
-    val startAngle = -90f
-    val step = 60f
+@Preview(name = "HP Full")
+@Composable
+private fun D20HpBarFullPreview() {
+    AppTheme {
+        Box(modifier = Modifier.padding(16.dp)) {
+            D20HpBar(currentHp = 38, maxHp = 38)
+        }
+    }
+}
 
-    return List(6) { index ->
-        val angle = (startAngle + step * index) * (PI / 180f)
-        Offset(
-            x = center.x + radius * cos(angle).toFloat(),
-            y = center.y + radius * sin(angle).toFloat(),
-        )
+@Preview(name = "HP Mid")
+@Composable
+private fun D20HpBarMidPreview() {
+    AppTheme {
+        Box(modifier = Modifier.padding(16.dp)) {
+            D20HpBar(currentHp = 20, maxHp = 38)
+        }
+    }
+}
+
+@Preview(name = "HP Low")
+@Composable
+private fun D20HpBarLowPreview() {
+    AppTheme {
+        Box(modifier = Modifier.padding(16.dp)) {
+            D20HpBar(currentHp = 4, maxHp = 38)
+        }
     }
 }
 
 private fun buildRoundedPolygonPath(points: List<Offset>, cornerRadius: Float): Path {
     val path = Path()
-    if (points.size < 3) {
-        return path
-    }
     val count = points.size
     for (index in points.indices) {
         val previous = points[(index - 1 + count) % count]
@@ -189,151 +197,13 @@ private fun buildRoundedPolygonPath(points: List<Offset>, cornerRadius: Float): 
     return path
 }
 
-private fun DrawScope.drawFacetLines(
-    points: List<Offset>,
-    color: Color,
-    strokeWidth: Float,
-) {
-    if (points.size < 6) {
-        return
-    }
-
-    // Outer hex vertices (matching createHexagonPoints order)
-    val top = points[0]
-    val topRight = points[1]
-    val bottomRight = points[2]
-    val bottom = points[3]
-    val bottomLeft = points[4]
-    val topLeft = points[5]
-
-    val center = Offset(size.width / 2f, size.height / 2f)
-
-    fun lerp(start: Offset, stop: Offset, fraction: Float): Offset =
-        Offset(
-            x = start.x + (stop.x - start.x) * fraction,
-            y = start.y + (stop.y - start.y) * fraction,
-        )
-
-    // Inner “axis” points (top of 20, bottom of 8)
-    val topInner = lerp(top, center, 0.40f)
-
-    // Horizontal “equator” for the base of 20 / top of 8
-    val minX = points.minOf { it.x }
-    val maxX = points.maxOf { it.x }
-    val width = maxX - minX
-    val baseY = center.y + (bottom.y - center.y) * 0.30f
-    val offsetX = width * 0.28f
-
-    val leftInner = Offset(center.x - offsetX, baseY)
-    val rightInner = Offset(center.x + offsetX, baseY)
-
-    val edges = listOf(
-        // Top wedge (face 18 / 4 area)
-        top to topInner,
-        topInner to topLeft,
-        topInner to topRight,
-
-        // Central 20 triangle
-        topInner to leftInner,
-        topInner to rightInner,
-        leftInner to rightInner,
-
-        // 8-triangle connections
-        bottom to leftInner,
-        bottom to rightInner,
-
-        // Left side faces (2 / 12 / 10)
-        topLeft to leftInner,
-        bottomLeft to leftInner,
-
-        // Right side faces (14 / 6 / 16)
-        topRight to rightInner,
-        bottomRight to rightInner,
-    )
-
-    val path = Path().apply {
-        edges.forEach { (start, end) ->
-            moveTo(start.x, start.y)
-            lineTo(end.x, end.y)
-        }
-    }
-
-    drawPath(
-        path = path,
-        color = color,
-        style = Stroke(
-            width = strokeWidth,
-            cap = StrokeCap.Round,   // or Butt if you want sharp ends
-            join = StrokeJoin.Round, // nicer at intersections
-        ),
-    )
-}
-
 private fun DrawScope.drawFacetedHexFill(
-    points: List<Offset>,
+    projection: D20Projection,
     baseColor: Color,
 ) {
-    if (points.size < 6) {
-        return
-    }
-
-    // Same naming & geometry as in drawFacetLines
-    val top = points[0]
-    val topRight = points[1]
-    val bottomRight = points[2]
-    val bottom = points[3]
-    val bottomLeft = points[4]
-    val topLeft = points[5]
-
-    val center = Offset(size.width / 2f, size.height / 2f)
-
-    fun lerpOffset(start: Offset, stop: Offset, fraction: Float): Offset =
-        Offset(
-            x = start.x + (stop.x - start.x) * fraction,
-            y = start.y + (stop.y - start.y) * fraction,
-        )
-
-    // Inner “axis” points – keep factors in sync with drawFacetLines
-    val topInner = lerpOffset(top, center, 0.40f)
-
-    val minX = points.minOf { it.x }
-    val maxX = points.maxOf { it.x }
-    val width = maxX - minX
-    val baseY = center.y + (bottom.y - center.y) * 0.30f
-    val offsetX = width * 0.28f
-
-    val leftInner = Offset(center.x - offsetX, baseY)
-    val rightInner = Offset(center.x + offsetX, baseY)
-
-    data class Facet(val a: Offset, val b: Offset, val c: Offset)
-
-    val facets = listOf(
-        // Top cap (split into two triangles)
-        Facet(top, topLeft, topInner),
-        Facet(top, topInner, topRight),
-
-        // Upper side facets
-        Facet(topLeft, topInner, leftInner),
-        Facet(topRight, rightInner, topInner),
-
-        // Central 20-face triangle
-        Facet(topInner, leftInner, rightInner),
-
-        // Central 8-face triangle
-        Facet(bottom, leftInner, rightInner),
-
-        // Left stack below
-        Facet(topLeft, leftInner, bottomLeft),
-        Facet(bottomLeft, leftInner, bottom),
-
-        // Right stack below
-        Facet(topRight, bottomRight, rightInner),
-        Facet(bottomRight, bottom, rightInner),
-    )
-
     // Light coming from top-left
     val lightDir = Offset(-1f, -1f).let { dir ->
-        val len = kotlin.math.sqrt(dir.x * dir.x + dir.y * dir.y)
+        val len = sqrt(dir.x * dir.x + dir.y * dir.y)
         Offset(dir.x / len, dir.y / len)
     }
 
@@ -351,7 +221,7 @@ private fun DrawScope.drawFacetedHexFill(
         )
     }
 
-    for (facet in facets) {
+    for (facet in projection.facets) {
         // Centroid of the (original) triangle
         val originalCentroid = Offset(
             x = (facet.a.x + facet.b.x + facet.c.x) / 3f,
@@ -366,8 +236,8 @@ private fun DrawScope.drawFacetedHexFill(
         // Recompute centroid for shading using expanded vertices
         val cx = (a.x + b.x + c.x) / 3f
         val cy = (a.y + b.y + c.y) / 3f
-        val v = Offset(cx - center.x, cy - center.y)
-        val vLen = kotlin.math.sqrt(v.x * v.x + v.y * v.y)
+        val v = Offset(cx - projection.center.x, cy - center.y)
+        val vLen = sqrt(v.x * v.x + v.y * v.y)
         val vNorm = if (vLen > 0f) Offset(v.x / vLen, v.y / vLen) else Offset.Zero
 
         val dot = vNorm.x * lightDir.x + vNorm.y * lightDir.y
@@ -388,33 +258,129 @@ private fun DrawScope.drawFacetedHexFill(
     }
 }
 
+private fun DrawScope.drawFacetLines(
+    projection: D20Projection,
+    color: Color,
+    strokeWidth: Float,
+) {
+    val path = Path().apply {
+        projection.edges.forEach { (start, end) ->
+            moveTo(start.x, start.y)
+            lineTo(end.x, end.y)
+        }
+    }
 
-@Preview(name = "HP Full")
-@Composable
-private fun D20HpBarFullPreview() {
-    AppTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
-            D20HpBar(currentHp = 38, maxHp = 38)
+    drawPath(
+        path = path,
+        color = color,
+        style = Stroke(
+            width = strokeWidth,
+            cap = StrokeCap.Round,
+            join = StrokeJoin.Round,
+        ),
+    )
+}
+
+private data class D20Projection(
+    val top: Offset,
+    val topRight: Offset,
+    val bottomRight: Offset,
+    val bottom: Offset,
+    val bottomLeft: Offset,
+    val topLeft: Offset,
+    val topInner: Offset,
+    val rightInner: Offset,
+    val leftInner: Offset,
+    val center: Offset,
+) {
+    val outerVertices: List<Offset> = listOf(
+        top,
+        topRight,
+        bottomRight,
+        bottom,
+        bottomLeft,
+        topLeft,
+    )
+    val edges: List<Edge> = listOf(
+        Edge(top, topInner),
+        Edge(topInner, topLeft),
+        Edge(topInner, topRight),
+        Edge(topInner, leftInner),
+        Edge(topInner, rightInner),
+        Edge(leftInner, rightInner),
+        Edge(bottom, leftInner),
+        Edge(bottom, rightInner),
+        Edge(topLeft, leftInner),
+        Edge(bottomLeft, leftInner),
+        Edge(topRight, rightInner),
+        Edge(bottomRight, rightInner),
+    )
+    val facets: List<Facet> = listOf(
+        Facet(top, topLeft, topInner),
+        Facet(top, topRight, topInner),
+        Facet(topLeft, topInner, leftInner),
+        Facet(topRight, rightInner, topInner),
+        Facet(topInner, leftInner, rightInner),
+        Facet(bottom, leftInner, rightInner),
+        Facet(topLeft, leftInner, bottomLeft),
+        Facet(bottomLeft, leftInner, bottom),
+        Facet(topRight, bottomRight, rightInner),
+        Facet(bottomRight, bottom, rightInner),
+    )
+
+    companion object {
+        fun create(size: Size): D20Projection {
+            val radius = size.minDimension / 2f
+            val center = Offset(size.width / 2f, size.height / 2f)
+            val startAngle = -90f
+            val step = 60f
+
+            fun vertexOffset(index: Int): Offset {
+                val angle = (startAngle + step * index) * (PI / 180f)
+                return Offset(
+                    x = center.x + radius * cos(angle).toFloat(),
+                    y = center.y + radius * sin(angle).toFloat(),
+                )
+            }
+
+            val top = vertexOffset(index = 0)
+            val topRight = vertexOffset(index = 1)
+            val bottomRight = vertexOffset(index = 2)
+            val bottom = vertexOffset(index = 3)
+            val bottomLeft = vertexOffset(index = 4)
+            val topLeft = vertexOffset(index = 5)
+
+            val width = topRight.x - topLeft.x
+            val baseY = center.y + (bottom.y - center.y) * 0.30f
+            val offsetX = width * 0.28f
+
+            val topInner = lerp(top, center, 0.40f)
+            val rightInner = Offset(center.x + offsetX, baseY)
+            val leftInner = Offset(center.x - offsetX, baseY)
+
+            return D20Projection(
+                top = top,
+                topRight = topRight,
+                bottomRight = bottomRight,
+                bottom = bottom,
+                bottomLeft = bottomLeft,
+                topLeft = topLeft,
+                topInner = topInner,
+                rightInner = rightInner,
+                leftInner = leftInner,
+                center = center,
+            )
         }
     }
 }
 
-@Preview(name = "HP Mid")
-@Composable
-private fun D20HpBarMidPreview() {
-    AppTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
-            D20HpBar(currentHp = 20, maxHp = 38)
-        }
-    }
-}
+private data class Edge(
+    val a: Offset,
+    val b: Offset,
+)
 
-@Preview(name = "HP Low")
-@Composable
-private fun D20HpBarLowPreview() {
-    AppTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
-            D20HpBar(currentHp = 4, maxHp = 38)
-        }
-    }
-}
+private data class Facet(
+    val a: Offset,
+    val b: Offset,
+    val c: Offset,
+)
