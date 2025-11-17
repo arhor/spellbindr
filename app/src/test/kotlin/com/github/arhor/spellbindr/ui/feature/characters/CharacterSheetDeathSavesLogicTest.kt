@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.characters
 
 import com.github.arhor.spellbindr.data.model.CharacterSheet
 import com.github.arhor.spellbindr.data.model.DeathSaveState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.clearDeathSavesIfConscious
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
@@ -15,6 +15,7 @@ import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.data.repository.SpellRepository
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -268,17 +269,6 @@ class CharacterSheetViewModel @Inject constructor(
                 }
         }
     }
-}
-
-enum class CharacterSheetTab {
-    Overview,
-    Skills,
-    Spells,
-}
-
-enum class SheetEditMode {
-    View,
-    Editing,
 }
 
 @Immutable

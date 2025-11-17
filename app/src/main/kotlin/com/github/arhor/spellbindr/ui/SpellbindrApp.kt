@@ -31,9 +31,9 @@ import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen

@@ -1,0 +1,27 @@
+package com.github.arhor.spellbindr.ui.feature.characters.sheet
+
+data class CharacterSheetCallbacks(
+    val onTabSelected: (CharacterSheetTab) -> Unit = {},
+    val onEnterEdit: () -> Unit = {},
+    val onCancelEdit: () -> Unit = {},
+    val onSaveEdits: () -> Unit = {},
+    val onAdjustHp: (Int) -> Unit = {},
+    val onTempHpChanged: (Int) -> Unit = {},
+    val onMaxHpEdited: (String) -> Unit = {},
+    val onCurrentHpEdited: (String) -> Unit = {},
+    val onTempHpEdited: (String) -> Unit = {},
+    val onSpeedEdited: (String) -> Unit = {},
+    val onHitDiceEdited: (String) -> Unit = {},
+    val onSensesEdited: (String) -> Unit = {},
+    val onLanguagesEdited: (String) -> Unit = {},
+    val onProficienciesEdited: (String) -> Unit = {},
+    val onEquipmentEdited: (String) -> Unit = {},
+    val onDeathSaveSuccessesChanged: (Int) -> Unit = {},
+    val onDeathSaveFailuresChanged: (Int) -> Unit = {},
+    val onSpellSlotToggle: (Int, Int) -> Unit = { _, _ -> },
+    val onSpellSlotTotalChanged: (Int, Int) -> Unit = { _, _ -> },
+    val onSpellRemoved: (String, String) -> Unit = { _, _ -> },
+    val onSpellSelected: (String) -> Unit = {},
+    val onAddSpellsClicked: () -> Unit = {},
+    val onOpenFullEditor: () -> Unit = {},
+)
