@@ -35,60 +35,110 @@ internal fun CombatOverviewCard(
         modifier = modifier.fillMaxWidth(),
     ) {
         if (editMode == SheetEditMode.Editing && editingState != null) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                HitPointBlock(
-                    hitPoints = header.hitPoints,
-                    editMode = editMode,
-                    editingState = editingState,
-                    callbacks = callbacks,
-                    onHitPointsClick = onHitPointsClick,
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                StatsRow(
-                    header = header,
-                    editMode = editMode,
-                    editingState = editingState,
-                    callbacks = callbacks,
-                )
-            }
+            ContentEdit(header, editingState, callbacks)
         } else {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Box(
+            ContentView(header, onHitPointsClick)
+        }
+    }
+}
+
+@Composable
+private fun ContentEdit(
+    header: CharacterHeaderUiState,
+    editingState: CharacterSheetEditingState,
+    callbacks: CharacterSheetCallbacks,
+) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Column {
+            Text(
+                text = "Hit Points",
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.secondary,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                InlineNumberField(
+                    label = "Current",
+                    value = editingState.currentHp,
+                    onValueChanged = callbacks.onCurrentHpEdited,
                     modifier = Modifier.weight(1f),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    HitPointBlock(
-                        hitPoints = header.hitPoints,
-                        editMode = editMode,
-                        editingState = editingState,
-                        callbacks = callbacks,
-                        onHitPointsClick = onHitPointsClick,
-                    )
-                }
-                Column(
+                )
+                InlineNumberField(
+                    label = "Max",
+                    value = editingState.maxHp,
+                    onValueChanged = callbacks.onMaxHpEdited,
                     modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    CombatStatRow(
-                        label = "AC",
-                        value = header.armorClass.toString(),
-                    )
-                    CombatStatRow(
-                        label = "Initiative",
-                        value = formatBonus(header.initiative),
-                    )
-                    CombatStatRow(
-                        label = "Speed",
-                        value = header.speed,
-                    )
-                }
+                )
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            InlineNumberField(
+                label = "Temporary",
+                value = editingState.tempHp,
+                onValueChanged = callbacks.onTempHpEdited,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        StatsRow(header = header)
+    }
+}
+
+@Composable
+private fun ContentView(
+    header: CharacterHeaderUiState,
+    onHitPointsClick: (() -> Unit)?,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center,
+        ) {
+            val hpModifier = if (onHitPointsClick != null) {
+                Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onHitPointsClick)
+            } else {
+                Modifier.fillMaxWidth()
+            }
+            Column(
+                modifier = hpModifier,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+
+                D20HpBar(
+                    currentHp = header.hitPoints.current,
+                    maxHp = header.hitPoints.max,
+                )
+
+                Text(
+                    text = "HP",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            CombatStatRow(
+                label = "AC",
+                value = header.armorClass.toString(),
+            )
+            CombatStatRow(
+                label = "Initiative",
+                value = formatBonus(header.initiative),
+            )
+            CombatStatRow(
+                label = "Speed",
+                value = header.speed,
+            )
         }
     }
 }
@@ -126,80 +176,8 @@ internal fun CombatStatRow(
 }
 
 @Composable
-private fun HitPointBlock(
-    hitPoints: HitPointSummary,
-    editMode: SheetEditMode,
-    editingState: CharacterSheetEditingState?,
-    callbacks: CharacterSheetCallbacks,
-    onHitPointsClick: (() -> Unit)?,
-) {
-    when {
-        editMode == SheetEditMode.Editing && editingState != null -> {
-            Column {
-                Text(
-                    text = "Hit Points",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.secondary,
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    InlineNumberField(
-                        label = "Current",
-                        value = editingState.currentHp,
-                        onValueChanged = callbacks.onCurrentHpEdited,
-                        modifier = Modifier.weight(1f),
-                    )
-                    InlineNumberField(
-                        label = "Max",
-                        value = editingState.maxHp,
-                        onValueChanged = callbacks.onMaxHpEdited,
-                        modifier = Modifier.weight(1f),
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                InlineNumberField(
-                    label = "Temporary",
-                    value = editingState.tempHp,
-                    onValueChanged = callbacks.onTempHpEdited,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        }
-
-        else -> {
-            val hpModifier = if (onHitPointsClick != null) {
-                Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = onHitPointsClick)
-            } else {
-                Modifier.fillMaxWidth()
-            }
-            Column(
-                modifier = hpModifier,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-
-                D20HpBar(
-                    currentHp = hitPoints.current,
-                    maxHp = hitPoints.max,
-                )
-
-                Text(
-                    text = "HP",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun StatsRow(
     header: CharacterHeaderUiState,
-    editMode: SheetEditMode,
-    editingState: CharacterSheetEditingState?,
-    callbacks: CharacterSheetCallbacks,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -207,16 +185,7 @@ private fun StatsRow(
     ) {
         StatChip(label = "AC", value = header.armorClass.toString(), modifier = Modifier.weight(1f))
         StatChip(label = "Initiative", value = formatBonus(header.initiative), modifier = Modifier.weight(1f))
-        if (editMode == SheetEditMode.Editing && editingState != null) {
-            InlineTextField(
-                label = "Speed",
-                value = editingState.speed,
-                onValueChanged = callbacks.onSpeedEdited,
-                modifier = Modifier.weight(1f),
-            )
-        } else {
-            StatChip(label = "Speed", value = header.speed, modifier = Modifier.weight(1f))
-        }
+        StatChip(label = "Speed", value = header.speed, modifier = Modifier.weight(1f))
     }
 }
 
@@ -228,6 +197,7 @@ private fun StatChip(
 ) {
     Surface(
         shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.surfaceVariant,
         tonalElevation = 2.dp,
         modifier = modifier,
     ) {
