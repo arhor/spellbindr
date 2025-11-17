@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.AbilityScores
 import com.github.arhor.spellbindr.data.model.CharacterSheet
 import com.github.arhor.spellbindr.data.model.CharacterSpell
+import com.github.arhor.spellbindr.data.model.DeathSaveState
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.SpellSlotState
 import com.github.arhor.spellbindr.data.model.defaultSpellSlots
@@ -133,10 +134,10 @@ class CharacterSheetViewModel @Inject constructor(
     }
 
     fun saveInlineEdits() {
-        val sheet = latestSheet ?: return
         val edits = _editingState.value ?: return
-        val updated = sheet.applyInlineEdits(edits)
-        persist(updated)
+        updateSheet { sheet ->
+            sheet.applyInlineEdits(edits)
+        }
         cancelEditMode()
     }
 
@@ -251,7 +252,8 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun updateSheet(transform: (CharacterSheet) -> CharacterSheet) {
         val sheet = latestSheet ?: return
-        val updated = transform(sheet)
+        val transformed = transform(sheet)
+        val updated = transformed.clearDeathSavesIfConscious()
         persist(updated)
     }
 
@@ -574,6 +576,14 @@ private fun AbilityScores.scoreFor(ability: Ability): Int = when (ability) {
 }
 
 private fun String.filterDigits(): String = filter { it.isDigit() }
+
+internal fun CharacterSheet.clearDeathSavesIfConscious(): CharacterSheet {
+    return if (currentHitPoints > 0 && (deathSaves.successes != 0 || deathSaves.failures != 0)) {
+        copy(deathSaves = DeathSaveState())
+    } else {
+        this
+    }
+}
 
 private data class CharacterSheetUiInputs(
     val sheet: CharacterSheet? = null,

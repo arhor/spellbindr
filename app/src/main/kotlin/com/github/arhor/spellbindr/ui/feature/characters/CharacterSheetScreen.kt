@@ -409,11 +409,12 @@ private fun CombatOverviewCard(
     editingState: CharacterSheetEditingState?,
     callbacks: CharacterSheetCallbacks,
     onHitPointsClick: (() -> Unit)?,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
         tonalElevation = 1.dp,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         if (editMode == SheetEditMode.Editing && editingState != null) {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -672,13 +673,36 @@ private fun OverviewTab(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
-            CombatOverviewCard(
-                header = header,
-                editMode = editMode,
-                editingState = editingState,
-                callbacks = callbacks,
-                onHitPointsClick = onHitPointsClick,
-            )
+            val isAtOrBelowZeroHp = header.hitPoints.current <= 0
+            if (isAtOrBelowZeroHp) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    CombatOverviewCard(
+                        header = header,
+                        editMode = editMode,
+                        editingState = editingState,
+                        callbacks = callbacks,
+                        onHitPointsClick = onHitPointsClick,
+                        modifier = Modifier.weight(1f),
+                    )
+                    DeathSavesCard(
+                        state = overview.deathSaves,
+                        onSuccessChanged = callbacks.onDeathSaveSuccessesChanged,
+                        onFailureChanged = callbacks.onDeathSaveFailuresChanged,
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+            } else {
+                CombatOverviewCard(
+                    header = header,
+                    editMode = editMode,
+                    editingState = editingState,
+                    callbacks = callbacks,
+                    onHitPointsClick = onHitPointsClick,
+                )
+            }
         }
         item {
             AbilityTokensGrid(
@@ -692,13 +716,6 @@ private fun OverviewTab(
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            DeathSavesCard(
-                state = overview.deathSaves,
-                onSuccessChanged = callbacks.onDeathSaveSuccessesChanged,
-                onFailureChanged = callbacks.onDeathSaveFailuresChanged,
             )
         }
         item {
@@ -776,10 +793,12 @@ private fun DeathSavesCard(
     state: DeathSaveUiState,
     onSuccessChanged: (Int) -> Unit,
     onFailureChanged: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
         tonalElevation = 1.dp,
+        modifier = modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
