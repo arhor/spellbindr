@@ -42,6 +42,34 @@ internal fun CombatOverviewCard(
     }
 }
 
+@Preview
+@Composable
+private fun CombatOverviewCardPreview() {
+    AppTheme {
+        CombatOverviewCard(
+            header = CharacterSheetPreviewData.header,
+            editMode = SheetEditMode.View,
+            editingState = null,
+            callbacks = CharacterSheetCallbacks(),
+            onHitPointsClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun CombatOverviewCardEditingPreview() {
+    AppTheme {
+        CombatOverviewCard(
+            header = CharacterSheetPreviewData.header,
+            editMode = SheetEditMode.Editing,
+            editingState = CharacterSheetPreviewData.editingState,
+            callbacks = CharacterSheetCallbacks(),
+            onHitPointsClick = {},
+        )
+    }
+}
+
 @Composable
 private fun ContentEdit(
     header: CharacterHeaderUiState,
@@ -215,33 +243,5 @@ private fun StatChip(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun CombatOverviewCardPreview() {
-    AppTheme {
-        CombatOverviewCard(
-            header = CharacterSheetPreviewData.header,
-            editMode = SheetEditMode.View,
-            editingState = null,
-            callbacks = CharacterSheetCallbacks(),
-            onHitPointsClick = {},
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun CombatOverviewCardEditingPreview() {
-    AppTheme {
-        CombatOverviewCard(
-            header = CharacterSheetPreviewData.header,
-            editMode = SheetEditMode.Editing,
-            editingState = CharacterSheetPreviewData.editingState,
-            callbacks = CharacterSheetCallbacks(),
-            onHitPointsClick = {},
-        )
     }
 }
