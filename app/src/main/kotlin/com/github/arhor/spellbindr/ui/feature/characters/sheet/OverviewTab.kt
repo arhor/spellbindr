@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.AbilityTokenData
 import com.github.arhor.spellbindr.ui.components.AbilityTokensGrid
@@ -54,11 +55,8 @@ fun OverviewTab(
                 ) {
                     CombatOverviewCard(
                         header = header,
-                        editMode = editMode,
-                        editingState = editingState,
-                        callbacks = callbacks,
-                        onHitPointsClick = onHitPointsClick,
-                        modifier = Modifier.weight(1f),
+                        onDamageClick = { onHitPointsClick?.invoke() },
+                        onHealClick = { onHitPointsClick?.invoke() },
                     )
                     DeathSavesCard(
                         state = overview.deathSaves,
@@ -70,10 +68,8 @@ fun OverviewTab(
             } else {
                 CombatOverviewCard(
                     header = header,
-                    editMode = editMode,
-                    editingState = editingState,
-                    callbacks = callbacks,
-                    onHitPointsClick = onHitPointsClick,
+                    onDamageClick = { onHitPointsClick?.invoke() },
+                    onHealClick = { onHitPointsClick?.invoke() },
                 )
             }
         }
@@ -161,5 +157,8 @@ fun OverviewTab(
     }
 }
 
-private fun listOfNotBlank(vararg values: String?): List<String> =
-    values.mapNotNull { value -> value?.takeIf { it.isNotBlank() }?.trim() }
+@Preview
+@Composable
+fun OverviewTabPreview() {
+
+}

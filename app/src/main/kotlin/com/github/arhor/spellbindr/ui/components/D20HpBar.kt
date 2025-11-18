@@ -43,6 +43,7 @@ import kotlin.math.sqrt
 fun D20HpBar(
     currentHp: Int,
     maxHp: Int,
+    modifier: Modifier = Modifier,
 ) {
     val sanitizedMax = max(maxHp, 0)
     val sanitizedCurrent = currentHp.coerceIn(0, sanitizedMax)
@@ -61,8 +62,7 @@ fun D20HpBar(
         MaterialTheme.colorScheme.onSurface
     }
     Box(
-        modifier = Modifier
-            .padding(12.dp)
+        modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f),
         contentAlignment = Alignment.Center,
