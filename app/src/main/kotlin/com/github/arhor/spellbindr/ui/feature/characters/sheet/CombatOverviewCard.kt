@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.R
@@ -88,10 +89,11 @@ private fun ContentView(
                     contentDescription = "Damage",
                 )
             }
+            // Give HP a bit more visual dominance
             D20HpBar(
                 currentHp = header.hitPoints.current,
                 maxHp = header.hitPoints.max,
-                modifier = Modifier.weight(1.2f),
+                modifier = Modifier.weight(1.4f),
             )
             Box(
                 modifier = Modifier.weight(1f),
@@ -104,8 +106,13 @@ private fun ContentView(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        StatsCard(ac = header.armorClass, initiative = header.initiative, speed = header.speed)
+        // Slightly tighter gap between HP and stats strip
+        Spacer(modifier = Modifier.height(12.dp))
+        StatsCard(
+            ac = header.armorClass,
+            initiative = header.initiative,
+            speed = header.speed,
+        )
     }
 }
 
@@ -142,7 +149,7 @@ private fun StatsCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
         Row(
             modifier = Modifier
@@ -152,9 +159,9 @@ private fun StatsCard(
         ) {
             StatBlock(title = "AC", value = ac.toString())
             StatDivider()
-            StatBlock(title = "INIT", value = "+$initiative")
+            StatBlock(title = "Initiative", value = formatBonus(initiative))
             StatDivider()
-            StatBlock(title = "SPD", value = speed)
+            StatBlock(title = "Speed", value = speed)
         }
     }
 }
@@ -168,8 +175,18 @@ private fun RowScope.StatBlock(
         modifier = Modifier.weight(1f),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = title, style = MaterialTheme.typography.labelSmall)
-        Text(text = value, style = MaterialTheme.typography.titleMedium)
+        Text(
+            text = title,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+            ),
+            color = MaterialTheme.colorScheme.onSurface,
+        )
     }
 }
 
@@ -180,6 +197,7 @@ private fun StatDivider() {
             .fillMaxHeight()
             .padding(vertical = 4.dp),
         thickness = 1.dp,
+        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f),
     )
 }
 
@@ -197,6 +215,7 @@ private val HexShape = GenericShape { size, _ ->
         val y = cy + r * sin(rad).toFloat()
         return x to y
     }
+
     vertex(-90f).also { (x, y) -> moveTo(x, y) }
     vertex(-30f).also { (x, y) -> lineTo(x, y) }
     vertex(30f).also { (x, y) -> lineTo(x, y) }
