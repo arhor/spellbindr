@@ -138,6 +138,32 @@ private fun HpActionButton(
     }
 }
 
+private val HexShape = GenericShape { size, _ ->
+    val w = size.width
+    val h = size.height
+
+    val r = min(w, h) / 2f
+    val cx = w / 2f
+    val cy = h / 2f
+
+    fun vertex(angleDeg: Float): Pair<Float, Float> {
+        val rad = Math.toRadians(angleDeg.toDouble())
+        val x = cx + r * cos(rad).toFloat()
+        val y = cy + r * sin(rad).toFloat()
+        return x to y
+    }
+
+    repeat(6) {
+        val (x, y) = vertex(-90f + it * 60f)
+        if (it == 0) {
+            moveTo(x, y)
+        } else {
+            lineTo(x, y)
+        }
+    }
+    close()
+}
+
 @Composable
 private fun StatsCard(
     ac: Int,
@@ -199,29 +225,4 @@ private fun StatDivider() {
         thickness = 1.dp,
         color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f),
     )
-}
-
-private val HexShape = GenericShape { size, _ ->
-    val w = size.width
-    val h = size.height
-
-    val r = min(w, h) / 2f
-    val cx = w / 2f
-    val cy = h / 2f
-
-    fun vertex(angleDeg: Float): Pair<Float, Float> {
-        val rad = Math.toRadians(angleDeg.toDouble())
-        val x = cx + r * cos(rad).toFloat()
-        val y = cy + r * sin(rad).toFloat()
-        return x to y
-    }
-
-    vertex(-90f).also { (x, y) -> moveTo(x, y) }
-    vertex(-30f).also { (x, y) -> lineTo(x, y) }
-    vertex(30f).also { (x, y) -> lineTo(x, y) }
-    vertex(90f).also { (x, y) -> lineTo(x, y) }
-    vertex(150f).also { (x, y) -> lineTo(x, y) }
-    vertex(210f).also { (x, y) -> lineTo(x, y) }
-
-    close()
 }
