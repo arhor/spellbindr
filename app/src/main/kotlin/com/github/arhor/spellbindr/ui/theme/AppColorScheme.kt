@@ -86,3 +86,13 @@ internal val AppLightColorScheme = lightColorScheme(
     surfaceDim = LightSurface
 )
 val Accent = Color(0xFFFFC107)
+
+// --- Semantic icon colors ---
+
+// Damage = warm ember / “burnt” orange
+val DamageIconDark = Color(0xFFFFB677)   // lighter, glows nicely on DarkSurface
+val DamageIconLight = EmberLight         // 0xFFBE6C28 – already in your palette
+
+// Heal = cool emerald / herbal green
+val HealIconDark = Color(0xFF78D9A3)     // soft, bright enough for DarkSurface
+val HealIconLight = Color(0xFF1E8E5E)    // deeper green for LightSurface
