@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,9 +38,7 @@ import com.github.arhor.spellbindr.ui.theme.DamageIconDark
 import com.github.arhor.spellbindr.ui.theme.DamageIconLight
 import com.github.arhor.spellbindr.ui.theme.HealIconDark
 import com.github.arhor.spellbindr.ui.theme.HealIconLight
-import kotlin.math.cos
-import kotlin.math.min
-import kotlin.math.sin
+import com.github.arhor.spellbindr.ui.theme.HexShape
 
 @Composable
 internal fun CombatOverviewCard(
@@ -147,32 +144,6 @@ private fun HpActionButton(
             tint = tint,
         )
     }
-}
-
-private val HexShape = GenericShape { size, _ ->
-    val w = size.width
-    val h = size.height
-
-    val r = min(w, h) / 2f
-    val cx = w / 2f
-    val cy = h / 2f
-
-    fun vertex(angleDeg: Float): Pair<Float, Float> {
-        val rad = Math.toRadians(angleDeg.toDouble())
-        val x = cx + r * cos(rad).toFloat()
-        val y = cy + r * sin(rad).toFloat()
-        return x to y
-    }
-
-    repeat(6) {
-        val (x, y) = vertex(-90f + it * 60f)
-        if (it == 0) {
-            moveTo(x, y)
-        } else {
-            lineTo(x, y)
-        }
-    }
-    close()
 }
 
 @Composable

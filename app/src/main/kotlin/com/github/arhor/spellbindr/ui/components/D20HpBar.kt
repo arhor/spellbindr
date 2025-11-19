@@ -27,10 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.ui.theme.buildRoundedPolygonPath
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -151,50 +151,6 @@ private fun D20HpBarLowPreview() {
             D20HpBar(currentHp = 4, maxHp = 38)
         }
     }
-}
-
-private fun buildRoundedPolygonPath(points: List<Offset>, cornerRadius: Float): Path {
-    val path = Path()
-    val count = points.size
-    for (index in points.indices) {
-        val previous = points[(index - 1 + count) % count]
-        val current = points[index]
-        val next = points[(index + 1) % count]
-
-        val previousVector = current - previous
-        val nextVector = next - current
-
-        val previousLength = previousVector.getDistance()
-        val nextLength = nextVector.getDistance()
-
-        if (previousLength == 0f || nextLength == 0f) {
-            continue
-        }
-
-        val limitedRadius = min(cornerRadius, min(previousLength, nextLength) / 2f)
-        val previousDirectionX = previousVector.x / previousLength
-        val previousDirectionY = previousVector.y / previousLength
-        val nextDirectionX = nextVector.x / nextLength
-        val nextDirectionY = nextVector.y / nextLength
-
-        val start = Offset(
-            x = current.x - previousDirectionX * limitedRadius,
-            y = current.y - previousDirectionY * limitedRadius,
-        )
-        val end = Offset(
-            x = current.x + nextDirectionX * limitedRadius,
-            y = current.y + nextDirectionY * limitedRadius,
-        )
-
-        if (index == 0) {
-            path.moveTo(start.x, start.y)
-        } else {
-            path.lineTo(start.x, start.y)
-        }
-        path.quadraticTo(current.x, current.y, end.x, end.y)
-    }
-    path.close()
-    return path
 }
 
 private fun DrawScope.drawFacetedHexFill(
