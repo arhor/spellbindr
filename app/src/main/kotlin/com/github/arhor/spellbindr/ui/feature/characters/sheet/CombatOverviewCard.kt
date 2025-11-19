@@ -39,57 +39,35 @@ internal fun CombatOverviewCard(
         tonalElevation = 1.dp,
         modifier = modifier.fillMaxWidth(),
     ) {
-        ContentView(
-            header = header,
-            abilities = abilities,
-        )
-    }
-}
+        val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
+        val leftAbilities = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
+        val rightAbilities = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
 
-@Preview
-@Composable
-private fun CombatOverviewCardPreview() {
-    AppTheme {
-        CombatOverviewCard(
-            header = CharacterSheetPreviewData.header,
-            abilities = CharacterSheetPreviewData.overview.abilities,
-        )
-    }
-}
-
-@Composable
-private fun ContentView(
-    header: CharacterHeaderUiState,
-    abilities: List<AbilityUiModel>,
-) {
-    val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
-    val leftAbilities = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
-    val rightAbilities = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
-
-    Column(modifier = Modifier.padding(16.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            AbilityScoreColumn(
-                abilities = leftAbilities,
-            )
-            D20HpBar(
-                currentHp = header.hitPoints.current,
-                maxHp = header.hitPoints.max,
-                modifier = Modifier.weight(1f),
-            )
-            AbilityScoreColumn(
-                abilities = rightAbilities,
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                AbilityScoreColumn(
+                    abilities = leftAbilities,
+                )
+                D20HpBar(
+                    currentHp = header.hitPoints.current,
+                    maxHp = header.hitPoints.max,
+                    modifier = Modifier.weight(1f),
+                )
+                AbilityScoreColumn(
+                    abilities = rightAbilities,
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            StatsCard(
+                ac = header.armorClass,
+                initiative = header.initiative,
+                speed = header.speed,
             )
         }
-        Spacer(modifier = Modifier.height(12.dp))
-        StatsCard(
-            ac = header.armorClass,
-            initiative = header.initiative,
-            speed = header.speed,
-        )
     }
 }
 
@@ -182,3 +160,14 @@ private fun AbilityUiModel.toAbilityScore(): AbilityScore {
 
 private val LEFT_ABILITY_ORDER = listOf(Ability.STR, Ability.DEX, Ability.CON)
 private val RIGHT_ABILITY_ORDER = listOf(Ability.INT, Ability.WIS, Ability.CHA)
+
+@Preview
+@Composable
+private fun CombatOverviewCardPreview() {
+    AppTheme {
+        CombatOverviewCard(
+            header = CharacterSheetPreviewData.header,
+            abilities = CharacterSheetPreviewData.overview.abilities,
+        )
+    }
+}
