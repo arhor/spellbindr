@@ -41,7 +41,6 @@ internal fun CombatOverviewCard(
         val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
         val leftAbilities = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
         val rightAbilities = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
-
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -157,8 +156,8 @@ private fun AbilityUiModel.toAbilityScore(): AbilityScore {
     )
 }
 
-private val LEFT_ABILITY_ORDER = listOf(Ability.STR, Ability.DEX, Ability.CON)
-private val RIGHT_ABILITY_ORDER = listOf(Ability.INT, Ability.WIS, Ability.CHA)
+internal val LEFT_ABILITY_ORDER = listOf(Ability.STR, Ability.DEX, Ability.CON)
+internal val RIGHT_ABILITY_ORDER = listOf(Ability.INT, Ability.WIS, Ability.CHA)
 
 @Preview
 @Composable

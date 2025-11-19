@@ -29,7 +29,7 @@ private val DarkOutline = Color(0xFF474957)
 private val DarkOutlineVariant = Color(0xFF5F6170)
 
 private val LightBackground = Color(0xFFFBF8F2)
-private val LightSurface = Color(0xFFFFFBF5)
+private val LightSurface = Color(0xFFF6F2EB)
 private val LightSurfaceVariant = Color(0xFFE5DECF)
 private val LightOutline = Color(0xFF7A715D)
 private val LightOutlineVariant = Color(0xFFAEA694)

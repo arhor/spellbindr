@@ -65,7 +65,6 @@ internal fun CharacterSheetContent(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
@@ -96,10 +95,10 @@ internal fun CharacterSheetContent(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CharacterSheetContentPreview() {
-    AppTheme {
+    AppTheme(isDarkTheme = false) {
         CharacterSheetContent(
             state = CharacterSheetPreviewData.uiState,
             header = CharacterSheetPreviewData.header,
