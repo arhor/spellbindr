@@ -61,7 +61,7 @@ internal fun CombatOverviewCard(
                     abilities = rightAbilities,
                 )
             }
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             StatsCard(
                 ac = header.armorClass,
                 initiative = header.initiative,
