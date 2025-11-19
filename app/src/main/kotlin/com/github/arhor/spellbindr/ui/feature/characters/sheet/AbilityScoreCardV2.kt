@@ -29,7 +29,7 @@ data class AbilityScore(
 )
 
 @Composable
-fun AbilityScoreCard(
+fun AbilityScoreCardV2(
     ability: AbilityScore,
     modifier: Modifier = Modifier,
     cardSize: Dp = 72.dp,
@@ -52,7 +52,7 @@ fun AbilityScoreCard(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface,
             ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
             border = BorderStroke(
                 width = 2.dp,
                 color = MaterialTheme.colorScheme.outlineVariant
@@ -100,9 +100,9 @@ fun AbilityScoreCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun AbilityScoreCardPreview() {
+private fun AbilityScoreCardV2Preview() {
     AppTheme {
-        AbilityScoreCard(
+        AbilityScoreCardV2(
             ability = AbilityScore(
                 name = "CON",
                 value = 13,

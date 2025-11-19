@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -11,41 +10,29 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardColors
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.R
+import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.ui.components.D20HpBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-import com.github.arhor.spellbindr.ui.theme.DamageIconDark
-import com.github.arhor.spellbindr.ui.theme.DamageIconLight
-import com.github.arhor.spellbindr.ui.theme.HealIconDark
-import com.github.arhor.spellbindr.ui.theme.HealIconLight
-import com.github.arhor.spellbindr.ui.theme.HexShape
 
 @Composable
 internal fun CombatOverviewCard(
     modifier: Modifier = Modifier,
     header: CharacterHeaderUiState,
-    onDamageClick: () -> Unit,
-    onHealClick: () -> Unit,
+    abilities: List<AbilityUiModel>,
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
@@ -54,8 +41,7 @@ internal fun CombatOverviewCard(
     ) {
         ContentView(
             header = header,
-            onDamageClick = onDamageClick,
-            onHealClick = onHealClick
+            abilities = abilities,
         )
     }
 }
@@ -66,8 +52,7 @@ private fun CombatOverviewCardPreview() {
     AppTheme {
         CombatOverviewCard(
             header = CharacterSheetPreviewData.header,
-            onDamageClick = {},
-            onHealClick = {},
+            abilities = CharacterSheetPreviewData.overview.abilities,
         )
     }
 }
@@ -75,73 +60,35 @@ private fun CombatOverviewCardPreview() {
 @Composable
 private fun ContentView(
     header: CharacterHeaderUiState,
-    onDamageClick: () -> Unit,
-    onHealClick: () -> Unit,
+    abilities: List<AbilityUiModel>,
 ) {
+    val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
+    val leftAbilities = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
+    val rightAbilities = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
+
     Column(modifier = Modifier.padding(16.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Box(
-                modifier = Modifier.weight(1.0f),
-                contentAlignment = Alignment.Center,
-            ) {
-                HpActionButton(
-                    onClick = { onDamageClick() },
-                    iconRes = R.drawable.sword,
-                    contentDescription = "Damage",
-                    tint = if (isSystemInDarkTheme()) DamageIconDark else DamageIconLight
-                )
-            }
-            // Give HP a bit more visual dominance
+            AbilityScoreColumn(
+                abilities = leftAbilities,
+            )
             D20HpBar(
                 currentHp = header.hitPoints.current,
                 maxHp = header.hitPoints.max,
-                modifier = Modifier.weight(1.1f),
+                modifier = Modifier.weight(1f),
             )
-            Box(
-                modifier = Modifier.weight(1.0f),
-                contentAlignment = Alignment.Center,
-            ) {
-                HpActionButton(
-                    onClick = { onHealClick() },
-                    iconRes = R.drawable.plus,
-                    contentDescription = "Heal",
-                    tint = if (isSystemInDarkTheme()) HealIconDark else HealIconLight
-                )
-            }
+            AbilityScoreColumn(
+                abilities = rightAbilities,
+            )
         }
-        // Slightly tighter gap between HP and stats strip
         Spacer(modifier = Modifier.height(12.dp))
         StatsCard(
             ac = header.armorClass,
             initiative = header.initiative,
             speed = header.speed,
-        )
-    }
-}
-
-@Composable
-private fun HpActionButton(
-    onClick: () -> Unit,
-    iconRes: Int,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    tint: Color = LocalContentColor.current,
-) {
-    SmallFloatingActionButton(
-        onClick = onClick,
-        modifier = modifier.size(60.dp),
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        shape = HexShape,
-    ) {
-        Icon(
-            painter = painterResource(iconRes),
-            contentDescription = contentDescription,
-            modifier = Modifier.size(30.dp),
-            tint = tint,
         )
     }
 }
@@ -208,3 +155,30 @@ private fun StatDivider() {
         color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f),
     )
 }
+
+@Composable
+private fun AbilityScoreColumn(
+    abilities: List<AbilityScore>,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        abilities.forEach { ability ->
+            AbilityScoreCardV2(ability = ability)
+        }
+    }
+}
+
+private fun AbilityUiModel.toAbilityScore(): AbilityScore {
+    return AbilityScore(
+        name = ability.name,
+        value = score,
+        bonus = modifier,
+    )
+}
+
+private val LEFT_ABILITY_ORDER = listOf(Ability.STR, Ability.DEX, Ability.CON)
+private val RIGHT_ABILITY_ORDER = listOf(Ability.INT, Ability.WIS, Ability.CHA)

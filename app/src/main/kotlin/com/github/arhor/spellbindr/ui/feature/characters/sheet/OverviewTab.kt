@@ -6,15 +6,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.AbilityTokenData
-import com.github.arhor.spellbindr.ui.components.AbilityTokensGrid
 
 @Composable
 fun OverviewTab(
@@ -25,22 +19,6 @@ fun OverviewTab(
     callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
-    var showHpAdjustDialog by remember { mutableStateOf(false) }
-    val onHitPointsClick = if (editMode == SheetEditMode.View) {
-        { showHpAdjustDialog = true }
-    } else {
-        null
-    }
-
-    if (showHpAdjustDialog) {
-        HitPointAdjustDialog(
-            hitPoints = header.hitPoints,
-            onAdjustHp = callbacks.onAdjustHp,
-            onTempHpChanged = callbacks.onTempHpChanged,
-            onDismiss = { showHpAdjustDialog = false },
-        )
-    }
-
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
@@ -55,8 +33,7 @@ fun OverviewTab(
                 ) {
                     CombatOverviewCard(
                         header = header,
-                        onDamageClick = { onHitPointsClick?.invoke() },
-                        onHealClick = { onHitPointsClick?.invoke() },
+                        abilities = overview.abilities,
                     )
                     DeathSavesCard(
                         state = overview.deathSaves,
@@ -68,24 +45,9 @@ fun OverviewTab(
             } else {
                 CombatOverviewCard(
                     header = header,
-                    onDamageClick = { onHitPointsClick?.invoke() },
-                    onHealClick = { onHitPointsClick?.invoke() },
+                    abilities = overview.abilities,
                 )
             }
-        }
-        item {
-            AbilityTokensGrid(
-                abilities = overview.abilities.map { ability ->
-                    AbilityTokenData(
-                        abbreviation = ability.label,
-                        score = ability.score,
-                        modifier = ability.modifier,
-                        savingThrowBonus = ability.savingThrowBonus,
-                        proficient = ability.savingThrowProficient,
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-            )
         }
         item {
             DetailCard(
