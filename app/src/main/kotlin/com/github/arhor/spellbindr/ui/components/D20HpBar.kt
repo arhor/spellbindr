@@ -307,10 +307,10 @@ private data class D20Projection(
             val topLeft = vertexOffset(index = 5)
 
             val width = topRight.x - topLeft.x
-            val baseY = center.y + (bottom.y - center.y) * 0.30f
-            val offsetX = width * 0.28f
+            val baseY = center.y + (bottom.y - center.y) * 0.33f
+            val offsetX = width * 0.31f
 
-            val topInner = lerp(top, center, 0.40f)
+            val topInner = lerp(top, center, 0.34f)
             val rightInner = Offset(center.x + offsetX, baseY)
             val leftInner = Offset(center.x - offsetX, baseY)
 
