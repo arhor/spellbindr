@@ -159,10 +159,10 @@ private fun AbilityUiModel.toAbilityScore(): AbilityScore {
 internal val LEFT_ABILITY_ORDER = listOf(Ability.STR, Ability.DEX, Ability.CON)
 internal val RIGHT_ABILITY_ORDER = listOf(Ability.INT, Ability.WIS, Ability.CHA)
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun CombatOverviewCardPreview() {
-    AppTheme {
+    AppTheme(isDarkTheme = true) {
         CombatOverviewCard(
             header = CharacterSheetPreviewData.header,
             abilities = CharacterSheetPreviewData.overview.abilities,

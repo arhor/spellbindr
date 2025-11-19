@@ -61,6 +61,7 @@ fun D20HpBar(
     } else {
         MaterialTheme.colorScheme.onSurface
     }
+    val color = Color(red = 179, green = 38, blue = 30)
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -78,7 +79,7 @@ fun D20HpBar(
                 // 1) Always draw a "base" faceted die for empty HP
                 drawFacetedHexFill(
                     projection = projection,
-                    baseColor = lerp(hexBackgroundColor, Color.Red, 0.10f),
+                    baseColor = lerp(hexBackgroundColor, color, 0.10f),
                 )
 
                 // 2) Overlay faceted fill only for the HP portion
@@ -94,7 +95,7 @@ fun D20HpBar(
                     ) {
                         drawFacetedHexFill(
                             projection = projection,
-                            baseColor = Color.Red,
+                            baseColor = color,
                         )
                     }
                 }

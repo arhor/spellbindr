@@ -57,7 +57,7 @@ internal val AppDarkColorScheme = darkColorScheme(
     outlineVariant = DarkOutlineVariant,
     scrim = Color(0xFF000000),
     surfaceBright = DarkSurface,
-    surfaceDim = DarkBackground
+    surfaceDim = DarkBackground,
 )
 
 internal val AppLightColorScheme = lightColorScheme(
