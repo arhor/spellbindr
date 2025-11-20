@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.SelectedIndicator
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -38,19 +37,13 @@ internal fun SavingThrowCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            RadioButton(
+            SelectedIndicator(
                 selected = proficient,
-                onClick = null,
-                enabled = false,
-                colors = RadioButtonDefaults.colors(
-                    disabledSelectedColor = MaterialTheme.colorScheme.primary,
-                    disabledUnselectedColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                ),
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = abilityName,
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall,
             )
             Text(
                 text = formatBonus(bonus),
@@ -63,23 +56,36 @@ internal fun SavingThrowCard(
 
 @Preview(showBackground = true)
 @Composable
+private fun SavingThrowCardLightPreview() {
+    AppTheme(isDarkTheme = false) {
+        SavingThrowCardPreview()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SavingThrowCardDarkPreview() {
+    AppTheme(isDarkTheme = true) {
+        SavingThrowCardPreview()
+    }
+}
+
+@Composable
 private fun SavingThrowCardPreview() {
-    AppTheme {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            val abilities = CharacterSheetPreviewData.overview.abilities
-            SavingThrowCard(
-                abilityName = abilities[0].label,
-                bonus = abilities[0].savingThrowBonus,
-                proficient = abilities[0].savingThrowProficient,
-            )
-            SavingThrowCard(
-                abilityName = abilities[1].label,
-                bonus = abilities[1].savingThrowBonus,
-                proficient = abilities[1].savingThrowProficient,
-            )
-        }
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        val abilities = CharacterSheetPreviewData.overview.abilities
+        SavingThrowCard(
+            abilityName = abilities[0].label,
+            bonus = abilities[0].savingThrowBonus,
+            proficient = abilities[0].savingThrowProficient,
+        )
+        SavingThrowCard(
+            abilityName = abilities[1].label,
+            bonus = abilities[1].savingThrowBonus,
+            proficient = abilities[1].savingThrowProficient,
+        )
     }
 }
