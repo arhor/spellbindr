@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.ui.components.D20HpBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.utils.signed
 
 @Composable
 internal fun CombatOverviewCard(
@@ -90,7 +91,7 @@ private fun StatsCard(
         ) {
             StatBlock(title = "AC", value = ac.toString())
             StatDivider()
-            StatBlock(title = "Initiative", value = formatBonus(initiative))
+            StatBlock(title = "Initiative", value = signed(initiative))
             StatDivider()
             StatBlock(title = "Speed", value = speed)
         }

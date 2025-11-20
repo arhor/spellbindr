@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.SelectedIndicator
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.utils.signed
 
 @Composable
 internal fun SavingThrowCard(
@@ -46,7 +47,7 @@ internal fun SavingThrowCard(
                 style = MaterialTheme.typography.titleSmall,
             )
             Text(
-                text = formatBonus(bonus),
+                text = signed(bonus),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )

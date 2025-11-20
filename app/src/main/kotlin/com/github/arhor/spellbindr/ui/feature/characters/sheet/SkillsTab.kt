@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.utils.signed
 
 @Composable
 fun SkillsTab(
@@ -45,7 +46,7 @@ fun SkillsTab(
                             style = MaterialTheme.typography.bodyLarge,
                         )
                         Text(
-                            text = "${skill.abilityAbbreviation} • ${formatBonus(skill.totalBonus)}",
+                            text = "${skill.abilityAbbreviation} • ${signed(skill.totalBonus)}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )

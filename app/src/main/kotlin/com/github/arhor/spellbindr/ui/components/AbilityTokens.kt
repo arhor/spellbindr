@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.utils.signed
 import kotlin.math.hypot
 import kotlin.math.min
 
@@ -108,8 +109,8 @@ fun AbilityOctagonTile(
                 modifier = Modifier.align(Alignment.Center),
             )
             AbilityTileBottomRow(
-                modifierValue = formatBonus(ability.modifier),
-                savingThrowValue = formatBonus(ability.savingThrowBonus),
+                modifierValue = signed(ability.modifier),
+                savingThrowValue = signed(ability.savingThrowBonus),
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth(),
@@ -206,8 +207,6 @@ private data class RoundedCorner(
     val vertex: Offset,
     val exit: Offset,
 )
-
-private fun formatBonus(value: Int): String = if (value >= 0) "+$value" else value.toString()
 
 @Preview(showBackground = true)
 @Composable

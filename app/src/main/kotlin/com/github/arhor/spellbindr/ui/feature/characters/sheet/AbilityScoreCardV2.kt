@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.ui.theme.RoundedHexShape
+import com.github.arhor.spellbindr.utils.signed
 
 data class AbilityScore(
     val name: String,
@@ -43,7 +44,7 @@ fun AbilityScoreCardV2(
     modifier: Modifier = Modifier,
     cardSize: Dp = 72.dp,
 ) {
-    val bonusText = if (ability.bonus >= 0) "+${ability.bonus}" else ability.bonus.toString()
+    val bonusText = signed(ability.bonus)
 
     Box(
         modifier = modifier

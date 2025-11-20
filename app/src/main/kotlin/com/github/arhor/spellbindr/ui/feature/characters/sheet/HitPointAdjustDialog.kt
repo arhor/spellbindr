@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.utils.signed
 
 @Composable
 internal fun HitPointAdjustDialog(
@@ -56,7 +57,7 @@ internal fun HitPointAdjustDialog(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         listOf(-5, -1, 1, 5).forEach { delta ->
-                            val label = if (delta > 0) "+$delta" else delta.toString()
+                            val label = signed(delta)
                             HpAdjustButton(
                                 label = label,
                                 onClick = { onAdjustHp(delta) },
