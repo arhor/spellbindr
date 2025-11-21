@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.ui.components.D20HpBar
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityScore
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.signed
 
@@ -144,7 +147,7 @@ private fun AbilityScoreColumn(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         abilities.forEach { ability ->
-            AbilityScoreCardV2(ability = ability)
+            AbilityScoreCard(ability = ability)
         }
     }
 }

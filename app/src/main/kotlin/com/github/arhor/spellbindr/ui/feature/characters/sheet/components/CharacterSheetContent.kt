@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -20,6 +20,11 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.distinctUntilChanged
 

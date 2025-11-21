@@ -16,6 +16,8 @@ import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.data.repository.SpellRepository
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

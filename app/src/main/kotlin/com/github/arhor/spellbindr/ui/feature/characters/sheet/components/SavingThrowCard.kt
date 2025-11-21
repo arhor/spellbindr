@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.SelectedIndicator
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.ui.theme.ConvexSidesCardShape
 import com.github.arhor.spellbindr.utils.signed
@@ -42,13 +42,13 @@ fun SavingThrowCard(
             elevation = CardDefaults.cardElevation(2.dp),
             border = BorderStroke(
                 width = 3.dp,
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.outlineVariant,
             ),
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 18.dp, vertical = 10.dp),
+                    .padding(horizontal = 18.dp, vertical = 6.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
                 Text(
@@ -65,7 +65,7 @@ fun SavingThrowCard(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
                 .width(30.dp)
-                .height(44.dp),
+                .height(40.dp),
             bonus = bonus,
         )
     }
@@ -82,7 +82,7 @@ private fun SavingThrowBonusCard(
         colors = cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         border = BorderStroke(
             width = 3.dp,
-            color = MaterialTheme.colorScheme.outline,
+            color = MaterialTheme.colorScheme.outlineVariant,
         ),
         elevation = CardDefaults.cardElevation(2.dp),
     ) {

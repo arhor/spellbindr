@@ -1,7 +1,20 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetEditingState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSpellUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.DeathSaveUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.HitPointSummary
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.OverviewTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellcastingGroupUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 
 internal object CharacterSheetPreviewData {
 

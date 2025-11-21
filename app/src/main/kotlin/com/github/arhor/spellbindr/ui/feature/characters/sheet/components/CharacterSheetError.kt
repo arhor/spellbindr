@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

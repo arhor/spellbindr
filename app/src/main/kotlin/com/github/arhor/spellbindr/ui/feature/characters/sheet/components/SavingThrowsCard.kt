@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

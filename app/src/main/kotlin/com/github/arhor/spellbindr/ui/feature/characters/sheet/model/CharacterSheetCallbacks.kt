@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
 data class CharacterSheetCallbacks(
     val onTabSelected: (CharacterSheetTab) -> Unit = {},

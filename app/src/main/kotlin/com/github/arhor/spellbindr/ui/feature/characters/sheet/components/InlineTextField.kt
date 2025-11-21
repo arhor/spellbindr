@@ -1,14 +1,12 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun InlineNumberField(
+fun InlineTextField(
     label: String,
     value: String,
     onValueChanged: (String) -> Unit,
@@ -18,8 +16,7 @@ fun InlineNumberField(
         value = value,
         onValueChange = onValueChanged,
         label = { Text(label) },
-        singleLine = true,
         modifier = modifier,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true,
     )
 }

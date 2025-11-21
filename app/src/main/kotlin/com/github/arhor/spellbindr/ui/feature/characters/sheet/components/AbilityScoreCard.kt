@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -28,18 +28,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityScore
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.ui.theme.RoundedHexShape
 import com.github.arhor.spellbindr.utils.signed
 
-data class AbilityScore(
-    val name: String,
-    val value: Int,
-    val bonus: Int,
-)
-
 @Composable
-fun AbilityScoreCardV2(
+fun AbilityScoreCard(
     ability: AbilityScore,
     modifier: Modifier = Modifier,
     cardSize: Dp = 72.dp,
@@ -177,12 +172,12 @@ private fun ContentDrawScope.createPath(shape: CornerBasedShape): Path =
 
 @Preview(showBackground = true)
 @Composable
-private fun AbilityScoreCardV2Preview() {
+private fun AbilityScoreCardPreview() {
     AppTheme(isDarkTheme = true) {
         Surface(
             tonalElevation = 1.dp,
         ) {
-            AbilityScoreCardV2(
+            AbilityScoreCard(
                 ability = AbilityScore(
                     name = "CON",
                     value = 13,
