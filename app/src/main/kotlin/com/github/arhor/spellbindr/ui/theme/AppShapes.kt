@@ -23,6 +23,45 @@ val AppShapes = Shapes(
     extraLarge = RoundedCornerShape(28.dp)
 )
 
+data class ConvexSidesCardShape(val convexityFactor: Float = 0.35f) : Shape {
+
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+        val width = size.width
+        val height = size.height
+        val equator = height / 2f
+        val arcOffset = minOf(width, height) * convexityFactor
+
+        return Outline.Generic(
+            path = Path().apply {
+                // start - top left corner
+                moveTo(x = 0f, y = 0f)
+
+                // top left to top right line
+                lineTo(x = width, y = 0f)
+
+                // right arc
+                quadraticTo(
+                    x1 = width + arcOffset, y1 = equator,
+                    x2 = width, y2 = height,
+                )
+                // bottom right to bottom left line
+                lineTo(x = 0f, y = height)
+
+                // left arc
+                quadraticTo(
+                    x1 = -arcOffset, y1 = equator,
+                    x2 = 0f, y2 = 0f,
+                )
+                close()
+            }
+        )
+    }
+}
+
 data object HexShape : Shape {
     override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
         val hex = Hex(size)
