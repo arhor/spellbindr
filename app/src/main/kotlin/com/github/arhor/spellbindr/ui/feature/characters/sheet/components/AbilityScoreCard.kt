@@ -1,13 +1,11 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -21,9 +19,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -39,19 +39,42 @@ fun AbilityScoreCard(
     cardSize: Dp = 72.dp,
 ) {
     val bonusText = signed(ability.bonus)
+    val shape = RoundedHexShape(cornerRadiusFraction = 0.05f)
+    val borderWidth = 2.5.dp
+    val borderInset = 3.0.dp
+    val borderColor = MaterialTheme.colorScheme.outlineVariant
 
     Box {
         Card(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .width(cardSize)
-                .height(cardSize),
-            shape = RoundedHexShape(0.05f),
+                .height(cardSize)
+                .drawWithContent {
+                    drawContent()
+
+                    val strokeWidth = borderWidth.toPx()
+                    val insetAmount = borderInset.toPx()
+                    val path = createPath(shape)
+                    val scaleX = (size.width - insetAmount * 2f) / size.width
+                    val scaleY = (size.height - insetAmount * 2f) / size.height
+
+                    withTransform({
+                        scale(
+                            scaleX = scaleX,
+                            scaleY = scaleY,
+                            pivot = center,
+                        )
+                    }) {
+                        drawPath(
+                            path = path,
+                            color = borderColor,
+                            style = Stroke(width = strokeWidth),
+                        )
+                    }
+                },
+            shape = shape,
             elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
-            border = BorderStroke(
-                width = 2.dp,
-                color = MaterialTheme.colorScheme.outlineVariant
-            ),
         ) {
             Column(
                 modifier = Modifier
@@ -153,7 +176,7 @@ private fun AbilityBonusBadge(
     }
 }
 
-private fun ContentDrawScope.createPath(shape: CornerBasedShape): Path =
+private fun ContentDrawScope.createPath(shape: Shape): Path =
     when (val outline = shape.createOutline(size, layoutDirection, this)) {
         is Outline.Rounded -> Path().apply { addRoundRect(outline.roundRect) }
         is Outline.Rectangle -> Path().apply { addRect(outline.rect) }
