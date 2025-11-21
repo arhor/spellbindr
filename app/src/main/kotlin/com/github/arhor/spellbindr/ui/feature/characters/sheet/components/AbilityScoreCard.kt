@@ -36,26 +36,17 @@ import com.github.arhor.spellbindr.utils.signed
 @Composable
 fun AbilityScoreCard(
     ability: AbilityScore,
-    modifier: Modifier = Modifier,
     cardSize: Dp = 72.dp,
 ) {
     val bonusText = signed(ability.bonus)
 
-    Box(
-        modifier = modifier
-            .width(cardSize)
-            .height(cardSize),
-        contentAlignment = Alignment.TopCenter,
-    ) {
+    Box {
         Card(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .width(cardSize)
                 .height(cardSize),
             shape = RoundedHexShape(0.05f),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-            ),
             elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
             border = BorderStroke(
                 width = 2.dp,
@@ -172,18 +163,30 @@ private fun ContentDrawScope.createPath(shape: CornerBasedShape): Path =
 
 @Preview(showBackground = true)
 @Composable
-private fun AbilityScoreCardPreview() {
+private fun AbilityScoreCardLightPreview() {
+    AppTheme(isDarkTheme = false) {
+        AbilityScoreTokenPreview()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AbilityScoreCardDarkPreview() {
     AppTheme(isDarkTheme = true) {
-        Surface(
-            tonalElevation = 1.dp,
-        ) {
+        AbilityScoreTokenPreview()
+    }
+}
+
+@Composable
+private fun AbilityScoreTokenPreview() {
+    Surface {
+        Box(modifier = Modifier.padding(6.dp)) {
             AbilityScoreCard(
                 ability = AbilityScore(
                     name = "CON",
                     value = 13,
                     bonus = 1,
                 ),
-                modifier = Modifier.padding(16.dp),
             )
         }
     }
