@@ -34,7 +34,6 @@ internal fun SavingThrowsCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -79,11 +78,11 @@ private fun SavingThrowColumn(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         abilities.forEach { ability ->
             SavingThrowCard(
-                abilityName = ability.label,
+                abilityName = ability.ability.displayName,
                 bonus = ability.savingThrowBonus,
                 proficient = ability.savingThrowProficient,
             )
