@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -90,12 +91,32 @@ private fun SavingThrowColumn(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
+@Composable
+private fun SavingThrowsCardLightPreview() {
+    AppTheme(isDarkTheme = false) {
+        SavingThrowsCardPreview()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SavingThrowsCardDarkPreview() {
+    AppTheme(isDarkTheme = true) {
+        SavingThrowsCardPreview()
+    }
+}
+
 @Composable
 private fun SavingThrowsCardPreview() {
-    AppTheme {
-        SavingThrowsCard(
-            abilities = CharacterSheetPreviewData.overview.abilities,
-        )
+    Surface {
+        Box(
+            modifier = Modifier.padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            SavingThrowsCard(
+                abilities = CharacterSheetPreviewData.overview.abilities,
+            )
+        }
     }
 }
