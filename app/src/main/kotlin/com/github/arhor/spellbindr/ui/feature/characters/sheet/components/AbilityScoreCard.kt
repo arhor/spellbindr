@@ -3,9 +3,8 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -48,8 +47,7 @@ fun AbilityScoreCard(
         Card(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .width(cardSize)
-                .height(cardSize)
+                .size(cardSize)
                 .drawWithContent {
                     drawContent()
 
@@ -74,6 +72,9 @@ fun AbilityScoreCard(
                     }
                 },
             shape = shape,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            ),
             elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
         ) {
             Column(
