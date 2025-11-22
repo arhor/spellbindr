@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardColors
@@ -36,7 +35,7 @@ fun SavingThrowCard(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            shape = CutCornerShape(9.dp),
+            shape = MaterialTheme.shapes.extraLarge,
             colors = cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             elevation = CardDefaults.cardElevation(2.dp),
             border = BorderStroke(
@@ -76,7 +75,6 @@ private fun SavingThrowBonusCard(
 ) {
     Card(
         modifier = modifier,
-//        shape = ConvexSidesCardShape(convexityFactor = .55f),
         shape = RoundedHexShape(cornerRadiusFraction = 0.10f),
         colors = cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         border = BorderStroke(
