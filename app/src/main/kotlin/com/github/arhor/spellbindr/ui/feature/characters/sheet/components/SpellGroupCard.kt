@@ -1,13 +1,19 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,15 +26,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSpellUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellcastingGroupUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-internal fun SpellGroupCard(
-    group: SpellcastingGroupUiModel,
+internal fun SpellLevelCard(
+    spellLevel: SpellLevelUiModel,
     editMode: SheetEditMode,
     callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
@@ -40,18 +47,37 @@ internal fun SpellGroupCard(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = group.sourceLabel,
+                text = spellLevel.label,
                 style = MaterialTheme.typography.titleMedium,
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            group.spells.forEach { spell ->
-                SpellRow(
-                    spell = spell,
+
+            spellLevel.spellSlot?.let { slot ->
+                Spacer(modifier = Modifier.height(12.dp))
+                SpellSlotSection(
+                    slot = slot,
                     editMode = editMode,
-                    onClick = { callbacks.onSpellSelected(spell.spellId) },
-                    onRemove = { callbacks.onSpellRemoved(spell.spellId, group.sourceKey) },
+                    callbacks = callbacks,
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            if (spellLevel.spells.isEmpty()) {
+                Text(
+                    text = "No spells for this level yet.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    spellLevel.spells.forEach { spell ->
+                        SpellRow(
+                            spell = spell,
+                            editMode = editMode,
+                            onClick = { callbacks.onSpellSelected(spell.spellId) },
+                            onRemove = { callbacks.onSpellRemoved(spell.spellId, spell.sourceClass) },
+                        )
+                    }
+                }
             }
         }
     }
@@ -85,14 +111,14 @@ internal fun SpellRow(
                     text = spell.name,
                     style = MaterialTheme.typography.bodyLarge,
                 )
-                Text(
-                    text = "Level ${spell.level} • ${spell.school}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                if (spell.castingTime.isNotBlank()) {
+                val detailParts = buildList {
+                    add(spell.school)
+                    spell.castingTime.takeIf { it.isNotBlank() }?.let { add(it) }
+                    spell.sourceClass.takeIf { it.isNotBlank() }?.let { add(it) }
+                }
+                if (detailParts.isNotEmpty()) {
                     Text(
-                        text = spell.castingTime,
+                        text = detailParts.joinToString(separator = " • "),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -107,13 +133,107 @@ internal fun SpellRow(
     }
 }
 
+@Composable
+private fun SpellSlotSection(
+    slot: SpellSlotUiModel,
+    editMode: SheetEditMode,
+    callbacks: CharacterSheetCallbacks,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(
+                text = "Spell slots",
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            if (editMode == SheetEditMode.Editing) {
+                Row {
+                    IconButton(
+                        onClick = { callbacks.onSpellSlotTotalChanged(slot.level, slot.total - 1) },
+                        enabled = slot.total > 0,
+                    ) {
+                        Text("-")
+                    }
+                    IconButton(
+                        onClick = { callbacks.onSpellSlotTotalChanged(slot.level, slot.total + 1) },
+                    ) {
+                        Text("+")
+                    }
+                }
+            }
+        }
+
+        if (slot.total == 0) {
+            Text(
+                text = "No slots configured for this level",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        } else {
+            Row(
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                repeat(slot.total) { index ->
+                    val used = index < slot.expended
+                    SpellSlotChip(
+                        used = used,
+                        onClick = { callbacks.onSpellSlotToggle(slot.level, index) },
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SpellSlotChip(
+    used: Boolean,
+    onClick: () -> Unit,
+) {
+    Surface(
+        shape = CircleShape,
+        tonalElevation = if (used) 4.dp else 0.dp,
+        color = if (used) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+        onClick = onClick,
+    ) {
+        Box(
+            modifier = Modifier.size(32.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            if (used) {
+                Icon(
+                    imageVector = Icons.Rounded.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                )
+            }
+        }
+    }
+}
+
 @Preview
 @Composable
-private fun SpellGroupCardPreview() {
+private fun SpellLevelCardPreview() {
     AppTheme {
-        SpellGroupCard(
-            group = CharacterSheetPreviewData.spells.spellcastingGroups.first(),
+        SpellLevelCard(
+            spellLevel = CharacterSheetPreviewData.spells.spellLevels.first(),
             editMode = SheetEditMode.View,
+            callbacks = CharacterSheetCallbacks(),
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SpellLevelCardWithSlotsPreview() {
+    AppTheme {
+        SpellLevelCard(
+            spellLevel = CharacterSheetPreviewData.spells.spellLevels.first { it.level == 1 },
+            editMode = SheetEditMode.Editing,
             callbacks = CharacterSheetCallbacks(),
         )
     }
@@ -124,7 +244,7 @@ private fun SpellGroupCardPreview() {
 private fun SpellRowPreview() {
     AppTheme {
         SpellRow(
-            spell = CharacterSheetPreviewData.spells.spellcastingGroups.first().spells.first(),
+            spell = CharacterSheetPreviewData.spells.spellLevels.first { it.spells.isNotEmpty() }.spells.first(),
             editMode = SheetEditMode.Editing,
             onClick = {},
             onRemove = {},
