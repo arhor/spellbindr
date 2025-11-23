@@ -90,6 +90,7 @@ fun SpellbindrApp(
                             onEditCharacter = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
                             onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
                             onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) },
+                            onCharacterDeleted = { controller.navigateUp() },
                             savedStateHandle = entry.savedStateHandle,
                         )
                     }
