@@ -120,6 +120,18 @@ class CharacterSheetViewModel @Inject constructor(
                 initialValue = CharacterSheetUiState(isLoading = true, characterId = characterId),
             )
 
+    fun deleteCharacter(onDeleted: () -> Unit) {
+        val id = characterId ?: return
+        viewModelScope.launch {
+            _errors.value = null
+            runCatching { characterRepository.deleteCharacter(id) }
+                .onSuccess { onDeleted() }
+                .onFailure { throwable ->
+                    _errors.value = throwable.message ?: "Unable to delete character"
+                }
+        }
+    }
+
     fun onTabSelected(tab: CharacterSheetTab) {
         _selectedTab.value = tab
     }
