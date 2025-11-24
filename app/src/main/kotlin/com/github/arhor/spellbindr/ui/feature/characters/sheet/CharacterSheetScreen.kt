@@ -3,11 +3,13 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -41,6 +43,7 @@ fun CharacterSheetRoute(
     onEditCharacter: (String) -> Unit,
     onOpenSpellDetail: (String) -> Unit,
     onAddSpells: (String) -> Unit,
+    onCharacterDeleted: () -> Unit,
     savedStateHandle: SavedStateHandle,
     modifier: Modifier = Modifier,
     viewModel: CharacterSheetViewModel = hiltViewModel(),
@@ -86,6 +89,7 @@ fun CharacterSheetRoute(
             onSpellSelected = onOpenSpellDetail,
             onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
             onOpenFullEditor = { state.characterId?.let(onEditCharacter) },
+            onDeleteCharacter = { viewModel.deleteCharacter(onCharacterDeleted) },
         ),
         modifier = modifier,
     )
@@ -99,6 +103,7 @@ fun CharacterSheetScreen(
     modifier: Modifier = Modifier,
 ) {
     var overflowExpanded by remember { mutableStateOf(false) }
+    var showDeleteConfirmation by remember { mutableStateOf(false) }
     val headerState = state.header
 
     WithAppTopBar(
@@ -121,6 +126,14 @@ fun CharacterSheetScreen(
                         onClick = {
                             overflowExpanded = false
                             callbacks.onOpenFullEditor()
+                        },
+                        enabled = state.characterId != null,
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Delete character", color = MaterialTheme.colorScheme.error) },
+                        onClick = {
+                            overflowExpanded = false
+                            showDeleteConfirmation = true
                         },
                         enabled = state.characterId != null,
                     )
@@ -160,13 +173,38 @@ fun CharacterSheetScreen(
             }
         }
     }
+
+    if (showDeleteConfirmation) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirmation = false },
+            title = { Text(text = "Delete character") },
+            text = {
+                Text(
+                    text = "This will permanently remove the character and all of its data. This action cannot be undone.",
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDeleteConfirmation = false
+                    callbacks.onDeleteCharacter()
+                }) {
+                    Text(text = "Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirmation = false }) {
+                    Text(text = "Cancel")
+                }
+            },
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun CharacterSheetPreview() {
     AppTheme(isDarkTheme = false) {
-        Scaffold {
+        Box {
             CharacterSheetScreen(
                 state = CharacterSheetPreviewData.uiState,
                 onBack = {},

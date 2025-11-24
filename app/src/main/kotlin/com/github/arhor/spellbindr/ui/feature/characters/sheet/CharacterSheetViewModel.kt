@@ -120,6 +120,18 @@ class CharacterSheetViewModel @Inject constructor(
                 initialValue = CharacterSheetUiState(isLoading = true, characterId = characterId),
             )
 
+    fun deleteCharacter(onDeleted: () -> Unit) {
+        val id = characterId ?: return
+        viewModelScope.launch {
+            _errors.value = null
+            runCatching { characterRepository.deleteCharacter(id) }
+                .onSuccess { onDeleted() }
+                .onFailure { throwable ->
+                    _errors.value = throwable.message ?: "Unable to delete character"
+                }
+        }
+    }
+
     fun onTabSelected(tab: CharacterSheetTab) {
         _selectedTab.value = tab
     }
@@ -353,15 +365,15 @@ data class SkillUiModel(
 
 @Immutable
 data class SpellsTabState(
-    val spellcastingGroups: List<SpellcastingGroupUiModel>,
-    val spellSlots: List<SpellSlotUiModel>,
+    val spellLevels: List<SpellLevelUiModel>,
     val canAddSpells: Boolean,
 )
 
 @Immutable
-data class SpellcastingGroupUiModel(
-    val sourceKey: String,
-    val sourceLabel: String,
+data class SpellLevelUiModel(
+    val level: Int,
+    val label: String,
+    val spellSlot: SpellSlotUiModel?,
     val spells: List<CharacterSpellUiModel>,
 )
 
@@ -372,6 +384,7 @@ data class CharacterSpellUiModel(
     val level: Int,
     val school: String,
     val castingTime: String,
+    val sourceClass: String,
 )
 
 @Immutable
@@ -488,44 +501,59 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
 
 private fun CharacterSheet.toSpellsState(allSpells: List<Spell>): SpellsTabState {
     val spellLookup = allSpells.associateBy { it.id }
-    val spellGroups = characterSpells
-        .groupBy { it.sourceClass }
-        .map { (sourceKey, spells) ->
-            val displayLabel = sourceKey.takeIf { it.isNotBlank() } ?: className.ifBlank { "Spellbook" }
-            val entries = spells.map { stored ->
-                val spell = spellLookup[stored.spellId]
-                CharacterSpellUiModel(
-                    spellId = stored.spellId,
-                    name = spell?.name ?: stored.spellId,
-                    level = spell?.level ?: 0,
-                    school = spell?.school?.prettyString() ?: "—",
-                    castingTime = spell?.castingTime ?: "",
-                )
-            }.sortedWith(
-                compareBy<CharacterSpellUiModel> { it.level }.thenBy { it.name.lowercase() }
-            )
-            SpellcastingGroupUiModel(
-                sourceKey = sourceKey,
-                sourceLabel = displayLabel,
-                spells = entries,
-            )
-        }
-        .sortedBy { it.sourceLabel.lowercase() }
-
     val normalizedSlots = if (spellSlots.isEmpty()) defaultSpellSlots() else spellSlots
-    val slots = normalizedSlots
+    val slotsByLevel = normalizedSlots
         .sortedBy { it.level }
-        .map { slot ->
-            SpellSlotUiModel(
+        .associate { slot ->
+            slot.level to SpellSlotUiModel(
                 level = slot.level,
                 total = slot.total,
                 expended = slot.expended.coerceIn(0, slot.total.coerceAtLeast(0)),
             )
         }
 
+    val spellsByLevel = characterSpells
+        .map { stored ->
+            val spell = spellLookup[stored.spellId]
+            CharacterSpellUiModel(
+                spellId = stored.spellId,
+                name = spell?.name ?: stored.spellId,
+                level = spell?.level ?: 0,
+                school = spell?.school?.prettyString() ?: "—",
+                castingTime = spell?.castingTime ?: "",
+                sourceClass = stored.sourceClass,
+            )
+        }
+        .groupBy { it.level }
+
+    val spellLevels = buildList {
+        spellsByLevel[0]?.let { cantrips ->
+            add(
+                SpellLevelUiModel(
+                    level = 0,
+                    label = "Cantrips",
+                    spellSlot = null,
+                    spells = cantrips.sortedBy { it.name.lowercase() },
+                )
+            )
+        }
+
+        (1..9).forEach { level ->
+            add(
+                SpellLevelUiModel(
+                    level = level,
+                    label = "Level $level",
+                    spellSlot = slotsByLevel[level],
+                    spells = spellsByLevel[level]
+                        .orEmpty()
+                        .sortedWith(compareBy<CharacterSpellUiModel> { it.name.lowercase() }.thenBy { it.sourceClass.lowercase() }),
+                )
+            )
+        }
+    }
+
     return SpellsTabState(
-        spellcastingGroups = spellGroups,
-        spellSlots = slots,
+        spellLevels = spellLevels,
         canAddSpells = true,
     )
 }

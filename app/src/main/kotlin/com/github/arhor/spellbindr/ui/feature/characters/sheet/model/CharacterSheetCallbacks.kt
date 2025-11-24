@@ -24,4 +24,5 @@ data class CharacterSheetCallbacks(
     val onSpellSelected: (String) -> Unit = {},
     val onAddSpellsClicked: () -> Unit = {},
     val onOpenFullEditor: () -> Unit = {},
+    val onDeleteCharacter: () -> Unit = {},
 )

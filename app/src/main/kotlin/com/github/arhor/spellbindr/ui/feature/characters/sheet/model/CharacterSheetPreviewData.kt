@@ -12,8 +12,8 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.HitPointSummary
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.OverviewTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellcastingGroupUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 
 internal object CharacterSheetPreviewData {
@@ -65,24 +65,43 @@ internal object CharacterSheetPreviewData {
     )
 
     val spells = SpellsTabState(
-        spellcastingGroups = listOf(
-            SpellcastingGroupUiModel(
-                sourceKey = "Wizard",
-                sourceLabel = "Wizard",
+        spellLevels = listOf(
+            SpellLevelUiModel(
+                level = 0,
+                label = "Cantrips",
+                spellSlot = null,
                 spells = listOf(
                     CharacterSpellUiModel(
-                        spellId = "fireball",
-                        name = "Fireball",
-                        level = 3,
+                        spellId = "minor_illusion",
+                        name = "Minor Illusion",
+                        level = 0,
+                        school = "Illusion",
+                        castingTime = "1 action",
+                        sourceClass = "Wizard",
+                    )
+                ),
+            ),
+            SpellLevelUiModel(
+                level = 1,
+                label = "Level 1",
+                spellSlot = SpellSlotUiModel(level = 1, total = 4, expended = 1),
+                spells = listOf(
+                    CharacterSpellUiModel(
+                        spellId = "magic_missile",
+                        name = "Magic Missile",
+                        level = 1,
                         school = "Evocation",
                         castingTime = "1 action",
+                        sourceClass = "Wizard",
                     )
-                )
-            )
-        ),
-        spellSlots = listOf(
-            SpellSlotUiModel(level = 1, total = 4, expended = 1),
-            SpellSlotUiModel(level = 2, total = 3, expended = 2),
+                ),
+            ),
+            SpellLevelUiModel(
+                level = 2,
+                label = "Level 2",
+                spellSlot = SpellSlotUiModel(level = 2, total = 3, expended = 2),
+                spells = emptyList(),
+            ),
         ),
         canAddSpells = true,
     )

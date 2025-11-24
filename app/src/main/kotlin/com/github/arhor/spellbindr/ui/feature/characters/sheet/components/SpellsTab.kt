@@ -28,6 +28,7 @@ fun SpellsTab(
     callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
+    val hasSpells = spellsState.spellLevels.any { it.spells.isNotEmpty() }
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
@@ -43,30 +44,23 @@ fun SpellsTab(
                 Text("Add spells")
             }
         }
-        item {
-            SpellSlotsCard(
-                slots = spellsState.spellSlots,
-                editMode = editMode,
-                callbacks = callbacks,
-            )
-        }
-        if (spellsState.spellcastingGroups.isEmpty()) {
+        if (!hasSpells) {
             item {
                 Text(
                     text = "No spells linked to this character yet.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(vertical = 24.dp),
+                    modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
-        } else {
-            items(spellsState.spellcastingGroups) { group ->
-                SpellGroupCard(
-                    group = group,
-                    editMode = editMode,
-                    callbacks = callbacks,
-                )
-            }
+        }
+
+        items(spellsState.spellLevels) { spellLevel ->
+            SpellLevelCard(
+                spellLevel = spellLevel,
+                editMode = editMode,
+                callbacks = callbacks,
+            )
         }
     }
 }

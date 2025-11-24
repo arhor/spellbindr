@@ -87,9 +87,7 @@ fun CharacterEditorRoute(
             onInitiativeChanged = viewModel::onInitiativeChanged,
             onSpeedChanged = viewModel::onSpeedChanged,
             onHitDiceChanged = viewModel::onHitDiceChanged,
-            onSavingThrowBonusChanged = viewModel::onSavingThrowBonusChanged,
             onSavingThrowProficiencyChanged = viewModel::onSavingThrowProficiencyChanged,
-            onSkillBonusChanged = viewModel::onSkillBonusChanged,
             onSkillProficiencyChanged = viewModel::onSkillProficiencyChanged,
             onSkillExpertiseChanged = viewModel::onSkillExpertiseChanged,
             onSensesChanged = viewModel::onSensesChanged,
@@ -357,7 +355,6 @@ private fun CharacterEditorForm(
                 state.savingThrows.forEach { entry ->
                     SavingThrowRow(
                         entry = entry,
-                        onBonusChanged = { callbacks.onSavingThrowBonusChanged(entry.ability, it) },
                         onProficiencyChanged = { callbacks.onSavingThrowProficiencyChanged(entry.ability, it) },
                     )
                 }
@@ -368,7 +365,6 @@ private fun CharacterEditorForm(
                 state.skills.forEach { entry ->
                     SkillRow(
                         entry = entry,
-                        onBonusChanged = { callbacks.onSkillBonusChanged(entry.skill, it) },
                         onProficiencyChanged = { callbacks.onSkillProficiencyChanged(entry.skill, it) },
                         onExpertiseChanged = { callbacks.onSkillExpertiseChanged(entry.skill, it) },
                     )
@@ -538,7 +534,6 @@ private fun AbilityCard(
 @Composable
 private fun SavingThrowRow(
     entry: SavingThrowInputState,
-    onBonusChanged: (String) -> Unit,
     onProficiencyChanged: (Boolean) -> Unit,
 ) {
     Row(
@@ -556,12 +551,9 @@ private fun SavingThrowRow(
                 Text(text = "Proficient")
             }
         }
-        OutlinedTextField(
-            value = entry.bonus,
-            onValueChange = onBonusChanged,
-            label = { Text("Bonus") },
-            modifier = Modifier.width(96.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        Text(
+            text = formatModifier(entry.bonus),
+            style = MaterialTheme.typography.titleMedium,
         )
     }
 }
@@ -569,7 +561,6 @@ private fun SavingThrowRow(
 @Composable
 private fun SkillRow(
     entry: SkillInputState,
-    onBonusChanged: (String) -> Unit,
     onProficiencyChanged: (Boolean) -> Unit,
     onExpertiseChanged: (Boolean) -> Unit,
 ) {
@@ -599,12 +590,10 @@ private fun SkillRow(
                 )
                 Text(text = "Expertise")
             }
-            OutlinedTextField(
-                value = entry.bonus,
-                onValueChange = onBonusChanged,
-                label = { Text("Bonus") },
-                modifier = Modifier.width(96.dp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = formatModifier(entry.bonus),
+                style = MaterialTheme.typography.titleMedium,
             )
         }
     }
@@ -651,9 +640,7 @@ data class CharacterEditorCallbacks(
     val onInitiativeChanged: (String) -> Unit,
     val onSpeedChanged: (String) -> Unit,
     val onHitDiceChanged: (String) -> Unit,
-    val onSavingThrowBonusChanged: (Ability, String) -> Unit,
     val onSavingThrowProficiencyChanged: (Ability, Boolean) -> Unit,
-    val onSkillBonusChanged: (Skill, String) -> Unit,
     val onSkillProficiencyChanged: (Skill, Boolean) -> Unit,
     val onSkillExpertiseChanged: (Skill, Boolean) -> Unit,
     val onSensesChanged: (String) -> Unit,
@@ -695,9 +682,7 @@ private fun CharacterEditorScreenPreview() {
                 onInitiativeChanged = {},
                 onSpeedChanged = {},
                 onHitDiceChanged = {},
-                onSavingThrowBonusChanged = { _, _ -> },
                 onSavingThrowProficiencyChanged = { _, _ -> },
-                onSkillBonusChanged = { _, _ -> },
                 onSkillProficiencyChanged = { _, _ -> },
                 onSkillExpertiseChanged = { _, _ -> },
                 onSensesChanged = {},
@@ -739,8 +724,8 @@ private fun previewEditorState(): CharacterEditorUiState = CharacterEditorUiStat
     initiative = "2",
     speed = "30 ft",
     hitDice = "7d6",
-    savingThrows = SavingThrowInputState.defaults().map { it.copy(bonus = "2", proficient = true) },
-    skills = SkillInputState.defaults().map { it.copy(bonus = "4") },
+    savingThrows = SavingThrowInputState.defaults().map { it.copy(bonus = 2, proficient = true) },
+    skills = SkillInputState.defaults().map { it.copy(bonus = 4) },
     senses = "Darkvision 60 ft",
     languages = "Common, Elvish, Primordial",
     proficiencies = "Arcana, Investigation, Perception",
