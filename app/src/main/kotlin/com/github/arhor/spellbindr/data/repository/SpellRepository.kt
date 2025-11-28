@@ -22,6 +22,8 @@ class SpellRepository @Inject constructor(
     val favSpells: Flow<List<String>>
         get() = favSpellsDataStore.data.map { it ?: emptyList() }
 
+    suspend fun findSpellById(id: String): Spell? = allSpells.firstOrNull()?.find { it.id == id }
+
     suspend fun findSpellByName(name: String): Spell? = allSpells.firstOrNull()?.find { it.name == name }
 
     suspend fun findSpells(

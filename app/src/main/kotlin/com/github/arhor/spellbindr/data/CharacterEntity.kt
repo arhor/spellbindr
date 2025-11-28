@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.github.arhor.spellbindr.data.local.db.Converters
+import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.data.model.EntityRef
 
 @Entity(tableName = "characters")
@@ -11,14 +12,15 @@ import com.github.arhor.spellbindr.data.model.EntityRef
 data class CharacterEntity(
     @PrimaryKey
     val id: String,
-    val name: String,
-    val race: EntityRef,
-    val subrace: EntityRef?,
-    val classes: Map<EntityRef, Int>,
-    val background: EntityRef,
-    val abilityScores: Map<EntityRef, Int>,
-    val proficiencies: Set<EntityRef>,
-    val equipment: Set<EntityRef>,
-    val inventory: Map<EntityRef, Int>,
-    val spells: Set<EntityRef>,
+    val name: String = "",
+    val race: EntityRef = EntityRef("unknown"),
+    val subrace: EntityRef? = null,
+    val classes: Map<EntityRef, Int> = emptyMap(),
+    val background: EntityRef = EntityRef("unknown"),
+    val abilityScores: Map<EntityRef, Int> = emptyMap(),
+    val proficiencies: Set<EntityRef> = emptySet(),
+    val equipment: Set<EntityRef> = emptySet(),
+    val inventory: Map<EntityRef, Int> = emptyMap(),
+    val spells: Set<EntityRef> = emptySet(),
+    val manualSheet: CharacterSheetSnapshot? = null,
 )

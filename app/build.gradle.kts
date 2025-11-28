@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.hilt)
@@ -17,7 +19,7 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.github.arhor.spellbindr.HiltApplicationTestRunner"
     }
 
     buildTypes {
@@ -33,11 +35,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
@@ -66,11 +71,15 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    kspAndroidTest(libs.hilt.android.compiler)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.hilt.android.testing)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

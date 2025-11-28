@@ -15,4 +15,5 @@ data class CharacterClass(
     val startingEquipment: List<EquipmentRef>? = null,
 //    val startingEquipmentOptions: List<Choice>,
     val subclasses: List<Subclass>,
+    val levels: List<ClassLevel>,
 )

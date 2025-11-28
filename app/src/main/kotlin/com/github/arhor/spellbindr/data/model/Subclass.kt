@@ -9,4 +9,5 @@ data class Subclass(
     val desc: List<String>,
     val spells: List<SubclassSpell>? = null,
     val subclassFlavor: String,
+    val levels: List<ClassLevel>? = null,
 )
