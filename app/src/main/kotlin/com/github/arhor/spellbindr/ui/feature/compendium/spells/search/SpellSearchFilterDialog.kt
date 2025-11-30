@@ -158,10 +158,10 @@ private fun SearchFilterDialogPreview(isDarkTheme: Boolean) {
         SearchFilterDialog(
             showFilterDialog = true,
             castingClasses = listOf(
-                EntityRef(type = "class", name = "Wizard"),
-                EntityRef(type = "class", name = "Sorcerer"),
+                EntityRef(id = "wizard"),
+                EntityRef(id = "sorcerer"),
             ),
-            currentClasses = setOf(EntityRef(type = "class", name = "Wizard")),
+            currentClasses = setOf(EntityRef(id = "wizard")),
             onSubmit = {},
             onCancel = {},
         )

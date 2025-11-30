@@ -138,7 +138,7 @@ private fun AppTopBarPreview(isDarkTheme: Boolean) {
                         )
                     }
                 },
-            ) { padding ->
+            ) { innerPadding ->
                 WithAppTopBar(
                     config = AppTopBarConfig(
                         visible = true,
@@ -156,7 +156,7 @@ private fun AppTopBarPreview(isDarkTheme: Boolean) {
                 ) {
                     Text(
                         text = "Preview content",
-                        modifier = Modifier.padding(padding).padding(16.dp),
+                        modifier = Modifier.padding(innerPadding).padding(16.dp),
                     )
                 }
             }
