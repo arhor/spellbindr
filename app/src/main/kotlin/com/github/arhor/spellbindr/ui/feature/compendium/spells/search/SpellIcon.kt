@@ -16,8 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellIcon(
@@ -58,4 +60,23 @@ fun SpellIcon(
             )
         }
     }
-} 
+}
+
+@Preview
+@Composable
+private fun SpellIconLightPreview() {
+    SpellIconPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SpellIconDarkPreview() {
+    SpellIconPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SpellIconPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SpellIcon(spellName = "Arcane Blast")
+    }
+}

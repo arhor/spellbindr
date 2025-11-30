@@ -37,12 +37,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.compose.ui.tooling.preview.Preview
+import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellDetailScreen(
@@ -57,6 +61,21 @@ fun SpellDetailScreen(
     val spell = spellDetailState.spell
     val isFavorite = spellDetailState.isFavorite
 
+    SpellDetailContent(
+        spell = spell,
+        isFavorite = isFavorite,
+        onBackClick = onBackClick,
+        onToggleFavorite = spellDetailsVM::toggleFavorite,
+    )
+}
+
+@Composable
+private fun SpellDetailContent(
+    spell: Spell?,
+    isFavorite: Boolean,
+    onBackClick: () -> Unit,
+    onToggleFavorite: () -> Unit,
+) {
     WithAppTopBar(
         AppTopBarConfig(
             visible = true,
@@ -64,7 +83,7 @@ fun SpellDetailScreen(
             navigation = AppTopBarNavigation.Back(onBackClick),
             actions = {
                 IconButton(
-                    onClick = { spellDetailsVM.toggleFavorite() },
+                    onClick = onToggleFavorite,
                     enabled = spell != null,
                 ) {
                     if (isFavorite) {
@@ -122,6 +141,7 @@ fun SpellDetailScreen(
                         )
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
+
                         Row(
                             modifier = Modifier.padding(start = 15.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -230,5 +250,48 @@ private fun TableRow(label: String, content: @Composable () -> Unit) {
         ) {
             content()
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SpellDetailsLightPreview() {
+    SpellDetailsPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SpellDetailsDarkPreview() {
+    SpellDetailsPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SpellDetailsPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        val spell = Spell(
+            id = "arcane_blast",
+            name = "Arcane Blast",
+            desc = listOf(
+                "A surge of arcane energy leaps from your hands to strike a creature.",
+                "On a hit, the target takes 2d8 force damage.",
+            ),
+            level = 2,
+            range = "60 ft",
+            ritual = false,
+            school = EntityRef(type = "school", name = "Evocation"),
+            duration = "Instant",
+            castingTime = "1 action",
+            classes = listOf(EntityRef(type = "class", name = "Wizard")),
+            components = listOf("V", "S"),
+            concentration = false,
+            higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
+            source = "Homebrew",
+        )
+        SpellDetailContent(
+            spell = spell,
+            isFavorite = true,
+            onBackClick = {},
+            onToggleFavorite = {},
+        )
     }
 }

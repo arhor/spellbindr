@@ -95,21 +95,24 @@ private fun SavingThrowColumn(
 @Preview(showBackground = true)
 @Composable
 private fun SavingThrowsCardLightPreview() {
-    AppTheme(isDarkTheme = false) {
-        SavingThrowsCardPreview()
-    }
+    SavingThrowsCardPreview(isDarkTheme = false)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SavingThrowsCardDarkPreview() {
-    AppTheme(isDarkTheme = true) {
-        SavingThrowsCardPreview()
+    SavingThrowsCardPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SavingThrowsCardPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SavingThrowsCardPreviewContent()
     }
 }
 
 @Composable
-private fun SavingThrowsCardPreview() {
+private fun SavingThrowsCardPreviewContent() {
     Surface {
         Box(
             modifier = Modifier.padding(16.dp),

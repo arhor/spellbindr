@@ -34,7 +34,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SearchFilterDialog(
@@ -134,6 +136,34 @@ fun SearchFilterDialog(
                     }
                 }
             },
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SearchFilterDialogLightPreview() {
+    SearchFilterDialogPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SearchFilterDialogDarkPreview() {
+    SearchFilterDialogPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SearchFilterDialogPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SearchFilterDialog(
+            showFilterDialog = true,
+            castingClasses = listOf(
+                EntityRef(type = "class", name = "Wizard"),
+                EntityRef(type = "class", name = "Sorcerer"),
+            ),
+            currentClasses = setOf(EntityRef(type = "class", name = "Wizard")),
+            onSubmit = {},
+            onCancel = {},
         )
     }
 }

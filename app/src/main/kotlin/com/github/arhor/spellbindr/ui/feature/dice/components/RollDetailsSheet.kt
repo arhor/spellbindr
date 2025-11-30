@@ -22,11 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun RollDetailsSheetContent(
@@ -169,4 +171,38 @@ private fun CheckMode.detailLabel(): String = when (this) {
     CheckMode.NORMAL -> "Normal"
     CheckMode.ADVANTAGE -> "Advantage"
     CheckMode.DISADVANTAGE -> "Disadvantage"
+}
+
+@Preview
+@Composable
+private fun RollDetailsSheetLightPreview() {
+    RollDetailsSheetPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun RollDetailsSheetDarkPreview() {
+    RollDetailsSheetPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun RollDetailsSheetPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        RollDetailsSheetContent(
+            result = RollResult.CheckAmountResult(
+                check = CheckResult(
+                    mode = CheckMode.NORMAL,
+                    rolls = listOf(15),
+                    modifier = 2,
+                    keptRoll = 15,
+                    total = 17,
+                ),
+                amount = AmountResult(
+                    groups = listOf(DiceGroupResult(sides = 8, rolls = listOf(6, 5))),
+                    total = 11,
+                ),
+            ),
+            onClose = {},
+        )
+    }
 }
