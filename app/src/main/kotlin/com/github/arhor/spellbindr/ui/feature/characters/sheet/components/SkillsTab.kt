@@ -17,7 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.signed
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SkillsTab(
@@ -62,5 +65,24 @@ fun SkillsTab(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SkillsTabLightPreview() {
+    SkillsTabPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SkillsTabDarkPreview() {
+    SkillsTabPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SkillsTabPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SkillsTab(skills = CharacterSheetPreviewData.skills)
     }
 }

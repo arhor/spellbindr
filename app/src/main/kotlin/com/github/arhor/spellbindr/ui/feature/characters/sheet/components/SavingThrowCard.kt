@@ -102,21 +102,24 @@ private fun SavingThrowBonusCard(
 @Preview(showBackground = true)
 @Composable
 private fun SavingThrowCardLightPreview() {
-    AppTheme(isDarkTheme = false) {
-        SavingThrowCardPreview()
-    }
+    SavingThrowCardPreview(isDarkTheme = false)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SavingThrowCardDarkPreview() {
-    AppTheme(isDarkTheme = true) {
-        SavingThrowCardPreview()
+    SavingThrowCardPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SavingThrowCardPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SavingThrowCardPreviewContent()
     }
 }
 
 @Composable
-private fun SavingThrowCardPreview() {
+private fun SavingThrowCardPreviewContent() {
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),

@@ -187,21 +187,24 @@ private fun ContentDrawScope.createPath(shape: Shape): Path =
 @Preview(showBackground = true)
 @Composable
 private fun AbilityScoreCardLightPreview() {
-    AppTheme(isDarkTheme = false) {
-        AbilityScoreTokenPreview()
-    }
+    AbilityScoreCardPreview(isDarkTheme = false)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun AbilityScoreCardDarkPreview() {
-    AppTheme(isDarkTheme = true) {
-        AbilityScoreTokenPreview()
+    AbilityScoreCardPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun AbilityScoreCardPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        AbilityScoreCardPreviewContent()
     }
 }
 
 @Composable
-private fun AbilityScoreTokenPreview() {
+private fun AbilityScoreCardPreviewContent() {
     Surface {
         Box(modifier = Modifier.padding(6.dp)) {
             AbilityScoreCard(
