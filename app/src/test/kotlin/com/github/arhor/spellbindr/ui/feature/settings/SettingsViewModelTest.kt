@@ -5,12 +5,11 @@ import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.data.model.AppThemeMode
 import com.github.arhor.spellbindr.data.repository.ThemeRepository
 import com.google.common.truth.Truth.assertThat
+import io.mockk.coAnswers
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
-import io.mockk.firstArg
 import io.mockk.mockk
-import io.mockk.any
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
@@ -67,8 +66,8 @@ class SettingsViewModelTest {
         val repository = mockk<ThemeRepository> {
             every { themeMode } returns themeFlow
         }
-        coEvery { repository.setThemeMode(any()) } coAnswers {
-            themeFlow.value = firstArg()
+        coEvery { repository.setThemeMode(AppThemeMode.DARK) } coAnswers {
+            themeFlow.value = AppThemeMode.DARK
         }
 
         val viewModel = SettingsViewModel(repository)

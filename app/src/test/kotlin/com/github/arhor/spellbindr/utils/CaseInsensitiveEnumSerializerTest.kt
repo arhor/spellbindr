@@ -3,8 +3,8 @@ package com.github.arhor.spellbindr.utils
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.junit.Assert.assertThrows
 import org.junit.Test
-import kotlin.test.assertFailsWith
 
 class CaseInsensitiveEnumSerializerTest {
 
@@ -38,7 +38,7 @@ class CaseInsensitiveEnumSerializerTest {
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 
         // When
-        val result = assertFailsWith<IllegalArgumentException> {
+        val result = assertThrows(IllegalArgumentException::class.java) {
             Json.decodeFromString(serializer, "\"missing\"")
         }
 
