@@ -5,7 +5,6 @@ import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.data.model.AppThemeMode
 import com.github.arhor.spellbindr.data.repository.ThemeRepository
 import com.google.common.truth.Truth.assertThat
-import io.mockk.coAnswers
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -66,13 +65,13 @@ class SettingsViewModelTest {
         val repository = mockk<ThemeRepository> {
             every { themeMode } returns themeFlow
         }
-        coEvery { repository.setThemeMode(AppThemeMode.DARK) } coAnswers {
-            themeFlow.value = AppThemeMode.DARK
-        }
+        coEvery { repository.setThemeMode(AppThemeMode.DARK) } returns Unit
 
         val viewModel = SettingsViewModel(repository)
 
         viewModel.ensureThemeInitialized(defaultIsDark = true)
+        advanceUntilIdle()
+        themeFlow.value = AppThemeMode.DARK
         advanceUntilIdle()
 
         assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.DARK)
