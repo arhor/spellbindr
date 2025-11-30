@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.characters
 import com.github.arhor.spellbindr.data.model.CharacterSheet
 import com.github.arhor.spellbindr.data.model.DeathSaveState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.clearDeathSavesIfConscious
-import org.junit.Assert.assertEquals
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class CharacterSheetDeathSavesLogicTest {
@@ -18,9 +18,9 @@ class CharacterSheetDeathSavesLogicTest {
 
         val result = sheet.clearDeathSavesIfConscious()
 
-        assertEquals(5, result.currentHitPoints)
-        assertEquals(0, result.deathSaves.successes)
-        assertEquals(0, result.deathSaves.failures)
+        assertThat(result.currentHitPoints).isEqualTo(5)
+        assertThat(result.deathSaves.successes).isEqualTo(0)
+        assertThat(result.deathSaves.failures).isEqualTo(0)
     }
 
     @Test
@@ -33,9 +33,9 @@ class CharacterSheetDeathSavesLogicTest {
 
         val result = sheet.clearDeathSavesIfConscious()
 
-        assertEquals(0, result.currentHitPoints)
-        assertEquals(1, result.deathSaves.successes)
-        assertEquals(2, result.deathSaves.failures)
+        assertThat(result.currentHitPoints).isEqualTo(0)
+        assertThat(result.deathSaves.successes).isEqualTo(1)
+        assertThat(result.deathSaves.failures).isEqualTo(2)
     }
 }
 

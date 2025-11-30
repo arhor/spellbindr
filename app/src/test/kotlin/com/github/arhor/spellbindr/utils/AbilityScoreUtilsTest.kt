@@ -1,8 +1,7 @@
 package com.github.arhor.spellbindr.utils
 
 import com.github.arhor.spellbindr.data.model.predefined.Ability
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class AbilityScoreUtilsTest {
@@ -16,7 +15,7 @@ class AbilityScoreUtilsTest {
         val results = scores.mapValues { (score, _) -> calculateAbilityScoreModifier(score) }
 
         // Then
-        assertEquals(scores, results)
+        assertThat(results).isEqualTo(scores)
     }
 
     @Test
@@ -25,7 +24,7 @@ class AbilityScoreUtilsTest {
         val values = listOf(5, 0, -3).map(::signed)
 
         // Then
-        assertEquals(listOf("+5", "+0", "-3"), values)
+        assertThat(values).containsExactly("+5", "+0", "-3").inOrder()
     }
 
     @Test
@@ -41,7 +40,7 @@ class AbilityScoreUtilsTest {
         val result = modifiers.asCommaSeparatedString()
 
         // Then
-        assertEquals("STR: +2, CON: -1", result)
+        assertThat(result).isEqualTo("STR: +2, CON: -1")
     }
 
     @Test
@@ -53,7 +52,7 @@ class AbilityScoreUtilsTest {
         val cost = calculatePointBuyCost(scores)
 
         // Then
-        assertEquals(9 + 4 + 0 + 2 + 5, cost)
+        assertThat(cost).isEqualTo(9 + 4 + 0 + 2 + 5)
     }
 
     @Test
@@ -62,7 +61,7 @@ class AbilityScoreUtilsTest {
         val modifier = calculateModifier(9)
 
         // Then
-        assertEquals(-1, modifier)
+        assertThat(modifier).isEqualTo(-1)
     }
 
     @Test
@@ -71,8 +70,8 @@ class AbilityScoreUtilsTest {
         val scores = roll4d6DropLowest()
 
         // Then
-        assertEquals(6, scores.size)
-        assertTrue(scores.all { it in 3..18 })
+        assertThat(scores).hasSize(6)
+        assertThat(scores.all { it in 3..18 }).isTrue()
     }
 
     @Test
@@ -94,9 +93,9 @@ class AbilityScoreUtilsTest {
         )
 
         // Then
-        assertEquals(assignedScores, abilityScores.scores)
-        assertEquals(mapOf("STR" to 2, "DEX" to 2, "CON" to 1, "INT" to 1, "WIS" to 0, "CHA" to -1), abilityScores.modifiers)
-        assertEquals(null, abilityScores.pointBuyCost)
+        assertThat(abilityScores.scores).isEqualTo(assignedScores)
+        assertThat(abilityScores.modifiers).isEqualTo(mapOf("STR" to 2, "DEX" to 2, "CON" to 1, "INT" to 1, "WIS" to 0, "CHA" to -1))
+        assertThat(abilityScores.pointBuyCost).isNull()
     }
 
     @Test
@@ -118,8 +117,8 @@ class AbilityScoreUtilsTest {
         )
 
         // Then
-        assertEquals(assignedScores, abilityScores.scores)
-        assertEquals(mapOf("STR" to 2, "DEX" to 1, "CON" to 0, "INT" to 1, "WIS" to 2, "CHA" to -1), abilityScores.modifiers)
-        assertEquals(9 + 4 + 2 + 5 + 7 + 0, abilityScores.pointBuyCost)
-    }
+        assertThat(abilityScores.scores).isEqualTo(assignedScores)
+        assertThat(abilityScores.modifiers).isEqualTo(mapOf("STR" to 2, "DEX" to 1, "CON" to 0, "INT" to 1, "WIS" to 2, "CHA" to -1))
+        assertThat(abilityScores.pointBuyCost).isEqualTo(9 + 4 + 2 + 5 + 7 + 0)
+}
 }

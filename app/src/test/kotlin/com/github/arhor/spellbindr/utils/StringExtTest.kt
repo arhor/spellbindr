@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.utils
 
-import org.junit.Assert.assertEquals
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class StringExtTest {
@@ -11,6 +11,6 @@ class StringExtTest {
         val result = "  elDRitCh  BlaST  ".toTitleCase()
 
         // Then
-        assertEquals("Eldritch Blast", result)
+        assertThat(result).isEqualTo("Eldritch Blast")
     }
 }

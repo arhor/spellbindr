@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.utils
 
 import com.github.arhor.spellbindr.data.model.next.Reference
+import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ReferenceSerializerTest {
@@ -13,7 +13,7 @@ class ReferenceSerializerTest {
         val encoded = Json.encodeToString(ReferenceSerializer, Reference("spell-123"))
 
         // Then
-        assertEquals("\"spell-123\"", encoded)
+        assertThat(encoded).isEqualTo("\"spell-123\"")
     }
 
     @Test
@@ -22,6 +22,6 @@ class ReferenceSerializerTest {
         val decoded = Json.decodeFromString(ReferenceSerializer, "\"spell-123\"")
 
         // Then
-        assertEquals(Reference("spell-123"), decoded)
+        assertThat(decoded).isEqualTo(Reference("spell-123"))
     }
 }

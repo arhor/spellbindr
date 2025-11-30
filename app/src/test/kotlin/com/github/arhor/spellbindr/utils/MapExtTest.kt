@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.utils
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotSame
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class MapExtTest {
@@ -15,8 +14,8 @@ class MapExtTest {
         val result = original.copy { this["c"] = 3 }
 
         // Then
-        assertNotSame(original, result)
-        assertEquals(mapOf("a" to 1, "b" to 2, "c" to 3), result)
-        assertEquals(mapOf("a" to 1, "b" to 2), original)
+        assertThat(result).isNotSameInstanceAs(original)
+        assertThat(result).containsExactlyEntriesIn(mapOf("a" to 1, "b" to 2, "c" to 3))
+        assertThat(original).containsExactlyEntriesIn(mapOf("a" to 1, "b" to 2))
     }
 }

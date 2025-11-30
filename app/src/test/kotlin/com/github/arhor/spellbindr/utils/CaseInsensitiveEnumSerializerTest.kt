@@ -1,11 +1,10 @@
 package com.github.arhor.spellbindr.utils
 
+import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.Assert.assertThrows
+import kotlin.test.assertFailsWith
 
 class CaseInsensitiveEnumSerializerTest {
 
@@ -18,7 +17,7 @@ class CaseInsensitiveEnumSerializerTest {
         val encoded = Json.encodeToString(serializer, Example.LONG_NAME)
 
         // Then
-        assertEquals("\"long-name\"", encoded)
+        assertThat(encoded).isEqualTo("\"long-name\"")
     }
 
     @Test
@@ -30,7 +29,7 @@ class CaseInsensitiveEnumSerializerTest {
         val decoded = Json.decodeFromString(serializer, "\"LoNg-NaMe\"")
 
         // Then
-        assertEquals(Example.LONG_NAME, decoded)
+        assertThat(decoded).isEqualTo(Example.LONG_NAME)
     }
 
     @Test
@@ -39,12 +38,12 @@ class CaseInsensitiveEnumSerializerTest {
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 
         // When
-        val result = assertThrows(IllegalArgumentException::class.java) {
+        val result = assertFailsWith<IllegalArgumentException> {
             Json.decodeFromString(serializer, "\"missing\"")
         }
 
         // Then
-        assertTrue(result.message!!.contains("missing"))
+        assertThat(result).hasMessageThat().contains("missing")
     }
 
     private enum class Example {

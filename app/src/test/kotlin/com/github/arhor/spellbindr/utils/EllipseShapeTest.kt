@@ -4,8 +4,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -22,8 +21,8 @@ class EllipseShapeTest {
         val outline = EllipseShape.createOutline(size, LayoutDirection.Ltr, Density(1f))
 
         // Then
-        assertTrue(outline is Outline.Generic)
+        assertThat(outline).isInstanceOf(Outline.Generic::class.java)
         val path = (outline as Outline.Generic).path
-        assertFalse(path.isEmpty)
+        assertThat(path.isEmpty).isFalse()
     }
 }
