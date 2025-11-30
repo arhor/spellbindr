@@ -5,7 +5,7 @@ import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.test.assertFailsWith
+import org.junit.Assert.assertThrows
 
 class CaseInsensitiveEnumSerializerTest {
 
@@ -39,7 +39,7 @@ class CaseInsensitiveEnumSerializerTest {
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 
         // When
-        val result = assertFailsWith<IllegalArgumentException> {
+        val result = assertThrows(IllegalArgumentException::class.java) {
             Json.decodeFromString(serializer, "\"missing\"")
         }
 
