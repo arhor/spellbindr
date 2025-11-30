@@ -14,10 +14,11 @@ object EllipseShape : Shape {
         layoutDirection: LayoutDirection,
         density: Density
     ): Outline {
-        return Outline.Generic(
-            path = Path().apply {
-                addOval(size.toRect())
-            }
-        )
+        val rect = size.toRect()
+        val path = Path().apply {
+            addOval(rect)
+            close()
+        }
+        return Outline.Generic(path)
     }
 }

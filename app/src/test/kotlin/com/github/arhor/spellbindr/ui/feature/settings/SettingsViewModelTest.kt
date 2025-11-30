@@ -69,6 +69,7 @@ class SettingsViewModelTest {
 
         val viewModel = SettingsViewModel(repository)
 
+        advanceUntilIdle()
         viewModel.ensureThemeInitialized(defaultIsDark = true)
         advanceUntilIdle()
         themeFlow.value = AppThemeMode.DARK
