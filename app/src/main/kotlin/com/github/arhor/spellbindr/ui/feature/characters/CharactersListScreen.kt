@@ -47,7 +47,7 @@ fun CharactersListRoute(
 }
 
 @Composable
-fun CharactersListScreen(
+private fun CharactersListScreen(
     uiState: CharactersListUiState,
     onCharacterSelected: (String) -> Unit,
     onCreateCharacter: () -> Unit,

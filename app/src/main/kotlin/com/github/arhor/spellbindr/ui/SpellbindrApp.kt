@@ -37,8 +37,8 @@ import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRou
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
@@ -206,7 +206,7 @@ fun SpellbindrApp(
                         val racesViewModel: RacesViewModel = hiltViewModel(entry)
                         val racesState by racesViewModel.state.collectAsState()
 
-                        CompendiumScreen(
+                        CompendiumRoute(
                             spellSearchState = spellSearchState,
                             onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
                             onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
@@ -231,7 +231,7 @@ fun SpellbindrApp(
                             viewModel.loadSpell(args.spellId)
                         }
 
-                        SpellDetailScreen(
+                        SpellDetailRoute(
                             state = state,
                             onBackClick = { controller.navigateUp() },
                             onToggleFavorite = viewModel::toggleFavorite,

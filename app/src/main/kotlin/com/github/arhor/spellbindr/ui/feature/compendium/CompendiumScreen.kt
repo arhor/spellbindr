@@ -21,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.WithAppTopBar
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
@@ -33,7 +33,42 @@ import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.predefined.Condition
 
 @Composable
-fun CompendiumScreen(
+fun CompendiumRoute(
+    spellSearchState: SpellSearchViewModel.State,
+    modifier: Modifier = Modifier,
+    onSpellSelected: (String) -> Unit = {},
+    onSpellQueryChanged: (String) -> Unit,
+    onSpellFiltersClick: () -> Unit,
+    onSpellFavoriteClick: () -> Unit,
+    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
+    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
+    conditionsState: ConditionsViewModel.State,
+    onConditionClick: (Condition) -> Unit,
+    alignmentsState: AlignmentsViewModel.State,
+    onAlignmentClick: (String) -> Unit,
+    racesState: RacesViewModel.State,
+    onRaceClick: (String) -> Unit,
+) {
+    CompendiumScreen(
+        spellSearchState = spellSearchState,
+        onSpellSelected = onSpellSelected,
+        onSpellQueryChanged = onSpellQueryChanged,
+        onSpellFiltersClick = onSpellFiltersClick,
+        onSpellFavoriteClick = onSpellFavoriteClick,
+        onSpellSubmitFilters = onSpellSubmitFilters,
+        onSpellCancelFilters = onSpellCancelFilters,
+        conditionsState = conditionsState,
+        onConditionClick = onConditionClick,
+        alignmentsState = alignmentsState,
+        onAlignmentClick = onAlignmentClick,
+        racesState = racesState,
+        onRaceClick = onRaceClick,
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun CompendiumScreen(
     spellSearchState: SpellSearchViewModel.State,
     modifier: Modifier = Modifier,
     onSpellSelected: (String) -> Unit = {},
@@ -87,21 +122,21 @@ fun CompendiumScreen(
                         }
 
                         CompendiumSection.Conditions -> {
-                            ConditionsScreen(
+                            ConditionsRoute(
                                 state = conditionsState,
                                 onConditionClick = onConditionClick,
                             )
                         }
 
                         CompendiumSection.Alignments -> {
-                            AlignmentsScreen(
+                            AlignmentsRoute(
                                 state = alignmentsState,
                                 onAlignmentClick = onAlignmentClick,
                             )
                         }
 
                         CompendiumSection.Races -> {
-                            RacesScreen(
+                            RacesRoute(
                                 state = racesState,
                                 onRaceClick = onRaceClick,
                             )

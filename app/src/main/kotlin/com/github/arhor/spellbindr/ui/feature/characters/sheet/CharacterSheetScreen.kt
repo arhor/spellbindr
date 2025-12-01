@@ -49,7 +49,7 @@ fun CharacterSheetRoute(
 }
 
 @Composable
-fun CharacterSheetScreen(
+private fun CharacterSheetScreen(
     state: CharacterSheetUiState,
     onBack: () -> Unit,
     callbacks: CharacterSheetCallbacks = CharacterSheetCallbacks(),

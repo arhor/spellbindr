@@ -16,7 +16,18 @@ import com.github.arhor.spellbindr.ui.components.SelectableGrid
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel.State
 
 @Composable
-fun AlignmentsScreen(
+fun AlignmentsRoute(
+    state: State,
+    onAlignmentClick: (String) -> Unit,
+) {
+    AlignmentsScreen(
+        state = state,
+        onAlignmentClick = onAlignmentClick,
+    )
+}
+
+@Composable
+private fun AlignmentsScreen(
     state: State,
     onAlignmentClick: (String) -> Unit,
 ) {

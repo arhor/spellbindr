@@ -14,7 +14,18 @@ import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel.State
 
 @Composable
-fun ConditionsScreen(
+fun ConditionsRoute(
+    state: State,
+    onConditionClick: (Condition) -> Unit,
+) {
+    ConditionsScreen(
+        state = state,
+        onConditionClick = onConditionClick,
+    )
+}
+
+@Composable
+private fun ConditionsScreen(
     state: State,
     onConditionClick: (Condition) -> Unit,
 ) {

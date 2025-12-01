@@ -13,7 +13,18 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel.State
 
 @Composable
-fun RacesScreen(
+fun RacesRoute(
+    state: State,
+    onRaceClick: (String) -> Unit,
+) {
+    RacesScreen(
+        state = state,
+        onRaceClick = onRaceClick,
+    )
+}
+
+@Composable
+private fun RacesScreen(
     state: State,
     onRaceClick: (String) -> Unit,
 ) {

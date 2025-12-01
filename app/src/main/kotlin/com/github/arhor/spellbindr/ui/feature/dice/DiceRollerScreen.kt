@@ -58,7 +58,7 @@ fun DiceRollerRoute(
 }
 
 @Composable
-fun DiceRollerScreen(
+private fun DiceRollerScreen(
     state: DiceRollerState,
     onIntent: (DiceRollerIntent) -> Unit,
     modifier: Modifier = Modifier,

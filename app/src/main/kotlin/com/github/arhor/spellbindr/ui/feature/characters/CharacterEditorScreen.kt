@@ -76,7 +76,7 @@ fun CharacterEditorRoute(
 }
 
 @Composable
-fun CharacterEditorScreen(
+private fun CharacterEditorScreen(
     state: CharacterEditorUiState,
     callbacks: CharacterEditorCallbacks,
     snackbarHostState: SnackbarHostState,

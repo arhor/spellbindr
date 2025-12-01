@@ -47,24 +47,21 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel.State
 
 @Composable
-fun SpellDetailScreen(
+fun SpellDetailRoute(
     state: State,
     onBackClick: () -> Unit = {},
     onToggleFavorite: () -> Unit,
 ) {
-    val spell = state.spell
-    val isFavorite = state.isFavorite
-
-    SpellDetailContent(
-        spell = spell,
-        isFavorite = isFavorite,
+    SpellDetailScreen(
+        spell = state.spell,
+        isFavorite = state.isFavorite,
         onBackClick = onBackClick,
         onToggleFavorite = onToggleFavorite,
     )
 }
 
 @Composable
-private fun SpellDetailContent(
+private fun SpellDetailScreen(
     spell: Spell?,
     isFavorite: Boolean,
     onBackClick: () -> Unit,
@@ -281,7 +278,7 @@ private fun SpellDetailsPreview(isDarkTheme: Boolean) {
             higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
             source = "Homebrew",
         )
-        SpellDetailContent(
+        SpellDetailScreen(
             spell = spell,
             isFavorite = true,
             onBackClick = {},
