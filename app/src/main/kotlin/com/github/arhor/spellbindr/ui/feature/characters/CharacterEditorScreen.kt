@@ -46,20 +46,57 @@ import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun CharacterEditorRoute(
-    state: CharacterEditorUiState,
-    events: Flow<CharacterEditorEvent>,
-    callbacks: CharacterEditorCallbacks,
+    viewModel: CharacterEditorViewModel,
+    onBack: () -> Unit,
     onFinished: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val state by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(events) {
-        events.collect { event ->
+    val callbacks = remember(viewModel, onBack) {
+        CharacterEditorCallbacks(
+            onBack = onBack,
+            onNameChanged = viewModel::onNameChanged,
+            onClassChanged = viewModel::onClassChanged,
+            onLevelChanged = viewModel::onLevelChanged,
+            onRaceChanged = viewModel::onRaceChanged,
+            onBackgroundChanged = viewModel::onBackgroundChanged,
+            onAlignmentChanged = viewModel::onAlignmentChanged,
+            onExperienceChanged = viewModel::onExperienceChanged,
+            onAbilityChanged = viewModel::onAbilityChanged,
+            onProficiencyBonusChanged = viewModel::onProficiencyBonusChanged,
+            onInspirationChanged = viewModel::onInspirationChanged,
+            onMaxHpChanged = viewModel::onMaxHpChanged,
+            onCurrentHpChanged = viewModel::onCurrentHpChanged,
+            onTemporaryHpChanged = viewModel::onTemporaryHpChanged,
+            onArmorClassChanged = viewModel::onArmorClassChanged,
+            onInitiativeChanged = viewModel::onInitiativeChanged,
+            onSpeedChanged = viewModel::onSpeedChanged,
+            onHitDiceChanged = viewModel::onHitDiceChanged,
+            onSavingThrowProficiencyChanged = viewModel::onSavingThrowProficiencyChanged,
+            onSkillProficiencyChanged = viewModel::onSkillProficiencyChanged,
+            onSkillExpertiseChanged = viewModel::onSkillExpertiseChanged,
+            onSensesChanged = viewModel::onSensesChanged,
+            onLanguagesChanged = viewModel::onLanguagesChanged,
+            onProficienciesChanged = viewModel::onProficienciesChanged,
+            onAttacksChanged = viewModel::onAttacksChanged,
+            onFeaturesChanged = viewModel::onFeaturesChanged,
+            onEquipmentChanged = viewModel::onEquipmentChanged,
+            onPersonalityTraitsChanged = viewModel::onPersonalityTraitsChanged,
+            onIdealsChanged = viewModel::onIdealsChanged,
+            onBondsChanged = viewModel::onBondsChanged,
+            onFlawsChanged = viewModel::onFlawsChanged,
+            onNotesChanged = viewModel::onNotesChanged,
+            onSave = viewModel::onSaveClicked,
+        )
+    }
+
+    LaunchedEffect(viewModel.events) {
+        viewModel.events.collect { event ->
             when (event) {
                 CharacterEditorEvent.Saved -> onFinished()
                 is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)

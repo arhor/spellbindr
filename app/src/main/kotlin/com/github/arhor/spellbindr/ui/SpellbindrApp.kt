@@ -30,7 +30,6 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
@@ -115,46 +114,10 @@ fun SpellbindrApp(
                     }
                     composable<AppDestination.CharacterEditor> { entry ->
                         val viewModel: CharacterEditorViewModel = hiltViewModel(entry)
-                        val state by viewModel.uiState.collectAsState()
 
                         CharacterEditorRoute(
-                            state = state,
-                            events = viewModel.events,
-                            callbacks = CharacterEditorCallbacks(
-                                onBack = { controller.navigateUp() },
-                                onNameChanged = viewModel::onNameChanged,
-                                onClassChanged = viewModel::onClassChanged,
-                                onLevelChanged = viewModel::onLevelChanged,
-                                onRaceChanged = viewModel::onRaceChanged,
-                                onBackgroundChanged = viewModel::onBackgroundChanged,
-                                onAlignmentChanged = viewModel::onAlignmentChanged,
-                                onExperienceChanged = viewModel::onExperienceChanged,
-                                onAbilityChanged = viewModel::onAbilityChanged,
-                                onProficiencyBonusChanged = viewModel::onProficiencyBonusChanged,
-                                onInspirationChanged = viewModel::onInspirationChanged,
-                                onMaxHpChanged = viewModel::onMaxHpChanged,
-                                onCurrentHpChanged = viewModel::onCurrentHpChanged,
-                                onTemporaryHpChanged = viewModel::onTemporaryHpChanged,
-                                onArmorClassChanged = viewModel::onArmorClassChanged,
-                                onInitiativeChanged = viewModel::onInitiativeChanged,
-                                onSpeedChanged = viewModel::onSpeedChanged,
-                                onHitDiceChanged = viewModel::onHitDiceChanged,
-                                onSavingThrowProficiencyChanged = viewModel::onSavingThrowProficiencyChanged,
-                                onSkillProficiencyChanged = viewModel::onSkillProficiencyChanged,
-                                onSkillExpertiseChanged = viewModel::onSkillExpertiseChanged,
-                                onSensesChanged = viewModel::onSensesChanged,
-                                onLanguagesChanged = viewModel::onLanguagesChanged,
-                                onProficienciesChanged = viewModel::onProficienciesChanged,
-                                onAttacksChanged = viewModel::onAttacksChanged,
-                                onFeaturesChanged = viewModel::onFeaturesChanged,
-                                onEquipmentChanged = viewModel::onEquipmentChanged,
-                                onPersonalityTraitsChanged = viewModel::onPersonalityTraitsChanged,
-                                onIdealsChanged = viewModel::onIdealsChanged,
-                                onBondsChanged = viewModel::onBondsChanged,
-                                onFlawsChanged = viewModel::onFlawsChanged,
-                                onNotesChanged = viewModel::onNotesChanged,
-                                onSave = viewModel::onSaveClicked,
-                            ),
+                            viewModel = viewModel,
+                            onBack = { controller.navigateUp() },
                             onFinished = { controller.navigateUp() },
                         )
                     }
