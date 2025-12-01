@@ -8,17 +8,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel.State
 
 @Composable
 fun RacesScreen(
-    viewModel: RacesViewModel = hiltViewModel(),
+    state: State,
+    onRaceClick: (String) -> Unit,
 ) {
-    val state by viewModel.state.collectAsState()
     val listState = rememberLazyListState()
 
     LaunchedEffect(state) {
@@ -48,7 +46,7 @@ fun RacesScreen(
                 race = it,
                 traits = state.traits,
                 isExpanded = it.name == state.expandedItemName,
-                onItemClick = { viewModel.handleRaceClick(it.name) }
+                onItemClick = { onRaceClick(it.name) }
             )
         }
     }

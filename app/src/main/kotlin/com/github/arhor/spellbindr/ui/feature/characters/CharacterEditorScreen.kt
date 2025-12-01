@@ -40,25 +40,26 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun CharacterEditorRoute(
+    state: CharacterEditorUiState,
+    events: Flow<CharacterEditorEvent>,
+    callbacks: CharacterEditorCallbacks,
     onFinished: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CharacterEditorViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(viewModel) {
-        viewModel.events.collect { event ->
+    LaunchedEffect(events) {
+        events.collect { event ->
             when (event) {
                 CharacterEditorEvent.Saved -> onFinished()
                 is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)
@@ -68,41 +69,7 @@ fun CharacterEditorRoute(
 
     CharacterEditorScreen(
         state = state,
-        callbacks = CharacterEditorCallbacks(
-            onBack = onFinished,
-            onNameChanged = viewModel::onNameChanged,
-            onClassChanged = viewModel::onClassChanged,
-            onLevelChanged = viewModel::onLevelChanged,
-            onRaceChanged = viewModel::onRaceChanged,
-            onBackgroundChanged = viewModel::onBackgroundChanged,
-            onAlignmentChanged = viewModel::onAlignmentChanged,
-            onExperienceChanged = viewModel::onExperienceChanged,
-            onAbilityChanged = viewModel::onAbilityChanged,
-            onProficiencyBonusChanged = viewModel::onProficiencyBonusChanged,
-            onInspirationChanged = viewModel::onInspirationChanged,
-            onMaxHpChanged = viewModel::onMaxHpChanged,
-            onCurrentHpChanged = viewModel::onCurrentHpChanged,
-            onTemporaryHpChanged = viewModel::onTemporaryHpChanged,
-            onArmorClassChanged = viewModel::onArmorClassChanged,
-            onInitiativeChanged = viewModel::onInitiativeChanged,
-            onSpeedChanged = viewModel::onSpeedChanged,
-            onHitDiceChanged = viewModel::onHitDiceChanged,
-            onSavingThrowProficiencyChanged = viewModel::onSavingThrowProficiencyChanged,
-            onSkillProficiencyChanged = viewModel::onSkillProficiencyChanged,
-            onSkillExpertiseChanged = viewModel::onSkillExpertiseChanged,
-            onSensesChanged = viewModel::onSensesChanged,
-            onLanguagesChanged = viewModel::onLanguagesChanged,
-            onProficienciesChanged = viewModel::onProficienciesChanged,
-            onAttacksChanged = viewModel::onAttacksChanged,
-            onFeaturesChanged = viewModel::onFeaturesChanged,
-            onEquipmentChanged = viewModel::onEquipmentChanged,
-            onPersonalityTraitsChanged = viewModel::onPersonalityTraitsChanged,
-            onIdealsChanged = viewModel::onIdealsChanged,
-            onBondsChanged = viewModel::onBondsChanged,
-            onFlawsChanged = viewModel::onFlawsChanged,
-            onNotesChanged = viewModel::onNotesChanged,
-            onSave = viewModel::onSaveClicked,
-        ),
+        callbacks = callbacks,
         snackbarHostState = snackbarHostState,
         modifier = modifier,
     )

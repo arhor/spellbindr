@@ -16,7 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -30,16 +30,30 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerScreen
+import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.CharactersListViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
+import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SpellbindrApp(
@@ -74,8 +88,12 @@ fun SpellbindrApp(
                     startDestination = AppDestination.CharactersHome,
                     modifier = Modifier.padding(innerPadding),
                 ) {
-                    composable<AppDestination.CharactersHome> {
+                    composable<AppDestination.CharactersHome> { entry ->
+                        val viewModel: CharactersListViewModel = hiltViewModel(entry)
+                        val uiState by viewModel.uiState.collectAsState()
+
                         CharactersListRoute(
+                            uiState = uiState,
                             onCharacterSelected = { characterId ->
                                 controller.navigate(
                                     AppDestination.CharacterSheet(characterId = characterId)
@@ -85,46 +103,175 @@ fun SpellbindrApp(
                         )
                     }
                     composable<AppDestination.CharacterSheet> { entry ->
+                        val viewModel: CharacterSheetViewModel = hiltViewModel(entry)
+                        val state by viewModel.uiState.collectAsState()
+
+                        LaunchedEffect(entry.savedStateHandle) {
+                            entry.savedStateHandle
+                                .getStateFlow<List<CharacterSpellAssignment>?>(
+                                    CHARACTER_SPELL_SELECTION_RESULT_KEY,
+                                    null,
+                                )
+                                .collectLatest { assignments ->
+                                    if (!assignments.isNullOrEmpty()) {
+                                        viewModel.addSpells(assignments)
+                                        entry.savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
+                                    }
+                                }
+                        }
+
                         CharacterSheetRoute(
+                            state = state,
                             onBack = { controller.navigateUp() },
-                            onEditCharacter = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
-                            onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
-                            onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) },
-                            onCharacterDeleted = { controller.navigateUp() },
-                            savedStateHandle = entry.savedStateHandle,
+                            callbacks = CharacterSheetCallbacks(
+                                onTabSelected = viewModel::onTabSelected,
+                                onEnterEdit = viewModel::enterEditMode,
+                                onCancelEdit = viewModel::cancelEditMode,
+                                onSaveEdits = viewModel::saveInlineEdits,
+                                onAdjustHp = viewModel::adjustCurrentHp,
+                                onTempHpChanged = viewModel::setTemporaryHp,
+                                onMaxHpEdited = viewModel::onMaxHpEdited,
+                                onCurrentHpEdited = viewModel::onCurrentHpEdited,
+                                onTempHpEdited = viewModel::onTemporaryHpEdited,
+                                onSpeedEdited = viewModel::onSpeedEdited,
+                                onHitDiceEdited = viewModel::onHitDiceEdited,
+                                onSensesEdited = viewModel::onSensesEdited,
+                                onLanguagesEdited = viewModel::onLanguagesEdited,
+                                onProficienciesEdited = viewModel::onProficienciesEdited,
+                                onEquipmentEdited = viewModel::onEquipmentEdited,
+                                onDeathSaveSuccessesChanged = viewModel::setDeathSaveSuccesses,
+                                onDeathSaveFailuresChanged = viewModel::setDeathSaveFailures,
+                                onSpellSlotToggle = viewModel::toggleSpellSlot,
+                                onSpellSlotTotalChanged = viewModel::setSpellSlotTotal,
+                                onSpellRemoved = viewModel::removeSpell,
+                                onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
+                                onAddSpellsClicked = { state.characterId?.let { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) } },
+                                onOpenFullEditor = { state.characterId?.let { controller.navigate(AppDestination.CharacterEditor(characterId = it)) } },
+                                onDeleteCharacter = { viewModel.deleteCharacter { controller.navigateUp() } },
+                            ),
                         )
                     }
-                    composable<AppDestination.CharacterEditor> {
+                    composable<AppDestination.CharacterEditor> { entry ->
+                        val viewModel: CharacterEditorViewModel = hiltViewModel(entry)
+                        val state by viewModel.uiState.collectAsState()
+
                         CharacterEditorRoute(
+                            state = state,
+                            events = viewModel.events,
+                            callbacks = CharacterEditorCallbacks(
+                                onBack = { controller.navigateUp() },
+                                onNameChanged = viewModel::onNameChanged,
+                                onClassChanged = viewModel::onClassChanged,
+                                onLevelChanged = viewModel::onLevelChanged,
+                                onRaceChanged = viewModel::onRaceChanged,
+                                onBackgroundChanged = viewModel::onBackgroundChanged,
+                                onAlignmentChanged = viewModel::onAlignmentChanged,
+                                onExperienceChanged = viewModel::onExperienceChanged,
+                                onAbilityChanged = viewModel::onAbilityChanged,
+                                onProficiencyBonusChanged = viewModel::onProficiencyBonusChanged,
+                                onInspirationChanged = viewModel::onInspirationChanged,
+                                onMaxHpChanged = viewModel::onMaxHpChanged,
+                                onCurrentHpChanged = viewModel::onCurrentHpChanged,
+                                onTemporaryHpChanged = viewModel::onTemporaryHpChanged,
+                                onArmorClassChanged = viewModel::onArmorClassChanged,
+                                onInitiativeChanged = viewModel::onInitiativeChanged,
+                                onSpeedChanged = viewModel::onSpeedChanged,
+                                onHitDiceChanged = viewModel::onHitDiceChanged,
+                                onSavingThrowProficiencyChanged = viewModel::onSavingThrowProficiencyChanged,
+                                onSkillProficiencyChanged = viewModel::onSkillProficiencyChanged,
+                                onSkillExpertiseChanged = viewModel::onSkillExpertiseChanged,
+                                onSensesChanged = viewModel::onSensesChanged,
+                                onLanguagesChanged = viewModel::onLanguagesChanged,
+                                onProficienciesChanged = viewModel::onProficienciesChanged,
+                                onAttacksChanged = viewModel::onAttacksChanged,
+                                onFeaturesChanged = viewModel::onFeaturesChanged,
+                                onEquipmentChanged = viewModel::onEquipmentChanged,
+                                onPersonalityTraitsChanged = viewModel::onPersonalityTraitsChanged,
+                                onIdealsChanged = viewModel::onIdealsChanged,
+                                onBondsChanged = viewModel::onBondsChanged,
+                                onFlawsChanged = viewModel::onFlawsChanged,
+                                onNotesChanged = viewModel::onNotesChanged,
+                                onSave = viewModel::onSaveClicked,
+                            ),
                             onFinished = { controller.navigateUp() },
                         )
                     }
-                    composable<AppDestination.Compendium> {
+                    composable<AppDestination.Compendium> { entry ->
+                        val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
+                        val spellSearchState by spellSearchViewModel.state.collectAsState()
+                        val conditionsViewModel: ConditionsViewModel = hiltViewModel(entry)
+                        val conditionsState by conditionsViewModel.state.collectAsState()
+                        val alignmentsViewModel: AlignmentsViewModel = hiltViewModel(entry)
+                        val alignmentsState by alignmentsViewModel.state.collectAsState()
+                        val racesViewModel: RacesViewModel = hiltViewModel(entry)
+                        val racesState by racesViewModel.state.collectAsState()
+
                         CompendiumScreen(
+                            spellSearchState = spellSearchState,
                             onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
+                            onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
+                            onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
+                            onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
+                            onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
+                            onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
+                            conditionsState = conditionsState,
+                            onConditionClick = conditionsViewModel::handleConditionClick,
+                            alignmentsState = alignmentsState,
+                            onAlignmentClick = alignmentsViewModel::handleAlignmentClick,
+                            racesState = racesState,
+                            onRaceClick = racesViewModel::handleRaceClick,
                         )
                     }
-                    composable<AppDestination.SpellDetail> {
-                        val args = it.toRoute<AppDestination.SpellDetail>()
+                    composable<AppDestination.SpellDetail> { entry ->
+                        val args = entry.toRoute<AppDestination.SpellDetail>()
+                        val viewModel: SpellDetailsViewModel = hiltViewModel(entry)
+                        val state by viewModel.state.collectAsState()
+
+                        LaunchedEffect(args.spellId) {
+                            viewModel.loadSpell(args.spellId)
+                        }
+
                         SpellDetailScreen(
-                            spellId = args.spellId,
+                            state = state,
                             onBackClick = { controller.navigateUp() },
+                            onToggleFavorite = viewModel::toggleFavorite,
                         )
                     }
-                    composable<AppDestination.CharacterSpellPicker> {
+                    composable<AppDestination.CharacterSpellPicker> { entry ->
+                        val viewModel: CharacterSpellPickerViewModel = hiltViewModel(entry)
+                        val state by viewModel.uiState.collectAsState()
+                        val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
+                        val spellSearchState by spellSearchViewModel.state.collectAsState()
+
                         CharacterSpellPickerRoute(
+                            state = state,
+                            spellSearchState = spellSearchState,
                             onBack = { controller.navigateUp() },
-                            onSpellAdded = { assignment ->
-                                controller.previousBackStackEntry?.savedStateHandle?.set(
-                                    CHARACTER_SPELL_SELECTION_RESULT_KEY,
-                                    arrayListOf(assignment),
-                                )
-                                controller.navigateUp()
+                            onSourceChanged = viewModel::onSourceClassChanged,
+                            onSpellSelected = { spellId ->
+                                viewModel.buildAssignment(spellId)?.let { assignment ->
+                                    controller.previousBackStackEntry?.savedStateHandle?.set(
+                                        CHARACTER_SPELL_SELECTION_RESULT_KEY,
+                                        arrayListOf(assignment),
+                                    )
+                                    controller.navigateUp()
+                                }
                             },
+                            onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
+                            onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
+                            onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
+                            onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
+                            onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
                         )
                     }
-                    composable<AppDestination.Dice> {
-                        DiceRollerScreen()
+                    composable<AppDestination.Dice> { entry ->
+                        val viewModel: DiceRollerViewModel = hiltViewModel(entry)
+                        val state by viewModel.state.collectAsState()
+
+                        DiceRollerRoute(
+                            state = state,
+                            onIntent = viewModel::onIntent,
+                        )
                     }
                     composable<AppDestination.Settings> {
                         SettingsScreen(

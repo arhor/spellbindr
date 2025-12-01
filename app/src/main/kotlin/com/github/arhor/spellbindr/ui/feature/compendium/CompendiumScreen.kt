@@ -25,11 +25,29 @@ import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsSc
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
+import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.model.predefined.Condition
 
 @Composable
 fun CompendiumScreen(
+    spellSearchState: SpellSearchViewModel.State,
     modifier: Modifier = Modifier,
     onSpellSelected: (String) -> Unit = {},
+    onSpellQueryChanged: (String) -> Unit,
+    onSpellFiltersClick: () -> Unit,
+    onSpellFavoriteClick: () -> Unit,
+    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
+    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
+    conditionsState: ConditionsViewModel.State,
+    onConditionClick: (Condition) -> Unit,
+    alignmentsState: AlignmentsViewModel.State,
+    onAlignmentClick: (String) -> Unit,
+    racesState: RacesViewModel.State,
+    onRaceClick: (String) -> Unit,
 ) {
     var selectedSection by rememberSaveable { mutableStateOf(CompendiumSection.Spells) }
 
@@ -57,19 +75,36 @@ fun CompendiumScreen(
                 ) { section ->
                     when (section) {
                         CompendiumSection.Spells -> {
-                            SpellSearchScreen(onSpellClick = onSpellSelected)
+                            SpellSearchScreen(
+                                state = spellSearchState,
+                                onQueryChanged = onSpellQueryChanged,
+                                onFiltersClick = onSpellFiltersClick,
+                                onFavoriteClick = onSpellFavoriteClick,
+                                onSpellClick = onSpellSelected,
+                                onSubmitFilters = onSpellSubmitFilters,
+                                onCancelFilters = onSpellCancelFilters,
+                            )
                         }
 
                         CompendiumSection.Conditions -> {
-                            ConditionsScreen()
+                            ConditionsScreen(
+                                state = conditionsState,
+                                onConditionClick = onConditionClick,
+                            )
                         }
 
                         CompendiumSection.Alignments -> {
-                            AlignmentsScreen()
+                            AlignmentsScreen(
+                                state = alignmentsState,
+                                onAlignmentClick = onAlignmentClick,
+                            )
                         }
 
                         CompendiumSection.Races -> {
-                            RacesScreen()
+                            RacesScreen(
+                                state = racesState,
+                                onRaceClick = onRaceClick,
+                            )
                         }
                     }
                 }

@@ -22,8 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -32,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
@@ -50,14 +47,13 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import kotlinx.coroutines.launch
 
 @Composable
-fun DiceRollerScreen(
-    viewModel: DiceRollerViewModel = hiltViewModel(),
+fun DiceRollerRoute(
+    state: DiceRollerState,
+    onIntent: (DiceRollerIntent) -> Unit,
 ) {
-    val state by viewModel.state.collectAsState()
-
     DiceRollerScreen(
         state = state,
-        onIntent = viewModel::onIntent,
+        onIntent = onIntent,
     )
 }
 

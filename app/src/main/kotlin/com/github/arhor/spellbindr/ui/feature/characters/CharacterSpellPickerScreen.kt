@@ -14,36 +14,44 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharacterSpellPickerRoute(
+    state: CharacterSpellPickerUiState,
+    spellSearchState: SpellSearchViewModel.State,
     onBack: () -> Unit,
-    onSpellAdded: (CharacterSpellAssignment) -> Unit,
+    onSpellSelected: (String) -> Unit,
+    onSourceChanged: (String) -> Unit,
+    onSpellQueryChanged: (String) -> Unit,
+    onSpellFiltersClick: () -> Unit,
+    onSpellFavoriteClick: () -> Unit,
+    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
+    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CharacterSpellPickerViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsState()
-
     CharacterSpellPickerScreen(
         state = state,
         onBack = onBack,
-        onSourceChanged = viewModel::onSourceClassChanged,
-        onSpellSelected = { spellId ->
-            viewModel.buildAssignment(spellId)?.let(onSpellAdded)
-        },
+        onSourceChanged = onSourceChanged,
+        onSpellSelected = onSpellSelected,
+        spellSearchState = spellSearchState,
+        onSpellQueryChanged = onSpellQueryChanged,
+        onSpellFiltersClick = onSpellFiltersClick,
+        onSpellFavoriteClick = onSpellFavoriteClick,
+        onSpellSubmitFilters = onSpellSubmitFilters,
+        onSpellCancelFilters = onSpellCancelFilters,
         modifier = modifier,
     )
 }
@@ -54,6 +62,12 @@ private fun CharacterSpellPickerScreen(
     onBack: () -> Unit,
     onSourceChanged: (String) -> Unit,
     onSpellSelected: (String) -> Unit,
+    spellSearchState: SpellSearchViewModel.State,
+    onSpellQueryChanged: (String) -> Unit,
+    onSpellFiltersClick: () -> Unit,
+    onSpellFavoriteClick: () -> Unit,
+    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
+    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     WithAppTopBar(
@@ -106,7 +120,13 @@ private fun CharacterSpellPickerScreen(
                     )
                     Box(modifier = Modifier.weight(1f)) {
                         SpellSearchScreen(
+                            state = spellSearchState,
+                            onQueryChanged = onSpellQueryChanged,
+                            onFiltersClick = onSpellFiltersClick,
+                            onFavoriteClick = onSpellFavoriteClick,
                             onSpellClick = onSpellSelected,
+                            onSubmitFilters = onSpellSubmitFilters,
+                            onCancelFilters = onSpellCancelFilters,
                         )
                     }
                 }
@@ -127,6 +147,12 @@ private fun CharacterSpellPickerPreview() {
             onBack = {},
             onSourceChanged = {},
             onSpellSelected = {},
+            spellSearchState = SpellSearchViewModel.State(),
+            onSpellQueryChanged = {},
+            onSpellFiltersClick = {},
+            onSpellFavoriteClick = {},
+            onSpellSubmitFilters = {},
+            onSpellCancelFilters = {},
         )
     }
 }
