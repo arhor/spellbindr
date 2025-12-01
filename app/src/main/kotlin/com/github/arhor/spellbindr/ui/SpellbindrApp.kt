@@ -123,28 +123,16 @@ fun SpellbindrApp(
                     }
                     composable<AppDestination.Compendium> { entry ->
                         val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
-                        val spellSearchState by spellSearchViewModel.state.collectAsState()
                         val conditionsViewModel: ConditionsViewModel = hiltViewModel(entry)
-                        val conditionsState by conditionsViewModel.state.collectAsState()
                         val alignmentsViewModel: AlignmentsViewModel = hiltViewModel(entry)
-                        val alignmentsState by alignmentsViewModel.state.collectAsState()
                         val racesViewModel: RacesViewModel = hiltViewModel(entry)
-                        val racesState by racesViewModel.state.collectAsState()
 
                         CompendiumRoute(
-                            spellSearchState = spellSearchState,
+                            spellSearchViewModel = spellSearchViewModel,
+                            conditionsViewModel = conditionsViewModel,
+                            alignmentsViewModel = alignmentsViewModel,
+                            racesViewModel = racesViewModel,
                             onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
-                            onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
-                            onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
-                            onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
-                            onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
-                            onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
-                            conditionsState = conditionsState,
-                            onConditionClick = conditionsViewModel::handleConditionClick,
-                            alignmentsState = alignmentsState,
-                            onAlignmentClick = alignmentsViewModel::handleAlignmentClick,
-                            racesState = racesState,
-                            onRaceClick = racesViewModel::handleRaceClick,
                         )
                     }
                     composable<AppDestination.SpellDetail> { entry ->

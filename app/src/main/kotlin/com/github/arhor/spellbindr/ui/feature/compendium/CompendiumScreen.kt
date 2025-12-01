@@ -13,56 +13,54 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.predefined.Condition
 
 @Composable
 fun CompendiumRoute(
-    spellSearchState: SpellSearchViewModel.State,
+    spellSearchViewModel: SpellSearchViewModel,
+    conditionsViewModel: ConditionsViewModel,
+    alignmentsViewModel: AlignmentsViewModel,
+    racesViewModel: RacesViewModel,
     modifier: Modifier = Modifier,
     onSpellSelected: (String) -> Unit = {},
-    onSpellQueryChanged: (String) -> Unit,
-    onSpellFiltersClick: () -> Unit,
-    onSpellFavoriteClick: () -> Unit,
-    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
-    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
-    conditionsState: ConditionsViewModel.State,
-    onConditionClick: (Condition) -> Unit,
-    alignmentsState: AlignmentsViewModel.State,
-    onAlignmentClick: (String) -> Unit,
-    racesState: RacesViewModel.State,
-    onRaceClick: (String) -> Unit,
 ) {
+    val spellSearchState by spellSearchViewModel.state.collectAsState()
+    val conditionsState by conditionsViewModel.state.collectAsState()
+    val alignmentsState by alignmentsViewModel.state.collectAsState()
+    val racesState by racesViewModel.state.collectAsState()
+
     CompendiumScreen(
         spellSearchState = spellSearchState,
         onSpellSelected = onSpellSelected,
-        onSpellQueryChanged = onSpellQueryChanged,
-        onSpellFiltersClick = onSpellFiltersClick,
-        onSpellFavoriteClick = onSpellFavoriteClick,
-        onSpellSubmitFilters = onSpellSubmitFilters,
-        onSpellCancelFilters = onSpellCancelFilters,
+        onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
+        onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
+        onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
+        onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
+        onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
         conditionsState = conditionsState,
-        onConditionClick = onConditionClick,
+        onConditionClick = conditionsViewModel::handleConditionClick,
         alignmentsState = alignmentsState,
-        onAlignmentClick = onAlignmentClick,
+        onAlignmentClick = alignmentsViewModel::handleAlignmentClick,
         racesState = racesState,
-        onRaceClick = onRaceClick,
+        onRaceClick = racesViewModel::handleRaceClick,
         modifier = modifier,
     )
 }
