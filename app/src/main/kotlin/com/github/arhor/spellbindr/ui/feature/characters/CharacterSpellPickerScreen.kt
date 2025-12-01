@@ -14,6 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -29,29 +31,32 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharacterSpellPickerRoute(
-    state: CharacterSpellPickerUiState,
-    spellSearchState: SpellSearchViewModel.State,
+    viewModel: CharacterSpellPickerViewModel,
+    spellSearchViewModel: SpellSearchViewModel,
     onBack: () -> Unit,
-    onSpellSelected: (String) -> Unit,
-    onSourceChanged: (String) -> Unit,
-    onSpellQueryChanged: (String) -> Unit,
-    onSpellFiltersClick: () -> Unit,
-    onSpellFavoriteClick: () -> Unit,
-    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
-    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
+    onSpellSelected: (List<CharacterSpellAssignment>) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val state by viewModel.uiState.collectAsState()
+    val spellSearchState by spellSearchViewModel.state.collectAsState()
+
+    val handleSpellSelected: (String) -> Unit = { spellId ->
+        viewModel.buildAssignment(spellId)?.let { assignment ->
+            onSpellSelected(listOf(assignment))
+        }
+    }
+
     CharacterSpellPickerScreen(
         state = state,
         onBack = onBack,
-        onSourceChanged = onSourceChanged,
-        onSpellSelected = onSpellSelected,
+        onSourceChanged = viewModel::onSourceClassChanged,
+        onSpellSelected = handleSpellSelected,
         spellSearchState = spellSearchState,
-        onSpellQueryChanged = onSpellQueryChanged,
-        onSpellFiltersClick = onSpellFiltersClick,
-        onSpellFavoriteClick = onSpellFavoriteClick,
-        onSpellSubmitFilters = onSpellSubmitFilters,
-        onSpellCancelFilters = onSpellCancelFilters,
+        onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
+        onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
+        onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
+        onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
+        onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
         modifier = modifier,
     )
 }

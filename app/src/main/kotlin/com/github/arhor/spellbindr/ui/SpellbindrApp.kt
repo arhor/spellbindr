@@ -152,29 +152,19 @@ fun SpellbindrApp(
                     }
                     composable<AppDestination.CharacterSpellPicker> { entry ->
                         val viewModel: CharacterSpellPickerViewModel = hiltViewModel(entry)
-                        val state by viewModel.uiState.collectAsState()
                         val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
-                        val spellSearchState by spellSearchViewModel.state.collectAsState()
 
                         CharacterSpellPickerRoute(
-                            state = state,
-                            spellSearchState = spellSearchState,
+                            viewModel = viewModel,
+                            spellSearchViewModel = spellSearchViewModel,
                             onBack = { controller.navigateUp() },
-                            onSourceChanged = viewModel::onSourceClassChanged,
-                            onSpellSelected = { spellId ->
-                                viewModel.buildAssignment(spellId)?.let { assignment ->
-                                    controller.previousBackStackEntry?.savedStateHandle?.set(
-                                        CHARACTER_SPELL_SELECTION_RESULT_KEY,
-                                        arrayListOf(assignment),
-                                    )
-                                    controller.navigateUp()
-                                }
+                            onSpellSelected = { assignments ->
+                                controller.previousBackStackEntry?.savedStateHandle?.set(
+                                    CHARACTER_SPELL_SELECTION_RESULT_KEY,
+                                    ArrayList(assignments),
+                                )
+                                controller.navigateUp()
                             },
-                            onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
-                            onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
-                            onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
-                            onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
-                            onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
                         )
                     }
                     composable<AppDestination.Dice> { entry ->
