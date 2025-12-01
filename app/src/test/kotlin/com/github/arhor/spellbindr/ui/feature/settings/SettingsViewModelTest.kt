@@ -4,6 +4,13 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.data.model.AppThemeMode
 import com.github.arhor.spellbindr.data.repository.ThemeRepository
+import com.google.common.truth.Truth.assertThat
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -14,6 +21,7 @@ import org.junit.Test
 import java.io.File
 import kotlin.io.path.createTempFile
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest {
 
     @get:Rule
@@ -24,12 +32,12 @@ class SettingsViewModelTest {
         val (viewModel, file) = createViewModel()
         try {
             advanceUntilIdle()
-            assertNull(viewModel.state.value.themeMode)
+            assertThat(viewModel.state.value.themeMode).isNull()
 
             viewModel.ensureThemeInitialized(defaultIsDark = true)
             advanceUntilIdle()
 
-            assertEquals(AppThemeMode.DARK, viewModel.state.value.themeMode)
+            assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.DARK)
         } finally {
             file.delete()
         }
@@ -43,14 +51,34 @@ class SettingsViewModelTest {
 
             viewModel.onThemeToggle(isDark = true)
             advanceUntilIdle()
-            assertEquals(AppThemeMode.DARK, viewModel.state.value.themeMode)
+            assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.DARK)
 
             viewModel.onThemeToggle(isDark = false)
             advanceUntilIdle()
-            assertEquals(AppThemeMode.LIGHT, viewModel.state.value.themeMode)
+            assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.LIGHT)
         } finally {
             file.delete()
         }
+    }
+
+    @Test
+    fun `ensureThemeInitialized applies default when repository is empty`() = runTest(mainDispatcherRule.dispatcher) {
+        val themeFlow = MutableStateFlow<AppThemeMode?>(null)
+        val repository = mockk<ThemeRepository> {
+            every { themeMode } returns themeFlow
+        }
+        coEvery { repository.setThemeMode(AppThemeMode.DARK) } returns Unit
+
+        val viewModel = SettingsViewModel(repository)
+
+        advanceUntilIdle()
+        viewModel.ensureThemeInitialized(defaultIsDark = true)
+        advanceUntilIdle()
+        themeFlow.value = AppThemeMode.DARK
+        advanceUntilIdle()
+
+        assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.DARK)
+        coVerify(exactly = 1) { repository.setThemeMode(AppThemeMode.DARK) }
     }
 }
 

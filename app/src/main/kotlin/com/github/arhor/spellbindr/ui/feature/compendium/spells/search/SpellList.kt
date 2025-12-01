@@ -34,7 +34,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -123,4 +126,55 @@ fun SpellList(
 
 private object SpellSearchResultListShapes {
     val GroupHeader = RoundedCornerShape(12.dp)
+}
+
+@Preview
+@Composable
+private fun SpellListLightPreview() {
+    SpellListPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SpellListDarkPreview() {
+    SpellListPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SpellListPreview(isDarkTheme: Boolean) {
+    val spells = listOf(
+        Spell(
+            id = "mage_hand",
+            name = "Mage Hand",
+            desc = listOf("A spectral hand appears"),
+            level = 0,
+            range = "30 ft",
+            ritual = false,
+            school = EntityRef(id = "conjuration"),
+            duration = "1 minute",
+            castingTime = "1 action",
+            classes = listOf(EntityRef(id = "wizard")),
+            components = listOf("V", "S"),
+            concentration = false,
+            source = "PHB",
+        ),
+        Spell(
+            id = "burning_hands",
+            name = "Burning Hands",
+            desc = listOf("Fire erupts from your hands"),
+            level = 1,
+            range = "Self",
+            ritual = false,
+            school = EntityRef(id = "evocation"),
+            duration = "Instant",
+            castingTime = "1 action",
+            classes = listOf(EntityRef(id = "wizard")),
+            components = listOf("V", "S"),
+            concentration = false,
+            source = "PHB",
+        )
+    )
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SpellList(spells = spells, onSpellClick = {})
+    }
 }

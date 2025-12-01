@@ -17,7 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellCard(
@@ -49,6 +52,42 @@ fun SpellCard(
         Text(
             text = spell.name,
             style = MaterialTheme.typography.bodyMedium,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun SpellCardLightPreview() {
+    SpellCardPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SpellCardDarkPreview() {
+    SpellCardPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SpellCardPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SpellCard(
+            spell = Spell(
+                id = "arcane_blast",
+                name = "Arcane Blast",
+                desc = listOf("A burst of pure arcane energy strikes a foe."),
+                level = 2,
+                range = "60 ft",
+                ritual = false,
+                school = EntityRef(id = "evocation"),
+                duration = "Instant",
+                castingTime = "1 action",
+                classes = listOf(EntityRef(id = "wizard")),
+                components = listOf("V", "S"),
+                concentration = false,
+                source = "PHB",
+            ),
+            onClick = {},
         )
     }
 }

@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardColors
@@ -20,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-import com.github.arhor.spellbindr.ui.theme.RoundedHexShape
+import com.github.arhor.spellbindr.ui.theme.ConvexSidesCardShape
 import com.github.arhor.spellbindr.utils.signed
 
 @Composable
@@ -35,7 +37,7 @@ fun SavingThrowCard(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            shape = MaterialTheme.shapes.extraLarge,
+            shape = CutCornerShape(9.dp),
             colors = cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             elevation = CardDefaults.cardElevation(2.dp),
             border = BorderStroke(
@@ -62,7 +64,8 @@ fun SavingThrowCard(
         SavingThrowBonusCard(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .size(50.dp),
+                .width(30.dp)
+                .height(40.dp),
             bonus = bonus,
         )
     }
@@ -75,7 +78,7 @@ private fun SavingThrowBonusCard(
 ) {
     Card(
         modifier = modifier,
-        shape = RoundedHexShape(cornerRadiusFraction = 0.10f),
+        shape = ConvexSidesCardShape(convexityFactor = .55f),
         colors = cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         border = BorderStroke(
             width = 3.dp,
@@ -99,21 +102,24 @@ private fun SavingThrowBonusCard(
 @Preview(showBackground = true)
 @Composable
 private fun SavingThrowCardLightPreview() {
-    AppTheme(isDarkTheme = false) {
-        SavingThrowCardPreview()
-    }
+    SavingThrowCardPreview(isDarkTheme = false)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SavingThrowCardDarkPreview() {
-    AppTheme(isDarkTheme = true) {
-        SavingThrowCardPreview()
+    SavingThrowCardPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SavingThrowCardPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SavingThrowCardPreviewContent()
     }
 }
 
 @Composable
-private fun SavingThrowCardPreview() {
+private fun SavingThrowCardPreviewContent() {
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),

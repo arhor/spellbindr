@@ -3,8 +3,9 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -47,7 +48,8 @@ fun AbilityScoreCard(
         Card(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .size(cardSize)
+                .width(cardSize)
+                .height(cardSize)
                 .drawWithContent {
                     drawContent()
 
@@ -188,21 +190,24 @@ private fun ContentDrawScope.createPath(shape: Shape): Path =
 @Preview(showBackground = true)
 @Composable
 private fun AbilityScoreCardLightPreview() {
-    AppTheme(isDarkTheme = false) {
-        AbilityScoreTokenPreview()
-    }
+    AbilityScoreCardPreview(isDarkTheme = false)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun AbilityScoreCardDarkPreview() {
-    AppTheme(isDarkTheme = true) {
-        AbilityScoreTokenPreview()
+    AbilityScoreCardPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun AbilityScoreCardPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        AbilityScoreCardPreviewContent()
     }
 }
 
 @Composable
-private fun AbilityScoreTokenPreview() {
+private fun AbilityScoreCardPreviewContent() {
     Surface {
         Box(modifier = Modifier.padding(6.dp)) {
             AbilityScoreCard(

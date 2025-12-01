@@ -9,6 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharacterSheetError(
@@ -29,6 +31,28 @@ fun CharacterSheetError(
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun CharacterSheetErrorLightPreview() {
+    CharacterSheetErrorPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun CharacterSheetErrorDarkPreview() {
+    CharacterSheetErrorPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun CharacterSheetErrorPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        CharacterSheetError(
+            message = "We couldn't load the character sheet right now. Please try again later.",
+            modifier = Modifier,
         )
     }
 }

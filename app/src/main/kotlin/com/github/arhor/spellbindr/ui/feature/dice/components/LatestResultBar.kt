@@ -22,10 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun LatestResultBar(
@@ -172,5 +175,44 @@ private fun amountDetailText(result: AmountResult): String {
         }
         append(" = ")
         append(result.total)
+    }
+}
+
+@Preview
+@Composable
+private fun LatestResultBarLightPreview() {
+    LatestResultBarPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun LatestResultBarDarkPreview() {
+    LatestResultBarPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun LatestResultBarPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        LatestResultBar(
+            latestResult = RollResult.CheckAmountResult(
+                check = CheckResult(
+                    mode = CheckMode.ADVANTAGE,
+                    rolls = listOf(17, 12),
+                    modifier = 3,
+                    keptRoll = 17,
+                    total = 20,
+                ),
+                amount = AmountResult(
+                    groups = listOf(
+                        DiceGroupResult(sides = 6, rolls = listOf(4, 5)),
+                        DiceGroupResult(sides = 8, rolls = listOf(6)),
+                    ),
+                    total = 15,
+                ),
+            ),
+            onReRoll = {},
+            onShowDetails = {},
+            onClose = {},
+        )
     }
 }

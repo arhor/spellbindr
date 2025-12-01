@@ -19,7 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
+import com.github.arhor.spellbindr.ui.theme.AppTheme
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SpellsTab(
@@ -62,5 +65,28 @@ fun SpellsTab(
                 callbacks = callbacks,
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SpellsTabLightPreview() {
+    SpellsTabPreview(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun SpellsTabDarkPreview() {
+    SpellsTabPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SpellsTabPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SpellsTab(
+            spellsState = CharacterSheetPreviewData.spells,
+            editMode = SheetEditMode.View,
+            callbacks = CharacterSheetCallbacks(),
+        )
     }
 }

@@ -78,6 +78,9 @@ internal fun CharacterSheetContent(
                 CharacterSheetTab.Overview -> OverviewTab(
                     header = header,
                     overview = requireNotNull(state.overview),
+                    editMode = state.editMode,
+                    editingState = state.editingState,
+                    callbacks = callbacks,
                     modifier = Modifier.fillMaxSize(),
                 )
 

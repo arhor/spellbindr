@@ -70,21 +70,24 @@ fun SelectedIndicator(
 @Preview(showBackground = true)
 @Composable
 private fun SelectedIndicatorLightPreview() {
-    AppTheme(isDarkTheme = false) {
-        SelectedIndicatorPreview()
-    }
+    SelectedIndicatorPreview(isDarkTheme = false)
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SelectedIndicatorDarkPreview() {
-    AppTheme(isDarkTheme = true) {
-        SelectedIndicatorPreview()
+    SelectedIndicatorPreview(isDarkTheme = true)
+}
+
+@Composable
+private fun SelectedIndicatorPreview(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        SelectedIndicatorPreviewContent()
     }
 }
 
 @Composable
-private fun SelectedIndicatorPreview() {
+private fun SelectedIndicatorPreviewContent() {
     Surface {
         Row(
             modifier = Modifier.padding(16.dp),
