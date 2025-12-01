@@ -42,11 +42,11 @@ fun ConditionsScreen(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = Condition.entries, key = { it.displayName }) {
+        items(items = Condition.entries, key = { it.displayName }) { condition ->
             ConditionListItem(
-                condition = it,
-                isExpanded = it == state.expandedItem,
-                onItemClick = onConditionClick,
+                condition = condition,
+                isExpanded = condition == state.expandedItem,
+                onItemClick = { onConditionClick(condition) },
             )
         }
     }
