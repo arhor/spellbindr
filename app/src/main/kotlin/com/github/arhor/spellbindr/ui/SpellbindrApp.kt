@@ -30,13 +30,11 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
@@ -104,51 +102,15 @@ fun SpellbindrApp(
                     }
                     composable<AppDestination.CharacterSheet> { entry ->
                         val viewModel: CharacterSheetViewModel = hiltViewModel(entry)
-                        val state by viewModel.uiState.collectAsState()
-
-                        LaunchedEffect(entry.savedStateHandle) {
-                            entry.savedStateHandle
-                                .getStateFlow<List<CharacterSpellAssignment>?>(
-                                    CHARACTER_SPELL_SELECTION_RESULT_KEY,
-                                    null,
-                                )
-                                .collectLatest { assignments ->
-                                    if (!assignments.isNullOrEmpty()) {
-                                        viewModel.addSpells(assignments)
-                                        entry.savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
-                                    }
-                                }
-                        }
 
                         CharacterSheetRoute(
-                            state = state,
+                            viewModel = viewModel,
+                            savedStateHandle = entry.savedStateHandle,
                             onBack = { controller.navigateUp() },
-                            callbacks = CharacterSheetCallbacks(
-                                onTabSelected = viewModel::onTabSelected,
-                                onEnterEdit = viewModel::enterEditMode,
-                                onCancelEdit = viewModel::cancelEditMode,
-                                onSaveEdits = viewModel::saveInlineEdits,
-                                onAdjustHp = viewModel::adjustCurrentHp,
-                                onTempHpChanged = viewModel::setTemporaryHp,
-                                onMaxHpEdited = viewModel::onMaxHpEdited,
-                                onCurrentHpEdited = viewModel::onCurrentHpEdited,
-                                onTempHpEdited = viewModel::onTemporaryHpEdited,
-                                onSpeedEdited = viewModel::onSpeedEdited,
-                                onHitDiceEdited = viewModel::onHitDiceEdited,
-                                onSensesEdited = viewModel::onSensesEdited,
-                                onLanguagesEdited = viewModel::onLanguagesEdited,
-                                onProficienciesEdited = viewModel::onProficienciesEdited,
-                                onEquipmentEdited = viewModel::onEquipmentEdited,
-                                onDeathSaveSuccessesChanged = viewModel::setDeathSaveSuccesses,
-                                onDeathSaveFailuresChanged = viewModel::setDeathSaveFailures,
-                                onSpellSlotToggle = viewModel::toggleSpellSlot,
-                                onSpellSlotTotalChanged = viewModel::setSpellSlotTotal,
-                                onSpellRemoved = viewModel::removeSpell,
-                                onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
-                                onAddSpellsClicked = { state.characterId?.let { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) } },
-                                onOpenFullEditor = { state.characterId?.let { controller.navigate(AppDestination.CharacterEditor(characterId = it)) } },
-                                onDeleteCharacter = { viewModel.deleteCharacter { controller.navigateUp() } },
-                            ),
+                            onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
+                            onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) },
+                            onOpenFullEditor = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
+                            onCharacterDeleted = { controller.navigateUp() },
                         )
                     }
                     composable<AppDestination.CharacterEditor> { entry ->
