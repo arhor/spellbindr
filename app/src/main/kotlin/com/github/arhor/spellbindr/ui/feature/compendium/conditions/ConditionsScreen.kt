@@ -8,18 +8,27 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.predefined.Condition
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel.State
 
 @Composable
-fun ConditionsScreen(
-    viewModel: ConditionsViewModel = hiltViewModel(),
+fun ConditionsRoute(
+    state: State,
+    onConditionClick: (Condition) -> Unit,
 ) {
-    val state by viewModel.state.collectAsState()
+    ConditionsScreen(
+        state = state,
+        onConditionClick = onConditionClick,
+    )
+}
+
+@Composable
+private fun ConditionsScreen(
+    state: State,
+    onConditionClick: (Condition) -> Unit,
+) {
     val listState = rememberLazyListState()
 
     LaunchedEffect(state) {
@@ -44,11 +53,11 @@ fun ConditionsScreen(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = Condition.entries, key = { it.displayName }) {
+        items(items = Condition.entries, key = { it.displayName }) { condition ->
             ConditionListItem(
-                condition = it,
-                isExpanded = it == state.expandedItem,
-                onItemClick = { viewModel.handleConditionClick(it) }
+                condition = condition,
+                isExpanded = condition == state.expandedItem,
+                onItemClick = { onConditionClick(condition) },
             )
         }
     }

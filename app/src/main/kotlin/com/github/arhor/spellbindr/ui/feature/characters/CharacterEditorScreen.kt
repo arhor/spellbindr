@@ -40,7 +40,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
@@ -50,26 +49,17 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharacterEditorRoute(
+    viewModel: CharacterEditorViewModel,
+    onBack: () -> Unit,
     onFinished: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CharacterEditorViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(viewModel) {
-        viewModel.events.collect { event ->
-            when (event) {
-                CharacterEditorEvent.Saved -> onFinished()
-                is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)
-            }
-        }
-    }
-
-    CharacterEditorScreen(
-        state = state,
-        callbacks = CharacterEditorCallbacks(
-            onBack = onFinished,
+    val callbacks = remember(viewModel, onBack) {
+        CharacterEditorCallbacks(
+            onBack = onBack,
             onNameChanged = viewModel::onNameChanged,
             onClassChanged = viewModel::onClassChanged,
             onLevelChanged = viewModel::onLevelChanged,
@@ -102,14 +92,28 @@ fun CharacterEditorRoute(
             onFlawsChanged = viewModel::onFlawsChanged,
             onNotesChanged = viewModel::onNotesChanged,
             onSave = viewModel::onSaveClicked,
-        ),
+        )
+    }
+
+    LaunchedEffect(viewModel.events) {
+        viewModel.events.collect { event ->
+            when (event) {
+                CharacterEditorEvent.Saved -> onFinished()
+                is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)
+            }
+        }
+    }
+
+    CharacterEditorScreen(
+        state = state,
+        callbacks = callbacks,
         snackbarHostState = snackbarHostState,
         modifier = modifier,
     )
 }
 
 @Composable
-fun CharacterEditorScreen(
+private fun CharacterEditorScreen(
     state: CharacterEditorUiState,
     callbacks: CharacterEditorCallbacks,
     snackbarHostState: SnackbarHostState,
