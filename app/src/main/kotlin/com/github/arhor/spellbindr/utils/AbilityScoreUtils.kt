@@ -20,7 +20,7 @@ import kotlin.random.Random
  * @param score The ability score (e.g., Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma).
  * @return A string representation of the ability score modifier (e.g., "+2", "-1", "+0").
  */
-fun calculateAbilityScoreModifier(score: Int): String = signed((score - 10) / 2)
+fun calculateAbilityScoreModifier(score: Int): String = signed(calculateModifier(score))
 
 /**
  * Converts an integer value to a string, prefixing it with a "+" sign if the value is non-negative.

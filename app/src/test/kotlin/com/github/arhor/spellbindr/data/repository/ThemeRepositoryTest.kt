@@ -2,11 +2,10 @@ package com.github.arhor.spellbindr.data.repository
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
 import org.junit.Test
 import java.io.File
 import kotlin.io.path.createTempFile
@@ -18,7 +17,7 @@ class ThemeRepositoryTest {
         val (repository, file) = createRepository()
         try {
             val stored = repository.themeMode.first()
-            assertNull(stored)
+            assertThat(stored).isNull()
         } finally {
             file.delete()
         }
@@ -30,7 +29,7 @@ class ThemeRepositoryTest {
         try {
             repository.setThemeMode(AppThemeMode.DARK)
             val stored = repository.themeMode.first()
-            assertEquals(AppThemeMode.DARK, stored)
+            assertThat(stored).isEqualTo(AppThemeMode.DARK)
         } finally {
             file.delete()
         }
