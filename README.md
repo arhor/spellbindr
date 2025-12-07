@@ -41,6 +41,37 @@ To build and run the app from the source code, follow these steps:
 3.  Let Android Studio sync the project and download the required Gradle dependencies.
 4.  Build and run the app on an emulator or a physical device.
 
+### 🏗️ Automated SDK setup for cloud agents
+
+Ephemeral CI/agent environments may not ship with the Android SDK. Run the provided setup script during your setup phase to
+provision only the components required by this project and to warm the Gradle dependency cache for offline builds:
+
+```bash
+./scripts/setup-android-sdk.sh
+```
+
+What the script installs (using the versions configured in `app/build.gradle.kts`):
+
+- Android command-line tools (installed under `$HOME/android-sdk/cmdline-tools/latest` by default)
+- Platform tools
+- Platform `android-36` (matches `compileSdk = 36` / `targetSdk = 36`)
+- Build tools `36.0.0`
+
+The script also writes `local.properties` with `sdk.dir=$HOME/android-sdk` so Gradle can locate the SDK without additional
+environment setup and runs `./gradlew resolveAllDependencies` to download all declared dependencies while the network is
+available.
+
+If the compile SDK or build tools change in the future, update the `PLATFORM_VERSION`/`BUILD_TOOLS_VERSION` values inside
+`scripts/setup-android-sdk.sh` to match the values set in `app/build.gradle.kts`.
+
+Verification commands for agents after setup:
+
+```bash
+./gradlew help              # Confirms the SDK is visible to Gradle
+./gradlew assembleDebug     # Example build task that should now work offline
+./gradlew testDebugUnitTest # JVM unit tests
+```
+
 ## 📜 Data Source
 
 Spellbindr uses game content from the Dungeons & Dragons 5th Edition **System Reference Document 5.1** (SRD) provided by Wizards of the Coast. This content is available under the terms of the **Open Gaming License v1.0a**.
