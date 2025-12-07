@@ -10,31 +10,32 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellSearchScreen(
-    onSpellClick: (String) -> Unit = {},
-    spellSearchVM: SpellSearchViewModel = hiltViewModel(),
+    state: SpellSearchViewModel.State,
+    onQueryChanged: (String) -> Unit,
+    onFiltersClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
+    onSpellClick: (String) -> Unit,
+    onSubmitFilters: (Set<EntityRef>) -> Unit,
+    onCancelFilters: (Set<EntityRef>) -> Unit,
 ) {
-    val spellSearchState by spellSearchVM.state.collectAsState()
     SpellSearchContent(
-        state = spellSearchState,
-        onQueryChanged = spellSearchVM::onQueryChanged,
-        onFiltersClick = spellSearchVM::onFilterClicked,
-        onFavoriteClick = spellSearchVM::onFavoritesClicked,
+        state = state,
+        onQueryChanged = onQueryChanged,
+        onFiltersClick = onFiltersClick,
+        onFavoriteClick = onFavoriteClick,
         onSpellClick = onSpellClick,
-        onSubmitFilters = spellSearchVM::onFilterChanged,
-        onCancelFilters = spellSearchVM::onFilterChanged,
+        onSubmitFilters = onSubmitFilters,
+        onCancelFilters = onCancelFilters,
     )
 }
 

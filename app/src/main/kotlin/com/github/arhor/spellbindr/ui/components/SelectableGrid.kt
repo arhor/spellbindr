@@ -40,6 +40,7 @@ fun <T> SelectableGrid(
     modifier: Modifier = Modifier,
     smallContent: @Composable (T) -> Unit,
     largeContent: @Composable (T) -> Unit,
+    onItemClick: (T) -> Unit = {},
 ) {
     var selectedItem by remember { mutableStateOf<T?>(null) }
 
@@ -56,7 +57,10 @@ fun <T> SelectableGrid(
             items(items) { item ->
                 GridItem(
                     item = item,
-                    onItemClick = { selectedItem = it },
+                    onItemClick = {
+                        onItemClick(it)
+                        selectedItem = it
+                    },
                     content = smallContent,
                 )
             }

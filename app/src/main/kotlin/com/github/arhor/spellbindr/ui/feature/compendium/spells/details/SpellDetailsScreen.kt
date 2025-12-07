@@ -21,9 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,40 +34,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel.State
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun SpellDetailScreen(
-    spellId: String?,
+fun SpellDetailRoute(
+    state: State,
     onBackClick: () -> Unit = {},
-    spellDetailsVM: SpellDetailsViewModel = hiltViewModel(),
+    onToggleFavorite: () -> Unit,
 ) {
-    LaunchedEffect(spellId) {
-        spellDetailsVM.loadSpell(spellId)
-    }
-    val spellDetailState by spellDetailsVM.state.collectAsState()
-    val spell = spellDetailState.spell
-    val isFavorite = spellDetailState.isFavorite
-
-    SpellDetailContent(
-        spell = spell,
-        isFavorite = isFavorite,
+    SpellDetailScreen(
+        spell = state.spell,
+        isFavorite = state.isFavorite,
         onBackClick = onBackClick,
-        onToggleFavorite = spellDetailsVM::toggleFavorite,
+        onToggleFavorite = onToggleFavorite,
     )
 }
 
 @Composable
-private fun SpellDetailContent(
+private fun SpellDetailScreen(
     spell: Spell?,
     isFavorite: Boolean,
     onBackClick: () -> Unit,
@@ -287,7 +277,7 @@ private fun SpellDetailsPreview(isDarkTheme: Boolean) {
             higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
             source = "Homebrew",
         )
-        SpellDetailContent(
+        SpellDetailScreen(
             spell = spell,
             isFavorite = true,
             onBackClick = {},

@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
@@ -39,21 +38,23 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CharacterSheetRoute(
+    viewModel: CharacterSheetViewModel,
+    savedStateHandle: SavedStateHandle,
     onBack: () -> Unit,
-    onEditCharacter: (String) -> Unit,
     onOpenSpellDetail: (String) -> Unit,
     onAddSpells: (String) -> Unit,
+    onOpenFullEditor: (String) -> Unit,
     onCharacterDeleted: () -> Unit,
-    savedStateHandle: SavedStateHandle,
     modifier: Modifier = Modifier,
-    viewModel: CharacterSheetViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsState()
 
     LaunchedEffect(savedStateHandle) {
-        savedStateHandle.getStateFlow<List<CharacterSpellAssignment>?>(
-            CHARACTER_SPELL_SELECTION_RESULT_KEY, null
-        )
+        savedStateHandle
+            .getStateFlow<List<CharacterSpellAssignment>?>(
+                CHARACTER_SPELL_SELECTION_RESULT_KEY,
+                null,
+            )
             .collectLatest { assignments ->
                 if (!assignments.isNullOrEmpty()) {
                     viewModel.addSpells(assignments)
@@ -62,41 +63,43 @@ fun CharacterSheetRoute(
             }
     }
 
+    val callbacks = CharacterSheetCallbacks(
+        onTabSelected = viewModel::onTabSelected,
+        onEnterEdit = viewModel::enterEditMode,
+        onCancelEdit = viewModel::cancelEditMode,
+        onSaveEdits = viewModel::saveInlineEdits,
+        onAdjustHp = viewModel::adjustCurrentHp,
+        onTempHpChanged = viewModel::setTemporaryHp,
+        onMaxHpEdited = viewModel::onMaxHpEdited,
+        onCurrentHpEdited = viewModel::onCurrentHpEdited,
+        onTempHpEdited = viewModel::onTemporaryHpEdited,
+        onSpeedEdited = viewModel::onSpeedEdited,
+        onHitDiceEdited = viewModel::onHitDiceEdited,
+        onSensesEdited = viewModel::onSensesEdited,
+        onLanguagesEdited = viewModel::onLanguagesEdited,
+        onProficienciesEdited = viewModel::onProficienciesEdited,
+        onEquipmentEdited = viewModel::onEquipmentEdited,
+        onDeathSaveSuccessesChanged = viewModel::setDeathSaveSuccesses,
+        onDeathSaveFailuresChanged = viewModel::setDeathSaveFailures,
+        onSpellSlotToggle = viewModel::toggleSpellSlot,
+        onSpellSlotTotalChanged = viewModel::setSpellSlotTotal,
+        onSpellRemoved = viewModel::removeSpell,
+        onSpellSelected = onOpenSpellDetail,
+        onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
+        onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
+        onDeleteCharacter = { viewModel.deleteCharacter(onCharacterDeleted) },
+    )
+
     CharacterSheetScreen(
         state = state,
         onBack = onBack,
-        callbacks = CharacterSheetCallbacks(
-            onTabSelected = viewModel::onTabSelected,
-            onEnterEdit = viewModel::enterEditMode,
-            onCancelEdit = viewModel::cancelEditMode,
-            onSaveEdits = viewModel::saveInlineEdits,
-            onAdjustHp = viewModel::adjustCurrentHp,
-            onTempHpChanged = viewModel::setTemporaryHp,
-            onMaxHpEdited = viewModel::onMaxHpEdited,
-            onCurrentHpEdited = viewModel::onCurrentHpEdited,
-            onTempHpEdited = viewModel::onTemporaryHpEdited,
-            onSpeedEdited = viewModel::onSpeedEdited,
-            onHitDiceEdited = viewModel::onHitDiceEdited,
-            onSensesEdited = viewModel::onSensesEdited,
-            onLanguagesEdited = viewModel::onLanguagesEdited,
-            onProficienciesEdited = viewModel::onProficienciesEdited,
-            onEquipmentEdited = viewModel::onEquipmentEdited,
-            onDeathSaveSuccessesChanged = viewModel::setDeathSaveSuccesses,
-            onDeathSaveFailuresChanged = viewModel::setDeathSaveFailures,
-            onSpellSlotToggle = viewModel::toggleSpellSlot,
-            onSpellSlotTotalChanged = viewModel::setSpellSlotTotal,
-            onSpellRemoved = viewModel::removeSpell,
-            onSpellSelected = onOpenSpellDetail,
-            onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
-            onOpenFullEditor = { state.characterId?.let(onEditCharacter) },
-            onDeleteCharacter = { viewModel.deleteCharacter(onCharacterDeleted) },
-        ),
+        callbacks = callbacks,
         modifier = modifier,
     )
 }
 
 @Composable
-fun CharacterSheetScreen(
+private fun CharacterSheetScreen(
     state: CharacterSheetUiState,
     onBack: () -> Unit,
     callbacks: CharacterSheetCallbacks = CharacterSheetCallbacks(),

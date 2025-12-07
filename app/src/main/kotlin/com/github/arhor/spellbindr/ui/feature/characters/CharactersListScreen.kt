@@ -22,13 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
@@ -36,12 +33,11 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharactersListRoute(
+    uiState: CharactersListUiState,
     onCharacterSelected: (String) -> Unit,
     onCreateCharacter: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CharactersListViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsState()
     CharactersListScreen(
         uiState = uiState,
         onCharacterSelected = onCharacterSelected,
@@ -51,7 +47,7 @@ fun CharactersListRoute(
 }
 
 @Composable
-fun CharactersListScreen(
+private fun CharactersListScreen(
     uiState: CharactersListUiState,
     onCharacterSelected: (String) -> Unit,
     onCreateCharacter: () -> Unit,
