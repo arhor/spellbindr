@@ -33,6 +33,7 @@ data class CharacterSheet(
     val senses: String = "",
     val languages: String = "",
     val proficiencies: String = "",
+    val weapons: List<WeaponEntry> = emptyList(),
     val attacksAndCantrips: String = "",
     val featuresAndTraits: String = "",
     val equipment: String = "",
@@ -73,6 +74,7 @@ data class CharacterSheetSnapshot(
     val senses: String = "",
     val languages: String = "",
     val proficiencies: String = "",
+    val weapons: List<WeaponEntry> = emptyList(),
     val attacksAndCantrips: String = "",
     val featuresAndTraits: String = "",
     val equipment: String = "",
@@ -144,6 +146,7 @@ fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet
     senses = senses,
     languages = languages,
     proficiencies = proficiencies,
+    weapons = weapons,
     attacksAndCantrips = attacksAndCantrips,
     featuresAndTraits = featuresAndTraits,
     equipment = equipment,
@@ -180,6 +183,7 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
     senses = senses,
     languages = languages,
     proficiencies = proficiencies,
+    weapons = weapons,
     attacksAndCantrips = attacksAndCantrips,
     featuresAndTraits = featuresAndTraits,
     equipment = equipment,
@@ -214,6 +218,13 @@ data class SpellSlotState(
 data class CharacterSpell(
     val spellId: String,
     val sourceClass: String = "",
+)
+
+@Serializable
+data class WeaponEntry(
+    val name: String = "",
+    val attackBonus: Int = 0,
+    val damage: String = "",
 )
 
 fun defaultSpellSlots(): List<SpellSlotState> =

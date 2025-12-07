@@ -30,6 +30,9 @@ fun OverviewTab(
             header = header,
             abilities = overview.abilities,
         )
+        WeaponsCard(
+            weapons = overview.weapons,
+        )
         SavingThrowsCard(
             abilities = overview.abilities,
         )

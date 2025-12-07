@@ -325,6 +325,7 @@ data class OverviewTabState(
     val senses: String,
     val languages: String,
     val proficiencies: String,
+    val weapons: List<WeaponUiModel>,
     val equipment: String,
     val background: String,
     val race: String,
@@ -340,6 +341,13 @@ data class AbilityUiModel(
     val modifier: Int,
     val savingThrowBonus: Int,
     val savingThrowProficient: Boolean,
+)
+
+@Immutable
+data class WeaponUiModel(
+    val name: String,
+    val attackBonus: Int,
+    val damage: String,
 )
 
 @Immutable
@@ -467,6 +475,13 @@ private fun CharacterSheet.toOverviewState(): OverviewTabState {
         senses = senses,
         languages = languages,
         proficiencies = proficiencies,
+        weapons = weapons.map { entry ->
+            WeaponUiModel(
+                name = entry.name.ifBlank { "—" },
+                attackBonus = entry.attackBonus,
+                damage = entry.damage.ifBlank { "—" },
+            )
+        },
         equipment = equipment,
         background = background,
         race = race,
