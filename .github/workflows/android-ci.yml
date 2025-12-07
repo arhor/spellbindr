@@ -26,7 +26,7 @@ jobs:
   build:
     name: Lint, test, and assemble
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -46,10 +46,15 @@ jobs:
           cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/master') && !startsWith(github.ref, 'refs/heads/stable') }}
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: Lint, test, and assemble
-        run: ./gradlew lintDebug testDebugUnitTest assembleDebug --stacktrace
+      - name: Lint and test
+        run: ./gradlew lintDebug testDebugUnitTest --stacktrace
+
+      - name: Assemble debug
+        if: ${{ github.event_name == 'pull_request' }}
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload debug APK
+        if: ${{ github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v5
         with:
           name: app-debug-apk
