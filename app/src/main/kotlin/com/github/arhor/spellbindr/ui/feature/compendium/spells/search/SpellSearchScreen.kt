@@ -14,9 +14,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.compose.ui.tooling.preview.Preview
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.ui.theme.AppTheme

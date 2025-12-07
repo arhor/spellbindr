@@ -34,10 +34,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.compose.ui.tooling.preview.Preview
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.ui.AppTopBarConfig

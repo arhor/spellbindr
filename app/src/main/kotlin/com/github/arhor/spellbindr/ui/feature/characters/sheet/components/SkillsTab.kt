@@ -15,12 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.signed
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SkillsTab(
