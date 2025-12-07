@@ -31,26 +31,25 @@ import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
-import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
-import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
-import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
-import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
+import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerViewModel
-import kotlinx.coroutines.flow.collectLatest
+import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
+import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellbindrApp(

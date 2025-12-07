@@ -20,18 +20,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
+import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
-import com.github.arhor.spellbindr.data.model.EntityRef
-import com.github.arhor.spellbindr.data.model.predefined.Condition
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 
 @Composable
 fun CompendiumRoute(

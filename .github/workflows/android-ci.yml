@@ -11,6 +11,7 @@ on:
       - synchronize
   push:
     branches:
+      - master
       - stable
   workflow_dispatch:
 
