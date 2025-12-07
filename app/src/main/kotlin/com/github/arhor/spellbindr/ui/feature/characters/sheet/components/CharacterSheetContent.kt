@@ -95,6 +95,12 @@ internal fun CharacterSheetContent(
                     callbacks = callbacks,
                     modifier = Modifier.fillMaxSize(),
                 )
+
+                CharacterSheetTab.Weapons -> WeaponsTab(
+                    weapons = requireNotNull(state.weapons),
+                    callbacks = callbacks,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }

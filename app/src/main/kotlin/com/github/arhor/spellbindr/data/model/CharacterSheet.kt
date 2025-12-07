@@ -1,8 +1,10 @@
 package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 /**
  * Represents the data captured by the manual character sheet editor.
@@ -42,6 +44,7 @@ data class CharacterSheet(
     val flaws: String = "",
     val notes: String = "",
     val characterSpells: List<CharacterSpell> = emptyList(),
+    val weapons: List<Weapon> = emptyList(),
 )
 
 /**
@@ -82,6 +85,7 @@ data class CharacterSheetSnapshot(
     val flaws: String = "",
     val notes: String = "",
     val characterSpells: List<CharacterSpell> = emptyList(),
+    val weapons: List<Weapon> = emptyList(),
 )
 
 @Serializable
@@ -153,6 +157,7 @@ fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet
     flaws = flaws,
     notes = notes,
     characterSpells = characterSpells,
+    weapons = weapons,
 )
 
 fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot(
@@ -189,6 +194,7 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
     flaws = flaws,
     notes = notes,
     characterSpells = characterSpells,
+    weapons = weapons,
 )
 
 fun defaultSavingThrows(): List<SavingThrowEntry> =
@@ -214,6 +220,16 @@ data class SpellSlotState(
 data class CharacterSpell(
     val spellId: String,
     val sourceClass: String = "",
+)
+
+@Serializable
+data class Weapon(
+    val id: String = UUID.randomUUID().toString(),
+    val name: String,
+    val attackBonus: Int = 0,
+    val damage: String = "",
+    val damageType: DamageType = DamageType.SLASHING,
+    val ability: Ability = Ability.STR,
 )
 
 fun defaultSpellSlots(): List<SpellSlotState> =
