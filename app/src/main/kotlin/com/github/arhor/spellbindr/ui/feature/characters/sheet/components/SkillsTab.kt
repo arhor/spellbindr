@@ -21,7 +21,6 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.signed
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SkillsTab(
