@@ -45,8 +45,8 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-2",
                     name = "Shortsword",
-                    ability = Ability.STR,
-                    proficient = false,
+                    ability = Ability.DEX,
+                    proficient = true,
                     damageDiceCount = 1,
                     damageDieSize = 6,
                     useAbilityForDamage = true,
