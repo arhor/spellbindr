@@ -117,7 +117,7 @@ internal object CharacterSheetPreviewData {
                 attackBonusLabel = "ATK +7",
                 damageLabel = "DMG 1d8+4",
                 damageType = DamageType.SLASHING,
-                ability = Ability.STR,
+                attackAbility = Ability.STR,
             ),
             WeaponUiModel(
                 id = "w2",
@@ -125,7 +125,7 @@ internal object CharacterSheetPreviewData {
                 attackBonusLabel = "ATK +5",
                 damageLabel = "DMG 1d6+3",
                 damageType = DamageType.PIERCING,
-                ability = Ability.DEX,
+                attackAbility = Ability.DEX,
             ),
         ),
     )

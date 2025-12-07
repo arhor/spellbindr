@@ -12,10 +12,12 @@ class CharacterSheetWeaponSerializationTest {
         val weapon = Weapon(
             id = "weapon-1",
             name = "Longsword",
-            attackBonus = 5,
-            damage = "1d8+3",
+            attackAbility = Ability.STR,
+            proficient = true,
+            damageDiceCount = 1,
+            damageDieSize = 8,
+            damageAbility = Ability.STR,
             damageType = DamageType.SLASHING,
-            ability = Ability.STR,
         )
 
         val sheet = CharacterSheet(id = "character-1", weapons = listOf(weapon))
@@ -27,14 +29,15 @@ class CharacterSheetWeaponSerializationTest {
     }
 
     @Test
-    fun `weapon defaults are preserved when attack bonus missing`() {
+    fun `weapon defaults are preserved when optional fields missing`() {
         val snapshot = CharacterSheetSnapshot(
             weapons = listOf(
                 Weapon(
                     id = "weapon-2",
                     name = "Fire Bolt",
+                    attackAbility = Ability.INT,
+                    damageAbility = Ability.INT,
                     damageType = DamageType.FIRE,
-                    ability = Ability.INT,
                 )
             )
         )
@@ -42,7 +45,8 @@ class CharacterSheetWeaponSerializationTest {
         val restored = snapshot.toDomain("character-2")
 
         assertThat(restored.weapons).hasSize(1)
-        assertThat(restored.weapons.first().attackBonus).isEqualTo(0)
-        assertThat(restored.weapons.first().damage).isEqualTo("")
+        assertThat(restored.weapons.first().proficient).isFalse()
+        assertThat(restored.weapons.first().damageDiceCount).isEqualTo(1)
+        assertThat(restored.weapons.first().damageDieSize).isEqualTo(6)
     }
 }

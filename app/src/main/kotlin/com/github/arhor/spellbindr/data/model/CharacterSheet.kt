@@ -226,10 +226,12 @@ data class CharacterSpell(
 data class Weapon(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
-    val attackBonus: Int = 0,
-    val damage: String = "",
+    val attackAbility: Ability = Ability.STR,
+    val proficient: Boolean = false,
+    val damageDiceCount: Int = 1,
+    val damageDieSize: Int = 6,
+    val damageAbility: Ability = attackAbility,
     val damageType: DamageType = DamageType.SLASHING,
-    val ability: Ability = Ability.STR,
 )
 
 fun defaultSpellSlots(): List<SpellSlotState> =

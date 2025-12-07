@@ -2,7 +2,6 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,12 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.DropdownMenu
@@ -115,23 +112,6 @@ private fun WeaponListItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Surface(
-                modifier = Modifier.size(36.dp),
-                shape = MaterialTheme.shapes.medium,
-                tonalElevation = 3.dp,
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Build,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
-                    )
-                }
-            }
-
             Column(modifier = Modifier.weight(1f)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -163,7 +143,7 @@ private fun WeaponListItem(
                         AssistChip(
                             onClick = {},
                             enabled = false,
-                            label = { Text(weapon.ability.name) },
+                            label = { Text(weapon.attackAbility.name) },
                         )
                         AssistChip(
                             onClick = {},
@@ -228,7 +208,7 @@ private fun WeaponsTabPreview() {
                         attackBonusLabel = "ATK +7",
                         damageLabel = "DMG 1d8+4",
                         damageType = DamageType.SLASHING,
-                        ability = Ability.STR,
+                        attackAbility = Ability.STR,
                     ),
                 ),
             ),

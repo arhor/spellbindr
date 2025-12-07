@@ -28,9 +28,11 @@ fun WeaponEditorDialog(
     editorState: WeaponEditorState,
     onDismiss: () -> Unit,
     onNameChange: (String) -> Unit,
-    onAttackBonusChange: (String) -> Unit,
-    onDamageChange: (String) -> Unit,
-    onAbilityChange: (Ability) -> Unit,
+    onAttackAbilityChange: (Ability) -> Unit,
+    onDamageAbilityChange: (Ability) -> Unit,
+    onProficiencyChange: (Boolean) -> Unit,
+    onDiceCountChange: (String) -> Unit,
+    onDieSizeChange: (String) -> Unit,
     onDamageTypeChange: (DamageType) -> Unit,
     onDelete: (String) -> Unit,
     onSave: () -> Unit,
@@ -49,21 +51,6 @@ fun WeaponEditorDialog(
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
-                OutlinedTextField(
-                    value = editorState.attackBonus,
-                    onValueChange = onAttackBonusChange,
-                    label = { Text("Attack bonus") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                OutlinedTextField(
-                    value = editorState.damage,
-                    onValueChange = onDamageChange,
-                    label = { Text("Damage (e.g. 1d8+4)") },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                )
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Attack ability", modifier = Modifier.padding(horizontal = 4.dp))
                     Row(
@@ -74,13 +61,53 @@ fun WeaponEditorDialog(
                     ) {
                         Ability.entries.forEach { ability ->
                             FilterChip(
-                                selected = editorState.ability == ability,
-                                onClick = { onAbilityChange(ability) },
+                                selected = editorState.attackAbility == ability,
+                                onClick = { onAttackAbilityChange(ability) },
                                 label = { Text(ability.name) },
                             )
                         }
                     }
                 }
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Damage ability", modifier = Modifier.padding(horizontal = 4.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Ability.entries.forEach { ability ->
+                            FilterChip(
+                                selected = editorState.damageAbility == ability,
+                                onClick = { onDamageAbilityChange(ability) },
+                                label = { Text(ability.name) },
+                            )
+                        }
+                    }
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    OutlinedTextField(
+                        value = editorState.damageDiceCount,
+                        onValueChange = onDiceCountChange,
+                        label = { Text("Dice count") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                    )
+                    OutlinedTextField(
+                        value = editorState.damageDieSize,
+                        onValueChange = onDieSizeChange,
+                        label = { Text("Die size") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        singleLine = true,
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+                FilterChip(
+                    selected = editorState.proficient,
+                    onClick = { onProficiencyChange(!editorState.proficient) },
+                    label = { Text("Proficient") },
+                )
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Damage type", modifier = Modifier.padding(horizontal = 4.dp))
                     Row(
@@ -127,14 +154,19 @@ private fun WeaponEditorDialogPreview() {
         WeaponEditorDialog(
             editorState = WeaponEditorState(
                 name = "Longsword",
-                attackBonus = "7",
-                damage = "1d8+4",
+                attackAbility = Ability.STR,
+                damageAbility = Ability.STR,
+                damageDiceCount = "1",
+                damageDieSize = "8",
+                proficient = true,
             ),
             onDismiss = {},
             onNameChange = {},
-            onAttackBonusChange = {},
-            onDamageChange = {},
-            onAbilityChange = {},
+            onAttackAbilityChange = {},
+            onDamageAbilityChange = {},
+            onProficiencyChange = {},
+            onDiceCountChange = {},
+            onDieSizeChange = {},
             onDamageTypeChange = {},
             onDelete = {},
             onSave = {},
