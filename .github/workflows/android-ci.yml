@@ -62,3 +62,31 @@ jobs:
           overwrite: true
           retention-days: 7
           if-no-files-found: error
+
+      - name: Share debug APK download link
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runId = context.runId;
+            const { data: { artifacts } } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: runId,
+            });
+
+            const artifact = artifacts.find(({ name }) => name === 'app-debug-apk');
+
+            if (!artifact) {
+              core.setFailed('Debug APK artifact not found.');
+              return;
+            }
+
+            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}/artifacts/${artifact.id}`;
+            const body = `A debug APK is available for download: [Download app-debug.apk](${artifactUrl}).`;
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });
