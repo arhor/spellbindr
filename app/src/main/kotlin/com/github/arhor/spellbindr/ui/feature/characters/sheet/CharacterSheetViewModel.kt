@@ -675,7 +675,7 @@ private fun CharacterSheet.toWeaponsState(): WeaponsTabState = WeaponsTabState(
         WeaponUiModel(
             id = weapon.id,
             name = weapon.name.ifBlank { "Unnamed weapon" },
-            attackBonusLabel = "ATK ${weapon.attackBonus.signed()}",
+            attackBonusLabel = "ATK ${signed(weapon.attackBonus)}",
             damageLabel = "DMG ${weapon.damage.ifBlank { "—" }}",
             damageType = weapon.damageType,
             ability = weapon.ability,
