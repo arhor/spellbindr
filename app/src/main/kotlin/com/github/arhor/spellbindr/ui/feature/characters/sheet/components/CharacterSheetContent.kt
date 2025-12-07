@@ -89,6 +89,11 @@ internal fun CharacterSheetContent(
                     modifier = Modifier.fillMaxSize(),
                 )
 
+                CharacterSheetTab.Weapons -> WeaponsTab(
+                    weapons = requireNotNull(state.weapons),
+                    modifier = Modifier.fillMaxSize(),
+                )
+
                 CharacterSheetTab.Spells -> SpellsTab(
                     spellsState = requireNotNull(state.spells),
                     editMode = state.editMode,

@@ -16,6 +16,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
 
 internal object CharacterSheetPreviewData {
 
@@ -45,15 +46,18 @@ internal object CharacterSheetPreviewData {
         senses = "Darkvision 60 ft",
         languages = "Common, Elvish",
         proficiencies = "Arcana, History, Insight",
-        weapons = listOf(
-            WeaponUiModel(name = "Quarterstaff", attackBonus = 5, damage = "1d6 bludgeoning"),
-            WeaponUiModel(name = "Dagger", attackBonus = 6, damage = "1d4 piercing"),
-        ),
         equipment = "Quarterstaff, Spellbook",
         background = "Sage",
         race = "Half-elf",
         alignment = "Chaotic Good",
         deathSaves = DeathSaveUiState(successes = 1, failures = 0),
+    )
+
+    val weapons = WeaponsTabState(
+        weapons = listOf(
+            WeaponUiModel(name = "Quarterstaff", attackBonus = 5, damage = "1d6 bludgeoning"),
+            WeaponUiModel(name = "Dagger", attackBonus = 6, damage = "1d4 piercing"),
+        ),
     )
 
     val skills = SkillsTabState(
@@ -128,6 +132,7 @@ internal object CharacterSheetPreviewData {
         selectedTab = CharacterSheetTab.Overview,
         header = header,
         overview = overview,
+        weapons = weapons,
         skills = skills,
         spells = spells,
         editingState = editingState,

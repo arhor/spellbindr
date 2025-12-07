@@ -108,6 +108,7 @@ class CharacterSheetViewModel @Inject constructor(
                         editMode = inputs.mode,
                         header = inputs.sheet.toHeaderState(),
                         overview = inputs.sheet.toOverviewState(),
+                        weapons = inputs.sheet.toWeaponsState(),
                         skills = inputs.sheet.toSkillsState(),
                         spells = inputs.sheet.toSpellsState(inputs.spells),
                         editingState = inputs.editing.takeIf { inputs.mode == SheetEditMode.Editing },
@@ -293,6 +294,7 @@ data class CharacterSheetUiState(
     val editMode: SheetEditMode = SheetEditMode.View,
     val header: CharacterHeaderUiState? = null,
     val overview: OverviewTabState? = null,
+    val weapons: WeaponsTabState? = null,
     val skills: SkillsTabState? = null,
     val spells: SpellsTabState? = null,
     val editingState: CharacterSheetEditingState? = null,
@@ -325,7 +327,6 @@ data class OverviewTabState(
     val senses: String,
     val languages: String,
     val proficiencies: String,
-    val weapons: List<WeaponUiModel>,
     val equipment: String,
     val background: String,
     val race: String,
@@ -348,6 +349,11 @@ data class WeaponUiModel(
     val name: String,
     val attackBonus: Int,
     val damage: String,
+)
+
+@Immutable
+data class WeaponsTabState(
+    val weapons: List<WeaponUiModel>,
 )
 
 @Immutable
@@ -475,13 +481,6 @@ private fun CharacterSheet.toOverviewState(): OverviewTabState {
         senses = senses,
         languages = languages,
         proficiencies = proficiencies,
-        weapons = weapons.map { entry ->
-            WeaponUiModel(
-                name = entry.name.ifBlank { "—" },
-                attackBonus = entry.attackBonus,
-                damage = entry.damage.ifBlank { "—" },
-            )
-        },
         equipment = equipment,
         background = background,
         race = race,
@@ -492,6 +491,16 @@ private fun CharacterSheet.toOverviewState(): OverviewTabState {
         ),
     )
 }
+
+private fun CharacterSheet.toWeaponsState(): WeaponsTabState = WeaponsTabState(
+    weapons = weapons.map { entry ->
+        WeaponUiModel(
+            name = entry.name.ifBlank { "—" },
+            attackBonus = entry.attackBonus,
+            damage = entry.damage.ifBlank { "—" },
+        )
+    },
+)
 
 private fun CharacterSheet.toSkillsState(): SkillsTabState {
     val entries = skills.associateBy { it.skill }

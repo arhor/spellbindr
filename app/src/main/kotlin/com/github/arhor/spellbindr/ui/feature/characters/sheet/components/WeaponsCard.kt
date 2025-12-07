@@ -126,7 +126,7 @@ private fun WeaponHeaderRow(modifier: Modifier = Modifier) {
 private fun WeaponsCardPreview() {
     AppTheme(isDarkTheme = false) {
         WeaponsCard(
-            weapons = CharacterSheetPreviewData.overview.weapons,
+            weapons = CharacterSheetPreviewData.weapons.weapons,
         )
     }
 }
