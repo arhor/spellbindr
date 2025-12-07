@@ -17,6 +17,8 @@ on:
 
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
 
 concurrency:
   group: android-build-${{ github.ref }}
@@ -63,8 +65,9 @@ jobs:
           retention-days: 7
           if-no-files-found: error
 
-      - name: Share debug APK download link
+      - name: Prepare debug APK download link
         if: ${{ github.event_name == 'pull_request' }}
+        id: debug-apk
         uses: actions/github-script@v7
         with:
           script: |
@@ -83,10 +86,13 @@ jobs:
             }
 
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}/artifacts/${artifact.id}`;
-            const body = `A debug APK is available for download: [Download app-debug.apk](${artifactUrl}).`;
+            core.setOutput('body', `A debug APK is available for download: [Download app-debug.apk](${artifactUrl}).`);
 
-            await github.rest.issues.createComment({
-              ...context.repo,
-              issue_number: context.payload.pull_request.number,
-              body,
-            });
+      - name: Share debug APK download link
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.debug-apk.outputs.body }}
+          comment-key: debug-apk-download
+          edit-mode: replace
