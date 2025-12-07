@@ -12,11 +12,10 @@ class CharacterSheetWeaponSerializationTest {
         val weapon = Weapon(
             id = "weapon-1",
             name = "Longsword",
-            attackAbility = Ability.STR,
+            ability = Ability.STR,
             proficient = true,
             damageDiceCount = 1,
             damageDieSize = 8,
-            damageAbility = Ability.STR,
             damageType = DamageType.SLASHING,
         )
 
@@ -35,8 +34,8 @@ class CharacterSheetWeaponSerializationTest {
                 Weapon(
                     id = "weapon-2",
                     name = "Fire Bolt",
-                    attackAbility = Ability.INT,
-                    damageAbility = Ability.INT,
+                    ability = Ability.INT,
+                    useAbilityForDamage = false,
                     damageType = DamageType.FIRE,
                 )
             )
@@ -48,5 +47,6 @@ class CharacterSheetWeaponSerializationTest {
         assertThat(restored.weapons.first().proficient).isFalse()
         assertThat(restored.weapons.first().damageDiceCount).isEqualTo(1)
         assertThat(restored.weapons.first().damageDieSize).isEqualTo(6)
+        assertThat(restored.weapons.first().useAbilityForDamage).isFalse()
     }
 }

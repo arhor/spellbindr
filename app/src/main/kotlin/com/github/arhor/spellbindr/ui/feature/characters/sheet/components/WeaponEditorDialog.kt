@@ -28,8 +28,8 @@ fun WeaponEditorDialog(
     editorState: WeaponEditorState,
     onDismiss: () -> Unit,
     onNameChange: (String) -> Unit,
-    onAttackAbilityChange: (Ability) -> Unit,
-    onDamageAbilityChange: (Ability) -> Unit,
+    onAbilityChange: (Ability) -> Unit,
+    onUseAbilityForDamageChange: (Boolean) -> Unit,
     onProficiencyChange: (Boolean) -> Unit,
     onDiceCountChange: (String) -> Unit,
     onDieSizeChange: (String) -> Unit,
@@ -52,7 +52,7 @@ fun WeaponEditorDialog(
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Attack ability", modifier = Modifier.padding(horizontal = 4.dp))
+                    Text("Ability", modifier = Modifier.padding(horizontal = 4.dp))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -61,25 +61,8 @@ fun WeaponEditorDialog(
                     ) {
                         Ability.entries.forEach { ability ->
                             FilterChip(
-                                selected = editorState.attackAbility == ability,
-                                onClick = { onAttackAbilityChange(ability) },
-                                label = { Text(ability.name) },
-                            )
-                        }
-                    }
-                }
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Damage ability", modifier = Modifier.padding(horizontal = 4.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        Ability.entries.forEach { ability ->
-                            FilterChip(
-                                selected = editorState.damageAbility == ability,
-                                onClick = { onDamageAbilityChange(ability) },
+                                selected = editorState.ability == ability,
+                                onClick = { onAbilityChange(ability) },
                                 label = { Text(ability.name) },
                             )
                         }
@@ -107,6 +90,11 @@ fun WeaponEditorDialog(
                     selected = editorState.proficient,
                     onClick = { onProficiencyChange(!editorState.proficient) },
                     label = { Text("Proficient") },
+                )
+                FilterChip(
+                    selected = editorState.useAbilityForDamage,
+                    onClick = { onUseAbilityForDamageChange(!editorState.useAbilityForDamage) },
+                    label = { Text("Add ability to damage") },
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Damage type", modifier = Modifier.padding(horizontal = 4.dp))
@@ -154,16 +142,15 @@ private fun WeaponEditorDialogPreview() {
         WeaponEditorDialog(
             editorState = WeaponEditorState(
                 name = "Longsword",
-                attackAbility = Ability.STR,
-                damageAbility = Ability.STR,
+                ability = Ability.STR,
                 damageDiceCount = "1",
                 damageDieSize = "8",
                 proficient = true,
             ),
             onDismiss = {},
             onNameChange = {},
-            onAttackAbilityChange = {},
-            onDamageAbilityChange = {},
+            onAbilityChange = {},
+            onUseAbilityForDamageChange = {},
             onProficiencyChange = {},
             onDiceCountChange = {},
             onDieSizeChange = {},

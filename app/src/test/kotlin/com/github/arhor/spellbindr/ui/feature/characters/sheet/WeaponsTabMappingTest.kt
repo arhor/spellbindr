@@ -20,11 +20,10 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-1",
                     name = "Longsword",
-                    attackAbility = Ability.STR,
+                    ability = Ability.STR,
                     proficient = true,
                     damageDiceCount = 1,
                     damageDieSize = 8,
-                    damageAbility = Ability.STR,
                     damageType = DamageType.SLASHING,
                 )
             ),
@@ -33,7 +32,7 @@ class WeaponsTabMappingTest {
         val weaponsState = sheet.toWeaponsState().weapons.single()
 
         assertThat(weaponsState.attackBonusLabel).isEqualTo("ATK +7")
-        assertThat(weaponsState.damageLabel).isEqualTo("DMG 1d8 +4")
+        assertThat(weaponsState.damageLabel).isEqualTo("DMG 1d8+4")
     }
 
     @Test
@@ -46,21 +45,20 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-2",
                     name = "Shortsword",
-                    attackAbility = Ability.STR,
+                    ability = Ability.STR,
                     proficient = false,
                     damageDiceCount = 1,
                     damageDieSize = 6,
-                    damageAbility = Ability.DEX,
+                    useAbilityForDamage = true,
                     damageType = DamageType.PIERCING,
                 ),
                 Weapon(
                     id = "weapon-3",
                     name = "Mind Spike",
-                    attackAbility = Ability.INT,
+                    ability = Ability.INT,
                     proficient = true,
                     damageDiceCount = 2,
                     damageDieSize = 6,
-                    damageAbility = Ability.INT,
                     damageType = DamageType.PSYCHIC,
                 ),
             ),
@@ -69,8 +67,34 @@ class WeaponsTabMappingTest {
         val (shortsword, mindSpike) = sheet.toWeaponsState().weapons
 
         assertThat(shortsword.attackBonusLabel).isEqualTo("ATK +1")
-        assertThat(shortsword.damageLabel).isEqualTo("DMG 1d6 -1")
+        assertThat(shortsword.damageLabel).isEqualTo("DMG 1d6-1")
         assertThat(mindSpike.attackBonusLabel).isEqualTo("ATK +5")
-        assertThat(mindSpike.damageLabel).isEqualTo("DMG 2d6 +3")
+        assertThat(mindSpike.damageLabel).isEqualTo("DMG 2d6+3")
+    }
+
+    @Test
+    fun `damage omits ability bonus when toggle disabled`() {
+        val sheet = CharacterSheet(
+            id = "character-3",
+            abilityScores = AbilityScores(strength = 16, dexterity = 14),
+            proficiencyBonus = 2,
+            weapons = listOf(
+                Weapon(
+                    id = "weapon-4",
+                    name = "Unarmed Strike",
+                    ability = Ability.STR,
+                    proficient = true,
+                    damageDiceCount = 1,
+                    damageDieSize = 4,
+                    useAbilityForDamage = false,
+                    damageType = DamageType.BLUDGEONING,
+                ),
+            ),
+        )
+
+        val weapon = sheet.toWeaponsState().weapons.single()
+
+        assertThat(weapon.attackBonusLabel).isEqualTo("ATK +5")
+        assertThat(weapon.damageLabel).isEqualTo("DMG 1d4")
     }
 }

@@ -294,9 +294,10 @@ class CharacterSheetViewModel @Inject constructor(
 
     fun onWeaponNameChanged(value: String) = updateWeaponEditor { it.copy(name = value) }
 
-    fun onWeaponAttackAbilityChanged(ability: Ability) = updateWeaponEditor { it.copy(attackAbility = ability) }
+    fun onWeaponAbilityChanged(ability: Ability) = updateWeaponEditor { it.copy(ability = ability) }
 
-    fun onWeaponDamageAbilityChanged(ability: Ability) = updateWeaponEditor { it.copy(damageAbility = ability) }
+    fun onWeaponUseAbilityForDamageChanged(enabled: Boolean) =
+        updateWeaponEditor { it.copy(useAbilityForDamage = enabled) }
 
     fun onWeaponProficiencyChanged(proficient: Boolean) = updateWeaponEditor { it.copy(proficient = proficient) }
 
@@ -477,16 +478,15 @@ data class WeaponUiModel(
     val attackBonusLabel: String,
     val damageLabel: String,
     val damageType: DamageType,
-    val attackAbility: Ability,
 )
 
 @Immutable
 data class WeaponEditorState(
     val id: String? = null,
     val name: String = "",
-    val attackAbility: Ability = Ability.STR,
-    val damageAbility: Ability = attackAbility,
+    val ability: Ability = Ability.STR,
     val proficient: Boolean = false,
+    val useAbilityForDamage: Boolean = true,
     val damageDiceCount: String = "1",
     val damageDieSize: String = "6",
     val damageType: DamageType = DamageType.SLASHING,
@@ -494,11 +494,11 @@ data class WeaponEditorState(
     fun toWeapon(): Weapon = Weapon(
         id = id ?: UUID.randomUUID().toString(),
         name = name.trim(),
-        attackAbility = attackAbility,
+        ability = ability,
         proficient = proficient,
         damageDiceCount = damageDiceCount.toIntOrNull()?.coerceAtLeast(1) ?: 1,
         damageDieSize = damageDieSize.toIntOrNull()?.coerceAtLeast(1) ?: 6,
-        damageAbility = damageAbility,
+        useAbilityForDamage = useAbilityForDamage,
         damageType = damageType,
     )
 
@@ -506,9 +506,9 @@ data class WeaponEditorState(
         fun fromWeapon(weapon: Weapon): WeaponEditorState = WeaponEditorState(
             id = weapon.id,
             name = weapon.name,
-            attackAbility = weapon.attackAbility,
-            damageAbility = weapon.damageAbility,
+            ability = weapon.ability,
             proficient = weapon.proficient,
+            useAbilityForDamage = weapon.useAbilityForDamage,
             damageDiceCount = weapon.damageDiceCount.toString(),
             damageDieSize = weapon.damageDieSize.toString(),
             damageType = weapon.damageType,
@@ -686,18 +686,21 @@ internal fun CharacterSheet.toWeaponsState(): WeaponsTabState {
 
     return WeaponsTabState(
         weapons = weapons.map { weapon ->
-            val attackModifier = scores.modifierFor(weapon.attackAbility)
-            val attackBonus = attackModifier + if (weapon.proficient) proficiency else 0
-            val damageBonus = scores.modifierFor(weapon.damageAbility)
-            val damageLabel = "DMG ${weapon.damageDiceCount}d${weapon.damageDieSize} ${signed(damageBonus)}"
+            val abilityModifier = scores.modifierFor(weapon.ability)
+            val attackBonus = abilityModifier + if (weapon.proficient) proficiency else 0
+            val damageBonus = if (weapon.useAbilityForDamage) abilityModifier else 0
+            val damagePart = if (damageBonus == 0) {
+                "${weapon.damageDiceCount}d${weapon.damageDieSize}"
+            } else {
+                "${weapon.damageDiceCount}d${weapon.damageDieSize}${signed(damageBonus)}"
+            }
 
             WeaponUiModel(
                 id = weapon.id,
                 name = weapon.name.ifBlank { "Unnamed weapon" },
                 attackBonusLabel = "ATK ${signed(attackBonus)}",
-                damageLabel = damageLabel,
+                damageLabel = "DMG $damagePart",
                 damageType = weapon.damageType,
-                attackAbility = weapon.attackAbility,
             )
         },
     )

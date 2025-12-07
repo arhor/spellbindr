@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.data.model
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
@@ -226,11 +227,12 @@ data class CharacterSpell(
 data class Weapon(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
-    val attackAbility: Ability = Ability.STR,
+    @SerialName("attackAbility")
+    val ability: Ability = Ability.STR,
     val proficient: Boolean = false,
     val damageDiceCount: Int = 1,
     val damageDieSize: Int = 6,
-    val damageAbility: Ability = attackAbility,
+    val useAbilityForDamage: Boolean = true,
     val damageType: DamageType = DamageType.SLASHING,
 )
 
