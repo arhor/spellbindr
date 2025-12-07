@@ -31,6 +31,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.Charac
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetError
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarActions
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarTitle
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -86,6 +87,18 @@ fun CharacterSheetRoute(
         onSpellRemoved = viewModel::removeSpell,
         onSpellSelected = onOpenSpellDetail,
         onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
+        onAddWeaponClicked = viewModel::onAddWeaponClicked,
+        onWeaponSelected = viewModel::onWeaponSelected,
+        onWeaponDeleted = viewModel::onWeaponDeleted,
+        onWeaponEditorDismissed = viewModel::onWeaponEditorDismissed,
+        onWeaponNameChanged = viewModel::onWeaponNameChanged,
+        onWeaponAbilityChanged = viewModel::onWeaponAbilityChanged,
+        onWeaponUseAbilityForDamageChanged = viewModel::onWeaponUseAbilityForDamageChanged,
+        onWeaponProficiencyChanged = viewModel::onWeaponProficiencyChanged,
+        onWeaponDiceCountChanged = viewModel::onWeaponDiceCountChanged,
+        onWeaponDieSizeChanged = viewModel::onWeaponDieSizeChanged,
+        onWeaponDamageTypeChanged = viewModel::onWeaponDamageTypeChanged,
+        onWeaponSaved = viewModel::onWeaponSaved,
         onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
         onDeleteCharacter = { viewModel.deleteCharacter(onCharacterDeleted) },
     )
@@ -165,13 +178,32 @@ private fun CharacterSheetScreen(
                     )
                 }
 
-                state.header != null && state.overview != null && state.skills != null && state.spells != null -> {
+                state.header != null &&
+                    state.overview != null &&
+                    state.skills != null &&
+                    state.spells != null &&
+                    state.weapons != null -> {
                     CharacterSheetContent(
                         header = state.header,
                         state = state,
                         callbacks = callbacks,
                         modifier = Modifier.fillMaxSize(),
                     )
+                    state.weaponEditorState?.let { editorState ->
+                        WeaponEditorDialog(
+                            editorState = editorState,
+                            onDismiss = callbacks.onWeaponEditorDismissed,
+                            onNameChange = callbacks.onWeaponNameChanged,
+                            onAbilityChange = callbacks.onWeaponAbilityChanged,
+                            onUseAbilityForDamageChange = callbacks.onWeaponUseAbilityForDamageChanged,
+                            onProficiencyChange = callbacks.onWeaponProficiencyChanged,
+                            onDiceCountChange = callbacks.onWeaponDiceCountChanged,
+                            onDieSizeChange = callbacks.onWeaponDieSizeChanged,
+                            onDamageTypeChange = callbacks.onWeaponDamageTypeChanged,
+                            onDelete = callbacks.onWeaponDeleted,
+                            onSave = callbacks.onWeaponSaved,
+                        )
+                    }
                 }
             }
         }

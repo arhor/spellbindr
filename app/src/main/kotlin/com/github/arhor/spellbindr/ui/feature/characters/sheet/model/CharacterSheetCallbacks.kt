@@ -1,5 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
+import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.data.model.predefined.DamageType
+
 data class CharacterSheetCallbacks(
     val onTabSelected: (CharacterSheetTab) -> Unit = {},
     val onEnterEdit: () -> Unit = {},
@@ -23,6 +26,18 @@ data class CharacterSheetCallbacks(
     val onSpellRemoved: (String, String) -> Unit = { _, _ -> },
     val onSpellSelected: (String) -> Unit = {},
     val onAddSpellsClicked: () -> Unit = {},
+    val onAddWeaponClicked: () -> Unit = {},
+    val onWeaponSelected: (String) -> Unit = {},
+    val onWeaponDeleted: (String) -> Unit = {},
+    val onWeaponEditorDismissed: () -> Unit = {},
+    val onWeaponNameChanged: (String) -> Unit = {},
+    val onWeaponAbilityChanged: (Ability) -> Unit = {},
+    val onWeaponUseAbilityForDamageChanged: (Boolean) -> Unit = {},
+    val onWeaponProficiencyChanged: (Boolean) -> Unit = {},
+    val onWeaponDiceCountChanged: (String) -> Unit = {},
+    val onWeaponDieSizeChanged: (String) -> Unit = {},
+    val onWeaponDamageTypeChanged: (DamageType) -> Unit = {},
+    val onWeaponSaved: () -> Unit = {},
     val onOpenFullEditor: () -> Unit = {},
     val onDeleteCharacter: () -> Unit = {},
 )

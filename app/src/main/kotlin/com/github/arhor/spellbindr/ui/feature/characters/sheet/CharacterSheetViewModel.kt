@@ -10,14 +10,17 @@ import com.github.arhor.spellbindr.data.model.CharacterSpell
 import com.github.arhor.spellbindr.data.model.DeathSaveState
 import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.SpellSlotState
+import com.github.arhor.spellbindr.data.model.Weapon
 import com.github.arhor.spellbindr.data.model.defaultSpellSlots
 import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.data.repository.SpellRepository
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
+import com.github.arhor.spellbindr.utils.signed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +34,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import java.util.UUID
 
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
@@ -43,6 +47,7 @@ class CharacterSheetViewModel @Inject constructor(
     private val _selectedTab = MutableStateFlow(CharacterSheetTab.Overview)
     private val _editMode = MutableStateFlow(SheetEditMode.View)
     private val _editingState = MutableStateFlow<CharacterSheetEditingState?>(null)
+    private val _weaponEditor = MutableStateFlow<WeaponEditorState?>(null)
     private val _hasLoaded = MutableStateFlow(characterId == null)
     private val _errors = MutableStateFlow(if (characterId == null) "Missing character id" else null)
 
@@ -78,6 +83,9 @@ class CharacterSheetViewModel @Inject constructor(
             .combine(_editingState) { inputs, editing ->
                 inputs.copy(editing = editing)
             }
+            .combine(_weaponEditor) { inputs, weaponEditor ->
+                inputs.copy(weaponEditor = weaponEditor)
+            }
             .combine(spellRepository.allSpells) { inputs, spells ->
                 inputs.copy(spells = spells)
             }
@@ -110,7 +118,9 @@ class CharacterSheetViewModel @Inject constructor(
                         overview = inputs.sheet.toOverviewState(),
                         skills = inputs.sheet.toSkillsState(),
                         spells = inputs.sheet.toSpellsState(inputs.spells),
+                        weapons = inputs.sheet.toWeaponsState(),
                         editingState = inputs.editing.takeIf { inputs.mode == SheetEditMode.Editing },
+                        weaponEditorState = inputs.weaponEditor,
                         errorMessage = error,
                     )
                 }
@@ -259,6 +269,62 @@ class CharacterSheetViewModel @Inject constructor(
         }
     }
 
+    fun onAddWeaponClicked() {
+        _weaponEditor.value = WeaponEditorState()
+    }
+
+    fun onWeaponSelected(id: String) {
+        val sheet = latestSheet ?: return
+        sheet.weapons.firstOrNull { it.id == id }
+            ?.let { weapon -> _weaponEditor.value = WeaponEditorState.fromWeapon(weapon) }
+    }
+
+    fun onWeaponDeleted(id: String) {
+        updateSheet { sheet ->
+            sheet.copy(weapons = sheet.weapons.filterNot { it.id == id })
+        }
+        if (_weaponEditor.value?.id == id) {
+            _weaponEditor.value = null
+        }
+    }
+
+    fun onWeaponEditorDismissed() {
+        _weaponEditor.value = null
+    }
+
+    fun onWeaponNameChanged(value: String) = updateWeaponEditor { it.copy(name = value) }
+
+    fun onWeaponAbilityChanged(ability: Ability) = updateWeaponEditor { it.copy(ability = ability) }
+
+    fun onWeaponUseAbilityForDamageChanged(enabled: Boolean) =
+        updateWeaponEditor { it.copy(useAbilityForDamage = enabled) }
+
+    fun onWeaponProficiencyChanged(proficient: Boolean) = updateWeaponEditor { it.copy(proficient = proficient) }
+
+    fun onWeaponDiceCountChanged(value: String) = updateWeaponEditor { it.copy(damageDiceCount = value) }
+
+    fun onWeaponDieSizeChanged(value: String) = updateWeaponEditor { it.copy(damageDieSize = value) }
+
+    fun onWeaponDamageTypeChanged(damageType: DamageType) = updateWeaponEditor { it.copy(damageType = damageType) }
+
+    fun onWeaponSaved() {
+        val editor = _weaponEditor.value ?: return
+        val weapon = editor.toWeapon()
+        if (weapon.name.isBlank()) return
+
+        updateSheet { sheet ->
+            val updated = sheet.weapons.toMutableList()
+            val existingIndex = updated.indexOfFirst { it.id == weapon.id }
+            if (existingIndex >= 0) {
+                updated[existingIndex] = weapon
+            } else {
+                updated += weapon
+            }
+            sheet.copy(weapons = updated)
+        }
+        _weaponEditor.value = null
+    }
+
     private fun updateEditingState(transform: (CharacterSheetEditingState) -> CharacterSheetEditingState) {
         _editingState.update { current ->
             current?.let(transform)
@@ -270,6 +336,10 @@ class CharacterSheetViewModel @Inject constructor(
         val transformed = transform(sheet)
         val updated = transformed.clearDeathSavesIfConscious()
         persist(updated)
+    }
+
+    private fun updateWeaponEditor(transform: (WeaponEditorState) -> WeaponEditorState) {
+        _weaponEditor.update { current -> current?.let(transform) }
     }
 
     private fun persist(updated: CharacterSheet) {
@@ -295,7 +365,9 @@ data class CharacterSheetUiState(
     val overview: OverviewTabState? = null,
     val skills: SkillsTabState? = null,
     val spells: SpellsTabState? = null,
+    val weapons: WeaponsTabState? = null,
     val editingState: CharacterSheetEditingState? = null,
+    val weaponEditorState: WeaponEditorState? = null,
     val errorMessage: String? = null,
 )
 
@@ -393,6 +465,56 @@ data class SpellSlotUiModel(
     val total: Int,
     val expended: Int,
 )
+
+@Immutable
+data class WeaponsTabState(
+    val weapons: List<WeaponUiModel>,
+)
+
+@Immutable
+data class WeaponUiModel(
+    val id: String,
+    val name: String,
+    val attackBonusLabel: String,
+    val damageLabel: String,
+    val damageType: DamageType,
+)
+
+@Immutable
+data class WeaponEditorState(
+    val id: String? = null,
+    val name: String = "",
+    val ability: Ability = Ability.STR,
+    val proficient: Boolean = false,
+    val useAbilityForDamage: Boolean = true,
+    val damageDiceCount: String = "1",
+    val damageDieSize: String = "6",
+    val damageType: DamageType = DamageType.SLASHING,
+) {
+    fun toWeapon(): Weapon = Weapon(
+        id = id ?: UUID.randomUUID().toString(),
+        name = name.trim(),
+        ability = ability,
+        proficient = proficient,
+        damageDiceCount = damageDiceCount.toIntOrNull()?.coerceAtLeast(1) ?: 1,
+        damageDieSize = damageDieSize.toIntOrNull()?.coerceAtLeast(1) ?: 6,
+        useAbilityForDamage = useAbilityForDamage,
+        damageType = damageType,
+    )
+
+    companion object {
+        fun fromWeapon(weapon: Weapon): WeaponEditorState = WeaponEditorState(
+            id = weapon.id,
+            name = weapon.name,
+            ability = weapon.ability,
+            proficient = weapon.proficient,
+            useAbilityForDamage = weapon.useAbilityForDamage,
+            damageDiceCount = weapon.damageDiceCount.toString(),
+            damageDieSize = weapon.damageDieSize.toString(),
+            damageType = weapon.damageType,
+        )
+    }
+}
 
 @Immutable
 data class CharacterSheetEditingState(
@@ -558,6 +680,32 @@ private fun CharacterSheet.toSpellsState(allSpells: List<Spell>): SpellsTabState
     )
 }
 
+internal fun CharacterSheet.toWeaponsState(): WeaponsTabState {
+    val scores = abilityScores
+    val proficiency = proficiencyBonus
+
+    return WeaponsTabState(
+        weapons = weapons.map { weapon ->
+            val abilityModifier = scores.modifierFor(weapon.ability)
+            val attackBonus = abilityModifier + if (weapon.proficient) proficiency else 0
+            val damageBonus = if (weapon.useAbilityForDamage) abilityModifier else 0
+            val damagePart = if (damageBonus == 0) {
+                "${weapon.damageDiceCount}d${weapon.damageDieSize}"
+            } else {
+                "${weapon.damageDiceCount}d${weapon.damageDieSize}${signed(damageBonus)}"
+            }
+
+            WeaponUiModel(
+                id = weapon.id,
+                name = weapon.name.ifBlank { "Unnamed weapon" },
+                attackBonusLabel = "ATK ${signed(attackBonus)}",
+                damageLabel = "DMG $damagePart",
+                damageType = weapon.damageType,
+            )
+        },
+    )
+}
+
 private fun CharacterSheet.applyInlineEdits(edits: CharacterSheetEditingState): CharacterSheet {
     val newMaxHp = edits.maxHp.toIntOrNull()?.coerceAtLeast(1) ?: maxHitPoints
     val newCurrentHp = edits.currentHp.toIntOrNull()?.coerceIn(0, newMaxHp) ?: currentHitPoints.coerceIn(0, newMaxHp)
@@ -612,4 +760,5 @@ private data class CharacterSheetUiInputs(
     val mode: SheetEditMode = SheetEditMode.View,
     val editing: CharacterSheetEditingState? = null,
     val spells: List<Spell> = emptyList(),
+    val weaponEditor: WeaponEditorState? = null,
 )

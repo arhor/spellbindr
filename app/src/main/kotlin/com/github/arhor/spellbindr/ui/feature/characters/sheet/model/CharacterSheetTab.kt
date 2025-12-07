@@ -4,4 +4,5 @@ enum class CharacterSheetTab {
     Overview,
     Skills,
     Spells,
+    Weapons,
 }

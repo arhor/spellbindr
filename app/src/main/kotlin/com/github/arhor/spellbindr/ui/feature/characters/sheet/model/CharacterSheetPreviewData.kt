@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
 import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
@@ -15,6 +16,8 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
 
 internal object CharacterSheetPreviewData {
 
@@ -106,6 +109,25 @@ internal object CharacterSheetPreviewData {
         canAddSpells = true,
     )
 
+    val weapons = WeaponsTabState(
+        weapons = listOf(
+            WeaponUiModel(
+                id = "w1",
+                name = "Longsword",
+                attackBonusLabel = "ATK +7",
+                damageLabel = "DMG 1d8+4",
+                damageType = DamageType.SLASHING,
+            ),
+            WeaponUiModel(
+                id = "w2",
+                name = "Shortbow",
+                attackBonusLabel = "ATK +5",
+                damageLabel = "DMG 1d6+3",
+                damageType = DamageType.PIERCING,
+            ),
+        ),
+    )
+
     val editingState = CharacterSheetEditingState(
         maxHp = header.hitPoints.max.toString(),
         currentHp = header.hitPoints.current.toString(),
@@ -125,6 +147,7 @@ internal object CharacterSheetPreviewData {
         overview = overview,
         skills = skills,
         spells = spells,
+        weapons = weapons,
         editingState = editingState,
     )
 }
