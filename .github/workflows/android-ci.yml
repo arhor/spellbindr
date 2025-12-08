@@ -52,28 +52,6 @@ jobs:
       - name: Lint and test
         run: ./gradlew lintDebug testDebugUnitTest --stacktrace
 
-      - name: Assemble debug
+      - name: Assemble debug APK
+        uses: ./.github/actions/assemble-debug-apk
         if: ${{ github.event_name == 'pull_request' }}
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload debug APK
-        if: ${{ github.event_name == 'pull_request' }}
-        id: upload_debug_apk           # 👈 give the step an ID
-        uses: actions/upload-artifact@v5
-        with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-          overwrite: true
-          retention-days: 7
-          if-no-files-found: error
-
-      - name: Share debug APK download link
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            A debug APK is available for download:  
-            [Download app-debug.apk](${{ steps.upload_debug_apk.outputs.artifact-url }})
-          comment-key: debug-apk-download
-          edit-mode: replace

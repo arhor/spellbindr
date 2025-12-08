@@ -1,0 +1,37 @@
+name: 'Assemble debug APK'
+description: 'Assemble debug APK and upload it via GitHub Actions'
+
+runs:
+  using: composite
+  steps:
+    - name: Assemble debug
+      shell: bash
+      run: ./gradlew assembleDebug --stacktrace
+
+    - name: Upload debug APK
+      id: upload_debug_apk
+      uses: actions/upload-artifact@v5
+      with:
+        name: app-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
+        overwrite: true
+        retention-days: 7
+        if-no-files-found: error
+
+    - name: Find Comment
+      uses: peter-evans/find-comment@v4
+      id: find-comment
+      with:
+        comment-author: 'github-actions[bot]'
+        issue-number: ${{ github.event.pull_request.number }}
+        body-includes: A debug APK is available for download
+
+    - name: Share debug APK download link
+      uses: peter-evans/create-or-update-comment@v5
+      with:
+        edit-mode: replace
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          A debug APK is available for download:  
+          [Download app-debug.apk](${{ steps.upload_debug_apk.outputs.artifact-url }})
