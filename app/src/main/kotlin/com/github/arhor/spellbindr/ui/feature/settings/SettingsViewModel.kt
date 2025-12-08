@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.settings
 
-import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.AppThemeMode
@@ -21,8 +20,6 @@ class SettingsViewModel @Inject constructor(
     private val _state = MutableStateFlow(SettingsUiState())
     val state: StateFlow<SettingsUiState> = _state.asStateFlow()
 
-    private var defaultApplied = false
-
     init {
         viewModelScope.launch {
             themeRepository.themeMode.collect { mode ->
@@ -36,32 +33,14 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun onThemeToggle(isDark: Boolean) {
-        setThemeMode(AppThemeMode.fromIsDark(isDark))
+    fun onThemeModeSelected(mode: AppThemeMode?) {
+        setThemeMode(mode)
     }
 
-    fun ensureThemeInitialized(defaultIsDark: Boolean) {
-        val currentState = state.value
-        if (!currentState.loaded || currentState.themeMode != null || defaultApplied) {
-            return
-        }
-        defaultApplied = true
-        setThemeMode(AppThemeMode.fromIsDark(defaultIsDark))
-    }
-
-    private fun setThemeMode(mode: AppThemeMode) {
+    private fun setThemeMode(mode: AppThemeMode?) {
         if (state.value.themeMode == mode) return
         viewModelScope.launch {
             themeRepository.setThemeMode(mode)
         }
     }
-}
-
-@Immutable
-data class SettingsUiState(
-    val themeMode: AppThemeMode? = null,
-    val loaded: Boolean = false,
-) {
-    val isDarkTheme: Boolean?
-        get() = themeMode?.isDark
 }

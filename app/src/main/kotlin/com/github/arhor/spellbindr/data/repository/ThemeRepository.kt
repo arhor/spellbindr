@@ -20,9 +20,13 @@ class ThemeRepository @Inject constructor(
             preferences[THEME_MODE]?.let(AppThemeMode::valueOf)
         }
 
-    suspend fun setThemeMode(mode: AppThemeMode) {
+    suspend fun setThemeMode(mode: AppThemeMode?) {
         dataStore.edit { preferences ->
-            preferences[THEME_MODE] = mode.name
+            if (mode == null) {
+                preferences.remove(THEME_MODE)
+            } else {
+                preferences[THEME_MODE] = mode.name
+            }
         }
     }
 

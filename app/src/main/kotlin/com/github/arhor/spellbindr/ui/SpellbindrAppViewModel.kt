@@ -5,6 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
+import com.github.arhor.spellbindr.data.repository.ThemeRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,6 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,12 +25,14 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class SpellbindrAppViewModel @Inject constructor(
     private val loaders: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>,
+    private val themeRepository: ThemeRepository,
 ) : ViewModel() {
 
     @Immutable
     data class State(
         val initialDelayPassed: Boolean = false,
         val resourcesPreloaded: Boolean = false,
+        val isDarkTheme: Boolean? = null,
     ) {
         val ready: Boolean
             get() = initialDelayPassed && resourcesPreloaded
@@ -39,6 +43,10 @@ class SpellbindrAppViewModel @Inject constructor(
 
     init {
         logger.info { "Starting application initialization" }
+
+        viewModelScope.launch {
+            observeThemeUpdates()
+        }
         viewModelScope.launch {
             logger.info { "Application initialization job started" }
             awaitAll(
@@ -46,6 +54,13 @@ class SpellbindrAppViewModel @Inject constructor(
                 async { executeDataLoading() },
             )
             logger.info { "Application initialization job complete" }
+        }
+    }
+
+    private suspend fun observeThemeUpdates() {
+        themeRepository.themeMode.collectLatest { mode ->
+            val resolvedIsDark = mode?.isDark
+            _state.update { it.copy(isDarkTheme = resolvedIsDark) }
         }
     }
 
