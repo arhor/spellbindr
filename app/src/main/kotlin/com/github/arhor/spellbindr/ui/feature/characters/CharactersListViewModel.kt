@@ -19,7 +19,7 @@ class CharactersListViewModel @Inject constructor(
     repository: CharacterRepository,
 ) : ViewModel() {
 
-    val uiState: StateFlow<CharactersListUiState> = repository.observeCharacterSheets()
+    val state: StateFlow<CharactersListUiState> = repository.observeCharacterSheets()
         .map { sheets ->
             CharactersListUiState(
                 characters = sheets.map { it.toListItem() },
