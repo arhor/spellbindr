@@ -89,18 +89,18 @@ fun SpellbindrApp(
                         CharacterSheetRoute(
                             vm = hiltViewModel<CharacterSheetViewModel>(entry),
                             savedStateHandle = entry.savedStateHandle,
-                            onBack = { controller.navigateUp() },
+                            onBack = controller::navigateUp,
                             onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
                             onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) },
                             onOpenFullEditor = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
-                            onCharacterDeleted = { controller.navigateUp() },
+                            onCharacterDeleted = controller::navigateUp,
                         )
                     }
                     composable<AppDestination.CharacterEditor> {
                         CharacterEditorScreen(
                             vm = hiltViewModel(it),
-                            onBack = { controller.navigateUp() },
-                            onFinished = { controller.navigateUp() },
+                            onBack = controller::navigateUp,
+                            onFinished = controller::navigateUp,
                         )
                     }
                     composable<AppDestination.Compendium> { entry ->
@@ -121,7 +121,7 @@ fun SpellbindrApp(
                         SpellDetailScreen(
                             vm = hiltViewModel(it),
                             spellId = it.toRoute<AppDestination.SpellDetail>().spellId,
-                            onBackClick = { controller.navigateUp() },
+                            onBackClick = controller::navigateUp,
                         )
                     }
                     composable<AppDestination.CharacterSpellPicker> { entry ->
@@ -131,7 +131,7 @@ fun SpellbindrApp(
                         CharacterSpellPickerRoute(
                             viewModel = viewModel,
                             spellSearchViewModel = spellSearchViewModel,
-                            onBack = { controller.navigateUp() },
+                            onBack = controller::navigateUp,
                             onSpellSelected = { assignments ->
                                 controller.previousBackStackEntry?.savedStateHandle?.set(
                                     CHARACTER_SPELL_SELECTION_RESULT_KEY,
