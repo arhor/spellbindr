@@ -86,10 +86,8 @@ fun SpellbindrApp(
                         )
                     }
                     composable<AppDestination.CharacterSheet> { entry ->
-                        val viewModel = hiltViewModel<CharacterSheetViewModel>(entry)
-
                         CharacterSheetRoute(
-                            viewModel = viewModel,
+                            vm = hiltViewModel<CharacterSheetViewModel>(entry),
                             savedStateHandle = entry.savedStateHandle,
                             onBack = { controller.navigateUp() },
                             onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
