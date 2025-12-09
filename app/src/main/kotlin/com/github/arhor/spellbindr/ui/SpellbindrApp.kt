@@ -86,7 +86,7 @@ fun SpellbindrApp(
                         )
                     }
                     composable<AppDestination.CharacterSheet> { entry ->
-                        val viewModel: CharacterSheetViewModel = hiltViewModel(entry)
+                        val viewModel = hiltViewModel<CharacterSheetViewModel>(entry)
 
                         CharacterSheetRoute(
                             viewModel = viewModel,
@@ -100,7 +100,7 @@ fun SpellbindrApp(
                     }
                     composable<AppDestination.CharacterEditor> {
                         CharacterEditorScreen(
-                            viewModel = hiltViewModel(it),
+                            vm = hiltViewModel(it),
                             onBack = { controller.navigateUp() },
                             onFinished = { controller.navigateUp() },
                         )
