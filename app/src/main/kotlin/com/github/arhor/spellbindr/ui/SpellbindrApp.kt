@@ -47,7 +47,6 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSear
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerViewModel
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
-import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -167,12 +166,8 @@ fun SpellbindrApp(
                         )
                     }
                     composable<AppDestination.Settings> {
-                        val settingsViewModel: SettingsViewModel = hiltViewModel()
-                        val settingsState by settingsViewModel.state.collectAsState()
-
                         SettingsScreen(
-                            state = settingsState,
-                            onThemeSelected = settingsViewModel::onThemeModeSelected,
+                            vm = hiltViewModel(it)
                         )
                     }
                 }

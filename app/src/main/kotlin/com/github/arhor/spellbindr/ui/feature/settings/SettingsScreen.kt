@@ -14,6 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,9 +27,20 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SettingsScreen(
+    vm: SettingsViewModel,
+) {
+    val state by vm.state.collectAsState()
+
+    SettingsScreen(
+        state = state,
+        onThemeModeSelected = vm::onThemeModeSelected,
+    )
+}
+
+@Composable
+private fun SettingsScreen(
     state: SettingsUiState,
-    onThemeSelected: (AppThemeMode?) -> Unit,
-    modifier: Modifier = Modifier,
+    onThemeModeSelected: (AppThemeMode?) -> Unit,
 ) {
     val effectiveIsDarkTheme = state.themeMode?.isDark ?: isSystemInDarkTheme()
     val themeOptions = listOf(
@@ -59,7 +72,7 @@ fun SettingsScreen(
         ),
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
@@ -79,7 +92,7 @@ fun SettingsScreen(
                                 .selectable(
                                     selected = state.themeMode == option.mode,
                                     enabled = state.loaded,
-                                    onClick = { onThemeSelected(option.mode) },
+                                    onClick = { onThemeModeSelected(option.mode) },
                                     role = Role.RadioButton,
                                 ),
                             headlineContent = { Text(option.title) },
@@ -87,7 +100,7 @@ fun SettingsScreen(
                             trailingContent = {
                                 RadioButton(
                                     selected = state.themeMode == option.mode,
-                                    onClick = { onThemeSelected(option.mode) },
+                                    onClick = { onThemeModeSelected(option.mode) },
                                     enabled = state.loaded,
                                 )
                             },
@@ -106,7 +119,7 @@ private fun SettingsScreenPreview() {
     AppTheme {
         SettingsScreen(
             state = state,
-            onThemeSelected = {},
+            onThemeModeSelected = {},
         )
     }
 }
