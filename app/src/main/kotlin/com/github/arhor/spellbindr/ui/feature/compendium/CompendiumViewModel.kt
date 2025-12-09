@@ -1,38 +1,61 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.compendium
 
 import android.util.Log
 import androidx.compose.runtime.Immutable
-import androidx.lifecycle.SavedStateHandle
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.data.model.Alignment
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.data.model.Trait
+import com.github.arhor.spellbindr.data.model.next.CharacterRace
+import com.github.arhor.spellbindr.data.model.predefined.Condition
+import com.github.arhor.spellbindr.data.repository.AlignmentRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.data.repository.CharacterRepository
+import com.github.arhor.spellbindr.data.repository.RacesRepository
 import com.github.arhor.spellbindr.data.repository.SpellRepository
-import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
+import com.github.arhor.spellbindr.data.repository.TraitsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
+@Stable
 @HiltViewModel
-class CharacterSpellPickerViewModel @Inject constructor(
-    private val characterRepository: CharacterRepository,
+class CompendiumViewModel @Inject constructor(
+    private val alignmentRepository: AlignmentRepository,
     private val characterClassRepository: CharacterClassRepository,
+    private val racesRepository: RacesRepository,
     private val spellRepository: SpellRepository,
-    savedStateHandle: SavedStateHandle,
+    private val traitsRepository: TraitsRepository,
 ) : ViewModel() {
+
+    @Immutable
+    data class AlignmentsState(
+        val alignments: List<Alignment> = emptyList(),
+        val expandedItemName: String? = null,
+    )
+
+    @Immutable
+    data class ConditionsState(
+        val expandedItem: Condition? = null,
+    )
+
+    @Immutable
+    data class RacesState(
+        val races: List<CharacterRace> = emptyList(),
+        val traits: Map<String, Trait> = emptyMap(),
+        val expandedItemName: String? = null,
+    )
 
     @Immutable
     data class SpellsState(
@@ -48,24 +71,27 @@ class CharacterSpellPickerViewModel @Inject constructor(
 
     @Immutable
     data class State(
-        val isLoading: Boolean = false,
-        val errorMessage: String? = null,
-        val sourceClass: String = "",
-        val defaultSourceClass: String = "",
+        val alignmentsState: AlignmentsState = AlignmentsState(),
+        val conditionsState: ConditionsState = ConditionsState(),
+        val racesState: RacesState = RacesState(),
         val spellsState: SpellsState = SpellsState(),
     )
 
-    private val characterId: String? = savedStateHandle.get<String>("characterId")
-    private val _state = MutableStateFlow(
-        State(
-            isLoading = characterId != null,
-            errorMessage = if (characterId == null) "Missing character id" else null,
-        )
-    )
-    val state: StateFlow<State> = _state
+    private val _state = MutableStateFlow(State())
+    val state: StateFlow<State> = _state.asStateFlow()
 
     init {
-        observeStateChanges()
+        viewModelScope.launch {
+            alignmentRepository.allAlignments.collect { data ->
+                _state.update {
+                    it.copy(
+                        alignmentsState = it.alignmentsState.copy(
+                            alignments = data,
+                        )
+                    )
+                }
+            }
+        }
         viewModelScope.launch {
             characterClassRepository
                 .findSpellcastingClassesRefs()
@@ -79,51 +105,34 @@ class CharacterSpellPickerViewModel @Inject constructor(
                     }
                 }
         }
-        characterId?.let { id ->
-            characterRepository.observeCharacterSheet(id)
-                .onEach { sheet ->
-                    if (sheet != null) {
-                        _state.update { state ->
-                            val fallback = sheet.className.trim()
-                            state.copy(
-                                isLoading = false,
-                                defaultSourceClass = fallback,
-                                sourceClass = if (state.sourceClass.isBlank()) fallback else state.sourceClass,
-                            )
-                        }
-                    } else {
-                        _state.update {
-                            it.copy(
-                                isLoading = false,
-                                errorMessage = "Character not found",
-                            )
-                        }
-                    }
-                }
-                .catch { throwable ->
+        viewModelScope.launch {
+            combine(racesRepository.allRaces, traitsRepository.allTraits, ::Pair)
+                .collect { (races, traits) ->
                     _state.update {
                         it.copy(
-                            isLoading = false,
-                            errorMessage = throwable.message ?: "Unable to load character",
+                            racesState = it.racesState.copy(
+                                races = races,
+                                traits = traits.associateBy(Trait::id),
+                            )
                         )
                     }
                 }
-                .launchIn(viewModelScope)
         }
+        observeStateChanges()
     }
 
-    fun onSourceClassChanged(value: String) {
-        _state.update { it.copy(sourceClass = value) }
-    }
-
-    fun buildAssignment(spellId: String): CharacterSpellAssignment? {
-        val state = _state.value
-        if (spellId.isBlank() || state.errorMessage != null) return null
-        val resolvedSource = state.sourceClass.takeIf { it.isNotBlank() } ?: state.defaultSourceClass
-        return CharacterSpellAssignment(
-            spellId = spellId,
-            sourceClass = resolvedSource,
-        )
+    fun handleAlignmentClick(alignmentName: String) {
+        _state.update {
+            it.copy(
+                alignmentsState = it.alignmentsState.copy(
+                    expandedItemName = if (it.alignmentsState.expandedItemName == alignmentName) {
+                        null
+                    } else {
+                        alignmentName
+                    }
+                )
+            )
+        }
     }
 
     fun onFavoritesClicked() {
@@ -177,6 +186,35 @@ class CharacterSpellPickerViewModel @Inject constructor(
                     )
                 )
             }
+        }
+    }
+
+    fun handleConditionClick(condition: Condition) {
+        _state.update {
+            it.copy(
+                conditionsState = it.conditionsState.copy(
+                    expandedItem = if (it.conditionsState.expandedItem == condition) {
+                        null
+                    } else {
+                        condition
+                    }
+                )
+
+            )
+        }
+    }
+
+    fun handleRaceClick(raceName: String) {
+        _state.update {
+            it.copy(
+                racesState = it.racesState.copy(
+                    expandedItemName = if (it.racesState.expandedItemName == raceName) {
+                        null
+                    } else {
+                        raceName
+                    }
+                )
+            )
         }
     }
 

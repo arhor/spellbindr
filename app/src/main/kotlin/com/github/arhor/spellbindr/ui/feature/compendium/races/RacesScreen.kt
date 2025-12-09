@@ -10,11 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel.State
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 
 @Composable
 fun RacesRoute(
-    state: State,
+    state: CompendiumViewModel.RacesState,
     onRaceClick: (String) -> Unit,
 ) {
     RacesScreen(
@@ -25,7 +25,7 @@ fun RacesRoute(
 
 @Composable
 private fun RacesScreen(
-    state: State,
+    state: CompendiumViewModel.RacesState,
     onRaceClick: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()

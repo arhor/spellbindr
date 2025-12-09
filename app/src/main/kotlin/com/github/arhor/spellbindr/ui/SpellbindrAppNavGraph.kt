@@ -12,15 +12,10 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorScreen
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListScreen
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
@@ -60,18 +55,10 @@ fun SpellbindrAppNavGraph(
                 onFinished = controller::navigateUp,
             )
         }
-        composable<AppDestination.Compendium> { entry ->
-            val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
-            val conditionsViewModel: ConditionsViewModel = hiltViewModel(entry)
-            val alignmentsViewModel: AlignmentsViewModel = hiltViewModel(entry)
-            val racesViewModel: RacesViewModel = hiltViewModel(entry)
-
+        composable<AppDestination.Compendium> {
             CompendiumRoute(
-                spellSearchViewModel = spellSearchViewModel,
-                conditionsViewModel = conditionsViewModel,
-                alignmentsViewModel = alignmentsViewModel,
-                racesViewModel = racesViewModel,
-                onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
+                vm = hiltViewModel(it),
+                onSpellSelected = { id -> controller.navigate(AppDestination.SpellDetail(id)) },
             )
         }
         composable<AppDestination.SpellDetail> {
@@ -81,13 +68,9 @@ fun SpellbindrAppNavGraph(
                 onBackClick = controller::navigateUp,
             )
         }
-        composable<AppDestination.CharacterSpellPicker> { entry ->
-            val viewModel: CharacterSpellPickerViewModel = hiltViewModel(entry)
-            val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
-
+        composable<AppDestination.CharacterSpellPicker> {
             CharacterSpellPickerRoute(
-                viewModel = viewModel,
-                spellSearchViewModel = spellSearchViewModel,
+                vm = hiltViewModel(it),
                 onBack = controller::navigateUp,
                 onSpellSelected = { assignments ->
                     controller.previousBackStackEntry?.savedStateHandle?.set(
