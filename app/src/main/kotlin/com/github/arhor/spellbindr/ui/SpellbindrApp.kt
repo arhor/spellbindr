@@ -29,8 +29,7 @@ import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.navigation.AppDestination
 import com.github.arhor.spellbindr.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorViewModel
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorScreen
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel
 import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
@@ -99,11 +98,9 @@ fun SpellbindrApp(
                             onCharacterDeleted = { controller.navigateUp() },
                         )
                     }
-                    composable<AppDestination.CharacterEditor> { entry ->
-                        val viewModel: CharacterEditorViewModel = hiltViewModel(entry)
-
-                        CharacterEditorRoute(
-                            viewModel = viewModel,
+                    composable<AppDestination.CharacterEditor> {
+                        CharacterEditorScreen(
+                            viewModel = hiltViewModel(it),
                             onBack = { controller.navigateUp() },
                             onFinished = { controller.navigateUp() },
                         )

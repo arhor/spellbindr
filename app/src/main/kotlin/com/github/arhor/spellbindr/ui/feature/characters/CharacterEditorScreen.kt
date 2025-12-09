@@ -47,7 +47,7 @@ import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun CharacterEditorRoute(
+fun CharacterEditorScreen(
     viewModel: CharacterEditorViewModel,
     onBack: () -> Unit,
     onFinished: () -> Unit,
