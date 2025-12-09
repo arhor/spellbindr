@@ -45,7 +45,6 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDet
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
-import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerViewModel
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -156,18 +155,14 @@ fun SpellbindrApp(
                             },
                         )
                     }
-                    composable<AppDestination.Dice> { entry ->
-                        val viewModel: DiceRollerViewModel = hiltViewModel(entry)
-                        val state by viewModel.state.collectAsState()
-
+                    composable<AppDestination.Dice> {
                         DiceRollerRoute(
-                            state = state,
-                            onIntent = viewModel::onIntent,
+                            vm = hiltViewModel(it),
                         )
                     }
                     composable<AppDestination.Settings> {
                         SettingsScreen(
-                            vm = hiltViewModel(it)
+                            vm = hiltViewModel(it),
                         )
                     }
                 }

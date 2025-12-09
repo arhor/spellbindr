@@ -22,6 +22,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -48,6 +50,18 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun DiceRollerRoute(
+    vm: DiceRollerViewModel,
+) {
+    val state by vm.state.collectAsState()
+
+    DiceRollerRoute(
+        state = state,
+        onIntent = vm::onIntent,
+    )
+}
+
+@Composable
+private fun DiceRollerRoute(
     state: DiceRollerState,
     onIntent: (DiceRollerIntent) -> Unit,
 ) {
