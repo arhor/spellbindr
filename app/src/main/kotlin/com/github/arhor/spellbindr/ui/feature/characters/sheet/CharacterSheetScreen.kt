@@ -39,7 +39,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CharacterSheetRoute(
-    viewModel: CharacterSheetViewModel,
+    vm: CharacterSheetViewModel,
     savedStateHandle: SavedStateHandle,
     onBack: () -> Unit,
     onOpenSpellDetail: (String) -> Unit,
@@ -48,7 +48,7 @@ fun CharacterSheetRoute(
     onCharacterDeleted: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state by vm.uiState.collectAsState()
 
     LaunchedEffect(savedStateHandle) {
         savedStateHandle
@@ -58,49 +58,49 @@ fun CharacterSheetRoute(
             )
             .collectLatest { assignments ->
                 if (!assignments.isNullOrEmpty()) {
-                    viewModel.addSpells(assignments)
+                    vm.addSpells(assignments)
                     savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
                 }
             }
     }
 
     val callbacks = CharacterSheetCallbacks(
-        onTabSelected = viewModel::onTabSelected,
-        onEnterEdit = viewModel::enterEditMode,
-        onCancelEdit = viewModel::cancelEditMode,
-        onSaveEdits = viewModel::saveInlineEdits,
-        onAdjustHp = viewModel::adjustCurrentHp,
-        onTempHpChanged = viewModel::setTemporaryHp,
-        onMaxHpEdited = viewModel::onMaxHpEdited,
-        onCurrentHpEdited = viewModel::onCurrentHpEdited,
-        onTempHpEdited = viewModel::onTemporaryHpEdited,
-        onSpeedEdited = viewModel::onSpeedEdited,
-        onHitDiceEdited = viewModel::onHitDiceEdited,
-        onSensesEdited = viewModel::onSensesEdited,
-        onLanguagesEdited = viewModel::onLanguagesEdited,
-        onProficienciesEdited = viewModel::onProficienciesEdited,
-        onEquipmentEdited = viewModel::onEquipmentEdited,
-        onDeathSaveSuccessesChanged = viewModel::setDeathSaveSuccesses,
-        onDeathSaveFailuresChanged = viewModel::setDeathSaveFailures,
-        onSpellSlotToggle = viewModel::toggleSpellSlot,
-        onSpellSlotTotalChanged = viewModel::setSpellSlotTotal,
-        onSpellRemoved = viewModel::removeSpell,
+        onTabSelected = vm::onTabSelected,
+        onEnterEdit = vm::enterEditMode,
+        onCancelEdit = vm::cancelEditMode,
+        onSaveEdits = vm::saveInlineEdits,
+        onAdjustHp = vm::adjustCurrentHp,
+        onTempHpChanged = vm::setTemporaryHp,
+        onMaxHpEdited = vm::onMaxHpEdited,
+        onCurrentHpEdited = vm::onCurrentHpEdited,
+        onTempHpEdited = vm::onTemporaryHpEdited,
+        onSpeedEdited = vm::onSpeedEdited,
+        onHitDiceEdited = vm::onHitDiceEdited,
+        onSensesEdited = vm::onSensesEdited,
+        onLanguagesEdited = vm::onLanguagesEdited,
+        onProficienciesEdited = vm::onProficienciesEdited,
+        onEquipmentEdited = vm::onEquipmentEdited,
+        onDeathSaveSuccessesChanged = vm::setDeathSaveSuccesses,
+        onDeathSaveFailuresChanged = vm::setDeathSaveFailures,
+        onSpellSlotToggle = vm::toggleSpellSlot,
+        onSpellSlotTotalChanged = vm::setSpellSlotTotal,
+        onSpellRemoved = vm::removeSpell,
         onSpellSelected = onOpenSpellDetail,
         onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
-        onAddWeaponClicked = viewModel::onAddWeaponClicked,
-        onWeaponSelected = viewModel::onWeaponSelected,
-        onWeaponDeleted = viewModel::onWeaponDeleted,
-        onWeaponEditorDismissed = viewModel::onWeaponEditorDismissed,
-        onWeaponNameChanged = viewModel::onWeaponNameChanged,
-        onWeaponAbilityChanged = viewModel::onWeaponAbilityChanged,
-        onWeaponUseAbilityForDamageChanged = viewModel::onWeaponUseAbilityForDamageChanged,
-        onWeaponProficiencyChanged = viewModel::onWeaponProficiencyChanged,
-        onWeaponDiceCountChanged = viewModel::onWeaponDiceCountChanged,
-        onWeaponDieSizeChanged = viewModel::onWeaponDieSizeChanged,
-        onWeaponDamageTypeChanged = viewModel::onWeaponDamageTypeChanged,
-        onWeaponSaved = viewModel::onWeaponSaved,
+        onAddWeaponClicked = vm::onAddWeaponClicked,
+        onWeaponSelected = vm::onWeaponSelected,
+        onWeaponDeleted = vm::onWeaponDeleted,
+        onWeaponEditorDismissed = vm::onWeaponEditorDismissed,
+        onWeaponNameChanged = vm::onWeaponNameChanged,
+        onWeaponAbilityChanged = vm::onWeaponAbilityChanged,
+        onWeaponUseAbilityForDamageChanged = vm::onWeaponUseAbilityForDamageChanged,
+        onWeaponProficiencyChanged = vm::onWeaponProficiencyChanged,
+        onWeaponDiceCountChanged = vm::onWeaponDiceCountChanged,
+        onWeaponDieSizeChanged = vm::onWeaponDieSizeChanged,
+        onWeaponDamageTypeChanged = vm::onWeaponDamageTypeChanged,
+        onWeaponSaved = vm::onWeaponSaved,
         onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
-        onDeleteCharacter = { viewModel.deleteCharacter(onCharacterDeleted) },
+        onDeleteCharacter = { vm.deleteCharacter(onCharacterDeleted) },
     )
 
     CharacterSheetScreen(

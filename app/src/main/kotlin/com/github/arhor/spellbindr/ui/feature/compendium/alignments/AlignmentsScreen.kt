@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.SelectableGrid
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel.State
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 
 @Composable
 fun AlignmentsRoute(
-    state: State,
+    state: CompendiumViewModel.AlignmentsState,
     onAlignmentClick: (String) -> Unit,
 ) {
     AlignmentsScreen(
@@ -28,7 +28,7 @@ fun AlignmentsRoute(
 
 @Composable
 private fun AlignmentsScreen(
-    state: State,
+    state: CompendiumViewModel.AlignmentsState,
     onAlignmentClick: (String) -> Unit,
 ) {
     SelectableGrid(

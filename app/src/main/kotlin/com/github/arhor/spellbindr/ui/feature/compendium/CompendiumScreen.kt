@@ -25,49 +25,34 @@ import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 
 @Composable
 fun CompendiumRoute(
-    spellSearchViewModel: SpellSearchViewModel,
-    conditionsViewModel: ConditionsViewModel,
-    alignmentsViewModel: AlignmentsViewModel,
-    racesViewModel: RacesViewModel,
-    modifier: Modifier = Modifier,
-    onSpellSelected: (String) -> Unit = {},
+    vm: CompendiumViewModel,
+    onSpellSelected: (String) -> Unit,
 ) {
-    val spellSearchState by spellSearchViewModel.state.collectAsState()
-    val conditionsState by conditionsViewModel.state.collectAsState()
-    val alignmentsState by alignmentsViewModel.state.collectAsState()
-    val racesState by racesViewModel.state.collectAsState()
+    val state by vm.state.collectAsState()
 
     CompendiumScreen(
-        spellSearchState = spellSearchState,
+        state = state,
         onSpellSelected = onSpellSelected,
-        onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
-        onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
-        onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
-        onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
-        onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
-        conditionsState = conditionsState,
-        onConditionClick = conditionsViewModel::handleConditionClick,
-        alignmentsState = alignmentsState,
-        onAlignmentClick = alignmentsViewModel::handleAlignmentClick,
-        racesState = racesState,
-        onRaceClick = racesViewModel::handleRaceClick,
-        modifier = modifier,
+        onSpellQueryChanged = vm::onQueryChanged,
+        onSpellFiltersClick = vm::onFilterClicked,
+        onSpellFavoriteClick = vm::onFavoritesClicked,
+        onSpellSubmitFilters = vm::onFilterChanged,
+        onSpellCancelFilters = vm::onFilterChanged,
+        onConditionClick = vm::handleConditionClick,
+        onAlignmentClick = vm::handleAlignmentClick,
+        onRaceClick = vm::handleRaceClick,
     )
 }
 
 @Composable
 private fun CompendiumScreen(
-    spellSearchState: SpellSearchViewModel.State,
+    state: CompendiumViewModel.State,
     modifier: Modifier = Modifier,
     onSpellSelected: (String) -> Unit = {},
     onSpellQueryChanged: (String) -> Unit,
@@ -75,11 +60,8 @@ private fun CompendiumScreen(
     onSpellFavoriteClick: () -> Unit,
     onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
     onSpellCancelFilters: (Set<EntityRef>) -> Unit,
-    conditionsState: ConditionsViewModel.State,
     onConditionClick: (Condition) -> Unit,
-    alignmentsState: AlignmentsViewModel.State,
     onAlignmentClick: (String) -> Unit,
-    racesState: RacesViewModel.State,
     onRaceClick: (String) -> Unit,
 ) {
     var selectedSection by rememberSaveable { mutableStateOf(CompendiumSection.Spells) }
@@ -109,7 +91,7 @@ private fun CompendiumScreen(
                     when (section) {
                         CompendiumSection.Spells -> {
                             SpellSearchScreen(
-                                state = spellSearchState,
+                                state = state.spellsState,
                                 onQueryChanged = onSpellQueryChanged,
                                 onFiltersClick = onSpellFiltersClick,
                                 onFavoriteClick = onSpellFavoriteClick,
@@ -121,21 +103,21 @@ private fun CompendiumScreen(
 
                         CompendiumSection.Conditions -> {
                             ConditionsRoute(
-                                state = conditionsState,
+                                state = state.conditionsState,
                                 onConditionClick = onConditionClick,
                             )
                         }
 
                         CompendiumSection.Alignments -> {
                             AlignmentsRoute(
-                                state = alignmentsState,
+                                state = state.alignmentsState,
                                 onAlignmentClick = onAlignmentClick,
                             )
                         }
 
                         CompendiumSection.Races -> {
                             RacesRoute(
-                                state = racesState,
+                                state = state.racesState,
                                 onRaceClick = onRaceClick,
                             )
                         }

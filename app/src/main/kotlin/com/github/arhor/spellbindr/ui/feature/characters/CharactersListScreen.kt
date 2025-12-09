@@ -22,6 +22,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,17 +34,17 @@ import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun CharactersListRoute(
-    uiState: CharactersListUiState,
+fun CharactersListScreen(
+    vm: CharactersListViewModel,
     onCharacterSelected: (String) -> Unit,
     onCreateCharacter: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
+    val state by vm.state.collectAsState()
+
     CharactersListScreen(
-        uiState = uiState,
+        uiState = state,
         onCharacterSelected = onCharacterSelected,
         onCreateCharacter = onCreateCharacter,
-        modifier = modifier,
     )
 }
 
@@ -51,7 +53,6 @@ private fun CharactersListScreen(
     uiState: CharactersListUiState,
     onCharacterSelected: (String) -> Unit,
     onCreateCharacter: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     WithAppTopBar(
         AppTopBarConfig(
@@ -60,7 +61,7 @@ private fun CharactersListScreen(
             navigation = AppTopBarNavigation.None,
         )
     ) {
-        Box(modifier = modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize()) {
             when {
                 uiState.isLoading -> {
                     CircularProgressIndicator(

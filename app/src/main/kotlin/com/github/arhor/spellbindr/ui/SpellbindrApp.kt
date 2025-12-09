@@ -2,8 +2,6 @@
 
 package com.github.arhor.spellbindr.ui
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -15,53 +13,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.navigation.AppDestination
-import com.github.arhor.spellbindr.navigation.BottomNavItems
-import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorViewModel
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel
-import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharactersListViewModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
-import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
-import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerViewModel
-import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
-import com.github.arhor.spellbindr.ui.feature.settings.SettingsViewModel
+import com.github.arhor.spellbindr.ui.navigation.AppDestination
+import com.github.arhor.spellbindr.ui.navigation.BottomNavItems
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellbindrApp(
     onLoaded: () -> Unit,
-    viewModel: SpellbindrAppViewModel = hiltViewModel(),
+    vm: SpellbindrAppViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsState()
-    val settingsViewModel: SettingsViewModel = hiltViewModel()
-    val settingsState by settingsViewModel.state.collectAsState()
+    val state by vm.state.collectAsState()
     val controller = rememberNavController()
-    val systemDarkTheme = isSystemInDarkTheme()
-    val isDarkTheme = settingsState.themeMode?.isDark ?: systemDarkTheme
 
     LaunchedEffect(state.ready) {
         if (state.ready) {
@@ -69,120 +39,13 @@ fun SpellbindrApp(
         }
     }
 
-    LaunchedEffect(settingsState.loaded, systemDarkTheme) {
-        settingsViewModel.ensureThemeInitialized(systemDarkTheme)
-    }
-
-    AppTheme(isDarkTheme = isDarkTheme) {
+    AppTheme(isDarkTheme = state.isDarkTheme) {
         AppTopBarControllerProvider { config ->
             Scaffold(
                 topBar = createTopBar(config),
                 bottomBar = createBottomBar(controller),
             ) { innerPadding ->
-                NavHost(
-                    navController = controller,
-                    startDestination = AppDestination.CharactersHome,
-                    modifier = Modifier.padding(innerPadding),
-                ) {
-                    composable<AppDestination.CharactersHome> { entry ->
-                        val viewModel: CharactersListViewModel = hiltViewModel(entry)
-                        val uiState by viewModel.uiState.collectAsState()
-
-                        CharactersListRoute(
-                            uiState = uiState,
-                            onCharacterSelected = { characterId ->
-                                controller.navigate(
-                                    AppDestination.CharacterSheet(characterId = characterId)
-                                )
-                            },
-                            onCreateCharacter = { controller.navigate(AppDestination.CharacterEditor()) },
-                        )
-                    }
-                    composable<AppDestination.CharacterSheet> { entry ->
-                        val viewModel: CharacterSheetViewModel = hiltViewModel(entry)
-
-                        CharacterSheetRoute(
-                            viewModel = viewModel,
-                            savedStateHandle = entry.savedStateHandle,
-                            onBack = { controller.navigateUp() },
-                            onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
-                            onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(characterId = it)) },
-                            onOpenFullEditor = { controller.navigate(AppDestination.CharacterEditor(characterId = it)) },
-                            onCharacterDeleted = { controller.navigateUp() },
-                        )
-                    }
-                    composable<AppDestination.CharacterEditor> { entry ->
-                        val viewModel: CharacterEditorViewModel = hiltViewModel(entry)
-
-                        CharacterEditorRoute(
-                            viewModel = viewModel,
-                            onBack = { controller.navigateUp() },
-                            onFinished = { controller.navigateUp() },
-                        )
-                    }
-                    composable<AppDestination.Compendium> { entry ->
-                        val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
-                        val conditionsViewModel: ConditionsViewModel = hiltViewModel(entry)
-                        val alignmentsViewModel: AlignmentsViewModel = hiltViewModel(entry)
-                        val racesViewModel: RacesViewModel = hiltViewModel(entry)
-
-                        CompendiumRoute(
-                            spellSearchViewModel = spellSearchViewModel,
-                            conditionsViewModel = conditionsViewModel,
-                            alignmentsViewModel = alignmentsViewModel,
-                            racesViewModel = racesViewModel,
-                            onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
-                        )
-                    }
-                    composable<AppDestination.SpellDetail> { entry ->
-                        val args = entry.toRoute<AppDestination.SpellDetail>()
-                        val viewModel: SpellDetailsViewModel = hiltViewModel(entry)
-                        val state by viewModel.state.collectAsState()
-
-                        LaunchedEffect(args.spellId) {
-                            viewModel.loadSpell(args.spellId)
-                        }
-
-                        SpellDetailRoute(
-                            state = state,
-                            onBackClick = { controller.navigateUp() },
-                            onToggleFavorite = viewModel::toggleFavorite,
-                        )
-                    }
-                    composable<AppDestination.CharacterSpellPicker> { entry ->
-                        val viewModel: CharacterSpellPickerViewModel = hiltViewModel(entry)
-                        val spellSearchViewModel: SpellSearchViewModel = hiltViewModel(entry)
-
-                        CharacterSpellPickerRoute(
-                            viewModel = viewModel,
-                            spellSearchViewModel = spellSearchViewModel,
-                            onBack = { controller.navigateUp() },
-                            onSpellSelected = { assignments ->
-                                controller.previousBackStackEntry?.savedStateHandle?.set(
-                                    CHARACTER_SPELL_SELECTION_RESULT_KEY,
-                                    ArrayList(assignments),
-                                )
-                                controller.navigateUp()
-                            },
-                        )
-                    }
-                    composable<AppDestination.Dice> { entry ->
-                        val viewModel: DiceRollerViewModel = hiltViewModel(entry)
-                        val state by viewModel.state.collectAsState()
-
-                        DiceRollerRoute(
-                            state = state,
-                            onIntent = viewModel::onIntent,
-                        )
-                    }
-                    composable<AppDestination.Settings> {
-                        SettingsScreen(
-                            state = settingsState,
-                            isDarkTheme = isDarkTheme,
-                            onThemeToggle = settingsViewModel::onThemeToggle,
-                        )
-                    }
-                }
+                SpellbindrAppNavGraph(controller = controller, innerPadding = innerPadding)
             }
         }
     }

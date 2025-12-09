@@ -26,22 +26,18 @@ import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharacterSpellPickerRoute(
-    viewModel: CharacterSpellPickerViewModel,
-    spellSearchViewModel: SpellSearchViewModel,
+    vm: CharacterSpellPickerViewModel,
     onBack: () -> Unit,
     onSpellSelected: (List<CharacterSpellAssignment>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.uiState.collectAsState()
-    val spellSearchState by spellSearchViewModel.state.collectAsState()
+    val state by vm.state.collectAsState()
 
     val handleSpellSelected: (String) -> Unit = { spellId ->
-        viewModel.buildAssignment(spellId)?.let { assignment ->
+        vm.buildAssignment(spellId)?.let { assignment ->
             onSpellSelected(listOf(assignment))
         }
     }
@@ -49,31 +45,27 @@ fun CharacterSpellPickerRoute(
     CharacterSpellPickerScreen(
         state = state,
         onBack = onBack,
-        onSourceChanged = viewModel::onSourceClassChanged,
+        onSourceChanged = vm::onSourceClassChanged,
         onSpellSelected = handleSpellSelected,
-        spellSearchState = spellSearchState,
-        onSpellQueryChanged = spellSearchViewModel::onQueryChanged,
-        onSpellFiltersClick = spellSearchViewModel::onFilterClicked,
-        onSpellFavoriteClick = spellSearchViewModel::onFavoritesClicked,
-        onSpellSubmitFilters = spellSearchViewModel::onFilterChanged,
-        onSpellCancelFilters = spellSearchViewModel::onFilterChanged,
-        modifier = modifier,
+        onSpellQueryChanged = vm::onQueryChanged,
+        onSpellFiltersClick = vm::onFilterClicked,
+        onSpellFavoriteClick = vm::onFavoritesClicked,
+        onSpellSubmitFilters = vm::onFilterChanged,
+        onSpellCancelFilters = vm::onFilterChanged,
     )
 }
 
 @Composable
 private fun CharacterSpellPickerScreen(
-    state: CharacterSpellPickerUiState,
+    state: CharacterSpellPickerViewModel.State,
     onBack: () -> Unit,
     onSourceChanged: (String) -> Unit,
     onSpellSelected: (String) -> Unit,
-    spellSearchState: SpellSearchViewModel.State,
     onSpellQueryChanged: (String) -> Unit,
     onSpellFiltersClick: () -> Unit,
     onSpellFavoriteClick: () -> Unit,
     onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
     onSpellCancelFilters: (Set<EntityRef>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     WithAppTopBar(
         AppTopBarConfig(
@@ -106,7 +98,7 @@ private fun CharacterSpellPickerScreen(
 
             else -> {
                 Column(
-                    modifier = modifier
+                    modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -125,7 +117,7 @@ private fun CharacterSpellPickerScreen(
                     )
                     Box(modifier = Modifier.weight(1f)) {
                         SpellSearchScreen(
-                            state = spellSearchState,
+                            state = state.spellsState,
                             onQueryChanged = onSpellQueryChanged,
                             onFiltersClick = onSpellFiltersClick,
                             onFavoriteClick = onSpellFavoriteClick,
@@ -145,14 +137,13 @@ private fun CharacterSpellPickerScreen(
 private fun CharacterSpellPickerPreview() {
     AppTheme {
         CharacterSpellPickerScreen(
-            state = CharacterSpellPickerUiState(
+            state = CharacterSpellPickerViewModel.State(
                 sourceClass = "Wizard",
                 defaultSourceClass = "Wizard",
             ),
             onBack = {},
             onSourceChanged = {},
             onSpellSelected = {},
-            spellSearchState = SpellSearchViewModel.State(),
             onSpellQueryChanged = {},
             onSpellFiltersClick = {},
             onSpellFavoriteClick = {},

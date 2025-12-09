@@ -16,11 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellSearchScreen(
-    state: SpellSearchViewModel.State,
+    state: SpellListState,
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
@@ -41,7 +43,7 @@ fun SpellSearchScreen(
 
 @Composable
 private fun SpellSearchContent(
-    state: SpellSearchViewModel.State,
+    state: SpellListState,
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
@@ -129,7 +131,7 @@ private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
     )
     AppTheme(isDarkTheme = isDarkTheme) {
         SpellSearchContent(
-            state = SpellSearchViewModel.State(
+            state = CompendiumViewModel.SpellsState(
                 query = "heal",
                 spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell),
                 castingClasses = listOf(EntityRef(id = "cleric")),

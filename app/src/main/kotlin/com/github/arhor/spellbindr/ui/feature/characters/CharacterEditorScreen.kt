@@ -47,55 +47,55 @@ import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun CharacterEditorRoute(
-    viewModel: CharacterEditorViewModel,
+fun CharacterEditorScreen(
+    vm: CharacterEditorViewModel,
     onBack: () -> Unit,
     onFinished: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.uiState.collectAsState()
+    val state by vm.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val callbacks = remember(viewModel, onBack) {
+    val callbacks = remember(vm, onBack) {
         CharacterEditorCallbacks(
             onBack = onBack,
-            onNameChanged = viewModel::onNameChanged,
-            onClassChanged = viewModel::onClassChanged,
-            onLevelChanged = viewModel::onLevelChanged,
-            onRaceChanged = viewModel::onRaceChanged,
-            onBackgroundChanged = viewModel::onBackgroundChanged,
-            onAlignmentChanged = viewModel::onAlignmentChanged,
-            onExperienceChanged = viewModel::onExperienceChanged,
-            onAbilityChanged = viewModel::onAbilityChanged,
-            onProficiencyBonusChanged = viewModel::onProficiencyBonusChanged,
-            onInspirationChanged = viewModel::onInspirationChanged,
-            onMaxHpChanged = viewModel::onMaxHpChanged,
-            onCurrentHpChanged = viewModel::onCurrentHpChanged,
-            onTemporaryHpChanged = viewModel::onTemporaryHpChanged,
-            onArmorClassChanged = viewModel::onArmorClassChanged,
-            onInitiativeChanged = viewModel::onInitiativeChanged,
-            onSpeedChanged = viewModel::onSpeedChanged,
-            onHitDiceChanged = viewModel::onHitDiceChanged,
-            onSavingThrowProficiencyChanged = viewModel::onSavingThrowProficiencyChanged,
-            onSkillProficiencyChanged = viewModel::onSkillProficiencyChanged,
-            onSkillExpertiseChanged = viewModel::onSkillExpertiseChanged,
-            onSensesChanged = viewModel::onSensesChanged,
-            onLanguagesChanged = viewModel::onLanguagesChanged,
-            onProficienciesChanged = viewModel::onProficienciesChanged,
-            onAttacksChanged = viewModel::onAttacksChanged,
-            onFeaturesChanged = viewModel::onFeaturesChanged,
-            onEquipmentChanged = viewModel::onEquipmentChanged,
-            onPersonalityTraitsChanged = viewModel::onPersonalityTraitsChanged,
-            onIdealsChanged = viewModel::onIdealsChanged,
-            onBondsChanged = viewModel::onBondsChanged,
-            onFlawsChanged = viewModel::onFlawsChanged,
-            onNotesChanged = viewModel::onNotesChanged,
-            onSave = viewModel::onSaveClicked,
+            onNameChanged = vm::onNameChanged,
+            onClassChanged = vm::onClassChanged,
+            onLevelChanged = vm::onLevelChanged,
+            onRaceChanged = vm::onRaceChanged,
+            onBackgroundChanged = vm::onBackgroundChanged,
+            onAlignmentChanged = vm::onAlignmentChanged,
+            onExperienceChanged = vm::onExperienceChanged,
+            onAbilityChanged = vm::onAbilityChanged,
+            onProficiencyBonusChanged = vm::onProficiencyBonusChanged,
+            onInspirationChanged = vm::onInspirationChanged,
+            onMaxHpChanged = vm::onMaxHpChanged,
+            onCurrentHpChanged = vm::onCurrentHpChanged,
+            onTemporaryHpChanged = vm::onTemporaryHpChanged,
+            onArmorClassChanged = vm::onArmorClassChanged,
+            onInitiativeChanged = vm::onInitiativeChanged,
+            onSpeedChanged = vm::onSpeedChanged,
+            onHitDiceChanged = vm::onHitDiceChanged,
+            onSavingThrowProficiencyChanged = vm::onSavingThrowProficiencyChanged,
+            onSkillProficiencyChanged = vm::onSkillProficiencyChanged,
+            onSkillExpertiseChanged = vm::onSkillExpertiseChanged,
+            onSensesChanged = vm::onSensesChanged,
+            onLanguagesChanged = vm::onLanguagesChanged,
+            onProficienciesChanged = vm::onProficienciesChanged,
+            onAttacksChanged = vm::onAttacksChanged,
+            onFeaturesChanged = vm::onFeaturesChanged,
+            onEquipmentChanged = vm::onEquipmentChanged,
+            onPersonalityTraitsChanged = vm::onPersonalityTraitsChanged,
+            onIdealsChanged = vm::onIdealsChanged,
+            onBondsChanged = vm::onBondsChanged,
+            onFlawsChanged = vm::onFlawsChanged,
+            onNotesChanged = vm::onNotesChanged,
+            onSave = vm::onSaveClicked,
         )
     }
 
-    LaunchedEffect(viewModel.events) {
-        viewModel.events.collect { event ->
+    LaunchedEffect(vm.events) {
+        vm.events.collect { event ->
             when (event) {
                 CharacterEditorEvent.Saved -> onFinished()
                 is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)
