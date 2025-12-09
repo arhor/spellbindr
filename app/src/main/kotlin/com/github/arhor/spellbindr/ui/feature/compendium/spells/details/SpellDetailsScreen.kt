@@ -21,6 +21,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,22 +43,27 @@ import com.github.arhor.spellbindr.ui.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.components.GradientDivider
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel.State
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun SpellDetailRoute(
-    state: State,
-    onBackClick: () -> Unit = {},
-    onToggleFavorite: () -> Unit,
+fun SpellDetailScreen(
+    vm: SpellDetailsViewModel,
+    spellId: String,
+    onBackClick: () -> Unit,
 ) {
+    val state by vm.state.collectAsState()
+
+    LaunchedEffect(spellId) {
+        vm.loadSpell(spellId)
+    }
+
     SpellDetailScreen(
         spell = state.spell,
         isFavorite = state.isFavorite,
         onBackClick = onBackClick,
-        onToggleFavorite = onToggleFavorite,
+        onToggleFavorite = vm::toggleFavorite,
     )
 }
 

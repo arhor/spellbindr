@@ -41,8 +41,7 @@ import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchViewModel
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
@@ -123,19 +122,11 @@ fun SpellbindrApp(
                             onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it)) },
                         )
                     }
-                    composable<AppDestination.SpellDetail> { entry ->
-                        val args = entry.toRoute<AppDestination.SpellDetail>()
-                        val viewModel: SpellDetailsViewModel = hiltViewModel(entry)
-                        val state by viewModel.state.collectAsState()
-
-                        LaunchedEffect(args.spellId) {
-                            viewModel.loadSpell(args.spellId)
-                        }
-
-                        SpellDetailRoute(
-                            state = state,
+                    composable<AppDestination.SpellDetail> {
+                        SpellDetailScreen(
+                            vm = hiltViewModel(it),
+                            spellId = it.toRoute<AppDestination.SpellDetail>().spellId,
                             onBackClick = { controller.navigateUp() },
-                            onToggleFavorite = viewModel::toggleFavorite,
                         )
                     }
                     composable<AppDestination.CharacterSpellPicker> { entry ->
