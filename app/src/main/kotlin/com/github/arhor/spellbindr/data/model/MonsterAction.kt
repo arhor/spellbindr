@@ -25,7 +25,7 @@ data class MonsterAction(
     val dc: DifficultyClass? = null,
     val options: Choice? = null,
     val usage: ActionUsage? = null,
-    val multiAttackType: String,
-    val actions: List<ActionItem>,
-    val actionOptions: Choice,
+    val multiAttackType: String? = null,
+    val actions: List<ActionItem>? = null,
+    val actionOptions: Choice? = null,
 )

@@ -10,5 +10,5 @@ data class SpecialAbility(
     val damage: List<Damage>? = null,
     val dc: DifficultyClass? = null,
     val spellcasting: SpecialAbilitySpellcasting? = null,
-    val usage: SpecialAbilityUsage
+    val usage: SpecialAbilityUsage? = null,
 )

@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MonsterProficiency(
-    val proficiency: EntityRef,
+    val proficiency: String,
     val value: Int
 )
