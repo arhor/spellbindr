@@ -14,4 +14,6 @@ data class ActionUsage(
     val type: String,
     val dice: String? = null,
     val minValue: Int? = null,
+    val times: Int? = null,
+    val restTypes: List<String>? = null,
 )
