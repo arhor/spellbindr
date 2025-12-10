@@ -8,7 +8,24 @@
             "- You have advantage on Charisma (Deception) and Charisma (Performance) checks when trying to pass yourself off as a different person.",
             "- You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Wisdom (Insight) check contested by your Charisma (Deception) check allows a listener to determine the effect is faked."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "ability-score",
+                "abilityScore": [
+                    "cha"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": false
+            }
+        ],
+        "effects": [
+            {
+                "type": "modify-abilities",
+                "abilities": {
+                    "cha": 1
+                }
+            }
+        ]
     },
     {
         "id": "alert",
@@ -31,7 +48,29 @@
             "- Climbing doesn\u2019t halve your speed.",
             "- You can make a running long jump or a running high jump after moving only 5 feet on foot, rather than 10 feet."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "ability-score",
+                "abilityScore": [
+                    "str",
+                    "dex"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": true
+            }
+        ],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "str": 1
+                },
+                {
+                    "dex": 1
+                }
+            ],
+            "choose": 1
+        }
     },
     {
         "id": "charger",
@@ -62,10 +101,12 @@
         ],
         "prerequisites": [
             {
-                "abilityScore": {
-                    "id": "dex"
-                },
-                "minimumScore": 13
+                "type": "ability-score",
+                "abilityScore": [
+                    "dex"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": false
             }
         ]
     },
@@ -100,7 +141,24 @@
             "- Increase your Constitution score by 1, to a maximum of 20.",
             "- When you roll a Hit Die to regain hit points, the minimum number of hit points you regain from the roll equals twice your Constitution modifier (minimum of 2)."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "ability-score",
+                "abilityScore": [
+                    "con"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": false
+            }
+        ],
+        "effects": [
+            {
+                "type": "modify-abilities",
+                "abilities": {
+                    "con": 1
+                }
+            }
+        ]
     },
     {
         "id": "elemental-adept",
@@ -161,7 +219,26 @@
             "- Increase your Strength score by 1, to a maximum of 20.",
             "- You gain proficiency with heavy armor."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "proficiency",
+                "id": "medium-armor"
+            }
+        ],
+        "effects": [
+            {
+                "type": "modify-abilities",
+                "abilities": {
+                    "str": 1
+                }
+            },
+            {
+                "type": "add-proficiencies",
+                "proficiencies": [
+                    "heavy-armor"
+                ]
+            }
+        ]
     },
     {
         "id": "heavy-armor-master",
@@ -172,7 +249,20 @@
             "- Increase your Strength score by 1, to a maximum of 20.",
             "- While you are wearing heavy armor, bludgeoning, piercing, and slashing damage that you take from nonmagical weapons is reduced by 3."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "proficiency",
+                "id": "heavy-armor"
+            }
+        ],
+        "effects": [
+            {
+                "type": "modify-abilities",
+                "abilities": {
+                    "str": 1
+                }
+            }
+        ]
     },
     {
         "id": "inspiring-leader",
@@ -183,10 +273,12 @@
         ],
         "prerequisites": [
             {
-                "abilityScore": {
-                    "id": "cha"
-                },
-                "minimumScore": 13
+                "type": "ability-score",
+                "abilityScore": [
+                    "cha"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": false
             }
         ]
     },
@@ -200,7 +292,24 @@
             "- You always know the number of hours left before the next sunrise or sunset.",
             "- You can accurately recall anything you have seen or heard within the past month."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "ability-score",
+                "abilityScore": [
+                    "int"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": false
+            }
+        ],
+        "effects": [
+            {
+                "type": "modify-abilities",
+                "abilities": {
+                    "int": 1
+                }
+            }
+        ]
     },
     {
         "id": "lightly-armored",
@@ -210,7 +319,27 @@
             "- Increase your Strength or Dexterity score by 1, to a maximum of 20.",
             "- You gain proficiency with light armor."
         ],
-        "prerequisites": []
+        "prerequisites": [],
+        "effects": [
+            {
+                "type": "add-proficiencies",
+                "proficiencies": [
+                    "light-armor"
+                ]
+            }
+        ],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "str": 1
+                },
+                {
+                    "dex": 1
+                }
+            ],
+            "choose": 1
+        }
     },
     {
         "id": "linguist",
@@ -221,7 +350,29 @@
             "- You learn three languages of your choice.",
             "- You can ably create written ciphers. Others can\u2019t decipher a code you create unless you teach them, they succeed on an Intelligence check (DC equal to your Intelligence score + your proficiency bonus), or they use magic to decipher it."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "ability-score",
+                "abilityScore": [
+                    "int"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": false
+            }
+        ],
+        "effects": [
+            {
+                "type": "modify-abilities",
+                "abilities": {
+                    "int": 1
+                }
+            }
+        ],
+        "languageChoice": {
+            "type": "resource-list",
+            "from": "languages",
+            "choose": 3
+        }
     },
     {
         "id": "lucky",
@@ -275,7 +426,12 @@
             "- Wearing medium armor doesn\u2019t impose disadvantage on your Dexterity (Stealth) checks.",
             "- When you wear medium armor, you can add 3, rather than 2, to your AC if you have a Dexterity of 16 or higher."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "proficiency",
+                "id": "medium-armor"
+            }
+        ]
     },
     {
         "id": "mobile",
@@ -297,7 +453,33 @@
             "- Increase your Strength or Dexterity score by 1, to a maximum of 20.",
             "- You gain proficiency with medium armor and shields."
         ],
-        "prerequisites": []
+        "prerequisites": [
+            {
+                "type": "proficiency",
+                "id": "light-armor"
+            }
+        ],
+        "effects": [
+            {
+                "type": "add-proficiencies",
+                "proficiencies": [
+                    "medium-armor",
+                    "shields"
+                ]
+            }
+        ],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "str": 1
+                },
+                {
+                    "dex": 1
+                }
+            ],
+            "choose": 1
+        }
     },
     {
         "id": "mounted-combatant",
@@ -321,18 +503,27 @@
         ],
         "prerequisites": [
             {
-                "abilityScore": {
-                    "id": "int"
-                },
-                "minimumScore": 13
-            },
-            {
-                "abilityScore": {
-                    "id": "wis"
-                },
-                "minimumScore": 13
+                "type": "ability-score",
+                "abilityScore": [
+                    "int",
+                    "wis"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": true
             }
-        ]
+        ],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "int": 1
+                },
+                {
+                    "wis": 1
+                }
+            ],
+            "choose": 1
+        }
     },
     {
         "id": "polearm-master",
@@ -352,7 +543,43 @@
             "- Increase the chosen ability score by 1, to a maximum of 20.",
             "- You gain proficiency in saving throws using the chosen ability."
         ],
-        "prerequisites": []
+        "prerequisites": [],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "str": 1
+                },
+                {
+                    "dex": 1
+                },
+                {
+                    "con": 1
+                },
+                {
+                    "int": 1
+                },
+                {
+                    "wis": 1
+                },
+                {
+                    "cha": 1
+                }
+            ],
+            "choose": 1
+        },
+        "proficiencyChoice": {
+            "type": "options-array",
+            "from": [
+                "saving-throw-str",
+                "saving-throw-dex",
+                "saving-throw-con",
+                "saving-throw-int",
+                "saving-throw-wis",
+                "saving-throw-cha"
+            ],
+            "choose": 1
+        }
     },
     {
         "id": "ritual-caster",
@@ -365,16 +592,13 @@
         ],
         "prerequisites": [
             {
-                "abilityScore": {
-                    "id": "int"
-                },
-                "minimumScore": 13
-            },
-            {
-                "abilityScore": {
-                    "id": "wis"
-                },
-                "minimumScore": 13
+                "type": "ability-score",
+                "abilityScore": [
+                    "int",
+                    "wis"
+                ],
+                "minimumValue": 13,
+                "atLeastOne": true
             }
         ]
     },
@@ -425,7 +649,68 @@
         "desc": [
             "You gain proficiency in any combination of three skills or tools of your choice."
         ],
-        "prerequisites": []
+        "prerequisites": [],
+        "proficiencyChoice": {
+            "type": "options-array",
+            "from": [
+                "alchemists-supplies",
+                "brewers-supplies",
+                "calligraphers-supplies",
+                "carpenters-tools",
+                "cartographers-tools",
+                "cobblers-tools",
+                "cooks-utensils",
+                "glassblowers-tools",
+                "jewelers-tools",
+                "leatherworkers-tools",
+                "masons-tools",
+                "painters-supplies",
+                "potters-tools",
+                "smiths-tools",
+                "tinkers-tools",
+                "weavers-tools",
+                "woodcarvers-tools",
+                "disguise-kit",
+                "forgery-kit",
+                "dice-set",
+                "playing-card-set",
+                "bagpipes",
+                "drum",
+                "dulcimer",
+                "flute",
+                "lute",
+                "lyre",
+                "horn",
+                "pan-flute",
+                "shawm",
+                "viol",
+                "herbalism-kit",
+                "navigators-tools",
+                "poisoners-kit",
+                "thieves-tools",
+                "land-vehicles",
+                "water-vehicles",
+                "skill-acrobatics",
+                "skill-animal-handling",
+                "skill-arcana",
+                "skill-athletics",
+                "skill-deception",
+                "skill-history",
+                "skill-insight",
+                "skill-intimidation",
+                "skill-investigation",
+                "skill-medicine",
+                "skill-nature",
+                "skill-perception",
+                "skill-performance",
+                "skill-persuasion",
+                "skill-religion",
+                "skill-sleight-of-hand",
+                "skill-stealth",
+                "skill-survival"
+            ],
+            "choose": 3
+        }
     },
     {
         "id": "skulker",
@@ -439,10 +724,8 @@
         ],
         "prerequisites": [
             {
-                "abilityScore": {
-                    "id": "dex"
-                },
-                "minimumScore": 13
+                "type": "proficiency",
+                "id": "skill-stealth"
             }
         ]
     },
@@ -468,7 +751,19 @@
             "- Your unarmed strike uses a d4 for damage.",
             "- When you hit a creature with an unarmed strike or an improvised weapon on your turn, you can use a bonus action to attempt to grapple the target."
         ],
-        "prerequisites": []
+        "prerequisites": [],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "str": 1
+                },
+                {
+                    "con": 1
+                }
+            ],
+            "choose": 1
+        }
     },
     {
         "id": "tough",
@@ -476,7 +771,14 @@
         "desc": [
             "Your hit point maximum increases by an amount equal to twice your level when you gain this feat. Whenever you gain a level thereafter, your hit point maximum increases by an additional 2 hit points."
         ],
-        "prerequisites": []
+        "prerequisites": [],
+        "effects": [
+            {
+                "type": "add-hp",
+                "value": 2,
+                "perLevel": true
+            }
+        ]
     },
     {
         "id": "war-caster",
@@ -498,6 +800,63 @@
             "- Increase your Strength or Dexterity score by 1, to a maximum of 20.",
             "- You gain proficiency with four weapons of your choice. Each one must be a simple or a martial weapon."
         ],
-        "prerequisites": []
+        "prerequisites": [],
+        "abilityBonusChoice": {
+            "type": "ability-bonus",
+            "from": [
+                {
+                    "str": 1
+                },
+                {
+                    "dex": 1
+                }
+            ],
+            "choose": 1
+        },
+        "proficiencyChoice": {
+            "type": "options-array",
+            "from": [
+                "simple-weapons",
+                "martial-weapons",
+                "clubs",
+                "daggers",
+                "greatclubs",
+                "handaxes",
+                "javelins",
+                "light-hammers",
+                "maces",
+                "quarterstaffs",
+                "sickles",
+                "spears",
+                "crossbows-light",
+                "darts",
+                "shortbows",
+                "slings",
+                "battleaxes",
+                "flails",
+                "glaives",
+                "greataxes",
+                "greatswords",
+                "halberds",
+                "lances",
+                "longswords",
+                "mauls",
+                "morningstars",
+                "pikes",
+                "rapiers",
+                "scimitars",
+                "shortswords",
+                "tridents",
+                "war-picks",
+                "warhammers",
+                "whips",
+                "blowguns",
+                "hand-crossbows",
+                "crossbows-heavy",
+                "longbows",
+                "nets"
+            ],
+            "choose": 4
+        }
     }
 ]
