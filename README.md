@@ -72,6 +72,12 @@ Verification commands for agents after setup:
 ./gradlew testDebugUnitTest # JVM unit tests
 ```
 
+## 🧪 Testing strategy and JUnit support
+
+-   **JVM unit tests** use JUnit Jupiter via Gradle's `useJUnitPlatform()` configuration and the `testImplementation`/`testRuntimeOnly` Jupiter dependencies declared in `app/build.gradle.kts`.
+-   **Instrumentation and Compose UI tests** currently remain on the JUnit4 stack because Android instrumentation runners still expect JUnit4-based entry points. The project uses `androidx.test.ext:junit` and `androidx.compose.ui:ui-test-junit4` under `androidTestImplementation`, along with the existing `HiltApplicationTestRunner`.
+-   **Future JUnit5 instrumentation plan:** Once Android tooling ships stable support for Jupiter-based instrumentation (e.g., an official JUnit5 runner and compatible Compose testing artifacts), migrate by swapping the JUnit4 androidTest dependencies for their Jupiter equivalents, updating the custom test runner, and validating compatibility across Compose and Hilt test rules. Until then, keep instrumentation tests on the current JUnit4 stack while JVM tests continue on JUnit5.
+
 ## 📜 Data Source
 
 Spellbindr uses game content from the Dungeons & Dragons 5th Edition **System Reference Document 5.1** (SRD) provided by Wizards of the Coast. This content is available under the terms of the **Open Gaming License v1.0a**.
