@@ -21,9 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.predefined.Condition
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
@@ -32,7 +31,7 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSear
 @Composable
 fun CompendiumRoute(
     vm: CompendiumViewModel,
-    onSpellSelected: (String) -> Unit,
+    onSpellSelected: (Spell) -> Unit,
 ) {
     val state by vm.state.collectAsState()
 
@@ -54,7 +53,7 @@ fun CompendiumRoute(
 private fun CompendiumScreen(
     state: CompendiumViewModel.State,
     modifier: Modifier = Modifier,
-    onSpellSelected: (String) -> Unit = {},
+    onSpellSelected: (Spell) -> Unit = {},
     onSpellQueryChanged: (String) -> Unit,
     onSpellFiltersClick: () -> Unit,
     onSpellFavoriteClick: () -> Unit,
@@ -66,61 +65,54 @@ private fun CompendiumScreen(
 ) {
     var selectedSection by rememberSaveable { mutableStateOf(CompendiumSection.Spells) }
 
-    WithAppTopBar(
-        AppTopBarConfig(
-            visible = true,
-            title = { Text("Compendium") },
-        )
-    ) {
-        Column(modifier = modifier.fillMaxSize()) {
-            PrimaryTabRow(selectedTabIndex = selectedSection.ordinal) {
-                CompendiumSection.entries.forEach { section ->
-                    Tab(
-                        selected = section == selectedSection,
-                        onClick = { selectedSection = section },
-                        text = { Text(section.label) },
-                    )
-                }
+    Column(modifier = modifier.fillMaxSize()) {
+        PrimaryTabRow(selectedTabIndex = selectedSection.ordinal) {
+            CompendiumSection.entries.forEach { section ->
+                Tab(
+                    selected = section == selectedSection,
+                    onClick = { selectedSection = section },
+                    text = { Text(section.label) },
+                )
             }
-            Spacer(modifier = Modifier.height(12.dp))
-            Box(modifier = Modifier.fillMaxSize()) {
-                Crossfade(
-                    targetState = selectedSection,
-                    label = "compendium-sections",
-                ) { section ->
-                    when (section) {
-                        CompendiumSection.Spells -> {
-                            SpellSearchScreen(
-                                state = state.spellsState,
-                                onQueryChanged = onSpellQueryChanged,
-                                onFiltersClick = onSpellFiltersClick,
-                                onFavoriteClick = onSpellFavoriteClick,
-                                onSpellClick = onSpellSelected,
-                                onSubmitFilters = onSpellSubmitFilters,
-                                onCancelFilters = onSpellCancelFilters,
-                            )
-                        }
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Box(modifier = Modifier.fillMaxSize()) {
+            Crossfade(
+                targetState = selectedSection,
+                label = "compendium-sections",
+            ) { section ->
+                when (section) {
+                    CompendiumSection.Spells -> {
+                        SpellSearchScreen(
+                            state = state.spellsState,
+                            onQueryChanged = onSpellQueryChanged,
+                            onFiltersClick = onSpellFiltersClick,
+                            onFavoriteClick = onSpellFavoriteClick,
+                            onSpellClick = onSpellSelected,
+                            onSubmitFilters = onSpellSubmitFilters,
+                            onCancelFilters = onSpellCancelFilters,
+                        )
+                    }
 
-                        CompendiumSection.Conditions -> {
-                            ConditionsRoute(
-                                state = state.conditionsState,
-                                onConditionClick = onConditionClick,
-                            )
-                        }
+                    CompendiumSection.Conditions -> {
+                        ConditionsRoute(
+                            state = state.conditionsState,
+                            onConditionClick = onConditionClick,
+                        )
+                    }
 
-                        CompendiumSection.Alignments -> {
-                            AlignmentsRoute(
-                                state = state.alignmentsState,
-                                onAlignmentClick = onAlignmentClick,
-                            )
-                        }
+                    CompendiumSection.Alignments -> {
+                        AlignmentsRoute(
+                            state = state.alignmentsState,
+                            onAlignmentClick = onAlignmentClick,
+                        )
+                    }
 
-                        CompendiumSection.Races -> {
-                            RacesRoute(
-                                state = state.racesState,
-                                onRaceClick = onRaceClick,
-                            )
-                        }
+                    CompendiumSection.Races -> {
+                        RacesRoute(
+                            state = state.racesState,
+                            onRaceClick = onRaceClick,
+                        )
                     }
                 }
             }

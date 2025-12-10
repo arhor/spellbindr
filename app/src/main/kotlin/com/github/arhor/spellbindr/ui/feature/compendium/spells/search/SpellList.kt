@@ -43,7 +43,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @Composable
 fun SpellList(
     spells: List<Spell>,
-    onSpellClick: (String) -> Unit,
+    onSpellClick: (Spell) -> Unit,
 ) {
     var expandedAll by remember(spells) { mutableStateOf(true) }
     val expandedState = remember(spells) { mutableStateMapOf<Int, Boolean>() }
@@ -97,7 +97,7 @@ fun SpellList(
                     items(spellsForLevel) { spell ->
                         SpellCard(
                             spell = spell,
-                            onClick = { onSpellClick(spell.id) },
+                            onClick = { onSpellClick(spell) },
                         )
                     }
                 }

@@ -21,8 +21,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.AppThemeMode
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -65,47 +63,40 @@ private fun SettingsScreen(
         ),
     )
 
-    WithAppTopBar(
-        AppTopBarConfig(
-            visible = true,
-            title = { Text(text = "Settings") },
-        ),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 32.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 32.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(
-                text = "Appearance",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary,
-            )
-            Card {
-                Column {
-                    themeOptions.forEach { option ->
-                        ListItem(
-                            modifier = Modifier
-                                .selectable(
-                                    selected = state.themeMode == option.mode,
-                                    enabled = state.loaded,
-                                    onClick = { onThemeModeSelected(option.mode) },
-                                    role = Role.RadioButton,
-                                ),
-                            headlineContent = { Text(option.title) },
-                            supportingContent = { Text(option.description) },
-                            trailingContent = {
-                                RadioButton(
-                                    selected = state.themeMode == option.mode,
-                                    onClick = { onThemeModeSelected(option.mode) },
-                                    enabled = state.loaded,
-                                )
-                            },
-                        )
-                    }
+        Text(
+            text = "Appearance",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary,
+        )
+        Card {
+            Column {
+                themeOptions.forEach { option ->
+                    ListItem(
+                        modifier = Modifier
+                            .selectable(
+                                selected = state.themeMode == option.mode,
+                                enabled = state.loaded,
+                                onClick = { onThemeModeSelected(option.mode) },
+                                role = Role.RadioButton,
+                            ),
+                        headlineContent = { Text(option.title) },
+                        supportingContent = { Text(option.description) },
+                        trailingContent = {
+                            RadioButton(
+                                selected = state.themeMode == option.mode,
+                                onClick = { onThemeModeSelected(option.mode) },
+                                enabled = state.loaded,
+                            )
+                        },
+                    )
                 }
             }
         }

@@ -3,29 +3,18 @@
 package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
-private val LocalAppTopBarController = staticCompositionLocalOf<AppTopBarController?> { null }
 private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
 
 /**
@@ -40,24 +29,6 @@ data class AppTopBarConfig(
 ) {
     companion object {
         val None = AppTopBarConfig()
-    }
-}
-
-class AppTopBarController(
-    private val state: MutableState<AppTopBarConfig>,
-) {
-    private var ownerRef: Any? = null
-
-    fun setTopBar(owner: Any, config: AppTopBarConfig) {
-        ownerRef = owner
-        state.value = config
-    }
-
-    fun clearTopBar(owner: Any) {
-        if (ownerRef === owner) {
-            ownerRef = null
-            state.value = AppTopBarConfig.None
-        }
     }
 }
 
@@ -87,30 +58,14 @@ sealed interface AppTopBarNavigation {
 }
 
 @Composable
-fun AppTopBarControllerProvider(content: @Composable (AppTopBarConfig) -> Unit) {
-    val currConfig = remember { mutableStateOf(AppTopBarConfig.None) }
-    val controller = remember { AppTopBarController(currConfig) }
+fun AppTopBar(config: AppTopBarConfig) {
+    if (!config.visible) return
 
-    CompositionLocalProvider(LocalAppTopBarController provides controller) {
-        content(currConfig.value)
-    }
-}
-
-@Composable
-fun WithAppTopBar(
-    config: AppTopBarConfig,
-    content: @Composable () -> Unit,
-) {
-    val controller = LocalAppTopBarController.current
-    val currentRef = remember { Any() }
-
-    if (controller != null) {
-        DisposableEffect(currentRef, config) {
-            controller.setTopBar(currentRef, config)
-            onDispose { controller.clearTopBar(currentRef) }
-        }
-    }
-    content()
+    TopAppBar(
+        title = config.title,
+        navigationIcon = config.navigation.asNavigationIcon(),
+        actions = config.actions,
+    )
 }
 
 @Preview
@@ -128,41 +83,20 @@ private fun AppTopBarDarkPreview() {
 @Composable
 private fun AppTopBarPreview(isDarkTheme: Boolean) {
     AppTheme(isDarkTheme = isDarkTheme) {
-        AppTopBarControllerProvider { config ->
-            Scaffold(
-                topBar = {
-                    if (config.visible) {
-                        TopAppBar(
-                            title = config.title,
-                            navigationIcon = config.navigation.asNavigationIcon(),
-                            actions = config.actions,
+        AppTopBar(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(text = "Spellbindr") },
+                navigation = AppTopBarNavigation.Back {},
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null,
                         )
                     }
                 },
-            ) { innerPadding ->
-                WithAppTopBar(
-                    config = AppTopBarConfig(
-                        visible = true,
-                        title = { Text(text = "Spellbindr") },
-                        navigation = AppTopBarNavigation.Back {},
-                        actions = {
-                            IconButton(onClick = {}) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = null,
-                                )
-                            }
-                        },
-                    ),
-                ) {
-                    Text(
-                        text = "Preview content",
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .padding(16.dp),
-                    )
-                }
-            }
-        }
+            ),
+        )
     }
 }
