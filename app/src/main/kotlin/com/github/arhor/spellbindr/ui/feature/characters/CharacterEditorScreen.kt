@@ -41,9 +41,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

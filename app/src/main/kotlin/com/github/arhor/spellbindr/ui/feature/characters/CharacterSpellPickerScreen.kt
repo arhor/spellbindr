@@ -22,9 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.EntityRef
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 

@@ -21,8 +21,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarControllerProvider
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.navigation.BottomNavItems
+import com.github.arhor.spellbindr.ui.navigation.SpellbindrAppNavGraph
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -43,9 +46,12 @@ fun SpellbindrApp(
         AppTopBarControllerProvider { config ->
             Scaffold(
                 topBar = createTopBar(config),
-                bottomBar = createBottomBar(controller),
+                bottomBar = { AppBottomBar(controller) },
             ) { innerPadding ->
-                SpellbindrAppNavGraph(controller = controller, innerPadding = innerPadding)
+                SpellbindrAppNavGraph(
+                    controller = controller,
+                    innerPadding = innerPadding,
+                )
             }
         }
     }
@@ -61,7 +67,8 @@ private fun createTopBar(config: AppTopBarConfig): @Composable () -> Unit = {
     }
 }
 
-private fun createBottomBar(controller: NavHostController): @Composable () -> Unit = {
+@Composable
+private fun AppBottomBar(controller: NavHostController) {
     val backStackEntry by controller.currentBackStackEntryAsState()
 
     NavigationBar {

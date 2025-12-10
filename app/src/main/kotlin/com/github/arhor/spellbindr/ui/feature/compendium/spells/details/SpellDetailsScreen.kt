@@ -39,10 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.Spell
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme

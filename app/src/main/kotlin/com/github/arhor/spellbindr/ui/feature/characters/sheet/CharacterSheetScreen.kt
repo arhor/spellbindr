@@ -22,9 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent

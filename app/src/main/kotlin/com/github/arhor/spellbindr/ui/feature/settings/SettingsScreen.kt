@@ -21,8 +21,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.AppThemeMode
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

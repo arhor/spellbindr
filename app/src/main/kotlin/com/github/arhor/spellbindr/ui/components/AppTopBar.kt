@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.github.arhor.spellbindr.ui
+package com.github.arhor.spellbindr.ui.components
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
@@ -157,7 +157,9 @@ private fun AppTopBarPreview(isDarkTheme: Boolean) {
                 ) {
                     Text(
                         text = "Preview content",
-                        modifier = Modifier.padding(innerPadding).padding(16.dp),
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .padding(16.dp),
                     )
                 }
             }
