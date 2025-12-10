@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -17,7 +18,13 @@ class ThemeRepository @Inject constructor(
 
     val themeMode: Flow<AppThemeMode?>
         get() = dataStore.data.map { preferences ->
-            preferences[THEME_MODE]?.let(AppThemeMode::valueOf)
+            preferences[THEME_MODE]?.let { storedValue ->
+                runCatching { AppThemeMode.valueOf(storedValue) }
+                    .getOrElse { error ->
+                        logger.error(error) { "Invalid theme mode stored: $storedValue" }
+                        null
+                    }
+            }
         }
 
     suspend fun setThemeMode(mode: AppThemeMode?) {
@@ -32,5 +39,6 @@ class ThemeRepository @Inject constructor(
 
     companion object {
         private val THEME_MODE = stringPreferencesKey("theme_mode")
+        private val logger = createLogger<ThemeRepository>()
     }
 }
