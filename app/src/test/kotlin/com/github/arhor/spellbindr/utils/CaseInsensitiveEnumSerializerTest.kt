@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.utils
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
-import org.junit.Assert.assertThrows
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class CaseInsensitiveEnumSerializerTest {
 

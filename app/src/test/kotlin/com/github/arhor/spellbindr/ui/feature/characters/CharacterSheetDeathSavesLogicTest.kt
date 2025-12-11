@@ -4,7 +4,7 @@ import com.github.arhor.spellbindr.data.model.CharacterSheet
 import com.github.arhor.spellbindr.data.model.DeathSaveState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.clearDeathSavesIfConscious
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class CharacterSheetDeathSavesLogicTest {
 
