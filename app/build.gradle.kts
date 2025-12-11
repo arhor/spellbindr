@@ -21,6 +21,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "com.github.arhor.spellbindr.HiltApplicationTestRunner"
+        testInstrumentationRunnerArgument("runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder")
     }
 
     buildTypes {
