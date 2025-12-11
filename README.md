@@ -75,8 +75,7 @@ Verification commands for agents after setup:
 ## 🧪 Testing strategy and JUnit support
 
 -   **JVM unit tests** use JUnit Jupiter via Gradle's `useJUnitPlatform()` configuration and the `testImplementation`/`testRuntimeOnly` Jupiter dependencies declared in `app/build.gradle.kts`.
--   **Instrumentation and Compose UI tests** currently remain on the JUnit4 stack because Android instrumentation runners still expect JUnit4-based entry points. The project uses `androidx.test.ext:junit` and `androidx.compose.ui:ui-test-junit4` under `androidTestImplementation`, along with the existing `HiltApplicationTestRunner`.
--   **Future JUnit5 instrumentation plan:** Once Android tooling ships stable support for Jupiter-based instrumentation (e.g., an official JUnit5 runner and compatible Compose testing artifacts), migrate by swapping the JUnit4 androidTest dependencies for their Jupiter equivalents, updating the custom test runner, and validating compatibility across Compose and Hilt test rules. Until then, keep instrumentation tests on the current JUnit4 stack while JVM tests continue on JUnit5.
+-   **Instrumentation and Compose UI tests** now run on JUnit 5 through the Android JUnit5 runner builder configured in `defaultConfig`. Execute them with `./gradlew connectedAndroidTest` on an emulator or device running API level **26+** (android-junit5 minimum); an API 33+ emulator with animations disabled remains recommended for stability. Compose testing utilities continue to come from `androidx.compose.ui:ui-test-junit4`, but execution is handled by the JUnit Platform.
 
 ## 📜 Data Source
 
