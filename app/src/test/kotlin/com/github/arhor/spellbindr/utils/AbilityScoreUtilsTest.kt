@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.utils
 
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class AbilityScoreUtilsTest {
 
