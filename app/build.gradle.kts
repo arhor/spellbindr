@@ -92,8 +92,6 @@ dependencies {
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.hilt.android.testing)
-    androidTestRuntimeOnly(libs.mannodermaus.android.test.runner)
-
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
