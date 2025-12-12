@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
@@ -28,9 +27,10 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 internal fun CharacterSheetTopBarTitle(
-    header: CharacterHeaderUiState?,
+    name: String?,
+    subtitle: String?,
 ) {
-    if (header == null) {
+    if (name == null) {
         Text(
             text = "Character",
             maxLines = 1,
@@ -39,15 +39,15 @@ internal fun CharacterSheetTopBarTitle(
     } else {
         Column {
             Text(
-                text = header.name,
+                text = name,
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (header.subtitle.isNotBlank()) {
+            if (!subtitle.isNullOrBlank()) {
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = header.subtitle,
+                    text = subtitle,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -107,7 +107,10 @@ internal fun CharacterSheetTopBarActions(
 @Composable
 private fun CharacterSheetTopBarTitlePreview() {
     AppTheme {
-        CharacterSheetTopBarTitle(header = CharacterSheetPreviewData.header)
+        CharacterSheetTopBarTitle(
+            name = CharacterSheetPreviewData.header.name,
+            subtitle = CharacterSheetPreviewData.header.subtitle,
+        )
     }
 }
 
@@ -115,7 +118,7 @@ private fun CharacterSheetTopBarTitlePreview() {
 @Composable
 private fun CharacterSheetTopBarTitleLoadingPreview() {
     AppTheme {
-        CharacterSheetTopBarTitle(header = null)
+        CharacterSheetTopBarTitle(name = null, subtitle = null)
     }
 }
 

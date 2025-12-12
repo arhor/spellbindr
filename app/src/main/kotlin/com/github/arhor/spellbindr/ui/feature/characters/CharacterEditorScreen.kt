@@ -25,7 +25,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -41,9 +40,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -118,51 +114,31 @@ private fun CharacterEditorScreen(
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
-    WithAppTopBar(
-        AppTopBarConfig(
-            visible = true,
-            title = {
-                Text(
-                    text = if (state.mode == EditorMode.Create) "New Character" else "Edit Character",
+    Box(modifier = modifier.fillMaxSize()) {
+        when {
+            state.isLoading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
                 )
-            },
-            navigation = AppTopBarNavigation.Back(callbacks.onBack),
-            actions = {
-                TextButton(
-                    onClick = callbacks.onSave,
-                    enabled = !state.isSaving && !state.isLoading,
-                ) {
-                    Text("Save")
-                }
-            },
-        )
-    ) {
-        Box(modifier = modifier.fillMaxSize()) {
-            when {
-                state.isLoading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                    )
-                }
-
-                else -> {
-                    CharacterEditorForm(
-                        state = state,
-                        callbacks = callbacks,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
-                            .padding(horizontal = 16.dp, vertical = 12.dp),
-                    )
-                }
             }
-            SnackbarHost(
-                hostState = snackbarHostState,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(16.dp),
-            )
+
+            else -> {
+                CharacterEditorForm(
+                    state = state,
+                    callbacks = callbacks,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                )
+            }
         }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp),
+        )
     }
 }
 

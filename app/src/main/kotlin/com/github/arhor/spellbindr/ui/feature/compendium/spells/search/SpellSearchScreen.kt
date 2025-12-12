@@ -26,7 +26,7 @@ fun SpellSearchScreen(
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
-    onSpellClick: (String) -> Unit,
+    onSpellClick: (Spell) -> Unit,
     onSubmitFilters: (Set<EntityRef>) -> Unit,
     onCancelFilters: (Set<EntityRef>) -> Unit,
 ) {
@@ -47,7 +47,7 @@ private fun SpellSearchContent(
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
-    onSpellClick: (String) -> Unit,
+    onSpellClick: (Spell) -> Unit,
     onSubmitFilters: (Set<EntityRef>) -> Unit,
     onCancelFilters: (Set<EntityRef>) -> Unit,
 ) {

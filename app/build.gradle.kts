@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.android.junit5)
 }
 
 android {
@@ -20,6 +21,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "com.github.arhor.spellbindr.HiltApplicationTestRunner"
+        testInstrumentationRunnerArgument("runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder")
     }
 
     buildTypes {
@@ -82,13 +84,14 @@ dependencies {
     kspAndroidTest(libs.hilt.android.compiler)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.junit.jupiter.api)
+    androidTestImplementation(libs.junit.jupiter.params)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.hilt.android.testing)
-
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

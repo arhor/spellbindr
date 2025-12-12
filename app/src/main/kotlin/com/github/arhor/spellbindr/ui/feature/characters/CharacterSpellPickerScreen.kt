@@ -22,9 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.EntityRef
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
+import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -36,8 +34,8 @@ fun CharacterSpellPickerRoute(
 ) {
     val state by vm.state.collectAsState()
 
-    val handleSpellSelected: (String) -> Unit = { spellId ->
-        vm.buildAssignment(spellId)?.let { assignment ->
+    val handleSpellSelected: (Spell) -> Unit = { spell ->
+        vm.buildAssignment(spell.id)?.let { assignment ->
             onSpellSelected(listOf(assignment))
         }
     }
@@ -60,72 +58,64 @@ private fun CharacterSpellPickerScreen(
     state: CharacterSpellPickerViewModel.State,
     onBack: () -> Unit,
     onSourceChanged: (String) -> Unit,
-    onSpellSelected: (String) -> Unit,
+    onSpellSelected: (Spell) -> Unit,
     onSpellQueryChanged: (String) -> Unit,
     onSpellFiltersClick: () -> Unit,
     onSpellFavoriteClick: () -> Unit,
     onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
     onSpellCancelFilters: (Set<EntityRef>) -> Unit,
 ) {
-    WithAppTopBar(
-        AppTopBarConfig(
-            visible = true,
-            title = { Text("Add Spells") },
-            navigation = AppTopBarNavigation.Back(onBack),
-        )
-    ) {
-        when {
-            state.isLoading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator()
-                }
+    when {
+        state.isLoading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
             }
+        }
 
-            state.errorMessage != null -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = state.errorMessage,
-                        textAlign = TextAlign.Center,
-                    )
-                }
+        state.errorMessage != null -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = state.errorMessage,
+                    textAlign = TextAlign.Center,
+                )
             }
+        }
 
-            else -> {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    OutlinedTextField(
-                        value = state.sourceClass,
-                        onValueChange = onSourceChanged,
-                        label = { Text("Spellcasting class") },
-                        placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
+        else -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                OutlinedTextField(
+                    value = state.sourceClass,
+                    onValueChange = onSourceChanged,
+                    label = { Text("Spellcasting class") },
+                    placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Text(
+                    text = "Tap a spell below to add it to the character.",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Box(modifier = Modifier.weight(1f)) {
+                    SpellSearchScreen(
+                        state = state.spellsState,
+                        onQueryChanged = onSpellQueryChanged,
+                        onFiltersClick = onSpellFiltersClick,
+                        onFavoriteClick = onSpellFavoriteClick,
+                        onSpellClick = onSpellSelected,
+                        onSubmitFilters = onSpellSubmitFilters,
+                        onCancelFilters = onSpellCancelFilters,
                     )
-                    Text(
-                        text = "Tap a spell below to add it to the character.",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Box(modifier = Modifier.weight(1f)) {
-                        SpellSearchScreen(
-                            state = state.spellsState,
-                            onQueryChanged = onSpellQueryChanged,
-                            onFiltersClick = onSpellFiltersClick,
-                            onFavoriteClick = onSpellFavoriteClick,
-                            onSpellClick = onSpellSelected,
-                            onSubmitFilters = onSpellSubmitFilters,
-                            onCancelFilters = onSpellCancelFilters,
-                        )
-                    }
                 }
             }
         }

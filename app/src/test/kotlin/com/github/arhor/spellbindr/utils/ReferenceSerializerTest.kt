@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.utils
 import com.github.arhor.spellbindr.data.model.next.Reference
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ReferenceSerializerTest {
 
