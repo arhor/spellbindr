@@ -37,7 +37,7 @@ class CaseInsensitiveEnumSerializerTest {
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 
         // When
-        val result = assertThrows(IllegalArgumentException::class.java) {
+        val result = assertThrows<IllegalArgumentException> {
             Json.decodeFromString(serializer, "\"missing\"")
         }
 
