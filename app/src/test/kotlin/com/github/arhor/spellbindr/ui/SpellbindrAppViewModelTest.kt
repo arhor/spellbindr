@@ -14,7 +14,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.RegisterExtension
-import org.robolectric.RobolectricExtension
+import org.robolectric.junit5.RobolectricExtension
 import kotlin.io.path.createTempFile
 
 @OptIn(ExperimentalCoroutinesApi::class)

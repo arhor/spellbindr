@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.robolectric.RobolectricExtension
+import org.robolectric.junit5.RobolectricExtension
 
 @ExtendWith(RobolectricExtension::class)
 class EllipseShapeTest {
