@@ -9,16 +9,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.RegisterExtension
+import org.junit.Rule
+import org.junit.Test
 import java.io.File
 import kotlin.io.path.createTempFile
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest {
 
-    @JvmField
-    @RegisterExtension
+    @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test

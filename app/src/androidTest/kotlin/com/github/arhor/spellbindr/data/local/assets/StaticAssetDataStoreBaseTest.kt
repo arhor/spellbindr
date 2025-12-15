@@ -3,22 +3,21 @@ package com.github.arhor.spellbindr.data.local.assets
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Assertions.fail
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.RegisterExtension
+import org.junit.Assert.fail
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import javax.inject.Inject
 
 @HiltAndroidTest
 class StaticAssetDataStoreBaseTest {
-    @JvmField
-    @RegisterExtension
-    val hiltRule = HiltAndroidRule(this)
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @Inject
     lateinit var stores: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>
 
-    @BeforeEach
+    @Before
     fun init() {
         hiltRule.inject()
     }
