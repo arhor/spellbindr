@@ -6,7 +6,7 @@ import com.github.arhor.spellbindr.data.model.Weapon
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.google.common.truth.Truth.assertThat
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 class WeaponsTabMappingTest {
 

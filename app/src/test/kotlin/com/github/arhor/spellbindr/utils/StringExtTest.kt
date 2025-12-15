@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.utils
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.jupiter.api.Test
+import org.junit.Test
 
 class StringExtTest {
 
