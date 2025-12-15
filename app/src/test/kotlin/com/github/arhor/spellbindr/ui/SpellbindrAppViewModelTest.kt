@@ -11,18 +11,17 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.extension.RegisterExtension
-import org.robolectric.junit5.RobolectricExtension
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import kotlin.io.path.createTempFile
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@ExtendWith(RobolectricExtension::class)
+@RunWith(RobolectricTestRunner::class)
 class SpellbindrAppViewModelTest {
 
-    @JvmField
-    @RegisterExtension
+    @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test

@@ -5,11 +5,11 @@ import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import com.google.common.truth.Truth.assertThat
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.robolectric.junit5.RobolectricExtension
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-@ExtendWith(RobolectricExtension::class)
+@RunWith(RobolectricTestRunner::class)
 class EllipseShapeTest {
 
     @Test
