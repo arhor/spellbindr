@@ -72,10 +72,9 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.truth)
     testImplementation(libs.mockk)
-    testImplementation(libs.robolectric)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     kspAndroidTest(libs.hilt.android.compiler)
 
