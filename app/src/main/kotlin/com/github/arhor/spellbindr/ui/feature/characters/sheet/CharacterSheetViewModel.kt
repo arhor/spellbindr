@@ -33,8 +33,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import java.util.UUID
+import javax.inject.Inject
 
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(

@@ -12,13 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.History
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,8 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
 import com.github.arhor.spellbindr.ui.feature.dice.components.MainDiceRollerCard
 import com.github.arhor.spellbindr.ui.feature.dice.components.PercentileCard
@@ -99,67 +92,52 @@ private fun DiceRollerScreen(
         }
     }
 
-    WithAppTopBar(
-        AppTopBarConfig(
-            visible = true,
-            title = { Text("Dice Roller") },
-            actions = {
-                IconButton(onClick = { /* Stub: future history action */ }) {
-                    Icon(
-                        imageVector = Icons.Outlined.History,
-                        contentDescription = "History",
-                    )
-                }
-            },
-        )
+    Box(
+        modifier = modifier.fillMaxSize(),
     ) {
-        Box(
-            modifier = modifier.fillMaxSize(),
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 180.dp),
         ) {
-            Column(
+            MainDiceRollerCard(
+                state = state,
+                onIntent = onIntent,
+            )
+            PercentileCard(
+                lastPercentileRoll = state.lastPercentileRoll,
+                onRollPercentile = { onIntent(DiceRollerIntent.RollPercentile) },
+                modifier = Modifier.padding(top = 8.dp),
+            )
+            Spacer(modifier = Modifier.height(96.dp))
+        }
+        val latestResult = state.latestResult
+        if (latestVisible.value && latestResult != null) {
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 180.dp),
-            ) {
-                MainDiceRollerCard(
-                    state = state,
-                    onIntent = onIntent,
-                )
-                PercentileCard(
-                    lastPercentileRoll = state.lastPercentileRoll,
-                    onRollPercentile = { onIntent(DiceRollerIntent.RollPercentile) },
-                    modifier = Modifier.padding(top = 8.dp),
-                )
-                Spacer(modifier = Modifier.height(96.dp))
-            }
-            val latestResult = state.latestResult
-            if (latestVisible.value && latestResult != null) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .dismissOnTap {
-                            latestVisible.value = false
-                            showDetails.value = false
-                            dismissedToken.value = state.latestResultToken
-                        },
-                )
-                LatestResultBar(
-                    latestResult = latestResult,
-                    onReRoll = { onIntent(DiceRollerIntent.ReRollLast) },
-                    onShowDetails = { showDetails.value = true },
-                    onClose = {
-                        showDetails.value = false
+                    .dismissOnTap {
                         latestVisible.value = false
+                        showDetails.value = false
                         dismissedToken.value = state.latestResultToken
                     },
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(16.dp)
-                        .consumeClicks(),
-                )
-            }
+            )
+            LatestResultBar(
+                latestResult = latestResult,
+                onReRoll = { onIntent(DiceRollerIntent.ReRollLast) },
+                onShowDetails = { showDetails.value = true },
+                onClose = {
+                    showDetails.value = false
+                    latestVisible.value = false
+                    dismissedToken.value = state.latestResultToken
+                },
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
+                    .consumeClicks(),
+            )
         }
     }
 

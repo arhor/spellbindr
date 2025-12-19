@@ -14,7 +14,11 @@ sealed class AppDestination(open val title: String) {
     data object CharactersHome : AppDestination(title = "Characters")
 
     @Serializable
-    data class CharacterSheet(val characterId: String) : AppDestination(title = "Character")
+    data class CharacterSheet(
+        val characterId: String,
+        val initialName: String? = null,
+        val initialSubtitle: String? = null,
+    ) : AppDestination(title = "Character")
 
     @Serializable
     data class CharacterEditor(val characterId: String? = null) : AppDestination(title = "Character Editor")
@@ -26,7 +30,10 @@ sealed class AppDestination(open val title: String) {
     data object Compendium : AppDestination(title = "Compendium")
 
     @Serializable
-    data class SpellDetail(val spellId: String) : AppDestination(title = "Spell Details")
+    data class SpellDetail(
+        val spellId: String,
+        val initialName: String? = null,
+    ) : AppDestination(title = "Spell Details")
 
     @Serializable
     data class MonsterDetail(val monsterId: String) : AppDestination(title = "Monster Details")

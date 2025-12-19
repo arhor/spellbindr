@@ -55,19 +55,19 @@ guidelines to stay aligned with the maintainers’ expectations.
     - `./gradlew installDebug` – deploy to the connected emulator/device.
     - `./gradlew lint` – Android lint (resolve/wjustify every warning).
     - `./gradlew testDebugUnitTest` – JVM tests.
-    - `./gradlew connectedAndroidTest` – Instrumented UI tests (requires an API 33+ emulator with animations disabled
-      for stability).
+    - `./gradlew connectedAndroidTest` – Instrumented UI tests on the standard JUnit 4 runner. Requires an
+      API 26+ emulator/device; an API 33+ emulator with animations disabled remains preferred for stability.
 4. Android Studio run configurations should map to the same Gradle tasks; enable “Use Gradle JDK” (17) and “Optimize
    Gradle for smaller projects” for faster sync.
 5. No external API keys are required.
 
 ## Testing
 
-- **Unit tests (`app/src/test`)**: Use JUnit4 + `kotlinx-coroutines-test`’s `runTest`. Favor pure Kotlin tests for
+- **Unit tests (`app/src/test`)**: Use JUnit 4 with `kotlinx-coroutines-test`’s `runTest`. Favor pure Kotlin tests for
   repositories, mappers, and utility logic.
-- **Instrumented / Compose UI tests (`app/src/androidTest`)**: Run via `connectedAndroidTest`. Compose UI uses
-  `androidx.compose.ui.test.junit4`. Espresso is available for hybrid flows. Hilt injection is enabled through
-  `HiltAndroidRule` and `HiltApplicationTestRunner`.
+- **Instrumented / Compose UI tests (`app/src/androidTest`)**: Run via `connectedAndroidTest` on the standard JUnit 4
+  runner. Compose UI relies on `androidx.compose.ui.test.junit4` artifacts for rules. Espresso is available for hybrid
+  flows. Hilt injection is enabled through `HiltAndroidRule` and `HiltApplicationTestRunner`.
 - **Fakes & dispatchers**: Mock external dependencies with fake repositories or in-memory DAOs, and rely on coroutine
   test dispatchers/`runTest` to control timing deterministically.
 - **Test data**: Prefer real SRD assets when possible; otherwise, use fixture builders under `data/model` or `utils`.

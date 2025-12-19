@@ -28,15 +28,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.WithAppTopBar
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun CharactersListScreen(
     vm: CharactersListViewModel,
-    onCharacterSelected: (String) -> Unit,
+    onCharacterSelected: (CharacterListItem) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
     val state by vm.state.collectAsState()
@@ -51,53 +48,45 @@ fun CharactersListScreen(
 @Composable
 private fun CharactersListScreen(
     uiState: CharactersListUiState,
-    onCharacterSelected: (String) -> Unit,
+    onCharacterSelected: (CharacterListItem) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
-    WithAppTopBar(
-        AppTopBarConfig(
-            visible = true,
-            title = { Text(text = "Characters") },
-            navigation = AppTopBarNavigation.None,
-        )
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            when {
-                uiState.isLoading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                    )
-                }
+    Box(modifier = Modifier.fillMaxSize()) {
+        when {
+            uiState.isLoading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                )
+            }
 
-                uiState.isEmpty -> {
-                    EmptyCharacterState(
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                }
+            uiState.isEmpty -> {
+                EmptyCharacterState(
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
 
-                else -> {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        items(uiState.characters, key = { it.id }) { character ->
-                            CharacterCard(
-                                item = character,
-                                onClick = { onCharacterSelected(character.id) },
-                            )
-                        }
+            else -> {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    items(uiState.characters, key = { it.id }) { character ->
+                        CharacterCard(
+                            item = character,
+                            onClick = { onCharacterSelected(character) },
+                        )
                     }
                 }
             }
-            FloatingActionButton(
-                onClick = onCreateCharacter,
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp),
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "Create character")
-            }
+        }
+        FloatingActionButton(
+            onClick = onCreateCharacter,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+        ) {
+            Icon(Icons.Default.Add, contentDescription = "Create character")
         }
     }
 }
