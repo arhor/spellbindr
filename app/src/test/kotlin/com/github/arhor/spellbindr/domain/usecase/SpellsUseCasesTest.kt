@@ -87,6 +87,24 @@ class SpellsUseCasesTest {
     }
 
     @Test
+    fun `searchSpells skips favorites when not requested`() = runTest {
+        // Given
+        val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
+        repository.findSpellsResult = expected
+
+        // When
+        val result = SearchSpellsUseCase(repository, favoritesRepository)(
+            query = "Detect",
+            classes = emptySet(),
+            favoriteOnly = false,
+        )
+
+        // Then
+        assertThat(result).isEqualTo(expected)
+        assertThat(favoritesRepository.lastObservedType).isNull()
+    }
+
+    @Test
     fun `toggleFavoriteSpell forwards id`() = runTest {
         // When
         ToggleFavoriteSpellUseCase(favoritesRepository)("fireball")
