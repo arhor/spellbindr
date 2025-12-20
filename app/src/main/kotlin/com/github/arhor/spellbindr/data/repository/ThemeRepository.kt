@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.github.arhor.spellbindr.di.AppSettingsDataStore
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ThemeRepository @Inject constructor(
-    private val dataStore: DataStore<Preferences>,
+    @param:AppSettingsDataStore private val dataStore: DataStore<Preferences>,
 ) {
 
     val themeMode: Flow<AppThemeMode?>

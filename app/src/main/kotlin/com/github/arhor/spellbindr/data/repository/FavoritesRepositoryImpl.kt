@@ -1,31 +1,47 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.local.db.FavoriteEntity
-import com.github.arhor.spellbindr.data.local.db.FavoritesDao
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringSetPreferencesKey
+import com.github.arhor.spellbindr.di.FavoritesDataStore
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class FavoritesRepositoryImpl @Inject constructor(
-    private val favoritesDao: FavoritesDao,
+    @param:FavoritesDataStore private val dataStore: DataStore<Preferences>,
 ) : FavoritesRepository {
     override fun observeFavoriteIds(type: FavoriteType): Flow<List<String>> =
-        favoritesDao.observeFavoriteIds(type.name)
+        dataStore.data.map { preferences ->
+            preferences[favoritesKey(type)]?.toList().orEmpty()
+        }
 
     override suspend fun toggleFavorite(type: FavoriteType, entityId: String) {
-        val entity = FavoriteEntity(type = type.name, entityId = entityId)
-        val isFavorite = favoritesDao.isFavorite(type.name, entityId) > 0
-
-        if (isFavorite) {
-            favoritesDao.deleteFavorite(entity)
-        } else {
-            favoritesDao.insertFavorite(entity)
+        dataStore.edit { preferences ->
+            val key = favoritesKey(type)
+            val current = preferences[key].orEmpty().toMutableSet()
+            if (entityId in current) {
+                current.remove(entityId)
+            } else {
+                current.add(entityId)
+            }
+            if (current.isEmpty()) {
+                preferences.remove(key)
+            } else {
+                preferences[key] = current
+            }
         }
     }
 
     override suspend fun isFavorite(type: FavoriteType, entityId: String): Boolean =
-        favoritesDao.isFavorite(type.name, entityId) > 0
+        dataStore.data.first()[favoritesKey(type)]?.contains(entityId) == true
+
+    private fun favoritesKey(type: FavoriteType) =
+        stringSetPreferencesKey("favorites_${type.name.lowercase()}")
 }
