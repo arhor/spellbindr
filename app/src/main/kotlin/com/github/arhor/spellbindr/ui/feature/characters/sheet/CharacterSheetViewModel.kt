@@ -4,17 +4,17 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.AbilityScores
-import com.github.arhor.spellbindr.data.model.CharacterSheet
-import com.github.arhor.spellbindr.data.model.CharacterSpell
-import com.github.arhor.spellbindr.data.model.DeathSaveState
-import com.github.arhor.spellbindr.data.model.SpellSlotState
-import com.github.arhor.spellbindr.data.model.Weapon
-import com.github.arhor.spellbindr.data.model.defaultSpellSlots
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
-import com.github.arhor.spellbindr.data.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterSpell
+import com.github.arhor.spellbindr.domain.model.DeathSaveState
+import com.github.arhor.spellbindr.domain.model.SpellSlotState
+import com.github.arhor.spellbindr.domain.model.Weapon
+import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
+import com.github.arhor.spellbindr.domain.repository.CharactersRepository
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
-    private val characterRepository: CharacterRepository,
+    private val characterRepository: CharactersRepository,
     private val spellRepository: SpellsRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {

@@ -4,13 +4,13 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.AbilityScores
-import com.github.arhor.spellbindr.data.model.CharacterSheet
-import com.github.arhor.spellbindr.data.model.SavingThrowEntry
-import com.github.arhor.spellbindr.data.model.SkillEntry
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
-import com.github.arhor.spellbindr.data.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
+import com.github.arhor.spellbindr.domain.model.SkillEntry
+import com.github.arhor.spellbindr.domain.repository.CharactersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterEditorViewModel @Inject constructor(
-    private val repository: CharacterRepository,
+    private val repository: CharactersRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 

@@ -5,16 +5,14 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.Alignment
-import com.github.arhor.spellbindr.data.model.Trait
-import com.github.arhor.spellbindr.data.model.next.CharacterRace
 import com.github.arhor.spellbindr.data.model.predefined.Condition
-import com.github.arhor.spellbindr.data.repository.AlignmentRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.data.repository.RacesRepository
-import com.github.arhor.spellbindr.data.repository.TraitsRepository
+import com.github.arhor.spellbindr.domain.model.Alignment
+import com.github.arhor.spellbindr.domain.model.Race
+import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,12 +34,10 @@ import kotlin.time.Duration.Companion.milliseconds
 @Stable
 @HiltViewModel
 class CompendiumViewModel @Inject constructor(
-    private val alignmentRepository: AlignmentRepository,
     private val characterClassRepository: CharacterClassRepository,
-    private val racesRepository: RacesRepository,
+    private val referenceDataRepository: ReferenceDataRepository,
     private val savedStateHandle: SavedStateHandle,
     private val spellRepository: SpellsRepository,
-    private val traitsRepository: TraitsRepository,
 ) : ViewModel() {
 
     sealed interface SpellsUiState {
@@ -80,7 +76,7 @@ class CompendiumViewModel @Inject constructor(
 
     @Immutable
     data class RacesState(
-        val races: List<CharacterRace> = emptyList(),
+        val races: List<Race> = emptyList(),
         val traits: Map<String, Trait> = emptyMap(),
         val expandedItemName: String? = null,
     )
@@ -117,7 +113,7 @@ class CompendiumViewModel @Inject constructor(
         savedStateHandle.getStateFlow(SELECTED_SECTION_KEY, CompendiumSection.Spells)
 
     private val alignmentsState = combine(
-        alignmentRepository.allAlignments,
+        referenceDataRepository.allAlignments,
         alignmentSelection,
     ) { alignments, expandedItemName ->
         AlignmentsState(
@@ -131,8 +127,8 @@ class CompendiumViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsState())
 
     private val racesState = combine(
-        racesRepository.allRaces,
-        traitsRepository.allTraits,
+        referenceDataRepository.allRaces,
+        referenceDataRepository.allTraits,
         raceSelection,
     ) { races, traits, expandedItemName ->
         RacesState(

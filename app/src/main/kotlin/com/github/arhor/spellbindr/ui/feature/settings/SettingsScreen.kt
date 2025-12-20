@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
@@ -62,7 +62,7 @@ fun SettingsScreen(
 @Composable
 private fun SettingsScreen(
     state: SettingsUiState,
-    onThemeModeSelected: (AppThemeMode?) -> Unit,
+    onThemeModeSelected: (ThemeMode?) -> Unit,
 ) {
     val effectiveIsDarkTheme = state.themeMode?.isDark ?: isSystemInDarkTheme()
     val themeOptions = listOf(
@@ -76,12 +76,12 @@ private fun SettingsScreen(
             },
         ),
         ThemeOption(
-            mode = AppThemeMode.LIGHT,
+            mode = ThemeMode.LIGHT,
             title = "Light",
             description = "Always use the light palette",
         ),
         ThemeOption(
-            mode = AppThemeMode.DARK,
+            mode = ThemeMode.DARK,
             title = "Dark",
             description = "Always use the dark palette",
         ),
@@ -130,7 +130,7 @@ private fun SettingsScreen(
 @Preview(showBackground = true)
 @Composable
 private fun SettingsScreenPreview() {
-    val state = SettingsUiState(themeMode = AppThemeMode.DARK, loaded = true)
+    val state = SettingsUiState(themeMode = ThemeMode.DARK, loaded = true)
     AppTheme {
         SettingsScreen(
             state = state,
@@ -140,7 +140,7 @@ private fun SettingsScreenPreview() {
 }
 
 private data class ThemeOption(
-    val mode: AppThemeMode?,
+    val mode: ThemeMode?,
     val title: String,
     val description: String,
 )

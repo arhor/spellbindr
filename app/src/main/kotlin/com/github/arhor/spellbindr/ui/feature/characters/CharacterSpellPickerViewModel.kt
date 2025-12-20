@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.repository.CharactersRepository
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
 import com.github.arhor.spellbindr.utils.Logger
@@ -29,7 +29,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class CharacterSpellPickerViewModel @Inject constructor(
-    private val characterRepository: CharacterRepository,
+    private val characterRepository: CharactersRepository,
     private val characterClassRepository: CharacterClassRepository,
     private val spellRepository: SpellsRepository,
     savedStateHandle: SavedStateHandle,

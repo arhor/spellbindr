@@ -2,12 +2,14 @@ package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.CharacterEntity
 import com.github.arhor.spellbindr.data.local.db.CharacterDao
-import com.github.arhor.spellbindr.data.model.Character
-import com.github.arhor.spellbindr.data.model.CharacterSheet
+import com.github.arhor.spellbindr.data.mapper.toDomain
+import com.github.arhor.spellbindr.data.mapper.toEntity
+import com.github.arhor.spellbindr.data.mapper.toSnapshot
 import com.github.arhor.spellbindr.data.model.EntityRef
 import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.data.model.toDomain
-import com.github.arhor.spellbindr.data.model.toSnapshot
+import com.github.arhor.spellbindr.domain.model.Character
+import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.repository.CharactersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -17,21 +19,21 @@ import javax.inject.Singleton
 @Singleton
 class CharacterRepository @Inject constructor(
     private val characterDao: CharacterDao
-) {
+) : CharactersRepository {
 
-    fun observeCharacterSheets(): Flow<List<CharacterSheet>> =
+    override fun observeCharacterSheets(): Flow<List<CharacterSheet>> =
         characterDao.getAllCharacters().map { entities ->
             entities.mapNotNull { entity ->
                 entity.manualSheet?.toDomain(entity.id)
             }
         }
 
-    fun observeCharacterSheet(id: String): Flow<CharacterSheet?> =
+    override fun observeCharacterSheet(id: String): Flow<CharacterSheet?> =
         characterDao.getCharacterById(id).map { entity ->
             entity?.manualSheet?.toDomain(entity.id)
         }
 
-    suspend fun upsertCharacterSheet(sheet: CharacterSheet) {
+    override suspend fun upsertCharacterSheet(sheet: CharacterSheet) {
         val existing = characterDao.getCharacterById(sheet.id).firstOrNull()
         val base = existing ?: CharacterEntity(id = sheet.id)
         val updated = base.copy(
@@ -46,51 +48,23 @@ class CharacterRepository @Inject constructor(
         characterDao.saveCharacter(updated)
     }
 
-    fun getCharacters(): Flow<List<Character>> {
+    override fun getCharacters(): Flow<List<Character>> {
         return characterDao.getAllCharacters().map { entities ->
-            entities.map { it.toCharacter() }
+            entities.map { it.toDomain() }
         }
     }
 
-    fun getCharacter(id: String): Flow<Character?> {
-        return characterDao.getCharacterById(id).map { it?.toCharacter() }
+    override fun getCharacter(id: String): Flow<Character?> {
+        return characterDao.getCharacterById(id).map { it?.toDomain() }
     }
 
-    suspend fun saveCharacter(character: Character) {
+    override suspend fun saveCharacter(character: Character) {
         characterDao.saveCharacter(character.toEntity())
     }
 
-    suspend fun deleteCharacter(id: String) {
+    override suspend fun deleteCharacter(id: String) {
         characterDao.deleteCharacter(id)
     }
-
-    private fun CharacterEntity.toCharacter() = Character(
-        id = id,
-        name = name,
-        race = race,
-        subrace = subrace,
-        classes = classes,
-        background = background,
-        abilityScores = abilityScores,
-        proficiencies = proficiencies,
-        equipment = equipment,
-        inventory = inventory,
-        spells = spells
-    )
-
-    private fun Character.toEntity() = CharacterEntity(
-        id = id,
-        name = name,
-        race = race,
-        subrace = subrace,
-        classes = classes,
-        background = background,
-        abilityScores = abilityScores,
-        proficiencies = proficiencies,
-        equipment = equipment,
-        inventory = inventory,
-        spells = spells
-    )
 
     private fun String.asEntityRef(prefix: String, id: String): EntityRef =
         EntityRef(this.takeIf { it.isNotBlank() } ?: "${prefix}_$id")

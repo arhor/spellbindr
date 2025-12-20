@@ -4,8 +4,12 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.github.arhor.spellbindr.data.mapper.toData
+import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.model.AppThemeMode
 import com.github.arhor.spellbindr.di.AppSettingsDataStore
+import com.github.arhor.spellbindr.domain.model.ThemeMode
+import com.github.arhor.spellbindr.domain.repository.ThemeSettingsRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -15,9 +19,9 @@ import javax.inject.Singleton
 @Singleton
 class ThemeRepository @Inject constructor(
     @param:AppSettingsDataStore private val dataStore: DataStore<Preferences>,
-) {
+) : ThemeSettingsRepository {
 
-    val themeMode: Flow<AppThemeMode?>
+    override val themeMode: Flow<ThemeMode?>
         get() = dataStore.data.map { preferences ->
             preferences[THEME_MODE]?.let { storedValue ->
                 runCatching { AppThemeMode.valueOf(storedValue) }
@@ -25,15 +29,15 @@ class ThemeRepository @Inject constructor(
                         logger.error(error) { "Invalid theme mode stored: $storedValue" }
                         null
                     }
-            }
+            }?.toDomain()
         }
 
-    suspend fun setThemeMode(mode: AppThemeMode?) {
+    override suspend fun setThemeMode(mode: ThemeMode?) {
         dataStore.edit { preferences ->
             if (mode == null) {
                 preferences.remove(THEME_MODE)
             } else {
-                preferences[THEME_MODE] = mode.name
+                preferences[THEME_MODE] = mode.toData().name
             }
         }
     }

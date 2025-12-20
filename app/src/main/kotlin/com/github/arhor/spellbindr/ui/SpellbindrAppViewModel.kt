@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
-import com.github.arhor.spellbindr.data.repository.ThemeRepository
+import com.github.arhor.spellbindr.domain.repository.ThemeSettingsRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.seconds
 @HiltViewModel
 class SpellbindrAppViewModel @Inject constructor(
     private val loaders: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>,
-    private val themeRepository: ThemeRepository,
+    private val themeRepository: ThemeSettingsRepository,
 ) : ViewModel() {
 
     @Immutable
