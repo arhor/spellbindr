@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
-import com.github.arhor.spellbindr.domain.repository.CharactersRepository
+import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class CharactersListViewModel @Inject constructor(
-    repository: CharactersRepository,
+    repository: CharacterRepository,
 ) : ViewModel() {
 
     val state: StateFlow<CharactersListUiState> = repository.observeCharacterSheets()

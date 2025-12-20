@@ -10,7 +10,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.SkillEntry
-import com.github.arhor.spellbindr.domain.repository.CharactersRepository
+import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterEditorViewModel @Inject constructor(
-    private val repository: CharactersRepository,
+    private val repository: CharacterRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 

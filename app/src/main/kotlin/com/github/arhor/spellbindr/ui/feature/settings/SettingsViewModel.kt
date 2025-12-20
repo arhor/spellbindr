@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.ThemeMode
-import com.github.arhor.spellbindr.domain.repository.ThemeSettingsRepository
+import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val themeRepository: ThemeSettingsRepository,
+    private val themeRepository: ThemeRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SettingsUiState())

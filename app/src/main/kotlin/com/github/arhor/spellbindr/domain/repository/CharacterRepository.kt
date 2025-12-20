@@ -4,7 +4,7 @@ import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import kotlinx.coroutines.flow.Flow
 
-interface CharactersRepository {
+interface CharacterRepository {
     fun observeCharacterSheets(): Flow<List<CharacterSheet>>
 
     fun observeCharacterSheet(id: String): Flow<CharacterSheet?>

@@ -9,7 +9,7 @@ import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.model.AppThemeMode
 import com.github.arhor.spellbindr.di.AppSettingsDataStore
 import com.github.arhor.spellbindr.domain.model.ThemeMode
-import com.github.arhor.spellbindr.domain.repository.ThemeSettingsRepository
+import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -17,9 +17,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ThemeRepository @Inject constructor(
+class ThemeRepositoryImpl @Inject constructor(
     @param:AppSettingsDataStore private val dataStore: DataStore<Preferences>,
-) : ThemeSettingsRepository {
+) : ThemeRepository {
 
     override val themeMode: Flow<ThemeMode?>
         get() = dataStore.data.map { preferences ->
@@ -44,6 +44,6 @@ class ThemeRepository @Inject constructor(
 
     companion object {
         private val THEME_MODE = stringPreferencesKey("theme_mode")
-        private val logger = createLogger<ThemeRepository>()
+        private val logger = createLogger<ThemeRepositoryImpl>()
     }
 }
