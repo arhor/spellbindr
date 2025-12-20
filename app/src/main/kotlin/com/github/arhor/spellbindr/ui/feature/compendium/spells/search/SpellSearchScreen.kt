@@ -26,6 +26,8 @@ fun SpellSearchScreen(
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
+    onGroupToggle: (Int) -> Unit,
+    onToggleAllGroups: () -> Unit,
     onSpellClick: (Spell) -> Unit,
     onSubmitFilters: (Set<EntityRef>) -> Unit,
     onCancelFilters: (Set<EntityRef>) -> Unit,
@@ -35,6 +37,8 @@ fun SpellSearchScreen(
         onQueryChanged = onQueryChanged,
         onFiltersClick = onFiltersClick,
         onFavoriteClick = onFavoriteClick,
+        onGroupToggle = onGroupToggle,
+        onToggleAllGroups = onToggleAllGroups,
         onSpellClick = onSpellClick,
         onSubmitFilters = onSubmitFilters,
         onCancelFilters = onCancelFilters,
@@ -47,6 +51,8 @@ private fun SpellSearchContent(
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
+    onGroupToggle: (Int) -> Unit,
+    onToggleAllGroups: () -> Unit,
     onSpellClick: (Spell) -> Unit,
     onSubmitFilters: (Set<EntityRef>) -> Unit,
     onCancelFilters: (Set<EntityRef>) -> Unit,
@@ -84,7 +90,11 @@ private fun SpellSearchContent(
 
             is CompendiumViewModel.SpellsUiState.Loaded -> {
                 SpellList(
-                    spells = uiState.spells,
+                    spellsByLevel = state.spellsByLevel,
+                    expandedSpellLevels = state.expandedSpellLevels,
+                    expandedAll = state.expandedAll,
+                    onGroupToggle = onGroupToggle,
+                    onToggleAll = onToggleAllGroups,
                     onSpellClick = onSpellClick,
                 )
             }
@@ -134,13 +144,23 @@ private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
             state = CompendiumViewModel.SpellsState(
                 query = "heal",
                 castingClasses = listOf(EntityRef(id = "cleric")),
+                spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
+                    .groupBy(Spell::level)
+                    .toSortedMap(),
+                expandedSpellLevels = mapOf(0 to true, 1 to true),
+                expandedAll = true,
                 uiState = CompendiumViewModel.SpellsUiState.Loaded(
-                    spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
+                    spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell),
+                    spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
+                        .groupBy(Spell::level)
+                        .toSortedMap(),
                 ),
             ),
             onQueryChanged = {},
             onFiltersClick = {},
             onFavoriteClick = {},
+            onGroupToggle = {},
+            onToggleAllGroups = {},
             onSpellClick = {},
             onSubmitFilters = {},
             onCancelFilters = {},
