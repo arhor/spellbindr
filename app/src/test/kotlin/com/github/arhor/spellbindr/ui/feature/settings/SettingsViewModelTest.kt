@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui.feature.settings
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import com.github.arhor.spellbindr.MainDispatcherRule
-import com.github.arhor.spellbindr.data.model.AppThemeMode
-import com.github.arhor.spellbindr.data.repository.ThemeRepository
+import com.github.arhor.spellbindr.data.repository.ThemeRepositoryImpl
+import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
@@ -39,13 +39,13 @@ class SettingsViewModelTest {
         try {
             advanceUntilIdle()
 
-            viewModel.onThemeModeSelected(AppThemeMode.DARK)
+            viewModel.onThemeModeSelected(ThemeMode.DARK)
             advanceUntilIdle()
-            assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.DARK)
+            assertThat(viewModel.state.value.themeMode).isEqualTo(ThemeMode.DARK)
 
-            viewModel.onThemeModeSelected(AppThemeMode.LIGHT)
+            viewModel.onThemeModeSelected(ThemeMode.LIGHT)
             advanceUntilIdle()
-            assertThat(viewModel.state.value.themeMode).isEqualTo(AppThemeMode.LIGHT)
+            assertThat(viewModel.state.value.themeMode).isEqualTo(ThemeMode.LIGHT)
 
             viewModel.onThemeModeSelected(null)
             advanceUntilIdle()
@@ -59,6 +59,6 @@ class SettingsViewModelTest {
 private fun TestScope.createViewModel(): Pair<SettingsViewModel, File> {
     val file = createTempFile(prefix = "settings-vm", suffix = ".preferences_pb").toFile()
     val dataStore = PreferenceDataStoreFactory.create(scope = this) { file }
-    val repository = ThemeRepository(dataStore)
+    val repository = ThemeRepositoryImpl(dataStore)
     return SettingsViewModel(repository) to file
 }

@@ -16,6 +16,7 @@ import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,6 +32,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Stable
 @HiltViewModel
 class CompendiumViewModel @Inject constructor(
