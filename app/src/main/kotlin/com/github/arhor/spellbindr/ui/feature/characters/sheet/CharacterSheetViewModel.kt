@@ -8,7 +8,6 @@ import com.github.arhor.spellbindr.data.model.AbilityScores
 import com.github.arhor.spellbindr.data.model.CharacterSheet
 import com.github.arhor.spellbindr.data.model.CharacterSpell
 import com.github.arhor.spellbindr.data.model.DeathSaveState
-import com.github.arhor.spellbindr.data.model.Spell
 import com.github.arhor.spellbindr.data.model.SpellSlotState
 import com.github.arhor.spellbindr.data.model.Weapon
 import com.github.arhor.spellbindr.data.model.defaultSpellSlots
@@ -16,7 +15,8 @@ import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
-import com.github.arhor.spellbindr.data.repository.SpellRepository
+import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
@@ -39,7 +39,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
-    private val spellRepository: SpellRepository,
+    private val spellRepository: SpellsRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 

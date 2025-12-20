@@ -5,11 +5,11 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.EntityRef
-import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
-import com.github.arhor.spellbindr.data.repository.SpellRepository
+import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -30,7 +30,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class CharacterSpellPickerViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
     private val characterClassRepository: CharacterClassRepository,
-    private val spellRepository: SpellRepository,
+    private val spellRepository: SpellsRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -183,7 +183,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         viewModelScope.launch {
-            combine(_state, spellRepository.allSpells, spellRepository.favSpells, ::toObservableData)
+            combine(_state, spellRepository.allSpells, spellRepository.favoriteSpellIds, ::toObservableData)
                 .debounce(350.milliseconds)
                 .distinctUntilChanged()
                 .collect { data ->
@@ -199,7 +199,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
                         val spells = spellRepository.findSpells(
                             query = data.query,
                             classes = data.currentClasses,
-                            favorite = data.showFavorite,
+                            favoriteOnly = data.showFavorite,
                         )
                         _state.update {
                             it.copy(

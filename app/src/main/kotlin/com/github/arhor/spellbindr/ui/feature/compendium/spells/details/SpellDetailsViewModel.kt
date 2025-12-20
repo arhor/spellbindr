@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.Spell
-import com.github.arhor.spellbindr.data.repository.SpellRepository
+import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class SpellDetailsViewModel @Inject constructor(
-    private val spellRepository: SpellRepository,
+    private val spellRepository: SpellsRepository,
 ) : ViewModel() {
 
     @Immutable
@@ -32,7 +32,7 @@ class SpellDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            spellRepository.favSpells
+            spellRepository.favoriteSpellIds
                 .distinctUntilChanged()
                 .collect {
                 _state.update { state ->
@@ -51,7 +51,7 @@ class SpellDetailsViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            val spell = spellRepository.findSpellById(spellId) ?: return@launch
+            val spell = spellRepository.getSpellById(spellId) ?: return@launch
             val isFavorite = spellRepository.isFavorite(spell.id)
 
             _state.update { it.copy(spell = spell, isFavorite = isFavorite) }
