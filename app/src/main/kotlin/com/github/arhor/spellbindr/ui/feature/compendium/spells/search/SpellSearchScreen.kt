@@ -65,8 +65,8 @@ private fun SpellSearchContent(
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        when {
-            state.isLoading -> {
+        when (val uiState = state.uiState) {
+            CompendiumViewModel.SpellsUiState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -75,16 +75,16 @@ private fun SpellSearchContent(
                 }
             }
 
-            state.error != null -> {
+            is CompendiumViewModel.SpellsUiState.Error -> {
                 Text(
-                    text = "Error: ${state.error}",
+                    text = "Error: ${uiState.message}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
-            else -> {
+            is CompendiumViewModel.SpellsUiState.Loaded -> {
                 SpellList(
-                    spells = state.spells,
+                    spells = uiState.spells,
                     onSpellClick = onSpellClick,
                 )
             }
@@ -133,8 +133,10 @@ private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
         SpellSearchContent(
             state = CompendiumViewModel.SpellsState(
                 query = "heal",
-                spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell),
                 castingClasses = listOf(EntityRef(id = "cleric")),
+                uiState = CompendiumViewModel.SpellsUiState.Loaded(
+                    spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
+                ),
             ),
             onQueryChanged = {},
             onFiltersClick = {},

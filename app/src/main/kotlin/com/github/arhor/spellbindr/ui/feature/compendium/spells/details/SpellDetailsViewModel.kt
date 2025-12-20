@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,47 +23,74 @@ class SpellDetailsViewModel @Inject constructor(
     private val spellRepository: SpellsRepository,
 ) : ViewModel() {
 
-    @Immutable
-    data class State(
-        val spell: Spell? = null,
-        val isFavorite: Boolean = false,
-    )
+    sealed interface UiState {
+        data object Loading : UiState
 
-    private val _state = MutableStateFlow(State())
-    val state: StateFlow<State> = _state.asStateFlow()
+        @Immutable
+        data class Loaded(
+            val spell: Spell,
+            val isFavorite: Boolean,
+        ) : UiState
 
-    init {
-        viewModelScope.launch {
-            spellRepository.favoriteSpellIds
-                .distinctUntilChanged()
-                .collect {
-                _state.update { state ->
-                    state.copy(
+        @Immutable
+        data class Error(val message: String) : UiState
+    }
+
+    private val spellId = MutableStateFlow<String?>(null)
+    private val logger = Logger.createLogger<SpellDetailsViewModel>()
+
+    val state: StateFlow<UiState> = combine(
+        spellId,
+        spellRepository.favoriteSpellIds,
+    ) { id, favoriteIds ->
+        SpellQuery(
+            spellId = id,
+            favoriteSpellIds = favoriteIds,
+        )
+    }
+        .transformLatest { query ->
+            val spellId = query.spellId
+            if (spellId == null) {
+                emit(UiState.Error("Spell not found."))
+                return@transformLatest
+            }
+
+            emit(UiState.Loading)
+            runCatching {
+                val spell = spellRepository.getSpellById(spellId)
+                if (spell == null) {
+                    null
+                } else {
+                    UiState.Loaded(
+                        spell = spell,
                         isFavorite = spellRepository.isFavorite(
-                            spellId = state.spell?.id,
+                            spellId = spell.id,
+                            favoriteSpellIds = query.favoriteSpellIds,
                         )
                     )
                 }
+            }.onSuccess { result ->
+                emit(result ?: UiState.Error("Spell not found."))
+            }.onFailure { throwable ->
+                logger.error(throwable) { "Failed to load spell details." }
+                emit(UiState.Error("Oops, something went wrong..."))
             }
         }
-    }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState.Loading)
 
     fun loadSpell(spellId: String?) {
-        if (spellId == null || spellId == _state.value.spell?.id) {
-            return
-        }
-        viewModelScope.launch {
-            val spell = spellRepository.getSpellById(spellId) ?: return@launch
-            val isFavorite = spellRepository.isFavorite(spell.id)
-
-            _state.update { it.copy(spell = spell, isFavorite = isFavorite) }
-        }
+        this.spellId.value = spellId
     }
 
     fun toggleFavorite() {
-        val spellId = _state.value.spell?.id ?: return
+        val currentSpellId = (state.value as? UiState.Loaded)?.spell?.id ?: return
         viewModelScope.launch {
-            spellRepository.toggleFavorite(spellId)
+            spellRepository.toggleFavorite(currentSpellId)
         }
     }
+
+    private data class SpellQuery(
+        val spellId: String?,
+        val favoriteSpellIds: List<String>,
+    )
 }

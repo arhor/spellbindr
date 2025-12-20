@@ -280,18 +280,24 @@ private fun spellDetailTopBarState(
     val vm: SpellDetailsViewModel = hiltViewModel(backStackEntry)
     val state by vm.state.collectAsState()
     val args = backStackEntry.toRoute<AppDestination.SpellDetail>()
+    val isFavorite = (state as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
+    val title = when (state) {
+        is SpellDetailsViewModel.UiState.Loaded -> state.spell.name
+        else -> args.initialName ?: "Spell Details"
+    }
+    val isFavoriteEnabled = state is SpellDetailsViewModel.UiState.Loaded
 
     return TopBarState(
         config = AppTopBarConfig(
             visible = true,
-            title = { Text(state.spell?.name ?: args.initialName ?: "Spell Details") },
+            title = { Text(title) },
             navigation = AppTopBarNavigation.Back(controller::navigateUp),
             actions = {
                 IconButton(
                     onClick = vm::toggleFavorite,
-                    enabled = state.spell != null,
+                    enabled = isFavoriteEnabled,
                 ) {
-                    if (state.isFavorite) {
+                    if (isFavorite) {
                         Icon(
                             imageVector = Icons.Filled.Favorite,
                             contentDescription = "Remove from favorites",

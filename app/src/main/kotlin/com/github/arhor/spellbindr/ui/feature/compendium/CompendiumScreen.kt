@@ -38,11 +38,17 @@ fun CompendiumRoute(
     CompendiumScreen(
         state = state,
         onSpellSelected = onSpellSelected,
-        onSpellQueryChanged = vm::onQueryChanged,
-        onSpellFiltersClick = vm::onFilterClicked,
-        onSpellFavoriteClick = vm::onFavoritesClicked,
-        onSpellSubmitFilters = vm::onFilterChanged,
-        onSpellCancelFilters = vm::onFilterChanged,
+        onSpellQueryChanged = { query ->
+            vm.onSpellEvent(CompendiumViewModel.SpellsEvent.QueryChanged(query))
+        },
+        onSpellFiltersClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersOpened) },
+        onSpellFavoriteClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FavoritesToggled) },
+        onSpellSubmitFilters = { classes ->
+            vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersSubmitted(classes))
+        },
+        onSpellCancelFilters = { classes ->
+            vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersCanceled(classes))
+        },
         onConditionClick = vm::handleConditionClick,
         onAlignmentClick = vm::handleAlignmentClick,
         onRaceClick = vm::handleRaceClick,
