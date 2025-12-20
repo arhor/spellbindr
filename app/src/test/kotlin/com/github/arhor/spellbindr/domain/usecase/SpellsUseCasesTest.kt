@@ -184,6 +184,29 @@ class SpellsUseCasesTest {
             lastFindSpellsFavoriteOnly = favoriteOnly
             return findSpellsResult
         }
+
+        override suspend fun toggleFavorite(spellId: String) {
+            lastToggledSpellId = spellId
+            val current = favoriteSpellIdsState.value.toMutableList()
+            if (current.contains(spellId)) {
+                current.remove(spellId)
+            } else {
+                current.add(spellId)
+            }
+            favoriteSpellIdsState.value = current
+        }
+
+        override suspend fun isFavorite(
+            spellId: String?,
+            favoriteSpellIds: List<String>?,
+        ): Boolean {
+            lastIsFavoriteSpellId = spellId
+            if (spellId == null) {
+                return false
+            }
+            val ids = favoriteSpellIds ?: favoriteSpellIdsState.value
+            return ids.contains(spellId)
+        }
     }
 
     private class FakeFavoritesRepository : FavoritesRepository {
