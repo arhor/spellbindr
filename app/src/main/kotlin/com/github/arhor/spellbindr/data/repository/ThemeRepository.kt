@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ThemeRepository @Inject constructor(
-    @AppSettingsDataStore private val dataStore: DataStore<Preferences>,
+    @param:AppSettingsDataStore private val dataStore: DataStore<Preferences>,
 ) {
 
     val themeMode: Flow<AppThemeMode?>
