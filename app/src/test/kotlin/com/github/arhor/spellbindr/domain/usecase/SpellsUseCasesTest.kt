@@ -157,21 +157,31 @@ class SpellsUseCasesTest {
 
     private class FakeSpellsRepository : SpellsRepository {
         val allSpellsState = MutableStateFlow<List<Spell>>(emptyList())
+        val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 
         var findSpellsResult: List<Spell> = emptyList()
         var lastFindSpellsQuery: String? = null
         var lastFindSpellsClasses: Set<EntityRef>? = null
+        var lastFindSpellsFavoriteOnly: Boolean? = null
+
+        var lastToggledSpellId: String? = null
+        var lastIsFavoriteSpellId: String? = null
+        var isFavoriteResult: Boolean = false
 
         override val allSpells: Flow<List<Spell>> = allSpellsState
+        override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
+
         override suspend fun getSpellById(id: String): Spell? = spellsById[id]
 
         override suspend fun findSpells(
             query: String,
             classes: Set<EntityRef>,
+            favoriteOnly: Boolean,
         ): List<Spell> {
             lastFindSpellsQuery = query
             lastFindSpellsClasses = classes
+            lastFindSpellsFavoriteOnly = favoriteOnly
             return findSpellsResult
         }
     }
