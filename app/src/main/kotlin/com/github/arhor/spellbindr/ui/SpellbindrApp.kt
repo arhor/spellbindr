@@ -280,12 +280,13 @@ private fun spellDetailTopBarState(
     val vm: SpellDetailsViewModel = hiltViewModel(backStackEntry)
     val state by vm.state.collectAsState()
     val args = backStackEntry.toRoute<AppDestination.SpellDetail>()
-    val isFavorite = (state as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
-    val title = when (state) {
-        is SpellDetailsViewModel.UiState.Loaded -> state.spell.name
+    val detailState = state
+    val isFavorite = (detailState as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
+    val title = when (detailState) {
+        is SpellDetailsViewModel.UiState.Loaded -> detailState.spell.name
         else -> args.initialName ?: "Spell Details"
     }
-    val isFavoriteEnabled = state is SpellDetailsViewModel.UiState.Loaded
+    val isFavoriteEnabled = detailState is SpellDetailsViewModel.UiState.Loaded
 
     return TopBarState(
         config = AppTopBarConfig(
