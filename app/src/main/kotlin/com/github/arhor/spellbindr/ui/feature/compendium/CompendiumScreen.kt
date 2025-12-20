@@ -20,8 +20,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.EntityRef
-import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute

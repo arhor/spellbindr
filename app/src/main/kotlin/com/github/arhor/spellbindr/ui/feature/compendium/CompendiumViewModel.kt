@@ -6,15 +6,15 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Alignment
-import com.github.arhor.spellbindr.data.model.EntityRef
-import com.github.arhor.spellbindr.data.model.Spell
+import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.model.Trait
 import com.github.arhor.spellbindr.data.model.next.CharacterRace
 import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.data.repository.AlignmentRepository
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.RacesRepository
-import com.github.arhor.spellbindr.data.repository.SpellRepository
+import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.data.repository.TraitsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -35,7 +35,7 @@ class CompendiumViewModel @Inject constructor(
     private val alignmentRepository: AlignmentRepository,
     private val characterClassRepository: CharacterClassRepository,
     private val racesRepository: RacesRepository,
-    private val spellRepository: SpellRepository,
+    private val spellRepository: SpellsRepository,
     private val traitsRepository: TraitsRepository,
 ) : ViewModel() {
 
@@ -221,7 +221,7 @@ class CompendiumViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         viewModelScope.launch {
-            combine(_state, spellRepository.allSpells, spellRepository.favSpells, ::toObservableData)
+            combine(_state, spellRepository.allSpells, spellRepository.favoriteSpellIds, ::toObservableData)
                 .debounce(350.milliseconds)
                 .distinctUntilChanged()
                 .collect { data ->
@@ -237,7 +237,7 @@ class CompendiumViewModel @Inject constructor(
                         val spells = spellRepository.findSpells(
                             query = data.query,
                             classes = data.currentClasses,
-                            favorite = data.showFavorite,
+                            favoriteOnly = data.showFavorite,
                         )
                         _state.update {
                             it.copy(
