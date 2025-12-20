@@ -1,13 +1,13 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import javax.inject.Inject
 
 class IsSpellFavoriteUseCase @Inject constructor(
-    private val spellsRepository: SpellsRepository,
+    private val favoritesRepository: FavoritesRepository,
 ) {
     suspend operator fun invoke(
         spellId: String?,
-        favoriteSpellIds: List<String>? = null,
-    ): Boolean = spellsRepository.isFavorite(spellId, favoriteSpellIds)
+    ): Boolean = spellId?.let { favoritesRepository.isFavorite(FavoriteType.SPELL, it) } ?: false
 }

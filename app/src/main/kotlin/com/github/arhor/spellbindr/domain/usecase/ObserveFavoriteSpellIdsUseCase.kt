@@ -1,11 +1,12 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ObserveFavoriteSpellIdsUseCase @Inject constructor(
-    private val spellsRepository: SpellsRepository,
+    private val favoritesRepository: FavoritesRepository,
 ) {
-    operator fun invoke(): Flow<List<String>> = spellsRepository.favoriteSpellIds
+    operator fun invoke(): Flow<List<String>> = favoritesRepository.observeFavoriteIds(FavoriteType.SPELL)
 }

@@ -1,12 +1,13 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import javax.inject.Inject
 
 class ToggleFavoriteSpellUseCase @Inject constructor(
-    private val spellsRepository: SpellsRepository,
+    private val favoritesRepository: FavoritesRepository,
 ) {
     suspend operator fun invoke(spellId: String) {
-        spellsRepository.toggleFavorite(spellId)
+        favoritesRepository.toggleFavorite(FavoriteType.SPELL, spellId)
     }
 }
