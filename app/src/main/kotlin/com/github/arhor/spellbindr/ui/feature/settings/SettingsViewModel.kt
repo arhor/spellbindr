@@ -3,7 +3,8 @@ package com.github.arhor.spellbindr.ui.feature.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.ThemeMode
-import com.github.arhor.spellbindr.domain.repository.ThemeRepository
+import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
+import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val themeRepository: ThemeRepository,
+    private val observeThemeModeUseCase: ObserveThemeModeUseCase,
+    private val setThemeModeUseCase: SetThemeModeUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SettingsUiState())
@@ -22,7 +24,7 @@ class SettingsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            themeRepository.themeMode.collect { mode ->
+            observeThemeModeUseCase().collect { mode ->
                 _state.update { current ->
                     current.copy(
                         themeMode = mode,
@@ -40,7 +42,7 @@ class SettingsViewModel @Inject constructor(
     private fun setThemeMode(mode: ThemeMode?) {
         if (state.value.themeMode == mode) return
         viewModelScope.launch {
-            themeRepository.setThemeMode(mode)
+            setThemeModeUseCase(mode)
         }
     }
 }

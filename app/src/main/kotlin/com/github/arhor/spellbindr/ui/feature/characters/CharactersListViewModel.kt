@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
-import com.github.arhor.spellbindr.domain.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.usecase.ObserveCharacterSheetsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,10 +16,10 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class CharactersListViewModel @Inject constructor(
-    repository: CharacterRepository,
+    observeCharacterSheetsUseCase: ObserveCharacterSheetsUseCase,
 ) : ViewModel() {
 
-    val state: StateFlow<CharactersListUiState> = repository.observeCharacterSheets()
+    val state: StateFlow<CharactersListUiState> = observeCharacterSheetsUseCase()
         .map { sheets ->
             CharactersListUiState(
                 characters = sheets.map { it.toListItem() },
