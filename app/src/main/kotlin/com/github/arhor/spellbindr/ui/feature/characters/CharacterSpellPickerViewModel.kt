@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.characters
 
-import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,9 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.data.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
+import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,13 +38,11 @@ class CharacterSpellPickerViewModel @Inject constructor(
     @Immutable
     data class SpellsState(
         override val query: String = "",
-        override val spells: List<Spell> = emptyList(),
         override val showFavorite: Boolean = false,
         override val showFilterDialog: Boolean = false,
         override val castingClasses: List<EntityRef> = emptyList(),
         override val currentClasses: Set<EntityRef> = emptySet(),
-        override val isLoading: Boolean = false,
-        override val error: String? = null,
+        override val uiState: CompendiumViewModel.SpellsUiState = CompendiumViewModel.SpellsUiState.Loading,
     ) : SpellListState
 
     @Immutable
@@ -63,6 +62,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         )
     )
     val state: StateFlow<State> = _state
+    private val logger = Logger.createLogger<CharacterSpellPickerViewModel>()
 
     init {
         observeStateChanges()
@@ -191,8 +191,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
                         _state.update {
                             it.copy(
                                 spellsState = it.spellsState.copy(
-                                    isLoading = true,
-                                    error = null
+                                    uiState = CompendiumViewModel.SpellsUiState.Loading,
                                 )
                             )
                         }
@@ -204,18 +203,18 @@ class CharacterSpellPickerViewModel @Inject constructor(
                         _state.update {
                             it.copy(
                                 spellsState = it.spellsState.copy(
-                                    spells = spells,
-                                    isLoading = false
+                                    uiState = CompendiumViewModel.SpellsUiState.Loaded(spells),
                                 )
                             )
                         }
                     } catch (e: Exception) {
-                        Log.d(TAG, e.message.toString(), e)
+                        logger.error(e) { "Failed to load spells." }
                         _state.update {
                             it.copy(
                                 spellsState = it.spellsState.copy(
-                                    error = "Oops, something went wrong...",
-                                    isLoading = false,
+                                    uiState = CompendiumViewModel.SpellsUiState.Error(
+                                        "Oops, something went wrong..."
+                                    ),
                                 )
                             )
                         }
@@ -244,7 +243,4 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val favSpells: List<String>,
     )
 
-    companion object {
-        private val TAG = this::class.java.enclosingClass.simpleName
-    }
 }
