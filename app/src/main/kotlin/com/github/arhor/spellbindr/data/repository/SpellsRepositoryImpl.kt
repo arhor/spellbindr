@@ -1,11 +1,12 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.local.assets.FavoriteSpellsDataStore
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
 import com.github.arhor.spellbindr.data.model.Spell as DataSpell
 import com.github.arhor.spellbindr.data.model.toDomain
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 @Singleton
 class SpellsRepositoryImpl @Inject constructor(
     private val allSpellsDataStore: SpellAssetDataStore,
-    private val favoriteSpellsDataStore: FavoriteSpellsDataStore,
+    private val favoritesRepository: FavoritesRepository,
 ) : SpellsRepository {
     override val allSpells: Flow<List<Spell>>
         get() = allSpellsDataStore.data.map { spells ->
@@ -25,7 +26,7 @@ class SpellsRepositoryImpl @Inject constructor(
         }
 
     override val favoriteSpellIds: Flow<List<String>>
-        get() = favoriteSpellsDataStore.data.map { it ?: emptyList() }
+        get() = favoritesRepository.observeFavoriteIds(FavoriteType.SPELL)
 
     override suspend fun getSpellById(id: String): Spell? =
         allSpellsDataStore.data.firstOrNull()?.firstOrNull { it.id == id }?.toDomain()
@@ -46,9 +47,7 @@ class SpellsRepositoryImpl @Inject constructor(
         }?.map { it.toDomain() } ?: emptyList()
 
     override suspend fun toggleFavorite(spellId: String) {
-        favoriteSpellIds.first()
-            .let { if (spellId in it) it - spellId else it + spellId }
-            .let { favoriteSpellsDataStore.store(it) }
+        favoritesRepository.toggleFavorite(FavoriteType.SPELL, spellId)
     }
 
     override suspend fun isFavorite(
@@ -56,7 +55,7 @@ class SpellsRepositoryImpl @Inject constructor(
         favoriteSpellIds: List<String>?,
     ): Boolean {
         val targetSpellId = spellId ?: return false
-        val ids = favoriteSpellIds ?: this.favoriteSpellIds.first()
+        val ids = favoriteSpellIds ?: return favoritesRepository.isFavorite(FavoriteType.SPELL, targetSpellId)
 
         return targetSpellId in ids
     }
