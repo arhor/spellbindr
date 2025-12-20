@@ -28,7 +28,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+
+@Composable
+fun CharactersListRoute(
+    vm: CharactersListViewModel,
+    onCharacterSelected: (CharacterListItem) -> Unit,
+    onCreateCharacter: () -> Unit,
+) {
+    val state by vm.state.collectAsState()
+
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(text = "Characters") },
+            ),
+        ),
+    ) {
+        CharactersListScreen(
+            uiState = state,
+            onCharacterSelected = onCharacterSelected,
+            onCreateCharacter = onCreateCharacter,
+        )
+    }
+}
 
 @Composable
 fun CharactersListScreen(
