@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.compendium
 
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Spell
 interface SpellListState {
     val query: String
     val showFavorite: Boolean
@@ -8,4 +9,7 @@ interface SpellListState {
     val castingClasses: List<EntityRef>
     val currentClasses: Set<EntityRef>
     val uiState: CompendiumViewModel.SpellsUiState
+    val spellsByLevel: Map<Int, List<Spell>>
+    val expandedSpellLevels: Map<Int, Boolean>
+    val expandedAll: Boolean
 }

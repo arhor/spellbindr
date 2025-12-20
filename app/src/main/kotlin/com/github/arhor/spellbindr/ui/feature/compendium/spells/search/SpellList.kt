@@ -25,10 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,20 +38,13 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SpellList(
-    spells: List<Spell>,
+    spellsByLevel: Map<Int, List<Spell>>,
+    expandedSpellLevels: Map<Int, Boolean>,
+    expandedAll: Boolean,
+    onGroupToggle: (Int) -> Unit,
+    onToggleAll: () -> Unit,
     onSpellClick: (Spell) -> Unit,
 ) {
-    var expandedAll by remember(spells) { mutableStateOf(true) }
-    val expandedState = remember(spells) { mutableStateMapOf<Int, Boolean>() }
-    val spellsByLevel = spells.groupBy { it.level }.toSortedMap()
-
-    fun toggleExpandAll() {
-        expandedAll = !expandedAll
-        spellsByLevel.forEach { (level, _) ->
-            expandedState[level] = expandedAll
-        }
-    }
-
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier
@@ -63,7 +52,7 @@ fun SpellList(
                 .padding(16.dp)
         ) {
             spellsByLevel.forEach { (level, spellsForLevel) ->
-                val expanded = expandedState[level] != false
+                val expanded = expandedSpellLevels[level] ?: expandedAll
 
                 stickyHeader {
                     val rotationAngle by animateFloatAsState(targetValue = if (expanded) 180f else 0f)
@@ -72,7 +61,7 @@ fun SpellList(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(shape = SpellSearchResultListShapes.GroupHeader)
-                            .clickable { expandedState[level] = !expanded }
+                            .clickable { onGroupToggle(level) }
                             .background(
                                 color = MaterialTheme.colorScheme.surface,
                                 shape = SpellSearchResultListShapes.GroupHeader
@@ -94,7 +83,7 @@ fun SpellList(
                 }
 
                 if (expanded) {
-                    items(spellsForLevel) { spell ->
+                    items(spellsForLevel, key = { it.id }) { spell ->
                         SpellCard(
                             spell = spell,
                             onClick = { onSpellClick(spell) },
@@ -109,7 +98,7 @@ fun SpellList(
         }
 
         FloatingActionButton(
-            onClick = ::toggleExpandAll,
+            onClick = onToggleAll,
             shape = MaterialTheme.shapes.extraLarge,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -175,6 +164,13 @@ private fun SpellListPreview(isDarkTheme: Boolean) {
         )
     )
     AppTheme(isDarkTheme = isDarkTheme) {
-        SpellList(spells = spells, onSpellClick = {})
+        SpellList(
+            spellsByLevel = spells.groupBy(Spell::level).toSortedMap(),
+            expandedSpellLevels = mapOf(0 to true, 1 to true),
+            expandedAll = true,
+            onGroupToggle = {},
+            onToggleAll = {},
+            onSpellClick = {},
+        )
     }
 }

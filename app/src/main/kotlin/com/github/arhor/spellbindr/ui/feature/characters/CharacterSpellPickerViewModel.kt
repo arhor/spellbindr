@@ -43,6 +43,9 @@ class CharacterSpellPickerViewModel @Inject constructor(
         override val castingClasses: List<EntityRef> = emptyList(),
         override val currentClasses: Set<EntityRef> = emptySet(),
         override val uiState: CompendiumViewModel.SpellsUiState = CompendiumViewModel.SpellsUiState.Loading,
+        override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
+        override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
+        override val expandedAll: Boolean = true,
     ) : SpellListState
 
     @Immutable
@@ -136,6 +139,30 @@ class CharacterSpellPickerViewModel @Inject constructor(
         }
     }
 
+    fun onSpellGroupToggled(level: Int) {
+        _state.update { state ->
+            val currentExpanded = state.spellsState.expandedSpellLevels[level] ?: state.spellsState.expandedAll
+            state.copy(
+                spellsState = state.spellsState.copy(
+                    expandedSpellLevels = state.spellsState.expandedSpellLevels + (level to !currentExpanded),
+                )
+            )
+        }
+    }
+
+    fun onToggleAllSpellGroups() {
+        _state.update { state ->
+            val nextExpandedAll = !state.spellsState.expandedAll
+            val levels = state.spellsState.spellsByLevel.keys
+            state.copy(
+                spellsState = state.spellsState.copy(
+                    expandedAll = nextExpandedAll,
+                    expandedSpellLevels = levels.associateWith { nextExpandedAll },
+                )
+            )
+        }
+    }
+
     fun onFilterClicked() {
         _state.update {
             it.copy(
@@ -200,10 +227,20 @@ class CharacterSpellPickerViewModel @Inject constructor(
                             classes = data.currentClasses,
                             favoriteOnly = data.showFavorite,
                         )
+                        val spellsByLevel = spells.groupBy(Spell::level).toSortedMap()
                         _state.update {
                             it.copy(
                                 spellsState = it.spellsState.copy(
-                                    uiState = CompendiumViewModel.SpellsUiState.Loaded(spells),
+                                    uiState = CompendiumViewModel.SpellsUiState.Loaded(
+                                        spells = spells,
+                                        spellsByLevel = spellsByLevel,
+                                    ),
+                                    spellsByLevel = spellsByLevel,
+                                    expandedSpellLevels = ensureExpandedLevels(
+                                        currentExpanded = it.spellsState.expandedSpellLevels,
+                                        levels = spellsByLevel.keys,
+                                        expandedAll = it.spellsState.expandedAll,
+                                    ),
                                 )
                             )
                         }
@@ -242,5 +279,13 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val allSpells: List<Spell>,
         val favSpells: List<String>,
     )
+
+    private fun ensureExpandedLevels(
+        currentExpanded: Map<Int, Boolean>,
+        levels: Set<Int>,
+        expandedAll: Boolean,
+    ): Map<Int, Boolean> = levels.associateWith { level ->
+        currentExpanded[level] ?: expandedAll
+    }
 
 }

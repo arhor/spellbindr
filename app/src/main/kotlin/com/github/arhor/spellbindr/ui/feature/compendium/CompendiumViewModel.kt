@@ -48,7 +48,10 @@ class CompendiumViewModel @Inject constructor(
         data object Loading : SpellsUiState
 
         @Immutable
-        data class Loaded(val spells: List<Spell>) : SpellsUiState
+        data class Loaded(
+            val spells: List<Spell>,
+            val spellsByLevel: Map<Int, List<Spell>>,
+        ) : SpellsUiState
 
         @Immutable
         data class Error(val message: String) : SpellsUiState
@@ -60,6 +63,8 @@ class CompendiumViewModel @Inject constructor(
         data object FiltersOpened : SpellsEvent
         data class FiltersSubmitted(val classes: Set<EntityRef>) : SpellsEvent
         data class FiltersCanceled(val classes: Set<EntityRef>) : SpellsEvent
+        data class GroupToggled(val level: Int) : SpellsEvent
+        data object ToggleAllGroups : SpellsEvent
     }
 
     @Immutable
@@ -88,6 +93,9 @@ class CompendiumViewModel @Inject constructor(
         override val castingClasses: List<EntityRef> = emptyList(),
         override val currentClasses: Set<EntityRef> = emptySet(),
         override val uiState: SpellsUiState = SpellsUiState.Loading,
+        override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
+        override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
+        override val expandedAll: Boolean = true,
     ) : SpellListState
 
     @Immutable
@@ -103,6 +111,7 @@ class CompendiumViewModel @Inject constructor(
     private val conditionSelection = MutableStateFlow<Condition?>(null)
     private val raceSelection = MutableStateFlow<String?>(null)
     private val spellFilters = MutableStateFlow(SpellFilters())
+    private val spellExpansionState = MutableStateFlow(SpellExpansionState())
     private val logger = Logger.createLogger<CompendiumViewModel>()
     private val selectedSection =
         savedStateHandle.getStateFlow(SELECTED_SECTION_KEY, CompendiumSection.Spells)
@@ -155,7 +164,7 @@ class CompendiumViewModel @Inject constructor(
                     favoriteOnly = data.showFavorite,
                 )
             }.onSuccess { spells ->
-                emit(SpellsUiState.Loaded(spells))
+                emit(SpellsUiState.Loaded(spells, spells.groupBy(Spell::level).toSortedMap()))
             }.onFailure { throwable ->
                 logger.error(throwable) { "Failed to load spells." }
                 emit(SpellsUiState.Error("Oops, something went wrong..."))
@@ -165,9 +174,21 @@ class CompendiumViewModel @Inject constructor(
 
     private val spellsState = combine(
         spellFilters,
+        spellExpansionState,
         castingClassesState,
         spellsUiState,
-    ) { filters, castingClasses, uiState ->
+    ) { filters, expansionState, castingClasses, uiState ->
+        val spellsByLevel = when (uiState) {
+            is SpellsUiState.Loaded -> uiState.spellsByLevel
+            else -> emptyMap()
+        }
+        val expandedSpellLevels = when (uiState) {
+            is SpellsUiState.Loaded -> uiState.spellsByLevel.keys.associateWith { level ->
+                expansionState.expandedLevels[level] ?: expansionState.expandedAll
+            }
+
+            else -> emptyMap()
+        }
         SpellsState(
             query = filters.query,
             showFavorite = filters.showFavorite,
@@ -175,6 +196,9 @@ class CompendiumViewModel @Inject constructor(
             castingClasses = castingClasses,
             currentClasses = filters.currentClasses,
             uiState = uiState,
+            spellsByLevel = spellsByLevel,
+            expandedSpellLevels = expandedSpellLevels,
+            expandedAll = expansionState.expandedAll,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
@@ -195,7 +219,28 @@ class CompendiumViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), State())
 
     fun onSpellEvent(event: SpellsEvent) {
-        spellFilters.update { reduceSpellFilters(it, event) }
+        when (event) {
+            is SpellsEvent.GroupToggled -> {
+                spellExpansionState.update { state ->
+                    val currentExpanded =
+                        spellsState.value.expandedSpellLevels[event.level] ?: state.expandedAll
+                    state.copy(expandedLevels = state.expandedLevels + (event.level to !currentExpanded))
+                }
+            }
+
+            SpellsEvent.ToggleAllGroups -> {
+                spellExpansionState.update { state ->
+                    val nextExpandedAll = !state.expandedAll
+                    val levels = spellsState.value.spellsByLevel.keys
+                    state.copy(
+                        expandedAll = nextExpandedAll,
+                        expandedLevels = levels.associateWith { nextExpandedAll },
+                    )
+                }
+            }
+
+            else -> spellFilters.update { reduceSpellFilters(it, event) }
+        }
     }
 
     fun handleAlignmentClick(alignmentName: String) {
@@ -262,6 +307,8 @@ class CompendiumViewModel @Inject constructor(
                     event.classes
                 },
             )
+            is SpellsEvent.GroupToggled -> filters
+            SpellsEvent.ToggleAllGroups -> filters
         }
 
     private data class SpellFilters(
@@ -280,6 +327,11 @@ class CompendiumViewModel @Inject constructor(
         val currentClasses: Set<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
     }
+
+    private data class SpellExpansionState(
+        val expandedAll: Boolean = true,
+        val expandedLevels: Map<Int, Boolean> = emptyMap(),
+    )
 
     private companion object {
         const val SELECTED_SECTION_KEY = "compendium_section"

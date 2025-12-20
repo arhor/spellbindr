@@ -52,6 +52,10 @@ fun CompendiumRoute(
             },
             onSpellFiltersClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersOpened) },
             onSpellFavoriteClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FavoritesToggled) },
+            onSpellGroupToggle = { level ->
+                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.GroupToggled(level))
+            },
+            onSpellToggleAllGroups = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.ToggleAllGroups) },
             onSpellSubmitFilters = { classes ->
                 vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersSubmitted(classes))
             },
@@ -74,6 +78,8 @@ private fun CompendiumScreen(
     onSpellQueryChanged: (String) -> Unit,
     onSpellFiltersClick: () -> Unit,
     onSpellFavoriteClick: () -> Unit,
+    onSpellGroupToggle: (Int) -> Unit,
+    onSpellToggleAllGroups: () -> Unit,
     onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
     onSpellCancelFilters: (Set<EntityRef>) -> Unit,
     onConditionClick: (Condition) -> Unit,
@@ -103,6 +109,8 @@ private fun CompendiumScreen(
                             onQueryChanged = onSpellQueryChanged,
                             onFiltersClick = onSpellFiltersClick,
                             onFavoriteClick = onSpellFavoriteClick,
+                            onGroupToggle = onSpellGroupToggle,
+                            onToggleAllGroups = onSpellToggleAllGroups,
                             onSpellClick = onSpellSelected,
                             onSubmitFilters = onSpellSubmitFilters,
                             onCancelFilters = onSpellCancelFilters,

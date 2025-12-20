@@ -52,6 +52,8 @@ fun CharacterSpellPickerRoute(
         onSpellQueryChanged = vm::onQueryChanged,
         onSpellFiltersClick = vm::onFilterClicked,
         onSpellFavoriteClick = vm::onFavoritesClicked,
+        onSpellGroupToggle = vm::onSpellGroupToggled,
+        onSpellToggleAllGroups = vm::onToggleAllSpellGroups,
         onSpellSubmitFilters = vm::onFilterChanged,
         onSpellCancelFilters = vm::onFilterChanged,
     )
@@ -66,6 +68,8 @@ private fun CharacterSpellPickerScreen(
     onSpellQueryChanged: (String) -> Unit,
     onSpellFiltersClick: () -> Unit,
     onSpellFavoriteClick: () -> Unit,
+    onSpellGroupToggle: (Int) -> Unit,
+    onSpellToggleAllGroups: () -> Unit,
     onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
     onSpellCancelFilters: (Set<EntityRef>) -> Unit,
 ) {
@@ -125,6 +129,8 @@ private fun CharacterSpellPickerScreen(
                             onQueryChanged = onSpellQueryChanged,
                             onFiltersClick = onSpellFiltersClick,
                             onFavoriteClick = onSpellFavoriteClick,
+                            onGroupToggle = onSpellGroupToggle,
+                            onToggleAllGroups = onSpellToggleAllGroups,
                             onSpellClick = onSpellSelected,
                             onSubmitFilters = onSpellSubmitFilters,
                             onCancelFilters = onSpellCancelFilters,
@@ -151,6 +157,8 @@ private fun CharacterSpellPickerPreview() {
             onSpellQueryChanged = {},
             onSpellFiltersClick = {},
             onSpellFavoriteClick = {},
+            onSpellGroupToggle = {},
+            onSpellToggleAllGroups = {},
             onSpellSubmitFilters = {},
             onSpellCancelFilters = {},
         )
