@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
-import com.github.arhor.spellbindr.data.model.AbilityScores
-import com.github.arhor.spellbindr.data.model.CharacterSheet
-import com.github.arhor.spellbindr.data.model.Weapon
+import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.Weapon
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.google.common.truth.Truth.assertThat

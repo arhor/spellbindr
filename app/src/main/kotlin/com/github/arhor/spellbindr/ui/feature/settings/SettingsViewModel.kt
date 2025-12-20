@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui.feature.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.AppThemeMode
-import com.github.arhor.spellbindr.data.repository.ThemeRepository
+import com.github.arhor.spellbindr.domain.model.ThemeMode
+import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,11 +33,11 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun onThemeModeSelected(mode: AppThemeMode?) {
+    fun onThemeModeSelected(mode: ThemeMode?) {
         setThemeMode(mode)
     }
 
-    private fun setThemeMode(mode: AppThemeMode?) {
+    private fun setThemeMode(mode: ThemeMode?) {
         if (state.value.themeMode == mode) return
         viewModelScope.launch {
             themeRepository.setThemeMode(mode)

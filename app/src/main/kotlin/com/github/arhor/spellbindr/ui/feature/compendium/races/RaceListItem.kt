@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.next.CharacterRace
+import com.github.arhor.spellbindr.domain.model.Race
+import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 
 @Composable
 fun RaceListItem(
-    race: CharacterRace,
-    traits: Map<String, com.github.arhor.spellbindr.data.model.Trait>,
+    race: Race,
+    traits: Map<String, Trait>,
     isExpanded: Boolean,
     onItemClick: () -> Unit,
 ) {
@@ -107,7 +108,7 @@ fun RaceListItem(
 
 @Composable
 private fun TraitDisplay(
-    trait: com.github.arhor.spellbindr.data.model.Trait,
+    trait: Trait,
     modifier: Modifier = Modifier,
     compact: Boolean = false,
 ) {

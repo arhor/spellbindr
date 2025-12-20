@@ -2,7 +2,9 @@ package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.CharacterRaceAssetDataStore
-import com.github.arhor.spellbindr.data.model.next.CharacterRace
+import com.github.arhor.spellbindr.data.mapper.toDomain
+import com.github.arhor.spellbindr.domain.model.Race
+import com.github.arhor.spellbindr.domain.repository.RacesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -11,12 +13,12 @@ import javax.inject.Singleton
 
 @Stable
 @Singleton
-class RacesRepository @Inject constructor(
+class RacesRepositoryImpl @Inject constructor(
     private val racesDataStore: CharacterRaceAssetDataStore,
-) {
-    val allRaces: Flow<List<CharacterRace>>
-        get() = racesDataStore.data.map { it ?: emptyList() }
+) : RacesRepository {
+    override val allRaces: Flow<List<Race>>
+        get() = racesDataStore.data.map { races -> races.orEmpty().map { it.toDomain() } }
 
-    suspend fun findRaceById(id: String): CharacterRace? =
+    override suspend fun findRaceById(id: String): Race? =
         allRaces.firstOrNull()?.find { it.id == id }
-} 
+}
