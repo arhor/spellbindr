@@ -21,7 +21,31 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+
+@Composable
+fun SettingsRoute(
+    vm: SettingsViewModel,
+) {
+    val state by vm.state.collectAsState()
+
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(text = "Settings") },
+            ),
+        ),
+    ) {
+        SettingsScreen(
+            state = state,
+            onThemeModeSelected = vm::onThemeModeSelected,
+        )
+    }
+}
 
 @Composable
 fun SettingsScreen(

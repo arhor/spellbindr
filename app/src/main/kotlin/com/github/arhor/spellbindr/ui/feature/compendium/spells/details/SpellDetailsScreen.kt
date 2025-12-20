@@ -15,6 +15,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,17 +36,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 
 @Composable
-fun SpellDetailScreen(
+fun SpellDetailRoute(
     vm: SpellDetailsViewModel,
     spellId: String,
+    initialName: String?,
+    onBack: () -> Unit,
 ) {
     val state by vm.state.collectAsState()
 
@@ -52,9 +63,45 @@ fun SpellDetailScreen(
         vm.loadSpell(spellId)
     }
 
-    SpellDetailScreen(
-        uiState = state,
-    )
+    val detailState = state
+    val isFavorite = (detailState as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
+    val title = when (detailState) {
+        is SpellDetailsViewModel.UiState.Loaded -> detailState.spell.name
+        else -> initialName ?: "Spell Details"
+    }
+    val isFavoriteEnabled = detailState is SpellDetailsViewModel.UiState.Loaded
+
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(title) },
+                navigation = AppTopBarNavigation.Back(onBack),
+                actions = {
+                    IconButton(
+                        onClick = vm::toggleFavorite,
+                        enabled = isFavoriteEnabled,
+                    ) {
+                        if (isFavorite) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Remove from favorites",
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Outlined.FavoriteBorder,
+                                contentDescription = "Add to favorites",
+                            )
+                        }
+                    }
+                },
+            ),
+        ),
+    ) {
+        SpellDetailScreen(
+            uiState = state,
+        )
+    }
 }
 
 @Composable

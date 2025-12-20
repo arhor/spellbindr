@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.compendium
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.Alignment
@@ -38,6 +39,7 @@ class CompendiumViewModel @Inject constructor(
     private val alignmentRepository: AlignmentRepository,
     private val characterClassRepository: CharacterClassRepository,
     private val racesRepository: RacesRepository,
+    private val savedStateHandle: SavedStateHandle,
     private val spellRepository: SpellsRepository,
     private val traitsRepository: TraitsRepository,
 ) : ViewModel() {
@@ -93,6 +95,7 @@ class CompendiumViewModel @Inject constructor(
         val alignmentsState: AlignmentsState = AlignmentsState(),
         val conditionsState: ConditionsState = ConditionsState(),
         val racesState: RacesState = RacesState(),
+        val selectedSection: CompendiumSection = CompendiumSection.Spells,
         val spellsState: SpellsState = SpellsState(),
     )
 
@@ -101,6 +104,8 @@ class CompendiumViewModel @Inject constructor(
     private val raceSelection = MutableStateFlow<String?>(null)
     private val spellFilters = MutableStateFlow(SpellFilters())
     private val logger = Logger.createLogger<CompendiumViewModel>()
+    private val selectedSection =
+        savedStateHandle.getStateFlow(SELECTED_SECTION_KEY, CompendiumSection.Spells)
 
     private val alignmentsState = combine(
         alignmentRepository.allAlignments,
@@ -177,12 +182,14 @@ class CompendiumViewModel @Inject constructor(
         alignmentsState,
         conditionsState,
         racesState,
+        selectedSection,
         spellsState,
-    ) { alignments, conditions, races, spells ->
+    ) { alignments, conditions, races, section, spells ->
         State(
             alignmentsState = alignments,
             conditionsState = conditions,
             racesState = races,
+            selectedSection = section,
             spellsState = spells,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), State())
@@ -219,6 +226,10 @@ class CompendiumViewModel @Inject constructor(
                 raceName
             }
         }
+    }
+
+    fun onSectionSelected(section: CompendiumSection) {
+        savedStateHandle[SELECTED_SECTION_KEY] = section
     }
 
     private fun reduceSpellFilters(filters: SpellFilters, event: SpellsEvent): SpellFilters =
@@ -268,5 +279,9 @@ class CompendiumViewModel @Inject constructor(
         val query: String = filters.query
         val currentClasses: Set<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
+    }
+
+    private companion object {
+        const val SELECTED_SECTION_KEY = "compendium_section"
     }
 }

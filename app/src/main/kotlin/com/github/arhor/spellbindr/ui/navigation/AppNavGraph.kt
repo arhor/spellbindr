@@ -11,14 +11,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorScreen
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharactersListScreen
+import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
-import com.github.arhor.spellbindr.ui.feature.settings.SettingsScreen
+import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
 
 @Composable
 fun SpellbindrAppNavGraph(
@@ -31,7 +31,7 @@ fun SpellbindrAppNavGraph(
         modifier = Modifier.padding(innerPadding),
     ) {
         composable<AppDestination.CharactersHome> {
-            CharactersListScreen(
+            CharactersListRoute(
                 vm = hiltViewModel(it),
                 onCharacterSelected = { character ->
                     controller.navigate(
@@ -46,17 +46,20 @@ fun SpellbindrAppNavGraph(
             )
         }
         composable<AppDestination.CharacterSheet> {
+            val args = it.toRoute<AppDestination.CharacterSheet>()
             CharacterSheetRoute(
                 vm = hiltViewModel(it),
                 savedStateHandle = it.savedStateHandle,
+                args = args,
                 onOpenSpellDetail = { spellId -> controller.navigate(AppDestination.SpellDetail(spellId)) },
                 onAddSpells = { charId -> controller.navigate(AppDestination.CharacterSpellPicker(charId)) },
                 onOpenFullEditor = { charId -> controller.navigate(AppDestination.CharacterEditor(charId)) },
                 onCharacterDeleted = controller::navigateUp,
+                onBack = controller::navigateUp,
             )
         }
         composable<AppDestination.CharacterEditor> {
-            CharacterEditorScreen(
+            CharacterEditorRoute(
                 vm = hiltViewModel(it),
                 onBack = controller::navigateUp,
                 onFinished = controller::navigateUp,
@@ -76,9 +79,12 @@ fun SpellbindrAppNavGraph(
             )
         }
         composable<AppDestination.SpellDetail> {
-            SpellDetailScreen(
+            val args = it.toRoute<AppDestination.SpellDetail>()
+            SpellDetailRoute(
                 vm = hiltViewModel(it),
-                spellId = it.toRoute<AppDestination.SpellDetail>().spellId,
+                spellId = args.spellId,
+                initialName = args.initialName,
+                onBack = controller::navigateUp,
             )
         }
         composable<AppDestination.CharacterSpellPicker> {
@@ -100,7 +106,7 @@ fun SpellbindrAppNavGraph(
             )
         }
         composable<AppDestination.Settings> {
-            SettingsScreen(
+            SettingsRoute(
                 vm = hiltViewModel(it),
             )
         }

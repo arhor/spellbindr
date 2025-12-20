@@ -27,6 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
 import com.github.arhor.spellbindr.ui.feature.dice.components.MainDiceRollerCard
 import com.github.arhor.spellbindr.ui.feature.dice.components.PercentileCard
@@ -39,6 +42,11 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.History
+import androidx.compose.material3.Text
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,10 +55,27 @@ fun DiceRollerRoute(
 ) {
     val state by vm.state.collectAsState()
 
-    DiceRollerRoute(
-        state = state,
-        onIntent = vm::onIntent,
-    )
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(text = "Dice Roller") },
+                actions = {
+                    IconButton(onClick = { /* Stub: future history action */ }) {
+                        Icon(
+                            imageVector = Icons.Outlined.History,
+                            contentDescription = "History",
+                        )
+                    }
+                },
+            ),
+        ),
+    ) {
+        DiceRollerRoute(
+            state = state,
+            onIntent = vm::onIntent,
+        )
+    }
 }
 
 @Composable

@@ -15,14 +15,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.model.predefined.Condition
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
@@ -35,30 +35,41 @@ fun CompendiumRoute(
 ) {
     val state by vm.state.collectAsState()
 
-    CompendiumScreen(
-        state = state,
-        onSpellSelected = onSpellSelected,
-        onSpellQueryChanged = { query ->
-            vm.onSpellEvent(CompendiumViewModel.SpellsEvent.QueryChanged(query))
-        },
-        onSpellFiltersClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersOpened) },
-        onSpellFavoriteClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FavoritesToggled) },
-        onSpellSubmitFilters = { classes ->
-            vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersSubmitted(classes))
-        },
-        onSpellCancelFilters = { classes ->
-            vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersCanceled(classes))
-        },
-        onConditionClick = vm::handleConditionClick,
-        onAlignmentClick = vm::handleAlignmentClick,
-        onRaceClick = vm::handleRaceClick,
-    )
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(text = "Compendium") },
+            ),
+        ),
+    ) {
+        CompendiumScreen(
+            state = state,
+            onSectionSelected = vm::onSectionSelected,
+            onSpellSelected = onSpellSelected,
+            onSpellQueryChanged = { query ->
+                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.QueryChanged(query))
+            },
+            onSpellFiltersClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersOpened) },
+            onSpellFavoriteClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FavoritesToggled) },
+            onSpellSubmitFilters = { classes ->
+                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersSubmitted(classes))
+            },
+            onSpellCancelFilters = { classes ->
+                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersCanceled(classes))
+            },
+            onConditionClick = vm::handleConditionClick,
+            onAlignmentClick = vm::handleAlignmentClick,
+            onRaceClick = vm::handleRaceClick,
+        )
+    }
 }
 
 @Composable
 private fun CompendiumScreen(
     state: CompendiumViewModel.State,
     modifier: Modifier = Modifier,
+    onSectionSelected: (CompendiumSection) -> Unit,
     onSpellSelected: (Spell) -> Unit = {},
     onSpellQueryChanged: (String) -> Unit,
     onSpellFiltersClick: () -> Unit,
@@ -69,14 +80,12 @@ private fun CompendiumScreen(
     onAlignmentClick: (String) -> Unit,
     onRaceClick: (String) -> Unit,
 ) {
-    var selectedSection by rememberSaveable { mutableStateOf(CompendiumSection.Spells) }
-
     Column(modifier = modifier.fillMaxSize()) {
-        PrimaryTabRow(selectedTabIndex = selectedSection.ordinal) {
+        PrimaryTabRow(selectedTabIndex = state.selectedSection.ordinal) {
             CompendiumSection.entries.forEach { section ->
                 Tab(
-                    selected = section == selectedSection,
-                    onClick = { selectedSection = section },
+                    selected = section == state.selectedSection,
+                    onClick = { onSectionSelected(section) },
                     text = { Text(section.label) },
                 )
             }
@@ -84,7 +93,7 @@ private fun CompendiumScreen(
         Spacer(modifier = Modifier.height(12.dp))
         Box(modifier = Modifier.fillMaxSize()) {
             Crossfade(
-                targetState = selectedSection,
+                targetState = state.selectedSection,
                 label = "compendium-sections",
             ) { section ->
                 when (section) {
@@ -124,11 +133,4 @@ private fun CompendiumScreen(
             }
         }
     }
-}
-
-private enum class CompendiumSection(val label: String) {
-    Spells("Spells"),
-    Conditions("Conditions"),
-    Alignments("Alignments"),
-    Races("Races"),
 }

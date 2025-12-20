@@ -25,6 +25,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -40,10 +41,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun CharacterEditorScreen(
+fun CharacterEditorRoute(
     vm: CharacterEditorViewModel,
     onBack: () -> Unit,
     onFinished: () -> Unit,
@@ -51,6 +56,8 @@ fun CharacterEditorScreen(
 ) {
     val state by vm.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val title = if (state.mode == EditorMode.Create) "New Character" else "Edit Character"
 
     val callbacks = remember(vm, onBack) {
         CharacterEditorCallbacks(
@@ -99,12 +106,30 @@ fun CharacterEditorScreen(
         }
     }
 
-    CharacterEditorScreen(
-        state = state,
-        callbacks = callbacks,
-        snackbarHostState = snackbarHostState,
-        modifier = modifier,
-    )
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                visible = true,
+                title = { Text(text = title) },
+                navigation = AppTopBarNavigation.Back(onBack),
+                actions = {
+                    TextButton(
+                        onClick = vm::onSaveClicked,
+                        enabled = !state.isSaving && !state.isLoading,
+                    ) {
+                        Text("Save")
+                    }
+                },
+            ),
+        ),
+    ) {
+        CharacterEditorScreen(
+            state = state,
+            callbacks = callbacks,
+            snackbarHostState = snackbarHostState,
+            modifier = modifier,
+        )
+    }
 }
 
 @Composable
