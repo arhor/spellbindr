@@ -1,7 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 
 @Serializable
 data class Monster(
@@ -15,7 +17,7 @@ data class Monster(
     val challengeRating: Double,
     val charisma: Int,
     @SerialName("condition_immunities")
-    val conditionImmunities: List<EntityRef>,
+    val conditionImmunities: List<DomainEntityRef>,
     val constitution: Int,
     @SerialName("damage_immunities")
     val damageImmunities: List<String>,
@@ -24,7 +26,7 @@ data class Monster(
     @SerialName("damage_vulnerabilities")
     val damageVulnerabilities: List<String>,
     val dexterity: Int,
-    val forms: List<EntityRef>? = null,
+    val forms: List<DomainEntityRef>? = null,
     @SerialName("hit_dice")
     val hitDice: String,
     @SerialName("hit_points")

@@ -2,9 +2,11 @@
 
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import com.github.arhor.spellbindr.utils.copy
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 
 /**
  * Represents an effect that can be applied to a state's state.
@@ -30,7 +32,7 @@ sealed interface Effect {
         override fun applyTo(state: Character.State) = state.copy(
             abilityScores = state.abilityScores.copy {
                 abilities.forEach { (abilityId, value) ->
-                    merge(EntityRef(abilityId), value, Int::plus)
+                    merge(DomainEntityRef(abilityId), value, Int::plus)
                 }
             },
         )
@@ -47,19 +49,19 @@ sealed interface Effect {
         val proficiencies: Set<String>,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
-            proficiencies = state.proficiencies + proficiencies.map(::EntityRef),
+            proficiencies = state.proficiencies + proficiencies.map(::DomainEntityRef),
         )
     }
 
     /**
      * Represents an effect that grants a state knowledge of specific spells.
      *
-     * @property spells A set of [EntityRef] objects representing the spells the state learns.
+     * @property spells A set of [DomainEntityRef] objects representing the spells the state learns.
      */
     @Serializable
     @SerialName("add-known-spells")
     data class AddKnownSpellsEffect(
-        val spells: Set<EntityRef>,
+        val spells: Set<DomainEntityRef>,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
             knownSpells = state.knownSpells + spells,
@@ -74,7 +76,7 @@ sealed interface Effect {
     @Serializable
     @SerialName("add-resistance")
     data class AddResistanceEffect(
-        val damageType: EntityRef,
+        val damageType: DomainEntityRef,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
             resistances = state.resistances + damageType,
@@ -95,7 +97,7 @@ sealed interface Effect {
     @Serializable
     @SerialName("add-condition-immunity")
     data class AddConditionImmunityEffect(
-        val condition: EntityRef,
+        val condition: DomainEntityRef,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
             conditionImmunities = state.conditionImmunities + condition,
@@ -118,7 +120,7 @@ sealed interface Effect {
         val languages: Set<String>,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
-            languages = state.languages + languages.map(::EntityRef),
+            languages = state.languages + languages.map(::DomainEntityRef),
         )
     }
 

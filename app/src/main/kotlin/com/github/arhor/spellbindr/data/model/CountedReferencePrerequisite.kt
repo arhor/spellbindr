@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
+
 
 /**
  * Represents a prerequisite that requires a certain number of proficiencies of a specific type.
@@ -11,5 +13,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CountedReferencePrerequisite(
     val type: String,
-    val proficiency: EntityRef? = null,
+    val proficiency: DomainEntityRef? = null,
 )

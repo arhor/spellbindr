@@ -1,7 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 
 /**
  * Represents a generic option that can be one of several types.
@@ -33,7 +35,7 @@ sealed class Option {
     @Serializable
     @SerialName("reference")
     data class ReferenceOption(
-        val item: EntityRef
+        val item: DomainEntityRef
     ) : Option()
 
     /**
@@ -83,13 +85,13 @@ sealed class Option {
      *
      * @property desc A description of the ideal.
      * @property alignments A list of alignments that this ideal is typically associated with.
-     *                    Each alignment is represented by an [EntityRef].
+     *                    Each alignment is represented by an [DomainEntityRef].
      */
     @Serializable
     @SerialName("ideal")
     data class IdealOption(
         val desc: String,
-        val alignments: List<EntityRef>
+        val alignments: List<DomainEntityRef>
     ) : Option()
 
     /**
@@ -97,7 +99,7 @@ sealed class Option {
      * potentially with prerequisites.
      *
      * @property count The number of references provided by this option.
-     * @property of An [EntityRef] pointing to the entity being referenced.
+     * @property of An [DomainEntityRef] pointing to the entity being referenced.
      * @property prerequisites An optional list of [CountedReferencePrerequisite] objects
      * that must be met for this option to be available.
      */
@@ -105,7 +107,7 @@ sealed class Option {
     @SerialName("counted_reference")
     data class CountedReferenceOption(
         val count: Int,
-        val of: EntityRef,
+        val of: DomainEntityRef,
         val prerequisites: List<CountedReferencePrerequisite>? = null
     ) : Option()
 
@@ -118,7 +120,7 @@ sealed class Option {
     @Serializable
     @SerialName("score_prerequisite")
     data class ScorePrerequisiteOption(
-        val abilityScore: EntityRef,
+        val abilityScore: DomainEntityRef,
         val minimumScore: Int
     ) : Option()
 
@@ -132,7 +134,7 @@ sealed class Option {
     @Serializable
     @SerialName("ability_bonus")
     data class AbilityBonusOption(
-        val abilityScore: EntityRef,
+        val abilityScore: DomainEntityRef,
         val bonus: Int
     ) : Option()
 
@@ -161,7 +163,7 @@ sealed class Option {
     @Serializable
     @SerialName("damage")
     data class DamageOption(
-        val damageType: EntityRef,
+        val damageType: DomainEntityRef,
         val damageDice: String,
         val notes: String? = null
     ) : Option()

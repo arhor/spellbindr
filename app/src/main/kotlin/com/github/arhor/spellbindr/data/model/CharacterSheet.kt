@@ -3,9 +3,10 @@ package com.github.arhor.spellbindr.data.model
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.data.model.predefined.Skill
+import java.util.UUID
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.util.UUID
+
 
 /**
  * Represents the data captured by the manual character sheet editor.
