@@ -15,7 +15,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
-import com.github.arhor.spellbindr.domain.usecase.SearchSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,7 +43,7 @@ class CompendiumViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
     private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
-    private val searchSpellsUseCase: SearchSpellsUseCase,
+    private val searchAndGroupSpellsUseCase: SearchAndGroupSpellsUseCase,
 ) : ViewModel() {
 
     sealed interface SpellsUiState {
@@ -112,8 +112,8 @@ class CompendiumViewModel @Inject constructor(
     private val alignmentSelection = MutableStateFlow<String?>(null)
     private val conditionSelection = MutableStateFlow<Condition?>(null)
     private val raceSelection = MutableStateFlow<String?>(null)
-    private val spellFilters = MutableStateFlow(SpellFilters())
-    private val spellExpansionState = MutableStateFlow(SpellExpansionState())
+    private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
+    private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
     private val logger = Logger.createLogger<CompendiumViewModel>()
     private val selectedSection =
         savedStateHandle.getStateFlow(SELECTED_SECTION_KEY, CompendiumSection.Spells)
@@ -160,13 +160,15 @@ class CompendiumViewModel @Inject constructor(
         .transformLatest { data ->
             emit(SpellsUiState.Loading)
             runCatching {
-                searchSpellsUseCase(
+                searchAndGroupSpellsUseCase(
                     query = data.query,
                     classes = data.currentClasses,
                     favoriteOnly = data.showFavorite,
+                    allSpells = data.allSpells,
+                    favoriteSpellIds = data.favoriteSpellIdsSet,
                 )
-            }.onSuccess { spells ->
-                emit(SpellsUiState.Loaded(spells, spells.groupBy(Spell::level).toSortedMap()))
+            }.onSuccess { result ->
+                emit(SpellsUiState.Loaded(result.spells, result.spellsByLevel))
             }.onFailure { throwable ->
                 logger.error(throwable) { "Failed to load spells." }
                 emit(SpellsUiState.Error("Oops, something went wrong..."))
@@ -185,9 +187,10 @@ class CompendiumViewModel @Inject constructor(
             else -> emptyMap()
         }
         val expandedSpellLevels = when (uiState) {
-            is SpellsUiState.Loaded -> uiState.spellsByLevel.keys.associateWith { level ->
-                expansionState.expandedLevels[level] ?: expansionState.expandedAll
-            }
+            is SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
+                levels = uiState.spellsByLevel.keys,
+                state = expansionState,
+            )
 
             else -> emptyMap()
         }
@@ -224,24 +227,27 @@ class CompendiumViewModel @Inject constructor(
         when (event) {
             is SpellsEvent.GroupToggled -> {
                 spellExpansionState.update { state ->
-                    val currentExpanded =
-                        spellsState.value.expandedSpellLevels[event.level] ?: state.expandedAll
-                    state.copy(expandedLevels = state.expandedLevels + (event.level to !currentExpanded))
+                    SpellListStateReducer.toggleGroup(
+                        state = state,
+                        level = event.level,
+                        currentExpandedLevels = spellsState.value.expandedSpellLevels,
+                    )
                 }
             }
 
             SpellsEvent.ToggleAllGroups -> {
                 spellExpansionState.update { state ->
-                    val nextExpandedAll = !state.expandedAll
                     val levels = spellsState.value.spellsByLevel.keys
-                    state.copy(
-                        expandedAll = nextExpandedAll,
-                        expandedLevels = levels.associateWith { nextExpandedAll },
+                    SpellListStateReducer.toggleAll(
+                        state = state,
+                        levels = levels,
                     )
                 }
             }
 
-            else -> spellFilters.update { reduceSpellFilters(it, event) }
+            else -> spellFilters.update { filters ->
+                event.toFilterEvent()?.let { SpellListStateReducer.reduceFilters(filters, it) } ?: filters
+            }
         }
     }
 
@@ -279,63 +285,29 @@ class CompendiumViewModel @Inject constructor(
         savedStateHandle[SELECTED_SECTION_KEY] = section
     }
 
-    private fun reduceSpellFilters(filters: SpellFilters, event: SpellsEvent): SpellFilters =
-        when (event) {
-            is SpellsEvent.QueryChanged -> {
-                val nextQuery = event.query.trim()
-                if (nextQuery.equals(filters.query, ignoreCase = true)) {
-                    filters
-                } else {
-                    filters.copy(query = nextQuery)
-                }
-            }
-
-            SpellsEvent.FavoritesToggled -> filters.copy(showFavorite = !filters.showFavorite)
-            SpellsEvent.FiltersOpened -> filters.copy(showFilterDialog = true)
-            is SpellsEvent.FiltersSubmitted -> filters.copy(
-                showFilterDialog = false,
-                currentClasses = if (event.classes == filters.currentClasses) {
-                    filters.currentClasses
-                } else {
-                    event.classes
-                },
-            )
-
-            is SpellsEvent.FiltersCanceled -> filters.copy(
-                showFilterDialog = false,
-                currentClasses = if (event.classes == filters.currentClasses) {
-                    filters.currentClasses
-                } else {
-                    event.classes
-                },
-            )
-            is SpellsEvent.GroupToggled -> filters
-            SpellsEvent.ToggleAllGroups -> filters
-        }
-
-    private data class SpellFilters(
-        val query: String = "",
-        val showFavorite: Boolean = false,
-        val showFilterDialog: Boolean = false,
-        val currentClasses: Set<EntityRef> = emptySet(),
-    )
-
     private data class SpellsQuery(
-        val filters: SpellFilters,
+        val filters: SpellListStateReducer.SpellFilters,
         val allSpells: List<Spell>,
         val favoriteSpellIds: List<String>,
     ) {
         val query: String = filters.query
         val currentClasses: Set<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
+        val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
     }
-
-    private data class SpellExpansionState(
-        val expandedAll: Boolean = true,
-        val expandedLevels: Map<Int, Boolean> = emptyMap(),
-    )
 
     private companion object {
         const val SELECTED_SECTION_KEY = "compendium_section"
     }
+
+    private fun SpellsEvent.toFilterEvent(): SpellListStateReducer.FilterEvent? =
+        when (this) {
+            is SpellsEvent.QueryChanged -> SpellListStateReducer.FilterEvent.QueryChanged(query)
+            SpellsEvent.FavoritesToggled -> SpellListStateReducer.FilterEvent.FavoritesToggled
+            SpellsEvent.FiltersOpened -> SpellListStateReducer.FilterEvent.FiltersOpened
+            is SpellsEvent.FiltersSubmitted -> SpellListStateReducer.FilterEvent.FiltersSubmitted(classes)
+            is SpellsEvent.FiltersCanceled -> SpellListStateReducer.FilterEvent.FiltersCanceled(classes)
+            is SpellsEvent.GroupToggled -> null
+            SpellsEvent.ToggleAllGroups -> null
+        }
 }
