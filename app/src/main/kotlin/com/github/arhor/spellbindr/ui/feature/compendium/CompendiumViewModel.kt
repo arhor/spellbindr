@@ -6,12 +6,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.predefined.Condition
-import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.domain.model.Alignment
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.Trait
+import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
