@@ -14,9 +14,11 @@ import com.github.arhor.spellbindr.domain.model.DeathSaveState
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.Weapon
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
-import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
+import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
@@ -38,8 +40,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
-    private val characterRepository: CharacterRepository,
-    private val spellRepository: SpellsRepository,
+    private val deleteCharacterUseCase: DeleteCharacterUseCase,
+    private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
+    private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -55,7 +59,7 @@ class CharacterSheetViewModel @Inject constructor(
 
     private val characterStream: Flow<CharacterSheet?> =
         characterId?.let { id ->
-            characterRepository.observeCharacterSheet(id)
+            loadCharacterSheetUseCase(id)
                 .onEach { sheet ->
                     latestSheet = sheet
                     _hasLoaded.value = true
@@ -86,7 +90,7 @@ class CharacterSheetViewModel @Inject constructor(
             .combine(_weaponEditor) { inputs, weaponEditor ->
                 inputs.copy(weaponEditor = weaponEditor)
             }
-            .combine(spellRepository.allSpells) { inputs, spells ->
+            .combine(observeAllSpellsUseCase()) { inputs, spells ->
                 inputs.copy(spells = spells)
             }
 
@@ -134,7 +138,7 @@ class CharacterSheetViewModel @Inject constructor(
         val id = characterId ?: return
         viewModelScope.launch {
             _errors.value = null
-            runCatching { characterRepository.deleteCharacter(id) }
+            runCatching { deleteCharacterUseCase(id) }
                 .onSuccess { onDeleted() }
                 .onFailure { throwable ->
                     _errors.value = throwable.message ?: "Unable to delete character"
@@ -347,7 +351,7 @@ class CharacterSheetViewModel @Inject constructor(
         latestSheet = updated
         viewModelScope.launch {
             _errors.value = null
-            runCatching { characterRepository.upsertCharacterSheet(updated) }
+            runCatching { saveCharacterSheetUseCase(updated) }
                 .onFailure { throwable ->
                     _errors.value = throwable.message ?: "Unable to save changes"
                 }

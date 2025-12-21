@@ -13,7 +13,9 @@ import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.SearchSpellsUseCase
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,7 +41,9 @@ class CompendiumViewModel @Inject constructor(
     private val characterClassRepository: CharacterClassRepository,
     private val referenceDataRepository: ReferenceDataRepository,
     private val savedStateHandle: SavedStateHandle,
-    private val spellRepository: SpellsRepository,
+    private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
+    private val searchSpellsUseCase: SearchSpellsUseCase,
 ) : ViewModel() {
 
     sealed interface SpellsUiState {
@@ -147,8 +151,8 @@ class CompendiumViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private val spellsUiState = combine(
         spellFilters,
-        spellRepository.allSpells,
-        spellRepository.favoriteSpellIds,
+        observeAllSpellsUseCase(),
+        observeFavoriteSpellIdsUseCase(),
         ::SpellsQuery,
     )
         .debounce(350.milliseconds)
@@ -156,7 +160,7 @@ class CompendiumViewModel @Inject constructor(
         .transformLatest { data ->
             emit(SpellsUiState.Loading)
             runCatching {
-                spellRepository.findSpells(
+                searchSpellsUseCase(
                     query = data.query,
                     classes = data.currentClasses,
                     favoriteOnly = data.showFavorite,

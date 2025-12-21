@@ -10,7 +10,8 @@ import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.SkillEntry
-import com.github.arhor.spellbindr.domain.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +29,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterEditorViewModel @Inject constructor(
-    private val repository: CharacterRepository,
+    private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
+    private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -52,7 +54,7 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun observeCharacter(id: String) {
-        repository.observeCharacterSheet(id)
+        loadCharacterSheetUseCase(id)
             .onEach { sheet ->
                 if (sheet != null) {
                     baseSheet = sheet
@@ -181,7 +183,7 @@ class CharacterEditorViewModel @Inject constructor(
                     mode = EditorMode.Edit,
                 )
             }
-            runCatching { repository.upsertCharacterSheet(sheet) }
+            runCatching { saveCharacterSheetUseCase(sheet) }
                 .onSuccess {
                     baseSheet = sheet
                     _uiState.update { it.copy(isSaving = false) }

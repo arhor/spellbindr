@@ -5,7 +5,10 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.usecase.GetSpellByIdUseCase
+import com.github.arhor.spellbindr.domain.usecase.IsSpellFavoriteUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ToggleFavoriteSpellUseCase
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +25,10 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class SpellDetailsViewModel @Inject constructor(
-    private val spellRepository: SpellsRepository,
+    private val getSpellByIdUseCase: GetSpellByIdUseCase,
+    private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
+    private val isSpellFavoriteUseCase: IsSpellFavoriteUseCase,
+    private val toggleFavoriteSpellUseCase: ToggleFavoriteSpellUseCase,
 ) : ViewModel() {
 
     sealed interface UiState {
@@ -43,7 +49,7 @@ class SpellDetailsViewModel @Inject constructor(
 
     val state: StateFlow<UiState> = combine(
         spellId,
-        spellRepository.favoriteSpellIds,
+        observeFavoriteSpellIdsUseCase(),
     ) { id, favoriteIds ->
         SpellQuery(
             spellId = id,
@@ -59,16 +65,13 @@ class SpellDetailsViewModel @Inject constructor(
 
             emit(UiState.Loading)
             runCatching {
-                val spell = spellRepository.getSpellById(spellId)
+                val spell = getSpellByIdUseCase(spellId)
                 if (spell == null) {
                     null
                 } else {
                     UiState.Loaded(
                         spell = spell,
-                        isFavorite = spellRepository.isFavorite(
-                            spellId = spell.id,
-                            favoriteSpellIds = query.favoriteSpellIds,
-                        )
+                        isFavorite = isSpellFavoriteUseCase(spell.id)
                     )
                 }
             }.onSuccess { result ->
@@ -87,7 +90,7 @@ class SpellDetailsViewModel @Inject constructor(
     fun toggleFavorite() {
         val currentSpellId = (state.value as? UiState.Loaded)?.spell?.id ?: return
         viewModelScope.launch {
-            spellRepository.toggleFavorite(currentSpellId)
+            toggleFavoriteSpellUseCase(currentSpellId)
         }
     }
 

@@ -4,6 +4,8 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.data.repository.ThemeRepositoryImpl
 import com.github.arhor.spellbindr.domain.model.ThemeMode
+import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
+import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
@@ -60,5 +62,7 @@ private fun TestScope.createViewModel(): Pair<SettingsViewModel, File> {
     val file = createTempFile(prefix = "settings-vm", suffix = ".preferences_pb").toFile()
     val dataStore = PreferenceDataStoreFactory.create(scope = this) { file }
     val repository = ThemeRepositoryImpl(dataStore)
-    return SettingsViewModel(repository) to file
+    val observeThemeModeUseCase = ObserveThemeModeUseCase(repository)
+    val setThemeModeUseCase = SetThemeModeUseCase(repository)
+    return SettingsViewModel(observeThemeModeUseCase, setThemeModeUseCase) to file
 }
