@@ -1,10 +1,12 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityScoreInput
+import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
-import com.github.arhor.spellbindr.ui.feature.characters.AbilityFieldState
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorUiState
+import com.github.arhor.spellbindr.domain.model.SavingThrowInput
+import com.github.arhor.spellbindr.domain.model.Skill
+import com.github.arhor.spellbindr.domain.model.SkillProficiencyInput
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -16,58 +18,58 @@ class CharacterEditorUseCasesTest {
 
     @Test
     fun `validate returns errors for required fields and invalid abilities`() {
-        val state = CharacterEditorUiState(
+        val input = CharacterEditorInput(
             name = "",
             level = "0",
             maxHitPoints = "0",
-            abilities = AbilityFieldState.defaults().map { field ->
-                if (field.ability == Ability.STR) field.copy(score = "") else field
+            abilities = AbilityScoreInput.defaults().map { ability ->
+                if (ability.ability == Ability.STR) ability.copy(score = "") else ability
             },
         )
 
-        val result = validateUseCase(state)
+        val result = validateUseCase(input)
 
-        assertThat(result.nameError).isEqualTo("Required")
-        assertThat(result.levelError).isEqualTo("Level must be ≥ 1")
-        assertThat(result.maxHpError).isEqualTo("Required")
-        assertThat(result.abilityStates.first { it.ability == Ability.STR }.error).isEqualTo("Required")
+        assertThat(result.nameError).isEqualTo(CharacterSheetInputError.Required)
+        assertThat(result.levelError).isEqualTo(CharacterSheetInputError.MinValue(1))
+        assertThat(result.maxHpError).isEqualTo(CharacterSheetInputError.Required)
+        assertThat(result.abilityErrors[Ability.STR]).isEqualTo(CharacterSheetInputError.Required)
         assertThat(result.hasErrors).isTrue()
     }
 
     @Test
     fun `validate returns no errors for valid inputs`() {
-        val state = CharacterEditorUiState(
+        val input = CharacterEditorInput(
             name = "Ayla",
             level = "2",
             maxHitPoints = "8",
         )
 
-        val result = validateUseCase(state)
+        val result = validateUseCase(input)
 
         assertThat(result.nameError).isNull()
         assertThat(result.levelError).isNull()
         assertThat(result.maxHpError).isNull()
-        assertThat(result.abilityStates.all { it.error == null }).isTrue()
+        assertThat(result.abilityErrors).isEmpty()
         assertThat(result.hasErrors).isFalse()
     }
 
     @Test
     fun `computeDerivedBonusesUseCase updates saving throws and skills`() {
-        val state = CharacterEditorUiState(
+        val input = CharacterEditorInput(
             proficiencyBonus = "2",
         )
             .withAbilityScore(Ability.STR, "14")
             .withAbilityScore(Ability.DEX, "8")
             .copy(
-                savingThrows = CharacterEditorUiState().savingThrows.map { entry ->
+                savingThrows = SavingThrowInput.defaults().map { entry ->
                     if (entry.ability == Ability.STR) entry.copy(proficient = true) else entry
                 },
-                skills = CharacterEditorUiState().skills.map { entry ->
+                skills = SkillProficiencyInput.defaults().map { entry ->
                     if (entry.skill == Skill.ACROBATICS) entry.copy(expertise = true) else entry
                 },
             )
 
-        val result = computeDerivedBonusesUseCase(state)
+        val result = computeDerivedBonusesUseCase(input)
 
         val strengthSave = result.savingThrows.first { it.ability == Ability.STR }
         val dexSave = result.savingThrows.first { it.ability == Ability.DEX }
@@ -81,7 +83,7 @@ class CharacterEditorUseCasesTest {
     @Test
     fun `buildCharacterSheetFromInputsUseCase builds sheet from inputs`() {
         val baseSheet = CharacterSheet(id = "base-id", maxHitPoints = 10)
-        val state = CharacterEditorUiState(
+        val input = CharacterEditorInput(
             name = "  Mira  ",
             level = "3",
             className = "Ranger",
@@ -95,15 +97,15 @@ class CharacterEditorUseCasesTest {
             .withAbilityScore(Ability.STR, "14")
             .withAbilityScore(Ability.DEX, "8")
             .copy(
-                savingThrows = CharacterEditorUiState().savingThrows.map { entry ->
+                savingThrows = SavingThrowInput.defaults().map { entry ->
                     if (entry.ability == Ability.STR) entry.copy(proficient = true) else entry
                 },
-                skills = CharacterEditorUiState().skills.map { entry ->
+                skills = SkillProficiencyInput.defaults().map { entry ->
                     if (entry.skill == Skill.ACROBATICS) entry.copy(expertise = true) else entry
                 },
             )
 
-        val result = buildCharacterSheetFromInputsUseCase(state, baseSheet)
+        val result = buildCharacterSheetFromInputsUseCase(input, baseSheet)
 
         assertThat(result.id).isEqualTo("base-id")
         assertThat(result.name).isEqualTo("Mira")
@@ -115,7 +117,26 @@ class CharacterEditorUseCasesTest {
         assertThat(result.skills.first { it.skill == Skill.ACROBATICS }.bonus).isEqualTo(3)
     }
 
-    private fun CharacterEditorUiState.withAbilityScore(ability: Ability, score: String): CharacterEditorUiState =
+    @Test
+    fun `validate handles blank and invalid numeric values`() {
+        val input = CharacterEditorInput(
+            name = "Ayla",
+            level = "not-a-number",
+            maxHitPoints = "",
+            abilities = AbilityScoreInput.defaults().map { ability ->
+                if (ability.ability == Ability.INT) ability.copy(score = " ") else ability
+            },
+        )
+
+        val result = validateUseCase(input)
+
+        assertThat(result.nameError).isNull()
+        assertThat(result.levelError).isEqualTo(CharacterSheetInputError.MinValue(1))
+        assertThat(result.maxHpError).isEqualTo(CharacterSheetInputError.Required)
+        assertThat(result.abilityErrors[Ability.INT]).isEqualTo(CharacterSheetInputError.Required)
+    }
+
+    private fun CharacterEditorInput.withAbilityScore(ability: Ability, score: String): CharacterEditorInput =
         copy(
             abilities = abilities.map { field ->
                 if (field.ability == ability) field.copy(score = score) else field
