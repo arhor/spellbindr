@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

@@ -4,9 +4,9 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
-import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell

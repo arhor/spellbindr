@@ -39,8 +39,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
