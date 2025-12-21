@@ -1,8 +1,9 @@
 package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import javax.inject.Inject
 
-class UpdateHitPointsUseCase {
+class UpdateHitPointsUseCase @Inject constructor() {
 
     sealed interface Action {
         data class AdjustCurrentHp(val delta: Int) : Action

@@ -8,8 +8,9 @@ import com.github.arhor.spellbindr.domain.model.SavingThrowBonus
 import com.github.arhor.spellbindr.domain.model.SavingThrowInput
 import com.github.arhor.spellbindr.domain.model.SkillBonus
 import com.github.arhor.spellbindr.domain.model.SkillProficiencyInput
+import javax.inject.Inject
 
-class ComputeDerivedBonusesUseCase {
+class ComputeDerivedBonusesUseCase @Inject constructor() {
     operator fun invoke(input: CharacterEditorInput): CharacterEditorDerivedBonuses {
         val abilityScores = input.toAbilityScores()
         val proficiencyValue = input.proficiencyBonus.toIntOrNull() ?: 0
