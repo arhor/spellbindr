@@ -11,7 +11,6 @@ import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
-import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.Weapon
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 import com.github.arhor.spellbindr.domain.model.Spell
@@ -19,6 +18,9 @@ import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
+import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
+import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
@@ -45,6 +47,9 @@ class CharacterSheetViewModel @Inject constructor(
     private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
     private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
     private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
+    private val updateHitPointsUseCase: UpdateHitPointsUseCase,
+    private val toggleSpellSlotUseCase: ToggleSpellSlotUseCase,
+    private val updateWeaponListUseCase: UpdateWeaponListUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -300,57 +305,37 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun adjustCurrentHp(delta: Int) {
         updateSheet { sheet ->
-            val maxHp = sheet.maxHitPoints.coerceAtLeast(0)
-            val next = (sheet.currentHitPoints + delta).coerceIn(0, maxHp)
-            sheet.copy(currentHitPoints = next)
+            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.AdjustCurrentHp(delta))
         }
     }
 
     private fun setTemporaryHp(value: Int) {
         updateSheet { sheet ->
-            sheet.copy(temporaryHitPoints = value.coerceAtLeast(0))
+            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetTemporaryHp(value))
         }
     }
 
     private fun setDeathSaveSuccesses(count: Int) {
         updateSheet { sheet ->
-            sheet.copy(
-                deathSaves = sheet.deathSaves.copy(successes = count.coerceIn(0, 3)),
-            )
+            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetDeathSaveSuccesses(count))
         }
     }
 
     private fun setDeathSaveFailures(count: Int) {
         updateSheet { sheet ->
-            sheet.copy(
-                deathSaves = sheet.deathSaves.copy(failures = count.coerceIn(0, 3)),
-            )
+            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetDeathSaveFailures(count))
         }
     }
 
     private fun toggleSpellSlot(level: Int, slotIndex: Int) {
         updateSheet { sheet ->
-            sheet.updateSpellSlot(level) { slot ->
-                val totalSlots = slot.total.coerceAtLeast(0)
-                if (totalSlots == 0) return@updateSpellSlot slot
-                val normalizedIndex = slotIndex.coerceIn(0, totalSlots - 1)
-                val newExpended =
-                    if (normalizedIndex < slot.expended) normalizedIndex
-                    else (normalizedIndex + 1).coerceAtMost(totalSlots)
-                slot.copy(expended = newExpended)
-            }
+            toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.Toggle(level, slotIndex))
         }
     }
 
     private fun setSpellSlotTotal(level: Int, total: Int) {
         updateSheet { sheet ->
-            sheet.updateSpellSlot(level) { slot ->
-                val safeTotal = total.coerceAtLeast(0)
-                slot.copy(
-                    total = safeTotal,
-                    expended = slot.expended.coerceIn(0, safeTotal),
-                )
-            }
+            toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.SetTotal(level, total))
         }
     }
 
@@ -392,7 +377,7 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun onWeaponDeleted(id: String) {
         updateSheet { sheet ->
-            sheet.copy(weapons = sheet.weapons.filterNot { it.id == id })
+            updateWeaponListUseCase(sheet, UpdateWeaponListUseCase.Action.Delete(id))
         }
         if (_data.value.weaponEditorState?.id == id) {
             updateData(CharacterSheetUiEvent.WeaponEditorChanged(null))
@@ -405,14 +390,7 @@ class CharacterSheetViewModel @Inject constructor(
         if (weapon.name.isBlank()) return
 
         updateSheet { sheet ->
-            val updated = sheet.weapons.toMutableList()
-            val existingIndex = updated.indexOfFirst { it.id == weapon.id }
-            if (existingIndex >= 0) {
-                updated[existingIndex] = weapon
-            } else {
-                updated += weapon
-            }
-            sheet.copy(weapons = updated)
+            updateWeaponListUseCase(sheet, UpdateWeaponListUseCase.Action.Save(weapon))
         }
         updateData(CharacterSheetUiEvent.WeaponEditorChanged(null))
     }
@@ -833,17 +811,6 @@ private fun CharacterSheet.applyInlineEdits(edits: CharacterSheetEditingState): 
         proficiencies = edits.proficiencies.trim(),
         equipment = edits.equipment.trim(),
     )
-}
-
-private fun CharacterSheet.updateSpellSlot(
-    level: Int,
-    transform: (SpellSlotState) -> SpellSlotState,
-): CharacterSheet {
-    val normalized = if (spellSlots.isEmpty()) defaultSpellSlots() else spellSlots
-    val slotMap = normalized.associateBy { it.level }.toMutableMap()
-    val current = slotMap[level] ?: SpellSlotState(level = level)
-    slotMap[level] = transform(current)
-    return copy(spellSlots = slotMap.values.sortedBy { it.level })
 }
 
 private fun AbilityScores.scoreFor(ability: Ability): Int = when (ability) {
