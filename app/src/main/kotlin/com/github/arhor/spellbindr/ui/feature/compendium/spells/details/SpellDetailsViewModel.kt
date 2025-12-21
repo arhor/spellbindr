@@ -5,29 +5,24 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.usecase.GetSpellByIdUseCase
-import com.github.arhor.spellbindr.domain.usecase.IsSpellFavoriteUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSpellDetailsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSpellDetailsUseCase.SpellDetailsState
 import com.github.arhor.spellbindr.domain.usecase.ToggleFavoriteSpellUseCase
-import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @Stable
 @HiltViewModel
 class SpellDetailsViewModel @Inject constructor(
-    private val getSpellByIdUseCase: GetSpellByIdUseCase,
-    private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
-    private val isSpellFavoriteUseCase: IsSpellFavoriteUseCase,
+    private val observeSpellDetailsUseCase: ObserveSpellDetailsUseCase,
     private val toggleFavoriteSpellUseCase: ToggleFavoriteSpellUseCase,
 ) : ViewModel() {
 
@@ -45,40 +40,22 @@ class SpellDetailsViewModel @Inject constructor(
     }
 
     private val spellId = MutableStateFlow<String?>(null)
-    private val logger = Logger.createLogger<SpellDetailsViewModel>()
 
-    val state: StateFlow<UiState> = combine(
-        spellId,
-        observeFavoriteSpellIdsUseCase(),
-    ) { id, favoriteIds ->
-        SpellQuery(
-            spellId = id,
-            favoriteSpellIds = favoriteIds,
-        )
-    }
-        .transformLatest { query ->
-            val spellId = query.spellId
-            if (spellId == null) {
-                emit(UiState.Error("Spell not found."))
-                return@transformLatest
-            }
-
-            emit(UiState.Loading)
-            runCatching {
-                val spell = getSpellByIdUseCase(spellId)
-                if (spell == null) {
-                    null
-                } else {
-                    UiState.Loaded(
-                        spell = spell,
-                        isFavorite = isSpellFavoriteUseCase(spell.id)
-                    )
+    val state: StateFlow<UiState> = spellId
+        .flatMapLatest { id ->
+            if (id == null) {
+                flowOf(UiState.Error("Spell not found."))
+            } else {
+                observeSpellDetailsUseCase(id).map { detailsState ->
+                    when (detailsState) {
+                        SpellDetailsState.Loading -> UiState.Loading
+                        is SpellDetailsState.Error -> UiState.Error(detailsState.message)
+                        is SpellDetailsState.Loaded -> UiState.Loaded(
+                            spell = detailsState.spell,
+                            isFavorite = detailsState.isFavorite,
+                        )
+                    }
                 }
-            }.onSuccess { result ->
-                emit(result ?: UiState.Error("Spell not found."))
-            }.onFailure { throwable ->
-                logger.error(throwable) { "Failed to load spell details." }
-                emit(UiState.Error("Oops, something went wrong..."))
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState.Loading)
@@ -93,9 +70,4 @@ class SpellDetailsViewModel @Inject constructor(
             toggleFavoriteSpellUseCase(currentSpellId)
         }
     }
-
-    private data class SpellQuery(
-        val spellId: String?,
-        val favoriteSpellIds: List<String>,
-    )
 }
