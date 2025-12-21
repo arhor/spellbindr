@@ -19,6 +19,7 @@ import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterListItem
 
 @Composable
 fun SpellbindrAppNavGraph(
@@ -37,8 +38,8 @@ fun SpellbindrAppNavGraph(
                     controller.navigate(
                         AppDestination.CharacterSheet(
                             characterId = character.id,
-                            initialName = character.name,
-                            initialSubtitle = character.headline.ifBlank { null },
+                            initialName = character.name.ifBlank { null },
+                            initialSubtitle = character.initialSubtitle(),
                         ),
                     )
                 },
@@ -109,6 +110,16 @@ fun SpellbindrAppNavGraph(
             SettingsRoute(
                 vm = hiltViewModel(it),
             )
+        }
+    }
+}
+
+private fun CharacterListItem.initialSubtitle(): String {
+    return buildString {
+        append("Level ${level.coerceAtLeast(1)}")
+        if (className.isNotBlank()) {
+            append(' ')
+            append(className)
         }
     }
 }

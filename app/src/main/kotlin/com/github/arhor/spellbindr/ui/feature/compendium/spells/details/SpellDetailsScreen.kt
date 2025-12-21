@@ -21,7 +21,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,6 +48,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun SpellDetailRoute(
@@ -57,7 +57,7 @@ fun SpellDetailRoute(
     initialName: String?,
     onBack: () -> Unit,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(spellId) {
         vm.loadSpell(spellId)

@@ -45,22 +45,17 @@ data class CharactersListUiState(
 data class CharacterListItem(
     val id: String,
     val name: String,
-    val headline: String,
-    val detail: String,
+    val level: Int,
+    val className: String,
+    val race: String,
+    val background: String,
 )
 
 private fun CharacterSheet.toListItem(): CharacterListItem = CharacterListItem(
     id = id,
-    name = name.ifBlank { "Unnamed hero" },
-    headline = buildString {
-        append("Level ${level.coerceAtLeast(1)}")
-        if (className.isNotBlank()) {
-            append(' ')
-            append(className)
-        }
-    },
-    detail = listOfNotNull(
-        race.takeIf { it.isNotBlank() },
-        background.takeIf { it.isNotBlank() },
-    ).joinToString(separator = " • "),
+    name = name,
+    level = level,
+    className = className,
+    race = race,
+    background = background,
 )

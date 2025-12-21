@@ -14,12 +14,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
@@ -30,7 +30,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 fun SettingsRoute(
     vm: SettingsViewModel,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.state.collectAsStateWithLifecycle()
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -51,7 +51,7 @@ fun SettingsRoute(
 fun SettingsScreen(
     vm: SettingsViewModel,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.state.collectAsStateWithLifecycle()
 
     SettingsScreen(
         state = state,
@@ -60,7 +60,7 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun SettingsScreen(
+fun SettingsScreen(
     state: SettingsUiState,
     onThemeModeSelected: (ThemeMode?) -> Unit,
 ) {
