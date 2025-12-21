@@ -3,9 +3,11 @@ package com.github.arhor.spellbindr.ui
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
@@ -40,8 +42,12 @@ fun SpellbindrApp(
     val backStackEntry by controller.currentBackStackEntryAsState()
     val destination = backStackEntry?.destination
     val topBarState by topBarStateHolder
-    val defaultConfig = defaultTopBarConfig(destination)
-    val resolvedConfig = topBarState.config ?: defaultConfig
+    val defaultConfig by remember(destination) {
+        derivedStateOf { defaultTopBarConfig(destination) }
+    }
+    val resolvedConfig by remember(topBarState.config, defaultConfig) {
+        derivedStateOf { topBarState.config ?: defaultConfig }
+    }
 
     AppTheme(isDarkTheme = state.isDarkTheme) {
         CompositionLocalProvider(LocalTopBarState provides topBarStateHolder) {

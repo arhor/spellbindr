@@ -54,7 +54,7 @@ fun SpellList(
             spellsByLevel.forEach { (level, spellsForLevel) ->
                 val expanded = expandedSpellLevels[level] ?: expandedAll
 
-                stickyHeader {
+                stickyHeader(key = "spell-header-$level") {
                     val rotationAngle by animateFloatAsState(targetValue = if (expanded) 180f else 0f)
 
                     Row(
@@ -91,7 +91,7 @@ fun SpellList(
                     }
                 }
 
-                item {
+                item(key = "spell-spacer-$level") {
                     Spacer(modifier = Modifier.height(7.dp))
                 }
             }
