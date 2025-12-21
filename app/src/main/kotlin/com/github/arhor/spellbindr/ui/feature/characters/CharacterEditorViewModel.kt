@@ -4,11 +4,11 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
+import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.SkillEntry
 import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
@@ -75,102 +75,9 @@ class CharacterEditorViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    fun onNameChanged(value: String) = _uiState.update {
-        it.copy(name = value, nameError = null)
+    fun onAction(action: CharacterEditorAction) {
+        _uiState.update { reduceCharacterEditorState(it, action, computeDerivedBonusesUseCase) }
     }
-
-    fun onClassChanged(value: String) = _uiState.update { it.copy(className = value) }
-
-    fun onLevelChanged(value: String) = _uiState.update {
-        it.copy(level = value, levelError = null)
-    }
-
-    fun onRaceChanged(value: String) = _uiState.update { it.copy(race = value) }
-
-    fun onBackgroundChanged(value: String) = _uiState.update { it.copy(background = value) }
-
-    fun onAlignmentChanged(value: String) = _uiState.update { it.copy(alignment = value) }
-
-    fun onExperienceChanged(value: String) = _uiState.update { it.copy(experiencePoints = value) }
-
-    fun onAbilityChanged(ability: Ability, value: String) = _uiState.update { state ->
-        val updated = state.copy(
-            abilities = state.abilities.map { field ->
-                if (field.ability == ability) field.copy(score = value, error = null) else field
-            }
-        )
-        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
-    }
-
-    fun onProficiencyBonusChanged(value: String) = _uiState.update {
-        val updated = it.copy(proficiencyBonus = value)
-        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
-    }
-
-    fun onInspirationChanged(value: Boolean) = _uiState.update { it.copy(inspiration = value) }
-
-    fun onMaxHpChanged(value: String) = _uiState.update { it.copy(maxHitPoints = value, maxHitPointsError = null) }
-
-    fun onCurrentHpChanged(value: String) = _uiState.update { it.copy(currentHitPoints = value) }
-
-    fun onTemporaryHpChanged(value: String) = _uiState.update { it.copy(temporaryHitPoints = value) }
-
-    fun onArmorClassChanged(value: String) = _uiState.update { it.copy(armorClass = value) }
-
-    fun onInitiativeChanged(value: String) = _uiState.update { it.copy(initiative = value) }
-
-    fun onSpeedChanged(value: String) = _uiState.update { it.copy(speed = value) }
-
-    fun onHitDiceChanged(value: String) = _uiState.update { it.copy(hitDice = value) }
-
-    fun onSavingThrowProficiencyChanged(ability: Ability, value: Boolean) = _uiState.update { state ->
-        val updated = state.copy(
-            savingThrows = state.savingThrows.map { entry ->
-                if (entry.ability == ability) entry.copy(proficient = value) else entry
-            }
-        )
-        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
-    }
-
-    fun onSkillProficiencyChanged(skill: Skill, value: Boolean) = _uiState.update { state ->
-        val updated = state.copy(
-            skills = state.skills.map { entry ->
-                if (entry.skill == skill) entry.copy(proficient = value) else entry
-            }
-        )
-        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
-    }
-
-    fun onSkillExpertiseChanged(skill: Skill, value: Boolean) = _uiState.update { state ->
-        val updated = state.copy(
-            skills = state.skills.map { entry ->
-                if (entry.skill == skill) entry.copy(expertise = value) else entry
-            }
-        )
-        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
-    }
-
-    fun onSensesChanged(value: String) = _uiState.update { it.copy(senses = value) }
-
-    fun onLanguagesChanged(value: String) = _uiState.update { it.copy(languages = value) }
-
-    fun onProficienciesChanged(value: String) = _uiState.update { it.copy(proficiencies = value) }
-
-    fun onAttacksChanged(value: String) = _uiState.update { it.copy(attacksAndCantrips = value) }
-
-    fun onFeaturesChanged(value: String) = _uiState.update { it.copy(featuresAndTraits = value) }
-
-    fun onEquipmentChanged(value: String) = _uiState.update { it.copy(equipment = value) }
-
-    fun onPersonalityTraitsChanged(value: String) = _uiState.update { it.copy(personalityTraits = value) }
-
-    fun onIdealsChanged(value: String) = _uiState.update { it.copy(ideals = value) }
-
-    fun onBondsChanged(value: String) = _uiState.update { it.copy(bonds = value) }
-
-    fun onFlawsChanged(value: String) = _uiState.update { it.copy(flaws = value) }
-
-    fun onNotesChanged(value: String) = _uiState.update { it.copy(notes = value) }
 
     fun onSaveClicked() {
         val validation = validateCharacterSheetUseCase(_uiState.value.toDomainInput())
