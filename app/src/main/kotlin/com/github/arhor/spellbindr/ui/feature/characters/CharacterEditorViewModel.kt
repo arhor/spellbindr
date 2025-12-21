@@ -10,8 +10,11 @@ import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.SkillEntry
+import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,13 +27,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class CharacterEditorViewModel @Inject constructor(
     private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
     private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
+    private val validateCharacterSheetUseCase: ValidateCharacterSheetUseCase,
+    private val computeDerivedBonusesUseCase: ComputeDerivedBonusesUseCase,
+    private val buildCharacterSheetFromInputsUseCase: BuildCharacterSheetFromInputsUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -58,7 +63,7 @@ class CharacterEditorViewModel @Inject constructor(
             .onEach { sheet ->
                 if (sheet != null) {
                     baseSheet = sheet
-                    _uiState.value = sheet.toEditorState()
+                    _uiState.value = sheet.toEditorState(computeDerivedBonusesUseCase)
                 } else {
                     _uiState.update { it.copy(characterId = id, isLoading = false) }
                 }
@@ -88,15 +93,17 @@ class CharacterEditorViewModel @Inject constructor(
     fun onExperienceChanged(value: String) = _uiState.update { it.copy(experiencePoints = value) }
 
     fun onAbilityChanged(ability: Ability, value: String) = _uiState.update { state ->
-        state.copy(
-            abilities = state.abilities.map { field ->
-                if (field.ability == ability) field.copy(score = value, error = null) else field
-            }
-        ).withUpdatedDerivedBonuses()
+        computeDerivedBonusesUseCase(
+            state.copy(
+                abilities = state.abilities.map { field ->
+                    if (field.ability == ability) field.copy(score = value, error = null) else field
+                }
+            )
+        )
     }
 
     fun onProficiencyBonusChanged(value: String) = _uiState.update {
-        it.copy(proficiencyBonus = value).withUpdatedDerivedBonuses()
+        computeDerivedBonusesUseCase(it.copy(proficiencyBonus = value))
     }
 
     fun onInspirationChanged(value: Boolean) = _uiState.update { it.copy(inspiration = value) }
@@ -116,27 +123,33 @@ class CharacterEditorViewModel @Inject constructor(
     fun onHitDiceChanged(value: String) = _uiState.update { it.copy(hitDice = value) }
 
     fun onSavingThrowProficiencyChanged(ability: Ability, value: Boolean) = _uiState.update { state ->
-        state.copy(
-            savingThrows = state.savingThrows.map { entry ->
-                if (entry.ability == ability) entry.copy(proficient = value) else entry
-            }
-        ).withUpdatedDerivedBonuses()
+        computeDerivedBonusesUseCase(
+            state.copy(
+                savingThrows = state.savingThrows.map { entry ->
+                    if (entry.ability == ability) entry.copy(proficient = value) else entry
+                }
+            )
+        )
     }
 
     fun onSkillProficiencyChanged(skill: Skill, value: Boolean) = _uiState.update { state ->
-        state.copy(
-            skills = state.skills.map { entry ->
-                if (entry.skill == skill) entry.copy(proficient = value) else entry
-            }
-        ).withUpdatedDerivedBonuses()
+        computeDerivedBonusesUseCase(
+            state.copy(
+                skills = state.skills.map { entry ->
+                    if (entry.skill == skill) entry.copy(proficient = value) else entry
+                }
+            )
+        )
     }
 
     fun onSkillExpertiseChanged(skill: Skill, value: Boolean) = _uiState.update { state ->
-        state.copy(
-            skills = state.skills.map { entry ->
-                if (entry.skill == skill) entry.copy(expertise = value) else entry
-            }
-        ).withUpdatedDerivedBonuses()
+        computeDerivedBonusesUseCase(
+            state.copy(
+                skills = state.skills.map { entry ->
+                    if (entry.skill == skill) entry.copy(expertise = value) else entry
+                }
+            )
+        )
     }
 
     fun onSensesChanged(value: String) = _uiState.update { it.copy(senses = value) }
@@ -162,7 +175,7 @@ class CharacterEditorViewModel @Inject constructor(
     fun onNotesChanged(value: String) = _uiState.update { it.copy(notes = value) }
 
     fun onSaveClicked() {
-        val validation = _uiState.value.validate()
+        val validation = validateCharacterSheetUseCase(_uiState.value)
         _uiState.update {
             it.copy(
                 nameError = validation.nameError,
@@ -174,7 +187,7 @@ class CharacterEditorViewModel @Inject constructor(
         if (validation.hasErrors) return
 
         viewModelScope.launch {
-            val sheet = _uiState.value.toCharacterSheet(baseSheet)
+            val sheet = buildCharacterSheetFromInputsUseCase(_uiState.value, baseSheet)
             _uiState.update {
                 it.copy(
                     isSaving = true,
@@ -289,81 +302,32 @@ data class SkillInputState(
     }
 }
 
-private data class ValidationResult(
-    val nameError: String?,
-    val levelError: String?,
-    val abilityStates: List<AbilityFieldState>,
-    val maxHpError: String?,
-) {
-    val hasErrors: Boolean =
-        nameError != null || levelError != null || maxHpError != null || abilityStates.any { it.error != null }
-}
-
-private fun CharacterEditorUiState.validate(): ValidationResult {
-    val updatedAbilities = abilities.map { ability ->
-        val value = ability.score.toIntOrNull()
-        if (value == null) ability.copy(error = "Required") else ability.copy(error = null)
-    }
-    val nameError = if (name.isBlank()) "Required" else null
-    val levelValue = level.toIntOrNull()
-    val levelError = if (levelValue == null || levelValue < 1) "Level must be ≥ 1" else null
-    val maxHpValue = maxHitPoints.toIntOrNull()
-    val maxHpError = if (maxHpValue == null || maxHpValue <= 0) "Required" else null
-    return ValidationResult(
-        nameError = nameError,
-        levelError = levelError,
-        abilityStates = updatedAbilities,
-        maxHpError = maxHpError,
-    )
-}
-
-private fun CharacterEditorUiState.toCharacterSheet(base: CharacterSheet?): CharacterSheet {
-    val ensuredId = characterId ?: base?.id ?: UUID.randomUUID().toString()
-    val abilityLookup = abilities.associateBy { it.ability }
-    val abilityModifiers = abilityModifiers()
-    val proficiencyValue = proficiencyBonus.toIntOrNull() ?: 0
-    val baseline = base ?: CharacterSheet(id = ensuredId)
-    return baseline.copy(
-        id = ensuredId,
-        name = name.trim(),
-        level = level.toIntOrNull() ?: 1,
-        className = className.trim(),
-        race = race.trim(),
-        background = background.trim(),
-        alignment = alignment.trim(),
-        experiencePoints = experiencePoints.toIntOrNull(),
-        abilityScores = AbilityScores(
-            strength = abilityLookup[Ability.STR]?.score?.toIntOrNull() ?: 10,
-            dexterity = abilityLookup[Ability.DEX]?.score?.toIntOrNull() ?: 10,
-            constitution = abilityLookup[Ability.CON]?.score?.toIntOrNull() ?: 10,
-            intelligence = abilityLookup[Ability.INT]?.score?.toIntOrNull() ?: 10,
-            wisdom = abilityLookup[Ability.WIS]?.score?.toIntOrNull() ?: 10,
-            charisma = abilityLookup[Ability.CHA]?.score?.toIntOrNull() ?: 10,
-        ),
-        proficiencyBonus = proficiencyBonus.toIntOrNull() ?: 2,
+private fun CharacterSheet.toEditorState(
+    computeDerivedBonusesUseCase: ComputeDerivedBonusesUseCase,
+): CharacterEditorUiState = computeDerivedBonusesUseCase(
+    CharacterEditorUiState(
+        characterId = id,
+        mode = EditorMode.Edit,
+        isLoading = false,
+        name = name,
+        className = className,
+        level = level.toString(),
+        race = race,
+        background = background,
+        alignment = alignment,
+        experiencePoints = experiencePoints?.toString() ?: "",
+        abilities = abilityScores.toFieldStates(),
+        proficiencyBonus = proficiencyBonus.toString(),
         inspiration = inspiration,
-        maxHitPoints = maxHitPoints.toIntOrNull() ?: baseline.maxHitPoints,
-        currentHitPoints = currentHitPoints.toIntOrNull() ?: baseline.currentHitPoints,
-        temporaryHitPoints = temporaryHitPoints.toIntOrNull() ?: baseline.temporaryHitPoints,
-        armorClass = armorClass.toIntOrNull() ?: 10,
-        initiative = initiative.toIntOrNull() ?: 0,
-        speed = speed.trim(),
-        hitDice = hitDice.trim(),
-        savingThrows = savingThrows.map { entry ->
-            SavingThrowEntry(
-                ability = entry.ability,
-                bonus = abilityModifiers[entry.ability].orZero() + entry.proficiencyBonus(proficiencyValue),
-                proficient = entry.proficient,
-            )
-        },
-        skills = skills.map { entry ->
-            SkillEntry(
-                skill = entry.skill,
-                bonus = abilityModifiers[entry.skill.ability].orZero() + entry.proficiencyBonus(proficiencyValue),
-                proficient = entry.proficient,
-                expertise = entry.expertise,
-            )
-        },
+        maxHitPoints = maxHitPoints.toString(),
+        currentHitPoints = currentHitPoints.toString(),
+        temporaryHitPoints = temporaryHitPoints.toString(),
+        armorClass = armorClass.toString(),
+        initiative = initiative.toString(),
+        speed = speed,
+        hitDice = hitDice,
+        savingThrows = savingThrows.savingThrowsToInputStates(),
+        skills = skills.skillsToInputStates(),
         senses = senses,
         languages = languages,
         proficiencies = proficiencies,
@@ -376,43 +340,7 @@ private fun CharacterEditorUiState.toCharacterSheet(base: CharacterSheet?): Char
         flaws = flaws,
         notes = notes,
     )
-}
-
-private fun CharacterSheet.toEditorState(): CharacterEditorUiState = CharacterEditorUiState(
-    characterId = id,
-    mode = EditorMode.Edit,
-    isLoading = false,
-    name = name,
-    className = className,
-    level = level.toString(),
-    race = race,
-    background = background,
-    alignment = alignment,
-    experiencePoints = experiencePoints?.toString() ?: "",
-    abilities = abilityScores.toFieldStates(),
-    proficiencyBonus = proficiencyBonus.toString(),
-    inspiration = inspiration,
-    maxHitPoints = maxHitPoints.toString(),
-    currentHitPoints = currentHitPoints.toString(),
-    temporaryHitPoints = temporaryHitPoints.toString(),
-    armorClass = armorClass.toString(),
-    initiative = initiative.toString(),
-    speed = speed,
-    hitDice = hitDice,
-    savingThrows = savingThrows.savingThrowsToInputStates(),
-    skills = skills.skillsToInputStates(),
-    senses = senses,
-    languages = languages,
-    proficiencies = proficiencies,
-    attacksAndCantrips = attacksAndCantrips,
-    featuresAndTraits = featuresAndTraits,
-    equipment = equipment,
-    personalityTraits = personalityTraits,
-    ideals = ideals,
-    bonds = bonds,
-    flaws = flaws,
-    notes = notes,
-).withUpdatedDerivedBonuses()
+)
 
 private fun AbilityScores.toFieldStates(): List<AbilityFieldState> = listOf(
     AbilityFieldState(Ability.STR, strength.toString()),
@@ -443,37 +371,3 @@ private fun List<SkillEntry>.skillsToInputStates(): List<SkillInputState> =
             expertise = entry?.expertise ?: false,
         )
     }
-
-private fun CharacterEditorUiState.withUpdatedDerivedBonuses(): CharacterEditorUiState {
-    val abilityModifiers = abilityModifiers()
-    val proficiencyValue = proficiencyBonus.toIntOrNull() ?: 0
-
-    return copy(
-        savingThrows = savingThrows.map { entry ->
-            entry.copy(
-                bonus = abilityModifiers[entry.ability].orZero() + entry.proficiencyBonus(proficiencyValue),
-            )
-        },
-        skills = skills.map { entry ->
-            entry.copy(
-                bonus = abilityModifiers[entry.skill.ability].orZero() + entry.proficiencyBonus(proficiencyValue),
-            )
-        },
-    )
-}
-
-private fun CharacterEditorUiState.abilityModifiers(): Map<Ability, Int> = abilities.associate { field ->
-    val score = field.score.toIntOrNull() ?: 10
-    field.ability to ((score - 10) / 2)
-}
-
-private fun SavingThrowInputState.proficiencyBonus(proficiencyValue: Int): Int =
-    if (proficient) proficiencyValue else 0
-
-private fun SkillInputState.proficiencyBonus(proficiencyValue: Int): Int = when {
-    expertise -> proficiencyValue * 2
-    proficient -> proficiencyValue
-    else -> 0
-}
-
-private fun Int?.orZero(): Int = this ?: 0

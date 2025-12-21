@@ -2,12 +2,15 @@ package com.github.arhor.spellbindr.di
 
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
+import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveCharacterSheetsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
+import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,4 +49,14 @@ object UseCasesModule {
     fun provideSetThemeModeUseCase(
         themeRepository: ThemeRepository,
     ): SetThemeModeUseCase = SetThemeModeUseCase(themeRepository)
+
+    @Provides
+    fun provideValidateCharacterSheetUseCase(): ValidateCharacterSheetUseCase = ValidateCharacterSheetUseCase()
+
+    @Provides
+    fun provideComputeDerivedBonusesUseCase(): ComputeDerivedBonusesUseCase = ComputeDerivedBonusesUseCase()
+
+    @Provides
+    fun provideBuildCharacterSheetFromInputsUseCase(): BuildCharacterSheetFromInputsUseCase =
+        BuildCharacterSheetFromInputsUseCase()
 }
