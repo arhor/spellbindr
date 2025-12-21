@@ -62,37 +62,7 @@ fun CharacterEditorRoute(
     val callbacks = remember(vm, onBack) {
         CharacterEditorCallbacks(
             onBack = onBack,
-            onNameChanged = vm::onNameChanged,
-            onClassChanged = vm::onClassChanged,
-            onLevelChanged = vm::onLevelChanged,
-            onRaceChanged = vm::onRaceChanged,
-            onBackgroundChanged = vm::onBackgroundChanged,
-            onAlignmentChanged = vm::onAlignmentChanged,
-            onExperienceChanged = vm::onExperienceChanged,
-            onAbilityChanged = vm::onAbilityChanged,
-            onProficiencyBonusChanged = vm::onProficiencyBonusChanged,
-            onInspirationChanged = vm::onInspirationChanged,
-            onMaxHpChanged = vm::onMaxHpChanged,
-            onCurrentHpChanged = vm::onCurrentHpChanged,
-            onTemporaryHpChanged = vm::onTemporaryHpChanged,
-            onArmorClassChanged = vm::onArmorClassChanged,
-            onInitiativeChanged = vm::onInitiativeChanged,
-            onSpeedChanged = vm::onSpeedChanged,
-            onHitDiceChanged = vm::onHitDiceChanged,
-            onSavingThrowProficiencyChanged = vm::onSavingThrowProficiencyChanged,
-            onSkillProficiencyChanged = vm::onSkillProficiencyChanged,
-            onSkillExpertiseChanged = vm::onSkillExpertiseChanged,
-            onSensesChanged = vm::onSensesChanged,
-            onLanguagesChanged = vm::onLanguagesChanged,
-            onProficienciesChanged = vm::onProficienciesChanged,
-            onAttacksChanged = vm::onAttacksChanged,
-            onFeaturesChanged = vm::onFeaturesChanged,
-            onEquipmentChanged = vm::onEquipmentChanged,
-            onPersonalityTraitsChanged = vm::onPersonalityTraitsChanged,
-            onIdealsChanged = vm::onIdealsChanged,
-            onBondsChanged = vm::onBondsChanged,
-            onFlawsChanged = vm::onFlawsChanged,
-            onNotesChanged = vm::onNotesChanged,
+            onAction = vm::onAction,
             onSave = vm::onSaveClicked,
         )
     }
@@ -114,7 +84,7 @@ fun CharacterEditorRoute(
                 navigation = AppTopBarNavigation.Back(onBack),
                 actions = {
                     TextButton(
-                        onClick = vm::onSaveClicked,
+                        onClick = callbacks.onSave,
                         enabled = !state.isSaving && !state.isLoading,
                     ) {
                         Text("Save")
@@ -197,7 +167,7 @@ private fun CharacterEditorForm(
         SectionCard(title = "Identity") {
             OutlinedTextField(
                 value = state.name,
-                onValueChange = callbacks.onNameChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.NameChanged(it)) },
                 label = { Text("Name") },
                 modifier = Modifier.fillMaxWidth(),
                 isError = state.nameError != null,
@@ -209,13 +179,13 @@ private fun CharacterEditorForm(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.className,
-                    onValueChange = callbacks.onClassChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.ClassChanged(it)) },
                     label = { Text("Class") },
                     modifier = Modifier.weight(1f),
                 )
                 OutlinedTextField(
                     value = state.level,
-                    onValueChange = callbacks.onLevelChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.LevelChanged(it)) },
                     label = { Text("Level") },
                     modifier = Modifier.weight(1f),
                     isError = state.levelError != null,
@@ -230,13 +200,13 @@ private fun CharacterEditorForm(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.race,
-                    onValueChange = callbacks.onRaceChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.RaceChanged(it)) },
                     label = { Text("Race") },
                     modifier = Modifier.weight(1f),
                 )
                 OutlinedTextField(
                     value = state.background,
-                    onValueChange = callbacks.onBackgroundChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.BackgroundChanged(it)) },
                     label = { Text("Background") },
                     modifier = Modifier.weight(1f),
                 )
@@ -245,13 +215,13 @@ private fun CharacterEditorForm(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.alignment,
-                    onValueChange = callbacks.onAlignmentChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.AlignmentChanged(it)) },
                     label = { Text("Alignment") },
                     modifier = Modifier.weight(1f),
                 )
                 OutlinedTextField(
                     value = state.experiencePoints,
-                    onValueChange = callbacks.onExperienceChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.ExperienceChanged(it)) },
                     label = { Text("Experience") },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions.Default.copy(
@@ -264,14 +234,16 @@ private fun CharacterEditorForm(
         SectionCard(title = "Ability Scores") {
             AbilityGrid(
                 abilities = state.abilities,
-                onAbilityChanged = callbacks.onAbilityChanged,
+                onAbilityChanged = { ability, value ->
+                    callbacks.onAction(CharacterEditorAction.AbilityChanged(ability, value))
+                },
             )
         }
         SectionCard(title = "Proficiency & Inspiration") {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.proficiencyBonus,
-                    onValueChange = callbacks.onProficiencyBonusChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.ProficiencyBonusChanged(it)) },
                     label = { Text("Proficiency bonus") },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions.Default.copy(
@@ -285,7 +257,7 @@ private fun CharacterEditorForm(
                 ) {
                     Checkbox(
                         checked = state.inspiration,
-                        onCheckedChange = callbacks.onInspirationChanged,
+                        onCheckedChange = { callbacks.onAction(CharacterEditorAction.InspirationChanged(it)) },
                     )
                     Text(
                         text = "Inspiration",
@@ -299,7 +271,7 @@ private fun CharacterEditorForm(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.maxHitPoints,
-                    onValueChange = callbacks.onMaxHpChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.MaxHpChanged(it)) },
                     label = { Text("Max HP") },
                     modifier = Modifier.weight(1f),
                     isError = state.maxHitPointsError != null,
@@ -308,14 +280,14 @@ private fun CharacterEditorForm(
                 )
                 OutlinedTextField(
                     value = state.currentHitPoints,
-                    onValueChange = callbacks.onCurrentHpChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.CurrentHpChanged(it)) },
                     label = { Text("Current HP") },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 )
                 OutlinedTextField(
                     value = state.temporaryHitPoints,
-                    onValueChange = callbacks.onTemporaryHpChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.TemporaryHpChanged(it)) },
                     label = { Text("Temp HP") },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -325,14 +297,14 @@ private fun CharacterEditorForm(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.armorClass,
-                    onValueChange = callbacks.onArmorClassChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.ArmorClassChanged(it)) },
                     label = { Text("Armor Class") },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 )
                 OutlinedTextField(
                     value = state.initiative,
-                    onValueChange = callbacks.onInitiativeChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.InitiativeChanged(it)) },
                     label = { Text("Initiative") },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -342,13 +314,13 @@ private fun CharacterEditorForm(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
                     value = state.speed,
-                    onValueChange = callbacks.onSpeedChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.SpeedChanged(it)) },
                     label = { Text("Speed") },
                     modifier = Modifier.weight(1f),
                 )
                 OutlinedTextField(
                     value = state.hitDice,
-                    onValueChange = callbacks.onHitDiceChanged,
+                    onValueChange = { callbacks.onAction(CharacterEditorAction.HitDiceChanged(it)) },
                     label = { Text("Hit Dice") },
                     modifier = Modifier.weight(1f),
                 )
@@ -359,7 +331,11 @@ private fun CharacterEditorForm(
                 state.savingThrows.forEach { entry ->
                     SavingThrowRow(
                         entry = entry,
-                        onProficiencyChanged = { callbacks.onSavingThrowProficiencyChanged(entry.ability, it) },
+                        onProficiencyChanged = {
+                            callbacks.onAction(
+                                CharacterEditorAction.SavingThrowProficiencyChanged(entry.ability, it),
+                            )
+                        },
                     )
                 }
             }
@@ -369,8 +345,12 @@ private fun CharacterEditorForm(
                 state.skills.forEach { entry ->
                     SkillRow(
                         entry = entry,
-                        onProficiencyChanged = { callbacks.onSkillProficiencyChanged(entry.skill, it) },
-                        onExpertiseChanged = { callbacks.onSkillExpertiseChanged(entry.skill, it) },
+                        onProficiencyChanged = {
+                            callbacks.onAction(CharacterEditorAction.SkillProficiencyChanged(entry.skill, it))
+                        },
+                        onExpertiseChanged = {
+                            callbacks.onAction(CharacterEditorAction.SkillExpertiseChanged(entry.skill, it))
+                        },
                     )
                 }
             }
@@ -378,70 +358,70 @@ private fun CharacterEditorForm(
         SectionCard(title = "Senses, Languages & Proficiencies") {
             MultiLineField(
                 value = state.senses,
-                onValueChange = callbacks.onSensesChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.SensesChanged(it)) },
                 label = "Senses",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.languages,
-                onValueChange = callbacks.onLanguagesChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.LanguagesChanged(it)) },
                 label = "Languages",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.proficiencies,
-                onValueChange = callbacks.onProficienciesChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.ProficienciesChanged(it)) },
                 label = "Proficiencies",
             )
         }
         SectionCard(title = "Attacks & Spellcasting") {
             MultiLineField(
                 value = state.attacksAndCantrips,
-                onValueChange = callbacks.onAttacksChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.AttacksChanged(it)) },
                 label = "Notes",
             )
         }
         SectionCard(title = "Features & Equipment") {
             MultiLineField(
                 value = state.featuresAndTraits,
-                onValueChange = callbacks.onFeaturesChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.FeaturesChanged(it)) },
                 label = "Features & Traits",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.equipment,
-                onValueChange = callbacks.onEquipmentChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.EquipmentChanged(it)) },
                 label = "Equipment",
             )
         }
         SectionCard(title = "Personality & Notes") {
             MultiLineField(
                 value = state.personalityTraits,
-                onValueChange = callbacks.onPersonalityTraitsChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.PersonalityTraitsChanged(it)) },
                 label = "Personality traits",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.ideals,
-                onValueChange = callbacks.onIdealsChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.IdealsChanged(it)) },
                 label = "Ideals",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.bonds,
-                onValueChange = callbacks.onBondsChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.BondsChanged(it)) },
                 label = "Bonds",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.flaws,
-                onValueChange = callbacks.onFlawsChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.FlawsChanged(it)) },
                 label = "Flaws",
             )
             Spacer(modifier = Modifier.height(12.dp))
             MultiLineField(
                 value = state.notes,
-                onValueChange = callbacks.onNotesChanged,
+                onValueChange = { callbacks.onAction(CharacterEditorAction.NotesChanged(it)) },
                 label = "Notes",
             )
         }
@@ -627,37 +607,7 @@ private fun formatModifier(value: Int?): String = when (value) {
 @Stable
 data class CharacterEditorCallbacks(
     val onBack: () -> Unit,
-    val onNameChanged: (String) -> Unit,
-    val onClassChanged: (String) -> Unit,
-    val onLevelChanged: (String) -> Unit,
-    val onRaceChanged: (String) -> Unit,
-    val onBackgroundChanged: (String) -> Unit,
-    val onAlignmentChanged: (String) -> Unit,
-    val onExperienceChanged: (String) -> Unit,
-    val onAbilityChanged: (Ability, String) -> Unit,
-    val onProficiencyBonusChanged: (String) -> Unit,
-    val onInspirationChanged: (Boolean) -> Unit,
-    val onMaxHpChanged: (String) -> Unit,
-    val onCurrentHpChanged: (String) -> Unit,
-    val onTemporaryHpChanged: (String) -> Unit,
-    val onArmorClassChanged: (String) -> Unit,
-    val onInitiativeChanged: (String) -> Unit,
-    val onSpeedChanged: (String) -> Unit,
-    val onHitDiceChanged: (String) -> Unit,
-    val onSavingThrowProficiencyChanged: (Ability, Boolean) -> Unit,
-    val onSkillProficiencyChanged: (Skill, Boolean) -> Unit,
-    val onSkillExpertiseChanged: (Skill, Boolean) -> Unit,
-    val onSensesChanged: (String) -> Unit,
-    val onLanguagesChanged: (String) -> Unit,
-    val onProficienciesChanged: (String) -> Unit,
-    val onAttacksChanged: (String) -> Unit,
-    val onFeaturesChanged: (String) -> Unit,
-    val onEquipmentChanged: (String) -> Unit,
-    val onPersonalityTraitsChanged: (String) -> Unit,
-    val onIdealsChanged: (String) -> Unit,
-    val onBondsChanged: (String) -> Unit,
-    val onFlawsChanged: (String) -> Unit,
-    val onNotesChanged: (String) -> Unit,
+    val onAction: (CharacterEditorAction) -> Unit,
     val onSave: () -> Unit,
 )
 
@@ -669,37 +619,7 @@ private fun CharacterEditorScreenPreview() {
             state = previewEditorState(),
             callbacks = CharacterEditorCallbacks(
                 onBack = {},
-                onNameChanged = {},
-                onClassChanged = {},
-                onLevelChanged = {},
-                onRaceChanged = {},
-                onBackgroundChanged = {},
-                onAlignmentChanged = {},
-                onExperienceChanged = {},
-                onAbilityChanged = { _, _ -> },
-                onProficiencyBonusChanged = {},
-                onInspirationChanged = {},
-                onMaxHpChanged = {},
-                onCurrentHpChanged = {},
-                onTemporaryHpChanged = {},
-                onArmorClassChanged = {},
-                onInitiativeChanged = {},
-                onSpeedChanged = {},
-                onHitDiceChanged = {},
-                onSavingThrowProficiencyChanged = { _, _ -> },
-                onSkillProficiencyChanged = { _, _ -> },
-                onSkillExpertiseChanged = { _, _ -> },
-                onSensesChanged = {},
-                onLanguagesChanged = {},
-                onProficienciesChanged = {},
-                onAttacksChanged = {},
-                onFeaturesChanged = {},
-                onEquipmentChanged = {},
-                onPersonalityTraitsChanged = {},
-                onIdealsChanged = {},
-                onBondsChanged = {},
-                onFlawsChanged = {},
-                onNotesChanged = {},
+                onAction = {},
                 onSave = {},
             ),
             snackbarHostState = remember { SnackbarHostState() },
