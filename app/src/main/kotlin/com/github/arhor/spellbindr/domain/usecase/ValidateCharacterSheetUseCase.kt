@@ -1,33 +1,43 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.ui.feature.characters.AbilityFieldState
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorUiState
+import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
 
 data class CharacterSheetValidationResult(
-    val nameError: String?,
-    val levelError: String?,
-    val abilityStates: List<AbilityFieldState>,
-    val maxHpError: String?,
+    val nameError: CharacterSheetInputError?,
+    val levelError: CharacterSheetInputError?,
+    val abilityErrors: Map<Ability, CharacterSheetInputError>,
+    val maxHpError: CharacterSheetInputError?,
 ) {
     val hasErrors: Boolean =
-        nameError != null || levelError != null || maxHpError != null || abilityStates.any { it.error != null }
+        nameError != null || levelError != null || maxHpError != null || abilityErrors.isNotEmpty()
+}
+
+sealed interface CharacterSheetInputError {
+    data object Required : CharacterSheetInputError
+    data class MinValue(val min: Int) : CharacterSheetInputError
 }
 
 class ValidateCharacterSheetUseCase {
-    operator fun invoke(state: CharacterEditorUiState): CharacterSheetValidationResult {
-        val updatedAbilities = state.abilities.map { ability ->
+    operator fun invoke(input: CharacterEditorInput): CharacterSheetValidationResult {
+        val abilityErrors = input.abilities.mapNotNull { ability ->
             val value = ability.score.toIntOrNull()
-            if (value == null) ability.copy(error = "Required") else ability.copy(error = null)
-        }
-        val nameError = if (state.name.isBlank()) "Required" else null
-        val levelValue = state.level.toIntOrNull()
-        val levelError = if (levelValue == null || levelValue < 1) "Level must be ≥ 1" else null
-        val maxHpValue = state.maxHitPoints.toIntOrNull()
-        val maxHpError = if (maxHpValue == null || maxHpValue <= 0) "Required" else null
+            if (value == null) {
+                ability.ability to CharacterSheetInputError.Required
+            } else {
+                null
+            }
+        }.toMap()
+        val nameError = if (input.name.isBlank()) CharacterSheetInputError.Required else null
+        val levelValue = input.level.toIntOrNull()
+        val levelError =
+            if (levelValue == null || levelValue < 1) CharacterSheetInputError.MinValue(1) else null
+        val maxHpValue = input.maxHitPoints.toIntOrNull()
+        val maxHpError = if (maxHpValue == null || maxHpValue <= 0) CharacterSheetInputError.Required else null
         return CharacterSheetValidationResult(
             nameError = nameError,
             levelError = levelError,
-            abilityStates = updatedAbilities,
+            abilityErrors = abilityErrors,
             maxHpError = maxHpError,
         )
     }

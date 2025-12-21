@@ -14,6 +14,7 @@ import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsU
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.CharacterSheetInputError
 import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -93,17 +94,17 @@ class CharacterEditorViewModel @Inject constructor(
     fun onExperienceChanged(value: String) = _uiState.update { it.copy(experiencePoints = value) }
 
     fun onAbilityChanged(ability: Ability, value: String) = _uiState.update { state ->
-        computeDerivedBonusesUseCase(
-            state.copy(
-                abilities = state.abilities.map { field ->
-                    if (field.ability == ability) field.copy(score = value, error = null) else field
-                }
-            )
+        val updated = state.copy(
+            abilities = state.abilities.map { field ->
+                if (field.ability == ability) field.copy(score = value, error = null) else field
+            }
         )
+        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
     }
 
     fun onProficiencyBonusChanged(value: String) = _uiState.update {
-        computeDerivedBonusesUseCase(it.copy(proficiencyBonus = value))
+        val updated = it.copy(proficiencyBonus = value)
+        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
     }
 
     fun onInspirationChanged(value: Boolean) = _uiState.update { it.copy(inspiration = value) }
@@ -123,33 +124,30 @@ class CharacterEditorViewModel @Inject constructor(
     fun onHitDiceChanged(value: String) = _uiState.update { it.copy(hitDice = value) }
 
     fun onSavingThrowProficiencyChanged(ability: Ability, value: Boolean) = _uiState.update { state ->
-        computeDerivedBonusesUseCase(
-            state.copy(
-                savingThrows = state.savingThrows.map { entry ->
-                    if (entry.ability == ability) entry.copy(proficient = value) else entry
-                }
-            )
+        val updated = state.copy(
+            savingThrows = state.savingThrows.map { entry ->
+                if (entry.ability == ability) entry.copy(proficient = value) else entry
+            }
         )
+        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
     }
 
     fun onSkillProficiencyChanged(skill: Skill, value: Boolean) = _uiState.update { state ->
-        computeDerivedBonusesUseCase(
-            state.copy(
-                skills = state.skills.map { entry ->
-                    if (entry.skill == skill) entry.copy(proficient = value) else entry
-                }
-            )
+        val updated = state.copy(
+            skills = state.skills.map { entry ->
+                if (entry.skill == skill) entry.copy(proficient = value) else entry
+            }
         )
+        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
     }
 
     fun onSkillExpertiseChanged(skill: Skill, value: Boolean) = _uiState.update { state ->
-        computeDerivedBonusesUseCase(
-            state.copy(
-                skills = state.skills.map { entry ->
-                    if (entry.skill == skill) entry.copy(expertise = value) else entry
-                }
-            )
+        val updated = state.copy(
+            skills = state.skills.map { entry ->
+                if (entry.skill == skill) entry.copy(expertise = value) else entry
+            }
         )
+        updated.withDerivedBonuses(computeDerivedBonusesUseCase(updated.toDomainInput()))
     }
 
     fun onSensesChanged(value: String) = _uiState.update { it.copy(senses = value) }
@@ -175,19 +173,22 @@ class CharacterEditorViewModel @Inject constructor(
     fun onNotesChanged(value: String) = _uiState.update { it.copy(notes = value) }
 
     fun onSaveClicked() {
-        val validation = validateCharacterSheetUseCase(_uiState.value)
-        _uiState.update {
-            it.copy(
-                nameError = validation.nameError,
-                levelError = validation.levelError,
-                abilities = validation.abilityStates,
-                maxHitPointsError = validation.maxHpError,
+        val validation = validateCharacterSheetUseCase(_uiState.value.toDomainInput())
+        _uiState.update { state ->
+            state.copy(
+                nameError = validation.nameError?.toRequiredMessage(),
+                levelError = validation.levelError?.toLevelMessage(),
+                abilities = state.abilities.map { ability ->
+                    val error = validation.abilityErrors[ability.ability]?.toRequiredMessage()
+                    ability.copy(error = error)
+                },
+                maxHitPointsError = validation.maxHpError?.toRequiredMessage(),
             )
         }
         if (validation.hasErrors) return
 
         viewModelScope.launch {
-            val sheet = buildCharacterSheetFromInputsUseCase(_uiState.value, baseSheet)
+            val sheet = buildCharacterSheetFromInputsUseCase(_uiState.value.toDomainInput(), baseSheet)
             _uiState.update {
                 it.copy(
                     isSaving = true,
@@ -304,8 +305,8 @@ data class SkillInputState(
 
 private fun CharacterSheet.toEditorState(
     computeDerivedBonusesUseCase: ComputeDerivedBonusesUseCase,
-): CharacterEditorUiState = computeDerivedBonusesUseCase(
-    CharacterEditorUiState(
+): CharacterEditorUiState {
+    val baseState = CharacterEditorUiState(
         characterId = id,
         mode = EditorMode.Edit,
         isLoading = false,
@@ -340,7 +341,16 @@ private fun CharacterSheet.toEditorState(
         flaws = flaws,
         notes = notes,
     )
-)
+    val derived = computeDerivedBonusesUseCase(baseState.toDomainInput())
+    return baseState.withDerivedBonuses(derived)
+}
+
+private fun CharacterSheetInputError.toRequiredMessage(): String = "Required"
+
+private fun CharacterSheetInputError.toLevelMessage(): String = when (this) {
+    is CharacterSheetInputError.MinValue -> "Level must be ≥ $min"
+    CharacterSheetInputError.Required -> "Level must be ≥ 1"
+}
 
 private fun AbilityScores.toFieldStates(): List<AbilityFieldState> = listOf(
     AbilityFieldState(Ability.STR, strength.toString()),
