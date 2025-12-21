@@ -64,11 +64,12 @@ internal fun CharacterSheetTopBarActions(
     callbacks: CharacterSheetCallbacks,
     onOverflowOpen: () -> Unit,
 ) {
+    val canEdit = state is CharacterSheetUiState.Content
     when (state.editMode) {
         SheetEditMode.View -> {
             TextButton(
                 onClick = callbacks.onEnterEdit,
-                enabled = state.header != null,
+                enabled = canEdit,
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Edit,

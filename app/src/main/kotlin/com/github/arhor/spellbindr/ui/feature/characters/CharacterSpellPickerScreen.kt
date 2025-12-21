@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,13 +23,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
-import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel.CharacterSpellPickerUiAction
+import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CharacterSpellPickerRoute(
@@ -36,42 +39,29 @@ fun CharacterSpellPickerRoute(
     onBack: () -> Unit,
     onSpellSelected: (List<CharacterSpellAssignment>) -> Unit,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.uiState.collectAsState()
 
-    val handleSpellSelected: (Spell) -> Unit = { spell ->
-        vm.buildAssignment(spell.id)?.let { assignment ->
-            onSpellSelected(listOf(assignment))
+    LaunchedEffect(vm) {
+        vm.effects.collectLatest { effect ->
+            when (effect) {
+                is CharacterSpellPickerViewModel.CharacterSpellPickerEffect.SpellAssignmentReady ->
+                    onSpellSelected(listOf(effect.assignment))
+            }
         }
     }
 
     CharacterSpellPickerScreen(
         state = state,
         onBack = onBack,
-        onSourceChanged = vm::onSourceClassChanged,
-        onSpellSelected = handleSpellSelected,
-        onSpellQueryChanged = vm::onQueryChanged,
-        onSpellFiltersClick = vm::onFilterClicked,
-        onSpellFavoriteClick = vm::onFavoritesClicked,
-        onSpellGroupToggle = vm::onSpellGroupToggled,
-        onSpellToggleAllGroups = vm::onToggleAllSpellGroups,
-        onSpellSubmitFilters = vm::onFilterChanged,
-        onSpellCancelFilters = vm::onFilterChanged,
+        onAction = vm::onAction,
     )
 }
 
 @Composable
 private fun CharacterSpellPickerScreen(
-    state: CharacterSpellPickerViewModel.State,
+    state: CharacterSpellPickerUiState,
     onBack: () -> Unit,
-    onSourceChanged: (String) -> Unit,
-    onSpellSelected: (Spell) -> Unit,
-    onSpellQueryChanged: (String) -> Unit,
-    onSpellFiltersClick: () -> Unit,
-    onSpellFavoriteClick: () -> Unit,
-    onSpellGroupToggle: (Int) -> Unit,
-    onSpellToggleAllGroups: () -> Unit,
-    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
-    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
+    onAction: (CharacterSpellPickerUiAction) -> Unit,
 ) {
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -82,8 +72,8 @@ private fun CharacterSpellPickerScreen(
             ),
         ),
     ) {
-        when {
-            state.isLoading -> {
+        when (state) {
+            is CharacterSpellPickerUiState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
@@ -92,52 +82,75 @@ private fun CharacterSpellPickerScreen(
                 }
             }
 
-            state.errorMessage != null -> {
+            is CharacterSpellPickerUiState.Error -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = state.errorMessage,
+                        text = state.message,
                         textAlign = TextAlign.Center,
                     )
                 }
             }
 
-            else -> {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    OutlinedTextField(
-                        value = state.sourceClass,
-                        onValueChange = onSourceChanged,
-                        label = { Text("Spellcasting class") },
-                        placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    Text(
-                        text = "Tap a spell below to add it to the character.",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Box(modifier = Modifier.weight(1f)) {
-                        SpellSearchScreen(
-                            state = state.spellsState,
-                            onQueryChanged = onSpellQueryChanged,
-                            onFiltersClick = onSpellFiltersClick,
-                            onFavoriteClick = onSpellFavoriteClick,
-                            onGroupToggle = onSpellGroupToggle,
-                            onToggleAllGroups = onSpellToggleAllGroups,
-                            onSpellClick = onSpellSelected,
-                            onSubmitFilters = onSpellSubmitFilters,
-                            onCancelFilters = onSpellCancelFilters,
-                        )
-                    }
-                }
+            is CharacterSpellPickerUiState.Content -> {
+                CharacterSpellPickerContent(
+                    state = state,
+                    onAction = onAction,
+                )
             }
+        }
+    }
+}
+
+@Composable
+private fun CharacterSpellPickerContent(
+    state: CharacterSpellPickerUiState.Content,
+    onAction: (CharacterSpellPickerUiAction) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        OutlinedTextField(
+            value = state.sourceClass,
+            onValueChange = { value ->
+                onAction(CharacterSpellPickerUiAction.SourceClassChanged(value))
+            },
+            label = { Text("Spellcasting class") },
+            placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Text(
+            text = "Tap a spell below to add it to the character.",
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Box(modifier = Modifier.weight(1f)) {
+            SpellSearchScreen(
+                state = state.spellsState,
+                onQueryChanged = { query ->
+                    onAction(CharacterSpellPickerUiAction.QueryChanged(query))
+                },
+                onFiltersClick = { onAction(CharacterSpellPickerUiAction.FiltersClicked) },
+                onFavoriteClick = { onAction(CharacterSpellPickerUiAction.FavoritesClicked) },
+                onGroupToggle = { level ->
+                    onAction(CharacterSpellPickerUiAction.SpellGroupToggled(level))
+                },
+                onToggleAllGroups = { onAction(CharacterSpellPickerUiAction.ToggleAllSpellGroups) },
+                onSpellClick = { spell ->
+                    onAction(CharacterSpellPickerUiAction.SpellSelected(spell.id))
+                },
+                onSubmitFilters = { classes: Set<EntityRef> ->
+                    onAction(CharacterSpellPickerUiAction.FilterChanged(classes))
+                },
+                onCancelFilters = { classes: Set<EntityRef> ->
+                    onAction(CharacterSpellPickerUiAction.FilterChanged(classes))
+                },
+            )
         }
     }
 }
@@ -147,20 +160,13 @@ private fun CharacterSpellPickerScreen(
 private fun CharacterSpellPickerPreview() {
     AppTheme {
         CharacterSpellPickerScreen(
-            state = CharacterSpellPickerViewModel.State(
+            state = CharacterSpellPickerViewModel.CharacterSpellPickerUiState.Content(
                 sourceClass = "Wizard",
                 defaultSourceClass = "Wizard",
+                spellsState = CharacterSpellPickerViewModel.SpellsState(),
             ),
             onBack = {},
-            onSourceChanged = {},
-            onSpellSelected = {},
-            onSpellQueryChanged = {},
-            onSpellFiltersClick = {},
-            onSpellFavoriteClick = {},
-            onSpellGroupToggle = {},
-            onSpellToggleAllGroups = {},
-            onSpellSubmitFilters = {},
-            onSpellCancelFilters = {},
+            onAction = {},
         )
     }
 }

@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
 internal fun CharacterSheetContent(
-    state: CharacterSheetUiState,
+    state: CharacterSheetUiState.Content,
     header: CharacterHeaderUiState,
     callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
@@ -77,7 +77,7 @@ internal fun CharacterSheetContent(
             when (tabs[page]) {
                 CharacterSheetTab.Overview -> OverviewTab(
                     header = header,
-                    overview = requireNotNull(state.overview),
+                    overview = state.overview,
                     editMode = state.editMode,
                     editingState = state.editingState,
                     callbacks = callbacks,
@@ -85,19 +85,19 @@ internal fun CharacterSheetContent(
                 )
 
                 CharacterSheetTab.Skills -> SkillsTab(
-                    skills = requireNotNull(state.skills),
+                    skills = state.skills,
                     modifier = Modifier.fillMaxSize(),
                 )
 
                 CharacterSheetTab.Spells -> SpellsTab(
-                    spellsState = requireNotNull(state.spells),
+                    spellsState = state.spells,
                     editMode = state.editMode,
                     callbacks = callbacks,
                     modifier = Modifier.fillMaxSize(),
                 )
 
                 CharacterSheetTab.Weapons -> WeaponsTab(
-                    weapons = requireNotNull(state.weapons),
+                    weapons = state.weapons,
                     callbacks = callbacks,
                     modifier = Modifier.fillMaxSize(),
                 )
