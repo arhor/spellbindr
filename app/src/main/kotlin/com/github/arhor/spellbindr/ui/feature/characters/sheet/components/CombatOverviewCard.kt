@@ -18,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -42,9 +43,12 @@ internal fun CombatOverviewCard(
         tonalElevation = 1.dp,
         modifier = modifier.fillMaxWidth(),
     ) {
-        val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
-        val leftAbilities = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
-        val rightAbilities = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
+        val (leftAbilities, rightAbilities) = remember(abilities) {
+            val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
+            val left = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
+            val right = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
+            left to right
+        }
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

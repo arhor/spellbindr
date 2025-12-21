@@ -73,18 +73,21 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val defaultSourceClass: String
         val spellsState: SpellsState
 
+        @Immutable
         data class Loading(
             override val sourceClass: String,
             override val defaultSourceClass: String,
             override val spellsState: SpellsState,
         ) : CharacterSpellPickerUiState
 
+        @Immutable
         data class Content(
             override val sourceClass: String,
             override val defaultSourceClass: String,
             override val spellsState: SpellsState,
         ) : CharacterSpellPickerUiState
 
+        @Immutable
         data class Error(
             val message: String,
             override val sourceClass: String,

@@ -1,0 +1,37 @@
+package com.github.arhor.spellbindr.ui.feature.characters
+
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
+import com.github.arhor.spellbindr.ui.theme.AppTheme
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class CharacterSheetContentTest {
+
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+
+    @Test
+    fun showsOverviewTabAndSavingThrowsSection() {
+        composeTestRule.setContent {
+            AppTheme {
+                CharacterSheetContent(
+                    state = CharacterSheetPreviewData.uiState,
+                    header = CharacterSheetPreviewData.header,
+                    callbacks = CharacterSheetCallbacks(),
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("Overview").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Saving Throws").assertIsDisplayed()
+    }
+}
