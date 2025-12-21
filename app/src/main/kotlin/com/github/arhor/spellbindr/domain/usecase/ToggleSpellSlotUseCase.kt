@@ -1,0 +1,43 @@
+package com.github.arhor.spellbindr.domain.usecase
+
+import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.SpellSlotState
+import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
+
+class ToggleSpellSlotUseCase {
+
+    sealed interface Action {
+        data class Toggle(val level: Int, val slotIndex: Int) : Action
+        data class SetTotal(val level: Int, val total: Int) : Action
+    }
+
+    operator fun invoke(sheet: CharacterSheet, action: Action): CharacterSheet = when (action) {
+        is Action.Toggle -> sheet.updateSpellSlot(action.level) { slot ->
+            val totalSlots = slot.total.coerceAtLeast(0)
+            if (totalSlots == 0) return@updateSpellSlot slot
+            val normalizedIndex = action.slotIndex.coerceIn(0, totalSlots - 1)
+            val newExpended =
+                if (normalizedIndex < slot.expended) normalizedIndex
+                else (normalizedIndex + 1).coerceAtMost(totalSlots)
+            slot.copy(expended = newExpended)
+        }
+        is Action.SetTotal -> sheet.updateSpellSlot(action.level) { slot ->
+            val safeTotal = action.total.coerceAtLeast(0)
+            slot.copy(
+                total = safeTotal,
+                expended = slot.expended.coerceIn(0, safeTotal),
+            )
+        }
+    }
+
+    private fun CharacterSheet.updateSpellSlot(
+        level: Int,
+        transform: (SpellSlotState) -> SpellSlotState,
+    ): CharacterSheet {
+        val normalized = if (spellSlots.isEmpty()) defaultSpellSlots() else spellSlots
+        val slotMap = normalized.associateBy { it.level }.toMutableMap()
+        val current = slotMap[level] ?: SpellSlotState(level = level)
+        slotMap[level] = transform(current)
+        return copy(spellSlots = slotMap.values.sortedBy { it.level })
+    }
+}

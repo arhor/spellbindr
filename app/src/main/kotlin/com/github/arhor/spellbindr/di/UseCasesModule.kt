@@ -10,6 +10,9 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveCharacterSheetsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
+import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
+import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
+import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
 import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.Module
 import dagger.Provides
@@ -59,4 +62,13 @@ object UseCasesModule {
     @Provides
     fun provideBuildCharacterSheetFromInputsUseCase(): BuildCharacterSheetFromInputsUseCase =
         BuildCharacterSheetFromInputsUseCase()
+
+    @Provides
+    fun provideUpdateHitPointsUseCase(): UpdateHitPointsUseCase = UpdateHitPointsUseCase()
+
+    @Provides
+    fun provideToggleSpellSlotUseCase(): ToggleSpellSlotUseCase = ToggleSpellSlotUseCase()
+
+    @Provides
+    fun provideUpdateWeaponListUseCase(): UpdateWeaponListUseCase = UpdateWeaponListUseCase()
 }
