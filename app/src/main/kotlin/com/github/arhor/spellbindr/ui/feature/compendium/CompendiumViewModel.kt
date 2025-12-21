@@ -8,10 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.domain.model.Alignment
-import com.github.arhor.spellbindr.domain.model.Race
-import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
@@ -27,7 +27,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
@@ -57,16 +59,6 @@ class CompendiumViewModel @Inject constructor(
 
         @Immutable
         data class Error(val message: String) : SpellsUiState
-    }
-
-    sealed interface SpellsEvent {
-        data class QueryChanged(val query: String) : SpellsEvent
-        data object FavoritesToggled : SpellsEvent
-        data object FiltersOpened : SpellsEvent
-        data class FiltersSubmitted(val classes: Set<EntityRef>) : SpellsEvent
-        data class FiltersCanceled(val classes: Set<EntityRef>) : SpellsEvent
-        data class GroupToggled(val level: Int) : SpellsEvent
-        data object ToggleAllGroups : SpellsEvent
     }
 
     @Immutable
@@ -101,13 +93,53 @@ class CompendiumViewModel @Inject constructor(
     ) : SpellListState
 
     @Immutable
-    data class State(
+    data class CompendiumUiData(
         val alignmentsState: AlignmentsState = AlignmentsState(),
         val conditionsState: ConditionsState = ConditionsState(),
         val racesState: RacesState = RacesState(),
         val selectedSection: CompendiumSection = CompendiumSection.Spells,
         val spellsState: SpellsState = SpellsState(),
+        val isLoading: Boolean = true,
+        val errorMessage: String? = null,
     )
+
+    sealed interface CompendiumUiState {
+        data object Loading : CompendiumUiState
+
+        @Immutable
+        data class Content(
+            val alignmentsState: AlignmentsState,
+            val conditionsState: ConditionsState,
+            val racesState: RacesState,
+            val selectedSection: CompendiumSection,
+            val spellsState: SpellsState,
+        ) : CompendiumUiState
+
+        @Immutable
+        data class Error(
+            val message: String,
+            val content: Content? = null,
+        ) : CompendiumUiState
+    }
+
+    sealed interface CompendiumAction {
+        data class SectionSelected(val section: CompendiumSection) : CompendiumAction
+        data class SpellQueryChanged(val query: String) : CompendiumAction
+        data object SpellFiltersClicked : CompendiumAction
+        data object SpellFavoritesToggled : CompendiumAction
+        data class SpellGroupToggled(val level: Int) : CompendiumAction
+        data object SpellToggleAllGroups : CompendiumAction
+        data class SpellFiltersSubmitted(val classes: Set<EntityRef>) : CompendiumAction
+        data class SpellFiltersCanceled(val classes: Set<EntityRef>) : CompendiumAction
+        data class AlignmentClicked(val alignmentName: String) : CompendiumAction
+        data class ConditionClicked(val condition: Condition) : CompendiumAction
+        data class RaceClicked(val raceName: String) : CompendiumAction
+    }
+
+    sealed interface CompendiumUiEvent {
+        data class ContentUpdated(val content: CompendiumUiData) : CompendiumUiEvent
+        data class ErrorChanged(val message: String?) : CompendiumUiEvent
+    }
 
     private val alignmentSelection = MutableStateFlow<String?>(null)
     private val conditionSelection = MutableStateFlow<Condition?>(null)
@@ -117,6 +149,15 @@ class CompendiumViewModel @Inject constructor(
     private val logger = Logger.createLogger<CompendiumViewModel>()
     private val selectedSection =
         savedStateHandle.getStateFlow(SELECTED_SECTION_KEY, CompendiumSection.Spells)
+    private val _data = MutableStateFlow(CompendiumUiData())
+
+    val uiState: StateFlow<CompendiumUiState> = _data
+        .map { it.toUiState() }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            CompendiumUiState.Loading,
+        )
 
     private val alignmentsState = combine(
         referenceDataRepository.allAlignments,
@@ -207,82 +248,145 @@ class CompendiumViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
-    val state: StateFlow<State> = combine(
+    fun onAction(action: CompendiumAction) {
+        when (action) {
+            is CompendiumAction.SectionSelected -> savedStateHandle[SELECTED_SECTION_KEY] = action.section
+            is CompendiumAction.SpellQueryChanged -> spellFilters.update { filters ->
+                SpellListStateReducer.reduceFilters(
+                    filters,
+                    SpellListStateReducer.FilterEvent.QueryChanged(action.query),
+                )
+            }
+
+            CompendiumAction.SpellFiltersClicked -> spellFilters.update { filters ->
+                SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FiltersOpened)
+            }
+
+            CompendiumAction.SpellFavoritesToggled -> spellFilters.update { filters ->
+                SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FavoritesToggled)
+            }
+
+            is CompendiumAction.SpellFiltersSubmitted -> spellFilters.update { filters ->
+                SpellListStateReducer.reduceFilters(
+                    filters,
+                    SpellListStateReducer.FilterEvent.FiltersSubmitted(action.classes),
+                )
+            }
+
+            is CompendiumAction.SpellFiltersCanceled -> spellFilters.update { filters ->
+                SpellListStateReducer.reduceFilters(
+                    filters,
+                    SpellListStateReducer.FilterEvent.FiltersCanceled(action.classes),
+                )
+            }
+
+            is CompendiumAction.SpellGroupToggled -> spellExpansionState.update { state ->
+                SpellListStateReducer.toggleGroup(
+                    state = state,
+                    level = action.level,
+                    currentExpandedLevels = spellsState.value.expandedSpellLevels,
+                )
+            }
+
+            CompendiumAction.SpellToggleAllGroups -> spellExpansionState.update { state ->
+                val levels = spellsState.value.spellsByLevel.keys
+                SpellListStateReducer.toggleAll(
+                    state = state,
+                    levels = levels,
+                )
+            }
+
+            is CompendiumAction.AlignmentClicked -> alignmentSelection.update { current ->
+                if (current == action.alignmentName) {
+                    null
+                } else {
+                    action.alignmentName
+                }
+            }
+
+            is CompendiumAction.ConditionClicked -> conditionSelection.update { current ->
+                if (current == action.condition) {
+                    null
+                } else {
+                    action.condition
+                }
+            }
+
+            is CompendiumAction.RaceClicked -> raceSelection.update { current ->
+                if (current == action.raceName) {
+                    null
+                } else {
+                    action.raceName
+                }
+            }
+        }
+    }
+
+    private val contentState = combine(
         alignmentsState,
         conditionsState,
         racesState,
         selectedSection,
         spellsState,
     ) { alignments, conditions, races, section, spells ->
-        State(
+        CompendiumUiData(
             alignmentsState = alignments,
             conditionsState = conditions,
             racesState = races,
             selectedSection = section,
             spellsState = spells,
+            isLoading = false,
+            errorMessage = null,
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), State())
-
-    fun onSpellEvent(event: SpellsEvent) {
-        when (event) {
-            is SpellsEvent.GroupToggled -> {
-                spellExpansionState.update { state ->
-                    SpellListStateReducer.toggleGroup(
-                        state = state,
-                        level = event.level,
-                        currentExpandedLevels = spellsState.value.expandedSpellLevels,
-                    )
-                }
-            }
-
-            SpellsEvent.ToggleAllGroups -> {
-                spellExpansionState.update { state ->
-                    val levels = spellsState.value.spellsByLevel.keys
-                    SpellListStateReducer.toggleAll(
-                        state = state,
-                        levels = levels,
-                    )
-                }
-            }
-
-            else -> spellFilters.update { filters ->
-                event.toFilterEvent()?.let { SpellListStateReducer.reduceFilters(filters, it) } ?: filters
-            }
-        }
     }
 
-    fun handleAlignmentClick(alignmentName: String) {
-        alignmentSelection.update { current ->
-            if (current == alignmentName) {
-                null
-            } else {
-                alignmentName
-            }
-        }
+    init {
+        contentState
+            .onEach { updateData(CompendiumUiEvent.ContentUpdated(it)) }
+            .launchIn(viewModelScope)
     }
 
-    fun handleConditionClick(condition: Condition) {
-        conditionSelection.update { current ->
-            if (current == condition) {
-                null
-            } else {
-                condition
-            }
-        }
+    private fun updateData(event: CompendiumUiEvent) {
+        _data.update { current -> reduce(current, event) }
     }
 
-    fun handleRaceClick(raceName: String) {
-        raceSelection.update { current ->
-            if (current == raceName) {
-                null
-            } else {
-                raceName
-            }
-        }
+    private fun reduce(data: CompendiumUiData, event: CompendiumUiEvent): CompendiumUiData = when (event) {
+        is CompendiumUiEvent.ContentUpdated -> data.copy(
+            alignmentsState = event.content.alignmentsState,
+            conditionsState = event.content.conditionsState,
+            racesState = event.content.racesState,
+            selectedSection = event.content.selectedSection,
+            spellsState = event.content.spellsState,
+            isLoading = event.content.isLoading,
+            errorMessage = event.content.errorMessage,
+        )
+
+        is CompendiumUiEvent.ErrorChanged -> data.copy(
+            errorMessage = event.message,
+            isLoading = false,
+        )
     }
 
-    fun onSectionSelected(section: CompendiumSection) {
-        savedStateHandle[SELECTED_SECTION_KEY] = section
+    private fun CompendiumUiData.toUiState(): CompendiumUiState = when {
+        isLoading -> CompendiumUiState.Loading
+        errorMessage != null -> CompendiumUiState.Error(
+            message = errorMessage,
+            content = CompendiumUiState.Content(
+                alignmentsState = alignmentsState,
+                conditionsState = conditionsState,
+                racesState = racesState,
+                selectedSection = selectedSection,
+                spellsState = spellsState,
+            ),
+        )
+
+        else -> CompendiumUiState.Content(
+            alignmentsState = alignmentsState,
+            conditionsState = conditionsState,
+            racesState = racesState,
+            selectedSection = selectedSection,
+            spellsState = spellsState,
+        )
     }
 
     private data class SpellsQuery(
@@ -299,15 +403,4 @@ class CompendiumViewModel @Inject constructor(
     private companion object {
         const val SELECTED_SECTION_KEY = "compendium_section"
     }
-
-    private fun SpellsEvent.toFilterEvent(): SpellListStateReducer.FilterEvent? =
-        when (this) {
-            is SpellsEvent.QueryChanged -> SpellListStateReducer.FilterEvent.QueryChanged(query)
-            SpellsEvent.FavoritesToggled -> SpellListStateReducer.FilterEvent.FavoritesToggled
-            SpellsEvent.FiltersOpened -> SpellListStateReducer.FilterEvent.FiltersOpened
-            is SpellsEvent.FiltersSubmitted -> SpellListStateReducer.FilterEvent.FiltersSubmitted(classes)
-            is SpellsEvent.FiltersCanceled -> SpellListStateReducer.FilterEvent.FiltersCanceled(classes)
-            is SpellsEvent.GroupToggled -> null
-            SpellsEvent.ToggleAllGroups -> null
-        }
 }

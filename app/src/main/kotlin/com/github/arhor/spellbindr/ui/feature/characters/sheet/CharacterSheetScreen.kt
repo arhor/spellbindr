@@ -28,10 +28,12 @@ import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarActions
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarTitle
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel.CharacterSheetEffect
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel.CharacterSheetUiAction
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetError
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarActions
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarTitle
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
@@ -63,57 +65,90 @@ fun CharacterSheetRoute(
             )
             .collectLatest { assignments ->
                 if (!assignments.isNullOrEmpty()) {
-                    vm.addSpells(assignments)
+                    vm.onAction(CharacterSheetUiAction.AddSpells(assignments))
                     savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
                 }
             }
     }
 
+    LaunchedEffect(vm) {
+        vm.effects.collectLatest { effect ->
+            when (effect) {
+                CharacterSheetEffect.CharacterDeleted -> onCharacterDeleted()
+            }
+        }
+    }
+
     val callbacks = CharacterSheetCallbacks(
-        onTabSelected = vm::onTabSelected,
-        onEnterEdit = vm::enterEditMode,
-        onCancelEdit = vm::cancelEditMode,
-        onSaveEdits = vm::saveInlineEdits,
-        onAdjustHp = vm::adjustCurrentHp,
-        onTempHpChanged = vm::setTemporaryHp,
-        onMaxHpEdited = vm::onMaxHpEdited,
-        onCurrentHpEdited = vm::onCurrentHpEdited,
-        onTempHpEdited = vm::onTemporaryHpEdited,
-        onSpeedEdited = vm::onSpeedEdited,
-        onHitDiceEdited = vm::onHitDiceEdited,
-        onSensesEdited = vm::onSensesEdited,
-        onLanguagesEdited = vm::onLanguagesEdited,
-        onProficienciesEdited = vm::onProficienciesEdited,
-        onEquipmentEdited = vm::onEquipmentEdited,
-        onDeathSaveSuccessesChanged = vm::setDeathSaveSuccesses,
-        onDeathSaveFailuresChanged = vm::setDeathSaveFailures,
-        onSpellSlotToggle = vm::toggleSpellSlot,
-        onSpellSlotTotalChanged = vm::setSpellSlotTotal,
-        onSpellRemoved = vm::removeSpell,
+        onTabSelected = { tab -> vm.onAction(CharacterSheetUiAction.TabSelected(tab)) },
+        onEnterEdit = { vm.onAction(CharacterSheetUiAction.EnterEdit) },
+        onCancelEdit = { vm.onAction(CharacterSheetUiAction.CancelEdit) },
+        onSaveEdits = { vm.onAction(CharacterSheetUiAction.SaveInlineEdits) },
+        onAdjustHp = { delta -> vm.onAction(CharacterSheetUiAction.AdjustCurrentHp(delta)) },
+        onTempHpChanged = { value -> vm.onAction(CharacterSheetUiAction.TempHpChanged(value)) },
+        onMaxHpEdited = { value -> vm.onAction(CharacterSheetUiAction.MaxHpEdited(value)) },
+        onCurrentHpEdited = { value -> vm.onAction(CharacterSheetUiAction.CurrentHpEdited(value)) },
+        onTempHpEdited = { value -> vm.onAction(CharacterSheetUiAction.TemporaryHpEdited(value)) },
+        onSpeedEdited = { value -> vm.onAction(CharacterSheetUiAction.SpeedEdited(value)) },
+        onHitDiceEdited = { value -> vm.onAction(CharacterSheetUiAction.HitDiceEdited(value)) },
+        onSensesEdited = { value -> vm.onAction(CharacterSheetUiAction.SensesEdited(value)) },
+        onLanguagesEdited = { value -> vm.onAction(CharacterSheetUiAction.LanguagesEdited(value)) },
+        onProficienciesEdited = { value -> vm.onAction(CharacterSheetUiAction.ProficienciesEdited(value)) },
+        onEquipmentEdited = { value -> vm.onAction(CharacterSheetUiAction.EquipmentEdited(value)) },
+        onDeathSaveSuccessesChanged = { count ->
+            vm.onAction(CharacterSheetUiAction.DeathSaveSuccessesChanged(count))
+        },
+        onDeathSaveFailuresChanged = { count ->
+            vm.onAction(CharacterSheetUiAction.DeathSaveFailuresChanged(count))
+        },
+        onSpellSlotToggle = { level, index ->
+            vm.onAction(CharacterSheetUiAction.SpellSlotToggled(level, index))
+        },
+        onSpellSlotTotalChanged = { level, total ->
+            vm.onAction(CharacterSheetUiAction.SpellSlotTotalChanged(level, total))
+        },
+        onSpellRemoved = { spellId, sourceClass ->
+            vm.onAction(CharacterSheetUiAction.SpellRemoved(spellId, sourceClass))
+        },
         onSpellSelected = onOpenSpellDetail,
-        onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
-        onAddWeaponClicked = vm::onAddWeaponClicked,
-        onWeaponSelected = vm::onWeaponSelected,
-        onWeaponDeleted = vm::onWeaponDeleted,
-        onWeaponEditorDismissed = vm::onWeaponEditorDismissed,
-        onWeaponNameChanged = vm::onWeaponNameChanged,
-        onWeaponAbilityChanged = vm::onWeaponAbilityChanged,
-        onWeaponUseAbilityForDamageChanged = vm::onWeaponUseAbilityForDamageChanged,
-        onWeaponProficiencyChanged = vm::onWeaponProficiencyChanged,
-        onWeaponDiceCountChanged = vm::onWeaponDiceCountChanged,
-        onWeaponDieSizeChanged = vm::onWeaponDieSizeChanged,
-        onWeaponDamageTypeChanged = vm::onWeaponDamageTypeChanged,
-        onWeaponSaved = vm::onWeaponSaved,
+        onAddSpellsClicked = {
+            state.characterId?.let(onAddSpells)
+        },
+        onAddWeaponClicked = { vm.onAction(CharacterSheetUiAction.AddWeaponClicked) },
+        onWeaponSelected = { id -> vm.onAction(CharacterSheetUiAction.WeaponSelected(id)) },
+        onWeaponDeleted = { id -> vm.onAction(CharacterSheetUiAction.WeaponDeleted(id)) },
+        onWeaponEditorDismissed = { vm.onAction(CharacterSheetUiAction.WeaponEditorDismissed) },
+        onWeaponNameChanged = { value -> vm.onAction(CharacterSheetUiAction.WeaponNameChanged(value)) },
+        onWeaponAbilityChanged = { ability ->
+            vm.onAction(CharacterSheetUiAction.WeaponAbilityChanged(ability))
+        },
+        onWeaponUseAbilityForDamageChanged = { enabled ->
+            vm.onAction(CharacterSheetUiAction.WeaponUseAbilityForDamageChanged(enabled))
+        },
+        onWeaponProficiencyChanged = { proficient ->
+            vm.onAction(CharacterSheetUiAction.WeaponProficiencyChanged(proficient))
+        },
+        onWeaponDiceCountChanged = { value ->
+            vm.onAction(CharacterSheetUiAction.WeaponDiceCountChanged(value))
+        },
+        onWeaponDieSizeChanged = { value ->
+            vm.onAction(CharacterSheetUiAction.WeaponDieSizeChanged(value))
+        },
+        onWeaponDamageTypeChanged = { damageType ->
+            vm.onAction(CharacterSheetUiAction.WeaponDamageTypeChanged(damageType))
+        },
+        onWeaponSaved = { vm.onAction(CharacterSheetUiAction.WeaponSaved) },
         onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
-        onDeleteCharacter = { vm.deleteCharacter(onCharacterDeleted) },
+        onDeleteCharacter = { vm.onAction(CharacterSheetUiAction.DeleteCharacter) },
     )
 
+    val headerState = (state as? CharacterSheetUiState.Content)?.header
     val config = AppTopBarConfig(
         visible = true,
         title = {
             CharacterSheetTopBarTitle(
-                name = state.header?.name ?: args.initialName,
-                subtitle = state.header?.subtitle ?: args.initialSubtitle,
+                name = headerState?.name ?: args.initialName,
+                subtitle = headerState?.subtitle ?: args.initialSubtitle,
             )
         },
         navigation = AppTopBarNavigation.Back(onBack),
@@ -199,44 +234,50 @@ fun CharacterSheetRoute(
 @Composable
 private fun CharacterSheetScreen(
     state: CharacterSheetUiState,
-    callbacks: CharacterSheetCallbacks = CharacterSheetCallbacks(),
+    callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(bottom = 16.dp),
-    ) {
-        when {
-            state.isLoading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center),
-                )
+    when (state) {
+        is CharacterSheetUiState.Loading -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
             }
+        }
 
-            state.errorMessage != null -> {
-                CharacterSheetError(
-                    message = state.errorMessage,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(horizontal = 32.dp),
-                )
+        is CharacterSheetUiState.Error -> {
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(32.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                CharacterSheetError(message = state.message)
             }
+        }
 
-            state.header != null &&
-                state.overview != null &&
-                state.skills != null &&
-                state.spells != null &&
-                state.weapons != null -> {
+        is CharacterSheetUiState.Content -> {
+            if (state.errorMessage != null) {
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(32.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CharacterSheetError(message = state.errorMessage)
+                }
+            } else {
                 CharacterSheetContent(
-                    header = state.header,
                     state = state,
+                    header = state.header,
                     callbacks = callbacks,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = modifier,
                 )
-                state.weaponEditorState?.let { editorState ->
+                state.weaponEditorState?.let { editor ->
                     WeaponEditorDialog(
-                        editorState = editorState,
+                        editorState = editor,
                         onDismiss = callbacks.onWeaponEditorDismissed,
                         onNameChange = callbacks.onWeaponNameChanged,
                         onAbilityChange = callbacks.onWeaponAbilityChanged,
@@ -256,12 +297,12 @@ private fun CharacterSheetScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun CharacterSheetPreview() {
+private fun CharacterSheetScreenPreview() {
     AppTheme(isDarkTheme = false) {
-        Box {
-            CharacterSheetScreen(
-                state = CharacterSheetPreviewData.uiState,
-            )
-        }
+        CharacterSheetScreen(
+            state = CharacterSheetPreviewData.uiState,
+            callbacks = CharacterSheetCallbacks(),
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
@@ -15,14 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.data.model.predefined.Condition
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel.CompendiumAction
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel.CompendiumUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
@@ -33,7 +37,7 @@ fun CompendiumRoute(
     vm: CompendiumViewModel,
     onSpellSelected: (Spell) -> Unit,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.uiState.collectAsState()
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -45,53 +49,64 @@ fun CompendiumRoute(
     ) {
         CompendiumScreen(
             state = state,
-            onSectionSelected = vm::onSectionSelected,
+            onAction = vm::onAction,
             onSpellSelected = onSpellSelected,
-            onSpellQueryChanged = { query ->
-                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.QueryChanged(query))
-            },
-            onSpellFiltersClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersOpened) },
-            onSpellFavoriteClick = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FavoritesToggled) },
-            onSpellGroupToggle = { level ->
-                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.GroupToggled(level))
-            },
-            onSpellToggleAllGroups = { vm.onSpellEvent(CompendiumViewModel.SpellsEvent.ToggleAllGroups) },
-            onSpellSubmitFilters = { classes ->
-                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersSubmitted(classes))
-            },
-            onSpellCancelFilters = { classes ->
-                vm.onSpellEvent(CompendiumViewModel.SpellsEvent.FiltersCanceled(classes))
-            },
-            onConditionClick = vm::handleConditionClick,
-            onAlignmentClick = vm::handleAlignmentClick,
-            onRaceClick = vm::handleRaceClick,
         )
     }
 }
 
 @Composable
 private fun CompendiumScreen(
-    state: CompendiumViewModel.State,
+    state: CompendiumUiState,
     modifier: Modifier = Modifier,
-    onSectionSelected: (CompendiumSection) -> Unit,
+    onAction: (CompendiumAction) -> Unit,
     onSpellSelected: (Spell) -> Unit = {},
-    onSpellQueryChanged: (String) -> Unit,
-    onSpellFiltersClick: () -> Unit,
-    onSpellFavoriteClick: () -> Unit,
-    onSpellGroupToggle: (Int) -> Unit,
-    onSpellToggleAllGroups: () -> Unit,
-    onSpellSubmitFilters: (Set<EntityRef>) -> Unit,
-    onSpellCancelFilters: (Set<EntityRef>) -> Unit,
-    onConditionClick: (Condition) -> Unit,
-    onAlignmentClick: (String) -> Unit,
-    onRaceClick: (String) -> Unit,
+) {
+    when (state) {
+        CompendiumUiState.Loading -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        is CompendiumUiState.Error -> {
+            state.content?.let { content ->
+                CompendiumContent(
+                    state = content,
+                    modifier = modifier,
+                    onAction = onAction,
+                    onSpellSelected = onSpellSelected,
+                )
+            }
+        }
+
+        is CompendiumUiState.Content -> {
+            CompendiumContent(
+                state = state,
+                modifier = modifier,
+                onAction = onAction,
+                onSpellSelected = onSpellSelected,
+            )
+        }
+    }
+}
+
+@Composable
+private fun CompendiumContent(
+    state: CompendiumUiState.Content,
+    modifier: Modifier = Modifier,
+    onAction: (CompendiumAction) -> Unit,
+    onSpellSelected: (Spell) -> Unit = {},
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         PrimaryTabRow(selectedTabIndex = state.selectedSection.ordinal) {
             CompendiumSection.entries.forEach { section ->
                 Tab(
                     selected = section == state.selectedSection,
-                    onClick = { onSectionSelected(section) },
+                    onClick = { onAction(CompendiumAction.SectionSelected(section)) },
                     text = { Text(section.label) },
                 )
             }
@@ -106,35 +121,49 @@ private fun CompendiumScreen(
                     CompendiumSection.Spells -> {
                         SpellSearchScreen(
                             state = state.spellsState,
-                            onQueryChanged = onSpellQueryChanged,
-                            onFiltersClick = onSpellFiltersClick,
-                            onFavoriteClick = onSpellFavoriteClick,
-                            onGroupToggle = onSpellGroupToggle,
-                            onToggleAllGroups = onSpellToggleAllGroups,
+                            onQueryChanged = { query ->
+                                onAction(CompendiumAction.SpellQueryChanged(query))
+                            },
+                            onFiltersClick = { onAction(CompendiumAction.SpellFiltersClicked) },
+                            onFavoriteClick = { onAction(CompendiumAction.SpellFavoritesToggled) },
+                            onGroupToggle = { level ->
+                                onAction(CompendiumAction.SpellGroupToggled(level))
+                            },
+                            onToggleAllGroups = { onAction(CompendiumAction.SpellToggleAllGroups) },
                             onSpellClick = onSpellSelected,
-                            onSubmitFilters = onSpellSubmitFilters,
-                            onCancelFilters = onSpellCancelFilters,
+                            onSubmitFilters = { classes: Set<EntityRef> ->
+                                onAction(CompendiumAction.SpellFiltersSubmitted(classes))
+                            },
+                            onCancelFilters = { classes: Set<EntityRef> ->
+                                onAction(CompendiumAction.SpellFiltersCanceled(classes))
+                            },
                         )
                     }
 
                     CompendiumSection.Conditions -> {
                         ConditionsRoute(
                             state = state.conditionsState,
-                            onConditionClick = onConditionClick,
+                            onConditionClick = { condition: Condition ->
+                                onAction(CompendiumAction.ConditionClicked(condition))
+                            },
                         )
                     }
 
                     CompendiumSection.Alignments -> {
                         AlignmentsRoute(
                             state = state.alignmentsState,
-                            onAlignmentClick = onAlignmentClick,
+                            onAlignmentClick = { name ->
+                                onAction(CompendiumAction.AlignmentClicked(name))
+                            },
                         )
                     }
 
                     CompendiumSection.Races -> {
                         RacesRoute(
                             state = state.racesState,
-                            onRaceClick = onRaceClick,
+                            onRaceClick = { raceName ->
+                                onAction(CompendiumAction.RaceClicked(raceName))
+                            },
                         )
                     }
                 }

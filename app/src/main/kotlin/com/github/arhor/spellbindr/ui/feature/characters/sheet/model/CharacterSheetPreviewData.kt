@@ -140,14 +140,17 @@ internal object CharacterSheetPreviewData {
         equipment = overview.equipment,
     )
 
-    val uiState = CharacterSheetUiState(
+    val uiState = CharacterSheetUiState.Content(
         characterId = "preview",
         selectedTab = CharacterSheetTab.Overview,
+        editMode = SheetEditMode.View,
         header = header,
         overview = overview,
         skills = skills,
         spells = spells,
         weapons = weapons,
         editingState = editingState,
+        weaponEditorState = null,
+        errorMessage = null,
     )
 }
