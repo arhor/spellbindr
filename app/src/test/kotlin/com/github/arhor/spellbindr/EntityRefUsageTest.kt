@@ -14,7 +14,7 @@ class EntityRefUsageTest {
         Files.walk(uiRoot).use { paths ->
             paths.filter { path -> path.toString().endsWith(".kt") }
                 .forEach { path ->
-                    val content = Files.readString(path)
+                    val content = Files.readAllLines(path).joinToString("\n")
                     if ("com.github.arhor.spellbindr.data.model.EntityRef" in content ||
                         "data.model.EntityRef" in content
                     ) {
@@ -30,12 +30,16 @@ class EntityRefUsageTest {
     }
 
     private fun resolveUiRoot(): Path {
-        val candidates = listOf(
-            Path.of("app/src/main/kotlin/com/github/arhor/spellbindr/ui"),
-            Path.of("src/main/kotlin/com/github/arhor/spellbindr/ui"),
-        )
+        val relativeUiPath = Path.of("app/src/main/kotlin/com/github/arhor/spellbindr/ui")
+        val start = Path.of(System.getProperty("user.dir")).toAbsolutePath()
 
-        return candidates.firstOrNull { Files.exists(it) }
-            ?: error("Unable to locate UI source root from $candidates")
+        generateSequence(start) { it.parent }
+            .map { candidateRoot -> candidateRoot.resolve(relativeUiPath) }
+            .firstOrNull { Files.exists(it) }
+            ?.let { return it }
+
+        val fallback = start.resolve("src/main/kotlin/com/github/arhor/spellbindr/ui")
+        return fallback.takeIf { Files.exists(it) }
+            ?: error("Unable to locate UI source root from $start")
     }
 }
