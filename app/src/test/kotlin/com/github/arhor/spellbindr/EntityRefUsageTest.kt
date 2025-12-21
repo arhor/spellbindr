@@ -8,7 +8,7 @@ import java.nio.file.Path
 class EntityRefUsageTest {
     @Test
     fun uiAndViewModelsAvoidDataEntityRef() {
-        val uiRoot = Path.of("app/src/main/kotlin/com/github/arhor/spellbindr/ui")
+        val uiRoot = resolveUiRoot()
         val offenders = mutableListOf<Path>()
 
         Files.walk(uiRoot).use { paths ->
@@ -27,5 +27,15 @@ class EntityRefUsageTest {
             "UI/ViewModel files should not depend on data.model.EntityRef: $offenders",
             offenders.isEmpty(),
         )
+    }
+
+    private fun resolveUiRoot(): Path {
+        val candidates = listOf(
+            Path.of("app/src/main/kotlin/com/github/arhor/spellbindr/ui"),
+            Path.of("src/main/kotlin/com/github/arhor/spellbindr/ui"),
+        )
+
+        return candidates.firstOrNull { Files.exists(it) }
+            ?: error("Unable to locate UI source root from $candidates")
     }
 }
