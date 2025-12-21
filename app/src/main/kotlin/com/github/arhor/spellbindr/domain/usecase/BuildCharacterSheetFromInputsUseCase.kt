@@ -9,8 +9,9 @@ import com.github.arhor.spellbindr.domain.model.SavingThrowInput
 import com.github.arhor.spellbindr.domain.model.SkillEntry
 import com.github.arhor.spellbindr.domain.model.SkillProficiencyInput
 import java.util.UUID
+import javax.inject.Inject
 
-class BuildCharacterSheetFromInputsUseCase {
+class BuildCharacterSheetFromInputsUseCase @Inject constructor() {
     operator fun invoke(input: CharacterEditorInput, base: CharacterSheet?): CharacterSheet {
         val ensuredId = input.characterId ?: base?.id ?: UUID.randomUUID().toString()
         val abilityScores = input.toAbilityScores()

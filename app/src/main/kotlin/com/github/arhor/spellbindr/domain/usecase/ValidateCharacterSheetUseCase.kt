@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
+import javax.inject.Inject
 
 data class CharacterSheetValidationResult(
     val nameError: CharacterSheetInputError?,
@@ -18,7 +19,7 @@ sealed interface CharacterSheetInputError {
     data class MinValue(val min: Int) : CharacterSheetInputError
 }
 
-class ValidateCharacterSheetUseCase {
+class ValidateCharacterSheetUseCase @Inject constructor() {
     operator fun invoke(input: CharacterEditorInput): CharacterSheetValidationResult {
         val abilityErrors = input.abilities.mapNotNull { ability ->
             val value = ability.score.toIntOrNull()

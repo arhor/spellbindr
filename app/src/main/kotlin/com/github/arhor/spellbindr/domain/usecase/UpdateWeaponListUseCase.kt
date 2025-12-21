@@ -2,8 +2,9 @@ package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.Weapon
+import javax.inject.Inject
 
-class UpdateWeaponListUseCase {
+class UpdateWeaponListUseCase @Inject constructor() {
 
     sealed interface Action {
         data class Save(val weapon: Weapon) : Action

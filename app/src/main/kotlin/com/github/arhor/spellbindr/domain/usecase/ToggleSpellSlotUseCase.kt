@@ -3,8 +3,9 @@ package com.github.arhor.spellbindr.domain.usecase
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
+import javax.inject.Inject
 
-class ToggleSpellSlotUseCase {
+class ToggleSpellSlotUseCase @Inject constructor() {
 
     sealed interface Action {
         data class Toggle(val level: Int, val slotIndex: Int) : Action
