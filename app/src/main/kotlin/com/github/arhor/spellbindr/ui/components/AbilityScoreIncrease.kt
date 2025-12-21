@@ -38,8 +38,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.data.model.predefined.AbilityScores
+import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.calculatePointBuyCost
 import com.github.arhor.spellbindr.utils.signed
@@ -48,6 +47,14 @@ private const val TOTAL_POINTS = 27
 private const val ABILITY_SCORE_MIN = 8
 private const val ABILITY_SCORE_MAX = 15
 private const val ABILITY_BONUS_MIN = 0
+private val STANDARD_ARRAY = linkedMapOf(
+    Ability.STR to 8,
+    Ability.DEX to 10,
+    Ability.CON to 12,
+    Ability.INT to 13,
+    Ability.WIS to 14,
+    Ability.CHA to 15,
+)
 
 @Composable
 fun AbilityScoreIncrease(
@@ -57,8 +64,8 @@ fun AbilityScoreIncrease(
     var abilityScores by remember(currentMethod) {
         mutableStateOf(
             when (currentMethod) {
-                Method.POINT_BUY -> AbilityScores()
-                Method.STD_ARRAY -> AbilityScores.STANDARD_ARRAY
+                Method.POINT_BUY -> defaultAbilityScores()
+                Method.STD_ARRAY -> STANDARD_ARRAY
             }
         )
     }
@@ -113,7 +120,7 @@ fun AbilityScoreIncrease(
                 ability = ability,
                 abilityScores = abilityScores,
                 racialBonuses = racialBonuses,
-                onAbilitiesChanged = { abilityScores = abilityScores.copy(it) },
+                onAbilitiesChanged = { abilityScores = abilityScores + it },
             )
         }
         GradientDivider(modifier = Modifier.padding(vertical = 16.dp))
@@ -126,7 +133,7 @@ fun AbilityScoreIncrease(
             Method.STD_ARRAY -> {
                 Text(
                     text = "Distribute standard points array across your abilities: ${
-                        AbilityScores.STANDARD_ARRAY.values.joinToString()
+                        STANDARD_ARRAY.values.joinToString()
                     }",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
@@ -147,7 +154,7 @@ interface AbilityListItemController {
 private fun AbilitiesListItem(
     method: Method,
     ability: Ability,
-    abilityScores: AbilityScores,
+    abilityScores: Map<Ability, Int>,
     racialBonuses: Map<Ability, Int>,
     onAbilitiesChanged: (Map<Ability, Int>) -> Unit,
 ) {
@@ -197,7 +204,7 @@ private fun createAbilityListItemController(
     method: Method,
     currAbility: Ability,
     currAbilityScore: Int,
-    abilityScores: AbilityScores,
+    abilityScores: Map<Ability, Int>,
     onAbilitiesChanged: (Map<Ability, Int>) -> Unit
 ): AbilityListItemController = when (method) {
     Method.POINT_BUY -> object : AbilityListItemController {
@@ -252,7 +259,7 @@ private fun createAbilityListItemController(
 }
 
 @Composable
-private fun RemainingPointsSection(abilityScores: AbilityScores) {
+private fun RemainingPointsSection(abilityScores: Map<Ability, Int>) {
     val currPointsSpent = calculatePointBuyCost(abilityScores)
     val remainingPoints = TOTAL_POINTS - currPointsSpent
     val spentPointsRate by animateFloatAsState(
@@ -314,5 +321,11 @@ private fun AbilityScoreIncreasePreview() {
                 ),
             )
         }
+    }
+}
+
+private fun defaultAbilityScores(): Map<Ability, Int> = buildMap {
+    Ability.entries.forEach { ability ->
+        put(ability, ABILITY_SCORE_MIN)
     }
 }

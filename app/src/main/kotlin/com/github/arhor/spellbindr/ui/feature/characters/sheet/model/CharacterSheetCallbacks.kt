@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
-import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 
 data class CharacterSheetCallbacks(

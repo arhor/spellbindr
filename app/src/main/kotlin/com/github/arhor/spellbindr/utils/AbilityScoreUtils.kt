@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.utils
 
-import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.domain.model.Ability
 import kotlin.math.floor
 import kotlin.random.Random
 

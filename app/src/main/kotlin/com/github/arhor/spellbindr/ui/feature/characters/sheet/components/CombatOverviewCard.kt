@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.Ability
+import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityScore

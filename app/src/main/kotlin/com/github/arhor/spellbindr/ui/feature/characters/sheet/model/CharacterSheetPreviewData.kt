@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
-import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
-import com.github.arhor.spellbindr.data.model.predefined.Skill
+import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetEditingState

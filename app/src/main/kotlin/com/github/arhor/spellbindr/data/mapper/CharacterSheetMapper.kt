@@ -133,26 +133,26 @@ private fun SpellSlotState.toData(): DataSpellSlotState = DataSpellSlotState(
 )
 
 private fun DataSavingThrowEntry.toDomain(): SavingThrowEntry = SavingThrowEntry(
-    ability = ability,
+    ability = ability.toDomain(),
     bonus = bonus,
     proficient = proficient,
 )
 
 private fun SavingThrowEntry.toData(): DataSavingThrowEntry = DataSavingThrowEntry(
-    ability = ability,
+    ability = ability.toData(),
     bonus = bonus,
     proficient = proficient,
 )
 
 private fun DataSkillEntry.toDomain(): SkillEntry = SkillEntry(
-    skill = skill,
+    skill = skill.toDomain(),
     bonus = bonus,
     proficient = proficient,
     expertise = expertise,
 )
 
 private fun SkillEntry.toData(): DataSkillEntry = DataSkillEntry(
-    skill = skill,
+    skill = skill.toData(),
     bonus = bonus,
     proficient = proficient,
     expertise = expertise,
@@ -171,7 +171,7 @@ private fun CharacterSpell.toData(): DataCharacterSpell = DataCharacterSpell(
 private fun DataWeapon.toDomain(): Weapon = Weapon(
     id = id,
     name = name,
-    ability = ability,
+    ability = ability.toDomain(),
     proficient = proficient,
     damageDiceCount = damageDiceCount,
     damageDieSize = damageDieSize,
@@ -182,7 +182,7 @@ private fun DataWeapon.toDomain(): Weapon = Weapon(
 private fun Weapon.toData(): DataWeapon = DataWeapon(
     id = id,
     name = name,
-    ability = ability,
+    ability = ability.toData(),
     proficient = proficient,
     damageDiceCount = damageDiceCount,
     damageDieSize = damageDieSize,

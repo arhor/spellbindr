@@ -1,8 +1,6 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
-import com.github.arhor.spellbindr.data.model.predefined.Skill
 import java.util.UUID
 
 /**
