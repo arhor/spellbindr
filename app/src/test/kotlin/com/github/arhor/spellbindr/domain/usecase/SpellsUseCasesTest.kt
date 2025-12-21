@@ -6,9 +6,13 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -165,6 +169,73 @@ class SpellsUseCasesTest {
         assertThat(favoritesRepository.lastIsFavoriteSpellId).isEqualTo("fireball")
     }
 
+    @Test
+    fun `observeSpellDetails emits loading and favorite updates`() = runTest {
+        // Given
+        val spell = sampleSpell(id = "haste", name = "Haste")
+        repository.spellsById[spell.id] = spell
+        val useCase = ObserveSpellDetailsUseCase(
+            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
+            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+        )
+
+        // When
+        val emissions = mutableListOf<ObserveSpellDetailsUseCase.SpellDetailsState>()
+        val job = launch {
+            useCase(spell.id).take(3).toList(emissions)
+        }
+        advanceUntilIdle()
+        favoritesRepository.favoriteIdsState.value = listOf(spell.id)
+        advanceUntilIdle()
+        job.join()
+
+        // Then
+        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
+        assertThat(emissions[1]).isEqualTo(
+            ObserveSpellDetailsUseCase.SpellDetailsState.Loaded(spell = spell, isFavorite = false)
+        )
+        assertThat(emissions[2]).isEqualTo(
+            ObserveSpellDetailsUseCase.SpellDetailsState.Loaded(spell = spell, isFavorite = true)
+        )
+    }
+
+    @Test
+    fun `observeSpellDetails emits error for missing spell`() = runTest {
+        // Given
+        val useCase = ObserveSpellDetailsUseCase(
+            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
+            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+        )
+
+        // When
+        val emissions = useCase("missing").take(2).toList()
+
+        // Then
+        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
+        assertThat(emissions[1]).isEqualTo(
+            ObserveSpellDetailsUseCase.SpellDetailsState.Error("Spell not found.")
+        )
+    }
+
+    @Test
+    fun `observeSpellDetails emits error when repository fails`() = runTest {
+        // Given
+        repository.throwOnGetSpellById = true
+        val useCase = ObserveSpellDetailsUseCase(
+            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
+            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+        )
+
+        // When
+        val emissions = useCase("fail").take(2).toList()
+
+        // Then
+        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
+        assertThat(emissions[1]).isEqualTo(
+            ObserveSpellDetailsUseCase.SpellDetailsState.Error("Oops, something went wrong...")
+        )
+    }
+
     private fun sampleSpell(
         id: String,
         name: String,
@@ -191,6 +262,7 @@ class SpellsUseCasesTest {
         val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 
+        var throwOnGetSpellById: Boolean = false
         var lastToggledSpellId: String? = null
         var lastIsFavoriteSpellId: String? = null
         var isFavoriteResult: Boolean = false
@@ -198,7 +270,12 @@ class SpellsUseCasesTest {
         override val allSpells: Flow<List<Spell>> = allSpellsState
         override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
-        override suspend fun getSpellById(id: String): Spell? = spellsById[id]
+        override suspend fun getSpellById(id: String): Spell? {
+            if (throwOnGetSpellById) {
+                throw IllegalStateException("Failed to load spell")
+            }
+            return spellsById[id]
+        }
 
         override suspend fun toggleFavorite(spellId: String) {
             lastToggledSpellId = spellId
