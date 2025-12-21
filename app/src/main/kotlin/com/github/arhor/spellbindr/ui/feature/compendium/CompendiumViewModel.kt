@@ -248,12 +248,6 @@ class CompendiumViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
-    init {
-        contentState
-            .onEach { updateData(CompendiumUiEvent.ContentUpdated(it)) }
-            .launchIn(viewModelScope)
-    }
-
     fun onAction(action: CompendiumAction) {
         when (action) {
             is CompendiumAction.SectionSelected -> savedStateHandle[SELECTED_SECTION_KEY] = action.section
@@ -344,6 +338,12 @@ class CompendiumViewModel @Inject constructor(
             isLoading = false,
             errorMessage = null,
         )
+    }
+
+    init {
+        contentState
+            .onEach { updateData(CompendiumUiEvent.ContentUpdated(it)) }
+            .launchIn(viewModelScope)
     }
 
     private fun updateData(event: CompendiumUiEvent) {

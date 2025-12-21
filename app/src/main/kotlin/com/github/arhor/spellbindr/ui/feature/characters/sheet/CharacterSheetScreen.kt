@@ -279,13 +279,14 @@ private fun CharacterSheetScreen(
                     WeaponEditorDialog(
                         editorState = editor,
                         onDismiss = callbacks.onWeaponEditorDismissed,
-                        onNameChanged = callbacks.onWeaponNameChanged,
-                        onAbilityChanged = callbacks.onWeaponAbilityChanged,
-                        onUseAbilityForDamageChanged = callbacks.onWeaponUseAbilityForDamageChanged,
-                        onProficiencyChanged = callbacks.onWeaponProficiencyChanged,
-                        onDiceCountChanged = callbacks.onWeaponDiceCountChanged,
-                        onDieSizeChanged = callbacks.onWeaponDieSizeChanged,
-                        onDamageTypeChanged = callbacks.onWeaponDamageTypeChanged,
+                        onNameChange = callbacks.onWeaponNameChanged,
+                        onAbilityChange = callbacks.onWeaponAbilityChanged,
+                        onUseAbilityForDamageChange = callbacks.onWeaponUseAbilityForDamageChanged,
+                        onProficiencyChange = callbacks.onWeaponProficiencyChanged,
+                        onDiceCountChange = callbacks.onWeaponDiceCountChanged,
+                        onDieSizeChange = callbacks.onWeaponDieSizeChanged,
+                        onDamageTypeChange = callbacks.onWeaponDamageTypeChanged,
+                        onDelete = callbacks.onWeaponDeleted,
                         onSave = callbacks.onWeaponSaved,
                     )
                 }
