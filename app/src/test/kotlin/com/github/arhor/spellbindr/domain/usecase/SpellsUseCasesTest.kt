@@ -65,15 +65,15 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `searchSpells forwards filters to repository`() = runTest {
+    fun `searchSpells returns matching favorites`() = runTest {
         // Given
         val classes = setOf(EntityRef("cleric"), EntityRef("wizard"))
-        val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds"))
-        repository.findSpellsResult = expected
+        val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = classes.toList()))
+        repository.allSpellsState.value = expected
         favoritesRepository.favoriteIdsState.value = listOf("cure-wounds")
 
         // When
-        val result = SearchSpellsUseCase(repository, favoritesRepository)(
+        val result = SearchSpellsUseCase(SearchAndGroupSpellsUseCase(repository, favoritesRepository))(
             query = "Cure",
             classes = classes,
             favoriteOnly = true,
@@ -81,8 +81,6 @@ class SpellsUseCasesTest {
 
         // Then
         assertThat(result).isEqualTo(expected)
-        assertThat(repository.lastFindSpellsQuery).isEqualTo("Cure")
-        assertThat(repository.lastFindSpellsClasses).isEqualTo(classes)
         assertThat(favoritesRepository.lastObservedType).isEqualTo(FavoriteType.SPELL)
     }
 
@@ -90,10 +88,10 @@ class SpellsUseCasesTest {
     fun `searchSpells skips favorites when not requested`() = runTest {
         // Given
         val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
-        repository.findSpellsResult = expected
+        repository.allSpellsState.value = expected
 
         // When
-        val result = SearchSpellsUseCase(repository, favoritesRepository)(
+        val result = SearchSpellsUseCase(SearchAndGroupSpellsUseCase(repository, favoritesRepository))(
             query = "Detect",
             classes = emptySet(),
             favoriteOnly = false,
@@ -102,6 +100,37 @@ class SpellsUseCasesTest {
         // Then
         assertThat(result).isEqualTo(expected)
         assertThat(favoritesRepository.lastObservedType).isNull()
+    }
+
+    @Test
+    fun `searchAndGroupSpells filters by query class and favorites`() = runTest {
+        // Given
+        val wizard = EntityRef("wizard")
+        val cleric = EntityRef("cleric")
+        val magicMissile = sampleSpell(id = "magic-missile", name = "Magic Missile", classes = listOf(wizard))
+        val fireball = sampleSpell(
+            id = "fireball",
+            name = "Fireball",
+            classes = listOf(wizard),
+            level = 3,
+        )
+        val cureWounds = sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = listOf(cleric))
+        repository.allSpellsState.value = listOf(magicMissile, fireball, cureWounds)
+        favoritesRepository.favoriteIdsState.value = listOf("fireball")
+
+        // When
+        val result = SearchAndGroupSpellsUseCase(repository, favoritesRepository)(
+            query = "Fire",
+            classes = setOf(wizard),
+            favoriteOnly = true,
+        )
+
+        // Then
+        assertThat(result.spells).containsExactly(fireball)
+        assertThat(result.spellsByLevel.keys).containsExactly(3)
+        assertThat(result.totalCount).isEqualTo(1)
+        assertThat(result.query).isEqualTo("Fire")
+        assertThat(result.classes).containsExactly(wizard)
     }
 
     @Test
@@ -139,17 +168,19 @@ class SpellsUseCasesTest {
     private fun sampleSpell(
         id: String,
         name: String,
+        level: Int = 1,
+        classes: List<EntityRef> = listOf(EntityRef("wizard")),
     ): Spell = Spell(
         id = id,
         name = name,
         desc = listOf("A sample spell."),
-        level = 1,
+        level = level,
         range = "Self",
         ritual = false,
         school = EntityRef("evocation"),
         duration = "Instantaneous",
         castingTime = "1 action",
-        classes = listOf(EntityRef("wizard")),
+        classes = classes,
         components = listOf("V", "S"),
         concentration = false,
         source = "SRD",
@@ -160,11 +191,6 @@ class SpellsUseCasesTest {
         val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 
-        var findSpellsResult: List<Spell> = emptyList()
-        var lastFindSpellsQuery: String? = null
-        var lastFindSpellsClasses: Set<EntityRef>? = null
-        var lastFindSpellsFavoriteOnly: Boolean? = null
-
         var lastToggledSpellId: String? = null
         var lastIsFavoriteSpellId: String? = null
         var isFavoriteResult: Boolean = false
@@ -173,17 +199,6 @@ class SpellsUseCasesTest {
         override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
         override suspend fun getSpellById(id: String): Spell? = spellsById[id]
-
-        override suspend fun findSpells(
-            query: String,
-            classes: Set<EntityRef>,
-            favoriteOnly: Boolean,
-        ): List<Spell> {
-            lastFindSpellsQuery = query
-            lastFindSpellsClasses = classes
-            lastFindSpellsFavoriteOnly = favoriteOnly
-            return findSpellsResult
-        }
 
         override suspend fun toggleFavorite(spellId: String) {
             lastToggledSpellId = spellId

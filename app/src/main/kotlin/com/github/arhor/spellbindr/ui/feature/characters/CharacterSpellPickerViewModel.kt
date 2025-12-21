@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
+import com.github.arhor.spellbindr.ui.feature.compendium.SpellListStateReducer
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -22,6 +25,9 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +37,9 @@ import kotlin.time.Duration.Companion.milliseconds
 class CharacterSpellPickerViewModel @Inject constructor(
     private val characterRepository: CharacterRepository,
     private val characterClassRepository: CharacterClassRepository,
-    private val spellRepository: SpellsRepository,
+    private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
+    private val searchAndGroupSpellsUseCase: SearchAndGroupSpellsUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -65,6 +73,9 @@ class CharacterSpellPickerViewModel @Inject constructor(
         )
     )
     val state: StateFlow<State> = _state
+    private val castingClassesState = MutableStateFlow<List<EntityRef>>(emptyList())
+    private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
+    private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
     private val logger = Logger.createLogger<CharacterSpellPickerViewModel>()
 
     init {
@@ -73,6 +84,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
             characterClassRepository
                 .findSpellcastingClassesRefs()
                 .let { refs ->
+                    castingClassesState.value = refs
                     _state.update {
                         it.copy(
                             spellsState = it.spellsState.copy(
@@ -82,6 +94,77 @@ class CharacterSpellPickerViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun onSourceClassChanged(value: String) {
+        _state.update { it.copy(sourceClass = value) }
+    }
+
+    fun buildAssignment(spellId: String): CharacterSpellAssignment? {
+        val state = _state.value
+        if (spellId.isBlank() || state.errorMessage != null) return null
+        val resolvedSource = state.sourceClass.takeIf { it.isNotBlank() } ?: state.defaultSourceClass
+        return CharacterSpellAssignment(
+            spellId = spellId,
+            sourceClass = resolvedSource,
+        )
+    }
+
+    fun onFavoritesClicked() {
+        spellFilters.update { filters ->
+            SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FavoritesToggled)
+        }
+    }
+
+    fun onSpellGroupToggled(level: Int) {
+        spellExpansionState.update { state ->
+            SpellListStateReducer.toggleGroup(
+                state = state,
+                level = level,
+                currentExpandedLevels = _state.value.spellsState.expandedSpellLevels,
+            )
+        }
+    }
+
+    fun onToggleAllSpellGroups() {
+        spellExpansionState.update { state ->
+            SpellListStateReducer.toggleAll(
+                state = state,
+                levels = _state.value.spellsState.spellsByLevel.keys,
+            )
+        }
+    }
+
+    fun onFilterClicked() {
+        spellFilters.update { filters ->
+            SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FiltersOpened)
+        }
+    }
+
+    fun onQueryChanged(query: String) {
+        spellFilters.update { filters ->
+            SpellListStateReducer.reduceFilters(
+                filters,
+                SpellListStateReducer.FilterEvent.QueryChanged(query),
+            )
+        }
+    }
+
+    fun onFilterChanged(classes: Set<EntityRef>) {
+        spellFilters.update { filters ->
+            SpellListStateReducer.reduceFilters(
+                filters,
+                SpellListStateReducer.FilterEvent.FiltersSubmitted(classes),
+            )
+        }
+    }
+
+    @OptIn(FlowPreview::class)
+    private fun observeStateChanges() {
+        spellsState
+            .onEach { spellsState -> _state.update { it.copy(spellsState = spellsState) } }
+            .launchIn(viewModelScope)
+
         characterId?.let { id ->
             characterRepository.observeCharacterSheet(id)
                 .onEach { sheet ->
@@ -115,177 +198,79 @@ class CharacterSpellPickerViewModel @Inject constructor(
         }
     }
 
-    fun onSourceClassChanged(value: String) {
-        _state.update { it.copy(sourceClass = value) }
-    }
-
-    fun buildAssignment(spellId: String): CharacterSpellAssignment? {
-        val state = _state.value
-        if (spellId.isBlank() || state.errorMessage != null) return null
-        val resolvedSource = state.sourceClass.takeIf { it.isNotBlank() } ?: state.defaultSourceClass
-        return CharacterSpellAssignment(
-            spellId = spellId,
-            sourceClass = resolvedSource,
-        )
-    }
-
-    fun onFavoritesClicked() {
-        _state.update {
-            it.copy(
-                spellsState = it.spellsState.copy(
-                    showFavorite = !it.spellsState.showFavorite
-                )
-            )
-        }
-    }
-
-    fun onSpellGroupToggled(level: Int) {
-        _state.update { state ->
-            val currentExpanded = state.spellsState.expandedSpellLevels[level] ?: state.spellsState.expandedAll
-            state.copy(
-                spellsState = state.spellsState.copy(
-                    expandedSpellLevels = state.spellsState.expandedSpellLevels + (level to !currentExpanded),
-                )
-            )
-        }
-    }
-
-    fun onToggleAllSpellGroups() {
-        _state.update { state ->
-            val nextExpandedAll = !state.spellsState.expandedAll
-            val levels = state.spellsState.spellsByLevel.keys
-            state.copy(
-                spellsState = state.spellsState.copy(
-                    expandedAll = nextExpandedAll,
-                    expandedSpellLevels = levels.associateWith { nextExpandedAll },
-                )
-            )
-        }
-    }
-
-    fun onFilterClicked() {
-        _state.update {
-            it.copy(
-                spellsState = it.spellsState.copy(
-                    showFilterDialog = true
-                )
-            )
-        }
-    }
-
-    fun onQueryChanged(query: String) {
-        val currQuery = _state.value.spellsState.query
-        val nextQuery = query.trim()
-
-        if (!nextQuery.equals(currQuery, ignoreCase = true)) {
-            _state.update {
-                it.copy(
-                    spellsState = it.spellsState.copy(
-                        query = nextQuery
-                    )
-                )
-            }
-        }
-    }
-
-    fun onFilterChanged(classes: Set<EntityRef>) {
-        _state.update {
-            if (classes != _state.value.spellsState.currentClasses) {
-                it.copy(
-                    spellsState = it.spellsState.copy(
-                        showFilterDialog = false,
-                        currentClasses = classes,
-                    )
-                )
-            } else {
-                it.copy(
-                    spellsState = it.spellsState.copy(
-                        showFilterDialog = false,
-                    )
-                )
-            }
-        }
-    }
-
     @OptIn(FlowPreview::class)
-    private fun observeStateChanges() {
-        viewModelScope.launch {
-            combine(_state, spellRepository.allSpells, spellRepository.favoriteSpellIds, ::toObservableData)
-                .debounce(350.milliseconds)
-                .distinctUntilChanged()
-                .collect { data ->
-                    try {
-                        _state.update {
-                            it.copy(
-                                spellsState = it.spellsState.copy(
-                                    uiState = CompendiumViewModel.SpellsUiState.Loading,
-                                )
-                            )
-                        }
-                        val spells = spellRepository.findSpells(
-                            query = data.query,
-                            classes = data.currentClasses,
-                            favoriteOnly = data.showFavorite,
-                        )
-                        val spellsByLevel = spells.groupBy(Spell::level).toSortedMap()
-                        _state.update {
-                            it.copy(
-                                spellsState = it.spellsState.copy(
-                                    uiState = CompendiumViewModel.SpellsUiState.Loaded(
-                                        spells = spells,
-                                        spellsByLevel = spellsByLevel,
-                                    ),
-                                    spellsByLevel = spellsByLevel,
-                                    expandedSpellLevels = ensureExpandedLevels(
-                                        currentExpanded = it.spellsState.expandedSpellLevels,
-                                        levels = spellsByLevel.keys,
-                                        expandedAll = it.spellsState.expandedAll,
-                                    ),
-                                )
-                            )
-                        }
-                    } catch (e: Exception) {
-                        logger.error(e) { "Failed to load spells." }
-                        _state.update {
-                            it.copy(
-                                spellsState = it.spellsState.copy(
-                                    uiState = CompendiumViewModel.SpellsUiState.Error(
-                                        "Oops, something went wrong..."
-                                    ),
-                                )
-                            )
-                        }
-                    }
-                }
+    private val spellsUiState = combine(
+        spellFilters,
+        observeAllSpellsUseCase(),
+        observeFavoriteSpellIdsUseCase(),
+        ::SpellsQuery,
+    )
+        .debounce(350.milliseconds)
+        .distinctUntilChanged()
+        .transformLatest { data ->
+            emit(CompendiumViewModel.SpellsUiState.Loading)
+            runCatching {
+                searchAndGroupSpellsUseCase(
+                    query = data.query,
+                    classes = data.currentClasses,
+                    favoriteOnly = data.showFavorite,
+                    allSpells = data.allSpells,
+                    favoriteSpellIds = data.favoriteSpellIdsSet,
+                )
+            }.onSuccess { result ->
+                emit(
+                    CompendiumViewModel.SpellsUiState.Loaded(
+                        spells = result.spells,
+                        spellsByLevel = result.spellsByLevel,
+                    )
+                )
+            }.onFailure { throwable ->
+                logger.error(throwable) { "Failed to load spells." }
+                emit(CompendiumViewModel.SpellsUiState.Error("Oops, something went wrong..."))
+            }
         }
-    }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CompendiumViewModel.SpellsUiState.Loading)
 
-    private fun toObservableData(
-        state: State, allSpells: List<Spell>, favSpells: List<String>
-    ): ObservableData = ObservableData(
-        state.spellsState.query,
-        state.spellsState.castingClasses,
-        state.spellsState.currentClasses,
-        state.spellsState.showFavorite,
-        allSpells,
-        favSpells,
-    )
+    private val spellsState = combine(
+        spellFilters,
+        spellExpansionState,
+        castingClassesState,
+        spellsUiState,
+    ) { filters, expansionState, castingClasses, uiState ->
+        val spellsByLevel = when (uiState) {
+            is CompendiumViewModel.SpellsUiState.Loaded -> uiState.spellsByLevel
+            else -> emptyMap()
+        }
+        val expandedSpellLevels = when (uiState) {
+            is CompendiumViewModel.SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
+                levels = uiState.spellsByLevel.keys,
+                state = expansionState,
+            )
 
-    private data class ObservableData(
-        val query: String,
-        val castingClasses: List<EntityRef>,
-        val currentClasses: Set<EntityRef>,
-        val showFavorite: Boolean,
+            else -> emptyMap()
+        }
+        SpellsState(
+            query = filters.query,
+            showFavorite = filters.showFavorite,
+            showFilterDialog = filters.showFilterDialog,
+            castingClasses = castingClasses,
+            currentClasses = filters.currentClasses,
+            uiState = uiState,
+            spellsByLevel = spellsByLevel,
+            expandedSpellLevels = expandedSpellLevels,
+            expandedAll = expansionState.expandedAll,
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
+
+    private data class SpellsQuery(
+        val filters: SpellListStateReducer.SpellFilters,
         val allSpells: List<Spell>,
-        val favSpells: List<String>,
-    )
-
-    private fun ensureExpandedLevels(
-        currentExpanded: Map<Int, Boolean>,
-        levels: Set<Int>,
-        expandedAll: Boolean,
-    ): Map<Int, Boolean> = levels.associateWith { level ->
-        currentExpanded[level] ?: expandedAll
+        val favoriteSpellIds: List<String>,
+    ) {
+        val query: String = filters.query
+        val currentClasses: Set<EntityRef> = filters.currentClasses
+        val showFavorite: Boolean = filters.showFavorite
+        val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
     }
 
 }
