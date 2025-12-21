@@ -11,10 +11,12 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.Trait
-import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
+import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAlignmentsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,11 +42,13 @@ import kotlin.time.Duration.Companion.milliseconds
 @Stable
 @HiltViewModel
 class CompendiumViewModel @Inject constructor(
-    private val characterClassRepository: CharacterClassRepository,
-    private val referenceDataRepository: ReferenceDataRepository,
     private val savedStateHandle: SavedStateHandle,
+    private val getSpellcastingClassRefsUseCase: GetSpellcastingClassRefsUseCase,
     private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val observeAlignmentsUseCase: ObserveAlignmentsUseCase,
     private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
+    private val observeRacesUseCase: ObserveRacesUseCase,
+    private val observeTraitsUseCase: ObserveTraitsUseCase,
     private val searchAndGroupSpellsUseCase: SearchAndGroupSpellsUseCase,
 ) : ViewModel() {
 
@@ -160,7 +164,7 @@ class CompendiumViewModel @Inject constructor(
         )
 
     private val alignmentsState = combine(
-        referenceDataRepository.allAlignments,
+        observeAlignmentsUseCase(),
         alignmentSelection,
     ) { alignments, expandedItemName ->
         AlignmentsState(
@@ -174,8 +178,8 @@ class CompendiumViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsState())
 
     private val racesState = combine(
-        referenceDataRepository.allRaces,
-        referenceDataRepository.allTraits,
+        observeRacesUseCase(),
+        observeTraitsUseCase(),
         raceSelection,
     ) { races, traits, expandedItemName ->
         RacesState(
@@ -186,7 +190,7 @@ class CompendiumViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RacesState())
 
     private val castingClassesState = flow {
-        emit(characterClassRepository.findSpellcastingClassesRefs())
+        emit(getSpellcastingClassRefsUseCase())
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     @OptIn(FlowPreview::class)
