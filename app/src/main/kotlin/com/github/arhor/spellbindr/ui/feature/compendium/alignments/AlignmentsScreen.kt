@@ -33,6 +33,7 @@ private fun AlignmentsScreen(
 ) {
     SelectableGrid(
         items = state.alignments,
+        key = { it.name },
         smallContent = {
             Box(
                 modifier = Modifier.fillMaxSize(),

@@ -17,7 +17,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,12 +47,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material3.Text
 import kotlinx.coroutines.launch
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun DiceRollerRoute(
     vm: DiceRollerViewModel,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.state.collectAsStateWithLifecycle()
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -90,7 +90,7 @@ private fun DiceRollerRoute(
 }
 
 @Composable
-private fun DiceRollerScreen(
+fun DiceRollerScreen(
     state: DiceRollerState,
     onIntent: (DiceRollerIntent) -> Unit,
     modifier: Modifier = Modifier,

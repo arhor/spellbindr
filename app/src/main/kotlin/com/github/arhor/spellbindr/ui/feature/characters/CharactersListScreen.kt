@@ -22,12 +22,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
@@ -39,7 +41,7 @@ fun CharactersListRoute(
     onCharacterSelected: (CharacterListItem) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.state.collectAsStateWithLifecycle()
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -63,7 +65,7 @@ fun CharactersListScreen(
     onCharacterSelected: (CharacterListItem) -> Unit,
     onCreateCharacter: () -> Unit,
 ) {
-    val state by vm.state.collectAsState()
+    val state by vm.state.collectAsStateWithLifecycle()
 
     CharactersListScreen(
         uiState = state,
@@ -73,7 +75,7 @@ fun CharactersListScreen(
 }
 
 @Composable
-private fun CharactersListScreen(
+fun CharactersListScreen(
     uiState: CharactersListUiState,
     onCharacterSelected: (CharacterListItem) -> Unit,
     onCreateCharacter: () -> Unit,
@@ -123,6 +125,29 @@ private fun CharacterCard(
     item: CharacterListItem,
     onClick: () -> Unit,
 ) {
+    val displayName by remember(item.name) {
+        derivedStateOf { item.name.ifBlank { "Unnamed hero" } }
+    }
+    val headline by remember(item.level, item.className) {
+        derivedStateOf {
+            buildString {
+                append("Level ${item.level.coerceAtLeast(1)}")
+                if (item.className.isNotBlank()) {
+                    append(' ')
+                    append(item.className)
+                }
+            }
+        }
+    }
+    val detail by remember(item.race, item.background) {
+        derivedStateOf {
+            listOfNotNull(
+                item.race.takeIf { it.isNotBlank() },
+                item.background.takeIf { it.isNotBlank() },
+            ).joinToString(separator = " • ")
+        }
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -132,20 +157,20 @@ private fun CharacterCard(
     ) {
         Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)) {
             Text(
-                text = item.name,
+                text = displayName,
                 style = MaterialTheme.typography.titleLarge,
             )
-            if (item.headline.isNotBlank()) {
+            if (headline.isNotBlank()) {
                 Text(
-                    text = item.headline,
+                    text = headline,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 4.dp),
                 )
             }
-            if (item.detail.isNotBlank()) {
+            if (detail.isNotBlank()) {
                 Text(
-                    text = item.detail,
+                    text = detail,
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(top = 8.dp),
@@ -219,13 +244,17 @@ private fun previewCharacters(): List<CharacterListItem> = listOf(
     CharacterListItem(
         id = "1",
         name = "Astra Moonshadow",
-        headline = "Level 7 Wizard",
-        detail = "Half-elf • Luna Conservatory",
+        level = 7,
+        className = "Wizard",
+        race = "Half-elf",
+        background = "Luna Conservatory",
     ),
     CharacterListItem(
         id = "2",
         name = "Bronn Blackbriar",
-        headline = "Level 5 Fighter",
-        detail = "Human • Knight of the Autumn Guard",
+        level = 5,
+        className = "Fighter",
+        race = "Human",
+        background = "Knight of the Autumn Guard",
     ),
 )

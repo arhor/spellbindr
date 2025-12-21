@@ -37,6 +37,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @Composable
 fun <T> SelectableGrid(
     items: List<T>,
+    key: (T) -> Any,
     modifier: Modifier = Modifier,
     smallContent: @Composable (T) -> Unit,
     largeContent: @Composable (T) -> Unit,
@@ -54,7 +55,7 @@ fun <T> SelectableGrid(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(items) { item ->
+            items(items, key = key) { item ->
                 GridItem(
                     item = item,
                     onItemClick = {
@@ -124,6 +125,7 @@ fun SelectableGridPreview() {
     AppTheme {
         SelectableGrid(
             items = List(9) { index -> "Item ${index + 1}" to "Description for item ${index + 1}" },
+            key = { it.first },
             smallContent = { (title, _) ->
                 Box(
                     modifier = Modifier.fillMaxSize(),

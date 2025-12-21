@@ -58,7 +58,7 @@ fun SpellsTab(
             }
         }
 
-        items(spellsState.spellLevels) { spellLevel ->
+        items(spellsState.spellLevels, key = { it.level }) { spellLevel ->
             SpellLevelCard(
                 spellLevel = spellLevel,
                 editMode = editMode,

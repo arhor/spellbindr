@@ -32,7 +32,7 @@ fun SkillsTab(
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(skills.skills) { skill ->
+        items(skills.skills, key = { it.id }) { skill ->
             Surface(
                 shape = MaterialTheme.shapes.large,
                 tonalElevation = 1.dp,
