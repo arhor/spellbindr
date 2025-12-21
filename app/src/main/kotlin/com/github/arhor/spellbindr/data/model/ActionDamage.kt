@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
+
 
 /**
  * Represents the damage dealt by an action.
@@ -10,6 +12,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ActionDamage(
-    val damageType: EntityRef,
+    val damageType: DomainEntityRef,
     val damageAtCharacterLevel: Map<String, String>,
 )

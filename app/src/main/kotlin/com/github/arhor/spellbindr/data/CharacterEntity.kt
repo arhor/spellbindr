@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.github.arhor.spellbindr.data.local.db.Converters
 import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
-import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 
 @Entity(tableName = "characters")
 @TypeConverters(Converters::class)

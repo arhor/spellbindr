@@ -5,7 +5,7 @@ import com.github.arhor.spellbindr.data.local.db.CharacterDao
 import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.mapper.toEntity
 import com.github.arhor.spellbindr.data.mapper.toSnapshot
-import com.github.arhor.spellbindr.data.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet

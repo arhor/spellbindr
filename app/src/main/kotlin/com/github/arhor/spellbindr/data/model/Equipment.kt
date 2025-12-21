@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
+
 
 @Serializable
 data class Equipment(
@@ -12,7 +14,7 @@ data class Equipment(
     val contents: List<Content>? = null,
     val cost: Cost,
     val damage: Damage? = null,
-    val properties: List<EntityRef>? = null,
+    val properties: List<DomainEntityRef>? = null,
     val quantity: Int? = null,
     val range: Range? = null,
     val special: List<String>? = null,

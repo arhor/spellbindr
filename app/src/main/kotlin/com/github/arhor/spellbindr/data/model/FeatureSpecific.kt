@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
+
 
 @Serializable
 data class FeatureSpecific(
@@ -8,5 +10,5 @@ data class FeatureSpecific(
     val expertiseOptions: Choice? = null,
     val terrainTypeOptions: Choice? = null,
     val enemyTypeOptions: Choice? = null,
-    val invocations: List<EntityRef>? = null
+    val invocations: List<DomainEntityRef>? = null
 )

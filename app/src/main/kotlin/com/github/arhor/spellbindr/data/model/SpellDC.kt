@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
+
 
 /**
  * Represents the Difficulty Class (DC) for a spell.
@@ -12,6 +14,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SpellDC(
     val desc: String? = null,
-    val dcType: EntityRef,
+    val dcType: DomainEntityRef,
     val dcSuccess: String,
 )

@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
+
 
 /**
  * Main data class representing a D&D 5e character in the Spellbindr app.
@@ -12,26 +14,26 @@ import kotlinx.serialization.Serializable
  * val character = Character(
  *     id = "7d47f30b-3e21-4b19-8a71-ef4b642e3170",
  *     name = "Aelar Brightblade",
- *     race = EntityRef("elf"),
- *     subrace = EntityRef("high_elf"),
- *     alignment = EntityRef("chaotic_good"),
- *     background = EntityRef("acolyte"),
- *     classes = mapOf(EntityRef("wizard") to 5),
+ *     race = DomainEntityRef("elf"),
+ *     subrace = DomainEntityRef("high_elf"),
+ *     alignment = DomainEntityRef("chaotic_good"),
+ *     background = DomainEntityRef("acolyte"),
+ *     classes = mapOf(DomainEntityRef("wizard") to 5),
  *     experience = 6500,
  *     currentHitPoints = 28,
  *     maximumHitPoints = 28,
  *     abilities = mapOf(
- *         EntityRef("STR") to 10,
- *         EntityRef("DEX") to 16,
- *         EntityRef("CON") to 13,
- *         EntityRef("INT") to 18,
- *         EntityRef("WIS") to 12,
- *         EntityRef("CHA") to 14,
+ *         DomainEntityRef("STR") to 10,
+ *         DomainEntityRef("DEX") to 16,
+ *         DomainEntityRef("CON") to 13,
+ *         DomainEntityRef("INT") to 18,
+ *         DomainEntityRef("WIS") to 12,
+ *         DomainEntityRef("CHA") to 14,
  *     ),
- *     proficiencies = setOf(EntityRef("arcana"), EntityRef("history")),
- *     feats = setOf(EntityRef("war_caster")),
- *     knownSpells = setOf(EntityRef("fireball"), EntityRef("mage_armor")),
- *     preparedSpells = setOf(EntityRef("fireball"))
+ *     proficiencies = setOf(DomainEntityRef("arcana"), DomainEntityRef("history")),
+ *     feats = setOf(DomainEntityRef("war_caster")),
+ *     knownSpells = setOf(DomainEntityRef("fireball"), DomainEntityRef("mage_armor")),
+ *     preparedSpells = setOf(DomainEntityRef("fireball"))
  * )
  * ```
  *
@@ -63,22 +65,22 @@ import kotlinx.serialization.Serializable
 data class Character(
     val id: String,
     val name: String = "",
-    val race: EntityRef,
-    val feats: Set<EntityRef> = emptySet(),
-    val subrace: EntityRef? = null,
-    val classes: Map<EntityRef, Int>,
-    val alignment: EntityRef? = null,
-    val background: EntityRef,
+    val race: DomainEntityRef,
+    val feats: Set<DomainEntityRef> = emptySet(),
+    val subrace: DomainEntityRef? = null,
+    val classes: Map<DomainEntityRef, Int>,
+    val alignment: DomainEntityRef? = null,
+    val background: DomainEntityRef,
     val experience: Int = 0,
-    val abilityScores: Map<EntityRef, Int>,
-    val proficiencies: Set<EntityRef>,
+    val abilityScores: Map<DomainEntityRef, Int>,
+    val proficiencies: Set<DomainEntityRef>,
     val personalityTrait: String? = null,
     val ideals: String? = null,
     val bonds: String? = null,
     val flaws: String? = null,
-    val equipment: Set<EntityRef> = emptySet(),
-    val inventory: Map<EntityRef, Int> = emptyMap(),
-    val spells: Set<EntityRef> = emptySet(),
+    val equipment: Set<DomainEntityRef> = emptySet(),
+    val inventory: Map<DomainEntityRef, Int> = emptyMap(),
+    val spells: Set<DomainEntityRef> = emptySet(),
 ) {
     val level: Int
         get() = classes.values.sum()
@@ -89,14 +91,14 @@ data class Character(
         val level: Int = 1,
         val speed: Int = 30,
         val actions: Set<Action> = emptySet(),
-        val languages: Set<EntityRef> = emptySet(),
-        val knownSpells: Set<EntityRef> = emptySet(),
-        val resistances: Set<EntityRef> = emptySet(),
-        val abilityScores: Map<EntityRef, Int> = emptyMap(),
-        val proficiencies: Set<EntityRef> = emptySet(),
+        val languages: Set<DomainEntityRef> = emptySet(),
+        val knownSpells: Set<DomainEntityRef> = emptySet(),
+        val resistances: Set<DomainEntityRef> = emptySet(),
+        val abilityScores: Map<DomainEntityRef, Int> = emptyMap(),
+        val proficiencies: Set<DomainEntityRef> = emptySet(),
         val currentHitPoints: Int = 0,
         val maximumHitPoints: Int = 0,
-        val conditionImmunities: Set<EntityRef> = emptySet(),
+        val conditionImmunities: Set<DomainEntityRef> = emptySet(),
     )
 
     fun createState() = State(level = level)
