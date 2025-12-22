@@ -58,6 +58,7 @@ tasks.withType<Test>().configureEach {
         layout.buildDirectory.dir("robolectric").get().asFile.absolutePath,
     )
     systemProperty("robolectric.usePreinstrumentedJars", "false")
+    systemProperty("robolectric.enabledSdks", "33")
 }
 
 kotlin {
@@ -97,9 +98,7 @@ dependencies {
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.robolectric)
     robolectricAndroidAll("org.robolectric:android-all:13-robolectric-9030017")
-    robolectricAndroidAll("org.robolectric:android-all-instrumented:13-robolectric-9030017-i7")
     robolectricAndroidAll("org.robolectric:android-all:15-robolectric-12650502")
-    robolectricAndroidAll("org.robolectric:android-all-instrumented:15-robolectric-12650502-i7")
 
     kspAndroidTest(libs.hilt.android.compiler)
 
