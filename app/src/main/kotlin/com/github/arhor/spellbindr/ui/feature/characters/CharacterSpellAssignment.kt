@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.characters
 
 import androidx.compose.runtime.Immutable
+import java.io.Serializable
 
 /**
  * Represents a spell selected for association with a character.
@@ -12,4 +13,4 @@ import androidx.compose.runtime.Immutable
 data class CharacterSpellAssignment(
     val spellId: String,
     val sourceClass: String = "",
-)
+) : Serializable
