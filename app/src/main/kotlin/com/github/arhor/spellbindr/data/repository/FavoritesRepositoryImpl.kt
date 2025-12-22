@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Singleton
 class FavoritesRepositoryImpl @Inject constructor(
-    @param:FavoritesDataStore private val dataStore: DataStore<Preferences>,
+    @FavoritesDataStore private val dataStore: DataStore<Preferences>,
 ) : FavoritesRepository {
     override fun observeFavoriteIds(type: FavoriteType): Flow<List<String>> =
         dataStore.data.map { preferences ->

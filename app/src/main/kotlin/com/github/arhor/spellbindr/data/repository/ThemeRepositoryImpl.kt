@@ -18,7 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 class ThemeRepositoryImpl @Inject constructor(
-    @param:AppSettingsDataStore private val dataStore: DataStore<Preferences>,
+    @AppSettingsDataStore private val dataStore: DataStore<Preferences>,
 ) : ThemeRepository {
 
     override val themeMode: Flow<ThemeMode?>
