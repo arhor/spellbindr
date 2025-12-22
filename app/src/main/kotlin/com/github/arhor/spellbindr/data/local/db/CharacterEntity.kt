@@ -1,9 +1,8 @@
-package com.github.arhor.spellbindr.data
+package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.github.arhor.spellbindr.data.local.db.Converters
 import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.domain.model.EntityRef
 
