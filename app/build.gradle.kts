@@ -39,6 +39,25 @@ android {
     buildFeatures {
         compose = true
     }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+}
+
+val robolectricAndroidAll by configurations.creating
+
+tasks.register<Copy>("prepareRobolectricDependencies") {
+    from(robolectricAndroidAll)
+    into(layout.buildDirectory.dir("robolectric"))
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn("prepareRobolectricDependencies")
+    systemProperty(
+        "robolectric.dependency.dir",
+        layout.buildDirectory.dir("robolectric").get().asFile.absolutePath,
+    )
+    systemProperty("robolectric.usePreinstrumentedJars", "false")
 }
 
 kotlin {
@@ -75,6 +94,12 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.ui.test.junit4)
+    testImplementation(libs.robolectric)
+    robolectricAndroidAll("org.robolectric:android-all:13-robolectric-9030017")
+    robolectricAndroidAll("org.robolectric:android-all-instrumented:13-robolectric-9030017-i7")
+    robolectricAndroidAll("org.robolectric:android-all:15-robolectric-12650502")
+    robolectricAndroidAll("org.robolectric:android-all-instrumented:15-robolectric-12650502-i7")
 
     kspAndroidTest(libs.hilt.android.compiler)
 
