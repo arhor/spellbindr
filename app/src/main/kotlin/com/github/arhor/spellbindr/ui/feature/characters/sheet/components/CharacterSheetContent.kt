@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,18 +37,21 @@ internal fun CharacterSheetContent(
     modifier: Modifier = Modifier,
 ) {
     val tabs = CharacterSheetTab.entries
-    val pagerState = rememberPagerState { tabs.size }
+    val pagerState = rememberPagerState(
+        initialPage = state.selectedTab.ordinal,
+        pageCount = { tabs.size },
+    )
     val currentSelectedTab = rememberUpdatedState(state.selectedTab)
 
     LaunchedEffect(state.selectedTab) {
         val targetPage = state.selectedTab.ordinal
-        if (pagerState.currentPage != targetPage) {
+        if (pagerState.currentPage != targetPage || pagerState.currentPageOffsetFraction != 0f) {
             pagerState.animateScrollToPage(targetPage)
         }
     }
 
     LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }
+        snapshotFlow { pagerState.settledPage }
             .distinctUntilChanged()
             .collect { page ->
                 val pageTab = tabs[page]
@@ -66,6 +70,7 @@ internal fun CharacterSheetContent(
                 Tab(
                     selected = state.selectedTab == tab,
                     onClick = { callbacks.onTabSelected(tab) },
+                    modifier = Modifier.testTag("CharacterSheetTab-${tab.name}"),
                     text = { Text(tab.name.lowercase().replaceFirstChar(Char::titlecase)) },
                 )
             }
