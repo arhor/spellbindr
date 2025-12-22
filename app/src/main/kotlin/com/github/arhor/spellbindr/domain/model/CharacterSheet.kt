@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.domain.model
 
+import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import java.util.UUID
 
@@ -96,7 +97,10 @@ data class CharacterSpell(
 
 data class Weapon(
     val id: String = UUID.randomUUID().toString(),
+    val catalogId: String? = null,
     val name: String,
+    val category: EquipmentCategory? = null,
+    val categories: Set<EquipmentCategory> = emptySet(),
     val ability: Ability = Ability.STR,
     val proficient: Boolean = false,
     val damageDiceCount: Int = 1,

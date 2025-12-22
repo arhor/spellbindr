@@ -1,8 +1,10 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.predefined.Ability
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.google.common.truth.Truth.assertThat
+import kotlinx.serialization.json.Json
 import org.junit.Test
 
 class CharacterSheetWeaponSerializationTest {
@@ -11,7 +13,10 @@ class CharacterSheetWeaponSerializationTest {
     fun `weapons round trip through snapshot`() {
         val weapon = Weapon(
             id = "weapon-1",
+            catalogId = "catalog-longsword",
             name = "Longsword",
+            category = EquipmentCategory.MARTIAL,
+            categories = setOf(EquipmentCategory.MARTIAL, EquipmentCategory.MELEE),
             ability = Ability.STR,
             proficient = true,
             damageDiceCount = 1,
@@ -48,5 +53,35 @@ class CharacterSheetWeaponSerializationTest {
         assertThat(restored.weapons.first().damageDiceCount).isEqualTo(1)
         assertThat(restored.weapons.first().damageDieSize).isEqualTo(6)
         assertThat(restored.weapons.first().useAbilityForDamage).isFalse()
+    }
+
+    @Test
+    fun `weapon defaults apply when legacy snapshot omits new fields`() {
+        val json = Json { ignoreUnknownKeys = true }
+        val snapshot = json.decodeFromString(
+            CharacterSheetSnapshot.serializer(),
+            """
+            {
+              "weapons": [
+                {
+                  "id": "weapon-legacy",
+                  "name": "Dagger",
+                  "attackAbility": "dex",
+                  "proficient": true,
+                  "damageDiceCount": 1,
+                  "damageDieSize": 4,
+                  "useAbilityForDamage": true,
+                  "damageType": "piercing"
+                }
+              ]
+            }
+            """.trimIndent()
+        )
+
+        val weapon = snapshot.weapons.first()
+
+        assertThat(weapon.catalogId).isNull()
+        assertThat(weapon.category).isNull()
+        assertThat(weapon.categories).isEmpty()
     }
 }
