@@ -27,8 +27,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
@@ -137,7 +137,72 @@ class CharacterSpellPickerViewModel @Inject constructor(
     private val castingClassesState = MutableStateFlow<List<EntityRef>>(emptyList())
     private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
+
     private val logger = Logger.createLogger<CharacterSpellPickerViewModel>()
+
+    @OptIn(FlowPreview::class)
+    private val spellsUiState = combine(
+        spellFilters,
+        observeAllSpellsUseCase(),
+        observeFavoriteSpellIdsUseCase(),
+        ::SpellsQuery,
+    )
+        .debounce(350.milliseconds)
+        .distinctUntilChanged()
+        .transformLatest { data ->
+            emit(CompendiumViewModel.SpellsUiState.Loading)
+            runCatching {
+                searchAndGroupSpellsUseCase(
+                    query = data.query,
+                    classes = data.currentClasses,
+                    favoriteOnly = data.showFavorite,
+                    allSpells = data.allSpells,
+                    favoriteSpellIds = data.favoriteSpellIdsSet,
+                )
+            }.onSuccess { result ->
+                emit(
+                    CompendiumViewModel.SpellsUiState.Loaded(
+                        spells = result.spells,
+                        spellsByLevel = result.spellsByLevel,
+                    )
+                )
+            }.onFailure { throwable ->
+                logger.error(throwable) { "Failed to load spells." }
+                emit(CompendiumViewModel.SpellsUiState.Error("Oops, something went wrong..."))
+            }
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CompendiumViewModel.SpellsUiState.Loading)
+
+    private val spellsState = combine(
+        spellFilters,
+        spellExpansionState,
+        castingClassesState,
+        spellsUiState,
+    ) { filters, expansionState, castingClasses, uiState ->
+        val spellsByLevel = when (uiState) {
+            is CompendiumViewModel.SpellsUiState.Loaded -> uiState.spellsByLevel
+            else -> emptyMap()
+        }
+        val expandedSpellLevels = when (uiState) {
+            is CompendiumViewModel.SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
+                levels = uiState.spellsByLevel.keys,
+                state = expansionState,
+            )
+
+            else -> emptyMap()
+        }
+        SpellsState(
+            query = filters.query,
+            showFavorite = filters.showFavorite,
+            showFilterDialog = filters.showFilterDialog,
+            castingClasses = castingClasses,
+            currentClasses = filters.currentClasses,
+            uiState = uiState,
+            spellsByLevel = spellsByLevel,
+            expandedSpellLevels = expandedSpellLevels,
+            expandedAll = expansionState.expandedAll,
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
     init {
         observeStateChanges()
@@ -281,70 +346,6 @@ class CharacterSpellPickerViewModel @Inject constructor(
                 .launchIn(viewModelScope)
         }
     }
-
-    @OptIn(FlowPreview::class)
-    private val spellsUiState = combine(
-        spellFilters,
-        observeAllSpellsUseCase(),
-        observeFavoriteSpellIdsUseCase(),
-        ::SpellsQuery,
-    )
-        .debounce(350.milliseconds)
-        .distinctUntilChanged()
-        .transformLatest { data ->
-            emit(CompendiumViewModel.SpellsUiState.Loading)
-            runCatching {
-                searchAndGroupSpellsUseCase(
-                    query = data.query,
-                    classes = data.currentClasses,
-                    favoriteOnly = data.showFavorite,
-                    allSpells = data.allSpells,
-                    favoriteSpellIds = data.favoriteSpellIdsSet,
-                )
-            }.onSuccess { result ->
-                emit(
-                    CompendiumViewModel.SpellsUiState.Loaded(
-                        spells = result.spells,
-                        spellsByLevel = result.spellsByLevel,
-                    )
-                )
-            }.onFailure { throwable ->
-                logger.error(throwable) { "Failed to load spells." }
-                emit(CompendiumViewModel.SpellsUiState.Error("Oops, something went wrong..."))
-            }
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CompendiumViewModel.SpellsUiState.Loading)
-
-    private val spellsState = combine(
-        spellFilters,
-        spellExpansionState,
-        castingClassesState,
-        spellsUiState,
-    ) { filters, expansionState, castingClasses, uiState ->
-        val spellsByLevel = when (uiState) {
-            is CompendiumViewModel.SpellsUiState.Loaded -> uiState.spellsByLevel
-            else -> emptyMap()
-        }
-        val expandedSpellLevels = when (uiState) {
-            is CompendiumViewModel.SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
-                levels = uiState.spellsByLevel.keys,
-                state = expansionState,
-            )
-
-            else -> emptyMap()
-        }
-        SpellsState(
-            query = filters.query,
-            showFavorite = filters.showFavorite,
-            showFilterDialog = filters.showFilterDialog,
-            castingClasses = castingClasses,
-            currentClasses = filters.currentClasses,
-            uiState = uiState,
-            spellsByLevel = spellsByLevel,
-            expandedSpellLevels = expandedSpellLevels,
-            expandedAll = expansionState.expandedAll,
-        )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
     private data class SpellsQuery(
         val filters: SpellListStateReducer.SpellFilters,
