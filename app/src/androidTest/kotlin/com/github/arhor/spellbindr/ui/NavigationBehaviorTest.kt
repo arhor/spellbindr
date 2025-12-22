@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.ui
 
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
@@ -10,7 +10,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.arhor.spellbindr.MainActivity
 import com.github.arhor.spellbindr.di.AppModule
 import com.github.arhor.spellbindr.di.DatabaseModule
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -30,7 +29,7 @@ class NavigationBehaviorTest {
     val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
-    val composeTestRule = createAndroidComposeRule<MainActivity>()
+    val composeTestRule = createAndroidComposeRule<SpellbindrAppActivity>()
 
     @Before
     fun setUp() {
