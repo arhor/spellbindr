@@ -14,7 +14,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +30,7 @@ fun WeaponEditorDialog(
     editorState: WeaponEditorState,
     onDismiss: () -> Unit,
     onNameChange: (String) -> Unit,
+    onCatalogOpen: () -> Unit,
     onAbilityChange: (Ability) -> Unit,
     onUseAbilityForDamageChange: (Boolean) -> Unit,
     onProficiencyChange: (Boolean) -> Unit,
@@ -49,8 +52,19 @@ fun WeaponEditorDialog(
                     onValueChange = onNameChange,
                     label = { Text("Weapon name") },
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("WeaponNameField"),
                 )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    TextButton(onClick = onCatalogOpen) {
+                        Text("Select weapon")
+                    }
+                }
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Ability", modifier = Modifier.padding(horizontal = 4.dp))
                     Row(
@@ -75,7 +89,9 @@ fun WeaponEditorDialog(
                         label = { Text("Dice count") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("WeaponDiceCountField"),
                     )
                     OutlinedTextField(
                         value = editorState.damageDieSize,
@@ -83,7 +99,9 @@ fun WeaponEditorDialog(
                         label = { Text("Die size") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("WeaponDieSizeField"),
                     )
                 }
                 FilterChip(
@@ -149,6 +167,7 @@ private fun WeaponEditorDialogPreview() {
             ),
             onDismiss = {},
             onNameChange = {},
+            onCatalogOpen = {},
             onAbilityChange = {},
             onUseAbilityForDamageChange = {},
             onProficiencyChange = {},
