@@ -44,10 +44,12 @@ android {
     }
 }
 
-val robolectricAndroidAll by configurations.creating
+val robolectricAndroidAll13 by configurations.creating
+val robolectricAndroidAll15 by configurations.creating
 
 tasks.register<Copy>("prepareRobolectricDependencies") {
-    from(robolectricAndroidAll)
+    from(robolectricAndroidAll13)
+    from(robolectricAndroidAll15)
     into(layout.buildDirectory.dir("robolectric"))
 }
 
@@ -57,8 +59,8 @@ tasks.withType<Test>().configureEach {
         "robolectric.dependency.dir",
         layout.buildDirectory.dir("robolectric").get().asFile.absolutePath,
     )
-    systemProperty("robolectric.usePreinstrumentedJars", "false")
     systemProperty("robolectric.enabledSdks", "33")
+    systemProperty("robolectric.usePreinstrumentedJars", "false")
 }
 
 kotlin {
@@ -97,8 +99,8 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.robolectric)
-    robolectricAndroidAll("org.robolectric:android-all:13-robolectric-9030017")
-    robolectricAndroidAll("org.robolectric:android-all:15-robolectric-12650502")
+    robolectricAndroidAll13("org.robolectric:android-all:13-robolectric-9030017")
+    robolectricAndroidAll15("org.robolectric:android-all:15-robolectric-12650502")
 
     kspAndroidTest(libs.hilt.android.compiler)
 
