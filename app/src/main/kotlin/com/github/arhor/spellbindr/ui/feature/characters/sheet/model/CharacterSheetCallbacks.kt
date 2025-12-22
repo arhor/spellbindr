@@ -40,6 +40,9 @@ data class CharacterSheetCallbacks(
     val onWeaponDieSizeChanged: (String) -> Unit = {},
     val onWeaponDamageTypeChanged: (DamageType) -> Unit = {},
     val onWeaponSaved: () -> Unit = {},
+    val onWeaponCatalogOpened: () -> Unit = {},
+    val onWeaponCatalogClosed: () -> Unit = {},
+    val onWeaponCatalogItemSelected: (String) -> Unit = {},
     val onOpenFullEditor: () -> Unit = {},
     val onDeleteCharacter: () -> Unit = {},
 )

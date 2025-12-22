@@ -138,6 +138,11 @@ fun CharacterSheetRoute(
             vm.onAction(CharacterSheetUiAction.WeaponDamageTypeChanged(damageType))
         },
         onWeaponSaved = { vm.onAction(CharacterSheetUiAction.WeaponSaved) },
+        onWeaponCatalogOpened = { vm.onAction(CharacterSheetUiAction.WeaponCatalogOpened) },
+        onWeaponCatalogClosed = { vm.onAction(CharacterSheetUiAction.WeaponCatalogClosed) },
+        onWeaponCatalogItemSelected = { id ->
+            vm.onAction(CharacterSheetUiAction.WeaponCatalogItemSelected(id))
+        },
         onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
         onDeleteCharacter = { vm.onAction(CharacterSheetUiAction.DeleteCharacter) },
     )

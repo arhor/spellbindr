@@ -149,6 +149,8 @@ internal object CharacterSheetPreviewData {
         skills = skills,
         spells = spells,
         weapons = weapons,
+        weaponCatalog = emptyList(),
+        isWeaponCatalogVisible = false,
         editingState = editingState,
         weaponEditorState = null,
         errorMessage = null,
