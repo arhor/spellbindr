@@ -227,7 +227,10 @@ data class CharacterSpell(
 @Serializable
 data class Weapon(
     val id: String = UUID.randomUUID().toString(),
+    val catalogId: String? = null,
     val name: String,
+    val category: EquipmentCategory? = null,
+    val categories: Set<EquipmentCategory> = emptySet(),
     @SerialName("attackAbility")
     val ability: Ability = Ability.STR,
     val proficient: Boolean = false,

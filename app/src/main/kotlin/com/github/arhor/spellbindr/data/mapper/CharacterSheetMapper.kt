@@ -170,7 +170,10 @@ private fun CharacterSpell.toData(): DataCharacterSpell = DataCharacterSpell(
 
 private fun DataWeapon.toDomain(): Weapon = Weapon(
     id = id,
+    catalogId = catalogId,
     name = name,
+    category = category,
+    categories = categories,
     ability = ability.toDomain(),
     proficient = proficient,
     damageDiceCount = damageDiceCount,
@@ -181,7 +184,10 @@ private fun DataWeapon.toDomain(): Weapon = Weapon(
 
 private fun Weapon.toData(): DataWeapon = DataWeapon(
     id = id,
+    catalogId = catalogId,
     name = name,
+    category = category,
+    categories = categories,
     ability = ability.toData(),
     proficient = proficient,
     damageDiceCount = damageDiceCount,
