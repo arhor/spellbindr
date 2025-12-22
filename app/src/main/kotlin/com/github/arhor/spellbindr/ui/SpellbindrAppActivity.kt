@@ -1,13 +1,17 @@
 package com.github.arhor.spellbindr.ui
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
@@ -23,43 +27,58 @@ import com.github.arhor.spellbindr.ui.components.rememberTopBarStateHolder
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.navigation.SpellbindrAppNavGraph
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-@Composable
-fun SpellbindrApp(
-    onLoaded: () -> Unit,
-    vm: SpellbindrAppViewModel = hiltViewModel(),
-) {
-    val state by vm.state.collectAsStateWithLifecycle()
-    val controller = rememberNavController()
-    val topBarStateHolder = rememberTopBarStateHolder()
+@AndroidEntryPoint
+class SpellbindrAppActivity : ComponentActivity() {
+    private var isSplashVisible = true
 
-    LaunchedEffect(state.ready) {
-        if (state.ready) {
-            onLoaded()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                isSplashVisible
+            }
         }
-    }
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            val vm = hiltViewModel<SpellbindrAppViewModel>()
+            val state by vm.state.collectAsStateWithLifecycle()
+            val controller = rememberNavController()
+            val topBarStateHolder = rememberTopBarStateHolder()
+            val backStackEntry by controller.currentBackStackEntryAsState()
+            val destination = backStackEntry?.destination
+            val topBarState by topBarStateHolder
+            val defaultConfig by remember(destination) {
+                derivedStateOf {
+                    defaultTopBarConfig(destination)
+                }
+            }
+            val resolvedConfig by remember(topBarState.config, defaultConfig) {
+                derivedStateOf {
+                    topBarState.config ?: defaultConfig
+                }
+            }
 
-    val backStackEntry by controller.currentBackStackEntryAsState()
-    val destination = backStackEntry?.destination
-    val topBarState by topBarStateHolder
-    val defaultConfig by remember(destination) {
-        derivedStateOf { defaultTopBarConfig(destination) }
-    }
-    val resolvedConfig by remember(topBarState.config, defaultConfig) {
-        derivedStateOf { topBarState.config ?: defaultConfig }
-    }
+            LaunchedEffect(state.ready) {
+                if (state.ready) {
+                    isSplashVisible = false
+                }
+            }
 
-    AppTheme(isDarkTheme = state.isDarkTheme) {
-        CompositionLocalProvider(LocalTopBarState provides topBarStateHolder) {
-            Scaffold(
-                topBar = { AppTopBar(resolvedConfig) },
-                bottomBar = { AppBottomBar(controller) },
-            ) { innerPadding ->
-                SpellbindrAppNavGraph(
-                    controller = controller,
-                    innerPadding = innerPadding,
-                )
-                topBarState.overlays()
+            AppTheme(isDarkTheme = state.isDarkTheme) {
+                CompositionLocalProvider(LocalTopBarState provides topBarStateHolder) {
+                    Scaffold(
+                        topBar = { AppTopBar(resolvedConfig) },
+                        bottomBar = { AppBottomBar(controller) },
+                    ) { innerPadding ->
+                        SpellbindrAppNavGraph(
+                            controller = controller,
+                            innerPadding = innerPadding,
+                        )
+                        topBarState.overlays()
+                    }
+                }
             }
         }
     }
@@ -94,4 +113,4 @@ private infix fun NavDestination?.matches(destination: kotlin.reflect.KClass<out
     when (this) {
         null -> false
         else -> hierarchy.any { it.hasRoute(destination) }
-}
+    }
