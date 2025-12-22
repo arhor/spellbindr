@@ -72,4 +72,7 @@ enum class Ability(
 
     val associatedSkills: List<Skill>
         get() = Skill.entries.filter { it.ability == this }
+
+    val ref: EntityRef
+        get() = EntityRef(name)
 }
