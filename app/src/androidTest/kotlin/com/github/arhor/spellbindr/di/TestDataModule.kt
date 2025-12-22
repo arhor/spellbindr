@@ -14,19 +14,24 @@ import com.github.arhor.spellbindr.data.local.db.FavoritesDao
 import com.github.arhor.spellbindr.data.local.db.SpellbindrDatabase
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.android.testing.TestInstallIn
+import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(
-    components = [SingletonComponent::class],
-    replaces = [AppModule::class, DatabaseModule::class],
-)
+@InstallIn(SingletonComponent::class)
 object TestDataModule {
+
+    @Provides
+    @Singleton
+    fun provideJson(): Json = Json {
+        ignoreUnknownKeys = true
+        classDiscriminator = "type"
+    }
 
     @Provides
     @Singleton

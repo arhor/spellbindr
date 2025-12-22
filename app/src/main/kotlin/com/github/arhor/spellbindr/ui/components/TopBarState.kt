@@ -7,6 +7,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.staticCompositionLocalOf
 
 @Stable
@@ -29,13 +30,18 @@ fun ProvideTopBarState(
     content: @Composable () -> Unit,
 ) {
     val holder = LocalTopBarState.current
+    val latestTopBarState = rememberUpdatedState(topBarState)
 
     SideEffect {
         holder.value = topBarState
     }
 
     DisposableEffect(Unit) {
-        onDispose { holder.value = TopBarState.Empty }
+        onDispose {
+            if (holder.value == latestTopBarState.value) {
+                holder.value = latestTopBarState.value.copy(overlays = {})
+            }
+        }
     }
 
     content()
