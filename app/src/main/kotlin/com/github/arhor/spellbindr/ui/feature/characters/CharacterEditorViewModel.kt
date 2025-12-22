@@ -14,7 +14,7 @@ import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsU
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
-import com.github.arhor.spellbindr.domain.usecase.CharacterSheetInputError
+import com.github.arhor.spellbindr.domain.model.CharacterSheetInputError
 import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

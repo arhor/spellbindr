@@ -1,23 +1,9 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
+import com.github.arhor.spellbindr.domain.model.CharacterSheetInputError
+import com.github.arhor.spellbindr.domain.model.CharacterSheetValidationResult
 import javax.inject.Inject
-
-data class CharacterSheetValidationResult(
-    val nameError: CharacterSheetInputError?,
-    val levelError: CharacterSheetInputError?,
-    val abilityErrors: Map<Ability, CharacterSheetInputError>,
-    val maxHpError: CharacterSheetInputError?,
-) {
-    val hasErrors: Boolean =
-        nameError != null || levelError != null || maxHpError != null || abilityErrors.isNotEmpty()
-}
-
-sealed interface CharacterSheetInputError {
-    data object Required : CharacterSheetInputError
-    data class MinValue(val min: Int) : CharacterSheetInputError
-}
 
 class ValidateCharacterSheetUseCase @Inject constructor() {
     operator fun invoke(input: CharacterEditorInput): CharacterSheetValidationResult {

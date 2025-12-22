@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.CharacterEntity
+import com.github.arhor.spellbindr.data.local.db.CharacterEntity
 import com.github.arhor.spellbindr.domain.model.Character
 
 fun CharacterEntity.toDomain(): Character = Character(

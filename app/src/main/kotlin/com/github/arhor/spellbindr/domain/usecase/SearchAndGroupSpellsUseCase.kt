@@ -2,20 +2,12 @@ package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.model.SearchAndGroupSpellsResult
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
-
-data class SearchAndGroupSpellsResult(
-    val spells: List<Spell>,
-    val spellsByLevel: Map<Int, List<Spell>>,
-    val totalCount: Int,
-    val query: String,
-    val classes: Set<EntityRef>,
-    val favoriteOnly: Boolean,
-)
 
 class SearchAndGroupSpellsUseCase @Inject constructor(
     private val spellsRepository: SpellsRepository,

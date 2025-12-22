@@ -4,6 +4,7 @@ import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.AbilityScoreInput
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterSheetInputError
 import com.github.arhor.spellbindr.domain.model.SavingThrowInput
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.SkillProficiencyInput

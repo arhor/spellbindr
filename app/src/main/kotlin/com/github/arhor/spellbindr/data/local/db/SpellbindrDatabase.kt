@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.github.arhor.spellbindr.data.CharacterEntity
+import com.github.arhor.spellbindr.data.local.db.CharacterEntity
 
 @Database(
     entities = [CharacterEntity::class, FavoriteEntity::class],

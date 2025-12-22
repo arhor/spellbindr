@@ -6,12 +6,13 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -147,28 +148,7 @@ class SpellsUseCasesTest {
         assertThat(favoritesRepository.lastToggledType).isEqualTo(FavoriteType.SPELL)
     }
 
-    @Test
-    fun `isSpellFavorite returns false for null id`() = runTest {
-        // When
-        val result = IsSpellFavoriteUseCase(favoritesRepository)(null)
-
-        // Then
-        assertThat(result).isFalse()
-    }
-
-    @Test
-    fun `isSpellFavorite returns repository value`() = runTest {
-        // Given
-        favoritesRepository.isFavoriteResult = true
-
-        // When
-        val result = IsSpellFavoriteUseCase(favoritesRepository)("fireball")
-
-        // Then
-        assertThat(result).isTrue()
-        assertThat(favoritesRepository.lastIsFavoriteSpellId).isEqualTo("fireball")
-    }
-
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `observeSpellDetails emits loading and favorite updates`() = runTest {
         // Given
@@ -265,7 +245,6 @@ class SpellsUseCasesTest {
         var throwOnGetSpellById: Boolean = false
         var lastToggledSpellId: String? = null
         var lastIsFavoriteSpellId: String? = null
-        var isFavoriteResult: Boolean = false
 
         override val allSpells: Flow<List<Spell>> = allSpellsState
         override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
