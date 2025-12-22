@@ -19,6 +19,7 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -38,9 +39,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SectionSelected(CompendiumSection.Races))
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CompendiumViewModel.CompendiumUiState.Content
+        val state = viewModel.awaitContentState()
         assertThat(state.selectedSection).isEqualTo(CompendiumSection.Races)
     }
 
@@ -50,9 +49,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellQueryChanged("  Fire "))
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CompendiumViewModel.CompendiumUiState.Content
+        val state = viewModel.awaitContentState()
         assertThat(state.spellsState.query).isEqualTo("Fire")
     }
 
@@ -62,9 +59,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellFavoritesToggled)
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CompendiumViewModel.CompendiumUiState.Content
+        val state = viewModel.awaitContentState()
         assertThat(state.spellsState.showFavorite).isTrue()
     }
 
@@ -75,12 +70,14 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellGroupToggled(level = 1))
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CompendiumViewModel.CompendiumUiState.Content
+        val state = viewModel.awaitContentState()
         assertThat(state.spellsState.expandedSpellLevels[1]).isFalse()
     }
 }
+
+private suspend fun CompendiumViewModel.awaitContentState(): CompendiumViewModel.CompendiumUiState.Content =
+    uiState.first { it is CompendiumViewModel.CompendiumUiState.Content } as
+        CompendiumViewModel.CompendiumUiState.Content
 
 private fun TestScope.createViewModel(): CompendiumViewModel {
     val spells = listOf(

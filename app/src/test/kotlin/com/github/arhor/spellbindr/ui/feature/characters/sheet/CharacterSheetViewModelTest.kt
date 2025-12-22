@@ -15,6 +15,7 @@ import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -34,9 +35,7 @@ class CharacterSheetViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AdjustCurrentHp(-4))
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CharacterSheetUiState.Content
+        val state = viewModel.awaitContentState()
         assertThat(state.header.hitPoints.current).isEqualTo(3)
     }
 
@@ -50,9 +49,7 @@ class CharacterSheetViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.SpellSlotToggled(level = 1, slotIndex = 0))
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CharacterSheetUiState.Content
+        val state = viewModel.awaitContentState()
         val levelOneSlot = state.spells.spellLevels.first { it.level == 1 }.spellSlot
         assertThat(levelOneSlot?.expended).isEqualTo(1)
     }
@@ -66,13 +63,14 @@ class CharacterSheetViewModelTest {
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AddWeaponClicked)
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponNameChanged("Longsword"))
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponSaved)
-        advanceUntilIdle()
-
-        val state = viewModel.uiState.value as CharacterSheetUiState.Content
+        val state = viewModel.awaitContentState()
         assertThat(state.weapons.weapons).hasSize(1)
         assertThat(state.weapons.weapons.first().name).isEqualTo("Longsword")
     }
 }
+
+private suspend fun CharacterSheetViewModel.awaitContentState(): CharacterSheetUiState.Content =
+    uiState.first { it is CharacterSheetUiState.Content } as CharacterSheetUiState.Content
 
 private fun TestScope.createViewModel(sheet: CharacterSheet): CharacterSheetViewModel {
     val characterRepository = FakeCharacterRepository(initialSheets = listOf(sheet))
