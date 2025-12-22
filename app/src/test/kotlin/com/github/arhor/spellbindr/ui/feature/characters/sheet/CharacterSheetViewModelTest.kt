@@ -35,7 +35,7 @@ class CharacterSheetViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AdjustCurrentHp(-4))
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState { it.header.hitPoints.current == 3 }
         assertThat(state.header.hitPoints.current).isEqualTo(3)
     }
 
@@ -49,7 +49,9 @@ class CharacterSheetViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.SpellSlotToggled(level = 1, slotIndex = 0))
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState {
+            it.spells.spellLevels.first { level -> level.level == 1 }.spellSlot?.expended == 1
+        }
         val levelOneSlot = state.spells.spellLevels.first { it.level == 1 }.spellSlot
         assertThat(levelOneSlot?.expended).isEqualTo(1)
     }
@@ -63,14 +65,18 @@ class CharacterSheetViewModelTest {
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AddWeaponClicked)
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponNameChanged("Longsword"))
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponSaved)
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState { it.weapons.weapons.firstOrNull()?.name == "Longsword" }
         assertThat(state.weapons.weapons).hasSize(1)
         assertThat(state.weapons.weapons.first().name).isEqualTo("Longsword")
     }
 }
 
-private suspend fun CharacterSheetViewModel.awaitContentState(): CharacterSheetUiState.Content =
-    uiState.first { it is CharacterSheetUiState.Content } as CharacterSheetUiState.Content
+private suspend fun CharacterSheetViewModel.awaitContentState(
+    predicate: (CharacterSheetUiState.Content) -> Boolean = { true },
+): CharacterSheetUiState.Content =
+    uiState.first { state ->
+        state is CharacterSheetUiState.Content && predicate(state)
+    } as CharacterSheetUiState.Content
 
 private fun TestScope.createViewModel(sheet: CharacterSheet): CharacterSheetViewModel {
     val characterRepository = FakeCharacterRepository(initialSheets = listOf(sheet))

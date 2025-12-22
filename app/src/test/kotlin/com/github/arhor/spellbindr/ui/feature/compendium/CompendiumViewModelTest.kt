@@ -39,7 +39,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SectionSelected(CompendiumSection.Races))
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState { it.selectedSection == CompendiumSection.Races }
         assertThat(state.selectedSection).isEqualTo(CompendiumSection.Races)
     }
 
@@ -49,7 +49,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellQueryChanged("  Fire "))
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState { it.spellsState.query == "Fire" }
         assertThat(state.spellsState.query).isEqualTo("Fire")
     }
 
@@ -59,7 +59,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellFavoritesToggled)
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState { it.spellsState.showFavorite }
         assertThat(state.spellsState.showFavorite).isTrue()
     }
 
@@ -70,14 +70,17 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellGroupToggled(level = 1))
-        val state = viewModel.awaitContentState()
+        val state = viewModel.awaitContentState { it.spellsState.expandedSpellLevels[1] == false }
         assertThat(state.spellsState.expandedSpellLevels[1]).isFalse()
     }
 }
 
-private suspend fun CompendiumViewModel.awaitContentState(): CompendiumViewModel.CompendiumUiState.Content =
-    uiState.first { it is CompendiumViewModel.CompendiumUiState.Content } as
-        CompendiumViewModel.CompendiumUiState.Content
+private suspend fun CompendiumViewModel.awaitContentState(
+    predicate: (CompendiumViewModel.CompendiumUiState.Content) -> Boolean = { true },
+): CompendiumViewModel.CompendiumUiState.Content =
+    uiState.first { state ->
+        state is CompendiumViewModel.CompendiumUiState.Content && predicate(state)
+    } as CompendiumViewModel.CompendiumUiState.Content
 
 private fun TestScope.createViewModel(): CompendiumViewModel {
     val spells = listOf(
