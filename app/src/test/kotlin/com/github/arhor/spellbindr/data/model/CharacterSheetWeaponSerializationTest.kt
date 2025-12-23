@@ -14,7 +14,7 @@ class CharacterSheetWeaponSerializationTest {
             name = "Longsword",
             category = EquipmentCategory.MARTIAL,
             categories = setOf(EquipmentCategory.MARTIAL, EquipmentCategory.MELEE),
-            ability = Ability.STR,
+            abilityId = "STR",
             proficient = true,
             damageDiceCount = 1,
             damageDieSize = 8,
@@ -36,7 +36,7 @@ class CharacterSheetWeaponSerializationTest {
                 Weapon(
                     id = "weapon-2",
                     name = "Fire Bolt",
-                    ability = Ability.INT,
+                    abilityId = "INT",
                     useAbilityForDamage = false,
                     damageType = DamageType.FIRE,
                 )

@@ -4,9 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
+import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
+import com.github.arhor.spellbindr.domain.repository.FakeAbilityRepository
 import com.github.arhor.spellbindr.domain.repository.FakeCharacterRepository
 import com.github.arhor.spellbindr.domain.repository.FakeSpellsRepository
 import com.github.arhor.spellbindr.domain.repository.FakeWeaponCatalogRepository
@@ -165,6 +167,16 @@ private fun TestScope.createViewModel(
     val characterRepository = FakeCharacterRepository(initialSheets = listOf(sheet))
     val spellsRepository = FakeSpellsRepository()
     val weaponCatalogRepository = FakeWeaponCatalogRepository(weaponCatalogEntries)
+    val abilityRepository = FakeAbilityRepository(
+        initialAbilities = listOf(
+            Ability(id = "STR", displayName = "Strength", description = emptyList()),
+            Ability(id = "DEX", displayName = "Dexterity", description = emptyList()),
+            Ability(id = "CON", displayName = "Constitution", description = emptyList()),
+            Ability(id = "INT", displayName = "Intelligence", description = emptyList()),
+            Ability(id = "WIS", displayName = "Wisdom", description = emptyList()),
+            Ability(id = "CHA", displayName = "Charisma", description = emptyList()),
+        )
+    )
     return CharacterSheetViewModel(
         deleteCharacterUseCase = DeleteCharacterUseCase(characterRepository),
         loadCharacterSheetUseCase = LoadCharacterSheetUseCase(characterRepository),
@@ -174,6 +186,7 @@ private fun TestScope.createViewModel(
         updateHitPointsUseCase = UpdateHitPointsUseCase(),
         toggleSpellSlotUseCase = ToggleSpellSlotUseCase(),
         updateWeaponListUseCase = UpdateWeaponListUseCase(),
+        abilityRepository = abilityRepository,
         savedStateHandle = SavedStateHandle(mapOf("characterId" to sheet.id)),
     )
 }

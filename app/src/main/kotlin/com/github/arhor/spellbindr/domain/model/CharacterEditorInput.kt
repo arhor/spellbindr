@@ -35,23 +35,23 @@ data class CharacterEditorInput(
 )
 
 data class AbilityScoreInput(
-    val ability: Ability,
+    val abilityId: String,
     val score: String = "10",
 ) {
     companion object {
-        fun defaults(): List<AbilityScoreInput> = Ability.entries.map { ability ->
-            AbilityScoreInput(ability = ability, score = "10")
+        fun defaults(): List<AbilityScoreInput> = listOf("STR", "DEX", "CON", "INT", "WIS", "CHA").map { abilityId ->
+            AbilityScoreInput(abilityId = abilityId, score = "10")
         }
     }
 }
 
 data class SavingThrowInput(
-    val ability: Ability,
+    val abilityId: String,
     val proficient: Boolean = false,
 ) {
     companion object {
-        fun defaults(): List<SavingThrowInput> = Ability.entries.map { ability ->
-            SavingThrowInput(ability = ability)
+        fun defaults(): List<SavingThrowInput> = listOf("STR", "DEX", "CON", "INT", "WIS", "CHA").map { abilityId ->
+            SavingThrowInput(abilityId = abilityId)
         }
     }
 }
@@ -74,7 +74,7 @@ data class CharacterEditorDerivedBonuses(
 )
 
 data class SavingThrowBonus(
-    val ability: Ability,
+    val abilityId: String,
     val bonus: Int,
 )
 

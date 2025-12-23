@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.di
 
+import com.github.arhor.spellbindr.data.repository.AbilityRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.AlignmentRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.CharacterRepositoryImpl
@@ -10,6 +11,7 @@ import com.github.arhor.spellbindr.data.repository.SpellsRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.ThemeRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.TraitsRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.WeaponCatalogRepositoryImpl
+import com.github.arhor.spellbindr.domain.repository.AbilityRepository
 import com.github.arhor.spellbindr.domain.repository.AlignmentRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
@@ -28,6 +30,9 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class CommonDomainModule {
+    @Binds
+    abstract fun bindAbilityRepository(impl: AbilityRepositoryImpl): AbilityRepository
+
     @Binds
     abstract fun bindCharactersRepository(impl: CharacterRepositoryImpl): CharacterRepository
 

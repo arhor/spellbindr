@@ -11,7 +11,7 @@ import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
  *                      This is an optional reference to a damage type representing the damage type.
  * @property damageAtSlotLevel A map representing the damage dealt by the spell at different slot levels.
  *                             The keys are slot levels (e.g., "1", "2", "cantrip"), and the values are
- *                             strings describing the damage (e.g., "1d6", "2d8 + Spellcasting Ability Modifier").
+ *                             strings describing the damage (e.g., "1d6", "2d8 + Spellcasting LegacyAbility Modifier").
  *                             This is optional.
  * @property damageAtCharacterLevel A map representing how the spell's damage scales with character level.
  *                                  The keys are character levels (e.g., "1", "5", "11"), and the values

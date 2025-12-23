@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponEditorState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -31,7 +30,7 @@ fun WeaponEditorDialog(
     onDismiss: () -> Unit,
     onNameChange: (String) -> Unit,
     onCatalogOpen: () -> Unit,
-    onAbilityChange: (Ability) -> Unit,
+    onAbilityChange: (String) -> Unit,
     onUseAbilityForDamageChange: (Boolean) -> Unit,
     onProficiencyChange: (Boolean) -> Unit,
     onDiceCountChange: (String) -> Unit,
@@ -73,11 +72,11 @@ fun WeaponEditorDialog(
                             .horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        Ability.entries.forEach { ability ->
+                        listOf("STR", "DEX", "CON", "INT", "WIS", "CHA").forEach { abilityId ->
                             FilterChip(
-                                selected = editorState.ability == ability,
-                                onClick = { onAbilityChange(ability) },
-                                label = { Text(ability.name) },
+                                selected = editorState.abilityId == abilityId,
+                                onClick = { onAbilityChange(abilityId) },
+                                label = { Text(abilityId) },
                             )
                         }
                     }
@@ -160,7 +159,7 @@ private fun WeaponEditorDialogPreview() {
         WeaponEditorDialog(
             editorState = WeaponEditorState(
                 name = "Longsword",
-                ability = Ability.STR,
+                abilityId = "STR",
                 damageDiceCount = "1",
                 damageDieSize = "8",
                 proficient = true,

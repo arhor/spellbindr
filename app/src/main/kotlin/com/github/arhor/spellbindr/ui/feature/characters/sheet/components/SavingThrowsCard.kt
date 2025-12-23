@@ -25,7 +25,7 @@ internal fun SavingThrowsCard(
     modifier: Modifier = Modifier,
 ) {
     val (leftColumn, rightColumn) = remember(abilities) {
-        val abilityLookup = abilities.associateBy(AbilityUiModel::ability)
+        val abilityLookup = abilities.associateBy(AbilityUiModel::abilityId)
         val left = LEFT_ABILITY_ORDER.mapNotNull { abilityLookup[it] }
         val right = RIGHT_ABILITY_ORDER.mapNotNull { abilityLookup[it] }
         left to right
@@ -88,7 +88,7 @@ private fun SavingThrowColumn(
     ) {
         abilities.forEach { ability ->
             SavingThrowCard(
-                abilityName = ability.ability.displayName,
+                abilityName = ability.label,
                 bonus = ability.savingThrowBonus,
                 proficient = ability.savingThrowProficient,
             )

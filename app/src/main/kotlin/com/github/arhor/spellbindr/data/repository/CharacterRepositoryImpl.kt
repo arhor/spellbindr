@@ -1,11 +1,10 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.local.db.CharacterEntity
 import com.github.arhor.spellbindr.data.local.db.CharacterDao
+import com.github.arhor.spellbindr.data.local.db.CharacterEntity
 import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.mapper.toEntity
 import com.github.arhor.spellbindr.data.mapper.toSnapshot
-import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.EntityRef
@@ -94,11 +93,11 @@ class CharacterRepositoryImpl @Inject constructor(
         )
 
     private fun CharacterSheet.toAbilityScoreMap(): Map<EntityRef, Int> = buildMap {
-        put(Ability.STR.ref, abilityScores.strength)
-        put(Ability.DEX.ref, abilityScores.dexterity)
-        put(Ability.CON.ref, abilityScores.constitution)
-        put(Ability.INT.ref, abilityScores.intelligence)
-        put(Ability.WIS.ref, abilityScores.wisdom)
-        put(Ability.CHA.ref, abilityScores.charisma)
+        put(EntityRef("STR"), abilityScores.strength)
+        put(EntityRef("DEX"), abilityScores.dexterity)
+        put(EntityRef("CON"), abilityScores.constitution)
+        put(EntityRef("INT"), abilityScores.intelligence)
+        put(EntityRef("WIS"), abilityScores.wisdom)
+        put(EntityRef("CHA"), abilityScores.charisma)
     }
 }

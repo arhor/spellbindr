@@ -21,6 +21,15 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
 
 internal object CharacterSheetPreviewData {
 
+    val abilities = listOf(
+        Ability("STR", "Strength", emptyList()),
+        Ability("DEX", "Dexterity", emptyList()),
+        Ability("CON", "Constitution", emptyList()),
+        Ability("INT", "Intelligence", emptyList()),
+        Ability("WIS", "Wisdom", emptyList()),
+        Ability("CHA", "Charisma", emptyList()),
+    )
+
     val header = CharacterHeaderUiState(
         name = "Astra Moonshadow",
         subtitle = "Level 7 Wizard • Half-elf",
@@ -33,10 +42,10 @@ internal object CharacterSheetPreviewData {
     )
 
     val overview = OverviewTabState(
-        abilities = Ability.entries.mapIndexed { index, ability ->
+        abilities = abilities.mapIndexed { index, ability ->
             AbilityUiModel(
-                ability = ability,
-                label = ability.name,
+                abilityId = ability.id,
+                label = ability.displayName,
                 score = 10 + index * 2,
                 modifier = index - 1,
                 savingThrowBonus = index + 2,
@@ -59,7 +68,7 @@ internal object CharacterSheetPreviewData {
             SkillUiModel(
                 id = skill,
                 name = skill.displayName,
-                abilityAbbreviation = skill.ability.name,
+                abilityAbbreviation = skill.abilityId,
                 totalBonus = index,
                 proficient = index % 2 == 0,
                 expertise = index == 0,
@@ -154,5 +163,6 @@ internal object CharacterSheetPreviewData {
         editingState = editingState,
         weaponEditorState = null,
         errorMessage = null,
+        abilities = abilities,
     )
 }

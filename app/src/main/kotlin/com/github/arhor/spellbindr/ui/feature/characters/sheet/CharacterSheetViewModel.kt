@@ -15,6 +15,7 @@ import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.Weapon
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
+import com.github.arhor.spellbindr.domain.repository.AbilityRepository
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
@@ -66,6 +67,7 @@ class CharacterSheetViewModel @Inject constructor(
     private val updateHitPointsUseCase: UpdateHitPointsUseCase,
     private val toggleSpellSlotUseCase: ToggleSpellSlotUseCase,
     private val updateWeaponListUseCase: UpdateWeaponListUseCase,
+    private val abilityRepository: AbilityRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -99,7 +101,7 @@ class CharacterSheetViewModel @Inject constructor(
         data class WeaponDeleted(val id: String) : CharacterSheetUiAction
         data object WeaponEditorDismissed : CharacterSheetUiAction
         data class WeaponNameChanged(val value: String) : CharacterSheetUiAction
-        data class WeaponAbilityChanged(val ability: Ability) : CharacterSheetUiAction
+        data class WeaponAbilityChanged(val abilityId: String) : CharacterSheetUiAction
         data class WeaponUseAbilityForDamageChanged(val enabled: Boolean) : CharacterSheetUiAction
         data class WeaponProficiencyChanged(val proficient: Boolean) : CharacterSheetUiAction
         data class WeaponDiceCountChanged(val value: String) : CharacterSheetUiAction
@@ -125,6 +127,7 @@ class CharacterSheetViewModel @Inject constructor(
         data class WeaponEditorChanged(val state: WeaponEditorState?) : CharacterSheetUiEvent
         data class WeaponCatalogVisibilityChanged(val isVisible: Boolean) : CharacterSheetUiEvent
         data class ErrorChanged(val message: String?) : CharacterSheetUiEvent
+        data class AbilitiesLoaded(val abilities: List<Ability>) : CharacterSheetUiEvent
     }
 
     /**
@@ -150,8 +153,8 @@ class CharacterSheetViewModel @Inject constructor(
         val weaponEditorState: WeaponEditorState? = null,
         val errorMessage: String? = null,
         val hasLoaded: Boolean = false,
+        val abilities: List<Ability> = emptyList(),
     )
-
 
     private val characterId: String? = savedStateHandle.get<String>("characterId")
     private val _data = MutableStateFlow(
@@ -172,6 +175,7 @@ class CharacterSheetViewModel @Inject constructor(
         )
 
     init {
+        observeAbilities()
         observeCharacter()
         observeSpells()
         observeWeaponCatalog()
@@ -218,7 +222,7 @@ class CharacterSheetViewModel @Inject constructor(
             )
 
             is CharacterSheetUiAction.WeaponNameChanged -> updateWeaponEditor { it.copy(name = action.value) }
-            is CharacterSheetUiAction.WeaponAbilityChanged -> updateWeaponEditor { it.copy(ability = action.ability) }
+            is CharacterSheetUiAction.WeaponAbilityChanged -> updateWeaponEditor { it.copy(abilityId = action.abilityId) }
             is CharacterSheetUiAction.WeaponUseAbilityForDamageChanged ->
                 updateWeaponEditor { it.copy(useAbilityForDamage = action.enabled) }
 
@@ -269,6 +273,7 @@ class CharacterSheetViewModel @Inject constructor(
         is CharacterSheetUiEvent.WeaponEditorChanged -> data.copy(weaponEditorState = event.state)
         is CharacterSheetUiEvent.WeaponCatalogVisibilityChanged -> data.copy(isWeaponCatalogVisible = event.isVisible)
         is CharacterSheetUiEvent.ErrorChanged -> data.copy(errorMessage = event.message)
+        is CharacterSheetUiEvent.AbilitiesLoaded -> data.copy(abilities = event.abilities)
     }
 
     private fun CharacterSheetUiData.toUiState(): CharacterSheetUiState =
@@ -291,8 +296,8 @@ class CharacterSheetViewModel @Inject constructor(
                 selectedTab = selectedTab,
                 editMode = editMode,
                 header = sheet.toHeaderState(),
-                overview = sheet.toOverviewState(),
-                skills = sheet.toSkillsState(),
+                overview = sheet.toOverviewState(abilities),
+                skills = sheet.toSkillsState(abilities),
                 spells = sheet.toSpellsState(spells),
                 weapons = sheet.toWeaponsState(),
                 weaponCatalog = weaponCatalog,
@@ -300,6 +305,7 @@ class CharacterSheetViewModel @Inject constructor(
                 editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
                 weaponEditorState = weaponEditorState,
                 errorMessage = errorMessage,
+                abilities = abilities,
             )
         }
 
@@ -313,6 +319,12 @@ class CharacterSheetViewModel @Inject constructor(
                 updateData(CharacterSheetUiEvent.ErrorChanged(throwable.message ?: "Unable to load character"))
                 updateData(CharacterSheetUiEvent.SheetLoaded(null, loaded = true))
             }
+            .launchIn(viewModelScope)
+    }
+
+    private fun observeAbilities() {
+        abilityRepository.getAbilities()
+            .onEach { abilities -> updateData(CharacterSheetUiEvent.AbilitiesLoaded(abilities)) }
             .launchIn(viewModelScope)
     }
 
@@ -517,6 +529,7 @@ sealed interface CharacterSheetUiState {
         val editingState: CharacterSheetEditingState?,
         val weaponEditorState: WeaponEditorState?,
         val errorMessage: String?,
+        val abilities: List<Ability>,
     ) : CharacterSheetUiState
 
     @Immutable
@@ -563,7 +576,7 @@ data class OverviewTabState(
 
 @Immutable
 data class AbilityUiModel(
-    val ability: Ability,
+    val abilityId: String,
     val label: String,
     val score: Int,
     val modifier: Int,
@@ -655,7 +668,7 @@ data class WeaponEditorState(
     val name: String = "",
     val category: EquipmentCategory? = null,
     val categories: Set<EquipmentCategory> = emptySet(),
-    val ability: Ability = Ability.STR,
+    val abilityId: String = "STR",
     val proficient: Boolean = false,
     val useAbilityForDamage: Boolean = true,
     val damageDiceCount: String = "1",
@@ -668,7 +681,7 @@ data class WeaponEditorState(
         name = name.trim(),
         category = category,
         categories = categories,
-        ability = ability,
+        abilityId = abilityId,
         proficient = proficient,
         damageDiceCount = damageDiceCount.toIntOrNull()?.coerceAtLeast(1) ?: 1,
         damageDieSize = damageDieSize.toIntOrNull()?.coerceAtLeast(1) ?: 6,
@@ -683,7 +696,7 @@ data class WeaponEditorState(
             name = weapon.name,
             category = weapon.category,
             categories = weapon.categories,
-            ability = weapon.ability,
+            abilityId = weapon.abilityId,
             proficient = weapon.proficient,
             useAbilityForDamage = weapon.useAbilityForDamage,
             damageDiceCount = weapon.damageDiceCount.toString(),
@@ -768,16 +781,19 @@ private fun CharacterSheet.toHeaderState(): CharacterHeaderUiState {
     )
 }
 
-private fun CharacterSheet.toOverviewState(): OverviewTabState {
-    val savingThrowLookup = savingThrows.associateBy { it.ability }
-    val abilityModels = Ability.entries.map { ability ->
-        val modifier = abilityScores.modifierFor(ability)
-        val entry = savingThrowLookup[ability]
+private fun CharacterSheet.toOverviewState(abilities: List<Ability>): OverviewTabState {
+    val savingThrowLookup = savingThrows.associateBy { it.abilityId }
+
+    // Sort abilities to ensure standard order if possible (STR, DEX, etc)
+    // Or just use the loaded order. Loaded order is likely correct from JSON.
+    val abilityModels = abilities.map { ability ->
+        val modifier = abilityScores.modifierFor(ability.id)
+        val entry = savingThrowLookup[ability.id]
         val proficiencyBonusValue = if (entry?.proficient == true) proficiencyBonus else 0
         AbilityUiModel(
-            ability = ability,
-            label = ability.name,
-            score = abilityScores.scoreFor(ability),
+            abilityId = ability.id,
+            label = ability.displayName,
+            score = abilityScores.scoreFor(ability.id),
             modifier = modifier,
             savingThrowBonus = modifier + (entry?.bonus ?: 0) + proficiencyBonusValue,
             savingThrowProficient = entry?.proficient ?: false,
@@ -801,8 +817,10 @@ private fun CharacterSheet.toOverviewState(): OverviewTabState {
     )
 }
 
-private fun CharacterSheet.toSkillsState(): SkillsTabState {
+private fun CharacterSheet.toSkillsState(abilities: List<Ability>): SkillsTabState {
     val entries = skills.associateBy { it.skill }
+    val abilityNameLookup = abilities.associate { it.id to it.displayName }
+    
     val models = Skill.entries.map { skill ->
         val entry = entries[skill]
         val proficiencyBonus = when {
@@ -810,11 +828,13 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
             entry?.proficient == true -> this.proficiencyBonus
             else -> 0
         }
+        val abilityName = abilityNameLookup[skill.abilityId] ?: skill.abilityId
+        
         SkillUiModel(
             id = skill,
             name = skill.displayName,
-            abilityAbbreviation = skill.ability.name,
-            totalBonus = abilityScores.modifierFor(skill.ability) + proficiencyBonus + (entry?.bonus ?: 0),
+            abilityAbbreviation = abilityName.take(3).uppercase(),
+            totalBonus = abilityScores.modifierFor(skill.abilityId) + proficiencyBonus + (entry?.bonus ?: 0),
             proficient = entry?.proficient ?: false,
             expertise = entry?.expertise ?: false,
         )
@@ -887,7 +907,7 @@ internal fun CharacterSheet.toWeaponsState(): WeaponsTabState {
 
     return WeaponsTabState(
         weapons = weapons.map { weapon ->
-            val abilityModifier = scores.modifierFor(weapon.ability)
+            val abilityModifier = scores.modifierFor(weapon.abilityId)
             val attackBonus = abilityModifier + if (weapon.proficient) proficiency else 0
             val damageBonus = if (weapon.useAbilityForDamage) abilityModifier else 0
             val damagePart = if (damageBonus == 0) {
@@ -924,13 +944,14 @@ private fun CharacterSheet.applyInlineEdits(edits: CharacterSheetEditingState): 
     )
 }
 
-private fun AbilityScores.scoreFor(ability: Ability): Int = when (ability) {
-    Ability.STR -> strength
-    Ability.DEX -> dexterity
-    Ability.CON -> constitution
-    Ability.INT -> intelligence
-    Ability.WIS -> wisdom
-    Ability.CHA -> charisma
+private fun AbilityScores.scoreFor(abilityId: String): Int = when (abilityId.uppercase()) {
+    "STR" -> strength
+    "DEX" -> dexterity
+    "CON" -> constitution
+    "INT" -> intelligence
+    "WIS" -> wisdom
+    "CHA" -> charisma
+    else -> 10
 }
 
 private fun String.filterDigits(): String = filter { it.isDigit() }

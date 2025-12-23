@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.utils
 
-import com.github.arhor.spellbindr.domain.model.Ability
 import kotlin.math.floor
 import kotlin.random.Random
 
@@ -35,7 +34,7 @@ fun calculateAbilityScoreModifier(score: Int): String = signed(calculateModifier
  */
 fun signed(value: Int): String = if (value >= 0) "+$value" else value.toString()
 
-fun Map<Ability, Int>.asCommaSeparatedString(): String =
+fun Map<String, Int>.asCommaSeparatedString(): String =
     this.asSequence()
         .filter { it.value != 0 }
         .joinToString { "${it.key}: ${signed(it.value)}" }

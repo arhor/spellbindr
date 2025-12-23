@@ -1,13 +1,6 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.model.AbilityScores as DataAbilityScores
 import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
-import com.github.arhor.spellbindr.data.model.CharacterSpell as DataCharacterSpell
-import com.github.arhor.spellbindr.data.model.DeathSaveState as DataDeathSaveState
-import com.github.arhor.spellbindr.data.model.SavingThrowEntry as DataSavingThrowEntry
-import com.github.arhor.spellbindr.data.model.SkillEntry as DataSkillEntry
-import com.github.arhor.spellbindr.data.model.SpellSlotState as DataSpellSlotState
-import com.github.arhor.spellbindr.data.model.Weapon as DataWeapon
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
@@ -16,6 +9,13 @@ import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.SkillEntry
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.Weapon
+import com.github.arhor.spellbindr.data.model.AbilityScores as DataAbilityScores
+import com.github.arhor.spellbindr.data.model.CharacterSpell as DataCharacterSpell
+import com.github.arhor.spellbindr.data.model.DeathSaveState as DataDeathSaveState
+import com.github.arhor.spellbindr.data.model.SavingThrowEntry as DataSavingThrowEntry
+import com.github.arhor.spellbindr.data.model.SkillEntry as DataSkillEntry
+import com.github.arhor.spellbindr.data.model.SpellSlotState as DataSpellSlotState
+import com.github.arhor.spellbindr.data.model.Weapon as DataWeapon
 
 fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet(
     id = id,
@@ -133,26 +133,26 @@ private fun SpellSlotState.toData(): DataSpellSlotState = DataSpellSlotState(
 )
 
 private fun DataSavingThrowEntry.toDomain(): SavingThrowEntry = SavingThrowEntry(
-    ability = ability.toDomain(),
+    abilityId = abilityId,
     bonus = bonus,
     proficient = proficient,
 )
 
 private fun SavingThrowEntry.toData(): DataSavingThrowEntry = DataSavingThrowEntry(
-    ability = ability.toData(),
+    abilityId = abilityId,
     bonus = bonus,
     proficient = proficient,
 )
 
 private fun DataSkillEntry.toDomain(): SkillEntry = SkillEntry(
-    skill = skill.toDomain(),
+    skill = skill,
     bonus = bonus,
     proficient = proficient,
     expertise = expertise,
 )
 
 private fun SkillEntry.toData(): DataSkillEntry = DataSkillEntry(
-    skill = skill.toData(),
+    skill = skill,
     bonus = bonus,
     proficient = proficient,
     expertise = expertise,
@@ -174,7 +174,7 @@ private fun DataWeapon.toDomain(): Weapon = Weapon(
     name = name,
     category = category,
     categories = categories,
-    ability = ability.toDomain(),
+    abilityId = abilityId,
     proficient = proficient,
     damageDiceCount = damageDiceCount,
     damageDieSize = damageDieSize,
@@ -188,7 +188,7 @@ private fun Weapon.toData(): DataWeapon = DataWeapon(
     name = name,
     category = category,
     categories = categories,
-    ability = ability.toData(),
+    abilityId = abilityId,
     proficient = proficient,
     damageDiceCount = damageDiceCount,
     damageDieSize = damageDieSize,

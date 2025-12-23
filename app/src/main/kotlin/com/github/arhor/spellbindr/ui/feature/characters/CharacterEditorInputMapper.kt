@@ -15,7 +15,7 @@ fun CharacterEditorUiState.toDomainInput(): CharacterEditorInput = CharacterEdit
     background = background,
     alignment = alignment,
     experiencePoints = experiencePoints,
-    abilities = abilities.map { AbilityScoreInput(ability = it.ability, score = it.score) },
+    abilities = abilities.map { AbilityScoreInput(abilityId = it.abilityId, score = it.score) },
     proficiencyBonus = proficiencyBonus,
     inspiration = inspiration,
     maxHitPoints = maxHitPoints,
@@ -25,7 +25,7 @@ fun CharacterEditorUiState.toDomainInput(): CharacterEditorInput = CharacterEdit
     initiative = initiative,
     speed = speed,
     hitDice = hitDice,
-    savingThrows = savingThrows.map { SavingThrowInput(ability = it.ability, proficient = it.proficient) },
+    savingThrows = savingThrows.map { SavingThrowInput(abilityId = it.abilityId, proficient = it.proficient) },
     skills = skills.map {
         SkillProficiencyInput(skill = it.skill, proficient = it.proficient, expertise = it.expertise)
     },
@@ -45,11 +45,11 @@ fun CharacterEditorUiState.toDomainInput(): CharacterEditorInput = CharacterEdit
 fun CharacterEditorUiState.withDerivedBonuses(
     derived: CharacterEditorDerivedBonuses,
 ): CharacterEditorUiState {
-    val savingThrowBonuses = derived.savingThrows.associateBy { it.ability }
+    val savingThrowBonuses = derived.savingThrows.associateBy { it.abilityId }
     val skillBonuses = derived.skills.associateBy { it.skill }
     return copy(
         savingThrows = savingThrows.map { entry ->
-            entry.copy(bonus = savingThrowBonuses[entry.ability]?.bonus ?: entry.bonus)
+            entry.copy(bonus = savingThrowBonuses[entry.abilityId]?.bonus ?: entry.bonus)
         },
         skills = skills.map { entry ->
             entry.copy(bonus = skillBonuses[entry.skill]?.bonus ?: entry.bonus)

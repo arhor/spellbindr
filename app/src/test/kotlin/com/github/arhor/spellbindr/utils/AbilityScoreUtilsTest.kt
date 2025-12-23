@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.utils
 
-import com.github.arhor.spellbindr.domain.model.Ability
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
@@ -31,9 +30,9 @@ class AbilityScoreUtilsTest {
     fun `asCommaSeparatedString skips zero modifiers`() {
         // Given
         val modifiers = linkedMapOf(
-            Ability.STR to 2,
-            Ability.DEX to 0,
-            Ability.CON to -1,
+            "STR" to 2,
+            "DEX" to 0,
+            "CON" to -1,
         )
 
         // When

@@ -40,7 +40,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.Ability
-import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
@@ -234,8 +233,9 @@ private fun CharacterEditorForm(
         SectionCard(title = "Ability Scores") {
             AbilityGrid(
                 abilities = state.abilities,
-                onAbilityChanged = { ability, value ->
-                    callbacks.onAction(CharacterEditorAction.AbilityChanged(ability, value))
+                abilityMetadata = state.abilityMetadata,
+                onAbilityChanged = { abilityId, value ->
+                    callbacks.onAction(CharacterEditorAction.AbilityChanged(abilityId, value))
                 },
             )
         }
@@ -331,9 +331,10 @@ private fun CharacterEditorForm(
                 state.savingThrows.forEach { entry ->
                     SavingThrowRow(
                         entry = entry,
+                        abilityDisplayName = state.abilityMetadata[entry.abilityId]?.displayName ?: entry.abilityId,
                         onProficiencyChanged = {
                             callbacks.onAction(
-                                CharacterEditorAction.SavingThrowProficiencyChanged(entry.ability, it),
+                                CharacterEditorAction.SavingThrowProficiencyChanged(entry.abilityId, it),
                             )
                         },
                     )
@@ -345,6 +346,8 @@ private fun CharacterEditorForm(
                 state.skills.forEach { entry ->
                     SkillRow(
                         entry = entry,
+                        abilityDisplayName = state.abilityMetadata[entry.skill.abilityId]?.displayName
+                            ?: entry.skill.abilityId,
                         onProficiencyChanged = {
                             callbacks.onAction(CharacterEditorAction.SkillProficiencyChanged(entry.skill, it))
                         },
@@ -454,7 +457,8 @@ private fun SectionCard(
 @Composable
 private fun AbilityGrid(
     abilities: List<AbilityFieldState>,
-    onAbilityChanged: (Ability, String) -> Unit,
+    abilityMetadata: Map<String, Ability>,
+    onAbilityChanged: (String, String) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         abilities.chunked(2).forEach { rowItems ->
@@ -465,7 +469,8 @@ private fun AbilityGrid(
                 rowItems.forEach { ability ->
                     AbilityCard(
                         state = ability,
-                        onAbilityChanged = { value -> onAbilityChanged(ability.ability, value) },
+                        displayName = abilityMetadata[ability.abilityId]?.displayName ?: ability.abilityId,
+                        onAbilityChanged = { value -> onAbilityChanged(ability.abilityId, value) },
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -480,6 +485,7 @@ private fun AbilityGrid(
 @Composable
 private fun AbilityCard(
     state: AbilityFieldState,
+    displayName: String,
     onAbilityChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -493,7 +499,7 @@ private fun AbilityCard(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                text = state.ability.displayName,
+                text = displayName,
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
             )
@@ -518,6 +524,7 @@ private fun AbilityCard(
 @Composable
 private fun SavingThrowRow(
     entry: SavingThrowInputState,
+    abilityDisplayName: String,
     onProficiencyChanged: (Boolean) -> Unit,
 ) {
     Row(
@@ -526,7 +533,7 @@ private fun SavingThrowRow(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = entry.ability.displayName, fontWeight = FontWeight.Medium)
+            Text(text = abilityDisplayName, fontWeight = FontWeight.Medium)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
                     checked = entry.proficient,
@@ -545,13 +552,14 @@ private fun SavingThrowRow(
 @Composable
 private fun SkillRow(
     entry: SkillInputState,
+    abilityDisplayName: String,
     onProficiencyChanged: (Boolean) -> Unit,
     onExpertiseChanged: (Boolean) -> Unit,
 ) {
     Column {
         Text(text = entry.skill.displayName, fontWeight = FontWeight.Medium)
         Text(
-            text = "Linked to ${entry.skill.ability.displayName}",
+            text = "Linked to $abilityDisplayName",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -661,4 +669,12 @@ private fun previewEditorState(): CharacterEditorUiState = CharacterEditorUiStat
     bonds = "Protect the Luna Conservatory",
     flaws = "Overly cautious",
     notes = "Keep an eye on the mysterious amulet.",
+    abilityMetadata = mapOf(
+        "STR" to Ability("STR", "Strength", emptyList()),
+        "DEX" to Ability("DEX", "Dexterity", emptyList()),
+        "CON" to Ability("CON", "Constitution", emptyList()),
+        "INT" to Ability("INT", "Intelligence", emptyList()),
+        "WIS" to Ability("WIS", "Wisdom", emptyList()),
+        "CHA" to Ability("CHA", "Charisma", emptyList()),
+    )
 )

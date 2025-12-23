@@ -1,9 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.Skill
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.util.UUID
-
 
 /**
  * Represents the data captured by the manual character sheet editor.
@@ -95,20 +95,11 @@ data class AbilityScores(
     val intelligence: Int = 10,
     val wisdom: Int = 10,
     val charisma: Int = 10,
-) {
-    fun modifierFor(ability: Ability): Int = when (ability) {
-        Ability.STR -> (strength - 10) / 2
-        Ability.DEX -> (dexterity - 10) / 2
-        Ability.CON -> (constitution - 10) / 2
-        Ability.INT -> (intelligence - 10) / 2
-        Ability.WIS -> (wisdom - 10) / 2
-        Ability.CHA -> (charisma - 10) / 2
-    }
-}
+)
 
 @Serializable
 data class SavingThrowEntry(
-    val ability: Ability,
+    val abilityId: String,
     val bonus: Int = 0,
     val proficient: Boolean = false,
 )
@@ -197,7 +188,7 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
 )
 
 fun defaultSavingThrows(): List<SavingThrowEntry> =
-    Ability.entries.map { ability -> SavingThrowEntry(ability = ability) }
+    listOf("STR", "DEX", "CON", "INT", "WIS", "CHA").map { abilityId -> SavingThrowEntry(abilityId = abilityId) }
 
 fun defaultSkills(): List<SkillEntry> =
     Skill.entries.map { skill -> SkillEntry(skill = skill) }
@@ -229,7 +220,7 @@ data class Weapon(
     val category: EquipmentCategory? = null,
     val categories: Set<EquipmentCategory> = emptySet(),
     @SerialName("attackAbility")
-    val ability: Ability = Ability.STR,
+    val abilityId: String = "STR",
     val proficient: Boolean = false,
     val damageDiceCount: Int = 1,
     val damageDieSize: Int = 6,

@@ -10,7 +10,7 @@ class ValidateCharacterSheetUseCase @Inject constructor() {
         val abilityErrors = input.abilities.mapNotNull { ability ->
             val value = ability.score.toIntOrNull()
             if (value == null) {
-                ability.ability to CharacterSheetInputError.Required
+                ability.abilityId to CharacterSheetInputError.Required
             } else {
                 null
             }

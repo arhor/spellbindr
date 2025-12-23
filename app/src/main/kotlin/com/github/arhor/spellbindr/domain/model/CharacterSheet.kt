@@ -101,28 +101,29 @@ data class AbilityScores(
     val charisma: Int = 10,
 ) {
     /**
-     * Calculates the modifier for a given [ability] based on its score.
+     * Calculates the modifier for a given [abilityId] based on its score.
      * Formula: `(score - 10) / 2` (integer division).
      */
-    fun modifierFor(ability: Ability): Int = when (ability) {
-        Ability.STR -> (strength - 10) / 2
-        Ability.DEX -> (dexterity - 10) / 2
-        Ability.CON -> (constitution - 10) / 2
-        Ability.INT -> (intelligence - 10) / 2
-        Ability.WIS -> (wisdom - 10) / 2
-        Ability.CHA -> (charisma - 10) / 2
+    fun modifierFor(abilityId: String): Int = when (abilityId.uppercase()) {
+        "STR" -> (strength - 10) / 2
+        "DEX" -> (dexterity - 10) / 2
+        "CON" -> (constitution - 10) / 2
+        "INT" -> (intelligence - 10) / 2
+        "WIS" -> (wisdom - 10) / 2
+        "CHA" -> (charisma - 10) / 2
+        else -> 0
     }
 }
 
 /**
  * Represents a saving throw configuration for a specific ability.
  *
- * @property ability The ability associated with the save.
+ * @property abilityId The ability associated with the save.
  * @property bonus Total bonus to add to the d20 roll.
  * @property proficient Whether the character is proficient in this save.
  */
 data class SavingThrowEntry(
-    val ability: Ability,
+    val abilityId: String,
     val bonus: Int = 0,
     val proficient: Boolean = false,
 )
@@ -185,7 +186,7 @@ data class CharacterSpell(
  * @property name Display name of the weapon.
  * @property category Broad category (Simple, Martial, etc.).
  * @property categories Set of specific categories this weapon belongs to.
- * @property ability The ability used for attack and damage rolls.
+ * @property abilityId The ability used for attack and damage rolls.
  * @property proficient Whether the character is proficient with this weapon.
  * @property damageDiceCount Number of dice to roll for damage.
  * @property damageDieSize Size of the damage die (e.g. 6 for d6).
@@ -198,7 +199,7 @@ data class Weapon(
     val name: String,
     val category: EquipmentCategory? = null,
     val categories: Set<EquipmentCategory> = emptySet(),
-    val ability: Ability = Ability.STR,
+    val abilityId: String = "STR",
     val proficient: Boolean = false,
     val damageDiceCount: Int = 1,
     val damageDieSize: Int = 6,
@@ -216,7 +217,7 @@ fun defaultSpellSlots(): List<SpellSlotState> =
  * Returns a list of default [SavingThrowEntry] for all abilities.
  */
 fun defaultSavingThrows(): List<SavingThrowEntry> =
-    Ability.entries.map { ability -> SavingThrowEntry(ability = ability) }
+    listOf("STR", "DEX", "CON", "INT", "WIS", "CHA").map { abilityId -> SavingThrowEntry(abilityId = abilityId) }
 
 /**
  * Returns a list of default [SkillEntry] for all standard skills.

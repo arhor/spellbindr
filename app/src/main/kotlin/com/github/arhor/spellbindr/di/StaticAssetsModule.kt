@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.di
 
+import com.github.arhor.spellbindr.data.local.assets.AbilityAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.AlignmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStore
@@ -20,6 +21,11 @@ import dagger.multibindings.IntoSet
 @Suppress("UNUSED")
 @InstallIn(SingletonComponent::class)
 abstract class StaticAssetsModule {
+
+    @Binds
+    @IntoSet
+    abstract fun bindAbilityAssetDataStore(abilityAssetDataStore: AbilityAssetDataStore)
+        : InitializableStaticAssetDataStore
 
     @Binds
     @IntoSet

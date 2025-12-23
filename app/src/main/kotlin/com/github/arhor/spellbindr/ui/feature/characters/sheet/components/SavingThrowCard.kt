@@ -126,12 +126,12 @@ private fun SavingThrowCardPreviewContent() {
     ) {
         val abilities = CharacterSheetPreviewData.overview.abilities
         SavingThrowCard(
-            abilityName = abilities[0].ability.displayName,
+            abilityName = abilities[0].label,
             bonus = abilities[0].savingThrowBonus,
             proficient = abilities[0].savingThrowProficient,
         )
         SavingThrowCard(
-            abilityName = abilities[1].ability.displayName,
+            abilityName = abilities[1].label,
             bonus = abilities[1].savingThrowBonus,
             proficient = abilities[1].savingThrowProficient,
         )
