@@ -34,6 +34,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.Charac
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetError
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarActions
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarTitle
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponCatalogDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
@@ -149,6 +150,11 @@ fun CharacterSheetRoute(
             vm.onAction(CharacterSheetUiAction.WeaponDamageTypeChanged(damageType))
         },
         onWeaponSaved = { vm.onAction(CharacterSheetUiAction.WeaponSaved) },
+        onWeaponCatalogOpened = { vm.onAction(CharacterSheetUiAction.WeaponCatalogOpened) },
+        onWeaponCatalogClosed = { vm.onAction(CharacterSheetUiAction.WeaponCatalogClosed) },
+        onWeaponCatalogItemSelected = { id ->
+            vm.onAction(CharacterSheetUiAction.WeaponCatalogItemSelected(id))
+        },
         onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
         onDeleteCharacter = { vm.onAction(CharacterSheetUiAction.DeleteCharacter) },
     )
@@ -295,6 +301,7 @@ private fun CharacterSheetScreen(
                         editorState = editor,
                         onDismiss = callbacks.onWeaponEditorDismissed,
                         onNameChange = callbacks.onWeaponNameChanged,
+                        onCatalogOpen = callbacks.onWeaponCatalogOpened,
                         onAbilityChange = callbacks.onWeaponAbilityChanged,
                         onUseAbilityForDamageChange = callbacks.onWeaponUseAbilityForDamageChanged,
                         onProficiencyChange = callbacks.onWeaponProficiencyChanged,
@@ -303,6 +310,13 @@ private fun CharacterSheetScreen(
                         onDamageTypeChange = callbacks.onWeaponDamageTypeChanged,
                         onDelete = callbacks.onWeaponDeleted,
                         onSave = callbacks.onWeaponSaved,
+                    )
+                }
+                if (state.isWeaponCatalogVisible) {
+                    WeaponCatalogDialog(
+                        catalog = state.weaponCatalog,
+                        onDismiss = callbacks.onWeaponCatalogClosed,
+                        onItemSelected = callbacks.onWeaponCatalogItemSelected,
                     )
                 }
             }

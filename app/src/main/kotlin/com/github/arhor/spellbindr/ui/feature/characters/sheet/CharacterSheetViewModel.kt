@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.Skill
@@ -17,6 +18,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveWeaponCatalogUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
@@ -59,6 +61,7 @@ class CharacterSheetViewModel @Inject constructor(
     private val deleteCharacterUseCase: DeleteCharacterUseCase,
     private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
     private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val observeWeaponCatalogUseCase: ObserveWeaponCatalogUseCase,
     private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
     private val updateHitPointsUseCase: UpdateHitPointsUseCase,
     private val toggleSpellSlotUseCase: ToggleSpellSlotUseCase,
@@ -103,6 +106,9 @@ class CharacterSheetViewModel @Inject constructor(
         data class WeaponDieSizeChanged(val value: String) : CharacterSheetUiAction
         data class WeaponDamageTypeChanged(val damageType: DamageType) : CharacterSheetUiAction
         data object WeaponSaved : CharacterSheetUiAction
+        data object WeaponCatalogOpened : CharacterSheetUiAction
+        data object WeaponCatalogClosed : CharacterSheetUiAction
+        data class WeaponCatalogItemSelected(val id: String) : CharacterSheetUiAction
         data object DeleteCharacter : CharacterSheetUiAction
     }
 
@@ -112,10 +118,12 @@ class CharacterSheetViewModel @Inject constructor(
     sealed interface CharacterSheetUiEvent {
         data class SheetLoaded(val sheet: CharacterSheet?, val loaded: Boolean) : CharacterSheetUiEvent
         data class SpellsLoaded(val spells: List<Spell>) : CharacterSheetUiEvent
+        data class WeaponCatalogLoaded(val entries: List<WeaponCatalogUiModel>) : CharacterSheetUiEvent
         data class SelectedTabChanged(val tab: CharacterSheetTab) : CharacterSheetUiEvent
         data class EditModeChanged(val mode: SheetEditMode) : CharacterSheetUiEvent
         data class EditingStateChanged(val state: CharacterSheetEditingState?) : CharacterSheetUiEvent
         data class WeaponEditorChanged(val state: WeaponEditorState?) : CharacterSheetUiEvent
+        data class WeaponCatalogVisibilityChanged(val isVisible: Boolean) : CharacterSheetUiEvent
         data class ErrorChanged(val message: String?) : CharacterSheetUiEvent
     }
 
@@ -136,6 +144,8 @@ class CharacterSheetViewModel @Inject constructor(
         val editMode: SheetEditMode = SheetEditMode.View,
         val sheet: CharacterSheet? = null,
         val spells: List<Spell> = emptyList(),
+        val weaponCatalog: List<WeaponCatalogUiModel> = emptyList(),
+        val isWeaponCatalogVisible: Boolean = false,
         val editingState: CharacterSheetEditingState? = null,
         val weaponEditorState: WeaponEditorState? = null,
         val errorMessage: String? = null,
@@ -164,6 +174,7 @@ class CharacterSheetViewModel @Inject constructor(
     init {
         observeCharacter()
         observeSpells()
+        observeWeaponCatalog()
     }
 
     /**
@@ -224,6 +235,11 @@ class CharacterSheetViewModel @Inject constructor(
                 updateWeaponEditor { it.copy(damageType = action.damageType) }
 
             CharacterSheetUiAction.WeaponSaved -> onWeaponSaved()
+            CharacterSheetUiAction.WeaponCatalogOpened ->
+                updateData(CharacterSheetUiEvent.WeaponCatalogVisibilityChanged(true))
+            CharacterSheetUiAction.WeaponCatalogClosed ->
+                updateData(CharacterSheetUiEvent.WeaponCatalogVisibilityChanged(false))
+            is CharacterSheetUiAction.WeaponCatalogItemSelected -> onWeaponCatalogItemSelected(action.id)
             CharacterSheetUiAction.DeleteCharacter -> deleteCharacter()
         }
     }
@@ -246,10 +262,12 @@ class CharacterSheetViewModel @Inject constructor(
         )
 
         is CharacterSheetUiEvent.SpellsLoaded -> data.copy(spells = event.spells)
+        is CharacterSheetUiEvent.WeaponCatalogLoaded -> data.copy(weaponCatalog = event.entries)
         is CharacterSheetUiEvent.SelectedTabChanged -> data.copy(selectedTab = event.tab)
         is CharacterSheetUiEvent.EditModeChanged -> data.copy(editMode = event.mode)
         is CharacterSheetUiEvent.EditingStateChanged -> data.copy(editingState = event.state)
         is CharacterSheetUiEvent.WeaponEditorChanged -> data.copy(weaponEditorState = event.state)
+        is CharacterSheetUiEvent.WeaponCatalogVisibilityChanged -> data.copy(isWeaponCatalogVisible = event.isVisible)
         is CharacterSheetUiEvent.ErrorChanged -> data.copy(errorMessage = event.message)
     }
 
@@ -277,6 +295,8 @@ class CharacterSheetViewModel @Inject constructor(
                 skills = sheet.toSkillsState(),
                 spells = sheet.toSpellsState(spells),
                 weapons = sheet.toWeaponsState(),
+                weaponCatalog = weaponCatalog,
+                isWeaponCatalogVisible = isWeaponCatalogVisible,
                 editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
                 weaponEditorState = weaponEditorState,
                 errorMessage = errorMessage,
@@ -299,6 +319,13 @@ class CharacterSheetViewModel @Inject constructor(
     private fun observeSpells() {
         observeAllSpellsUseCase()
             .onEach { spells -> updateData(CharacterSheetUiEvent.SpellsLoaded(spells)) }
+            .launchIn(viewModelScope)
+    }
+
+    private fun observeWeaponCatalog() {
+        observeWeaponCatalogUseCase()
+            .map { entries -> entries.map { entry -> entry.toUiModel() } }
+            .onEach { entries -> updateData(CharacterSheetUiEvent.WeaponCatalogLoaded(entries)) }
             .launchIn(viewModelScope)
     }
 
@@ -424,6 +451,12 @@ class CharacterSheetViewModel @Inject constructor(
         updateData(CharacterSheetUiEvent.WeaponEditorChanged(null))
     }
 
+    private fun onWeaponCatalogItemSelected(id: String) {
+        val selected = _data.value.weaponCatalog.firstOrNull { entry -> entry.id == id } ?: return
+        updateData(CharacterSheetUiEvent.WeaponEditorChanged(selected.toEditorState()))
+        updateData(CharacterSheetUiEvent.WeaponCatalogVisibilityChanged(false))
+    }
+
     private fun updateEditingState(transform: (CharacterSheetEditingState) -> CharacterSheetEditingState) {
         val current = _data.value.editingState ?: return
         updateData(CharacterSheetUiEvent.EditingStateChanged(transform(current)))
@@ -479,6 +512,8 @@ sealed interface CharacterSheetUiState {
         val skills: SkillsTabState,
         val spells: SpellsTabState,
         val weapons: WeaponsTabState,
+        val weaponCatalog: List<WeaponCatalogUiModel>,
+        val isWeaponCatalogVisible: Boolean,
         val editingState: CharacterSheetEditingState?,
         val weaponEditorState: WeaponEditorState?,
         val errorMessage: String?,
@@ -594,6 +629,17 @@ data class WeaponsTabState(
 )
 
 @Immutable
+data class WeaponCatalogUiModel(
+    val id: String,
+    val name: String,
+    val category: EquipmentCategory?,
+    val categories: Set<EquipmentCategory>,
+    val damageDiceCount: Int,
+    val damageDieSize: Int,
+    val damageType: DamageType,
+)
+
+@Immutable
 data class WeaponUiModel(
     val id: String,
     val name: String,
@@ -605,7 +651,10 @@ data class WeaponUiModel(
 @Immutable
 data class WeaponEditorState(
     val id: String? = null,
+    val catalogId: String? = null,
     val name: String = "",
+    val category: EquipmentCategory? = null,
+    val categories: Set<EquipmentCategory> = emptySet(),
     val ability: Ability = Ability.STR,
     val proficient: Boolean = false,
     val useAbilityForDamage: Boolean = true,
@@ -615,7 +664,10 @@ data class WeaponEditorState(
 ) {
     fun toWeapon(): Weapon = Weapon(
         id = id ?: UUID.randomUUID().toString(),
+        catalogId = catalogId,
         name = name.trim(),
+        category = category,
+        categories = categories,
         ability = ability,
         proficient = proficient,
         damageDiceCount = damageDiceCount.toIntOrNull()?.coerceAtLeast(1) ?: 1,
@@ -627,7 +679,10 @@ data class WeaponEditorState(
     companion object {
         fun fromWeapon(weapon: Weapon): WeaponEditorState = WeaponEditorState(
             id = weapon.id,
+            catalogId = weapon.catalogId,
             name = weapon.name,
+            category = weapon.category,
+            categories = weapon.categories,
             ability = weapon.ability,
             proficient = weapon.proficient,
             useAbilityForDamage = weapon.useAbilityForDamage,
@@ -637,6 +692,30 @@ data class WeaponEditorState(
         )
     }
 }
+
+private fun com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry.toUiModel(): WeaponCatalogUiModel {
+    val category = categories.firstOrNull { it != EquipmentCategory.WEAPON }
+        ?: categories.firstOrNull()
+    return WeaponCatalogUiModel(
+        id = id,
+        name = name,
+        category = category,
+        categories = categories,
+        damageDiceCount = damageDiceCount,
+        damageDieSize = damageDieSize,
+        damageType = damageType,
+    )
+}
+
+private fun WeaponCatalogUiModel.toEditorState(): WeaponEditorState = WeaponEditorState(
+    catalogId = id,
+    name = name,
+    category = category,
+    categories = categories,
+    damageDiceCount = damageDiceCount.toString(),
+    damageDieSize = damageDieSize.toString(),
+    damageType = damageType,
+)
 
 @Immutable
 data class CharacterSheetEditingState(
