@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.model.predefined.Ability as DataAbility
-import com.github.arhor.spellbindr.data.model.predefined.Skill as DataSkill
+import com.github.arhor.spellbindr.data.model.Ability as DataAbility
+import com.github.arhor.spellbindr.data.model.Skill as DataSkill
 import com.github.arhor.spellbindr.domain.model.Ability as DomainAbility
 import com.github.arhor.spellbindr.domain.model.Skill as DomainSkill
 

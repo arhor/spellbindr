@@ -1,5 +1,6 @@
-package com.github.arhor.spellbindr.data.model.next
+package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,7 +15,7 @@ import kotlinx.serialization.Serializable
 data class CharacterRace(
     val id: String,
     val name: String,
-    val traits: List<Reference>,
+    val traits: List<EntityRef>,
     val subraces: List<Subrace>,
 ) {
     /**
@@ -30,6 +31,6 @@ data class CharacterRace(
         val id: String,
         val name: String,
         val desc: String,
-        val traits: List<Reference>,
+        val traits: List<EntityRef>,
     )
 }

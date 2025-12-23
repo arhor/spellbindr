@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.domain.model
 
+import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
-import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import java.util.UUID
 
 /**

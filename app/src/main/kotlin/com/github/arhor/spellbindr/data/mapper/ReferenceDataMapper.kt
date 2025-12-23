@@ -1,13 +1,12 @@
 package com.github.arhor.spellbindr.data.mapper
 
+import com.github.arhor.spellbindr.data.model.CharacterRace
+import com.github.arhor.spellbindr.domain.model.Alignment
+import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Race
+import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.data.model.Alignment as DataAlignment
 import com.github.arhor.spellbindr.data.model.Trait as DataTrait
-import com.github.arhor.spellbindr.data.model.next.CharacterRace
-import com.github.arhor.spellbindr.data.model.next.Reference as DataReference
-import com.github.arhor.spellbindr.domain.model.Alignment
-import com.github.arhor.spellbindr.domain.model.Race
-import com.github.arhor.spellbindr.domain.model.Reference
-import com.github.arhor.spellbindr.domain.model.Trait
 
 fun DataAlignment.toDomain(): Alignment = Alignment(
     id = id,
@@ -42,4 +41,4 @@ private fun CharacterRace.Subrace.toDomain(): Race.Subrace = Race.Subrace(
     traits = traits.map { it.toDomain() },
 )
 
-private fun DataReference.toDomain(): Reference = Reference(id)
+private fun EntityRef.toDomain(): EntityRef = EntityRef(id)

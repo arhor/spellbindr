@@ -1,8 +1,5 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.data.model.EquipmentCategory
-import com.github.arhor.spellbindr.data.model.predefined.Ability
-import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
 import org.junit.Test

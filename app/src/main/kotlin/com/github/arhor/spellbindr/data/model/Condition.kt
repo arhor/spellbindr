@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model.predefined
+package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
 import kotlinx.serialization.KSerializer
@@ -135,5 +135,5 @@ enum class Condition(
         )
     );
 
-    companion object : KSerializer<Condition> by CaseInsensitiveEnumSerializer()
+    companion object : KSerializer<Condition> by CaseInsensitiveEnumSerializer.Companion()
 }

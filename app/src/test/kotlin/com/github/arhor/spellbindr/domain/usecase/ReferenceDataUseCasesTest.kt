@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.domain.usecase
 import com.github.arhor.spellbindr.domain.model.Alignment
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
-import com.github.arhor.spellbindr.domain.model.Reference
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.repository.FakeAlignmentRepository
 import com.github.arhor.spellbindr.domain.repository.FakeCharacterClassRepository
@@ -40,7 +39,7 @@ class ReferenceDataUseCasesTest {
         val race = Race(
             id = "elf",
             name = "Elf",
-            traits = listOf(Reference("keen-senses")),
+            traits = listOf(EntityRef("keen-senses")),
             subraces = emptyList(),
         )
         racesRepository.allRacesState.value = listOf(race)

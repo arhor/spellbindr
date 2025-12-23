@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.Condition
+import com.github.arhor.spellbindr.data.model.Condition
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 
 @Composable

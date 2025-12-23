@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
+import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
-import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry

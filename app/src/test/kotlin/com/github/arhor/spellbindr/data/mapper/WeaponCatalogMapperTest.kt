@@ -2,9 +2,9 @@ package com.github.arhor.spellbindr.data.mapper
 
 import com.github.arhor.spellbindr.data.model.Cost
 import com.github.arhor.spellbindr.data.model.Damage
+import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.Equipment
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
-import com.github.arhor.spellbindr.data.model.predefined.DamageType
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

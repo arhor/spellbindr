@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.data.local.db
 import androidx.room.TypeConverter
 import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.domain.model.EntityRef
-import com.github.arhor.spellbindr.data.model.next.Reference
 import kotlinx.serialization.json.Json
 
 object Converters {
@@ -40,12 +39,6 @@ object Converters {
             .map { id -> EntityRef(id) }
             .toSet()
     }
-
-    @TypeConverter
-    fun fromReference(ref: Reference?): String? = ref?.id
-
-    @TypeConverter
-    fun intoReference(id: String?): Reference? = id?.let(::Reference)
 
     @TypeConverter
     fun fromCharacterSheetSnapshot(snapshot: CharacterSheetSnapshot?): String? =

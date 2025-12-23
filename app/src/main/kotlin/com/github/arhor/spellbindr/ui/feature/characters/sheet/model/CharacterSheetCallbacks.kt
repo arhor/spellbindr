@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
 import androidx.compose.runtime.Stable
+import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.domain.model.Ability
-import com.github.arhor.spellbindr.data.model.predefined.DamageType
 
 @Stable
 data class CharacterSheetCallbacks(

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model.predefined
+package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
 import kotlinx.serialization.KSerializer
@@ -65,5 +65,5 @@ enum class Ability(
     val associatedSkills: List<Skill>
         get() = Skill.entries.filter { it.ability == this }
 
-    companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer()
+    companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer.Companion()
 }

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model.predefined
+package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
 import kotlinx.serialization.KSerializer
@@ -94,5 +94,5 @@ enum class DamageType(
         )
     );
 
-    companion object : KSerializer<DamageType> by CaseInsensitiveEnumSerializer()
+    companion object : KSerializer<DamageType> by CaseInsensitiveEnumSerializer.Companion()
 }

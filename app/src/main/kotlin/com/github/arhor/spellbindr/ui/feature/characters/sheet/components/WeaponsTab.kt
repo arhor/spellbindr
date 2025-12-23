@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.predefined.DamageType
+import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks

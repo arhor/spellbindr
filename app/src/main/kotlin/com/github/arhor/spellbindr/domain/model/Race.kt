@@ -6,13 +6,13 @@ package com.github.arhor.spellbindr.domain.model
 data class Race(
     val id: String,
     val name: String,
-    val traits: List<Reference>,
+    val traits: List<EntityRef>,
     val subraces: List<Subrace>,
 ) {
     data class Subrace(
         val id: String,
         val name: String,
         val desc: String,
-        val traits: List<Reference>,
+        val traits: List<EntityRef>,
     )
 }
