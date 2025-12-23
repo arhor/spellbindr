@@ -19,6 +19,11 @@ private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
 
 /**
  * Simple configuration object describing how the shared app bar should look.
+ *
+ * @property visible Whether the top bar should be shown.
+ * @property title Composable content for the title.
+ * @property navigation Navigation icon configuration (e.g., Back arrow).
+ * @property actions RowScope block for action icons.
  */
 @Stable
 data class AppTopBarConfig(
@@ -32,6 +37,9 @@ data class AppTopBarConfig(
     }
 }
 
+/**
+ * Defines the navigation icon behavior for the top bar.
+ */
 @Stable
 sealed interface AppTopBarNavigation {
 
@@ -57,6 +65,9 @@ sealed interface AppTopBarNavigation {
     }
 }
 
+/**
+ * Shared TopAppBar implementation driven by [AppTopBarConfig].
+ */
 @Composable
 fun AppTopBar(config: AppTopBarConfig) {
     if (!config.visible) return

@@ -21,6 +21,12 @@ import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
 import com.github.arhor.spellbindr.ui.feature.characters.CharacterListItem
 
+/**
+ * Main navigation graph for the Spellbindr application.
+ *
+ * Defines all composable routes and handles navigation arguments.
+ * Uses typed destinations from [AppDestination].
+ */
 @Composable
 fun SpellbindrAppNavGraph(
     controller: NavHostController,

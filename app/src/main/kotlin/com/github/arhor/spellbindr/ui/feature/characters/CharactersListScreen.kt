@@ -35,6 +35,11 @@ import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
+/**
+ * Stateful entry point for the Characters List screen.
+ *
+ * Sets up the top bar and delegates UI rendering to [CharactersListScreen].
+ */
 @Composable
 fun CharactersListRoute(
     vm: CharactersListViewModel,
@@ -74,6 +79,9 @@ fun CharactersListScreen(
     )
 }
 
+/**
+ * Pure UI composable for displaying the list of characters.
+ */
 @Composable
 fun CharactersListScreen(
     uiState: CharactersListUiState,

@@ -16,11 +16,22 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Concrete implementation of [CharacterRepository] backed by a Room database.
+ *
+ * This repository manages the bidirectional mapping between:
+ * - [CharacterSheet] (User inputs from the editor)
+ * - [CharacterEntity] (Persistence model)
+ * - [Character] (Domain model for gameplay logic)
+ */
 @Singleton
 class CharacterRepositoryImpl @Inject constructor(
     private val characterDao: CharacterDao
 ) : CharacterRepository {
 
+    /**
+     * Observes all characters, converting the persisted snapshots back into [CharacterSheet] objects.
+     */
     override fun observeCharacterSheets(): Flow<List<CharacterSheet>> =
         characterDao.getAllCharacters().map { entities ->
             entities.mapNotNull { entity ->
@@ -28,11 +39,19 @@ class CharacterRepositoryImpl @Inject constructor(
             }
         }
 
+    /**
+     * Observes a single character sheet by ID.
+     */
     override fun observeCharacterSheet(id: String): Flow<CharacterSheet?> =
         characterDao.getCharacterById(id).map { entity ->
             entity?.manualSheet?.toDomain(entity.id)
         }
 
+    /**
+     * Saves a character sheet.
+     * This method fetches the existing entity (if any) to preserve fields not present in the sheet
+     * (though currently, the sheet drives most of the entity state via mapping).
+     */
     override suspend fun upsertCharacterSheet(sheet: CharacterSheet) {
         val existing = characterDao.getCharacterById(sheet.id).firstOrNull()
         val base = existing ?: CharacterEntity(id = sheet.id)

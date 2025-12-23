@@ -13,12 +13,20 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Characters List screen.
+ *
+ * Observes the list of persisted characters.
+ */
 @Stable
 @HiltViewModel
 class CharactersListViewModel @Inject constructor(
     observeCharacterSheetsUseCase: ObserveCharacterSheetsUseCase,
 ) : ViewModel() {
 
+    /**
+     * StateFlow representing the list of characters.
+     */
     val state: StateFlow<CharactersListUiState> = observeCharacterSheetsUseCase()
         .map { sheets ->
             CharactersListUiState(
@@ -34,6 +42,9 @@ class CharactersListViewModel @Inject constructor(
         )
 }
 
+/**
+ * UI State for the character list.
+ */
 @Immutable
 data class CharactersListUiState(
     val characters: List<CharacterListItem> = emptyList(),
@@ -41,6 +52,9 @@ data class CharactersListUiState(
     val isEmpty: Boolean = false,
 )
 
+/**
+ * Display model for a single character item in the list.
+ */
 @Immutable
 data class CharacterListItem(
     val id: String,

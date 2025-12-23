@@ -41,6 +41,19 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Character Sheet screen.
+ *
+ * Manages the state of the character sheet, including:
+ * - Loading and displaying character data.
+ * - Handling edits (inline and modal).
+ * - Managing spell slots and HP.
+ * - Handling equipment and weapon management.
+ * - Persisting changes to the repository.
+ *
+ * The UI state is exposed via [uiState] and side effects via [effects].
+ * User interactions are handled via [onAction].
+ */
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
     private val deleteCharacterUseCase: DeleteCharacterUseCase,
@@ -53,6 +66,9 @@ class CharacterSheetViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
+    /**
+     * Represents all possible user actions on the character sheet.
+     */
     sealed interface CharacterSheetUiAction {
         data class TabSelected(val tab: CharacterSheetTab) : CharacterSheetUiAction
         data object EnterEdit : CharacterSheetUiAction
@@ -90,6 +106,9 @@ class CharacterSheetViewModel @Inject constructor(
         data object DeleteCharacter : CharacterSheetUiAction
     }
 
+    /**
+     * Internal events for reducer.
+     */
     sealed interface CharacterSheetUiEvent {
         data class SheetLoaded(val sheet: CharacterSheet?, val loaded: Boolean) : CharacterSheetUiEvent
         data class SpellsLoaded(val spells: List<Spell>) : CharacterSheetUiEvent
@@ -100,10 +119,16 @@ class CharacterSheetViewModel @Inject constructor(
         data class ErrorChanged(val message: String?) : CharacterSheetUiEvent
     }
 
+    /**
+     * One-time side effects for the UI (e.g., navigation).
+     */
     sealed interface CharacterSheetEffect {
         data object CharacterDeleted : CharacterSheetEffect
     }
 
+    /**
+     * Internal mutable state holder.
+     */
     @Immutable
     data class CharacterSheetUiData(
         val characterId: String? = null,
@@ -116,6 +141,7 @@ class CharacterSheetViewModel @Inject constructor(
         val errorMessage: String? = null,
         val hasLoaded: Boolean = false,
     )
+
 
     private val characterId: String? = savedStateHandle.get<String>("characterId")
     private val _data = MutableStateFlow(
@@ -140,6 +166,9 @@ class CharacterSheetViewModel @Inject constructor(
         observeSpells()
     }
 
+    /**
+     * Processes user actions.
+     */
     fun onAction(action: CharacterSheetUiAction) {
         when (action) {
             is CharacterSheetUiAction.TabSelected -> updateData(CharacterSheetUiEvent.SelectedTabChanged(action.tab))
@@ -425,6 +454,9 @@ class CharacterSheetViewModel @Inject constructor(
     }
 }
 
+/**
+ * Exposes the UI state for the character sheet.
+ */
 sealed interface CharacterSheetUiState {
     val characterId: String?
     val selectedTab: CharacterSheetTab

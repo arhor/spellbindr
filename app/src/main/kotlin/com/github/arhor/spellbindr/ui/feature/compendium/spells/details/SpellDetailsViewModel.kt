@@ -19,6 +19,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Spell Details screen.
+ *
+ * Manages loading spell data by ID and handling favorite toggling.
+ */
 @Stable
 @HiltViewModel
 class SpellDetailsViewModel @Inject constructor(
@@ -60,10 +65,16 @@ class SpellDetailsViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState.Loading)
 
+    /**
+     * Sets the spell ID to display.
+     */
     fun loadSpell(spellId: String?) {
         this.spellId.value = spellId
     }
 
+    /**
+     * Toggles the favorite status of the currently loaded spell.
+     */
     fun toggleFavorite() {
         val currentSpellId = (state.value as? UiState.Loaded)?.spell?.id ?: return
         viewModelScope.launch {

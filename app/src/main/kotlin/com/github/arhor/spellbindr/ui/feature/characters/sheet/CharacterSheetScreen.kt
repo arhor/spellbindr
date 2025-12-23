@@ -41,6 +41,15 @@ import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
+/**
+ * Stateful entry point for the Character Sheet screen.
+ *
+ * Handles:
+ * - ViewModel integration and state collection.
+ * - Navigation callbacks (back, open detail, etc.).
+ * - Side effects (like showing delete confirmation or handling returning from spell picker).
+ * - Configuring the shared top bar.
+ */
 @Composable
 fun CharacterSheetRoute(
     vm: CharacterSheetViewModel,
@@ -57,6 +66,7 @@ fun CharacterSheetRoute(
     var overflowExpanded by remember(savedStateHandle) { mutableStateOf(false) }
     var showDeleteConfirmation by remember(savedStateHandle) { mutableStateOf(false) }
 
+    // Listen for results from the spell picker screen
     LaunchedEffect(savedStateHandle) {
         savedStateHandle
             .getStateFlow<List<CharacterSpellAssignment>?>(
@@ -71,6 +81,7 @@ fun CharacterSheetRoute(
             }
     }
 
+    // Handle one-off view model effects
     LaunchedEffect(vm) {
         vm.effects.collectLatest { effect ->
             when (effect) {
@@ -231,6 +242,10 @@ fun CharacterSheetRoute(
     }
 }
 
+/**
+ * Pure UI composable for the character sheet.
+ * Renders Loading, Error, or Content states.
+ */
 @Composable
 private fun CharacterSheetScreen(
     state: CharacterSheetUiState,
