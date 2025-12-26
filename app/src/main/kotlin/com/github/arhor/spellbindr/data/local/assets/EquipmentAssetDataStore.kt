@@ -17,4 +17,5 @@ class EquipmentAssetDataStore @Inject constructor(
     path = "data/equipment.json",
     context = context,
     serializer = Equipment.serializer(),
-) 
+    loadingPriority = AssetLoadingPriority.DEFERRED,
+)

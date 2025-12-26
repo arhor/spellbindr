@@ -17,6 +17,6 @@ class FeaturesAssetDataStore @Inject constructor(
     path = "data/features.json",
     context = context,
     serializer = Feature.serializer(),
+    loadingPriority = AssetLoadingPriority.DEFERRED,
 )
-
 
