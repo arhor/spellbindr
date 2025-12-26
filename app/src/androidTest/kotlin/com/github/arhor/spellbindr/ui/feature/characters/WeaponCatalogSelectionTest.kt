@@ -62,7 +62,7 @@ class WeaponCatalogSelectionTest {
                     onDismiss = {},
                     onNameChange = { editorState = editorState.copy(name = it) },
                     onCatalogOpen = { isCatalogVisible = true },
-                    onAbilityChange = { editorState = editorState.copy(ability = it) },
+                    onAbilityChange = { editorState = editorState.copy(abilityId = it) },
                     onUseAbilityForDamageChange = { editorState = editorState.copy(useAbilityForDamage = it) },
                     onProficiencyChange = { editorState = editorState.copy(proficient = it) },
                     onDiceCountChange = { editorState = editorState.copy(damageDiceCount = it) },

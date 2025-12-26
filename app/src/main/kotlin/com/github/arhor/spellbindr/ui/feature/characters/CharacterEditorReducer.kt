@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.characters
 
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 
@@ -12,7 +12,7 @@ sealed interface CharacterEditorAction {
     data class BackgroundChanged(val value: String) : CharacterEditorAction
     data class AlignmentChanged(val value: String) : CharacterEditorAction
     data class ExperienceChanged(val value: String) : CharacterEditorAction
-    data class AbilityChanged(val ability: Ability, val value: String) : CharacterEditorAction
+    data class AbilityChanged(val abilityId: AbilityId, val value: String) : CharacterEditorAction
     data class ProficiencyBonusChanged(val value: String) : CharacterEditorAction
     data class InspirationChanged(val value: Boolean) : CharacterEditorAction
     data class MaxHpChanged(val value: String) : CharacterEditorAction
@@ -22,7 +22,7 @@ sealed interface CharacterEditorAction {
     data class InitiativeChanged(val value: String) : CharacterEditorAction
     data class SpeedChanged(val value: String) : CharacterEditorAction
     data class HitDiceChanged(val value: String) : CharacterEditorAction
-    data class SavingThrowProficiencyChanged(val ability: Ability, val value: Boolean) : CharacterEditorAction
+    data class SavingThrowProficiencyChanged(val abilityId: AbilityId, val value: Boolean) : CharacterEditorAction
     data class SkillProficiencyChanged(val skill: Skill, val value: Boolean) : CharacterEditorAction
     data class SkillExpertiseChanged(val skill: Skill, val value: Boolean) : CharacterEditorAction
     data class SensesChanged(val value: String) : CharacterEditorAction
@@ -53,7 +53,7 @@ fun reduceCharacterEditorState(
         is CharacterEditorAction.ExperienceChanged -> state.copy(experiencePoints = action.value)
         is CharacterEditorAction.AbilityChanged -> state.copy(
             abilities = state.abilities.map { field ->
-                if (field.ability == action.ability) field.copy(score = action.value, error = null) else field
+                if (field.abilityId == action.abilityId) field.copy(score = action.value, error = null) else field
             },
         )
         is CharacterEditorAction.ProficiencyBonusChanged -> state.copy(proficiencyBonus = action.value)
@@ -67,7 +67,7 @@ fun reduceCharacterEditorState(
         is CharacterEditorAction.HitDiceChanged -> state.copy(hitDice = action.value)
         is CharacterEditorAction.SavingThrowProficiencyChanged -> state.copy(
             savingThrows = state.savingThrows.map { entry ->
-                if (entry.ability == action.ability) entry.copy(proficient = action.value) else entry
+                if (entry.abilityId == action.abilityId) entry.copy(proficient = action.value) else entry
             },
         )
         is CharacterEditorAction.SkillProficiencyChanged -> state.copy(

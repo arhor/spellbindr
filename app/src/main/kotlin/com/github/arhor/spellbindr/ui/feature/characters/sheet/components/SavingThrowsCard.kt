@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -25,7 +26,7 @@ internal fun SavingThrowsCard(
     modifier: Modifier = Modifier,
 ) {
     val (leftColumn, rightColumn) = remember(abilities) {
-        val abilityLookup = abilities.associateBy(AbilityUiModel::ability)
+        val abilityLookup = abilities.associateBy(AbilityUiModel::abilityId)
         val left = LEFT_ABILITY_ORDER.mapNotNull { abilityLookup[it] }
         val right = RIGHT_ABILITY_ORDER.mapNotNull { abilityLookup[it] }
         left to right
@@ -88,7 +89,7 @@ private fun SavingThrowColumn(
     ) {
         abilities.forEach { ability ->
             SavingThrowCard(
-                abilityName = ability.ability.displayName,
+                abilityName = ability.abilityId.displayName(),
                 bonus = ability.savingThrowBonus,
                 proficient = ability.savingThrowProficient,
             )

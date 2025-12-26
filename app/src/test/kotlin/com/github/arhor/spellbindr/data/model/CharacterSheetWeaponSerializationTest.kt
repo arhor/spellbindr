@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.Weapon
 import com.google.common.truth.Truth.assertThat
@@ -17,7 +17,7 @@ class CharacterSheetWeaponSerializationTest {
             name = "Longsword",
             category = EquipmentCategory.MARTIAL,
             categories = setOf(EquipmentCategory.MARTIAL, EquipmentCategory.MELEE),
-            ability = Ability.STR,
+            abilityId = AbilityIds.STR,
             proficient = true,
             damageDiceCount = 1,
             damageDieSize = 8,
@@ -39,7 +39,7 @@ class CharacterSheetWeaponSerializationTest {
                 Weapon(
                     id = "weapon-2",
                     name = "Fire Bolt",
-                    ability = Ability.INT,
+                    abilityId = AbilityIds.INT,
                     useAbilityForDamage = false,
                     damageType = DamageType.FIRE,
                 )

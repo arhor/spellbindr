@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
 import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.Weapon
@@ -20,7 +20,7 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-1",
                     name = "Longsword",
-                    ability = Ability.STR,
+                    abilityId = AbilityIds.STR,
                     proficient = true,
                     damageDiceCount = 1,
                     damageDieSize = 8,
@@ -45,7 +45,7 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-2",
                     name = "Shortsword",
-                    ability = Ability.DEX,
+                    abilityId = AbilityIds.DEX,
                     proficient = true,
                     damageDiceCount = 1,
                     damageDieSize = 6,
@@ -55,7 +55,7 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-3",
                     name = "Mind Spike",
-                    ability = Ability.INT,
+                    abilityId = AbilityIds.INT,
                     proficient = true,
                     damageDiceCount = 2,
                     damageDieSize = 6,
@@ -82,7 +82,7 @@ class WeaponsTabMappingTest {
                 Weapon(
                     id = "weapon-4",
                     name = "Unarmed Strike",
-                    ability = Ability.STR,
+                    abilityId = AbilityIds.STR,
                     proficient = true,
                     damageDiceCount = 1,
                     damageDieSize = 4,

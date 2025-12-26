@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.ui.theme.ConvexSidesCardShape
@@ -126,12 +127,12 @@ private fun SavingThrowCardPreviewContent() {
     ) {
         val abilities = CharacterSheetPreviewData.overview.abilities
         SavingThrowCard(
-            abilityName = abilities[0].ability.displayName,
+            abilityName = abilities[0].abilityId.displayName(),
             bonus = abilities[0].savingThrowBonus,
             proficient = abilities[0].savingThrowProficient,
         )
         SavingThrowCard(
-            abilityName = abilities[1].ability.displayName,
+            abilityName = abilities[1].abilityId.displayName(),
             bonus = abilities[1].savingThrowBonus,
             proficient = abilities[1].savingThrowProficient,
         )

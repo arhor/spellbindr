@@ -24,7 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityScore
@@ -44,7 +45,7 @@ internal fun CombatOverviewCard(
         modifier = modifier.fillMaxWidth(),
     ) {
         val (leftAbilities, rightAbilities) = remember(abilities) {
-            val abilitiesByType = abilities.associateBy(AbilityUiModel::ability)
+            val abilitiesByType = abilities.associateBy(AbilityUiModel::abilityId)
             val left = LEFT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
             val right = RIGHT_ABILITY_ORDER.mapNotNull { abilitiesByType[it]?.toAbilityScore() }
             left to right
@@ -158,14 +159,14 @@ private fun AbilityScoreColumn(
 
 private fun AbilityUiModel.toAbilityScore(): AbilityScore {
     return AbilityScore(
-        name = ability.name,
+        name = abilityId.abbreviation(),
         value = score,
         bonus = modifier,
     )
 }
 
-internal val LEFT_ABILITY_ORDER = listOf(Ability.STR, Ability.DEX, Ability.CON)
-internal val RIGHT_ABILITY_ORDER = listOf(Ability.INT, Ability.WIS, Ability.CHA)
+internal val LEFT_ABILITY_ORDER = listOf(AbilityIds.STR, AbilityIds.DEX, AbilityIds.CON)
+internal val RIGHT_ABILITY_ORDER = listOf(AbilityIds.INT, AbilityIds.WIS, AbilityIds.CHA)
 
 @Preview(showBackground = true)
 @Composable

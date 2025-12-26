@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
@@ -39,15 +40,15 @@ class BuildCharacterSheetFromInputsUseCase @Inject constructor() {
             hitDice = input.hitDice.trim(),
             savingThrows = input.savingThrows.map { entry ->
                 SavingThrowEntry(
-                    ability = entry.ability,
-                    bonus = abilityScores.modifierFor(entry.ability) + entry.proficiencyBonus(proficiencyValue),
+                    abilityId = entry.abilityId,
+                    bonus = abilityScores.modifierFor(entry.abilityId) + entry.proficiencyBonus(proficiencyValue),
                     proficient = entry.proficient,
                 )
             },
             skills = input.skills.map { entry ->
                 SkillEntry(
                     skill = entry.skill,
-                    bonus = abilityScores.modifierFor(entry.skill.ability) + entry.proficiencyBonus(proficiencyValue),
+                    bonus = abilityScores.modifierFor(entry.skill.abilityId) + entry.proficiencyBonus(proficiencyValue),
                     proficient = entry.proficient,
                     expertise = entry.expertise,
                 )
@@ -68,16 +69,16 @@ class BuildCharacterSheetFromInputsUseCase @Inject constructor() {
 }
 
 private fun CharacterEditorInput.toAbilityScores(): AbilityScores = AbilityScores(
-    strength = abilityScoreFor(Ability.STR),
-    dexterity = abilityScoreFor(Ability.DEX),
-    constitution = abilityScoreFor(Ability.CON),
-    intelligence = abilityScoreFor(Ability.INT),
-    wisdom = abilityScoreFor(Ability.WIS),
-    charisma = abilityScoreFor(Ability.CHA),
+    strength = abilityScoreFor(AbilityIds.STR),
+    dexterity = abilityScoreFor(AbilityIds.DEX),
+    constitution = abilityScoreFor(AbilityIds.CON),
+    intelligence = abilityScoreFor(AbilityIds.INT),
+    wisdom = abilityScoreFor(AbilityIds.WIS),
+    charisma = abilityScoreFor(AbilityIds.CHA),
 )
 
-private fun CharacterEditorInput.abilityScoreFor(ability: Ability): Int =
-    abilities.firstOrNull { it.ability == ability }?.score?.toIntOrNull() ?: 10
+private fun CharacterEditorInput.abilityScoreFor(abilityId: AbilityId): Int =
+    abilities.firstOrNull { it.abilityId == abilityId }?.score?.toIntOrNull() ?: 10
 
 private fun SavingThrowInput.proficiencyBonus(proficiencyValue: Int): Int =
     if (proficient) proficiencyValue else 0
