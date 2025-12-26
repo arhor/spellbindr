@@ -1,6 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
 import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
+import com.github.arhor.spellbindr.domain.model.AreaOfEffect
+import com.github.arhor.spellbindr.domain.model.SpellDamage
+import com.github.arhor.spellbindr.domain.model.SpellDC
 import kotlinx.serialization.Serializable
 
 
@@ -52,4 +55,3 @@ data class Spell(
     val subclasses: List<DomainEntityRef>? = null,
     val source: String,
 )
-

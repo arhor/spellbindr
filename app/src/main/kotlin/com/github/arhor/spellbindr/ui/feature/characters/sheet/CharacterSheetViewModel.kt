@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.data.model.EquipmentCategory
+import com.github.arhor.spellbindr.domain.model.DamageType
+import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores

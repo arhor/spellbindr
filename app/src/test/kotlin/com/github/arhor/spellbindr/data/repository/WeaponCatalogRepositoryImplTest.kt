@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.data.repository
 import com.github.arhor.spellbindr.data.model.Cost
 import com.github.arhor.spellbindr.data.model.Damage
 import com.github.arhor.spellbindr.data.model.Equipment
-import com.github.arhor.spellbindr.data.model.EquipmentCategory
+import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every

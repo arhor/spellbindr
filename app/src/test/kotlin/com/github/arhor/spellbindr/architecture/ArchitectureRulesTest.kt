@@ -66,6 +66,15 @@ class ArchitectureRulesTest {
         .because("Domain layer should not depend on data implementations.")
 
     @ArchTest
+    val domainLayerShouldNotDependOnDataModelsOrAssets = noClasses()
+        .that().resideInAnyPackage("..domain..")
+        .should().dependOnClassesThat().resideInAnyPackage(
+            "..data.model..",
+            "..data.local.assets..",
+        )
+        .because("Domain models should not rely on data serialization models or asset loaders.")
+
+    @ArchTest
     val nonUiCorePackagesShouldNotDependOnComposeUi = noClasses()
         .that().resideInAnyPackage(
             "..domain..",
