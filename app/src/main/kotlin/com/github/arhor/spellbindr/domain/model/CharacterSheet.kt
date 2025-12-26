@@ -3,6 +3,8 @@ package com.github.arhor.spellbindr.domain.model
 import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import java.util.UUID
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Represents the full data captured by the manual character sheet editor.
@@ -44,6 +46,7 @@ import java.util.UUID
  * @property characterSpells List of spells assigned to the character.
  * @property weapons List of weapons equipped or in inventory.
  */
+@Serializable
 data class CharacterSheet(
     val id: String,
     val name: String = "",
@@ -92,6 +95,7 @@ data class CharacterSheet(
  * @property wisdom Wisdom score.
  * @property charisma Charisma score.
  */
+@Serializable
 data class AbilityScores(
     val strength: Int = 10,
     val dexterity: Int = 10,
@@ -121,6 +125,7 @@ data class AbilityScores(
  * @property bonus Total bonus to add to the d20 roll.
  * @property proficient Whether the character is proficient in this save.
  */
+@Serializable
 data class SavingThrowEntry(
     val ability: Ability,
     val bonus: Int = 0,
@@ -135,6 +140,7 @@ data class SavingThrowEntry(
  * @property proficient Whether the character is proficient in this skill.
  * @property expertise Whether the character has expertise (double proficiency) in this skill.
  */
+@Serializable
 data class SkillEntry(
     val skill: Skill,
     val bonus: Int = 0,
@@ -148,6 +154,7 @@ data class SkillEntry(
  * @property successes Number of successful saves (typically max 3).
  * @property failures Number of failed saves (typically max 3).
  */
+@Serializable
 data class DeathSaveState(
     val successes: Int = 0,
     val failures: Int = 0,
@@ -160,6 +167,7 @@ data class DeathSaveState(
  * @property total Total slots available at this level.
  * @property expended Number of slots used.
  */
+@Serializable
 data class SpellSlotState(
     val level: Int,
     val total: Int = 0,
@@ -172,6 +180,7 @@ data class SpellSlotState(
  * @property spellId The unique identifier of the spell (e.g. "magic-missile").
  * @property sourceClass The class source for this spell (e.g. "Wizard"), if applicable.
  */
+@Serializable
 data class CharacterSpell(
     val spellId: String,
     val sourceClass: String = "",
@@ -192,12 +201,14 @@ data class CharacterSpell(
  * @property useAbilityForDamage Whether to add the ability modifier to damage.
  * @property damageType The type of damage dealt (Slashing, Piercing, etc.).
  */
+@Serializable
 data class Weapon(
     val id: String = UUID.randomUUID().toString(),
     val catalogId: String? = null,
     val name: String,
     val category: EquipmentCategory? = null,
     val categories: Set<EquipmentCategory> = emptySet(),
+    @SerialName("attackAbility")
     val ability: Ability = Ability.STR,
     val proficient: Boolean = false,
     val damageDiceCount: Int = 1,

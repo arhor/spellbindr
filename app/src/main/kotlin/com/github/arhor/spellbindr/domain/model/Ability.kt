@@ -1,5 +1,9 @@
 package com.github.arhor.spellbindr.domain.model
 
+import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+
 /**
  * Represents an ability score in Dungeons & Dragons.
  *
@@ -9,6 +13,7 @@ package com.github.arhor.spellbindr.domain.model
  * @property displayName The full, display-friendly name of the ability score.
  * @property description A detailed explanation of what the ability score measures and how it's used.
  */
+@Serializable(with = Ability.Companion::class)
 enum class Ability(
     val displayName: String,
     val description: List<String>,
@@ -75,4 +80,6 @@ enum class Ability(
 
     val ref: EntityRef
         get() = EntityRef(name)
+
+    companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer.Companion()
 }

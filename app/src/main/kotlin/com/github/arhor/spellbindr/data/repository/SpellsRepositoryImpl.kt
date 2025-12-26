@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
-import com.github.arhor.spellbindr.data.model.toDomain
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
@@ -18,15 +17,13 @@ class SpellsRepositoryImpl @Inject constructor(
     private val favoritesRepository: FavoritesRepository,
 ) : SpellsRepository {
     override val allSpells: Flow<List<Spell>>
-        get() = allSpellsDataStore.data.map { spells ->
-            spells?.map { it.toDomain() } ?: emptyList()
-        }
+        get() = allSpellsDataStore.data.map { it.orEmpty() }
 
     override val favoriteSpellIds: Flow<List<String>>
         get() = favoritesRepository.observeFavoriteIds(FavoriteType.SPELL)
 
     override suspend fun getSpellById(id: String): Spell? =
-        allSpellsDataStore.data.firstOrNull()?.firstOrNull { it.id == id }?.toDomain()
+        allSpellsDataStore.data.firstOrNull()?.firstOrNull { it.id == id }
 
     override suspend fun toggleFavorite(spellId: String) {
         favoritesRepository.toggleFavorite(FavoriteType.SPELL, spellId)

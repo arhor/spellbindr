@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.domain.model
 import com.github.arhor.spellbindr.data.model.AreaOfEffect
 import com.github.arhor.spellbindr.data.model.SpellDamage
 import com.github.arhor.spellbindr.data.model.SpellDC
+import kotlinx.serialization.Serializable
 
 /**
  * Domain representation of a spell.
@@ -29,6 +30,7 @@ import com.github.arhor.spellbindr.data.model.SpellDC
  * @property subclasses List of subclasses that grant this spell.
  * @property source Source book or reference.
  */
+@Serializable
 data class Spell(
     val id: String,
     val name: String,
