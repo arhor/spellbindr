@@ -45,7 +45,7 @@ data class Character(
         val size: String = "medium",
         val level: Int = 1,
         val speed: Int = 30,
-        val actions: Set<com.github.arhor.spellbindr.data.model.Action> = emptySet(),
+        val actions: Set<Action> = emptySet(),
         val languages: Set<EntityRef> = emptySet(),
         val knownSpells: Set<EntityRef> = emptySet(),
         val resistances: Set<EntityRef> = emptySet(),

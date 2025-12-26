@@ -1,6 +1,9 @@
-package com.github.arhor.spellbindr.domain.model
+package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.data.model.AbilityAssetModel
+import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.Skill
+import com.github.arhor.spellbindr.domain.model.displayName
 import com.google.common.truth.Truth.assertThat
 import java.nio.file.Files
 import java.nio.file.Paths

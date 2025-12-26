@@ -20,8 +20,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.data.model.EquipmentCategory
+import com.github.arhor.spellbindr.domain.model.DamageType
+import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponCatalogUiModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model
+package com.github.arhor.spellbindr.domain.model
 
 import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable

@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.Choice
+import com.github.arhor.spellbindr.domain.model.DifficultyClass
 import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

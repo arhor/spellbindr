@@ -20,7 +20,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.data.model.DamageType
+import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.displayName

@@ -2,8 +2,6 @@ package com.github.arhor.spellbindr.domain.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import java.util.UUID
 
 /**

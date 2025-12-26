@@ -1,8 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.data.model.EquipmentCategory
-
 /**
  * Represents a weapon entry in the catalog derived from equipment data.
  *

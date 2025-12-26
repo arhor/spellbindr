@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.github.arhor.spellbindr.data.model
+package com.github.arhor.spellbindr.domain.model
 
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef

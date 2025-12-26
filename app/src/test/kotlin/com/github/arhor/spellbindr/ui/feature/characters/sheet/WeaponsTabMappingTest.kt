@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
-import com.github.arhor.spellbindr.data.model.DamageType
+import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet

@@ -1,7 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.model.Choice
-import com.github.arhor.spellbindr.data.model.Effect
 import kotlinx.serialization.Serializable
 
 @Serializable
