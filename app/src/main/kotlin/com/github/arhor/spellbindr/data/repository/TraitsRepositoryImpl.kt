@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.TraitsAssetDataStore
-import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.repository.TraitsRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,5 +13,5 @@ class TraitsRepositoryImpl @Inject constructor(
     private val traitsDataStore: TraitsAssetDataStore,
 ) : TraitsRepository {
     override val allTraits: Flow<List<Trait>>
-        get() = traitsDataStore.data.map { traits -> traits.orEmpty().map { it.toDomain() } }
+        get() = traitsDataStore.data.map { it.orEmpty() }
 }

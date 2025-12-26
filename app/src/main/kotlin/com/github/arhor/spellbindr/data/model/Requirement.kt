@@ -2,6 +2,7 @@
 
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.domain.model.Character
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

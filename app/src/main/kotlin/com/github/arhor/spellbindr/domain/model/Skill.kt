@@ -1,5 +1,9 @@
 package com.github.arhor.spellbindr.domain.model
 
+import com.github.arhor.spellbindr.utils.CaseInsensitiveEnumSerializer
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+
 /**
  * Represents a character skill in a role-playing game.
  *
@@ -9,6 +13,7 @@ package com.github.arhor.spellbindr.domain.model
  * @property description A list of strings, where each string is a paragraph describing the skill.
  * @property ability The primary [Ability] that governs this skill.
  */
+@Serializable(with = Skill.Companion::class)
 enum class Skill(
     val displayName: String,
     val description: List<String>,
@@ -179,4 +184,7 @@ enum class Skill(
         ),
         Ability.WIS,
     ),
+    ;
+
+    companion object : KSerializer<Skill> by CaseInsensitiveEnumSerializer.Companion()
 }
