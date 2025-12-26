@@ -12,7 +12,8 @@ import org.junit.Test
 class WeaponCatalogMapperTest {
 
     @Test
-    fun `toWeaponCatalogEntryOrNull filters non-weapon equipment`() {
+    fun `toWeaponCatalogEntryOrNull should return null when equipment is not a weapon`() {
+        // Given
         val equipment = buildEquipment(
             id = "armor-1",
             categories = setOf(EquipmentCategory.ARMOR),
@@ -20,13 +21,16 @@ class WeaponCatalogMapperTest {
             damageTypeId = "slashing",
         )
 
+        // When
         val result = equipment.toWeaponCatalogEntryOrNull()
 
+        // Then
         assertThat(result).isNull()
     }
 
     @Test
-    fun `toWeaponCatalogEntryOrNull parses basic damage dice and damage type`() {
+    fun `toWeaponCatalogEntryOrNull should parse damage dice and type when weapon is valid`() {
+        // Given
         val equipment = buildEquipment(
             id = "weapon-1",
             categories = setOf(EquipmentCategory.WEAPON),
@@ -34,8 +38,10 @@ class WeaponCatalogMapperTest {
             damageTypeId = "slashing",
         )
 
+        // When
         val result = equipment.toWeaponCatalogEntryOrNull()
 
+        // Then
         requireNotNull(result)
         assertThat(result.damageDiceCount).isEqualTo(1)
         assertThat(result.damageDieSize).isEqualTo(8)
@@ -43,7 +49,8 @@ class WeaponCatalogMapperTest {
     }
 
     @Test
-    fun `toWeaponCatalogEntryOrNull ignores modifiers in damage dice`() {
+    fun `toWeaponCatalogEntryOrNull should ignore modifiers when parsing damage dice`() {
+        // Given
         val equipment = buildEquipment(
             id = "weapon-2",
             categories = setOf(EquipmentCategory.WEAPON),
@@ -51,8 +58,10 @@ class WeaponCatalogMapperTest {
             damageTypeId = "piercing",
         )
 
+        // When
         val result = equipment.toWeaponCatalogEntryOrNull()
 
+        // Then
         requireNotNull(result)
         assertThat(result.damageDiceCount).isEqualTo(2)
         assertThat(result.damageDieSize).isEqualTo(6)

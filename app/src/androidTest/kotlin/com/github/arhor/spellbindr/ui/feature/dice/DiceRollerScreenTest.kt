@@ -18,9 +18,11 @@ class DiceRollerScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun showsPromptWhenNoDiceSelected() {
+    fun `DiceRollerScreen should show prompt when no dice are selected`() {
+        // Given
         val state = DiceRollerState()
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 DiceRollerScreen(
@@ -30,6 +32,7 @@ class DiceRollerScreenTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithText("Dice Roll").assertIsDisplayed()
         composeTestRule
             .onNodeWithText("Tap d4, d6, d8, d10 or d12 above to add dice.")

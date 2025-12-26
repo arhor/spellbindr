@@ -10,7 +10,8 @@ import org.junit.Test
 class CharacterMapperTest {
 
     @Test
-    fun `toDomain preserves core character fields`() {
+    fun `toDomain should preserve core character fields when mapping from entity`() {
+        // Given
         val entity = CharacterEntity(
             id = "char-1",
             name = "Lia",
@@ -26,8 +27,10 @@ class CharacterMapperTest {
             manualSheet = CharacterSheetSnapshot(name = "ignored-for-mapping"),
         )
 
+        // When
         val result = entity.toDomain()
 
+        // Then
         assertThat(result.id).isEqualTo(entity.id)
         assertThat(result.name).isEqualTo(entity.name)
         assertThat(result.race).isEqualTo(entity.race)
@@ -42,7 +45,8 @@ class CharacterMapperTest {
     }
 
     @Test
-    fun `toEntity does not populate manualSheet so repository can manage it separately`() {
+    fun `toEntity should leave manualSheet null when domain model omits it`() {
+        // Given
         val character = Character(
             id = "char-2",
             name = "Ryn",
@@ -57,8 +61,10 @@ class CharacterMapperTest {
             spells = emptySet(),
         )
 
+        // When
         val result = character.toEntity()
 
+        // Then
         assertThat(result.id).isEqualTo(character.id)
         assertThat(result.name).isEqualTo(character.name)
         assertThat(result.manualSheet).isNull()

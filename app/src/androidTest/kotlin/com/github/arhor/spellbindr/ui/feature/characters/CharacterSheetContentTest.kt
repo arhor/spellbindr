@@ -20,7 +20,8 @@ class CharacterSheetContentTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun showsOverviewTabAndSavingThrowsSection() {
+    fun `CharacterSheetContent should show overview tab and saving throws section when rendered`() {
+        // Given
         composeTestRule.setContent {
             AppTheme {
                 CharacterSheetContent(
@@ -31,6 +32,10 @@ class CharacterSheetContentTest {
             }
         }
 
+        // When
+        composeTestRule.waitForIdle()
+
+        // Then
         composeTestRule.onNodeWithText("Overview").assertIsDisplayed()
         composeTestRule.onNodeWithText("Saving Throws").assertIsDisplayed()
     }

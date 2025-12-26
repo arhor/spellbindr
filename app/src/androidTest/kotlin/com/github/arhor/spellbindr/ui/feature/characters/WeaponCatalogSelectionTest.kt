@@ -20,6 +20,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponEditorState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponCatalogDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,7 +32,8 @@ class WeaponCatalogSelectionTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun opensCatalogAndPrefillsEditorWhileAllowingManualEdits() {
+    fun `WeaponCatalogDialog should prefill editor while allowing manual edits`() {
+        // Given
         val catalog = listOf(
             WeaponCatalogUiModel(
                 id = "greatsword",
@@ -55,6 +57,7 @@ class WeaponCatalogSelectionTest {
         var editorState by mutableStateOf(WeaponEditorState())
         var isCatalogVisible by mutableStateOf(false)
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 WeaponEditorDialog(
@@ -94,9 +97,11 @@ class WeaponCatalogSelectionTest {
         }
 
         composeTestRule.onNodeWithText("Select weapon").performClick()
-        composeTestRule.onNodeWithText("Weapon catalog").assertIsDisplayed()
+        val catalogVisible = composeTestRule.onAllNodesWithText("Weapon catalog").fetchSemanticsNodes().isNotEmpty()
         composeTestRule.onNodeWithText("Greatsword").performClick()
 
+        // Then
+        assertThat(catalogVisible).isTrue()
         composeTestRule.onNodeWithTag("WeaponNameField", useUnmergedTree = true)
             .assertTextEquals("Greatsword")
         composeTestRule.onNodeWithTag("WeaponDiceCountField", useUnmergedTree = true)

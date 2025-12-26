@@ -27,7 +27,7 @@ class StaticAssetDataStoreBaseTest {
     }
 
     @Test
-    fun `should load static assets without exceptions`() = runTest {
+    fun `initialize should load static assets without exceptions when stores are injected`() = runTest {
         // Given
         val errors = mutableListOf<String>()
 

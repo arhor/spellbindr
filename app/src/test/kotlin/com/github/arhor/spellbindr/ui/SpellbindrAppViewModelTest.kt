@@ -41,7 +41,8 @@ class SpellbindrAppViewModelTest {
     }
 
     @Test
-    fun `readyForInteraction waits for critical assets and delay`() = runTest {
+    fun `readyForInteraction should wait for critical assets and initial delay when app starts`() = runTest {
+        // Given
         val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL, initializationDelayMillis = 500)
         val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
         val viewModel = SpellbindrAppViewModel(
@@ -49,26 +50,28 @@ class SpellbindrAppViewModelTest {
             themeRepository = FakeThemeRepository(),
         )
 
+        // When
         advanceTimeBy(1_000)
         runCurrent()
-
-        assertThat(viewModel.state.value.initialDelayPassed).isFalse()
-        assertThat(viewModel.state.value.criticalAssetsReady).isTrue()
-        assertThat(viewModel.state.value.readyForInteraction).isFalse()
+        val intermediateState = viewModel.state.value
 
         advanceTimeBy(600)
         runCurrent()
+        val finalState = viewModel.state.value
 
-        with(viewModel.state.value) {
-            assertThat(initialDelayPassed).isTrue()
-            assertThat(criticalAssetsReady).isTrue()
-            assertThat(readyForInteraction).isTrue()
-            assertThat(deferredAssetsReady).isFalse()
-        }
+        // Then
+        assertThat(intermediateState.initialDelayPassed).isFalse()
+        assertThat(intermediateState.criticalAssetsReady).isTrue()
+        assertThat(intermediateState.readyForInteraction).isFalse()
+        assertThat(finalState.initialDelayPassed).isTrue()
+        assertThat(finalState.criticalAssetsReady).isTrue()
+        assertThat(finalState.readyForInteraction).isTrue()
+        assertThat(finalState.deferredAssetsReady).isFalse()
     }
 
     @Test
-    fun `fullyReady flips after deferred assets finish`() = runTest {
+    fun `fullyReady should flip after deferred assets finish when initial delay has passed`() = runTest {
+        // Given
         val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL)
         val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_500)
         val viewModel = SpellbindrAppViewModel(
@@ -76,32 +79,39 @@ class SpellbindrAppViewModelTest {
             themeRepository = FakeThemeRepository(),
         )
 
+        // When
         advanceTimeBy(1_600)
         runCurrent()
-
-        assertThat(viewModel.state.value.readyForInteraction).isTrue()
-        assertThat(viewModel.state.value.fullyReady).isFalse()
+        val stateBeforeDeferredReady = viewModel.state.value
 
         advanceUntilIdle()
+        val stateAfterDeferredReady = viewModel.state.value
 
-        assertThat(viewModel.state.value.deferredAssetsReady).isTrue()
-        assertThat(viewModel.state.value.fullyReady).isTrue()
+        // Then
+        assertThat(stateBeforeDeferredReady.readyForInteraction).isTrue()
+        assertThat(stateBeforeDeferredReady.fullyReady).isFalse()
+        assertThat(stateAfterDeferredReady.deferredAssetsReady).isTrue()
+        assertThat(stateAfterDeferredReady.fullyReady).isTrue()
     }
 
     @Test
-    fun `critical readiness resolves when no critical loaders present`() = runTest {
+    fun `critical readiness should resolve immediately when no critical loaders are present`() = runTest {
+        // Given
         val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
         val viewModel = SpellbindrAppViewModel(
             loaders = setOf(deferredLoader),
             themeRepository = FakeThemeRepository(),
         )
 
+        // When
         advanceTimeBy(1_500)
         runCurrent()
+        val state = viewModel.state.value
 
-        assertThat(viewModel.state.value.criticalAssetsReady).isTrue()
-        assertThat(viewModel.state.value.readyForInteraction).isTrue()
-        assertThat(viewModel.state.value.deferredAssetsReady).isFalse()
+        // Then
+        assertThat(state.criticalAssetsReady).isTrue()
+        assertThat(state.readyForInteraction).isTrue()
+        assertThat(state.deferredAssetsReady).isFalse()
     }
 }
 

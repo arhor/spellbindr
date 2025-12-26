@@ -12,7 +12,8 @@ import org.junit.Test
 class CharacterSheetWeaponSerializationTest {
 
     @Test
-    fun `weapons round trip through snapshot`() {
+    fun `toSnapshot should round trip weapons when converting to domain and back`() {
+        // Given
         val weapon = Weapon(
             id = "weapon-1",
             catalogId = "catalog-longsword",
@@ -28,14 +29,17 @@ class CharacterSheetWeaponSerializationTest {
 
         val sheet = CharacterSheet(id = "character-1", weapons = listOf(weapon))
 
+        // When
         val snapshot = sheet.toSnapshot()
         val restored = snapshot.toDomain(sheet.id)
 
+        // Then
         assertThat(restored.weapons).containsExactly(weapon)
     }
 
     @Test
-    fun `weapon defaults are preserved when optional fields missing`() {
+    fun `toDomain should preserve weapon defaults when optional fields are missing`() {
+        // Given
         val snapshot = CharacterSheetSnapshot(
             weapons = listOf(
                 Weapon(
@@ -48,8 +52,10 @@ class CharacterSheetWeaponSerializationTest {
             )
         )
 
+        // When
         val restored = snapshot.toDomain("character-2")
 
+        // Then
         assertThat(restored.weapons).hasSize(1)
         assertThat(restored.weapons.first().proficient).isFalse()
         assertThat(restored.weapons.first().damageDiceCount).isEqualTo(1)
@@ -58,7 +64,8 @@ class CharacterSheetWeaponSerializationTest {
     }
 
     @Test
-    fun `weapon defaults apply when legacy snapshot omits new fields`() {
+    fun `toDomain should apply weapon defaults when legacy snapshot omits new fields`() {
+        // Given
         val json = Json { ignoreUnknownKeys = true }
         val snapshot = json.decodeFromString(
             CharacterSheetSnapshot.serializer(),
@@ -80,8 +87,10 @@ class CharacterSheetWeaponSerializationTest {
             """.trimIndent()
         )
 
+        // When
         val weapon = snapshot.weapons.first()
 
+        // Then
         assertThat(weapon.catalogId).isNull()
         assertThat(weapon.category).isNull()
         assertThat(weapon.categories).isEmpty()

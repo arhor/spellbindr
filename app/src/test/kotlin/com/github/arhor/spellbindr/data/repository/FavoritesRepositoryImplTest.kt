@@ -13,14 +13,17 @@ import kotlin.io.path.createTempFile
 class FavoritesRepositoryImplTest {
 
     @Test
-    fun `observeFavoriteIds emits stored favorites`() = runTest {
+    fun `observeFavoriteIds should emit stored favorites when toggles are applied`() = runTest {
+        // Given
         val (repository, file) = createRepository()
         try {
             repository.toggleFavorite(FavoriteType.SPELL, "spell-1")
             repository.toggleFavorite(FavoriteType.SPELL, "spell-2")
 
+            // When
             val result = repository.observeFavoriteIds(FavoriteType.SPELL).first()
 
+            // Then
             assertThat(result).containsExactly("spell-1", "spell-2")
         } finally {
             file.delete()
@@ -28,13 +31,16 @@ class FavoritesRepositoryImplTest {
     }
 
     @Test
-    fun `toggleFavorite stores when missing`() = runTest {
+    fun `toggleFavorite should store id when it is missing`() = runTest {
+        // Given
         val (repository, file) = createRepository()
         try {
             repository.toggleFavorite(FavoriteType.SPELL, "spell-1")
 
+            // When
             val result = repository.isFavorite(FavoriteType.SPELL, "spell-1")
 
+            // Then
             assertThat(result).isTrue()
         } finally {
             file.delete()
@@ -42,14 +48,17 @@ class FavoritesRepositoryImplTest {
     }
 
     @Test
-    fun `toggleFavorite removes when present`() = runTest {
+    fun `toggleFavorite should remove id when it is already present`() = runTest {
+        // Given
         val (repository, file) = createRepository()
         try {
             repository.toggleFavorite(FavoriteType.SPELL, "spell-1")
             repository.toggleFavorite(FavoriteType.SPELL, "spell-1")
 
+            // When
             val result = repository.isFavorite(FavoriteType.SPELL, "spell-1")
 
+            // Then
             assertThat(result).isFalse()
         } finally {
             file.delete()
@@ -57,11 +66,14 @@ class FavoritesRepositoryImplTest {
     }
 
     @Test
-    fun `isFavorite returns false when missing`() = runTest {
+    fun `isFavorite should return false when id is not stored`() = runTest {
+        // Given
         val (repository, file) = createRepository()
         try {
+            // When
             val result = repository.isFavorite(FavoriteType.SPELL, "spell-1")
 
+            // Then
             assertThat(result).isFalse()
         } finally {
             file.delete()

@@ -6,9 +6,15 @@ import org.junit.Test
 class ExampleJUnitTest {
 
     @Test
-    fun addsNumbers() {
-        val result = 2 + 2
+    fun `addition should return sum when two integers are added`() {
+        // Given
+        val augend = 2
+        val addend = 2
 
+        // When
+        val result = augend + addend
+
+        // Then
         assertEquals(4, result)
     }
 }

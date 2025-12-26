@@ -15,42 +15,51 @@ class ToggleSpellSlotUseCaseTest {
     private val useCase = ToggleSpellSlotUseCase()
 
     @Test
-    fun `toggle spell slot updates expended count`() {
+    fun `invoke should update expended count when toggling spell slot`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             spellSlots = listOf(SpellSlotState(level = 1, total = 2, expended = 0)),
         )
 
+        // When
         val toggled = useCase(sheet, ToggleSpellSlotUseCase.Action.Toggle(level = 1, slotIndex = 0))
         val reset = useCase(toggled, ToggleSpellSlotUseCase.Action.Toggle(level = 1, slotIndex = 0))
 
+        // Then
         assertThat(toggled.spellSlots.first { it.level == 1 }.expended).isEqualTo(1)
         assertThat(reset.spellSlots.first { it.level == 1 }.expended).isEqualTo(0)
     }
 
     @Test
-    fun `set total clamps expended and total`() {
+    fun `invoke should clamp expended and total when setting total below zero`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             spellSlots = listOf(SpellSlotState(level = 1, total = 3, expended = 3)),
         )
 
+        // When
         val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.SetTotal(level = 1, total = -1))
 
+        // Then
         val slot = updated.spellSlots.first { it.level == 1 }
         assertThat(slot.total).isEqualTo(0)
         assertThat(slot.expended).isEqualTo(0)
     }
 
     @Test
-    fun `toggle does nothing when total is zero`() {
+    fun `invoke should leave expended unchanged when total is zero`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             spellSlots = listOf(SpellSlotState(level = 2, total = 0, expended = 0)),
         )
 
+        // When
         val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.Toggle(level = 2, slotIndex = 0))
 
+        // Then
         assertThat(updated.spellSlots.first { it.level == 2 }.expended).isEqualTo(0)
     }
 }

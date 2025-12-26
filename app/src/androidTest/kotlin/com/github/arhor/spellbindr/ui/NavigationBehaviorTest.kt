@@ -12,6 +12,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.di.AppModule
 import com.github.arhor.spellbindr.di.DatabaseModule
+import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -37,23 +38,28 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun openingSpellKeepsTopBarVisible() {
+    fun `opening spell should keep top bar visible when navigating to details`() {
+        // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
 
         waitForText("Search spell by name")
         composeTestRule.onNodeWithText("Search spell by name").performTextInput("Magic Missile")
         waitForText("Magic Missile")
-        composeTestRule.onNodeWithText("Magic Missile").performClick()
 
+        // When
+        composeTestRule.onNodeWithText("Magic Missile").performClick()
         waitForContentDescription("Back")
-        composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
         composeTestRule.waitForIdle()
+
+        // Then
+        composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
     }
 
     @Test
-    fun diceDetailsDismissAfterNavigation() {
+    fun `dice roll details should dismiss when navigating away and returning`() {
+        // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Dice").performClick()
 
@@ -65,35 +71,45 @@ class NavigationBehaviorTest {
         composeTestRule.onNodeWithText("Details").performClick()
         waitForText("Roll details")
 
+        // When
         composeTestRule.onNodeWithText("Compendium").performClick()
         composeTestRule.onNodeWithText("Dice").performClick()
 
+        // Then
         waitForText("Dice Roll")
         composeTestRule.onAllNodesWithText("Roll details").assertCountEquals(0)
     }
 
     @Test
-    fun characterEditorResetsWhenSwitchingTabs() {
+    fun `character editor should reset when switching tabs`() {
+        // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithContentDescription("Create character").performClick()
 
         waitForText("New Character")
-        composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
+        val backVisible = composeTestRule.onAllNodesWithContentDescription("Back").fetchSemanticsNodes().isNotEmpty()
 
+        // When
         composeTestRule.onNodeWithText("Characters").performClick()
 
         waitForContentDescription("Create character")
-        composeTestRule.onAllNodesWithText("New Character").assertCountEquals(0)
+        val editorNodes = composeTestRule.onAllNodesWithText("New Character").fetchSemanticsNodes()
+
+        // Then
+        assertThat(backVisible).isTrue()
+        assertThat(editorNodes).isEmpty()
     }
 
     @Test
-    fun characterSheetNavigationAndAddSpellsAreStable() {
+    fun `character sheet navigation should remain stable when adding spells`() {
+        // Given
         waitForContentDescription("Create character")
         createCharacter("Test Hero")
 
+        // When
         composeTestRule.onNodeWithText("Test Hero").performClick()
         waitForContentDescription("Back")
-        composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
+        val backVisibleDuringSheet = composeTestRule.onAllNodesWithContentDescription("Back").fetchSemanticsNodes().isNotEmpty()
 
         composeTestRule.onNodeWithText("Spells").performClick()
         composeTestRule.onNodeWithText("Add spells").performClick()
@@ -101,20 +117,27 @@ class NavigationBehaviorTest {
 
         composeTestRule.onNodeWithText("Characters").performClick()
         waitForContentDescription("Create character")
-        composeTestRule.onAllNodesWithContentDescription("Back").assertCountEquals(0)
+        val backButtons = composeTestRule.onAllNodesWithContentDescription("Back").fetchSemanticsNodes()
+
+        // Then
+        assertThat(backVisibleDuringSheet).isTrue()
+        assertThat(backButtons).isEmpty()
     }
 
     @Test
-    fun compendiumTabResetsOnTopLevelSwitch() {
+    fun `compendium tab should reset search when switching top level tabs`() {
+        // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
 
         waitForText("Search spell by name")
         composeTestRule.onNodeWithText("Races").performClick()
 
+        // When
         composeTestRule.onNodeWithText("Dice").performClick()
         composeTestRule.onNodeWithText("Compendium").performClick()
 
+        // Then
         waitForText("Search spell by name")
         composeTestRule.onNodeWithText("Search spell by name").assertIsDisplayed()
     }

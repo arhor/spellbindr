@@ -19,7 +19,8 @@ class CharacterEditorUseCasesTest {
     private val buildCharacterSheetFromInputsUseCase = BuildCharacterSheetFromInputsUseCase()
 
     @Test
-    fun `validate returns errors for required fields and invalid abilities`() {
+    fun `ValidateCharacterSheetUseCase should return errors when required fields or abilities are invalid`() {
+        // Given
         val input = CharacterEditorInput(
             name = "",
             level = "0",
@@ -29,8 +30,10 @@ class CharacterEditorUseCasesTest {
             },
         )
 
+        // When
         val result = validateUseCase(input)
 
+        // Then
         assertThat(result.nameError).isEqualTo(CharacterSheetInputError.Required)
         assertThat(result.levelError).isEqualTo(CharacterSheetInputError.MinValue(1))
         assertThat(result.maxHpError).isEqualTo(CharacterSheetInputError.Required)
@@ -39,15 +42,18 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `validate returns no errors for valid inputs`() {
+    fun `ValidateCharacterSheetUseCase should return no errors when inputs are valid`() {
+        // Given
         val input = CharacterEditorInput(
             name = "Ayla",
             level = "2",
             maxHitPoints = "8",
         )
 
+        // When
         val result = validateUseCase(input)
 
+        // Then
         assertThat(result.nameError).isNull()
         assertThat(result.levelError).isNull()
         assertThat(result.maxHpError).isNull()
@@ -56,7 +62,8 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `computeDerivedBonusesUseCase updates saving throws and skills`() {
+    fun `ComputeDerivedBonusesUseCase should update saving throws and skills when proficiency applies`() {
+        // Given
         val input = CharacterEditorInput(
             proficiencyBonus = "2",
         )
@@ -71,8 +78,10 @@ class CharacterEditorUseCasesTest {
                 },
             )
 
+        // When
         val result = computeDerivedBonusesUseCase(input)
 
+        // Then
         val strengthSave = result.savingThrows.first { it.abilityId == AbilityIds.STR }
         val dexSave = result.savingThrows.first { it.abilityId == AbilityIds.DEX }
         val acrobatics = result.skills.first { it.skill == Skill.ACROBATICS }
@@ -83,7 +92,8 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `buildCharacterSheetFromInputsUseCase builds sheet from inputs`() {
+    fun `BuildCharacterSheetFromInputsUseCase should build sheet when inputs are provided`() {
+        // Given
         val baseSheet = CharacterSheet(id = "base-id", maxHitPoints = 10)
         val input = CharacterEditorInput(
             name = "  Mira  ",
@@ -107,8 +117,10 @@ class CharacterEditorUseCasesTest {
                 },
             )
 
+        // When
         val result = buildCharacterSheetFromInputsUseCase(input, baseSheet)
 
+        // Then
         assertThat(result.id).isEqualTo("base-id")
         assertThat(result.name).isEqualTo("Mira")
         assertThat(result.level).isEqualTo(3)
@@ -120,7 +132,8 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `validate handles blank and invalid numeric values`() {
+    fun `ValidateCharacterSheetUseCase should handle blank and invalid numeric values when validating`() {
+        // Given
         val input = CharacterEditorInput(
             name = "Ayla",
             level = "not-a-number",
@@ -130,8 +143,10 @@ class CharacterEditorUseCasesTest {
             },
         )
 
+        // When
         val result = validateUseCase(input)
 
+        // Then
         assertThat(result.nameError).isNull()
         assertThat(result.levelError).isEqualTo(CharacterSheetInputError.MinValue(1))
         assertThat(result.maxHpError).isEqualTo(CharacterSheetInputError.Required)

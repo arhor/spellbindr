@@ -7,15 +7,18 @@ import org.junit.Test
 class AbilityMapperTest {
 
     @Test
-    fun `toDomainAbilityOrNull maps asset model to domain ability`() {
+    fun `toDomainAbilityOrNull should map asset model to domain ability when ability is valid`() {
+        // Given
         val assetModel = AbilityAssetModel(
             id = "wis",
             name = "Wisdom",
             description = listOf("Perception and insight."),
         )
 
+        // When
         val result = assetModel.toDomainAbilityOrNull()
 
+        // Then
         requireNotNull(result)
         assertThat(result.id).isEqualTo(assetModel.id)
         assertThat(result.displayName).isEqualTo(assetModel.name)

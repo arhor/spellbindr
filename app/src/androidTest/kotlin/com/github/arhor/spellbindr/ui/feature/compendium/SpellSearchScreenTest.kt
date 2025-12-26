@@ -20,7 +20,8 @@ class SpellSearchScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun showsLoadedSpellGroupAndSpellName() {
+    fun `SpellSearchScreen should show loaded spell group and name when state is loaded`() {
+        // Given
         val spell = Spell(
             id = "magic_missile",
             name = "Magic Missile",
@@ -47,6 +48,7 @@ class SpellSearchScreenTest {
             ),
         )
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 SpellSearchScreen(
@@ -63,6 +65,7 @@ class SpellSearchScreenTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithText("Lvl. 1").assertIsDisplayed()
         composeTestRule.onNodeWithText("Magic Missile").assertIsDisplayed()
     }
