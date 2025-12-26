@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
 import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
 
 @Stable
 data class CharacterSheetCallbacks(
@@ -33,7 +33,7 @@ data class CharacterSheetCallbacks(
     val onWeaponDeleted: (String) -> Unit = {},
     val onWeaponEditorDismissed: () -> Unit = {},
     val onWeaponNameChanged: (String) -> Unit = {},
-    val onWeaponAbilityChanged: (Ability) -> Unit = {},
+    val onWeaponAbilityChanged: (AbilityId) -> Unit = {},
     val onWeaponUseAbilityForDamageChanged: (Boolean) -> Unit = {},
     val onWeaponProficiencyChanged: (Boolean) -> Unit = {},
     val onWeaponDiceCountChanged: (String) -> Unit = {},

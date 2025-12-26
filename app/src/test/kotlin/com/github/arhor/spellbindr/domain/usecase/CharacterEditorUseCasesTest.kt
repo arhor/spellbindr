@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScoreInput
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
@@ -24,7 +25,7 @@ class CharacterEditorUseCasesTest {
             level = "0",
             maxHitPoints = "0",
             abilities = AbilityScoreInput.defaults().map { ability ->
-                if (ability.ability == Ability.STR) ability.copy(score = "") else ability
+                if (ability.abilityId == AbilityIds.STR) ability.copy(score = "") else ability
             },
         )
 
@@ -33,7 +34,7 @@ class CharacterEditorUseCasesTest {
         assertThat(result.nameError).isEqualTo(CharacterSheetInputError.Required)
         assertThat(result.levelError).isEqualTo(CharacterSheetInputError.MinValue(1))
         assertThat(result.maxHpError).isEqualTo(CharacterSheetInputError.Required)
-        assertThat(result.abilityErrors[Ability.STR]).isEqualTo(CharacterSheetInputError.Required)
+        assertThat(result.abilityErrors[AbilityIds.STR]).isEqualTo(CharacterSheetInputError.Required)
         assertThat(result.hasErrors).isTrue()
     }
 
@@ -59,11 +60,11 @@ class CharacterEditorUseCasesTest {
         val input = CharacterEditorInput(
             proficiencyBonus = "2",
         )
-            .withAbilityScore(Ability.STR, "14")
-            .withAbilityScore(Ability.DEX, "8")
+            .withAbilityScore(AbilityIds.STR, "14")
+            .withAbilityScore(AbilityIds.DEX, "8")
             .copy(
                 savingThrows = SavingThrowInput.defaults().map { entry ->
-                    if (entry.ability == Ability.STR) entry.copy(proficient = true) else entry
+                    if (entry.abilityId == AbilityIds.STR) entry.copy(proficient = true) else entry
                 },
                 skills = SkillProficiencyInput.defaults().map { entry ->
                     if (entry.skill == Skill.ACROBATICS) entry.copy(expertise = true) else entry
@@ -72,8 +73,8 @@ class CharacterEditorUseCasesTest {
 
         val result = computeDerivedBonusesUseCase(input)
 
-        val strengthSave = result.savingThrows.first { it.ability == Ability.STR }
-        val dexSave = result.savingThrows.first { it.ability == Ability.DEX }
+        val strengthSave = result.savingThrows.first { it.abilityId == AbilityIds.STR }
+        val dexSave = result.savingThrows.first { it.abilityId == AbilityIds.DEX }
         val acrobatics = result.skills.first { it.skill == Skill.ACROBATICS }
 
         assertThat(strengthSave.bonus).isEqualTo(4)
@@ -95,11 +96,11 @@ class CharacterEditorUseCasesTest {
             proficiencyBonus = "2",
             maxHitPoints = "14",
         )
-            .withAbilityScore(Ability.STR, "14")
-            .withAbilityScore(Ability.DEX, "8")
+            .withAbilityScore(AbilityIds.STR, "14")
+            .withAbilityScore(AbilityIds.DEX, "8")
             .copy(
                 savingThrows = SavingThrowInput.defaults().map { entry ->
-                    if (entry.ability == Ability.STR) entry.copy(proficient = true) else entry
+                    if (entry.abilityId == AbilityIds.STR) entry.copy(proficient = true) else entry
                 },
                 skills = SkillProficiencyInput.defaults().map { entry ->
                     if (entry.skill == Skill.ACROBATICS) entry.copy(expertise = true) else entry
@@ -114,7 +115,7 @@ class CharacterEditorUseCasesTest {
         assertThat(result.experiencePoints).isEqualTo(1200)
         assertThat(result.abilityScores.strength).isEqualTo(14)
         assertThat(result.maxHitPoints).isEqualTo(14)
-        assertThat(result.savingThrows.first { it.ability == Ability.STR }.bonus).isEqualTo(4)
+        assertThat(result.savingThrows.first { it.abilityId == AbilityIds.STR }.bonus).isEqualTo(4)
         assertThat(result.skills.first { it.skill == Skill.ACROBATICS }.bonus).isEqualTo(3)
     }
 
@@ -125,7 +126,7 @@ class CharacterEditorUseCasesTest {
             level = "not-a-number",
             maxHitPoints = "",
             abilities = AbilityScoreInput.defaults().map { ability ->
-                if (ability.ability == Ability.INT) ability.copy(score = " ") else ability
+                if (ability.abilityId == AbilityIds.INT) ability.copy(score = " ") else ability
             },
         )
 
@@ -134,13 +135,13 @@ class CharacterEditorUseCasesTest {
         assertThat(result.nameError).isNull()
         assertThat(result.levelError).isEqualTo(CharacterSheetInputError.MinValue(1))
         assertThat(result.maxHpError).isEqualTo(CharacterSheetInputError.Required)
-        assertThat(result.abilityErrors[Ability.INT]).isEqualTo(CharacterSheetInputError.Required)
+        assertThat(result.abilityErrors[AbilityIds.INT]).isEqualTo(CharacterSheetInputError.Required)
     }
 
-    private fun CharacterEditorInput.withAbilityScore(ability: Ability, score: String): CharacterEditorInput =
+    private fun CharacterEditorInput.withAbilityScore(abilityId: AbilityId, score: String): CharacterEditorInput =
         copy(
             abilities = abilities.map { field ->
-                if (field.ability == ability) field.copy(score = score) else field
+                if (field.abilityId == abilityId) field.copy(score = score) else field
             }
         )
 }

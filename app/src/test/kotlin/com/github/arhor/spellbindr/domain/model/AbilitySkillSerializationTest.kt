@@ -9,21 +9,39 @@ import org.junit.Test
 class AbilitySkillSerializationTest {
 
     @Test
-    fun `ability serializes to lowercase string`() {
-        // When
-        val encoded = Json.encodeToString(Ability.serializer(), Ability.STR)
+    fun `ability serializes and deserializes as object`() {
+        val ability = Ability(
+            id = "str",
+            displayName = "Strength",
+            description = listOf("Test description"),
+        )
 
-        // Then
-        assertThat(encoded).isEqualTo("\"str\"")
+        val encoded = Json.encodeToString(Ability.serializer(), ability)
+        val decoded = Json.decodeFromString(Ability.serializer(), encoded)
+
+        assertThat(decoded).isEqualTo(ability)
     }
 
     @Test
-    fun `ability deserializes from lowercase string`() {
-        // When
-        val decoded = Json.decodeFromString(Ability.serializer(), "\"wis\"")
+    fun `ability deserializes from json object`() {
+        val decoded = Json.decodeFromString(
+            Ability.serializer(),
+            """
+            {
+              "id": "wis",
+              "displayName": "Wisdom",
+              "description": ["desc"]
+            }
+            """.trimIndent(),
+        )
 
-        // Then
-        assertThat(decoded).isEqualTo(Ability.WIS)
+        assertThat(decoded).isEqualTo(
+            Ability(
+                id = "wis",
+                displayName = "Wisdom",
+                description = listOf("desc"),
+            )
+        )
     }
 
     @Test

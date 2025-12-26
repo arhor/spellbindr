@@ -1,7 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
 import com.github.arhor.spellbindr.data.model.DamageType
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
@@ -33,10 +34,10 @@ internal object CharacterSheetPreviewData {
     )
 
     val overview = OverviewTabState(
-        abilities = Ability.entries.mapIndexed { index, ability ->
+        abilities = AbilityIds.standardOrder.mapIndexed { index, abilityId ->
             AbilityUiModel(
-                ability = ability,
-                label = ability.name,
+                abilityId = abilityId,
+                label = abilityId.abbreviation(),
                 score = 10 + index * 2,
                 modifier = index - 1,
                 savingThrowBonus = index + 2,
@@ -59,7 +60,7 @@ internal object CharacterSheetPreviewData {
             SkillUiModel(
                 id = skill,
                 name = skill.displayName,
-                abilityAbbreviation = skill.ability.name,
+                abilityAbbreviation = skill.abilityAbbreviation,
                 totalBonus = index,
                 proficient = index % 2 == 0,
                 expertise = index == 0,

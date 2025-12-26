@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.characters
 
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 import com.google.common.truth.Truth.assertThat
@@ -20,7 +20,7 @@ class CharacterEditorReducerTest {
             maxHitPoints = "0",
             maxHitPointsError = "Required",
             abilities = AbilityFieldState.defaults().map { field ->
-                if (field.ability == Ability.STR) field.copy(error = "Required") else field
+                if (field.abilityId == AbilityIds.STR) field.copy(error = "Required") else field
             },
         )
 
@@ -41,7 +41,7 @@ class CharacterEditorReducerTest {
         )
         val updatedAbility = reduceCharacterEditorState(
             updatedHp,
-            CharacterEditorAction.AbilityChanged(Ability.STR, "14"),
+            CharacterEditorAction.AbilityChanged(AbilityIds.STR, "14"),
             computeDerivedBonusesUseCase,
         )
 
@@ -51,7 +51,7 @@ class CharacterEditorReducerTest {
         assertThat(updatedAbility.levelError).isNull()
         assertThat(updatedAbility.maxHitPoints).isEqualTo("12")
         assertThat(updatedAbility.maxHitPointsError).isNull()
-        val strengthField = updatedAbility.abilities.first { it.ability == Ability.STR }
+        val strengthField = updatedAbility.abilities.first { it.abilityId == AbilityIds.STR }
         assertThat(strengthField.score).isEqualTo("14")
         assertThat(strengthField.error).isNull()
     }
@@ -62,11 +62,11 @@ class CharacterEditorReducerTest {
 
         val updated = reduceCharacterEditorState(
             state,
-            CharacterEditorAction.AbilityChanged(Ability.STR, "14"),
+            CharacterEditorAction.AbilityChanged(AbilityIds.STR, "14"),
             computeDerivedBonusesUseCase,
         )
 
-        val savingThrow = updated.savingThrows.first { it.ability == Ability.STR }
+        val savingThrow = updated.savingThrows.first { it.abilityId == AbilityIds.STR }
         val athletics = updated.skills.first { it.skill == Skill.ATHLETICS }
         assertThat(savingThrow.bonus).isEqualTo(2)
         assertThat(athletics.bonus).isEqualTo(2)

@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.utils
 
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import kotlin.math.floor
 import kotlin.random.Random
 
@@ -35,7 +35,7 @@ fun calculateAbilityScoreModifier(score: Int): String = signed(calculateModifier
  */
 fun signed(value: Int): String = if (value >= 0) "+$value" else value.toString()
 
-fun Map<Ability, Int>.asCommaSeparatedString(): String =
+fun Map<String, Int>.asCommaSeparatedString(): String =
     this.asSequence()
         .filter { it.value != 0 }
         .joinToString { "${it.key}: ${signed(it.value)}" }
@@ -67,8 +67,6 @@ fun roll4d6DropLowest(): List<Int> {
     }
 }
 
-private val abilityNames = listOf("STR", "DEX", "CON", "INT", "WIS", "CHA")
-
 fun calculateModifier(score: Int): Int {
     return floor((score - 10) / 2.0).toInt()
 }
@@ -81,7 +79,10 @@ fun generate(
         is GenerationMethod.Roll -> {
             val rolledScores = roll4d6DropLowest()
             if (method.autoAssign) {
-                abilityNames.zip(rolledScores.sortedDescending()).toMap()
+                AbilityIds.standardOrder
+                    .map(String::uppercase)
+                    .zip(rolledScores.sortedDescending())
+                    .toMap()
             } else {
                 assignedScores
             }

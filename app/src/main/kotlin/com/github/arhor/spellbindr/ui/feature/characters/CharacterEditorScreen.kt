@@ -39,7 +39,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
@@ -333,7 +334,7 @@ private fun CharacterEditorForm(
                         entry = entry,
                         onProficiencyChanged = {
                             callbacks.onAction(
-                                CharacterEditorAction.SavingThrowProficiencyChanged(entry.ability, it),
+                                CharacterEditorAction.SavingThrowProficiencyChanged(entry.abilityId, it),
                             )
                         },
                     )
@@ -454,7 +455,7 @@ private fun SectionCard(
 @Composable
 private fun AbilityGrid(
     abilities: List<AbilityFieldState>,
-    onAbilityChanged: (Ability, String) -> Unit,
+    onAbilityChanged: (AbilityId, String) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         abilities.chunked(2).forEach { rowItems ->
@@ -465,7 +466,7 @@ private fun AbilityGrid(
                 rowItems.forEach { ability ->
                     AbilityCard(
                         state = ability,
-                        onAbilityChanged = { value -> onAbilityChanged(ability.ability, value) },
+                        onAbilityChanged = { value -> onAbilityChanged(ability.abilityId, value) },
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -493,7 +494,7 @@ private fun AbilityCard(
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
-                text = state.ability.displayName,
+                text = state.abilityId.displayName(),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.Bold,
             )
@@ -526,7 +527,7 @@ private fun SavingThrowRow(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = entry.ability.displayName, fontWeight = FontWeight.Medium)
+            Text(text = entry.abilityId.displayName(), fontWeight = FontWeight.Medium)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
                     checked = entry.proficient,
@@ -551,7 +552,7 @@ private fun SkillRow(
     Column {
         Text(text = entry.skill.displayName, fontWeight = FontWeight.Medium)
         Text(
-            text = "Linked to ${entry.skill.ability.displayName}",
+            text = "Linked to ${entry.skill.abilityAbbreviation}",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

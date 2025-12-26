@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.domain.model
 data class CharacterSheetValidationResult(
     val nameError: CharacterSheetInputError?,
     val levelError: CharacterSheetInputError?,
-    val abilityErrors: Map<Ability, CharacterSheetInputError>,
+    val abilityErrors: Map<AbilityId, CharacterSheetInputError>,
     val maxHpError: CharacterSheetInputError?,
 ) {
     val hasErrors: Boolean =

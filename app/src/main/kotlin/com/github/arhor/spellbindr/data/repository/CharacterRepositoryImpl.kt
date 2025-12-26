@@ -6,10 +6,10 @@ import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.mapper.toEntity
 import com.github.arhor.spellbindr.data.model.toDomain
 import com.github.arhor.spellbindr.data.model.toSnapshot
-import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
@@ -95,11 +95,11 @@ class CharacterRepositoryImpl @Inject constructor(
         )
 
     private fun CharacterSheet.toAbilityScoreMap(): Map<EntityRef, Int> = buildMap {
-        put(Ability.STR.ref, abilityScores.strength)
-        put(Ability.DEX.ref, abilityScores.dexterity)
-        put(Ability.CON.ref, abilityScores.constitution)
-        put(Ability.INT.ref, abilityScores.intelligence)
-        put(Ability.WIS.ref, abilityScores.wisdom)
-        put(Ability.CHA.ref, abilityScores.charisma)
+        put(EntityRef(AbilityIds.STR), abilityScores.strength)
+        put(EntityRef(AbilityIds.DEX), abilityScores.dexterity)
+        put(EntityRef(AbilityIds.CON), abilityScores.constitution)
+        put(EntityRef(AbilityIds.INT), abilityScores.intelligence)
+        put(EntityRef(AbilityIds.WIS), abilityScores.wisdom)
+        put(EntityRef(AbilityIds.CHA), abilityScores.charisma)
     }
 }

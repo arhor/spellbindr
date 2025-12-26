@@ -1,10 +1,10 @@
 package com.github.arhor.spellbindr.domain.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
 import java.util.UUID
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 /**
  * Represents the full data captured by the manual character sheet editor.
@@ -108,13 +108,14 @@ data class AbilityScores(
      * Calculates the modifier for a given [ability] based on its score.
      * Formula: `(score - 10) / 2` (integer division).
      */
-    fun modifierFor(ability: Ability): Int = when (ability) {
-        Ability.STR -> (strength - 10) / 2
-        Ability.DEX -> (dexterity - 10) / 2
-        Ability.CON -> (constitution - 10) / 2
-        Ability.INT -> (intelligence - 10) / 2
-        Ability.WIS -> (wisdom - 10) / 2
-        Ability.CHA -> (charisma - 10) / 2
+    fun modifierFor(abilityId: AbilityId): Int = when (abilityId.lowercase()) {
+        AbilityIds.STR -> (strength - 10) / 2
+        AbilityIds.DEX -> (dexterity - 10) / 2
+        AbilityIds.CON -> (constitution - 10) / 2
+        AbilityIds.INT -> (intelligence - 10) / 2
+        AbilityIds.WIS -> (wisdom - 10) / 2
+        AbilityIds.CHA -> (charisma - 10) / 2
+        else -> 0
     }
 }
 
@@ -127,7 +128,8 @@ data class AbilityScores(
  */
 @Serializable
 data class SavingThrowEntry(
-    val ability: Ability,
+    @SerialName("ability")
+    val abilityId: AbilityId,
     val bonus: Int = 0,
     val proficient: Boolean = false,
 )
@@ -209,7 +211,7 @@ data class Weapon(
     val category: EquipmentCategory? = null,
     val categories: Set<EquipmentCategory> = emptySet(),
     @SerialName("attackAbility")
-    val ability: Ability = Ability.STR,
+    val abilityId: AbilityId = AbilityIds.STR,
     val proficient: Boolean = false,
     val damageDiceCount: Int = 1,
     val damageDieSize: Int = 6,
@@ -227,7 +229,7 @@ fun defaultSpellSlots(): List<SpellSlotState> =
  * Returns a list of default [SavingThrowEntry] for all abilities.
  */
 fun defaultSavingThrows(): List<SavingThrowEntry> =
-    Ability.entries.map { ability -> SavingThrowEntry(ability = ability) }
+    AbilityIds.standardOrder.map { abilityId -> SavingThrowEntry(abilityId = abilityId) }
 
 /**
  * Returns a list of default [SkillEntry] for all standard skills.

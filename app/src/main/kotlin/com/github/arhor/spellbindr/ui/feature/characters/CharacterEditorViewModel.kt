@@ -4,7 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
@@ -86,7 +87,7 @@ class CharacterEditorViewModel @Inject constructor(
                 nameError = validation.nameError?.toRequiredMessage(),
                 levelError = validation.levelError?.toLevelMessage(),
                 abilities = state.abilities.map { ability ->
-                    val error = validation.abilityErrors[ability.ability]?.toRequiredMessage()
+                    val error = validation.abilityErrors[ability.abilityId]?.toRequiredMessage()
                     ability.copy(error = error)
                 },
                 maxHitPointsError = validation.maxHpError?.toRequiredMessage(),
@@ -172,27 +173,28 @@ data class CharacterEditorUiState(
 
 @Immutable
 data class AbilityFieldState(
-    val ability: Ability,
+    val abilityId: AbilityId,
     val score: String = "10",
     val error: String? = null,
 ) {
+    val label: String
+        get() = abilityId.uppercase()
+
     companion object {
-        fun defaults(): List<AbilityFieldState> = Ability.entries.map { ability ->
-            AbilityFieldState(ability = ability, score = "10")
-        }
+        fun defaults(): List<AbilityFieldState> =
+            AbilityIds.standardOrder.map { abilityId -> AbilityFieldState(abilityId = abilityId, score = "10") }
     }
 }
 
 @Immutable
 data class SavingThrowInputState(
-    val ability: Ability,
+    val abilityId: AbilityId,
     val bonus: Int = 0,
     val proficient: Boolean = false,
 ) {
     companion object {
-        fun defaults(): List<SavingThrowInputState> = Ability.entries.map { ability ->
-            SavingThrowInputState(ability = ability)
-        }
+        fun defaults(): List<SavingThrowInputState> =
+            AbilityIds.standardOrder.map { abilityId -> SavingThrowInputState(abilityId = abilityId) }
     }
 }
 
@@ -260,19 +262,19 @@ private fun CharacterSheetInputError.toLevelMessage(): String = when (this) {
 }
 
 private fun AbilityScores.toFieldStates(): List<AbilityFieldState> = listOf(
-    AbilityFieldState(Ability.STR, strength.toString()),
-    AbilityFieldState(Ability.DEX, dexterity.toString()),
-    AbilityFieldState(Ability.CON, constitution.toString()),
-    AbilityFieldState(Ability.INT, intelligence.toString()),
-    AbilityFieldState(Ability.WIS, wisdom.toString()),
-    AbilityFieldState(Ability.CHA, charisma.toString()),
+    AbilityFieldState(AbilityIds.STR, strength.toString()),
+    AbilityFieldState(AbilityIds.DEX, dexterity.toString()),
+    AbilityFieldState(AbilityIds.CON, constitution.toString()),
+    AbilityFieldState(AbilityIds.INT, intelligence.toString()),
+    AbilityFieldState(AbilityIds.WIS, wisdom.toString()),
+    AbilityFieldState(AbilityIds.CHA, charisma.toString()),
 )
 
 private fun List<SavingThrowEntry>.savingThrowsToInputStates(): List<SavingThrowInputState> =
-    Ability.entries.map { ability ->
-        val entry = firstOrNull { it.ability == ability }
+    AbilityIds.standardOrder.map { abilityId ->
+        val entry = firstOrNull { it.abilityId == abilityId }
         SavingThrowInputState(
-            ability = ability,
+            abilityId = abilityId,
             bonus = entry?.bonus ?: 0,
             proficient = entry?.proficient ?: false,
         )

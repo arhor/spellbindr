@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.model.DamageType
 import com.github.arhor.spellbindr.data.model.EquipmentCategory
-import com.github.arhor.spellbindr.domain.model.Ability
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
@@ -99,7 +101,7 @@ class CharacterSheetViewModel @Inject constructor(
         data class WeaponDeleted(val id: String) : CharacterSheetUiAction
         data object WeaponEditorDismissed : CharacterSheetUiAction
         data class WeaponNameChanged(val value: String) : CharacterSheetUiAction
-        data class WeaponAbilityChanged(val ability: Ability) : CharacterSheetUiAction
+        data class WeaponAbilityChanged(val abilityId: AbilityId) : CharacterSheetUiAction
         data class WeaponUseAbilityForDamageChanged(val enabled: Boolean) : CharacterSheetUiAction
         data class WeaponProficiencyChanged(val proficient: Boolean) : CharacterSheetUiAction
         data class WeaponDiceCountChanged(val value: String) : CharacterSheetUiAction
@@ -218,7 +220,7 @@ class CharacterSheetViewModel @Inject constructor(
             )
 
             is CharacterSheetUiAction.WeaponNameChanged -> updateWeaponEditor { it.copy(name = action.value) }
-            is CharacterSheetUiAction.WeaponAbilityChanged -> updateWeaponEditor { it.copy(ability = action.ability) }
+            is CharacterSheetUiAction.WeaponAbilityChanged -> updateWeaponEditor { it.copy(abilityId = action.abilityId) }
             is CharacterSheetUiAction.WeaponUseAbilityForDamageChanged ->
                 updateWeaponEditor { it.copy(useAbilityForDamage = action.enabled) }
 
@@ -563,7 +565,7 @@ data class OverviewTabState(
 
 @Immutable
 data class AbilityUiModel(
-    val ability: Ability,
+    val abilityId: AbilityId,
     val label: String,
     val score: Int,
     val modifier: Int,
@@ -655,7 +657,7 @@ data class WeaponEditorState(
     val name: String = "",
     val category: EquipmentCategory? = null,
     val categories: Set<EquipmentCategory> = emptySet(),
-    val ability: Ability = Ability.STR,
+    val abilityId: AbilityId = AbilityIds.STR,
     val proficient: Boolean = false,
     val useAbilityForDamage: Boolean = true,
     val damageDiceCount: String = "1",
@@ -668,7 +670,7 @@ data class WeaponEditorState(
         name = name.trim(),
         category = category,
         categories = categories,
-        ability = ability,
+        abilityId = abilityId,
         proficient = proficient,
         damageDiceCount = damageDiceCount.toIntOrNull()?.coerceAtLeast(1) ?: 1,
         damageDieSize = damageDieSize.toIntOrNull()?.coerceAtLeast(1) ?: 6,
@@ -683,7 +685,7 @@ data class WeaponEditorState(
             name = weapon.name,
             category = weapon.category,
             categories = weapon.categories,
-            ability = weapon.ability,
+            abilityId = weapon.abilityId,
             proficient = weapon.proficient,
             useAbilityForDamage = weapon.useAbilityForDamage,
             damageDiceCount = weapon.damageDiceCount.toString(),
@@ -769,15 +771,15 @@ private fun CharacterSheet.toHeaderState(): CharacterHeaderUiState {
 }
 
 private fun CharacterSheet.toOverviewState(): OverviewTabState {
-    val savingThrowLookup = savingThrows.associateBy { it.ability }
-    val abilityModels = Ability.entries.map { ability ->
-        val modifier = abilityScores.modifierFor(ability)
-        val entry = savingThrowLookup[ability]
+    val savingThrowLookup = savingThrows.associateBy { it.abilityId }
+    val abilityModels = AbilityIds.standardOrder.map { abilityId ->
+        val modifier = abilityScores.modifierFor(abilityId)
+        val entry = savingThrowLookup[abilityId]
         val proficiencyBonusValue = if (entry?.proficient == true) proficiencyBonus else 0
         AbilityUiModel(
-            ability = ability,
-            label = ability.name,
-            score = abilityScores.scoreFor(ability),
+            abilityId = abilityId,
+            label = abilityId.abbreviation(),
+            score = abilityScores.scoreFor(abilityId),
             modifier = modifier,
             savingThrowBonus = modifier + (entry?.bonus ?: 0) + proficiencyBonusValue,
             savingThrowProficient = entry?.proficient ?: false,
@@ -813,8 +815,8 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
         SkillUiModel(
             id = skill,
             name = skill.displayName,
-            abilityAbbreviation = skill.ability.name,
-            totalBonus = abilityScores.modifierFor(skill.ability) + proficiencyBonus + (entry?.bonus ?: 0),
+            abilityAbbreviation = skill.abilityAbbreviation,
+            totalBonus = abilityScores.modifierFor(skill.abilityId) + proficiencyBonus + (entry?.bonus ?: 0),
             proficient = entry?.proficient ?: false,
             expertise = entry?.expertise ?: false,
         )
@@ -887,7 +889,7 @@ internal fun CharacterSheet.toWeaponsState(): WeaponsTabState {
 
     return WeaponsTabState(
         weapons = weapons.map { weapon ->
-            val abilityModifier = scores.modifierFor(weapon.ability)
+            val abilityModifier = scores.modifierFor(weapon.abilityId)
             val attackBonus = abilityModifier + if (weapon.proficient) proficiency else 0
             val damageBonus = if (weapon.useAbilityForDamage) abilityModifier else 0
             val damagePart = if (damageBonus == 0) {
@@ -924,13 +926,14 @@ private fun CharacterSheet.applyInlineEdits(edits: CharacterSheetEditingState): 
     )
 }
 
-private fun AbilityScores.scoreFor(ability: Ability): Int = when (ability) {
-    Ability.STR -> strength
-    Ability.DEX -> dexterity
-    Ability.CON -> constitution
-    Ability.INT -> intelligence
-    Ability.WIS -> wisdom
-    Ability.CHA -> charisma
+private fun AbilityScores.scoreFor(abilityId: AbilityId): Int = when (abilityId.lowercase()) {
+    AbilityIds.STR -> strength
+    AbilityIds.DEX -> dexterity
+    AbilityIds.CON -> constitution
+    AbilityIds.INT -> intelligence
+    AbilityIds.WIS -> wisdom
+    AbilityIds.CHA -> charisma
+    else -> 0
 }
 
 private fun String.filterDigits(): String = filter { it.isDigit() }
