@@ -6,7 +6,7 @@ import org.junit.Test
 class MapExtTest {
 
     @Test
-    fun `copy creates new map with applied mutations`() {
+    fun `copy should create new map with applied mutations when builder modifies entries`() {
         // Given
         val original = mapOf("a" to 1, "b" to 2)
 

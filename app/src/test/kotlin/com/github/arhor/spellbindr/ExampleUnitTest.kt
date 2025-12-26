@@ -10,7 +10,15 @@ import org.junit.Test
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertThat(2 + 2).isEqualTo(4)
+    fun `addition should return sum when integers are added`() {
+        // Given
+        val first = 2
+        val second = 2
+
+        // When
+        val result = first + second
+
+        // Then
+        assertThat(result).isEqualTo(4)
     }
 }

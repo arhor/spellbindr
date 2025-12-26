@@ -31,10 +31,16 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `abilities asset exposes ids names and descriptions`() {
+    fun `abilities asset should expose ids names and descriptions when parsed from json`() {
+        // Given
         val abilitiesById = abilitiesFromAsset.associateBy(AbilityAssetModel::id)
 
+        // When
+        val orderedAbilities = AbilityIds.standardOrder.map(abilitiesById::getValue)
+
+        // Then
         assertThat(abilitiesById.keys).containsExactlyElementsIn(AbilityIds.standardOrder)
+        assertThat(orderedAbilities).hasSize(AbilityIds.standardOrder.size)
 
         AbilityIds.standardOrder.forEach { abilityId ->
             val ability = abilitiesById.getValue(abilityId)
@@ -48,63 +54,79 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `skills reference abilities defined in assets`() {
+    fun `skills should reference abilities defined in assets when mapping ability ids`() {
+        // Given
         val abilityIds = abilitiesFromAsset.map(AbilityAssetModel::id).toSet()
 
-        Skill.values().forEach { skill ->
-            assertThat(abilityIds).contains(skill.abilityId)
-        }
+        // When
+        val referencedAbilityIds = Skill.values().map(Skill::abilityId).toSet()
+
+        // Then
+        assertThat(abilityIds).containsAtLeastElementsIn(referencedAbilityIds)
     }
 
     @Test
-    fun `ability serializes and deserializes as object`() {
+    fun `ability serializer should round trip when encoding and decoding object`() {
+        // Given
         val ability = Ability(
             id = "str",
             displayName = "Strength",
             description = listOf("Test description"),
         )
 
+        // When
         val encoded = json.encodeToString(Ability.serializer(), ability)
         val decoded = json.decodeFromString(Ability.serializer(), encoded)
 
+        // Then
         assertThat(decoded).isEqualTo(ability)
     }
 
     @Test
-    fun `ability deserializes from json object`() {
-        val decoded = json.decodeFromString(
-            Ability.serializer(),
-            """
+    fun `ability serializer should decode from json object when attributes are provided`() {
+        // Given
+        val encoded = """
             {
               "id": "wis",
               "displayName": "Wisdom",
               "description": ["desc"]
             }
-            """.trimIndent(),
+        """.trimIndent()
+
+        // When
+        val decoded = json.decodeFromString(
+            Ability.serializer(),
+            encoded,
         )
 
-        assertThat(decoded).isEqualTo(
-            Ability(
-                id = "wis",
-                displayName = "Wisdom",
-                description = listOf("desc"),
-            )
+        // Then
+        val expected = Ability(
+            id = "wis",
+            displayName = "Wisdom",
+            description = listOf("desc"),
         )
+        assertThat(decoded).isEqualTo(expected)
     }
 
     @Test
-    fun `skill serializes to kebab case`() {
+    fun `skill serializer should serialize to kebab case when encoding value`() {
+        // Given
+        val skill = Skill.ANIMAL_HANDLING
+
         // When
-        val encoded = json.encodeToString(Skill.serializer(), Skill.ANIMAL_HANDLING)
+        val encoded = json.encodeToString(Skill.serializer(), skill)
 
         // Then
         assertThat(encoded).isEqualTo("\"animal-handling\"")
     }
 
     @Test
-    fun `skill deserializes case-insensitively`() {
+    fun `skill serializer should deserialize case-insensitively when decoding value`() {
+        // Given
+        val encoded = "\"PeRcEpTiOn\""
+
         // When
-        val decoded = json.decodeFromString(Skill.serializer(), "\"PeRcEpTiOn\"")
+        val decoded = json.decodeFromString(Skill.serializer(), encoded)
 
         // Then
         assertThat(decoded).isEqualTo(Skill.PERCEPTION)

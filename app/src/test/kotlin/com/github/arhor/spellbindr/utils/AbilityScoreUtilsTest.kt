@@ -6,7 +6,7 @@ import org.junit.Test
 class AbilityScoreUtilsTest {
 
     @Test
-    fun `calculateAbilityScoreModifier formats signed modifier`() {
+    fun `calculateAbilityScoreModifier should format signed modifier when score values are provided`() {
         // Given
         val scores = mapOf(15 to "+2", 10 to "+0", 9 to "-1")
 
@@ -18,16 +18,19 @@ class AbilityScoreUtilsTest {
     }
 
     @Test
-    fun `signed adds plus prefix for non negative values`() {
+    fun `signed should add plus prefix for non negative values when values are positive or zero`() {
+        // Given
+        val inputs = listOf(5, 0, -3)
+
         // When
-        val values = listOf(5, 0, -3).map(::signed)
+        val values = inputs.map(::signed)
 
         // Then
         assertThat(values).containsExactly("+5", "+0", "-3").inOrder()
     }
 
     @Test
-    fun `asCommaSeparatedString skips zero modifiers`() {
+    fun `asCommaSeparatedString should skip zero modifiers when building output string`() {
         // Given
         val modifiers = linkedMapOf(
             "STR" to 2,
@@ -43,7 +46,7 @@ class AbilityScoreUtilsTest {
     }
 
     @Test
-    fun `calculatePointBuyCost sums predefined costs`() {
+    fun `calculatePointBuyCost should sum predefined costs when ability scores are provided`() {
         // Given
         val scores = mapOf("STR" to 15, "DEX" to 12, "CON" to 8, "INT" to 10, "WIS" to 13)
 
@@ -55,16 +58,22 @@ class AbilityScoreUtilsTest {
     }
 
     @Test
-    fun `calculateModifier floors odd scores`() {
+    fun `calculateModifier should floor odd scores when computing modifier`() {
+        // Given
+        val score = 9
+
         // When
-        val modifier = calculateModifier(9)
+        val modifier = calculateModifier(score)
 
         // Then
         assertThat(modifier).isEqualTo(-1)
     }
 
     @Test
-    fun `roll4d6DropLowest produces six values within allowed range`() {
+    fun `roll4d6DropLowest should produce six values within allowed range when generating scores`() {
+        // Given
+        // No additional setup required
+
         // When
         val scores = roll4d6DropLowest()
 
@@ -74,7 +83,7 @@ class AbilityScoreUtilsTest {
     }
 
     @Test
-    fun `generate standardArray builds modifiers without point buy cost`() {
+    fun `generate should build modifiers without point buy cost when method is standardArray`() {
         // Given
         val assignedScores = mapOf(
             "STR" to 15,
@@ -98,7 +107,7 @@ class AbilityScoreUtilsTest {
     }
 
     @Test
-    fun `generate pointBuy builds modifiers and cost`() {
+    fun `generate should build modifiers and cost when method is pointBuy`() {
         // Given
         val assignedScores = mapOf(
             "STR" to 15,
@@ -119,5 +128,5 @@ class AbilityScoreUtilsTest {
         assertThat(abilityScores.scores).isEqualTo(assignedScores)
         assertThat(abilityScores.modifiers).isEqualTo(mapOf("STR" to 2, "DEX" to 1, "CON" to 0, "INT" to 1, "WIS" to 2, "CHA" to -1))
         assertThat(abilityScores.pointBuyCost).isEqualTo(9 + 4 + 2 + 5 + 7 + 0)
-}
+    }
 }

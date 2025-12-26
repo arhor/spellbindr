@@ -17,7 +17,8 @@ class CharactersListScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun showsDerivedCharacterDetailsFromState() {
+    fun `CharactersListScreen should show derived character details when state contains character`() {
+        // Given
         val uiState = CharactersListUiState(
             characters = listOf(
                 CharacterListItem(
@@ -33,6 +34,7 @@ class CharactersListScreenTest {
             isEmpty = false,
         )
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 CharactersListScreen(
@@ -43,6 +45,7 @@ class CharactersListScreenTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithText("Unnamed hero").assertIsDisplayed()
         composeTestRule.onNodeWithText("Level 2 Rogue").assertIsDisplayed()
         composeTestRule.onNodeWithText("Elf").assertIsDisplayed()

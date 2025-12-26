@@ -8,7 +8,7 @@ import org.junit.Test
 class CaseInsensitiveEnumSerializerTest {
 
     @Test
-    fun `serialize converts enum name to kebab-case lowercase`() {
+    fun `serialize should convert enum name to kebab-case lowercase when value is provided`() {
         // Given
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 
@@ -20,7 +20,7 @@ class CaseInsensitiveEnumSerializerTest {
     }
 
     @Test
-    fun `deserialize accepts case-insensitive kebab values`() {
+    fun `deserialize should accept case-insensitive kebab values when parsing enum`() {
         // Given
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 
@@ -32,7 +32,7 @@ class CaseInsensitiveEnumSerializerTest {
     }
 
     @Test
-    fun `deserialize fails for unknown enum value`() {
+    fun `deserialize should throw IllegalArgumentException when value is unknown`() {
         // Given
         val serializer = CaseInsensitiveEnumSerializer<Example>()
 

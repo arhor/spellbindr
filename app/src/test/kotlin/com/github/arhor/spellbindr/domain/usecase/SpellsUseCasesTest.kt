@@ -23,7 +23,7 @@ class SpellsUseCasesTest {
     private val favoritesRepository = FakeFavoritesRepository()
 
     @Test
-    fun `observeAllSpells emits latest spells`() = runTest {
+    fun `ObserveAllSpellsUseCase should emit latest spells when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "magic-missile", name = "Magic Missile")
         repository.allSpellsState.value = listOf(spell)
@@ -36,7 +36,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `observeFavoriteSpellIds emits latest favorites`() = runTest {
+    fun `ObserveFavoriteSpellIdsUseCase should emit latest favorites when repository updates`() = runTest {
         // Given
         favoritesRepository.favoriteIdsState.value = listOf("fireball", "mage-armor")
 
@@ -48,7 +48,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `getSpellById returns matching spell`() = runTest {
+    fun `GetSpellByIdUseCase should return matching spell when id exists`() = runTest {
         // Given
         val spell = sampleSpell(id = "shield", name = "Shield")
         repository.spellsById[spell.id] = spell
@@ -61,7 +61,10 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `getSpellById returns null for unknown spell`() = runTest {
+    fun `GetSpellByIdUseCase should return null when spell id is unknown`() = runTest {
+        // Given
+        // No spells added to the repository
+
         // When
         val result = GetSpellByIdUseCase(repository)("missing")
 
@@ -70,7 +73,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `searchSpells returns matching favorites`() = runTest {
+    fun `SearchSpellsUseCase should return matching favorites when query and filter apply`() = runTest {
         // Given
         val classes = setOf(EntityRef("cleric"), EntityRef("wizard"))
         val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = classes.toList()))
@@ -90,7 +93,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `searchSpells skips favorites when not requested`() = runTest {
+    fun `SearchSpellsUseCase should skip favorites when favoriteOnly is false`() = runTest {
         // Given
         val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
         repository.allSpellsState.value = expected
@@ -108,7 +111,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `searchAndGroupSpells filters by query class and favorites`() = runTest {
+    fun `SearchAndGroupSpellsUseCase should filter by query class and favorites when parameters are provided`() = runTest {
         // Given
         val wizard = EntityRef("wizard")
         val cleric = EntityRef("cleric")
@@ -139,9 +142,12 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `toggleFavoriteSpell forwards id`() = runTest {
+    fun `ToggleFavoriteSpellUseCase should forward id when toggling favorite`() = runTest {
+        // Given
+        val spellId = "fireball"
+
         // When
-        ToggleFavoriteSpellUseCase(favoritesRepository)("fireball")
+        ToggleFavoriteSpellUseCase(favoritesRepository)(spellId)
 
         // Then
         assertThat(favoritesRepository.lastToggledSpellId).isEqualTo("fireball")
@@ -150,7 +156,7 @@ class SpellsUseCasesTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `observeSpellDetails emits loading and favorite updates`() = runTest {
+    fun `ObserveSpellDetailsUseCase should emit loading and favorite updates when spell is found`() = runTest {
         // Given
         val spell = sampleSpell(id = "haste", name = "Haste")
         repository.spellsById[spell.id] = spell
@@ -180,7 +186,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `observeSpellDetails emits error for missing spell`() = runTest {
+    fun `ObserveSpellDetailsUseCase should emit error when spell is missing`() = runTest {
         // Given
         val useCase = ObserveSpellDetailsUseCase(
             getSpellByIdUseCase = GetSpellByIdUseCase(repository),
@@ -198,7 +204,7 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `observeSpellDetails emits error when repository fails`() = runTest {
+    fun `ObserveSpellDetailsUseCase should emit error when repository throws`() = runTest {
         // Given
         repository.throwOnGetSpellById = true
         val useCase = ObserveSpellDetailsUseCase(

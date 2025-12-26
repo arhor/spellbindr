@@ -34,43 +34,59 @@ class CompendiumViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `section selection updates ui state`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should update selected section when section selection occurs`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SectionSelected(CompendiumSection.Races))
         val state = viewModel.awaitContentState { it.selectedSection == CompendiumSection.Races }
+
+        // Then
         assertThat(state.selectedSection).isEqualTo(CompendiumSection.Races)
     }
 
     @Test
-    fun `spell query action trims and updates state`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should trim and update spell query when query changes`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellQueryChanged("  Fire "))
         val state = viewModel.awaitContentState { it.spellsState.query == "Fire" }
+
+        // Then
         assertThat(state.spellsState.query).isEqualTo("Fire")
     }
 
     @Test
-    fun `spell favorites toggle updates state`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should update favorites filter when toggle is triggered`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellFavoritesToggled)
         val state = viewModel.awaitContentState { it.spellsState.showFavorite }
+
+        // Then
         assertThat(state.spellsState.showFavorite).isTrue()
     }
 
     @Test
-    fun `spell group toggle flips expansion state`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should flip spell group expansion state when level is toggled`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel()
         advanceTimeBy(400)
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellGroupToggled(level = 1))
         val state = viewModel.awaitContentState { it.spellsState.expandedSpellLevels[1] == false }
+
+        // Then
         assertThat(state.spellsState.expandedSpellLevels[1]).isFalse()
     }
 }

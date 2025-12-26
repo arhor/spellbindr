@@ -23,14 +23,20 @@ class AbilityRepositoryImplTest {
     private val repository = AbilityRepositoryImpl(abilityAssetDataStore)
 
     @Test
-    fun `allAbilities emits empty list when asset is not loaded`() = runTest {
+    fun `allAbilities should emit empty list when asset is not loaded`() = runTest {
+        // Given
+        // No abilities loaded into the data store
+
+        // When
         val result = repository.allAbilities.first()
 
+        // Then
         assertThat(result).isEmpty()
     }
 
     @Test
-    fun `allAbilities maps abilities from asset models`() = runTest {
+    fun `allAbilities should map abilities from asset models when data is available`() = runTest {
+        // Given
         val strength = AbilityAssetModel(
             id = "str",
             name = "Strength",
@@ -44,8 +50,10 @@ class AbilityRepositoryImplTest {
 
         abilityFlow.value = listOf(strength, dexterity)
 
+        // When
         val result = repository.allAbilities.first()
 
+        // Then
         assertThat(result).containsExactly(
             Ability(
                 id = "str",

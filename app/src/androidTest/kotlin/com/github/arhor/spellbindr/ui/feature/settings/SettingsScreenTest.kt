@@ -18,9 +18,11 @@ class SettingsScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun showsSelectedThemeOptionDetails() {
+    fun `SettingsScreen should show selected theme option details when state is loaded`() {
+        // Given
         val state = SettingsUiState(themeMode = ThemeMode.DARK, loaded = true)
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 SettingsScreen(
@@ -30,6 +32,7 @@ class SettingsScreenTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithText("Dark").assertIsDisplayed()
         composeTestRule.onNodeWithText("Always use the dark palette").assertIsDisplayed()
     }

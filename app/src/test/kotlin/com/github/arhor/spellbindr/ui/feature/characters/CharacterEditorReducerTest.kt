@@ -11,7 +11,8 @@ class CharacterEditorReducerTest {
     private val computeDerivedBonusesUseCase = ComputeDerivedBonusesUseCase()
 
     @Test
-    fun `reduceCharacterEditorState updates fields and clears validation errors`() {
+    fun `reduceCharacterEditorState should update fields and clear validation errors when inputs change`() {
+        // Given
         val state = CharacterEditorUiState(
             name = "",
             nameError = "Required",
@@ -24,6 +25,7 @@ class CharacterEditorReducerTest {
             },
         )
 
+        // When
         val updatedName = reduceCharacterEditorState(
             state,
             CharacterEditorAction.NameChanged("Aria"),
@@ -45,6 +47,7 @@ class CharacterEditorReducerTest {
             computeDerivedBonusesUseCase,
         )
 
+        // Then
         assertThat(updatedAbility.name).isEqualTo("Aria")
         assertThat(updatedAbility.nameError).isNull()
         assertThat(updatedAbility.level).isEqualTo("2")
@@ -57,15 +60,18 @@ class CharacterEditorReducerTest {
     }
 
     @Test
-    fun `reduceCharacterEditorState recomputes bonuses when ability changes`() {
+    fun `reduceCharacterEditorState should recompute bonuses when ability changes`() {
+        // Given
         val state = CharacterEditorUiState()
 
+        // When
         val updated = reduceCharacterEditorState(
             state,
             CharacterEditorAction.AbilityChanged(AbilityIds.STR, "14"),
             computeDerivedBonusesUseCase,
         )
 
+        // Then
         val savingThrow = updated.savingThrows.first { it.abilityId == AbilityIds.STR }
         val athletics = updated.skills.first { it.skill == Skill.ATHLETICS }
         assertThat(savingThrow.bonus).isEqualTo(2)
@@ -73,33 +79,39 @@ class CharacterEditorReducerTest {
     }
 
     @Test
-    fun `reduceCharacterEditorState recomputes bonuses when proficiency changes`() {
+    fun `reduceCharacterEditorState should recompute bonuses when skill proficiency changes`() {
+        // Given
         val state = CharacterEditorUiState()
 
+        // When
         val updated = reduceCharacterEditorState(
             state,
             CharacterEditorAction.SkillProficiencyChanged(Skill.ATHLETICS, true),
             computeDerivedBonusesUseCase,
         )
 
+        // Then
         val athletics = updated.skills.first { it.skill == Skill.ATHLETICS }
         assertThat(athletics.bonus).isEqualTo(2)
     }
 
     @Test
-    fun `reduceCharacterEditorState recomputes bonuses when proficiency bonus changes`() {
+    fun `reduceCharacterEditorState should recompute bonuses when proficiency bonus changes`() {
+        // Given
         val state = CharacterEditorUiState(
             skills = SkillInputState.defaults().map { entry ->
                 if (entry.skill == Skill.ATHLETICS) entry.copy(proficient = true) else entry
             },
         )
 
+        // When
         val updated = reduceCharacterEditorState(
             state,
             CharacterEditorAction.ProficiencyBonusChanged("4"),
             computeDerivedBonusesUseCase,
         )
 
+        // Then
         val athletics = updated.skills.first { it.skill == Skill.ATHLETICS }
         assertThat(athletics.bonus).isEqualTo(4)
     }

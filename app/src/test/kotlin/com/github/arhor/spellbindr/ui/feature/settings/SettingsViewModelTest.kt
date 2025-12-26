@@ -20,29 +20,40 @@ class SettingsViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `state is loaded when repository emits empty preference`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `state should load when repository emits empty preference`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel()
+
+        // When
         advanceUntilIdle()
         val state = viewModel.state.value
+
+        // Then
         assertThat(state.loaded).isTrue()
         assertThat(state.themeMode).isNull()
     }
 
     @Test
-    fun `onThemeModeSelected updates preference`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onThemeModeSelected should update preference when mode changes`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
 
+        // When
         viewModel.onThemeModeSelected(ThemeMode.DARK)
         advanceUntilIdle()
-        assertThat(viewModel.state.value.themeMode).isEqualTo(ThemeMode.DARK)
+        val darkSelection = viewModel.state.value.themeMode
 
         viewModel.onThemeModeSelected(ThemeMode.LIGHT)
         advanceUntilIdle()
-        assertThat(viewModel.state.value.themeMode).isEqualTo(ThemeMode.LIGHT)
+        val lightSelection = viewModel.state.value.themeMode
 
         viewModel.onThemeModeSelected(null)
         advanceUntilIdle()
+
+        // Then
+        assertThat(darkSelection).isEqualTo(ThemeMode.DARK)
+        assertThat(lightSelection).isEqualTo(ThemeMode.LIGHT)
         assertThat(viewModel.state.value.themeMode).isNull()
     }
 }

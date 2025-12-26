@@ -34,18 +34,23 @@ class CharacterSheetViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `adjust current hp updates sheet state`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should adjust current hit points when value changes`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val sheet = CharacterSheet(id = "hero", maxHitPoints = 12, currentHitPoints = 7)
         val viewModel = createViewModel(sheet)
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AdjustCurrentHp(-4))
         val state = viewModel.awaitContentState { it.header.hitPoints.current == 3 }
+
+        // Then
         assertThat(state.header.hitPoints.current).isEqualTo(3)
     }
 
     @Test
-    fun `toggle spell slot updates expended count`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should update expended spell slot count when toggled`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             spellSlots = listOf(SpellSlotState(level = 1, total = 2, expended = 0)),
@@ -53,30 +58,38 @@ class CharacterSheetViewModelTest {
         val viewModel = createViewModel(sheet)
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.SpellSlotToggled(level = 1, slotIndex = 0))
         val state = viewModel.awaitContentState {
             it.spells.spellLevels.first { level -> level.level == 1 }.spellSlot?.expended == 1
         }
         val levelOneSlot = state.spells.spellLevels.first { it.level == 1 }.spellSlot
+
+        // Then
         assertThat(levelOneSlot?.expended).isEqualTo(1)
     }
 
     @Test
-    fun `weapon edits add weapon to sheet`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should add weapon to sheet when editor is saved`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val sheet = CharacterSheet(id = "hero")
         val viewModel = createViewModel(sheet)
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AddWeaponClicked)
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponNameChanged("Longsword"))
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponSaved)
         val state = viewModel.awaitContentState { it.weapons.weapons.firstOrNull()?.name == "Longsword" }
+
+        // Then
         assertThat(state.weapons.weapons).hasSize(1)
         assertThat(state.weapons.weapons.first().name).isEqualTo("Longsword")
     }
 
     @Test
-    fun `selecting catalog weapon pre-fills editor fields`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should prefill editor when catalog weapon is selected`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val catalogEntry = WeaponCatalogEntry(
             id = "longsword",
             name = "Longsword",
@@ -91,11 +104,14 @@ class CharacterSheetViewModelTest {
         )
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponCatalogItemSelected("longsword"))
         val state = viewModel.awaitContentState {
             it.weaponEditorState?.catalogId == "longsword"
         }
         val editor = requireNotNull(state.weaponEditorState)
+
+        // Then
         assertThat(editor.name).isEqualTo("Longsword")
         assertThat(editor.category).isEqualTo(EquipmentCategory.MARTIAL)
         assertThat(editor.damageDiceCount).isEqualTo("1")
@@ -104,10 +120,12 @@ class CharacterSheetViewModelTest {
     }
 
     @Test
-    fun `custom weapon still saves without catalogId`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should save custom weapon when catalog id is absent`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val viewModel = createViewModel(CharacterSheet(id = "hero"))
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.AddWeaponClicked)
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponNameChanged("Custom Blade"))
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponSaved)
@@ -116,11 +134,14 @@ class CharacterSheetViewModelTest {
         val savedWeaponId = state.weapons.weapons.first().id
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponSelected(savedWeaponId))
         val editorState = viewModel.awaitContentState { it.weaponEditorState?.id == savedWeaponId }.weaponEditorState
+
+        // Then
         assertThat(editorState?.catalogId).isNull()
     }
 
     @Test
-    fun `editing after selection retains catalogId but updates fields`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onAction should retain catalog id but update fields when editing selected weapon`() = runTest(mainDispatcherRule.dispatcher) {
+        // Given
         val catalogEntry = WeaponCatalogEntry(
             id = "shortbow",
             name = "Shortbow",
@@ -135,6 +156,7 @@ class CharacterSheetViewModelTest {
         )
         advanceUntilIdle()
 
+        // When
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponCatalogItemSelected("shortbow"))
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponNameChanged("Custom Shortbow"))
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponDieSizeChanged("8"))
@@ -145,6 +167,8 @@ class CharacterSheetViewModelTest {
         assertThat(savedWeapon.damageLabel).contains("1d8")
         viewModel.onAction(CharacterSheetViewModel.CharacterSheetUiAction.WeaponSelected(savedWeapon.id))
         val editorState = viewModel.awaitContentState { it.weaponEditorState?.id == savedWeapon.id }.weaponEditorState
+
+        // Then
         assertThat(editorState?.catalogId).isEqualTo("shortbow")
         assertThat(editorState?.name).isEqualTo("Custom Shortbow")
         assertThat(editorState?.damageDieSize).isEqualTo("8")

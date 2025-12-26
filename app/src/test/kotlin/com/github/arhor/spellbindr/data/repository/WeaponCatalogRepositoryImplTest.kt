@@ -16,7 +16,8 @@ import org.junit.Test
 class WeaponCatalogRepositoryImplTest {
 
     @Test
-    fun `weaponCatalogEntries filters and maps weapons`() = runTest {
+    fun `weaponCatalogEntries should filter and map weapons when equipment list is provided`() = runTest {
+        // Given
         val equipmentRepository = mockk<EquipmentRepository>()
         every { equipmentRepository.allEquipment } returns flowOf(
             listOf(
@@ -37,8 +38,10 @@ class WeaponCatalogRepositoryImplTest {
 
         val repository = WeaponCatalogRepositoryImpl(equipmentRepository)
 
+        // When
         val result = repository.weaponCatalogEntries.first()
 
+        // Then
         assertThat(result).hasSize(1)
         assertThat(result.first().id).isEqualTo("weapon-1")
     }

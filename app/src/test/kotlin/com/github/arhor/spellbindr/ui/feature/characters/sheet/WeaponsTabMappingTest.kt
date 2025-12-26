@@ -11,7 +11,8 @@ import org.junit.Test
 class WeaponsTabMappingTest {
 
     @Test
-    fun `attack bonus uses ability modifier plus proficiency when proficient`() {
+    fun `toWeaponsState should use ability modifier plus proficiency when character is proficient`() {
+        // Given
         val sheet = CharacterSheet(
             id = "character-1",
             abilityScores = AbilityScores(strength = 18),
@@ -29,14 +30,17 @@ class WeaponsTabMappingTest {
             ),
         )
 
+        // When
         val weaponsState = sheet.toWeaponsState().weapons.single()
 
+        // Then
         assertThat(weaponsState.attackBonusLabel).isEqualTo("ATK +7")
         assertThat(weaponsState.damageLabel).isEqualTo("DMG 1d8+4")
     }
 
     @Test
-    fun `damage bonus follows damage ability and handles negative modifiers`() {
+    fun `toWeaponsState should follow damage ability and handle negative modifiers when mapping weapons`() {
+        // Given
         val sheet = CharacterSheet(
             id = "character-2",
             abilityScores = AbilityScores(strength = 12, dexterity = 8, intelligence = 16),
@@ -64,8 +68,10 @@ class WeaponsTabMappingTest {
             ),
         )
 
+        // When
         val (shortsword, mindSpike) = sheet.toWeaponsState().weapons
 
+        // Then
         assertThat(shortsword.attackBonusLabel).isEqualTo("ATK +1")
         assertThat(shortsword.damageLabel).isEqualTo("DMG 1d6-1")
         assertThat(mindSpike.attackBonusLabel).isEqualTo("ATK +5")
@@ -73,7 +79,8 @@ class WeaponsTabMappingTest {
     }
 
     @Test
-    fun `damage omits ability bonus when toggle disabled`() {
+    fun `toWeaponsState should omit ability bonus when damage toggle is disabled`() {
+        // Given
         val sheet = CharacterSheet(
             id = "character-3",
             abilityScores = AbilityScores(strength = 16, dexterity = 14),
@@ -92,8 +99,10 @@ class WeaponsTabMappingTest {
             ),
         )
 
+        // When
         val weapon = sheet.toWeaponsState().weapons.single()
 
+        // Then
         assertThat(weapon.attackBonusLabel).isEqualTo("ATK +5")
         assertThat(weapon.damageLabel).isEqualTo("DMG 1d4")
     }

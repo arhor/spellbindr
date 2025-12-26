@@ -21,7 +21,7 @@ class ReferenceDataUseCasesTest {
     private val characterClassRepository = FakeCharacterClassRepository()
 
     @Test
-    fun `observeAlignments emits latest alignments`() = runTest {
+    fun `ObserveAlignmentsUseCase should emit latest alignments when repository updates`() = runTest {
         // Given
         val alignment = Alignment(id = "lawful-good", name = "Lawful Good", desc = "Desc", abbr = "LG")
         alignmentRepository.allAlignmentsState.value = listOf(alignment)
@@ -34,7 +34,7 @@ class ReferenceDataUseCasesTest {
     }
 
     @Test
-    fun `observeRaces emits latest races`() = runTest {
+    fun `ObserveRacesUseCase should emit latest races when repository updates`() = runTest {
         // Given
         val race = Race(
             id = "elf",
@@ -52,7 +52,7 @@ class ReferenceDataUseCasesTest {
     }
 
     @Test
-    fun `observeTraits emits latest traits`() = runTest {
+    fun `ObserveTraitsUseCase should emit latest traits when repository updates`() = runTest {
         // Given
         val trait = Trait(id = "darkvision", name = "Darkvision", desc = listOf("See in the dark."))
         traitsRepository.allTraitsState.value = listOf(trait)
@@ -65,7 +65,7 @@ class ReferenceDataUseCasesTest {
     }
 
     @Test
-    fun `getSpellcastingClassRefs returns repository refs`() = runTest {
+    fun `GetSpellcastingClassRefsUseCase should return repository refs when invoked`() = runTest {
         // Given
         val classes = listOf(EntityRef("wizard"), EntityRef("cleric"))
         characterClassRepository.spellcastingClassesRefs = classes
