@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.di
 
+import com.github.arhor.spellbindr.data.local.assets.AbilityAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.AlignmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStore
@@ -64,5 +65,10 @@ abstract class StaticAssetsModule {
     @Binds
     @IntoSet
     abstract fun bindLanguagesAssetDataStore(languagesAssetDataStore: LanguagesAssetDataStore)
+        : InitializableStaticAssetDataStore
+
+    @Binds
+    @IntoSet
+    abstract fun bindAbilitiesAssetDataStore(abilitiesAssetDataStore: AbilityAssetDataStore)
         : InitializableStaticAssetDataStore
 }

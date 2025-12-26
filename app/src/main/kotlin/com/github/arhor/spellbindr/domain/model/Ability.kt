@@ -15,10 +15,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable(with = Ability.Companion::class)
 enum class Ability(
+    val id: String,
     val displayName: String,
     val description: List<String>,
 ) {
     STR(
+        id = "str",
         displayName = "Strength",
         description = listOf(
             "Strength measures bodily power, athletic training, and the extent to which you can exert raw physical force.",
@@ -28,6 +30,7 @@ enum class Ability(
         ),
     ),
     DEX(
+        id = "dex",
         displayName = "Dexterity",
         description = listOf(
             "Dexterity measures agility, reflexes, and balance.",
@@ -37,6 +40,7 @@ enum class Ability(
         ),
     ),
     CON(
+        id = "con",
         displayName = "Constitution",
         description = listOf(
             "Constitution measures health, stamina, and vital force.",
@@ -46,6 +50,7 @@ enum class Ability(
         ),
     ),
     INT(
+        id = "int",
         displayName = "Intelligence",
         description = listOf(
             "Intelligence measures mental acuity, accuracy of recall, and the ability to reason.",
@@ -55,6 +60,7 @@ enum class Ability(
         ),
     ),
     WIS(
+        id = "wis",
         displayName = "Wisdom",
         description = listOf(
             "Wisdom reflects how attuned you are to the world around you and represents perceptiveness and intuition.",
@@ -64,6 +70,7 @@ enum class Ability(
         ),
     ),
     CHA(
+        id = "cha",
         displayName = "Charisma",
         description = listOf(
             "Charisma measures your ability to interact effectively with others. It includes such factors as confidence " +
@@ -79,7 +86,7 @@ enum class Ability(
         get() = Skill.entries.filter { it.ability == this }
 
     val ref: EntityRef
-        get() = EntityRef(name)
+        get() = EntityRef(id)
 
     companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer.Companion()
 }
