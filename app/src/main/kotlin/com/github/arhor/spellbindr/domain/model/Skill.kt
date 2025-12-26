@@ -17,7 +17,7 @@ import kotlinx.serialization.Serializable
 enum class Skill(
     val displayName: String,
     val description: List<String>,
-    val ability: Ability,
+    val abilityId: String,
 ) {
     ACROBATICS(
         "Acrobatics",
@@ -27,7 +27,7 @@ enum class Skill(
                 "ship's deck. The GM might also call for a Dexterity (Acrobatics) check to see if you can perform " +
                 "acrobatic stunts, including dives, rolls, somersaults, and flips.",
         ),
-        Ability.DEX,
+        abilityId = Ability.DEX.id,
     ),
     ANIMAL_HANDLING(
         "Animal Handling",
@@ -36,7 +36,7 @@ enum class Skill(
                 "spooked, or intuit an animal's intentions, the GM might call for a Wisdom (Animal Handling) check. You " +
                 "also make a Wisdom (Animal Handling) check to control your mount when you attempt a risky maneuver.",
         ),
-        Ability.WIS,
+        abilityId = Ability.WIS.id,
     ),
     ARCANA(
         "Arcana",
@@ -44,7 +44,7 @@ enum class Skill(
             "Your Intelligence (Arcana) check measures your ability to recall lore about spells, magic items, eldritch " +
                 "symbols, magical traditions, the planes of existence, and the inhabitants of those planes.",
         ),
-        Ability.INT,
+        abilityId = Ability.INT.id,
     ),
     ATHLETICS(
         "Athletics",
@@ -52,7 +52,7 @@ enum class Skill(
             "Your Strength (Athletics) check covers difficult situations you encounter while climbing, jumping, or " +
                 "swimming.",
         ),
-        Ability.STR,
+        abilityId = Ability.STR.id,
     ),
     DECEPTION(
         "Deception",
@@ -63,7 +63,7 @@ enum class Skill(
                 "money through gambling, pass yourself off in a disguise, dull someone's suspicions with false assurances, " +
                 "or maintain a straight face while telling a blatant lie.",
         ),
-        Ability.CHA,
+        abilityId = Ability.CHA.id,
     ),
     HISTORY(
         "History",
@@ -71,7 +71,7 @@ enum class Skill(
             "Your Intelligence (History) check measures your ability to recall lore about historical events, legendary " +
                 "people, ancient kingdoms, past disputes, recent wars, and lost civilizations.",
         ),
-        Ability.INT,
+        abilityId = Ability.INT.id,
     ),
     INSIGHT(
         "Insight",
@@ -80,7 +80,7 @@ enum class Skill(
                 "when searching out a lie or predicting someone's next move. Doing so involves gleaning clues from body " +
                 "language, speech habits, and changes in mannerisms.",
         ),
-        Ability.WIS,
+        abilityId = Ability.WIS.id,
     ),
     INTIMIDATION(
         "Intimidation",
@@ -90,7 +90,7 @@ enum class Skill(
                 "of a prisoner, convincing street thugs to back down from a confrontation, or using the edge of a broken " +
                 "bottle to convince a sneering vizier to reconsider a decision.",
         ),
-        Ability.CHA,
+        abilityId = Ability.CHA.id,
     ),
     INVESTIGATION(
         "Investigation",
@@ -101,14 +101,14 @@ enum class Skill(
                 "collapse. Poring through ancient scrolls in search of a hidden fragment of knowledge might also call for " +
                 "an Intelligence (Investigation) check.",
         ),
-        Ability.INT,
+        abilityId = Ability.INT.id,
     ),
     MEDICINE(
         "Medicine",
         listOf(
             "A Wisdom (Medicine) check lets you try to stabilize a dying companion or diagnose an illness.",
         ),
-        Ability.WIS,
+        abilityId = Ability.WIS.id,
     ),
     NATURE(
         "Nature",
@@ -116,7 +116,7 @@ enum class Skill(
             "Your Intelligence (Nature) check measures your ability to recall lore about terrain, plants and animals, " +
                 "the weather, and natural cycles.",
         ),
-        Ability.INT,
+        abilityId = Ability.INT.id,
     ),
     PERCEPTION(
         "Perception",
@@ -128,7 +128,7 @@ enum class Skill(
                 "whether they are orcs lying in ambush on a road, thugs hiding in the shadows of an alley, or candlelight " +
                 "under a closed secret door.",
         ),
-        Ability.WIS,
+        abilityId = Ability.WIS.id,
     ),
     PERFORMANCE(
         "Performance",
@@ -136,7 +136,7 @@ enum class Skill(
             "Your Charisma (Performance) check determines how well you can delight an audience with music, dance, " +
                 "acting, storytelling, or some other form of entertainment.",
         ),
-        Ability.CHA,
+        abilityId = Ability.CHA.id,
     ),
     PERSUASION(
         "Persuasion",
@@ -147,7 +147,7 @@ enum class Skill(
                 "others include convincing a chamberlain to let your party see the king, negotiating peace between warring " +
                 "tribes, or inspiring a crowd of townsfolk.",
         ),
-        Ability.CHA,
+        abilityId = Ability.CHA.id,
     ),
     RELIGION(
         "Religion",
@@ -155,7 +155,7 @@ enum class Skill(
             "Your Intelligence (Religion) check measures your ability to recall lore about deities, rites and prayers, " +
                 "religious hierarchies, holy symbols, and the practices of secret cults.",
         ),
-        Ability.INT,
+        abilityId = Ability.INT.id,
     ),
     SLEIGHT_OF_HAND(
         "Sleight of Hand",
@@ -165,7 +165,7 @@ enum class Skill(
                 "for a Dexterity (Sleight of Hand) check to determine whether you can lift a coin purse off another person " +
                 "or slip something out of another person's pocket.",
         ),
-        Ability.DEX,
+        abilityId = Ability.DEX.id,
     ),
     STEALTH(
         "Stealth",
@@ -173,7 +173,7 @@ enum class Skill(
             "Make a Dexterity (Stealth) check when you attempt to conceal yourself from enemies, slink past guards, slip " +
                 "away without being noticed, or sneak up on someone without being seen or heard.",
         ),
-        Ability.DEX,
+        abilityId = Ability.DEX.id,
     ),
     SURVIVAL(
         "Survival",
@@ -182,9 +182,12 @@ enum class Skill(
                 "through frozen wastelands, identify signs that owlbears live nearby, predict the weather, or avoid " +
                 "quicksand and other natural hazards.",
         ),
-        Ability.WIS,
+        abilityId = Ability.WIS.id,
     ),
     ;
+
+    val ability: Ability
+        get() = Ability.fromId(abilityId) ?: error("Unknown ability id: $abilityId")
 
     companion object : KSerializer<Skill> by CaseInsensitiveEnumSerializer.Companion()
 }
