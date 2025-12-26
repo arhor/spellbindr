@@ -83,10 +83,14 @@ enum class Ability(
     ;
 
     val associatedSkills: List<Skill>
-        get() = Skill.entries.filter { it.ability == this }
+        get() = Skill.entries.filter { skill -> skill.abilityId.equals(id, ignoreCase = true) }
 
     val ref: EntityRef
         get() = EntityRef(id)
 
-    companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer.Companion()
+    companion object : KSerializer<Ability> by CaseInsensitiveEnumSerializer.Companion() {
+        private val lookupById = entries.associateBy { ability -> ability.id.lowercase() }
+
+        fun fromId(id: String): Ability? = lookupById[id.lowercase()]
+    }
 }
