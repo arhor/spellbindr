@@ -20,6 +20,7 @@ abstract class StaticAssetDataStoreBase<T>(
     private val path: String,
     private val context: Context,
     private val serializer: KSerializer<T>,
+    override val loadingPriority: AssetLoadingPriority = AssetLoadingPriority.CRITICAL,
 ) : StaticAssetDataStore<List<T>> {
 
     private val logger = createLogger()

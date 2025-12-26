@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.data.local.assets.AssetLoadingPriority
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
@@ -28,14 +29,21 @@ class SpellbindrAppViewModel @Inject constructor(
     private val themeRepository: ThemeRepository,
 ) : ViewModel() {
 
+    private val criticalLoaders = loaders.filter { it.loadingPriority == AssetLoadingPriority.CRITICAL }
+    private val deferredLoaders = loaders.filter { it.loadingPriority == AssetLoadingPriority.DEFERRED }
+
     @Immutable
     data class State(
         val initialDelayPassed: Boolean = false,
-        val resourcesPreloaded: Boolean = false,
+        val criticalAssetsReady: Boolean = false,
+        val deferredAssetsReady: Boolean = false,
         val isDarkTheme: Boolean? = null,
     ) {
-        val ready: Boolean
-            get() = initialDelayPassed && resourcesPreloaded
+        val readyForInteraction: Boolean
+            get() = initialDelayPassed && criticalAssetsReady
+
+        val fullyReady: Boolean
+            get() = readyForInteraction && deferredAssetsReady
     }
 
     private val _state = MutableStateFlow(State())
@@ -49,11 +57,17 @@ class SpellbindrAppViewModel @Inject constructor(
         }
         viewModelScope.launch {
             logger.info { "Application initialization job started" }
+
+            val deferredLoadJob = launch { executeDeferredDataLoading() }
             awaitAll(
                 async { executeInitialDelay() },
-                async { executeDataLoading() },
+                async { executeCriticalDataLoading() },
             )
-            logger.info { "Application initialization job complete" }
+            logger.info { "Critical initialization phase complete" }
+
+            deferredLoadJob.join()
+
+            logger.info { "Deferred initialization phase complete" }
         }
     }
 
@@ -70,10 +84,20 @@ class SpellbindrAppViewModel @Inject constructor(
         _state.update { it.copy(initialDelayPassed = true) }
     }
 
-    private suspend fun CoroutineScope.executeDataLoading() {
-        loaders.map { async { it.initialize() } }.awaitAll()
-        logger.info { "Data loading phase passed" }
-        _state.update { it.copy(resourcesPreloaded = true) }
+    private suspend fun CoroutineScope.executeCriticalDataLoading() {
+        if (criticalLoaders.isNotEmpty()) {
+            criticalLoaders.map { async { it.initialize() } }.awaitAll()
+        }
+        logger.info { "Critical data loading phase passed" }
+        _state.update { it.copy(criticalAssetsReady = true) }
+    }
+
+    private suspend fun CoroutineScope.executeDeferredDataLoading() {
+        if (deferredLoaders.isNotEmpty()) {
+            deferredLoaders.map { async { it.initialize() } }.awaitAll()
+        }
+        logger.info { "Deferred data loading phase passed" }
+        _state.update { it.copy(deferredAssetsReady = true) }
     }
 
     companion object {

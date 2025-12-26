@@ -60,8 +60,8 @@ class SpellbindrAppActivity : ComponentActivity() {
                 }
             }
 
-            LaunchedEffect(state.ready) {
-                if (state.ready) {
+            LaunchedEffect(state.readyForInteraction) {
+                if (state.readyForInteraction) {
                     isSplashVisible = false
                 }
             }

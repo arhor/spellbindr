@@ -3,11 +3,13 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,6 +31,7 @@ fun WeaponCatalogDialog(
     onDismiss: () -> Unit,
     onItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
 ) {
     AlertDialog(
         modifier = modifier.testTag("WeaponCatalogDialog"),
@@ -36,7 +39,16 @@ fun WeaponCatalogDialog(
         title = { Text("Weapon catalog") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                if (catalog.isEmpty()) {
+                if (isLoading) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier.testTag("WeaponCatalogLoading"))
+                    }
+                } else if (catalog.isEmpty()) {
                     Text(
                         text = "No weapons available.",
                         style = MaterialTheme.typography.bodyMedium,
@@ -90,6 +102,19 @@ private fun DamageType.displayLabel(): String =
 @Preview
 @Composable
 private fun WeaponCatalogDialogPreview() {
+    AppTheme(isDarkTheme = false) {
+        WeaponCatalogDialog(
+            catalog = emptyList(),
+            onDismiss = {},
+            onItemSelected = {},
+            isLoading = true,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun WeaponCatalogDialogLoadedPreview() {
     AppTheme(isDarkTheme = false) {
         WeaponCatalogDialog(
             catalog = listOf(

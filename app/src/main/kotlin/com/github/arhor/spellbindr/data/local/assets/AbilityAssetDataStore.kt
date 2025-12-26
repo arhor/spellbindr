@@ -17,4 +17,5 @@ class AbilityAssetDataStore @Inject constructor(
     path = "data/abilities.json",
     context = context,
     serializer = AbilityAssetModel.serializer(),
+    loadingPriority = AssetLoadingPriority.DEFERRED,
 )

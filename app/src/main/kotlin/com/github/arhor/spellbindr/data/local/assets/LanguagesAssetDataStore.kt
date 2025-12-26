@@ -17,6 +17,6 @@ class LanguagesAssetDataStore @Inject constructor(
     path = "data/languages.json",
     context = context,
     serializer = Language.serializer(),
+    loadingPriority = AssetLoadingPriority.DEFERRED,
 )
-
 

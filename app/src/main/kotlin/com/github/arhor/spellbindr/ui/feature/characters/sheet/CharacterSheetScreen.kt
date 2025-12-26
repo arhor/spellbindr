@@ -317,6 +317,7 @@ private fun CharacterSheetScreen(
                         catalog = state.weaponCatalog,
                         onDismiss = callbacks.onWeaponCatalogClosed,
                         onItemSelected = callbacks.onWeaponCatalogItemSelected,
+                        isLoading = state.weaponCatalog.isEmpty(),
                     )
                 }
             }
