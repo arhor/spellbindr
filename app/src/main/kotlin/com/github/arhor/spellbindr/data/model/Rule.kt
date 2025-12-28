@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.Serializable
 
 
@@ -9,5 +9,5 @@ data class Rule(
     val id: String,
     val name: String,
     val desc: String,
-    val subsections: List<DomainEntityRef>
+    val subsections: List<EntityRef>
 )

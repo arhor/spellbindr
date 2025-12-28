@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
 
 
@@ -12,6 +11,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ActionDamage(
-    val damageType: DomainEntityRef,
+    val damageType: EntityRef,
     val damageAtCharacterLevel: Map<String, String>,
 )

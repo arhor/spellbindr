@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -33,7 +33,7 @@ sealed class ArmorClass {
         override val type: String = "armor",
         override val value: Int,
         override val desc: String? = null,
-        val armor: List<DomainEntityRef>? = null
+        val armor: List<EntityRef>? = null
     ) : ArmorClass()
 
     @Serializable
@@ -42,7 +42,7 @@ sealed class ArmorClass {
         override val type: String = "spell",
         override val value: Int,
         override val desc: String? = null,
-        val spell: DomainEntityRef
+        val spell: EntityRef
     ) : ArmorClass()
 
     @Serializable
@@ -51,6 +51,6 @@ sealed class ArmorClass {
         override val type: String = "condition",
         override val value: Int,
         override val desc: String? = null,
-        val condition: DomainEntityRef
+        val condition: EntityRef
     ) : ArmorClass()
 }

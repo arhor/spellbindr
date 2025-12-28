@@ -1,9 +1,9 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import com.github.arhor.spellbindr.domain.model.AreaOfEffect
-import com.github.arhor.spellbindr.domain.model.SpellDamage
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.SpellDC
+import com.github.arhor.spellbindr.domain.model.SpellDamage
 import kotlinx.serialization.Serializable
 
 
@@ -39,10 +39,10 @@ data class Spell(
     val level: Int,
     val range: String,
     val ritual: Boolean,
-    val school: DomainEntityRef,
+    val school: EntityRef,
     val duration: String,
     val castingTime: String,
-    val classes: List<DomainEntityRef>,
+    val classes: List<EntityRef>,
     val components: List<String>,
     val concentration: Boolean,
     val areaOfEffect: AreaOfEffect? = null,
@@ -52,6 +52,6 @@ data class Spell(
     val healAtSlotLevel: Map<String, String>? = null,
     val higherLevel: List<String>? = null,
     val material: String? = null,
-    val subclasses: List<DomainEntityRef>? = null,
+    val subclasses: List<EntityRef>? = null,
     val source: String,
 )

@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SpecialAbilitySpellcasting(
     val level: Int? = null,
-    val ability: DomainEntityRef,
+    val ability: EntityRef,
     val dc: Int? = null,
     val modifier: Int? = null,
     @SerialName("components_required")

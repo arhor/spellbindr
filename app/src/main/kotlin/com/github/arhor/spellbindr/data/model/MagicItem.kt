@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -12,7 +12,7 @@ data class MagicItem(
     val desc: List<String>,
     val rarity: Rarity,
     val equipmentCategory: String,
-    val variants: List<DomainEntityRef>? = null,
+    val variants: List<EntityRef>? = null,
 ) {
     @Serializable
     enum class Rarity {

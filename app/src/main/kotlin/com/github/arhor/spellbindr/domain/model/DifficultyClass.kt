@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
 
 
@@ -13,7 +12,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class DifficultyClass(
-    val dcType: DomainEntityRef,
+    val dcType: EntityRef,
     val dcValue: Int? = null,
     val successType: SuccessType
 )

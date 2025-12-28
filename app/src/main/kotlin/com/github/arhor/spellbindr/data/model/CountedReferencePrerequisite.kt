@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.Serializable
 
 
@@ -13,5 +13,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CountedReferencePrerequisite(
     val type: String,
-    val proficiency: DomainEntityRef? = null,
+    val proficiency: EntityRef? = null,
 )
