@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.SpellListState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

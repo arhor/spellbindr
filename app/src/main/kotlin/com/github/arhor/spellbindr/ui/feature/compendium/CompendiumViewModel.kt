@@ -18,6 +18,8 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

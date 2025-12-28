@@ -1,7 +1,9 @@
-package com.github.arhor.spellbindr.ui.feature.compendium
+package com.github.arhor.spellbindr.ui.feature.compendium.spells.search
 
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
+
 interface SpellListState {
     val query: String
     val showFavorite: Boolean
