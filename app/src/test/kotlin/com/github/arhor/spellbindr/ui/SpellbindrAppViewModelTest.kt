@@ -6,6 +6,7 @@ import com.github.arhor.spellbindr.data.local.assets.AssetLoadingPriority
 import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
+import com.github.arhor.spellbindr.ui.components.app.SpellbindrAppViewModel
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockkStatic

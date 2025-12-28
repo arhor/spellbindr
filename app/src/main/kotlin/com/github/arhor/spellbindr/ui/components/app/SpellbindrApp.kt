@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui
+package com.github.arhor.spellbindr.ui.components.app
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,6 +23,7 @@ import com.github.arhor.spellbindr.ui.components.rememberTopBarStateHolder
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.navigation.SpellbindrAppNavGraph
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import kotlin.reflect.KClass
 
 @Composable
 fun SpellbindrApp(onReady: () -> Unit) {
@@ -91,7 +92,7 @@ private fun defaultTopBarConfig(destination: NavDestination?): AppTopBarConfig =
         else -> AppTopBarConfig.None
     }
 
-private infix fun NavDestination?.matches(destination: kotlin.reflect.KClass<out AppDestination>): Boolean =
+private infix fun NavDestination?.matches(destination: KClass<out AppDestination>): Boolean =
     when (this) {
         null -> false
         else -> hierarchy.any { it.hasRoute(destination) }
