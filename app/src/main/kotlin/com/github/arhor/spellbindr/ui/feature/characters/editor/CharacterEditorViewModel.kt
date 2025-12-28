@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.editor
 
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
@@ -8,6 +8,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterSheetInputError
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.SkillEntry
@@ -15,7 +16,6 @@ import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsU
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
-import com.github.arhor.spellbindr.domain.model.CharacterSheetInputError
 import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

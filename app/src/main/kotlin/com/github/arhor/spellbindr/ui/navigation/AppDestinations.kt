@@ -76,3 +76,5 @@ val BottomNavItems = listOf(
         icon = Icons.Outlined.Settings,
     ),
 )
+
+const val CHARACTER_SPELL_SELECTION_RESULT_KEY = "character_spell_selection_result"

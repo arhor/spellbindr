@@ -1,9 +1,10 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.spellpicker
 
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository

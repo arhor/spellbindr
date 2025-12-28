@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.editor
 
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.Skill

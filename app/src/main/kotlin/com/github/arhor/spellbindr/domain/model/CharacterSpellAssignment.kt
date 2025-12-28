@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.domain.model
 
 import androidx.compose.runtime.Immutable
 import java.io.Serializable

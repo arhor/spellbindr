@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.spellpicker
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,13 +22,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel.CharacterSpellPickerUiAction
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
+import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -61,7 +61,7 @@ fun CharacterSpellPickerRoute(
 private fun CharacterSpellPickerScreen(
     state: CharacterSpellPickerUiState,
     onBack: () -> Unit,
-    onAction: (CharacterSpellPickerUiAction) -> Unit,
+    onAction: (CharacterSpellPickerViewModel.CharacterSpellPickerUiAction) -> Unit,
 ) {
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -107,7 +107,7 @@ private fun CharacterSpellPickerScreen(
 @Composable
 private fun CharacterSpellPickerContent(
     state: CharacterSpellPickerUiState.Content,
-    onAction: (CharacterSpellPickerUiAction) -> Unit,
+    onAction: (CharacterSpellPickerViewModel.CharacterSpellPickerUiAction) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -118,7 +118,7 @@ private fun CharacterSpellPickerContent(
         OutlinedTextField(
             value = state.sourceClass,
             onValueChange = { value ->
-                onAction(CharacterSpellPickerUiAction.SourceClassChanged(value))
+                onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.SourceClassChanged(value))
             },
             label = { Text("Spellcasting class") },
             placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
@@ -133,22 +133,22 @@ private fun CharacterSpellPickerContent(
             SpellSearchScreen(
                 state = state.spellsState,
                 onQueryChanged = { query ->
-                    onAction(CharacterSpellPickerUiAction.QueryChanged(query))
+                    onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.QueryChanged(query))
                 },
-                onFiltersClick = { onAction(CharacterSpellPickerUiAction.FiltersClicked) },
-                onFavoriteClick = { onAction(CharacterSpellPickerUiAction.FavoritesClicked) },
+                onFiltersClick = { onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.FiltersClicked) },
+                onFavoriteClick = { onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.FavoritesClicked) },
                 onGroupToggle = { level ->
-                    onAction(CharacterSpellPickerUiAction.SpellGroupToggled(level))
+                    onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.SpellGroupToggled(level))
                 },
-                onToggleAllGroups = { onAction(CharacterSpellPickerUiAction.ToggleAllSpellGroups) },
+                onToggleAllGroups = { onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.ToggleAllSpellGroups) },
                 onSpellClick = { spell ->
-                    onAction(CharacterSpellPickerUiAction.SpellSelected(spell.id))
+                    onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.SpellSelected(spell.id))
                 },
                 onSubmitFilters = { classes: Set<EntityRef> ->
-                    onAction(CharacterSpellPickerUiAction.FilterChanged(classes))
+                    onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.FilterChanged(classes))
                 },
                 onCancelFilters = { classes: Set<EntityRef> ->
-                    onAction(CharacterSpellPickerUiAction.FilterChanged(classes))
+                    onAction(CharacterSpellPickerViewModel.CharacterSpellPickerUiAction.FilterChanged(classes))
                 },
             )
         }
@@ -160,7 +160,7 @@ private fun CharacterSpellPickerContent(
 private fun CharacterSpellPickerPreview() {
     AppTheme {
         CharacterSpellPickerScreen(
-            state = CharacterSpellPickerViewModel.CharacterSpellPickerUiState.Content(
+            state = CharacterSpellPickerUiState.Content(
                 sourceClass = "Wizard",
                 defaultSourceClass = "Wizard",
                 spellsState = CharacterSpellPickerViewModel.SpellsState(),

@@ -10,16 +10,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.ui.feature.characters.CHARACTER_SPELL_SELECTION_RESULT_KEY
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterEditorRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharactersListRoute
+import com.github.arhor.spellbindr.ui.feature.characters.editor.CharacterEditorRoute
+import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
+import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
+import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterListItem
 
 /**
  * Main navigation graph for the Spellbindr application.

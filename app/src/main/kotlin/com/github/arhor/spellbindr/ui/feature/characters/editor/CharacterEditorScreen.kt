@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.editor
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.displayName
-import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
@@ -649,7 +648,8 @@ private fun previewEditorState(): CharacterEditorUiState = CharacterEditorUiStat
     initiative = "2",
     speed = "30 ft",
     hitDice = "7d6",
-    savingThrows = SavingThrowInputState.defaults().map { it.copy(bonus = 2, proficient = true) },
+    savingThrows = SavingThrowInputState.defaults()
+        .map { it.copy(bonus = 2, proficient = true) },
     skills = SkillInputState.defaults().map { it.copy(bonus = 4) },
     senses = "Darkvision 60 ft",
     languages = "Common, Elvish, Primordial",

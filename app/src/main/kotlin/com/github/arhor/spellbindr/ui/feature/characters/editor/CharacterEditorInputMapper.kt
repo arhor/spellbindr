@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters
+package com.github.arhor.spellbindr.ui.feature.characters.editor
 
 import com.github.arhor.spellbindr.domain.model.AbilityScoreInput
 import com.github.arhor.spellbindr.domain.model.CharacterEditorDerivedBonuses
