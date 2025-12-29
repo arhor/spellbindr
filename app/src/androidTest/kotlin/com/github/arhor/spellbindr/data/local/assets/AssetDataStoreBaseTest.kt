@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class, DatabaseModule::class)
-class StaticAssetDataStoreBaseTest {
+class AssetDataStoreBaseTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 

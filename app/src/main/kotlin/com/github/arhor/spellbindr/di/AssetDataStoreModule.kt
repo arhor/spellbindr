@@ -20,7 +20,7 @@ import dagger.multibindings.IntoSet
 @Module
 @Suppress("UNUSED")
 @InstallIn(SingletonComponent::class)
-abstract class StaticAssetsModule {
+abstract class AssetDataStoreModule {
 
     @Binds
     @IntoSet
