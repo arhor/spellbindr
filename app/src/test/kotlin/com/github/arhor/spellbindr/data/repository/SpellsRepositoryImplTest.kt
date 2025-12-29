@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.google.common.truth.Truth.assertThat

@@ -11,7 +11,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
@@ -268,13 +267,6 @@ class SpellsUseCasesTest {
         var throwOnGetSpellById: Boolean = false
         var lastToggledSpellId: String? = null
         var lastIsFavoriteSpellId: String? = null
-
-        override val allSpells: Flow<List<Spell>> = allSpellsState.map { state ->
-            when (state) {
-                is AssetState.Ready -> state.data
-                else -> emptyList()
-            }
-        }
 
         override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 

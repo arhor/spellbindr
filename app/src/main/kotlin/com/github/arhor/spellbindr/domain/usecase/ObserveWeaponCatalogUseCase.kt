@@ -1,10 +1,10 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.data.repository.EquipmentRepository
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
+import com.github.arhor.spellbindr.domain.repository.EquipmentRepository
 import com.github.arhor.spellbindr.utils.unwrap
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

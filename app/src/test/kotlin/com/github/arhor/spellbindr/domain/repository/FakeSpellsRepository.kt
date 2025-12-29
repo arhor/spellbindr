@@ -4,7 +4,6 @@ import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Spell
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
 
 class FakeSpellsRepository(
     initialSpells: List<Spell> = emptyList(),
@@ -15,12 +14,6 @@ class FakeSpellsRepository(
     )
     val favoriteSpellIdsState = MutableStateFlow(initialFavoriteIds)
 
-    override val allSpells: Flow<List<Spell>> = allSpellsState.map { state ->
-        when (state) {
-            is AssetState.Ready -> state.data
-            else -> emptyList()
-        }
-    }
     override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
     override suspend fun getSpellById(id: String): Spell? =

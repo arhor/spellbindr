@@ -36,7 +36,7 @@ interface AssetBootstrapper {
 }
 
 @Singleton
-class DefaultAssetBootstrapper @Inject constructor(
+internal class DefaultAssetBootstrapper @Inject constructor(
     loaders: Set<@JvmSuppressWildcards InitializableAssetDataStore>,
 ) : AssetBootstrapper {
 

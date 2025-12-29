@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.CharacterRaceAssetDataStore
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Race
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
