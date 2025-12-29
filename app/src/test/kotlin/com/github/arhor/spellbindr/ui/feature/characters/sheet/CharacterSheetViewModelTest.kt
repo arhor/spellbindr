@@ -2,9 +2,9 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
+import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
-import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
 import com.github.arhor.spellbindr.domain.repository.FakeCharacterRepository
@@ -94,7 +94,7 @@ class CharacterSheetViewModelTest {
             id = "longsword",
             name = "Longsword",
             categories = setOf(EquipmentCategory.WEAPON, EquipmentCategory.MARTIAL),
-            damageDiceCount = 1,
+            damageDiceNum = 1,
             damageDieSize = 8,
             damageType = DamageType.SLASHING,
         )
@@ -146,7 +146,7 @@ class CharacterSheetViewModelTest {
             id = "shortbow",
             name = "Shortbow",
             categories = setOf(EquipmentCategory.WEAPON, EquipmentCategory.SIMPLE, EquipmentCategory.RANGED),
-            damageDiceCount = 1,
+            damageDiceNum = 1,
             damageDieSize = 6,
             damageType = DamageType.PIERCING,
         )

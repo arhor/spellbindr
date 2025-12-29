@@ -703,7 +703,7 @@ private fun com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry.toUiMode
         name = name,
         category = category,
         categories = categories,
-        damageDiceCount = damageDiceCount,
+        damageDiceCount = damageDiceNum,
         damageDieSize = damageDieSize,
         damageType = damageType,
     )
