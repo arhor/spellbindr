@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui
 
 import android.util.Log
 import com.github.arhor.spellbindr.MainDispatcherRule
-import com.github.arhor.spellbindr.data.local.assets.AssetLoadingPriority
-import com.github.arhor.spellbindr.data.local.assets.InitializableAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.AssetBootstrapState
+import com.github.arhor.spellbindr.data.local.assets.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.ui.components.app.SpellbindrAppViewModel
@@ -11,12 +11,11 @@ import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.test.advanceTimeBy
-import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -42,21 +41,32 @@ class SpellbindrAppViewModelTest {
     }
 
     @Test
-    fun `readyForInteraction should wait for critical assets and initial delay when app starts`() = runTest {
+    fun `readyForInteraction should reflect bootstrapper state updates`() = runTest {
         // Given
-        val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL, initializationDelayMillis = 500)
-        val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
+        val bootstrapper = FakeAssetBootstrapper()
         val viewModel = SpellbindrAppViewModel(
-            loaders = setOf(criticalLoader, deferredLoader),
+            assetBootstrapper = bootstrapper,
             themeRepository = FakeThemeRepository(),
         )
 
         // When
-        advanceTimeBy(1_000)
+        bootstrapper.update(
+            AssetBootstrapState(
+                initialDelayPassed = false,
+                criticalAssetsReady = true,
+                deferredAssetsReady = false,
+            ),
+        )
         runCurrent()
         val intermediateState = viewModel.state.value
 
-        advanceTimeBy(600)
+        bootstrapper.update(
+            AssetBootstrapState(
+                initialDelayPassed = true,
+                criticalAssetsReady = true,
+                deferredAssetsReady = false,
+            ),
+        )
         runCurrent()
         val finalState = viewModel.state.value
 
@@ -71,21 +81,32 @@ class SpellbindrAppViewModelTest {
     }
 
     @Test
-    fun `fullyReady should flip after deferred assets finish when initial delay has passed`() = runTest {
+    fun `fullyReady should become true when deferred assets are ready`() = runTest {
         // Given
-        val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL)
-        val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_500)
+        val bootstrapper = FakeAssetBootstrapper(
+            AssetBootstrapState(
+                initialDelayPassed = true,
+                criticalAssetsReady = true,
+                deferredAssetsReady = false,
+            ),
+        )
         val viewModel = SpellbindrAppViewModel(
-            loaders = setOf(criticalLoader, deferredLoader),
+            assetBootstrapper = bootstrapper,
             themeRepository = FakeThemeRepository(),
         )
 
         // When
-        advanceTimeBy(1_600)
         runCurrent()
         val stateBeforeDeferredReady = viewModel.state.value
 
-        advanceUntilIdle()
+        bootstrapper.update(
+            AssetBootstrapState(
+                initialDelayPassed = true,
+                criticalAssetsReady = true,
+                deferredAssetsReady = true,
+            ),
+        )
+        runCurrent()
         val stateAfterDeferredReady = viewModel.state.value
 
         // Then
@@ -96,35 +117,37 @@ class SpellbindrAppViewModelTest {
     }
 
     @Test
-    fun `critical readiness should resolve immediately when no critical loaders are present`() = runTest {
+    fun `theme updates should propagate into app state`() = runTest {
         // Given
-        val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
+        val bootstrapper = FakeAssetBootstrapper()
+        val themeRepository = FakeThemeRepository()
         val viewModel = SpellbindrAppViewModel(
-            loaders = setOf(deferredLoader),
-            themeRepository = FakeThemeRepository(),
+            assetBootstrapper = bootstrapper,
+            themeRepository = themeRepository,
         )
 
         // When
-        advanceTimeBy(1_500)
+        themeRepository.setThemeMode(ThemeMode.DARK)
         runCurrent()
-        val state = viewModel.state.value
+        val stateAfterDark = viewModel.state.value
 
         // Then
-        assertThat(state.criticalAssetsReady).isTrue()
-        assertThat(state.readyForInteraction).isTrue()
-        assertThat(state.deferredAssetsReady).isFalse()
+        assertThat(stateAfterDark.isDarkTheme).isTrue()
     }
 }
 
-private class FakeAssetLoader(
-    override val loadingPriority: AssetLoadingPriority,
-    private val initializationDelayMillis: Long = 0L,
-) : InitializableAssetDataStore {
+private class FakeAssetBootstrapper(
+    initialState: AssetBootstrapState = AssetBootstrapState(),
+) : AssetBootstrapper {
+    private val mutableState = MutableStateFlow(initialState)
 
-    override suspend fun initialize() {
-        if (initializationDelayMillis > 0) {
-            delay(initializationDelayMillis)
-        }
+    override val state: StateFlow<AssetBootstrapState>
+        get() = mutableState
+
+    override fun start(scope: CoroutineScope) = Unit
+
+    fun update(state: AssetBootstrapState) {
+        mutableState.value = state
     }
 }
 
