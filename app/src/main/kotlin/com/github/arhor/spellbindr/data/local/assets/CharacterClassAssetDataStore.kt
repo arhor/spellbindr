@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.data.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.CharacterClass
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject

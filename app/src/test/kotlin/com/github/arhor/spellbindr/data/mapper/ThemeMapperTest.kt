@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.github.arhor.spellbindr.domain.model.AppThemeMode
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

@@ -1,9 +1,12 @@
-package com.github.arhor.spellbindr.data.model
+package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef
-import kotlinx.serialization.SerialName
+import com.github.arhor.spellbindr.data.model.ArmorClass
+import com.github.arhor.spellbindr.data.model.LegendaryAction
+import com.github.arhor.spellbindr.data.model.MonsterProficiency
+import com.github.arhor.spellbindr.data.model.Reaction
+import com.github.arhor.spellbindr.data.model.SpecialAbility
+import com.github.arhor.spellbindr.data.model.Speed
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 data class Monster(
@@ -11,38 +14,27 @@ data class Monster(
     val name: String,
     val actions: List<MonsterAction>? = null,
     val alignment: String,
-    @SerialName("armor_class")
     val armorClass: List<ArmorClass>,
-    @SerialName("challenge_rating")
     val challengeRating: Double,
     val charisma: Int,
-    @SerialName("condition_immunities")
     val conditionImmunities: List<EntityRef>,
     val constitution: Int,
-    @SerialName("damage_immunities")
     val damageImmunities: List<String>,
-    @SerialName("damage_resistances")
     val damageResistances: List<String>,
-    @SerialName("damage_vulnerabilities")
     val damageVulnerabilities: List<String>,
     val dexterity: Int,
     val forms: List<EntityRef>? = null,
-    @SerialName("hit_dice")
     val hitDice: String,
-    @SerialName("hit_points")
     val hitPoints: Int,
-    @SerialName("hit_points_roll")
     val hitPointsRoll: String,
     val image: String? = null,
     val intelligence: Int,
     val languages: String,
-    @SerialName("legendary_actions")
     val legendaryActions: List<LegendaryAction>? = null,
     val proficiencies: List<MonsterProficiency>,
     val reactions: List<Reaction>? = null,
     val senses: Sense,
     val size: String,
-    @SerialName("special_abilities")
     val specialAbilities: List<SpecialAbility>? = null,
     val speed: Speed,
     val strength: Int,

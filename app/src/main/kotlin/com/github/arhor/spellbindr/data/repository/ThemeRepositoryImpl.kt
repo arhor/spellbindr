@@ -6,8 +6,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.arhor.spellbindr.data.mapper.toData
 import com.github.arhor.spellbindr.data.mapper.toDomain
-import com.github.arhor.spellbindr.data.model.AppThemeMode
 import com.github.arhor.spellbindr.di.AppSettingsDataStore
+import com.github.arhor.spellbindr.domain.model.AppThemeMode
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger

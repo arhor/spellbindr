@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.model.AppThemeMode
+import com.github.arhor.spellbindr.domain.model.AppThemeMode
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 
 fun AppThemeMode.toDomain(): ThemeMode = when (this) {

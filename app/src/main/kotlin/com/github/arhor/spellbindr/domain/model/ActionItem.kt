@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.model
+package com.github.arhor.spellbindr.domain.model
 
 import kotlinx.serialization.Serializable
 
@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class ActionItem(
     val actionName: String,
     val count: String,
-    val type: String
+    val type: String,
 )
