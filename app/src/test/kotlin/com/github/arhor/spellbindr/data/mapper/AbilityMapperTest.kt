@@ -11,7 +11,7 @@ class AbilityMapperTest {
         // Given
         val assetModel = AbilityAssetModel(
             id = "wis",
-            name = "Wisdom",
+            displayName = "Wisdom",
             description = listOf("Perception and insight."),
         )
 
@@ -21,7 +21,7 @@ class AbilityMapperTest {
         // Then
         requireNotNull(result)
         assertThat(result.id).isEqualTo(assetModel.id)
-        assertThat(result.displayName).isEqualTo(assetModel.name)
+        assertThat(result.displayName).isEqualTo(assetModel.displayName)
         assertThat(result.description).isEqualTo(assetModel.description)
         assertThat(result.abbreviation).isEqualTo("WIS")
     }

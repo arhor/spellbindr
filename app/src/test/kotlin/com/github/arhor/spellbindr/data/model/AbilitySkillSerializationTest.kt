@@ -5,12 +5,10 @@ import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.google.common.truth.Truth.assertThat
-import java.nio.file.Files
-import java.nio.file.Paths
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Test
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class AbilitySkillSerializationTest {
 
@@ -44,9 +42,9 @@ class AbilitySkillSerializationTest {
 
         AbilityIds.standardOrder.forEach { abilityId ->
             val ability = abilitiesById.getValue(abilityId)
-            assertThat(ability.name).isEqualTo(abilityId.displayName())
+            assertThat(ability.displayName).isEqualTo(abilityId.displayName())
             assertThat(ability.description).hasSize(2)
-            assertThat(ability.description.first()).contains(ability.name)
+            assertThat(ability.description.first()).contains(ability.displayName)
             assertThat(ability.description.last()).isNotEmpty()
         }
 

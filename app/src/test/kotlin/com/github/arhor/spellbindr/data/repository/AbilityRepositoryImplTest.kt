@@ -39,12 +39,12 @@ class AbilityRepositoryImplTest {
         // Given
         val strength = AbilityAssetModel(
             id = "str",
-            name = "Strength",
+            displayName = "Strength",
             description = listOf("Strength description"),
         )
         val dexterity = AbilityAssetModel(
             id = "dex",
-            name = "Dexterity",
+            displayName = "Dexterity",
             description = listOf("Dexterity description"),
         )
 
