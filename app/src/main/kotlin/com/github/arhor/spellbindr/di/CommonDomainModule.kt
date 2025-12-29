@@ -10,7 +10,6 @@ import com.github.arhor.spellbindr.data.repository.ReferenceDataRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.SpellsRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.ThemeRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.TraitsRepositoryImpl
-import com.github.arhor.spellbindr.data.repository.WeaponCatalogRepositoryImpl
 import com.github.arhor.spellbindr.domain.repository.AbilityRepository
 import com.github.arhor.spellbindr.domain.repository.AlignmentRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
@@ -21,7 +20,6 @@ import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.domain.repository.TraitsRepository
-import com.github.arhor.spellbindr.domain.repository.WeaponCatalogRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
