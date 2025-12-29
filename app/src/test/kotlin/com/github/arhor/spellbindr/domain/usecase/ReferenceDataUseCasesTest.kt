@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.Alignment
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
@@ -24,7 +25,7 @@ class ReferenceDataUseCasesTest {
     fun `ObserveAlignmentsUseCase should emit latest alignments when repository updates`() = runTest {
         // Given
         val alignment = Alignment(id = "lawful-good", name = "Lawful Good", desc = "Desc", abbr = "LG")
-        alignmentRepository.allAlignmentsState.value = listOf(alignment)
+        alignmentRepository.allAlignmentsState.value = AssetState.Ready(listOf(alignment))
 
         // When
         val result = ObserveAlignmentsUseCase(alignmentRepository)().first()
@@ -42,7 +43,7 @@ class ReferenceDataUseCasesTest {
             traits = listOf(EntityRef("keen-senses")),
             subraces = emptyList(),
         )
-        racesRepository.allRacesState.value = listOf(race)
+        racesRepository.allRacesState.value = AssetState.Ready(listOf(race))
 
         // When
         val result = ObserveRacesUseCase(racesRepository)().first()
@@ -55,7 +56,7 @@ class ReferenceDataUseCasesTest {
     fun `ObserveTraitsUseCase should emit latest traits when repository updates`() = runTest {
         // Given
         val trait = Trait(id = "darkvision", name = "Darkvision", desc = listOf("See in the dark."))
-        traitsRepository.allTraitsState.value = listOf(trait)
+        traitsRepository.allTraitsState.value = AssetState.Ready(listOf(trait))
 
         // When
         val result = ObserveTraitsUseCase(traitsRepository)().first()

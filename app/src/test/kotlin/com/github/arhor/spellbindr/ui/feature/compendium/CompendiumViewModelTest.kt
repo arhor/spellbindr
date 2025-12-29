@@ -12,7 +12,7 @@ import com.github.arhor.spellbindr.domain.repository.FakeSpellsRepository
 import com.github.arhor.spellbindr.domain.repository.FakeTraitsRepository
 import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAlignmentsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
@@ -141,7 +141,7 @@ private fun TestScope.createViewModel(): CompendiumViewModel {
     return CompendiumViewModel(
         savedStateHandle = SavedStateHandle(),
         getSpellcastingClassRefsUseCase = GetSpellcastingClassRefsUseCase(classRepository),
-        observeAllSpellsUseCase = ObserveAllSpellsUseCase(spellsRepository),
+        observeAllSpellsStateUseCase = ObserveAllSpellsStateUseCase(spellsRepository),
         observeAlignmentsUseCase = ObserveAlignmentsUseCase(alignmentsRepository),
         observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
         observeRacesUseCase = ObserveRacesUseCase(racesRepository),

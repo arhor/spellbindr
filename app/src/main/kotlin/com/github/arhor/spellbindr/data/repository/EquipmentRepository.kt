@@ -1,14 +1,11 @@
 package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
-import com.github.arhor.spellbindr.data.local.assets.AssetState
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.dataOrNull
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Equipment
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,13 +14,13 @@ import javax.inject.Singleton
 class EquipmentRepository @Inject constructor(
     private val equipmentDataStore: EquipmentAssetDataStore,
 ) {
-    val allEquipment: Flow<List<Equipment>>
-        get() = equipmentDataStore.data.map { it.dataOrNull().orEmpty() }
+    val allEquipmentState: Flow<AssetState<List<Equipment>>>
+        get() = equipmentDataStore.data
 
     suspend fun findEquipmentById(id: String): Equipment? =
-        equipmentDataStore.data
-            .filterIsInstance<AssetState.Ready<List<Equipment>>>()
-            .map { it.data }
-            .firstOrNull()
-            ?.find { it.id == id }
+        when (val state = equipmentDataStore.data.first { it !is AssetState.Loading }) {
+            is AssetState.Ready -> state.data.find { it.id == id }
+            is AssetState.Error -> null
+            is AssetState.Loading -> null
+        }
 }

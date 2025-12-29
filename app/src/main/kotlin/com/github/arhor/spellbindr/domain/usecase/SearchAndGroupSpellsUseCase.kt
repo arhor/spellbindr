@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.domain.usecase
 
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.SearchAndGroupSpellsResult
@@ -7,6 +8,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SearchAndGroupSpellsUseCase @Inject constructor(
@@ -21,7 +23,13 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
         favoriteSpellIds: Set<String>? = null,
     ): SearchAndGroupSpellsResult {
         val normalizedQuery = query.trim()
-        val resolvedSpells = allSpells ?: spellsRepository.allSpells.first()
+        val resolvedSpells = allSpells ?: spellsRepository.allSpellsState.map {
+            when (it) {
+                is AssetState.Loading -> emptyList()
+                is AssetState.Ready -> it.data
+                is AssetState.Error -> emptyList()
+            }
+        }.first()
         val favoriteIds = if (favoriteOnly) {
             favoriteSpellIds ?: favoritesRepository.observeFavoriteIds(FavoriteType.SPELL).first().toSet()
         } else {

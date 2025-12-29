@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.domain.repository
 
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Spell
 import kotlinx.coroutines.flow.Flow
 
@@ -8,10 +9,9 @@ import kotlinx.coroutines.flow.Flow
  */
 interface SpellsRepository {
     /**
-     * A Flow emitting the complete list of available spells.
-     * These are typically loaded from static assets.
+     * A Flow exposing the load state for the full spells list.
      */
-    val allSpells: Flow<List<Spell>>
+    val allSpellsState: Flow<AssetState<List<Spell>>>
 
     /**
      * A Flow emitting the list of IDs for spells marked as favorites by the user.

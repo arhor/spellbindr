@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.domain.usecase
 
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Spell
@@ -10,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
@@ -26,13 +28,27 @@ class SpellsUseCasesTest {
     fun `ObserveAllSpellsUseCase should emit latest spells when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "magic-missile", name = "Magic Missile")
-        repository.allSpellsState.value = listOf(spell)
+        repository.allSpellsState.value = AssetState.Ready(listOf(spell))
 
         // When
         val result = ObserveAllSpellsUseCase(repository)().first()
 
         // Then
         assertThat(result).containsExactly(spell)
+    }
+
+    @Test
+    fun `ObserveAllSpellsStateUseCase should emit latest state when repository updates`() = runTest {
+        // Given
+        val spell = sampleSpell(id = "shield", name = "Shield")
+        val state = AssetState.Ready(listOf(spell))
+        repository.allSpellsState.value = state
+
+        // When
+        val result = ObserveAllSpellsStateUseCase(repository)().first()
+
+        // Then
+        assertThat(result).isEqualTo(state)
     }
 
     @Test
@@ -77,7 +93,7 @@ class SpellsUseCasesTest {
         // Given
         val classes = setOf(EntityRef("cleric"), EntityRef("wizard"))
         val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = classes.toList()))
-        repository.allSpellsState.value = expected
+        repository.allSpellsState.value = AssetState.Ready(expected)
         favoritesRepository.favoriteIdsState.value = listOf("cure-wounds")
 
         // When
@@ -96,7 +112,7 @@ class SpellsUseCasesTest {
     fun `SearchSpellsUseCase should skip favorites when favoriteOnly is false`() = runTest {
         // Given
         val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
-        repository.allSpellsState.value = expected
+        repository.allSpellsState.value = AssetState.Ready(expected)
 
         // When
         val result = SearchSpellsUseCase(SearchAndGroupSpellsUseCase(repository, favoritesRepository))(
@@ -123,7 +139,7 @@ class SpellsUseCasesTest {
             level = 3,
         )
         val cureWounds = sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = listOf(cleric))
-        repository.allSpellsState.value = listOf(magicMissile, fireball, cureWounds)
+        repository.allSpellsState.value = AssetState.Ready(listOf(magicMissile, fireball, cureWounds))
         favoritesRepository.favoriteIdsState.value = listOf("fireball")
 
         // When
@@ -244,7 +260,8 @@ class SpellsUseCasesTest {
     )
 
     private class FakeSpellsRepository : SpellsRepository {
-        val allSpellsState = MutableStateFlow<List<Spell>>(emptyList())
+        override val allSpellsState =
+            MutableStateFlow<AssetState<List<Spell>>>(AssetState.Ready(emptyList()))
         val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 
@@ -252,7 +269,13 @@ class SpellsUseCasesTest {
         var lastToggledSpellId: String? = null
         var lastIsFavoriteSpellId: String? = null
 
-        override val allSpells: Flow<List<Spell>> = allSpellsState
+        override val allSpells: Flow<List<Spell>> = allSpellsState.map { state ->
+            when (state) {
+                is AssetState.Ready -> state.data
+                else -> emptyList()
+            }
+        }
+
         override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
         override suspend fun getSpellById(id: String): Spell? {

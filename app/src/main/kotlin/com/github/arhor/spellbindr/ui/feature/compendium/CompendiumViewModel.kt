@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Alignment
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
@@ -13,7 +14,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAlignmentsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
@@ -46,7 +47,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class CompendiumViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getSpellcastingClassRefsUseCase: GetSpellcastingClassRefsUseCase,
-    private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val observeAllSpellsStateUseCase: ObserveAllSpellsStateUseCase,
     private val observeAlignmentsUseCase: ObserveAlignmentsUseCase,
     private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
     private val observeRacesUseCase: ObserveRacesUseCase,
@@ -198,27 +199,37 @@ class CompendiumViewModel @Inject constructor(
     @OptIn(FlowPreview::class)
     private val spellsUiState = combine(
         spellFilters,
-        observeAllSpellsUseCase(),
+        observeAllSpellsStateUseCase(),
         observeFavoriteSpellIdsUseCase(),
         ::SpellsQuery,
     )
         .debounce(350.milliseconds)
         .distinctUntilChanged()
         .transformLatest { data ->
-            emit(SpellsUiState.Loading)
-            runCatching {
-                searchAndGroupSpellsUseCase(
-                    query = data.query,
-                    classes = data.currentClasses,
-                    favoriteOnly = data.showFavorite,
-                    allSpells = data.allSpells,
-                    favoriteSpellIds = data.favoriteSpellIdsSet,
-                )
-            }.onSuccess { result ->
-                emit(SpellsUiState.Loaded(result.spells, result.spellsByLevel))
-            }.onFailure { throwable ->
-                logger.error(throwable) { "Failed to load spells." }
-                emit(SpellsUiState.Error("Oops, something went wrong..."))
+            when (val state = data.allSpellsState) {
+                is AssetState.Loading -> emit(SpellsUiState.Loading)
+                is AssetState.Error -> {
+                    logger.error(state.cause) { "Failed to load spells." }
+                    emit(SpellsUiState.Error("Failed to load spells."))
+                }
+
+                is AssetState.Ready -> {
+                    emit(SpellsUiState.Loading)
+                    runCatching {
+                        searchAndGroupSpellsUseCase(
+                            query = data.query,
+                            classes = data.currentClasses,
+                            favoriteOnly = data.showFavorite,
+                            allSpells = state.data,
+                            favoriteSpellIds = data.favoriteSpellIdsSet,
+                        )
+                    }.onSuccess { result ->
+                        emit(SpellsUiState.Loaded(result.spells, result.spellsByLevel))
+                    }.onFailure { throwable ->
+                        logger.error(throwable) { "Failed to load spells." }
+                        emit(SpellsUiState.Error("Oops, something went wrong..."))
+                    }
+                }
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
@@ -397,7 +408,7 @@ class CompendiumViewModel @Inject constructor(
 
     private data class SpellsQuery(
         val filters: SpellListStateReducer.SpellFilters,
-        val allSpells: List<Spell>,
+        val allSpellsState: AssetState<List<Spell>>,
         val favoriteSpellIds: List<String>,
     ) {
         val query: String = filters.query

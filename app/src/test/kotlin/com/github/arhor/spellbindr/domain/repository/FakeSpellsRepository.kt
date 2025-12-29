@@ -1,21 +1,32 @@
 package com.github.arhor.spellbindr.domain.repository
 
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Spell
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 
 class FakeSpellsRepository(
     initialSpells: List<Spell> = emptyList(),
     initialFavoriteIds: List<String> = emptyList(),
 ) : SpellsRepository {
-    val allSpellsState = MutableStateFlow(initialSpells)
+    override val allSpellsState = MutableStateFlow<AssetState<List<Spell>>>(
+        AssetState.Ready(initialSpells)
+    )
     val favoriteSpellIdsState = MutableStateFlow(initialFavoriteIds)
 
-    override val allSpells: Flow<List<Spell>> = allSpellsState
+    override val allSpells: Flow<List<Spell>> = allSpellsState.map { state ->
+        when (state) {
+            is AssetState.Ready -> state.data
+            else -> emptyList()
+        }
+    }
     override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
     override suspend fun getSpellById(id: String): Spell? =
-        allSpellsState.value.firstOrNull { it.id == id }
+        (allSpellsState.value as? AssetState.Ready)
+            ?.data
+            ?.firstOrNull { it.id == id }
 
     override suspend fun toggleFavorite(spellId: String) {
         val updated = favoriteSpellIdsState.value.toMutableSet()

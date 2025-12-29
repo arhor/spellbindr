@@ -1,16 +1,13 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.local.assets.AssetState
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.dataOrNull
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,18 +16,19 @@ class SpellsRepositoryImpl @Inject constructor(
     private val allSpellsDataStore: SpellAssetDataStore,
     private val favoritesRepository: FavoritesRepository,
 ) : SpellsRepository {
-    override val allSpells: Flow<List<Spell>>
-        get() = allSpellsDataStore.data.map { it.dataOrNull().orEmpty() }
+
+    override val allSpellsState: Flow<AssetState<List<Spell>>>
+        get() = allSpellsDataStore.data
 
     override val favoriteSpellIds: Flow<List<String>>
         get() = favoritesRepository.observeFavoriteIds(FavoriteType.SPELL)
 
     override suspend fun getSpellById(id: String): Spell? =
-        allSpellsDataStore.data
-            .filterIsInstance<AssetState.Ready<List<Spell>>>()
-            .map { it.data }
-            .firstOrNull()
-            ?.firstOrNull { it.id == id }
+        when (val state = allSpellsDataStore.data.first { it !is AssetState.Loading }) {
+            is AssetState.Ready -> state.data.firstOrNull { it.id == id }
+            is AssetState.Error -> null
+            is AssetState.Loading -> null
+        }
 
     override suspend fun toggleFavorite(spellId: String) {
         favoritesRepository.toggleFavorite(FavoriteType.SPELL, spellId)
@@ -45,5 +43,4 @@ class SpellsRepositoryImpl @Inject constructor(
 
         return targetSpellId in ids
     }
-
 }

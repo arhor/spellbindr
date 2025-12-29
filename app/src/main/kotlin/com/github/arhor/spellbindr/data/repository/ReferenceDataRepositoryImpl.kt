@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.domain.model.Alignment
+import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.repository.AlignmentRepository
@@ -17,14 +18,15 @@ class ReferenceDataRepositoryImpl @Inject constructor(
     private val racesRepository: RacesRepository,
     private val traitsRepository: TraitsRepository,
 ) : ReferenceDataRepository {
-    override val allAlignments: Flow<List<Alignment>>
-        get() = alignmentRepository.allAlignments
 
-    override val allRaces: Flow<List<Race>>
-        get() = racesRepository.allRaces
+    override val allAlignmentsState: Flow<AssetState<List<Alignment>>>
+        get() = alignmentRepository.allAlignmentsState
 
-    override val allTraits: Flow<List<Trait>>
-        get() = traitsRepository.allTraits
+    override val allRacesState: Flow<AssetState<List<Race>>>
+        get() = racesRepository.allRacesState
+
+    override val allTraitsState: Flow<AssetState<List<Trait>>>
+        get() = traitsRepository.allTraitsState
 
     override suspend fun findRaceById(id: String): Race? = racesRepository.findRaceById(id)
 }
