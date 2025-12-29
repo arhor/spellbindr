@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
-import com.github.arhor.spellbindr.data.model.Background
+import com.github.arhor.spellbindr.domain.model.Background
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map

@@ -1,9 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.model.ClassLevel
-import com.github.arhor.spellbindr.data.model.EquipmentRef
-import com.github.arhor.spellbindr.data.model.Spellcasting
-import com.github.arhor.spellbindr.data.model.Subclass
 import kotlinx.serialization.Serializable
 
 @Serializable

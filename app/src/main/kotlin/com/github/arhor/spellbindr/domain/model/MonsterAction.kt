@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.model.Damage
 import kotlinx.serialization.Serializable
 
 /**

@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
-import com.github.arhor.spellbindr.data.model.Equipment
+import com.github.arhor.spellbindr.domain.model.Equipment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map

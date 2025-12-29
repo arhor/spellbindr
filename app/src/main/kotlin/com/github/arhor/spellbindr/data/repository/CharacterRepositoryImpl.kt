@@ -2,14 +2,14 @@ package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.db.CharacterDao
 import com.github.arhor.spellbindr.data.local.db.CharacterEntity
+import com.github.arhor.spellbindr.data.local.db.toDomain
+import com.github.arhor.spellbindr.data.local.db.toSnapshot
 import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.mapper.toEntity
-import com.github.arhor.spellbindr.data.model.toDomain
-import com.github.arhor.spellbindr.data.model.toSnapshot
+import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.EntityRef
-import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull

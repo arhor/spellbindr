@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.data.local.db
 
 import androidx.room.TypeConverter
-import com.github.arhor.spellbindr.data.model.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.json.Json
 

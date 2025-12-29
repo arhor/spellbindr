@@ -1,11 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.model.ArmorClass
-import com.github.arhor.spellbindr.data.model.LegendaryAction
-import com.github.arhor.spellbindr.data.model.MonsterProficiency
-import com.github.arhor.spellbindr.data.model.Reaction
-import com.github.arhor.spellbindr.data.model.SpecialAbility
-import com.github.arhor.spellbindr.data.model.Speed
 import kotlinx.serialization.Serializable
 
 @Serializable

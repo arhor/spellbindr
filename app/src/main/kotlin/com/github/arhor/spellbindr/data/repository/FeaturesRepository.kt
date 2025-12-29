@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.FeaturesAssetDataStore
-import com.github.arhor.spellbindr.data.model.Feature
+import com.github.arhor.spellbindr.domain.model.Feature
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

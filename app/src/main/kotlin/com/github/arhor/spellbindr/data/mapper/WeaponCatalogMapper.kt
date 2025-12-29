@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.model.Equipment
 import com.github.arhor.spellbindr.domain.model.DamageType
+import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
 
