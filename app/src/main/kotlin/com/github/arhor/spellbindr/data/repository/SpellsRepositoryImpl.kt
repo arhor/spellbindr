@@ -1,11 +1,14 @@
 package com.github.arhor.spellbindr.data.repository
 
+import com.github.arhor.spellbindr.data.local.assets.AssetState
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.dataOrNull
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -17,13 +20,17 @@ class SpellsRepositoryImpl @Inject constructor(
     private val favoritesRepository: FavoritesRepository,
 ) : SpellsRepository {
     override val allSpells: Flow<List<Spell>>
-        get() = allSpellsDataStore.data.map { it.orEmpty() }
+        get() = allSpellsDataStore.data.map { it.dataOrNull().orEmpty() }
 
     override val favoriteSpellIds: Flow<List<String>>
         get() = favoritesRepository.observeFavoriteIds(FavoriteType.SPELL)
 
     override suspend fun getSpellById(id: String): Spell? =
-        allSpellsDataStore.data.firstOrNull()?.firstOrNull { it.id == id }
+        allSpellsDataStore.data
+            .filterIsInstance<AssetState.Ready<List<Spell>>>()
+            .map { it.data }
+            .firstOrNull()
+            ?.firstOrNull { it.id == id }
 
     override suspend fun toggleFavorite(spellId: String) {
         favoritesRepository.toggleFavorite(FavoriteType.SPELL, spellId)

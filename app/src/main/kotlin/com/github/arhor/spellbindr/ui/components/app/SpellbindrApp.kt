@@ -1,12 +1,15 @@
 package com.github.arhor.spellbindr.ui.components.app
 
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,6 +34,8 @@ fun SpellbindrApp(onReady: () -> Unit) {
     val state by vm.state.collectAsStateWithLifecycle()
     val controller = rememberNavController()
     val topBarStateHolder = rememberTopBarStateHolder()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val lastErrorMessage = remember { mutableStateOf<String?>(null) }
     val backStackEntry by controller.currentBackStackEntryAsState()
     val destination = backStackEntry?.destination
     val topBarState by topBarStateHolder
@@ -51,11 +56,33 @@ fun SpellbindrApp(onReady: () -> Unit) {
         }
     }
 
+    LaunchedEffect(state.criticalAssetsError, state.deferredAssetsError) {
+        val messages = buildList {
+            if (state.criticalAssetsError != null) {
+                add("Failed to load critical app data. Please restart the app.")
+            }
+            if (state.deferredAssetsError != null) {
+                add("Some data failed to load. Parts of the app may be missing.")
+            }
+        }
+        if (messages.isEmpty()) {
+            lastErrorMessage.value = null
+            return@LaunchedEffect
+        }
+        for (message in messages) {
+            if (lastErrorMessage.value != message) {
+                lastErrorMessage.value = message
+                snackbarHostState.showSnackbar(message)
+            }
+        }
+    }
+
     AppTheme(isDarkTheme = state.isDarkTheme) {
         CompositionLocalProvider(LocalTopBarState provides topBarStateHolder) {
             Scaffold(
                 topBar = { AppTopBar(resolvedConfig) },
                 bottomBar = { AppBottomBar(controller) },
+                snackbarHost = { SnackbarHost(snackbarHostState) },
             ) { innerPadding ->
                 SpellbindrAppNavGraph(
                     controller = controller,

@@ -25,30 +25,38 @@ abstract class AssetDataStoreBase<T>(
 
     private val logger = createLogger()
     private val mutex = Mutex()
-    private var asset = MutableStateFlow<List<T>?>(null)
+    private var asset = MutableStateFlow<AssetState<List<T>>>(AssetState.Loading)
 
-    override val data: StateFlow<List<T>?>
+    override val data: StateFlow<AssetState<List<T>>>
         get() = asset.asStateFlow()
 
     @OptIn(ExperimentalSerializationApi::class)
     override suspend fun initialize() {
         logger.info { "Trying to load static asset: $path" }
-        if (asset.value == null) {
-            mutex.withLock {
-                if (asset.value == null) {
-                    asset.value = withContext(Dispatchers.IO) {
-                        context.assets.open(path).use {
-                            json.decodeFromStream(
-                                deserializer = ListSerializer(elementSerializer = serializer),
-                                stream = it,
-                            )
-                        }
+        mutex.withLock {
+            if (asset.value is AssetState.Ready) {
+                logger.info { "Static asset [$path] is already loaded" }
+                return
+            }
+
+            asset.value = AssetState.Loading
+            val result = runCatching {
+                withContext(Dispatchers.IO) {
+                    context.assets.open(path).use {
+                        json.decodeFromStream(
+                            deserializer = ListSerializer(elementSerializer = serializer),
+                            stream = it,
+                        )
                     }
-                    logger.info { "Static asset [$path] is successfully loaded" }
-                    return
                 }
             }
+            result.onSuccess {
+                asset.value = AssetState.Ready(it)
+                logger.info { "Static asset [$path] is successfully loaded" }
+            }.onFailure { error ->
+                asset.value = AssetState.Error(error)
+                logger.error(error) { "Failed to load static asset [$path]" }
+            }
         }
-        logger.info { "Static asset [$path] is already loaded" }
     }
 }

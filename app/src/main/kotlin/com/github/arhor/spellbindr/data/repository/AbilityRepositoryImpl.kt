@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.AbilityAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.dataOrNull
 import com.github.arhor.spellbindr.domain.model.Ability
 import com.github.arhor.spellbindr.domain.repository.AbilityRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,5 +15,5 @@ class AbilityRepositoryImpl @Inject constructor(
 ) : AbilityRepository {
 
     override val allAbilities: Flow<List<Ability>>
-        get() = abilityAssetDataStore.data.map { it.orEmpty() }
+        get() = abilityAssetDataStore.data.map { it.dataOrNull().orEmpty() }
 }

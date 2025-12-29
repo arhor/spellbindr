@@ -28,6 +28,8 @@ class SpellbindrAppViewModel @Inject constructor(
         val initialDelayPassed: Boolean = false,
         val criticalAssetsReady: Boolean = false,
         val deferredAssetsReady: Boolean = false,
+        val criticalAssetsError: Throwable? = null,
+        val deferredAssetsError: Throwable? = null,
         val isDarkTheme: Boolean? = null,
     ) {
         val readyForInteraction: Boolean
@@ -65,6 +67,8 @@ class SpellbindrAppViewModel @Inject constructor(
                     initialDelayPassed = bootstrapState.initialDelayPassed,
                     criticalAssetsReady = bootstrapState.criticalAssetsReady,
                     deferredAssetsReady = bootstrapState.deferredAssetsReady,
+                    criticalAssetsError = bootstrapState.criticalAssetsError,
+                    deferredAssetsError = bootstrapState.deferredAssetsError,
                 )
             }
         }

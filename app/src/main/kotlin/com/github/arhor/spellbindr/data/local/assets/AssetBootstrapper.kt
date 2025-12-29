@@ -19,6 +19,8 @@ data class AssetBootstrapState(
     val initialDelayPassed: Boolean = false,
     val criticalAssetsReady: Boolean = false,
     val deferredAssetsReady: Boolean = false,
+    val criticalAssetsError: Throwable? = null,
+    val deferredAssetsError: Throwable? = null,
 ) {
     val readyForInteraction: Boolean
         get() = initialDelayPassed && criticalAssetsReady
@@ -75,16 +77,34 @@ class DefaultAssetBootstrapper @Inject constructor(
     }
 
     private suspend fun CoroutineScope.executeCriticalDataLoading() {
-        if (criticalLoaders.isNotEmpty()) {
-            criticalLoaders.map { async { it.initialize() } }.awaitAll()
+        val errors = if (criticalLoaders.isNotEmpty()) {
+            criticalLoaders.map { async { runCatching { it.initialize() }.exceptionOrNull() } }
+                .awaitAll()
+                .filterNotNull()
+        } else {
+            emptyList()
+        }
+        if (errors.isNotEmpty()) {
+            val error = errors.first()
+            logger.error(error) { "Critical data loading phase failed" }
+            _state.update { it.copy(criticalAssetsError = error) }
         }
         logger.info { "Critical data loading phase passed" }
         _state.update { it.copy(criticalAssetsReady = true) }
     }
 
     private suspend fun CoroutineScope.executeDeferredDataLoading() {
-        if (deferredLoaders.isNotEmpty()) {
-            deferredLoaders.map { async { it.initialize() } }.awaitAll()
+        val errors = if (deferredLoaders.isNotEmpty()) {
+            deferredLoaders.map { async { runCatching { it.initialize() }.exceptionOrNull() } }
+                .awaitAll()
+                .filterNotNull()
+        } else {
+            emptyList()
+        }
+        if (errors.isNotEmpty()) {
+            val error = errors.first()
+            logger.error(error) { "Deferred data loading phase failed" }
+            _state.update { it.copy(deferredAssetsError = error) }
         }
         logger.info { "Deferred data loading phase passed" }
         _state.update { it.copy(deferredAssetsReady = true) }
