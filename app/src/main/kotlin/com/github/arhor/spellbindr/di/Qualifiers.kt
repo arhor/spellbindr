@@ -9,7 +9,3 @@ annotation class AppSettingsDataStore
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class FavoritesDataStore
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class ApplicationScope

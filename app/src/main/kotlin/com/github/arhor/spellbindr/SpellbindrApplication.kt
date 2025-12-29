@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr
 
 import android.app.Application
-import com.github.arhor.spellbindr.di.ApplicationScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +13,6 @@ class SpellbindrApplication : Application() {
     lateinit var assetBootstrapper: AssetBootstrapper
 
     @Inject
-    @ApplicationScope
     lateinit var applicationScope: CoroutineScope
 
     override fun onCreate() {
