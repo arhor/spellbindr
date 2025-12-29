@@ -12,7 +12,7 @@ class FeaturesAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Feature>(
+) : AssetDataStoreBase<Feature>(
     json = json,
     path = "data/features.json",
     context = context,

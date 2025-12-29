@@ -12,7 +12,7 @@ class LanguagesAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Language>(
+) : AssetDataStoreBase<Language>(
     json = json,
     path = "data/languages.json",
     context = context,

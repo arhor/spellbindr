@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.data.local.assets.AssetLoadingPriority
-import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.InitializableAssetDataStore
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.seconds
 @Stable
 @HiltViewModel
 class SpellbindrAppViewModel @Inject constructor(
-    private val loaders: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>,
+    private val loaders: Set<@JvmSuppressWildcards InitializableAssetDataStore>,
     private val themeRepository: ThemeRepository,
 ) : ViewModel() {
 

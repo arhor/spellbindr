@@ -15,13 +15,13 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 
-abstract class StaticAssetDataStoreBase<T>(
+abstract class AssetDataStoreBase<T>(
     private val json: Json,
     private val path: String,
     private val context: Context,
     private val serializer: KSerializer<T>,
     override val loadingPriority: AssetLoadingPriority = AssetLoadingPriority.CRITICAL,
-) : StaticAssetDataStore<List<T>> {
+) : AssetDataStore<List<T>> {
 
     private val logger = createLogger()
     private val mutex = Mutex()

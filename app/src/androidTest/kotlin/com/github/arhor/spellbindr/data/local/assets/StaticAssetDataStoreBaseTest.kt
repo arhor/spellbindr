@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
+import com.github.arhor.spellbindr.di.AppModule
+import com.github.arhor.spellbindr.di.DatabaseModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -9,8 +11,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
-import com.github.arhor.spellbindr.di.AppModule
-import com.github.arhor.spellbindr.di.DatabaseModule
 
 @HiltAndroidTest
 @UninstallModules(AppModule::class, DatabaseModule::class)
@@ -19,7 +19,7 @@ class StaticAssetDataStoreBaseTest {
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var stores: Set<@JvmSuppressWildcards InitializableStaticAssetDataStore>
+    lateinit var stores: Set<@JvmSuppressWildcards InitializableAssetDataStore>
 
     @Before
     fun init() {

@@ -12,7 +12,7 @@ class CharacterClassAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<CharacterClass>(
+) : AssetDataStoreBase<CharacterClass>(
     json = json,
     path = "data/classes.json",
     context = context,

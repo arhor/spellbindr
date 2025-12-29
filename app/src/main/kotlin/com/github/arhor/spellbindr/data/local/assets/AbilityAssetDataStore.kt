@@ -12,7 +12,7 @@ class AbilityAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Ability>(
+) : AssetDataStoreBase<Ability>(
     json = json,
     path = "data/abilities.json",
     context = context,

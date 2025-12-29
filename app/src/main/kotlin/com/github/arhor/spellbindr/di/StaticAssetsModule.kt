@@ -7,7 +7,7 @@ import com.github.arhor.spellbindr.data.local.assets.CharacterClassAssetDataStor
 import com.github.arhor.spellbindr.data.local.assets.CharacterRaceAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.FeaturesAssetDataStore
-import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.InitializableAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.LanguagesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.TraitsAssetDataStore
@@ -25,50 +25,50 @@ abstract class StaticAssetsModule {
     @Binds
     @IntoSet
     abstract fun bindBackgroundsAssetDataStore(backgroundsDataStore: BackgroundsAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindEquipmentAssetDataStore(equipmentDataStore: EquipmentAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindRacesAssetDataStore(dacesAssetDataStore: CharacterRaceAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindAlignmentsAssetDataStore(alignmentAssetDataStore: AlignmentAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindCharacterClassesAssetDataStore(characterClassesDataStore: CharacterClassAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindSpellsAssetDataStore(spellsDataStore: SpellAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindTraitsAssetDataStore(traitsDataStore: TraitsAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindFeaturesAssetDataStore(featuresDataStore: FeaturesAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindLanguagesAssetDataStore(languagesAssetDataStore: LanguagesAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 
     @Binds
     @IntoSet
     abstract fun bindAbilitiesAssetDataStore(abilitiesAssetDataStore: AbilityAssetDataStore)
-        : InitializableStaticAssetDataStore
+            : InitializableAssetDataStore
 }

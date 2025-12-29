@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.ui
 import android.util.Log
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.data.local.assets.AssetLoadingPriority
-import com.github.arhor.spellbindr.data.local.assets.InitializableStaticAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.InitializableAssetDataStore
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.ui.components.app.SpellbindrAppViewModel
@@ -119,7 +119,7 @@ class SpellbindrAppViewModelTest {
 private class FakeAssetLoader(
     override val loadingPriority: AssetLoadingPriority,
     private val initializationDelayMillis: Long = 0L,
-) : InitializableStaticAssetDataStore {
+) : InitializableAssetDataStore {
 
     override suspend fun initialize() {
         if (initializationDelayMillis > 0) {

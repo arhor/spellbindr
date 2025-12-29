@@ -12,7 +12,7 @@ class BackgroundsAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Background>(
+) : AssetDataStoreBase<Background>(
     json = json,
     path = "data/backgrounds.json",
     context = context,
