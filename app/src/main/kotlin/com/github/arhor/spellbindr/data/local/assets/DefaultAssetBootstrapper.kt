@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
+import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -15,28 +17,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.seconds
 
-data class AssetBootstrapState(
-    val initialDelayPassed: Boolean = false,
-    val criticalAssetsReady: Boolean = false,
-    val deferredAssetsReady: Boolean = false,
-    val criticalAssetsError: Throwable? = null,
-    val deferredAssetsError: Throwable? = null,
-) {
-    val readyForInteraction: Boolean
-        get() = initialDelayPassed && criticalAssetsReady
-
-    val fullyReady: Boolean
-        get() = readyForInteraction && deferredAssetsReady
-}
-
-interface AssetBootstrapper {
-    val state: StateFlow<AssetBootstrapState>
-
-    fun start(scope: CoroutineScope)
-}
-
 @Singleton
-internal class DefaultAssetBootstrapper @Inject constructor(
+class DefaultAssetBootstrapper @Inject constructor(
     loaders: Set<@JvmSuppressWildcards InitializableAssetDataStore>,
 ) : AssetBootstrapper {
 

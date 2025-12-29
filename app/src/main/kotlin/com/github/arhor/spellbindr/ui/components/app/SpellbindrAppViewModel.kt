@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.data.local.assets.AssetBootstrapper
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel

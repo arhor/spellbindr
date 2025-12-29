@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.ui
 
 import android.util.Log
 import com.github.arhor.spellbindr.MainDispatcherRule
-import com.github.arhor.spellbindr.data.local.assets.AssetBootstrapState
-import com.github.arhor.spellbindr.data.local.assets.AssetBootstrapper
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
+import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.ui.components.app.SpellbindrAppViewModel

@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.di
 
-import com.github.arhor.spellbindr.data.local.assets.AssetBootstrapper
 import com.github.arhor.spellbindr.data.local.assets.DefaultAssetBootstrapper
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
