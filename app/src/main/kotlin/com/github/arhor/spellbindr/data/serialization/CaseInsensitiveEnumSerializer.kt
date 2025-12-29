@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.utils
+package com.github.arhor.spellbindr.data.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -10,7 +10,8 @@ import kotlinx.serialization.encoding.Encoder
 class CaseInsensitiveEnumSerializer<T : Enum<T>>(
     private val enumValues: Array<T>,
 ) : KSerializer<T> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Enum", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("Enum", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: T) {
         encoder.encodeString(value.name.lowercase().replace(DELIMITER_ENUM, DELIMITER_JSON))
@@ -30,4 +31,3 @@ class CaseInsensitiveEnumSerializer<T : Enum<T>>(
             CaseInsensitiveEnumSerializer(enumValues<T>())
     }
 }
-

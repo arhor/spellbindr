@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.utils
+package com.github.arhor.spellbindr.data.serialization
 
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.KSerializer
@@ -9,7 +9,8 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 object EntityRefSerializer : KSerializer<EntityRef> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("EntityRef", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("EntityRef", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: EntityRef) {
         encoder.encodeString(value.id)
@@ -19,4 +20,3 @@ object EntityRefSerializer : KSerializer<EntityRef> {
         return EntityRef(decoder.decodeString())
     }
 }
-
