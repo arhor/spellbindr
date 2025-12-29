@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.AbilityAssetDataStore
-import com.github.arhor.spellbindr.data.model.AbilityAssetModel
 import com.github.arhor.spellbindr.domain.model.Ability
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
@@ -15,7 +14,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class AbilityRepositoryImplTest {
 
-    private val abilityFlow = MutableStateFlow<List<AbilityAssetModel>?>(null)
+    private val abilityFlow = MutableStateFlow<List<Ability>?>(null)
     private val abilityAssetDataStore = mockk<AbilityAssetDataStore> {
         every { data } returns abilityFlow
     }
@@ -37,12 +36,12 @@ class AbilityRepositoryImplTest {
     @Test
     fun `allAbilities should map abilities from asset models when data is available`() = runTest {
         // Given
-        val strength = AbilityAssetModel(
+        val strength = Ability(
             id = "str",
             displayName = "Strength",
             description = listOf("Strength description"),
         )
-        val dexterity = AbilityAssetModel(
+        val dexterity = Ability(
             id = "dex",
             displayName = "Dexterity",
             description = listOf("Dexterity description"),

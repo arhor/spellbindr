@@ -25,13 +25,13 @@ class AbilitySkillSerializationTest {
     }
 
     private val abilitiesFromAsset by lazy {
-        json.decodeFromString<List<AbilityAssetModel>>(abilitiesJsonPath.toFile().readText())
+        json.decodeFromString<List<Ability>>(abilitiesJsonPath.toFile().readText())
     }
 
     @Test
     fun `abilities asset should expose ids names and descriptions when parsed from json`() {
         // Given
-        val abilitiesById = abilitiesFromAsset.associateBy(AbilityAssetModel::id)
+        val abilitiesById = abilitiesFromAsset.associateBy(Ability::id)
 
         // When
         val orderedAbilities = AbilityIds.standardOrder.map(abilitiesById::getValue)
@@ -54,10 +54,10 @@ class AbilitySkillSerializationTest {
     @Test
     fun `skills should reference abilities defined in assets when mapping ability ids`() {
         // Given
-        val abilityIds = abilitiesFromAsset.map(AbilityAssetModel::id).toSet()
+        val abilityIds = abilitiesFromAsset.map(Ability::id).toSet()
 
         // When
-        val referencedAbilityIds = Skill.values().map(Skill::abilityId).toSet()
+        val referencedAbilityIds = Skill.entries.map(Skill::abilityId).toSet()
 
         // Then
         assertThat(abilityIds).containsAtLeastElementsIn(referencedAbilityIds)

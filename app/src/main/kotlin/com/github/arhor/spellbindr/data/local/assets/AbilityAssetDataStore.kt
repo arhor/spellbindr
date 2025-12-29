@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.data.model.AbilityAssetModel
+import com.github.arhor.spellbindr.domain.model.Ability
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -12,10 +12,10 @@ class AbilityAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<AbilityAssetModel>(
+) : StaticAssetDataStoreBase<Ability>(
     json = json,
     path = "data/abilities.json",
     context = context,
-    serializer = AbilityAssetModel.serializer(),
+    serializer = Ability.serializer(),
     loadingPriority = AssetLoadingPriority.DEFERRED,
 )
