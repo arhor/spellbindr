@@ -2,8 +2,8 @@ package com.github.arhor.spellbindr.di
 
 import android.content.Context
 import androidx.room.Room
-import com.github.arhor.spellbindr.data.local.database.Converters
 import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.database.converter.Converters
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import dagger.Module

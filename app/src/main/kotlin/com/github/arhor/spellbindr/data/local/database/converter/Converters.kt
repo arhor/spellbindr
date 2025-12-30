@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.local.database
+package com.github.arhor.spellbindr.data.local.database.converter
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
