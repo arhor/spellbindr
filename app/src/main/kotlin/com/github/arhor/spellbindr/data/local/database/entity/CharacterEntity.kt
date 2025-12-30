@@ -1,8 +1,7 @@
-package com.github.arhor.spellbindr.data.local.db
+package com.github.arhor.spellbindr.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import com.github.arhor.spellbindr.domain.model.EntityRef
 
 /**
@@ -25,7 +24,6 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
  * @property manualSheet Full serialized snapshot of the user's manual inputs (JSON).
  */
 @Entity(tableName = "characters")
-@TypeConverters(Converters::class)
 data class CharacterEntity(
     @PrimaryKey
     val id: String,

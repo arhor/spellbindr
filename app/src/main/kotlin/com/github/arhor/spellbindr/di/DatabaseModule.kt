@@ -2,9 +2,10 @@ package com.github.arhor.spellbindr.di
 
 import android.content.Context
 import androidx.room.Room
-import com.github.arhor.spellbindr.data.local.db.CharacterDao
-import com.github.arhor.spellbindr.data.local.db.FavoritesDao
-import com.github.arhor.spellbindr.data.local.db.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.database.Converters
+import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
+import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,20 +19,22 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideSpellbindrDatabase(@ApplicationContext context: Context): SpellbindrDatabase =
+    fun provideSpellbindrDatabase(
+        @ApplicationContext
+        context: Context,
+        converters: Converters,
+    ): SpellbindrDatabase =
         Room.databaseBuilder<SpellbindrDatabase>(context, "spellbindr.db")
-            .addMigrations(
-                SpellbindrDatabase.MIGRATION_1_2,
-                SpellbindrDatabase.MIGRATION_2_3,
-            )
+            .addTypeConverter(converters)
+            .addMigrations(*SpellbindrDatabase.allMigrations)
             .build()
 
     @Provides
     @Singleton
-    fun provideCharacterDao(database: SpellbindrDatabase): CharacterDao =
-        database.characterDao()
+    fun provideCharacterDao(db: SpellbindrDatabase): CharacterDao =
+        db.characterDao()
 
     @Provides
-    fun provideFavoritesDao(database: SpellbindrDatabase): FavoritesDao =
-        database.favoritesDao()
+    fun provideFavoritesDao(db: SpellbindrDatabase): FavoritesDao =
+        db.favoritesDao()
 }

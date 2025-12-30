@@ -1,10 +1,10 @@
-package com.github.arhor.spellbindr.data.local.db
+package com.github.arhor.spellbindr.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.github.arhor.spellbindr.data.local.db.CharacterEntity
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -35,4 +35,4 @@ interface CharacterDao {
      */
     @Query("DELETE FROM characters WHERE id = :id")
     suspend fun deleteCharacter(id: String)
-} 
+}

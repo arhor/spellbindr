@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.local.db
+package com.github.arhor.spellbindr.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.Index

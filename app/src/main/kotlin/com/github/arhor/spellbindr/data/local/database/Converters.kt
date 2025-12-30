@@ -1,14 +1,18 @@
-package com.github.arhor.spellbindr.data.local.db
+package com.github.arhor.spellbindr.data.local.database
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object Converters {
-    private val json = Json {
-        encodeDefaults = true
-        ignoreUnknownKeys = true
-    }
+@Singleton
+@ProvidedTypeConverter
+class Converters @Inject constructor(
+    private val json: Json,
+) {
 
     @TypeConverter
     fun fromEntityRef(ref: EntityRef?): String? = ref?.id

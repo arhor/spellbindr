@@ -1,11 +1,10 @@
 package com.github.arhor.spellbindr.data.repository
 
-import com.github.arhor.spellbindr.data.local.db.CharacterDao
-import com.github.arhor.spellbindr.data.local.db.CharacterEntity
-import com.github.arhor.spellbindr.data.local.db.toDomain
-import com.github.arhor.spellbindr.data.local.db.toSnapshot
+import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
 import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.mapper.toEntity
+import com.github.arhor.spellbindr.data.mapper.toSnapshot
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
