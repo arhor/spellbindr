@@ -15,16 +15,20 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellList
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 
 @Stable
@@ -44,6 +48,11 @@ class SpellsViewModel @Inject constructor(
         data object ToggleAllGroups : Action
         data class FiltersSubmitted(val classes: Set<EntityRef>) : Action
         data class FiltersCanceled(val classes: Set<EntityRef>) : Action
+        data class SpellClicked(val spell: Spell) : Action
+    }
+
+    sealed interface Effect {
+        data class SpellSelected(val spell: Spell) : Effect
     }
 
     @Immutable
@@ -58,6 +67,9 @@ class SpellsViewModel @Inject constructor(
         override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
         override val expandedAll: Boolean = true,
     ) : SpellListState
+
+    private val _effects = MutableSharedFlow<Effect>()
+    val effects: SharedFlow<Effect> = _effects.asSharedFlow()
 
     private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
@@ -165,6 +177,10 @@ class SpellsViewModel @Inject constructor(
                     filters,
                     SpellListStateReducer.FilterEvent.FiltersCanceled(action.classes),
                 )
+            }
+
+            is Action.SpellClicked -> viewModelScope.launch {
+                _effects.emit(Effect.SpellSelected(action.spell))
             }
 
             is Action.GroupToggled -> spellExpansionState.update { state ->
