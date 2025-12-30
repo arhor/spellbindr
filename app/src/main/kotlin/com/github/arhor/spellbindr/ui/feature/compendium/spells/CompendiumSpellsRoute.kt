@@ -8,13 +8,11 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel.CompendiumAction
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 
 @Composable
 fun CompendiumSpellsRoute(
-    vm: CompendiumViewModel,
+    vm: SpellsViewModel,
     onSpellSelected: (Spell) -> Unit,
     onBack: () -> Unit,
 ) {
@@ -31,14 +29,14 @@ fun CompendiumSpellsRoute(
     ) {
         SpellSearchScreen(
             state = state,
-            onQueryChanged = { vm.onAction(CompendiumAction.SpellQueryChanged(it)) },
-            onFiltersClick = { vm.onAction(CompendiumAction.SpellFiltersClicked) },
-            onFavoriteClick = { vm.onAction(CompendiumAction.SpellFavoritesToggled) },
-            onGroupToggle = { vm.onAction(CompendiumAction.SpellGroupToggled(it)) },
-            onToggleAllGroups = { vm.onAction(CompendiumAction.SpellToggleAllGroups) },
+            onQueryChanged = { vm.onAction(SpellsViewModel.Action.QueryChanged(it)) },
+            onFiltersClick = { vm.onAction(SpellsViewModel.Action.FiltersClicked) },
+            onFavoriteClick = { vm.onAction(SpellsViewModel.Action.FavoritesToggled) },
+            onGroupToggle = { vm.onAction(SpellsViewModel.Action.GroupToggled(it)) },
+            onToggleAllGroups = { vm.onAction(SpellsViewModel.Action.ToggleAllGroups) },
             onSpellClick = onSpellSelected,
-            onSubmitFilters = { vm.onAction(CompendiumAction.SpellFiltersSubmitted(it)) },
-            onCancelFilters = { vm.onAction(CompendiumAction.SpellFiltersCanceled(it)) },
+            onSubmitFilters = { vm.onAction(SpellsViewModel.Action.FiltersSubmitted(it)) },
+            onCancelFilters = { vm.onAction(SpellsViewModel.Action.FiltersCanceled(it)) },
         )
     }
 }

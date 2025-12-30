@@ -12,9 +12,9 @@ import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -53,7 +53,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         override val showFilterDialog: Boolean = false,
         override val castingClasses: List<EntityRef> = emptyList(),
         override val currentClasses: Set<EntityRef> = emptySet(),
-        override val uiState: CompendiumViewModel.SpellsUiState = CompendiumViewModel.SpellsUiState.Loading,
+        override val uiState: SpellsUiState = SpellsUiState.Loading,
         override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
         override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
         override val expandedAll: Boolean = true,
@@ -149,7 +149,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         .debounce(350.milliseconds)
         .distinctUntilChanged()
         .transformLatest { data ->
-            emit(CompendiumViewModel.SpellsUiState.Loading)
+            emit(SpellsUiState.Loading)
             runCatching {
                 searchAndGroupSpellsUseCase(
                     query = data.query,
@@ -160,17 +160,17 @@ class CharacterSpellPickerViewModel @Inject constructor(
                 )
             }.onSuccess { result ->
                 emit(
-                    CompendiumViewModel.SpellsUiState.Loaded(
+                    SpellsUiState.Loaded(
                         spells = result.spells,
                         spellsByLevel = result.spellsByLevel,
                     )
                 )
             }.onFailure { throwable ->
                 logger.error(throwable) { "Failed to load spells." }
-                emit(CompendiumViewModel.SpellsUiState.Error("Oops, something went wrong..."))
+                emit(SpellsUiState.Error("Oops, something went wrong..."))
             }
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CompendiumViewModel.SpellsUiState.Loading)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
     private val spellsState = combine(
         spellFilters,
@@ -179,11 +179,11 @@ class CharacterSpellPickerViewModel @Inject constructor(
         spellsUiState,
     ) { filters, expansionState, castingClasses, uiState ->
         val spellsByLevel = when (uiState) {
-            is CompendiumViewModel.SpellsUiState.Loaded -> uiState.spellsByLevel
+            is SpellsUiState.Loaded -> uiState.spellsByLevel
             else -> emptyMap()
         }
         val expandedSpellLevels = when (uiState) {
-            is CompendiumViewModel.SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
+            is SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
                 levels = uiState.spellsByLevel.keys,
                 state = expansionState,
             )

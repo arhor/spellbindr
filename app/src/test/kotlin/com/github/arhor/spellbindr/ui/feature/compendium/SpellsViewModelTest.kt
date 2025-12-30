@@ -3,19 +3,14 @@ package com.github.arhor.spellbindr.ui.feature.compendium
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.repository.FakeAlignmentRepository
 import com.github.arhor.spellbindr.domain.repository.FakeCharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.FakeFavoritesRepository
-import com.github.arhor.spellbindr.domain.repository.FakeRacesRepository
 import com.github.arhor.spellbindr.domain.repository.FakeSpellsRepository
-import com.github.arhor.spellbindr.domain.repository.FakeTraitsRepository
 import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveAlignmentsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
@@ -25,7 +20,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
-class CompendiumViewModelTest {
+class SpellsViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
@@ -37,7 +32,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellQueryChanged("  Fire "))
+        viewModel.onAction(SpellsViewModel.Action.QueryChanged("  Fire "))
         val state = viewModel.awaitSpellsState { it.query == "Fire" }
 
         // Then
@@ -51,7 +46,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellFavoritesToggled)
+        viewModel.onAction(SpellsViewModel.Action.FavoritesToggled)
         val state = viewModel.awaitSpellsState { it.showFavorite }
 
         // Then
@@ -66,7 +61,7 @@ class CompendiumViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellGroupToggled(level = 1))
+        viewModel.onAction(SpellsViewModel.Action.GroupToggled(level = 1))
         val state = viewModel.awaitSpellsState { it.expandedSpellLevels[1] == false }
 
         // Then
@@ -74,11 +69,11 @@ class CompendiumViewModelTest {
     }
 }
 
-private suspend fun CompendiumViewModel.awaitSpellsState(
-    predicate: (CompendiumViewModel.SpellsState) -> Boolean = { true },
-): CompendiumViewModel.SpellsState = spellsState.first(predicate)
+private suspend fun SpellsViewModel.awaitSpellsState(
+    predicate: (SpellsViewModel.SpellsState) -> Boolean = { true },
+): SpellsViewModel.SpellsState = spellsState.first(predicate)
 
-private fun TestScope.createViewModel(): CompendiumViewModel {
+private fun TestScope.createViewModel(): SpellsViewModel {
     val spells = listOf(
         Spell(
             id = "fire-bolt",
@@ -113,18 +108,12 @@ private fun TestScope.createViewModel(): CompendiumViewModel {
     )
     val spellsRepository = FakeSpellsRepository(initialSpells = spells)
     val favoritesRepository = FakeFavoritesRepository()
-    val alignmentsRepository = FakeAlignmentRepository()
-    val racesRepository = FakeRacesRepository()
-    val traitsRepository = FakeTraitsRepository()
     val classRepository = FakeCharacterClassRepository()
 
-    return CompendiumViewModel(
+    return SpellsViewModel(
         getSpellcastingClassRefsUseCase = GetSpellcastingClassRefsUseCase(classRepository),
         observeAllSpellsStateUseCase = ObserveAllSpellsStateUseCase(spellsRepository),
-        observeAlignmentsUseCase = ObserveAlignmentsUseCase(alignmentsRepository),
         observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
-        observeRacesUseCase = ObserveRacesUseCase(racesRepository),
-        observeTraitsUseCase = ObserveTraitsUseCase(traitsRepository),
         searchAndGroupSpellsUseCase = SearchAndGroupSpellsUseCase(spellsRepository, favoritesRepository),
     )
 }
