@@ -9,6 +9,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 object EntityRefSerializer : KSerializer<EntityRef> {
+
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("EntityRef", PrimitiveKind.STRING)
 
@@ -16,7 +17,6 @@ object EntityRefSerializer : KSerializer<EntityRef> {
         encoder.encodeString(value.id)
     }
 
-    override fun deserialize(decoder: Decoder): EntityRef {
-        return EntityRef(decoder.decodeString())
-    }
+    override fun deserialize(decoder: Decoder): EntityRef =
+        EntityRef(decoder.decodeString())
 }
