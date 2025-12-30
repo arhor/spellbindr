@@ -16,46 +16,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
-import com.github.arhor.spellbindr.ui.components.TopBarState
+import androidx.navigation.NavHostController
+import com.github.arhor.spellbindr.ui.navigation.AppDestination
 
 @Composable
 fun CompendiumSectionsRoute(
-    onNavigateToSpells: () -> Unit,
-    onNavigateToConditions: () -> Unit,
-    onNavigateToAlignments: () -> Unit,
-    onNavigateToRaces: () -> Unit,
-    onNavigateToTraits: () -> Unit,
-    onNavigateToFeatures: () -> Unit,
-    onNavigateToClasses: () -> Unit,
-    onNavigateToEquipment: () -> Unit,
+    controller: NavHostController,
 ) {
     val sections = listOf(
-        CompendiumSectionEntry(title = "Spells", onClick = onNavigateToSpells),
-        CompendiumSectionEntry(title = "Conditions", onClick = onNavigateToConditions),
-        CompendiumSectionEntry(title = "Alignments", onClick = onNavigateToAlignments),
-        CompendiumSectionEntry(title = "Races", onClick = onNavigateToRaces),
-        CompendiumSectionEntry(title = "Traits", onClick = onNavigateToTraits),
-        CompendiumSectionEntry(title = "Features", onClick = onNavigateToFeatures),
-        CompendiumSectionEntry(title = "Classes", onClick = onNavigateToClasses),
-        CompendiumSectionEntry(title = "Equipment", onClick = onNavigateToEquipment),
+        CompendiumSectionEntry(title = "Spells", destination = AppDestination.CompendiumSpells),
+        CompendiumSectionEntry(title = "Conditions", destination = AppDestination.CompendiumConditions),
+        CompendiumSectionEntry(title = "Alignments", destination = AppDestination.CompendiumAlignments),
+        CompendiumSectionEntry(title = "Races", destination = AppDestination.CompendiumRaces),
+        CompendiumSectionEntry(title = "Traits", destination = AppDestination.CompendiumTraits),
+        CompendiumSectionEntry(title = "Features", destination = AppDestination.CompendiumFeatures),
+        CompendiumSectionEntry(title = "Classes", destination = AppDestination.CompendiumClasses),
+        CompendiumSectionEntry(title = "Equipment", destination = AppDestination.CompendiumEquipment),
     )
 
-    ProvideTopBarState(
-        topBarState = TopBarState(
-            config = AppTopBarConfig(
-                visible = true,
-                title = { Text(text = "Compendium") },
-            ),
-        ),
-    ) {
-        CompendiumSectionsScreen(sections = sections)
-    }
+    CompendiumSectionsScreen(
+        sections = sections,
+        onSectionClick = { controller.navigate(it.destination) },
+    )
 }
 
 @Composable
-private fun CompendiumSectionsScreen(sections: List<CompendiumSectionEntry>) {
+private fun CompendiumSectionsScreen(
+    sections: List<CompendiumSectionEntry>,
+    onSectionClick: (CompendiumSectionEntry) -> Unit,
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +53,7 @@ private fun CompendiumSectionsScreen(sections: List<CompendiumSectionEntry>) {
     ) {
         items(sections) { section ->
             Card(
-                modifier = Modifier.clickable(onClick = section.onClick),
+                modifier = Modifier.clickable { onSectionClick(section) },
             ) {
                 Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                     Text(
@@ -86,5 +75,5 @@ private fun CompendiumSectionsScreen(sections: List<CompendiumSectionEntry>) {
 private data class CompendiumSectionEntry(
     val title: String,
     val description: String? = null,
-    val onClick: () -> Unit,
+    val destination: AppDestination,
 )

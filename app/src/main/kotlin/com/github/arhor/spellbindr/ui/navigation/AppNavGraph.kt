@@ -70,14 +70,7 @@ fun SpellbindrAppNavGraph(
         }
         composable<AppDestination.CompendiumSections> {
             CompendiumSectionsRoute(
-                onNavigateToSpells = { controller.navigate(AppDestination.CompendiumSpells) },
-                onNavigateToConditions = { controller.navigate(AppDestination.CompendiumConditions) },
-                onNavigateToAlignments = { controller.navigate(AppDestination.CompendiumAlignments) },
-                onNavigateToRaces = { controller.navigate(AppDestination.CompendiumRaces) },
-                onNavigateToTraits = { controller.navigate(AppDestination.CompendiumTraits) },
-                onNavigateToFeatures = { controller.navigate(AppDestination.CompendiumFeatures) },
-                onNavigateToClasses = { controller.navigate(AppDestination.CompendiumClasses) },
-                onNavigateToEquipment = { controller.navigate(AppDestination.CompendiumEquipment) },
+                controller = controller,
             )
         }
         composable<AppDestination.CompendiumSpells> { navEntry ->
