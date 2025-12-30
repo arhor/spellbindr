@@ -16,7 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -71,7 +72,7 @@ private fun SpellSearchContent(
         Spacer(modifier = Modifier.height(16.dp))
 
         when (val uiState = state.uiState) {
-            CompendiumViewModel.SpellsUiState.Loading -> {
+            SpellsUiState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -80,14 +81,14 @@ private fun SpellSearchContent(
                 }
             }
 
-            is CompendiumViewModel.SpellsUiState.Error -> {
+            is SpellsUiState.Error -> {
                 Text(
                     text = "Error: ${uiState.message}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
-            is CompendiumViewModel.SpellsUiState.Loaded -> {
+            is SpellsUiState.Loaded -> {
                 SpellList(
                     spellsByLevel = state.spellsByLevel,
                     expandedSpellLevels = state.expandedSpellLevels,
@@ -140,7 +141,7 @@ private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
     )
     AppTheme(isDarkTheme = isDarkTheme) {
         SpellSearchContent(
-            state = CompendiumViewModel.SpellsState(
+            state = SpellsViewModel.SpellsState(
                 query = "heal",
                 castingClasses = listOf(EntityRef(id = "cleric")),
                 spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
@@ -148,7 +149,7 @@ private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
                     .toSortedMap(),
                 expandedSpellLevels = mapOf(0 to true, 1 to true),
                 expandedAll = true,
-                uiState = CompendiumViewModel.SpellsUiState.Loaded(
+                uiState = SpellsUiState.Loaded(
                     spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell),
                     spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
                         .groupBy(Spell::level)

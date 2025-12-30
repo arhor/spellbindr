@@ -1,22 +1,15 @@
-package com.github.arhor.spellbindr.ui.feature.compendium
+package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.domain.model.Alignment
 import com.github.arhor.spellbindr.domain.model.AssetState
-import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.domain.model.EntityRef
-import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveAlignmentsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
@@ -24,12 +17,10 @@ import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
@@ -38,46 +29,22 @@ import kotlin.time.Duration.Companion.milliseconds
 
 @Stable
 @HiltViewModel
-class CompendiumViewModel @Inject constructor(
+class SpellsViewModel @Inject constructor(
     private val getSpellcastingClassRefsUseCase: GetSpellcastingClassRefsUseCase,
     private val observeAllSpellsStateUseCase: ObserveAllSpellsStateUseCase,
-    private val observeAlignmentsUseCase: ObserveAlignmentsUseCase,
     private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
-    private val observeRacesUseCase: ObserveRacesUseCase,
-    private val observeTraitsUseCase: ObserveTraitsUseCase,
     private val searchAndGroupSpellsUseCase: SearchAndGroupSpellsUseCase,
 ) : ViewModel() {
 
-    sealed interface SpellsUiState {
-        data object Loading : SpellsUiState
-
-        @Immutable
-        data class Loaded(
-            val spells: List<Spell>,
-            val spellsByLevel: Map<Int, List<Spell>>,
-        ) : SpellsUiState
-
-        @Immutable
-        data class Error(val message: String) : SpellsUiState
+    sealed interface Action {
+        data class QueryChanged(val query: String) : Action
+        data object FiltersClicked : Action
+        data object FavoritesToggled : Action
+        data class GroupToggled(val level: Int) : Action
+        data object ToggleAllGroups : Action
+        data class FiltersSubmitted(val classes: Set<EntityRef>) : Action
+        data class FiltersCanceled(val classes: Set<EntityRef>) : Action
     }
-
-    @Immutable
-    data class AlignmentsState(
-        val alignments: List<Alignment> = emptyList(),
-        val expandedItemName: String? = null,
-    )
-
-    @Immutable
-    data class ConditionsState(
-        val expandedItem: Condition? = null,
-    )
-
-    @Immutable
-    data class RacesState(
-        val races: List<Race> = emptyList(),
-        val traits: Map<String, Trait> = emptyMap(),
-        val expandedItemName: String? = null,
-    )
 
     @Immutable
     data class SpellsState(
@@ -92,54 +59,10 @@ class CompendiumViewModel @Inject constructor(
         override val expandedAll: Boolean = true,
     ) : SpellListState
 
-    sealed interface CompendiumAction {
-        data class SpellQueryChanged(val query: String) : CompendiumAction
-        data object SpellFiltersClicked : CompendiumAction
-        data object SpellFavoritesToggled : CompendiumAction
-        data class SpellGroupToggled(val level: Int) : CompendiumAction
-        data object SpellToggleAllGroups : CompendiumAction
-        data class SpellFiltersSubmitted(val classes: Set<EntityRef>) : CompendiumAction
-        data class SpellFiltersCanceled(val classes: Set<EntityRef>) : CompendiumAction
-
-        data class AlignmentClicked(val alignmentName: String) : CompendiumAction
-
-        data class ConditionClicked(val condition: Condition) : CompendiumAction
-
-        data class RaceClicked(val raceName: String) : CompendiumAction
-    }
-
-    private val alignmentSelection = MutableStateFlow<String?>(null)
-    private val conditionSelection = MutableStateFlow<Condition?>(null)
-    private val raceSelection = MutableStateFlow<String?>(null)
     private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
-    private val logger = Logger.createLogger<CompendiumViewModel>()
 
-    val alignmentsState = combine(
-        observeAlignmentsUseCase(),
-        alignmentSelection,
-    ) { alignments, expandedItemName ->
-        AlignmentsState(
-            alignments = alignments,
-            expandedItemName = expandedItemName,
-        )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AlignmentsState())
-
-    val conditionsState = conditionSelection
-        .map { ConditionsState(expandedItem = it) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsState())
-
-    val racesState = combine(
-        observeRacesUseCase(),
-        observeTraitsUseCase(),
-        raceSelection,
-    ) { races, traits, expandedItemName ->
-        RacesState(
-            races = races,
-            traits = traits.associateBy(Trait::id),
-            expandedItemName = expandedItemName,
-        )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RacesState())
+    private val logger = Logger.createLogger<SpellsViewModel>()
 
     private val castingClassesState = flow {
         emit(getSpellcastingClassRefsUseCase())
@@ -213,38 +136,38 @@ class CompendiumViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
-    fun onAction(action: CompendiumAction) {
+    fun onAction(action: Action) {
         when (action) {
-            is CompendiumAction.SpellQueryChanged -> spellFilters.update { filters ->
+            is Action.QueryChanged -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(
                     filters,
                     SpellListStateReducer.FilterEvent.QueryChanged(action.query),
                 )
             }
 
-            CompendiumAction.SpellFiltersClicked -> spellFilters.update { filters ->
+            Action.FiltersClicked -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FiltersOpened)
             }
 
-            CompendiumAction.SpellFavoritesToggled -> spellFilters.update { filters ->
+            Action.FavoritesToggled -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FavoritesToggled)
             }
 
-            is CompendiumAction.SpellFiltersSubmitted -> spellFilters.update { filters ->
+            is Action.FiltersSubmitted -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(
                     filters,
                     SpellListStateReducer.FilterEvent.FiltersSubmitted(action.classes),
                 )
             }
 
-            is CompendiumAction.SpellFiltersCanceled -> spellFilters.update { filters ->
+            is Action.FiltersCanceled -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(
                     filters,
                     SpellListStateReducer.FilterEvent.FiltersCanceled(action.classes),
                 )
             }
 
-            is CompendiumAction.SpellGroupToggled -> spellExpansionState.update { state ->
+            is Action.GroupToggled -> spellExpansionState.update { state ->
                 SpellListStateReducer.toggleGroup(
                     state = state,
                     level = action.level,
@@ -252,36 +175,12 @@ class CompendiumViewModel @Inject constructor(
                 )
             }
 
-            CompendiumAction.SpellToggleAllGroups -> spellExpansionState.update { state ->
+            Action.ToggleAllGroups -> spellExpansionState.update { state ->
                 val levels = spellsState.value.spellsByLevel.keys
                 SpellListStateReducer.toggleAll(
                     state = state,
                     levels = levels,
                 )
-            }
-
-            is CompendiumAction.AlignmentClicked -> alignmentSelection.update { current ->
-                if (current == action.alignmentName) {
-                    null
-                } else {
-                    action.alignmentName
-                }
-            }
-
-            is CompendiumAction.ConditionClicked -> conditionSelection.update { current ->
-                if (current == action.condition) {
-                    null
-                } else {
-                    action.condition
-                }
-            }
-
-            is CompendiumAction.RaceClicked -> raceSelection.update { current ->
-                if (current == action.raceName) {
-                    null
-                } else {
-                    action.raceName
-                }
             }
         }
     }

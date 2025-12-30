@@ -7,6 +7,8 @@ import androidx.compose.ui.test.onNodeWithText
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test
@@ -38,11 +40,11 @@ class SpellSearchScreenTest {
             source = "PHB",
         )
         val spellsByLevel = mapOf(1 to listOf(spell))
-        val state = CompendiumViewModel.SpellsState(
+        val state = SpellsViewModel.SpellsState(
             spellsByLevel = spellsByLevel,
             expandedSpellLevels = mapOf(1 to true),
             expandedAll = true,
-            uiState = CompendiumViewModel.SpellsUiState.Loaded(
+            uiState = SpellsUiState.Loaded(
                 spells = listOf(spell),
                 spellsByLevel = spellsByLevel,
             ),

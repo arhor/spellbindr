@@ -7,15 +7,13 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel.CompendiumAction
 
 @Composable
 fun CompendiumRacesRoute(
-    vm: CompendiumViewModel,
+    vm: RacesViewModel,
     onBack: () -> Unit,
 ) {
-    val state = vm.racesState.collectAsStateWithLifecycle().value
+    val state = vm.state.collectAsStateWithLifecycle().value
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -29,7 +27,7 @@ fun CompendiumRacesRoute(
         RacesRoute(
             state = state,
             onRaceClick = { raceName ->
-                vm.onAction(CompendiumAction.RaceClicked(raceName))
+                vm.onRaceClick(raceName)
             },
         )
     }

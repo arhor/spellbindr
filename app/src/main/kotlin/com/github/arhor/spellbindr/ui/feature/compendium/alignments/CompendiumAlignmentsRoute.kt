@@ -7,15 +7,13 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel.CompendiumAction
 
 @Composable
 fun CompendiumAlignmentsRoute(
-    vm: CompendiumViewModel,
+    vm: AlignmentsViewModel,
     onBack: () -> Unit,
 ) {
-    val state = vm.alignmentsState.collectAsStateWithLifecycle().value
+    val state = vm.state.collectAsStateWithLifecycle().value
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -29,7 +27,7 @@ fun CompendiumAlignmentsRoute(
         AlignmentsRoute(
             state = state,
             onAlignmentClick = { name ->
-                vm.onAction(CompendiumAction.AlignmentClicked(name))
+                vm.onAlignmentClick(name)
             },
         )
     }

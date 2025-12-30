@@ -11,11 +11,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.Condition
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumViewModel
 
 @Composable
 fun ConditionsRoute(
-    state: CompendiumViewModel.ConditionsState,
+    state: ConditionsViewModel.ConditionsState,
     onConditionClick: (Condition) -> Unit,
 ) {
     ConditionsScreen(
@@ -26,7 +25,7 @@ fun ConditionsRoute(
 
 @Composable
 private fun ConditionsScreen(
-    state: CompendiumViewModel.ConditionsState,
+    state: ConditionsViewModel.ConditionsState,
     onConditionClick: (Condition) -> Unit,
 ) {
     val listState = rememberLazyListState()
