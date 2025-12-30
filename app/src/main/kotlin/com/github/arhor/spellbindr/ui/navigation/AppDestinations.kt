@@ -26,7 +26,31 @@ sealed class AppDestination(open val title: String) {
     data class CharacterSpellPicker(val characterId: String) : AppDestination(title = "Add Spells")
 
     @Serializable
-    data object Compendium : AppDestination(title = "Compendium")
+    data object CompendiumSections : AppDestination(title = "Compendium")
+
+    @Serializable
+    data object CompendiumSpells : AppDestination(title = "Spells")
+
+    @Serializable
+    data object CompendiumConditions : AppDestination(title = "Conditions")
+
+    @Serializable
+    data object CompendiumAlignments : AppDestination(title = "Alignments")
+
+    @Serializable
+    data object CompendiumRaces : AppDestination(title = "Races")
+
+    @Serializable
+    data object CompendiumTraits : AppDestination(title = "Traits")
+
+    @Serializable
+    data object CompendiumFeatures : AppDestination(title = "Features")
+
+    @Serializable
+    data object CompendiumClasses : AppDestination(title = "Classes")
+
+    @Serializable
+    data object CompendiumEquipment : AppDestination(title = "Equipment")
 
     @Serializable
     data class SpellDetail(
@@ -54,7 +78,7 @@ val BottomNavItems = listOf(
         icon = Icons.Outlined.Groups,
     ),
     BottomNavItem(
-        destination = AppDestination.Compendium,
+        destination = AppDestination.CompendiumSections,
         label = "Compendium",
         icon = Icons.AutoMirrored.Outlined.MenuBook,
     ),

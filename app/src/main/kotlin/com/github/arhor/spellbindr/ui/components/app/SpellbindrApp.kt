@@ -101,7 +101,7 @@ private fun defaultTopBarConfig(destination: NavDestination?): AppTopBarConfig =
             title = { Text(text = "Characters") },
         )
 
-        destination matches AppDestination.Compendium::class -> AppTopBarConfig(
+        destination matches AppDestination.CompendiumSections::class -> AppTopBarConfig(
             visible = true,
             title = { Text(text = "Compendium") },
         )

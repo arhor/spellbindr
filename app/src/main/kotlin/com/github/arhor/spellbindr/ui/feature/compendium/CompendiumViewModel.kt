@@ -2,7 +2,6 @@ package com.github.arhor.spellbindr.ui.feature.compendium
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Alignment
@@ -30,9 +29,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
@@ -42,7 +39,6 @@ import kotlin.time.Duration.Companion.milliseconds
 @Stable
 @HiltViewModel
 class CompendiumViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val getSpellcastingClassRefsUseCase: GetSpellcastingClassRefsUseCase,
     private val observeAllSpellsStateUseCase: ObserveAllSpellsStateUseCase,
     private val observeAlignmentsUseCase: ObserveAlignmentsUseCase,
@@ -96,40 +92,7 @@ class CompendiumViewModel @Inject constructor(
         override val expandedAll: Boolean = true,
     ) : SpellListState
 
-    @Immutable
-    data class CompendiumUiData(
-        val alignmentsState: AlignmentsState = AlignmentsState(),
-        val conditionsState: ConditionsState = ConditionsState(),
-        val racesState: RacesState = RacesState(),
-        val selectedSection: CompendiumSection = CompendiumSection.Spells,
-        val spellsState: SpellsState = SpellsState(),
-        val isLoading: Boolean = true,
-        val errorMessage: String? = null,
-    )
-
-    sealed interface CompendiumUiState {
-        @Immutable
-        data object Loading : CompendiumUiState
-
-        @Immutable
-        data class Content(
-            val alignmentsState: AlignmentsState,
-            val conditionsState: ConditionsState,
-            val racesState: RacesState,
-            val selectedSection: CompendiumSection,
-            val spellsState: SpellsState,
-        ) : CompendiumUiState
-
-        @Immutable
-        data class Error(
-            val message: String,
-            val content: Content? = null,
-        ) : CompendiumUiState
-    }
-
     sealed interface CompendiumAction {
-        data class SectionSelected(val section: CompendiumSection) : CompendiumAction
-
         data class SpellQueryChanged(val query: String) : CompendiumAction
         data object SpellFiltersClicked : CompendiumAction
         data object SpellFavoritesToggled : CompendiumAction
@@ -145,30 +108,14 @@ class CompendiumViewModel @Inject constructor(
         data class RaceClicked(val raceName: String) : CompendiumAction
     }
 
-    sealed interface CompendiumUiEvent {
-        data class ContentUpdated(val content: CompendiumUiData) : CompendiumUiEvent
-        data class ErrorChanged(val message: String?) : CompendiumUiEvent
-    }
-
     private val alignmentSelection = MutableStateFlow<String?>(null)
     private val conditionSelection = MutableStateFlow<Condition?>(null)
     private val raceSelection = MutableStateFlow<String?>(null)
     private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
     private val logger = Logger.createLogger<CompendiumViewModel>()
-    private val selectedSection =
-        savedStateHandle.getStateFlow(SELECTED_SECTION_KEY, CompendiumSection.Spells)
-    private val _data = MutableStateFlow(CompendiumUiData())
 
-    val uiState: StateFlow<CompendiumUiState> = _data
-        .map { it.toUiState() }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5_000),
-            CompendiumUiState.Loading,
-        )
-
-    private val alignmentsState = combine(
+    val alignmentsState = combine(
         observeAlignmentsUseCase(),
         alignmentSelection,
     ) { alignments, expandedItemName ->
@@ -178,11 +125,11 @@ class CompendiumViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AlignmentsState())
 
-    private val conditionsState = conditionSelection
+    val conditionsState = conditionSelection
         .map { ConditionsState(expandedItem = it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsState())
 
-    private val racesState = combine(
+    val racesState = combine(
         observeRacesUseCase(),
         observeTraitsUseCase(),
         raceSelection,
@@ -235,7 +182,7 @@ class CompendiumViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
-    private val spellsState = combine(
+    val spellsState = combine(
         spellFilters,
         spellExpansionState,
         castingClassesState,
@@ -268,7 +215,6 @@ class CompendiumViewModel @Inject constructor(
 
     fun onAction(action: CompendiumAction) {
         when (action) {
-            is CompendiumAction.SectionSelected -> savedStateHandle[SELECTED_SECTION_KEY] = action.section
             is CompendiumAction.SpellQueryChanged -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(
                     filters,
@@ -340,80 +286,6 @@ class CompendiumViewModel @Inject constructor(
         }
     }
 
-    private val contentState = combine(
-        alignmentsState,
-        conditionsState,
-        racesState,
-        selectedSection,
-        spellsState,
-    ) { alignments, conditions, races, section, spells ->
-        CompendiumUiData(
-            alignmentsState = alignments,
-            conditionsState = conditions,
-            racesState = races,
-            selectedSection = section,
-            spellsState = spells,
-            isLoading = false,
-            errorMessage = null,
-        )
-    }
-
-    init {
-        contentState
-            .onEach { updateData(CompendiumUiEvent.ContentUpdated(it)) }
-            .launchIn(viewModelScope)
-    }
-
-    private fun updateData(event: CompendiumUiEvent) {
-        _data.update { current -> reduce(current, event) }
-    }
-
-    private fun reduce(data: CompendiumUiData, event: CompendiumUiEvent): CompendiumUiData = when (event) {
-        is CompendiumUiEvent.ContentUpdated -> data.copy(
-            alignmentsState = event.content.alignmentsState,
-            conditionsState = event.content.conditionsState,
-            racesState = event.content.racesState,
-            selectedSection = event.content.selectedSection,
-            spellsState = event.content.spellsState,
-            isLoading = event.content.isLoading,
-            errorMessage = event.content.errorMessage,
-        )
-
-        is CompendiumUiEvent.ErrorChanged -> data.copy(
-            errorMessage = event.message,
-            isLoading = false,
-        )
-    }
-
-    private fun CompendiumUiData.toUiState(): CompendiumUiState = when {
-        isLoading -> {
-            CompendiumUiState.Loading
-        }
-
-        errorMessage != null -> {
-            CompendiumUiState.Error(
-                message = errorMessage,
-                content = CompendiumUiState.Content(
-                    alignmentsState = alignmentsState,
-                    conditionsState = conditionsState,
-                    racesState = racesState,
-                    selectedSection = selectedSection,
-                    spellsState = spellsState,
-                ),
-            )
-        }
-
-        else -> {
-            CompendiumUiState.Content(
-                alignmentsState = alignmentsState,
-                conditionsState = conditionsState,
-                racesState = racesState,
-                selectedSection = selectedSection,
-                spellsState = spellsState,
-            )
-        }
-    }
-
     private data class SpellsQuery(
         val filters: SpellListStateReducer.SpellFilters,
         val allSpellsState: AssetState<List<Spell>>,
@@ -423,9 +295,5 @@ class CompendiumViewModel @Inject constructor(
         val currentClasses: Set<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
         val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
-    }
-
-    private companion object {
-        const val SELECTED_SECTION_KEY = "compendium_section"
     }
 }
