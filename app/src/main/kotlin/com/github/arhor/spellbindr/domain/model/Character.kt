@@ -51,6 +51,8 @@ data class Character(
         val resistances: Set<EntityRef> = emptySet(),
         val abilityScores: Map<EntityRef, Int> = emptyMap(),
         val proficiencies: Set<EntityRef> = emptySet(),
+        val equipment: Set<EntityRef> = emptySet(),
+        val inventory: Map<EntityRef, Int> = emptyMap(),
         val currentHitPoints: Int = 0,
         val maximumHitPoints: Int = 0,
         val conditionImmunities: Set<EntityRef> = emptySet(),
