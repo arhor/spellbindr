@@ -36,12 +36,6 @@ sealed class AppDestination(open val title: String) {
     ) : AppDestination(title = "Spell Details")
 
     @Serializable
-    data class MonsterDetail(val monsterId: String) : AppDestination(title = "Monster Details")
-
-    @Serializable
-    data class RuleDetail(val ruleId: String) : AppDestination(title = "Rule Details")
-
-    @Serializable
     data object Dice : AppDestination(title = "Dice")
 
     @Serializable

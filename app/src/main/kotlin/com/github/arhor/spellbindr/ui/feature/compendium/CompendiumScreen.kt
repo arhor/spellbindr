@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.Condition
-import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
@@ -121,22 +120,14 @@ private fun CompendiumContent(
                     CompendiumSection.Spells -> {
                         SpellSearchScreen(
                             state = state.spellsState,
-                            onQueryChanged = { query ->
-                                onAction(CompendiumAction.SpellQueryChanged(query))
-                            },
+                            onQueryChanged = { onAction(CompendiumAction.SpellQueryChanged(it)) },
                             onFiltersClick = { onAction(CompendiumAction.SpellFiltersClicked) },
                             onFavoriteClick = { onAction(CompendiumAction.SpellFavoritesToggled) },
-                            onGroupToggle = { level ->
-                                onAction(CompendiumAction.SpellGroupToggled(level))
-                            },
+                            onGroupToggle = { onAction(CompendiumAction.SpellGroupToggled(it)) },
                             onToggleAllGroups = { onAction(CompendiumAction.SpellToggleAllGroups) },
                             onSpellClick = onSpellSelected,
-                            onSubmitFilters = { classes: Set<EntityRef> ->
-                                onAction(CompendiumAction.SpellFiltersSubmitted(classes))
-                            },
-                            onCancelFilters = { classes: Set<EntityRef> ->
-                                onAction(CompendiumAction.SpellFiltersCanceled(classes))
-                            },
+                            onSubmitFilters = { onAction(CompendiumAction.SpellFiltersSubmitted(it)) },
+                            onCancelFilters = { onAction(CompendiumAction.SpellFiltersCanceled(it)) },
                         )
                     }
 

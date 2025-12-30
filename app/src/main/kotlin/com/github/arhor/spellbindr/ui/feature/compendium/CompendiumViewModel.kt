@@ -129,6 +129,7 @@ class CompendiumViewModel @Inject constructor(
 
     sealed interface CompendiumAction {
         data class SectionSelected(val section: CompendiumSection) : CompendiumAction
+
         data class SpellQueryChanged(val query: String) : CompendiumAction
         data object SpellFiltersClicked : CompendiumAction
         data object SpellFavoritesToggled : CompendiumAction
@@ -136,8 +137,11 @@ class CompendiumViewModel @Inject constructor(
         data object SpellToggleAllGroups : CompendiumAction
         data class SpellFiltersSubmitted(val classes: Set<EntityRef>) : CompendiumAction
         data class SpellFiltersCanceled(val classes: Set<EntityRef>) : CompendiumAction
+
         data class AlignmentClicked(val alignmentName: String) : CompendiumAction
+
         data class ConditionClicked(val condition: Condition) : CompendiumAction
+
         data class RaceClicked(val raceName: String) : CompendiumAction
     }
 

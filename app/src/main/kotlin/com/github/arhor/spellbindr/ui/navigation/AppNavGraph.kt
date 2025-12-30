@@ -9,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.feature.characters.editor.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
@@ -74,14 +73,7 @@ fun SpellbindrAppNavGraph(
         composable<AppDestination.Compendium> {
             CompendiumRoute(
                 vm = hiltViewModel(it),
-                onSpellSelected = { spell: Spell ->
-                    controller.navigate(
-                        AppDestination.SpellDetail(
-                            spellId = spell.id,
-                            initialName = spell.name,
-                        ),
-                    )
-                },
+                onSpellSelected = { spell -> controller.navigate(AppDestination.SpellDetail(spell.id, spell.name)) },
             )
         }
         composable<AppDestination.SpellDetail> {
