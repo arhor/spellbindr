@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.compendium
 
-import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
@@ -32,20 +31,6 @@ class CompendiumViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `onAction should update selected section when section selection occurs`() = runTest(mainDispatcherRule.dispatcher) {
-        // Given
-        val viewModel = createViewModel()
-        advanceUntilIdle()
-
-        // When
-        viewModel.onAction(CompendiumViewModel.CompendiumAction.SectionSelected(CompendiumSection.Races))
-        val state = viewModel.awaitContentState { it.selectedSection == CompendiumSection.Races }
-
-        // Then
-        assertThat(state.selectedSection).isEqualTo(CompendiumSection.Races)
-    }
-
-    @Test
     fun `onAction should trim and update spell query when query changes`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val viewModel = createViewModel()
@@ -53,10 +38,10 @@ class CompendiumViewModelTest {
 
         // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellQueryChanged("  Fire "))
-        val state = viewModel.awaitContentState { it.spellsState.query == "Fire" }
+        val state = viewModel.awaitSpellsState { it.query == "Fire" }
 
         // Then
-        assertThat(state.spellsState.query).isEqualTo("Fire")
+        assertThat(state.query).isEqualTo("Fire")
     }
 
     @Test
@@ -67,10 +52,10 @@ class CompendiumViewModelTest {
 
         // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellFavoritesToggled)
-        val state = viewModel.awaitContentState { it.spellsState.showFavorite }
+        val state = viewModel.awaitSpellsState { it.showFavorite }
 
         // Then
-        assertThat(state.spellsState.showFavorite).isTrue()
+        assertThat(state.showFavorite).isTrue()
     }
 
     @Test
@@ -82,19 +67,16 @@ class CompendiumViewModelTest {
 
         // When
         viewModel.onAction(CompendiumViewModel.CompendiumAction.SpellGroupToggled(level = 1))
-        val state = viewModel.awaitContentState { it.spellsState.expandedSpellLevels[1] == false }
+        val state = viewModel.awaitSpellsState { it.expandedSpellLevels[1] == false }
 
         // Then
-        assertThat(state.spellsState.expandedSpellLevels[1]).isFalse()
+        assertThat(state.expandedSpellLevels[1]).isFalse()
     }
 }
 
-private suspend fun CompendiumViewModel.awaitContentState(
-    predicate: (CompendiumViewModel.CompendiumUiState.Content) -> Boolean = { true },
-): CompendiumViewModel.CompendiumUiState.Content =
-    uiState.first { state ->
-        state is CompendiumViewModel.CompendiumUiState.Content && predicate(state)
-    } as CompendiumViewModel.CompendiumUiState.Content
+private suspend fun CompendiumViewModel.awaitSpellsState(
+    predicate: (CompendiumViewModel.SpellsState) -> Boolean = { true },
+): CompendiumViewModel.SpellsState = spellsState.first(predicate)
 
 private fun TestScope.createViewModel(): CompendiumViewModel {
     val spells = listOf(
@@ -137,7 +119,6 @@ private fun TestScope.createViewModel(): CompendiumViewModel {
     val classRepository = FakeCharacterClassRepository()
 
     return CompendiumViewModel(
-        savedStateHandle = SavedStateHandle(),
         getSpellcastingClassRefsUseCase = GetSpellcastingClassRefsUseCase(classRepository),
         observeAllSpellsStateUseCase = ObserveAllSpellsStateUseCase(spellsRepository),
         observeAlignmentsUseCase = ObserveAlignmentsUseCase(alignmentsRepository),

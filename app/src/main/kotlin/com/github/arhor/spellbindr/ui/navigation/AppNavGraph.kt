@@ -13,7 +13,15 @@ import com.github.arhor.spellbindr.ui.feature.characters.editor.CharacterEditorR
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumAlignmentsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumClassesRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumConditionsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumEquipmentRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumFeaturesRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRacesRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumSectionsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumSpellsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumTraitsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
@@ -60,11 +68,54 @@ fun SpellbindrAppNavGraph(
                 onFinished = controller::navigateUp,
             )
         }
-        composable<AppDestination.Compendium> { navEntry ->
-            CompendiumRoute(
+        composable<AppDestination.CompendiumSections> {
+            CompendiumSectionsRoute(
+                onNavigateToSpells = { controller.navigate(AppDestination.CompendiumSpells) },
+                onNavigateToConditions = { controller.navigate(AppDestination.CompendiumConditions) },
+                onNavigateToAlignments = { controller.navigate(AppDestination.CompendiumAlignments) },
+                onNavigateToRaces = { controller.navigate(AppDestination.CompendiumRaces) },
+                onNavigateToTraits = { controller.navigate(AppDestination.CompendiumTraits) },
+                onNavigateToFeatures = { controller.navigate(AppDestination.CompendiumFeatures) },
+                onNavigateToClasses = { controller.navigate(AppDestination.CompendiumClasses) },
+                onNavigateToEquipment = { controller.navigate(AppDestination.CompendiumEquipment) },
+            )
+        }
+        composable<AppDestination.CompendiumSpells> { navEntry ->
+            CompendiumSpellsRoute(
                 vm = hiltViewModel(navEntry),
                 onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it.id, it.name)) },
+                onBack = controller::navigateUp,
             )
+        }
+        composable<AppDestination.CompendiumConditions> { navEntry ->
+            CompendiumConditionsRoute(
+                vm = hiltViewModel(navEntry),
+                onBack = controller::navigateUp,
+            )
+        }
+        composable<AppDestination.CompendiumAlignments> { navEntry ->
+            CompendiumAlignmentsRoute(
+                vm = hiltViewModel(navEntry),
+                onBack = controller::navigateUp,
+            )
+        }
+        composable<AppDestination.CompendiumRaces> { navEntry ->
+            CompendiumRacesRoute(
+                vm = hiltViewModel(navEntry),
+                onBack = controller::navigateUp,
+            )
+        }
+        composable<AppDestination.CompendiumTraits> {
+            CompendiumTraitsRoute(onBack = controller::navigateUp)
+        }
+        composable<AppDestination.CompendiumFeatures> {
+            CompendiumFeaturesRoute(onBack = controller::navigateUp)
+        }
+        composable<AppDestination.CompendiumClasses> {
+            CompendiumClassesRoute(onBack = controller::navigateUp)
+        }
+        composable<AppDestination.CompendiumEquipment> {
+            CompendiumEquipmentRoute(onBack = controller::navigateUp)
         }
         composable<AppDestination.SpellDetail> { navEntry ->
             SpellDetailRoute(

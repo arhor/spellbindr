@@ -45,7 +45,22 @@ fun AppBottomBar(controller: NavHostController) {
     }
 }
 
-private infix fun NavDestination?.matches(destination: AppDestination): Boolean = when (this) {
-    null -> false
-    else -> hierarchy.any { it.hasRoute(destination::class) }
+private infix fun NavDestination?.matches(destination: AppDestination): Boolean {
+    if (this == null) return false
+
+    return when (destination) {
+        AppDestination.CompendiumSections -> hierarchy.any { navDestination ->
+            navDestination.hasRoute(AppDestination.CompendiumSections::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumSpells::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumConditions::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumAlignments::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumRaces::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumTraits::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumFeatures::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumClasses::class) ||
+                navDestination.hasRoute(AppDestination.CompendiumEquipment::class)
+        }
+
+        else -> hierarchy.any { it.hasRoute(destination::class) }
+    }
 }
