@@ -27,6 +27,7 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
+import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel.CharacterSheetEffect
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel.CharacterSheetUiAction
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent
@@ -67,7 +68,6 @@ fun CharacterSheetRoute(
     var overflowExpanded by remember(savedStateHandle) { mutableStateOf(false) }
     var showDeleteConfirmation by remember(savedStateHandle) { mutableStateOf(false) }
 
-    // Listen for results from the spell picker screen
     LaunchedEffect(savedStateHandle) {
         savedStateHandle
             .getStateFlow<List<CharacterSpellAssignment>?>(
@@ -82,90 +82,78 @@ fun CharacterSheetRoute(
             }
     }
 
-    // Handle one-off view model effects
     LaunchedEffect(vm) {
-        vm.effects.collectLatest { effect ->
-            when (effect) {
+        vm.effects.collectLatest {
+            when (it) {
                 CharacterSheetEffect.CharacterDeleted -> onCharacterDeleted()
             }
         }
     }
 
     val callbacks = CharacterSheetCallbacks(
-        onTabSelected = { tab -> vm.onAction(CharacterSheetUiAction.TabSelected(tab)) },
+        onTabSelected = { vm.onAction(CharacterSheetUiAction.TabSelected(it)) },
         onEnterEdit = { vm.onAction(CharacterSheetUiAction.EnterEdit) },
         onCancelEdit = { vm.onAction(CharacterSheetUiAction.CancelEdit) },
         onSaveEdits = { vm.onAction(CharacterSheetUiAction.SaveInlineEdits) },
-        onAdjustHp = { delta -> vm.onAction(CharacterSheetUiAction.AdjustCurrentHp(delta)) },
-        onTempHpChanged = { value -> vm.onAction(CharacterSheetUiAction.TempHpChanged(value)) },
-        onMaxHpEdited = { value -> vm.onAction(CharacterSheetUiAction.MaxHpEdited(value)) },
-        onCurrentHpEdited = { value -> vm.onAction(CharacterSheetUiAction.CurrentHpEdited(value)) },
-        onTempHpEdited = { value -> vm.onAction(CharacterSheetUiAction.TemporaryHpEdited(value)) },
-        onSpeedEdited = { value -> vm.onAction(CharacterSheetUiAction.SpeedEdited(value)) },
-        onHitDiceEdited = { value -> vm.onAction(CharacterSheetUiAction.HitDiceEdited(value)) },
-        onSensesEdited = { value -> vm.onAction(CharacterSheetUiAction.SensesEdited(value)) },
-        onLanguagesEdited = { value -> vm.onAction(CharacterSheetUiAction.LanguagesEdited(value)) },
-        onProficienciesEdited = { value -> vm.onAction(CharacterSheetUiAction.ProficienciesEdited(value)) },
-        onEquipmentEdited = { value -> vm.onAction(CharacterSheetUiAction.EquipmentEdited(value)) },
-        onDeathSaveSuccessesChanged = { count ->
-            vm.onAction(CharacterSheetUiAction.DeathSaveSuccessesChanged(count))
-        },
-        onDeathSaveFailuresChanged = { count ->
-            vm.onAction(CharacterSheetUiAction.DeathSaveFailuresChanged(count))
-        },
-        onSpellSlotToggle = { level, index ->
-            vm.onAction(CharacterSheetUiAction.SpellSlotToggled(level, index))
-        },
+        onAdjustHp = { vm.onAction(CharacterSheetUiAction.AdjustCurrentHp(it)) },
+        onTempHpChanged = { vm.onAction(CharacterSheetUiAction.TempHpChanged(it)) },
+        onMaxHpEdited = { vm.onAction(CharacterSheetUiAction.MaxHpEdited(it)) },
+        onCurrentHpEdited = { vm.onAction(CharacterSheetUiAction.CurrentHpEdited(it)) },
+        onTempHpEdited = { vm.onAction(CharacterSheetUiAction.TemporaryHpEdited(it)) },
+        onSpeedEdited = { vm.onAction(CharacterSheetUiAction.SpeedEdited(it)) },
+        onHitDiceEdited = { vm.onAction(CharacterSheetUiAction.HitDiceEdited(it)) },
+        onSensesEdited = { vm.onAction(CharacterSheetUiAction.SensesEdited(it)) },
+        onLanguagesEdited = { vm.onAction(CharacterSheetUiAction.LanguagesEdited(it)) },
+        onProficienciesEdited = { vm.onAction(CharacterSheetUiAction.ProficienciesEdited(it)) },
+        onEquipmentEdited = { vm.onAction(CharacterSheetUiAction.EquipmentEdited(it)) },
+        onDeathSaveSuccessesChanged = { vm.onAction(CharacterSheetUiAction.DeathSaveSuccessesChanged(it)) },
+        onDeathSaveFailuresChanged = { vm.onAction(CharacterSheetUiAction.DeathSaveFailuresChanged(it)) },
+        onSpellSlotToggle = { level, index -> vm.onAction(CharacterSheetUiAction.SpellSlotToggled(level, index)) },
         onSpellSlotTotalChanged = { level, total ->
-            vm.onAction(CharacterSheetUiAction.SpellSlotTotalChanged(level, total))
+            vm.onAction(
+                CharacterSheetUiAction.SpellSlotTotalChanged(
+                    level,
+                    total
+                )
+            )
         },
         onSpellRemoved = { spellId, sourceClass ->
-            vm.onAction(CharacterSheetUiAction.SpellRemoved(spellId, sourceClass))
+            vm.onAction(
+                CharacterSheetUiAction.SpellRemoved(
+                    spellId,
+                    sourceClass
+                )
+            )
         },
         onSpellSelected = onOpenSpellDetail,
-        onAddSpellsClicked = {
-            state.characterId?.let(onAddSpells)
-        },
+        onAddSpellsClicked = { state.characterId?.let(onAddSpells) },
         onAddWeaponClicked = { vm.onAction(CharacterSheetUiAction.AddWeaponClicked) },
-        onWeaponSelected = { id -> vm.onAction(CharacterSheetUiAction.WeaponSelected(id)) },
-        onWeaponDeleted = { id -> vm.onAction(CharacterSheetUiAction.WeaponDeleted(id)) },
+        onWeaponSelected = { vm.onAction(CharacterSheetUiAction.WeaponSelected(it)) },
+        onWeaponDeleted = { vm.onAction(CharacterSheetUiAction.WeaponDeleted(it)) },
         onWeaponEditorDismissed = { vm.onAction(CharacterSheetUiAction.WeaponEditorDismissed) },
-        onWeaponNameChanged = { value -> vm.onAction(CharacterSheetUiAction.WeaponNameChanged(value)) },
-        onWeaponAbilityChanged = { ability ->
-            vm.onAction(CharacterSheetUiAction.WeaponAbilityChanged(ability))
-        },
-        onWeaponUseAbilityForDamageChanged = { enabled ->
-            vm.onAction(CharacterSheetUiAction.WeaponUseAbilityForDamageChanged(enabled))
-        },
-        onWeaponProficiencyChanged = { proficient ->
-            vm.onAction(CharacterSheetUiAction.WeaponProficiencyChanged(proficient))
-        },
-        onWeaponDiceCountChanged = { value ->
-            vm.onAction(CharacterSheetUiAction.WeaponDiceCountChanged(value))
-        },
-        onWeaponDieSizeChanged = { value ->
-            vm.onAction(CharacterSheetUiAction.WeaponDieSizeChanged(value))
-        },
-        onWeaponDamageTypeChanged = { damageType ->
-            vm.onAction(CharacterSheetUiAction.WeaponDamageTypeChanged(damageType))
-        },
+        onWeaponNameChanged = { vm.onAction(CharacterSheetUiAction.WeaponNameChanged(it)) },
+        onWeaponAbilityChanged = { vm.onAction(CharacterSheetUiAction.WeaponAbilityChanged(it)) },
+        onWeaponUseAbilityForDamageChanged = { vm.onAction(CharacterSheetUiAction.WeaponUseAbilityForDamageChanged(it)) },
+        onWeaponProficiencyChanged = { vm.onAction(CharacterSheetUiAction.WeaponProficiencyChanged(it)) },
+        onWeaponDiceCountChanged = { vm.onAction(CharacterSheetUiAction.WeaponDiceCountChanged(it)) },
+        onWeaponDieSizeChanged = { vm.onAction(CharacterSheetUiAction.WeaponDieSizeChanged(it)) },
+        onWeaponDamageTypeChanged = { vm.onAction(CharacterSheetUiAction.WeaponDamageTypeChanged(it)) },
         onWeaponSaved = { vm.onAction(CharacterSheetUiAction.WeaponSaved) },
         onWeaponCatalogOpened = { vm.onAction(CharacterSheetUiAction.WeaponCatalogOpened) },
         onWeaponCatalogClosed = { vm.onAction(CharacterSheetUiAction.WeaponCatalogClosed) },
-        onWeaponCatalogItemSelected = { id ->
-            vm.onAction(CharacterSheetUiAction.WeaponCatalogItemSelected(id))
-        },
+        onWeaponCatalogItemSelected = { vm.onAction(CharacterSheetUiAction.WeaponCatalogItemSelected(it)) },
         onOpenFullEditor = { state.characterId?.let(onOpenFullEditor) },
         onDeleteCharacter = { vm.onAction(CharacterSheetUiAction.DeleteCharacter) },
     )
 
     val headerState = (state as? CharacterSheetUiState.Content)?.header
+
     val config = AppTopBarConfig(
         visible = true,
         title = {
             CharacterSheetTopBarTitle(
-                name = headerState?.name ?: args.initialName,
-                subtitle = headerState?.subtitle ?: args.initialSubtitle,
+                name = headerState?.name ?: args.character.name.ifBlank { null },
+                subtitle = headerState?.subtitle ?: args.character.initialSubtitle(),
             )
         },
         navigation = AppTopBarNavigation.Back(onBack),
@@ -334,5 +322,15 @@ private fun CharacterSheetScreenPreview() {
             callbacks = CharacterSheetCallbacks(),
             modifier = Modifier.fillMaxSize(),
         )
+    }
+}
+
+private fun CharacterListItem.initialSubtitle(): String {
+    return buildString {
+        append("Level ${level.coerceAtLeast(1)}")
+        if (className.isNotBlank()) {
+            append(' ')
+            append(className)
+        }
     }
 }

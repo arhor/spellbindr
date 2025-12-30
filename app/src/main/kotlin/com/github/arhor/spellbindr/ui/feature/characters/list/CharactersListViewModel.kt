@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.serialization.Serializable
 import javax.inject.Inject
 
 /**
@@ -56,6 +57,7 @@ data class CharactersListUiState(
  * Display model for a single character item in the list.
  */
 @Immutable
+@Serializable
 data class CharacterListItem(
     val id: String,
     val name: String,
