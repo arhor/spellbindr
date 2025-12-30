@@ -89,7 +89,7 @@ sealed interface Effect {
         val perLevel: Boolean = false,
     ) : Effect {
         override fun applyTo(state: Character.State) = state.copy(
-            maximumHitPoints = state.maximumHitPoints + state.level * value,
+            maximumHitPoints = state.maximumHitPoints + value * if (perLevel) state.level else 1,
         )
     }
 
@@ -148,9 +148,14 @@ sealed interface Effect {
     data class AddEquipmentEffect(
         val equipment: List<CountedEntityRef>,
     ) : Effect {
-        override fun applyTo(state: Character.State): Character.State {
-            TODO("Not yet implemented")
-        }
+        override fun applyTo(state: Character.State) = state.copy(
+            equipment = state.equipment + equipment.map { EntityRef(it.id) },
+            inventory = state.inventory.copy {
+                equipment.forEach { (id, quantity) ->
+                    merge(EntityRef(id), quantity, Int::plus)
+                }
+            },
+        )
     }
 }
 
