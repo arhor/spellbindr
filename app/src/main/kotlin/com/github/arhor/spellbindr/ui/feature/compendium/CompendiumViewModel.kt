@@ -108,6 +108,7 @@ class CompendiumViewModel @Inject constructor(
     )
 
     sealed interface CompendiumUiState {
+        @Immutable
         data object Loading : CompendiumUiState
 
         @Immutable
@@ -381,25 +382,32 @@ class CompendiumViewModel @Inject constructor(
     }
 
     private fun CompendiumUiData.toUiState(): CompendiumUiState = when {
-        isLoading -> CompendiumUiState.Loading
-        errorMessage != null -> CompendiumUiState.Error(
-            message = errorMessage,
-            content = CompendiumUiState.Content(
+        isLoading -> {
+            CompendiumUiState.Loading
+        }
+
+        errorMessage != null -> {
+            CompendiumUiState.Error(
+                message = errorMessage,
+                content = CompendiumUiState.Content(
+                    alignmentsState = alignmentsState,
+                    conditionsState = conditionsState,
+                    racesState = racesState,
+                    selectedSection = selectedSection,
+                    spellsState = spellsState,
+                ),
+            )
+        }
+
+        else -> {
+            CompendiumUiState.Content(
                 alignmentsState = alignmentsState,
                 conditionsState = conditionsState,
                 racesState = racesState,
                 selectedSection = selectedSection,
                 spellsState = spellsState,
-            ),
-        )
-
-        else -> CompendiumUiState.Content(
-            alignmentsState = alignmentsState,
-            conditionsState = conditionsState,
-            racesState = racesState,
-            selectedSection = selectedSection,
-            spellsState = spellsState,
-        )
+            )
+        }
     }
 
     private data class SpellsQuery(

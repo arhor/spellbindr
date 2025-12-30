@@ -72,6 +72,15 @@ private fun CompendiumScreen(
             }
         }
 
+        is CompendiumUiState.Content -> {
+            CompendiumContent(
+                state = state,
+                modifier = modifier,
+                onAction = onAction,
+                onSpellSelected = onSpellSelected,
+            )
+        }
+
         is CompendiumUiState.Error -> {
             state.content?.let { content ->
                 CompendiumContent(
@@ -81,15 +90,6 @@ private fun CompendiumScreen(
                     onSpellSelected = onSpellSelected,
                 )
             }
-        }
-
-        is CompendiumUiState.Content -> {
-            CompendiumContent(
-                state = state,
-                modifier = modifier,
-                onAction = onAction,
-                onSpellSelected = onSpellSelected,
-            )
         }
     }
 }
