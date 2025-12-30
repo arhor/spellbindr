@@ -7,7 +7,6 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
@@ -169,7 +168,6 @@ class SpellsUseCasesTest {
         assertThat(favoritesRepository.lastToggledType).isEqualTo(FavoriteType.SPELL)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `ObserveSpellDetailsUseCase should emit loading and favorite updates when spell is found`() = runTest {
         // Given

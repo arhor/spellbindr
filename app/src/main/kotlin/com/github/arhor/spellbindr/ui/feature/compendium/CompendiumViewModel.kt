@@ -23,8 +23,6 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellList
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,7 +39,6 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @Stable
 @HiltViewModel
 class CompendiumViewModel @Inject constructor(
@@ -196,7 +193,6 @@ class CompendiumViewModel @Inject constructor(
         emit(getSpellcastingClassRefsUseCase())
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    @OptIn(FlowPreview::class)
     private val spellsUiState = combine(
         spellFilters,
         observeAllSpellsStateUseCase(),

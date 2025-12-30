@@ -18,7 +18,6 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
@@ -27,7 +26,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class CompendiumViewModelTest {
 
     @get:Rule

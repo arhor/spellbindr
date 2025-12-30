@@ -17,7 +17,6 @@ import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellList
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -141,7 +140,6 @@ class CharacterSpellPickerViewModel @Inject constructor(
 
     private val logger = Logger.createLogger<CharacterSpellPickerViewModel>()
 
-    @OptIn(FlowPreview::class)
     private val spellsUiState = combine(
         spellFilters,
         observeAllSpellsUseCase(),
@@ -324,7 +322,6 @@ class CharacterSpellPickerViewModel @Inject constructor(
         }
     }
 
-    @OptIn(FlowPreview::class)
     private fun observeStateChanges() {
         spellsState
             .onEach { spellsState -> updateData(CharacterSpellPickerUiEvent.SpellsStateUpdated(spellsState)) }

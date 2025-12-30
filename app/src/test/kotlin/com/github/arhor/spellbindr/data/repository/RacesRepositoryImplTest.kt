@@ -6,13 +6,11 @@ import com.github.arhor.spellbindr.domain.model.Race
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withTimeout
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class RacesRepositoryImplTest {
 
     @Test

@@ -6,14 +6,12 @@ import com.github.arhor.spellbindr.domain.repository.FakeThemeRepository
 import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
 import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest {
 
     @get:Rule

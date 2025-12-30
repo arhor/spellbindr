@@ -1,6 +1,3 @@
-import com.github.arhor.spellbindr.build.StripPreviewClasses
-import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
-import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -10,12 +7,12 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
-    jacoco
 }
 
 android {
     namespace = "com.github.arhor.spellbindr"
     compileSdk = 36
+    buildToolsVersion = "36.0.0"
 
     defaultConfig {
         applicationId = "com.github.arhor.spellbindr"
@@ -48,85 +45,16 @@ android {
     }
 }
 
-jacoco {
-    toolVersion = libs.versions.jacoco.get()
-}
-
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
-        freeCompilerArgs.addAll("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
-    }
-}
-
-tasks.withType<Test>().configureEach {
-    extensions.configure(JacocoTaskExtension::class) {
-        isIncludeNoLocationClasses = true
-        excludes = listOf("jdk.internal.*")
-    }
-}
-
-// Compose previews are stripped out via StripPreviewClasses; these patterns clean
-// up any generated helpers that remain after bytecode filtering.
-val jacocoFileFilter = listOf(
-    "**/R.class",
-    "**/R$*.class",
-    "**/BuildConfig.*",
-    "**/Manifest*.*",
-    "**/*Test*.*",
-    "**/*\$NoOp*.*",
-    "**/*\$inlined\$*.*",
-    "**/*ComposableSingletons*.*",
-    "**/*Preview*.*",
-    "**/ui/theme/**",
-)
-
-androidComponents.onVariants(androidComponents.selector().withBuildType("debug")) { variant ->
-    val variantNameCapitalized = variant.name.replaceFirstChar { char -> char.titlecase() }
-    val unitTestTaskName = "test${variantNameCapitalized}UnitTest"
-
-    val filteredClassesDir = layout.buildDirectory.dir("jacoco/filteredClasses/${variant.name}")
-    val stripPreviewClasses = tasks.register("strip${variantNameCapitalized}ComposePreviews", StripPreviewClasses::class) {
-        kotlinClassesDir.set(layout.buildDirectory.dir("tmp/kotlin-classes/${variant.name}").map { dir ->
-            dir.asFile.apply { mkdirs() }
-            dir
-        })
-        javaClassesDir.set(layout.buildDirectory.dir("intermediates/javac/${variant.name}/classes").map { dir ->
-            dir.asFile.apply { mkdirs() }
-            dir
-        })
-        outputDir.set(filteredClassesDir)
-    }
-    stripPreviewClasses.configure {
-        dependsOn(tasks.named("compile${variantNameCapitalized}Kotlin"))
-        dependsOn(tasks.named("compile${variantNameCapitalized}JavaWithJavac"))
-    }
-
-    val jacocoReport = tasks.register("jacoco${variantNameCapitalized}Report", JacocoReport::class) {
-        group = "verification"
-        description = "Generates Jacoco coverage report for the ${variant.name} build."
-        notCompatibleWithConfigurationCache("Jacoco report setup relies on dynamic class filtering.")
-
-        dependsOn(unitTestTaskName, stripPreviewClasses)
-
-        reports {
-            html.required = true
-            xml.required = true
-        }
-
-        val filteredClassTree = stripPreviewClasses.flatMap { task ->
-            task.outputDir.map { dir ->
-                fileTree(dir) { exclude(jacocoFileFilter) }
-            }
-        }
-
-        classDirectories.setFrom(filteredClassTree)
-        sourceDirectories.setFrom(files("src/main/java", "src/main/kotlin"))
-        executionData.setFrom(files(layout.buildDirectory.file("jacoco/${unitTestTaskName}.exec")))
-    }
-
-    tasks.named("check").configure {
-        dependsOn(jacocoReport)
+        freeCompilerArgs.addAll(
+            "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
+            "-opt-in=kotlin.contracts.ExperimentalContracts",
+            "-opt-in=kotlin.contracts.ExperimentalExtendedContracts",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview",
+        )
     }
 }
 

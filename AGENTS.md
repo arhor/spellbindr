@@ -166,7 +166,6 @@ app/src/main/assets/icons/   # raw icon assets (used in Compose upstream)
     2. `./gradlew connectedAndroidTest` (Compose/instrumented UI tests).
     3. `./gradlew assembleDebug` (quick build smoke).
     4. `./gradlew lint` (Android lint).
-    5. `./gradlew resolveAllDependencies` (cache warm-up; defined in root `build.gradle.kts`).
     6. `./gradlew help` (after SDK/script setup) to confirm environment.
 
 ## Tooling & workflows

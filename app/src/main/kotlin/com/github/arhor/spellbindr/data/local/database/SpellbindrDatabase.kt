@@ -5,7 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.github.arhor.spellbindr.data.local.database.converter.Converters
+import com.github.arhor.spellbindr.data.local.database.converter.CharacterSheetConverter
+import com.github.arhor.spellbindr.data.local.database.converter.EntityRefConverter
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
@@ -19,7 +20,12 @@ import com.github.arhor.spellbindr.data.local.database.entity.FavoriteEntity
     version = 3,
     exportSchema = false,
 )
-@TypeConverters(Converters::class)
+@TypeConverters(
+    value = [
+        CharacterSheetConverter::class,
+        EntityRefConverter::class,
+    ]
+)
 abstract class SpellbindrDatabase : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
     abstract fun favoritesDao(): FavoritesDao

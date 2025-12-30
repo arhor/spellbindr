@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.di
 import android.content.Context
 import androidx.room.Room
 import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
-import com.github.arhor.spellbindr.data.local.database.converter.Converters
+import com.github.arhor.spellbindr.data.local.database.converter.Converter
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import dagger.Module
@@ -22,10 +22,10 @@ object DatabaseModule {
     fun provideSpellbindrDatabase(
         @ApplicationContext
         context: Context,
-        converters: Converters,
+        converters: Set<@JvmSuppressWildcards Converter>,
     ): SpellbindrDatabase =
         Room.databaseBuilder<SpellbindrDatabase>(context, "spellbindr.db")
-            .addTypeConverter(converters)
+            .apply { converters.forEach(::addTypeConverter) }
             .addMigrations(*SpellbindrDatabase.allMigrations)
             .build()
 
