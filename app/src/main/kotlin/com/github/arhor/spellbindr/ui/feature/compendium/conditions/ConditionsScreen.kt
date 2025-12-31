@@ -9,8 +9,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.Condition
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun ConditionsRoute(
@@ -59,5 +61,29 @@ private fun ConditionsScreen(
                 onItemClick = { onConditionClick(condition) },
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ConditionsScreenPreview() {
+    ConditionsPreviewContent(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun ConditionsScreenDarkPreview() {
+    ConditionsPreviewContent(isDarkTheme = true)
+}
+
+@Composable
+private fun ConditionsPreviewContent(isDarkTheme: Boolean) {
+    AppTheme(isDarkTheme = isDarkTheme) {
+        ConditionsScreen(
+            state = ConditionsViewModel.ConditionsState(
+                expandedItem = Condition.BLINDED,
+            ),
+            onConditionClick = {},
+        )
     }
 }

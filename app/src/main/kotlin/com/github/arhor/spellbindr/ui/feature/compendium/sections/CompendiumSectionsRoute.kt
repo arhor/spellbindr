@@ -11,9 +11,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -75,6 +75,17 @@ private fun CompendiumSectionsScreen(
 @Composable
 private fun CompendiumSectionsPreview() {
     AppTheme {
+        CompendiumSectionsScreen(
+            sections = compendiumSectionEntries,
+            onSectionClick = {},
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun CompendiumSectionsDarkPreview() {
+    AppTheme(isDarkTheme = true) {
         CompendiumSectionsScreen(
             sections = compendiumSectionEntries,
             onSectionClick = {},

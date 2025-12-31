@@ -43,6 +43,9 @@ class NavigationBehaviorTest {
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
 
+        waitForText("Spells")
+        composeTestRule.onNodeWithText("Spells").performClick()
+
         waitForText("Search spell by name")
         composeTestRule.onNodeWithText("Search spell by name").performTextInput("Magic Missile")
         waitForText("Magic Missile")
@@ -122,6 +125,24 @@ class NavigationBehaviorTest {
         // Then
         assertThat(backVisibleDuringSheet).isTrue()
         assertThat(backButtons).isEmpty()
+    }
+
+    @Test
+    fun `compendium sections should open conditions and render description`() {
+        // Given
+        waitForContentDescription("Create character")
+        composeTestRule.onNodeWithText("Compendium").performClick()
+
+        waitForText("Conditions")
+        composeTestRule.onNodeWithText("Conditions").performClick()
+
+        // When
+        waitForText("Blinded")
+        composeTestRule.onNodeWithText("Blinded").performClick()
+
+        // Then
+        waitForText("- A blinded creature can't see and automatically fails any ability check that requires sight.")
+        composeTestRule.onNodeWithText("- A blinded creature can't see and automatically fails any ability check that requires sight.").assertIsDisplayed()
     }
 
     @Test
