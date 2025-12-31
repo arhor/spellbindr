@@ -10,7 +10,7 @@ sealed interface AlignmentsUiState {
     @Immutable
     data class Content(
         val alignments: List<Alignment> = emptyList(),
-        val expandedItemName: String? = null,
+        val selectedAlignmentId: String? = null,
     ) : AlignmentsUiState
 
     @Immutable

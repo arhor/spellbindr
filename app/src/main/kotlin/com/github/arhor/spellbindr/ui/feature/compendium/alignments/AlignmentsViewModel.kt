@@ -21,26 +21,41 @@ class AlignmentsViewModel @Inject constructor(
     private val observeAlignments: ObserveAlignmentsUseCase,
 ) : ViewModel() {
 
-    private val expandedItemName: MutableStateFlow<String?> = MutableStateFlow(null)
-    private val alignmentsLoadable: StateFlow<Loadable<List<Alignment>>> =
-        observeAlignments().stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), Loadable.Loading)
+    private val selectedId = MutableStateFlow<String?>(null)
+    private val alignmentsData = observeAlignments()
+        .stateIn(viewModelScope, sharingStrategy, Loadable.Loading)
 
-    val uiState: StateFlow<AlignmentsUiState> =
-        combine(alignmentsLoadable, expandedItemName) { loadable, selected ->
-            when (loadable) {
-                is Loadable.Loading -> AlignmentsUiState.Loading
-                is Loadable.Ready -> AlignmentsUiState.Content(loadable.data, selected)
-                is Loadable.Error -> AlignmentsUiState.Error(loadable.cause.message ?: "Failed to load alignments")
+    val uiState: StateFlow<AlignmentsUiState> = combine(alignmentsData, selectedId, ::toUiState)
+        .stateIn(viewModelScope, sharingStrategy, AlignmentsUiState.Loading)
+
+    fun onAlignmentClick(alignmentId: String) {
+        selectedId.update {
+            if (it != alignmentId) {
+                alignmentId
+            } else {
+                null
             }
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = AlignmentsUiState.Loading,
-        )
-
-    fun onAlignmentClick(alignmentName: String) {
-        expandedItemName.update { current ->
-            if (current == alignmentName) null else alignmentName
         }
+    }
+
+    private fun toUiState(
+        alignments: Loadable<List<Alignment>>,
+        selectedId: String?
+    ): AlignmentsUiState = when (alignments) {
+        is Loadable.Loading -> {
+            AlignmentsUiState.Loading
+        }
+
+        is Loadable.Ready -> {
+            AlignmentsUiState.Content(alignments.data, selectedId)
+        }
+
+        is Loadable.Error -> {
+            AlignmentsUiState.Error(alignments.cause.message ?: "Failed to load alignments")
+        }
+    }
+
+    companion object {
+        private val sharingStrategy = SharingStarted.WhileSubscribed(5_000)
     }
 }

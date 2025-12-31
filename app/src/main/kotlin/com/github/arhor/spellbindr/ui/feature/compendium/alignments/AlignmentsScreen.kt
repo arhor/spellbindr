@@ -55,7 +55,7 @@ private fun AlignmentsContent(
 ) {
     SelectableGrid(
         items = state.alignments,
-        key = { it.name },
+        key = { it.id },
         smallContent = {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -89,7 +89,7 @@ private fun AlignmentsContent(
                 )
             }
         },
-        onItemClick = { onAlignmentClick(it.name) },
+        onItemClick = { onAlignmentClick(it.id) },
     )
 }
 
