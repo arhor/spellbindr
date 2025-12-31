@@ -18,7 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
@@ -99,10 +99,10 @@ private fun EquipmentCategory.toDisplayLabel(): String =
 private fun DamageType.displayLabel(): String =
     name.lowercase().replaceFirstChar(Char::titlecase)
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun WeaponCatalogDialogPreview() {
-    AppTheme(isDarkTheme = false) {
+    AppTheme {
         WeaponCatalogDialog(
             catalog = emptyList(),
             onDismiss = {},
@@ -112,10 +112,10 @@ private fun WeaponCatalogDialogPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun WeaponCatalogDialogLoadedPreview() {
-    AppTheme(isDarkTheme = false) {
+    AppTheme {
         WeaponCatalogDialog(
             catalog = listOf(
                 WeaponCatalogUiModel(

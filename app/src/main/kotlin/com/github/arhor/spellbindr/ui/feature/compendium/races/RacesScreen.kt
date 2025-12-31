@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
@@ -67,20 +67,9 @@ private fun RacesScreen(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun RacesScreenPreview() {
-    RacesPreviewContent(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun RacesScreenDarkPreview() {
-    RacesPreviewContent(isDarkTheme = true)
-}
-
-@Composable
-private fun RacesPreviewContent(isDarkTheme: Boolean) {
     val darkvision = Trait(
         id = "darkvision",
         name = "Darkvision",
@@ -104,7 +93,7 @@ private fun RacesPreviewContent(isDarkTheme: Boolean) {
         subraces = listOf(highElf),
     )
 
-    AppTheme(isDarkTheme = isDarkTheme) {
+    AppTheme {
         RacesScreen(
             state = RacesViewModel.RacesState(
                 races = listOf(race),

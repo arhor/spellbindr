@@ -4,7 +4,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -23,21 +23,10 @@ fun InlineTextField(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun InlineTextFieldLightPreview() {
-    InlineTextFieldPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun InlineTextFieldDarkPreview() {
-    InlineTextFieldPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun InlineTextFieldPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun InlineTextFieldPreview() {
+    AppTheme {
         InlineTextField(
             label = "Notes",
             value = "Mage of the Arcane Circle",

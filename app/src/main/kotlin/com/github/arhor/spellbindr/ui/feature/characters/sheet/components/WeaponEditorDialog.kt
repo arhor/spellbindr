@@ -18,11 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponEditorState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -155,10 +155,10 @@ fun WeaponEditorDialog(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun WeaponEditorDialogPreview() {
-    AppTheme(isDarkTheme = false) {
+    AppTheme {
         WeaponEditorDialog(
             editorState = WeaponEditorState(
                 name = "Longsword",

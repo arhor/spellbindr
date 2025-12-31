@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
@@ -110,20 +110,9 @@ private fun SpellSearchContent(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SpellSearchScreenLightPreview() {
-    SpellSearchScreenPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SpellSearchScreenDarkPreview() {
-    SpellSearchScreenPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
+private fun SpellSearchScreenPreview() {
     val previewSpell = Spell(
         id = "healing_word",
         name = "Healing Word",
@@ -139,7 +128,7 @@ private fun SpellSearchScreenPreview(isDarkTheme: Boolean) {
         concentration = false,
         source = "PHB",
     )
-    AppTheme(isDarkTheme = isDarkTheme) {
+    AppTheme {
         SpellSearchContent(
             state = SpellsViewModel.SpellsState(
                 query = "heal",

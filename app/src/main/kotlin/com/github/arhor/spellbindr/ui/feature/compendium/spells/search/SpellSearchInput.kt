@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -68,21 +68,10 @@ fun SpellSearchInput(
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SpellSearchInputLightPreview() {
-    SpellSearchInputPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SpellSearchInputDarkPreview() {
-    SpellSearchInputPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SpellSearchInputPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun SpellSearchInputPreview() {
+    AppTheme {
         SpellSearchInput(
             query = "Magic",
             onQueryChanged = {},

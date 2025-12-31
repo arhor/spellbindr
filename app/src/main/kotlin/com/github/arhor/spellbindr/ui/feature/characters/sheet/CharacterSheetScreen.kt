@@ -18,7 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -312,10 +312,10 @@ private fun CharacterSheetScreen(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CharacterSheetScreenPreview() {
-    AppTheme(isDarkTheme = false) {
+    AppTheme {
         CharacterSheetScreen(
             state = CharacterSheetPreviewData.uiState,
             callbacks = CharacterSheetCallbacks(),

@@ -21,7 +21,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
@@ -178,21 +178,10 @@ private fun amountDetailText(result: AmountResult): String {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun LatestResultBarLightPreview() {
-    LatestResultBarPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun LatestResultBarDarkPreview() {
-    LatestResultBarPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun LatestResultBarPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun LatestResultBarPreview() {
+    AppTheme {
         LatestResultBar(
             latestResult = RollResult.CheckAmountResult(
                 check = CheckResult(

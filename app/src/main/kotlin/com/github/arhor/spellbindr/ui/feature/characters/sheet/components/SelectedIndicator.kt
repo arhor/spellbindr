@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -67,34 +67,18 @@ fun SelectedIndicator(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
-private fun SelectedIndicatorLightPreview() {
-    SelectedIndicatorPreview(isDarkTheme = false)
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SelectedIndicatorDarkPreview() {
-    SelectedIndicatorPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SelectedIndicatorPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
-        SelectedIndicatorPreviewContent()
-    }
-}
-
-@Composable
-private fun SelectedIndicatorPreviewContent() {
-    Surface {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            SelectedIndicator(selected = true)
-            SelectedIndicator(selected = false)
+private fun SelectedIndicatorPreview() {
+    AppTheme {
+        Surface {
+            Row(
+                modifier = Modifier.padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                SelectedIndicator(selected = true)
+                SelectedIndicator(selected = false)
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
@@ -79,21 +79,10 @@ fun AppTopBar(config: AppTopBarConfig) {
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun AppTopBarLightPreview() {
-    AppTopBarPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun AppTopBarDarkPreview() {
-    AppTopBarPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun AppTopBarPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun AppTopBarPreview() {
+    AppTheme {
         AppTopBar(
             config = AppTopBarConfig(
                 visible = true,

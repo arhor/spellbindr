@@ -35,7 +35,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -278,21 +278,10 @@ private fun TableRow(label: String, content: @Composable () -> Unit) {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SpellDetailsLightPreview() {
-    SpellDetailsPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SpellDetailsDarkPreview() {
-    SpellDetailsPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SpellDetailsPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun SpellDetailsPreview() {
+    AppTheme {
         val spell = Spell(
             id = "arcane_blast",
             name = "Arcane Blast",
