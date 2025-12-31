@@ -17,5 +17,5 @@ class BackgroundsAssetDataStore @Inject constructor(
     path = "data/backgrounds.json",
     context = context,
     serializer = Background.serializer(),
-    loadingPriority = AssetLoadingPriority.DEFERRED,
+    priority = AssetLoadingPriority.DEFERRED,
 )

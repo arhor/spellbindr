@@ -54,21 +54,24 @@ class SpellbindrAppViewModel @Inject constructor(
     }
 
     private suspend fun observeThemeUpdates() {
-        themeRepository.themeMode.collectLatest { mode ->
-            val resolvedIsDark = mode?.isDark
-            _state.update { it.copy(isDarkTheme = resolvedIsDark) }
+        themeRepository.themeMode.collectLatest {
+            _state.update { state ->
+                state.copy(
+                    isDarkTheme = it?.isDark,
+                )
+            }
         }
     }
 
     private suspend fun observeBootstrapperState() {
-        assetBootstrapper.state.collectLatest { bootstrapState ->
-            _state.update {
-                it.copy(
-                    initialDelayPassed = bootstrapState.initialDelayPassed,
-                    criticalAssetsReady = bootstrapState.criticalAssetsReady,
-                    deferredAssetsReady = bootstrapState.deferredAssetsReady,
-                    criticalAssetsError = bootstrapState.criticalAssetsError,
-                    deferredAssetsError = bootstrapState.deferredAssetsError,
+        assetBootstrapper.state.collectLatest {
+            _state.update { state ->
+                state.copy(
+                    initialDelayPassed = it.initialDelayPassed,
+                    criticalAssetsReady = it.criticalAssetsReady,
+                    deferredAssetsReady = it.deferredAssetsReady,
+                    criticalAssetsError = it.criticalAssetsError,
+                    deferredAssetsError = it.deferredAssetsError,
                 )
             }
         }

@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 interface InitializableAssetDataStore {
-    val loadingPriority: AssetLoadingPriority
+    val priority: AssetLoadingPriority
 
     suspend fun initialize()
 }

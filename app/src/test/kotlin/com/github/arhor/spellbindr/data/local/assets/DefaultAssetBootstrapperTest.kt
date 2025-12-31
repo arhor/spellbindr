@@ -102,7 +102,7 @@ class DefaultAssetBootstrapperTest {
 }
 
 private class FakeAssetLoader(
-    override val loadingPriority: AssetLoadingPriority,
+    override val priority: AssetLoadingPriority,
     private val initializationDelayMillis: Long = 0L,
 ) : InitializableAssetDataStore {
 

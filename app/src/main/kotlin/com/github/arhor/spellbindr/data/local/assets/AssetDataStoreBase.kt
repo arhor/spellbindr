@@ -21,7 +21,7 @@ abstract class AssetDataStoreBase<T>(
     private val path: String,
     private val context: Context,
     private val serializer: KSerializer<T>,
-    override val loadingPriority: AssetLoadingPriority = AssetLoadingPriority.CRITICAL,
+    override val priority: AssetLoadingPriority = AssetLoadingPriority.CRITICAL,
 ) : AssetDataStore<List<T>> {
 
     private val logger = createLogger()
