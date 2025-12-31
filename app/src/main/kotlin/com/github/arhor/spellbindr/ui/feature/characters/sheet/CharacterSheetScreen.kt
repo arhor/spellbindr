@@ -27,7 +27,6 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel.CharacterSheetEffect
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetViewModel.CharacterSheetUiAction
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent
@@ -152,8 +151,8 @@ fun CharacterSheetRoute(
         visible = true,
         title = {
             CharacterSheetTopBarTitle(
-                name = headerState?.name ?: args.character.name.ifBlank { null },
-                subtitle = headerState?.subtitle ?: args.character.initialSubtitle(),
+                name = headerState?.name ?: args.initialName,
+                subtitle = headerState?.subtitle ?: args.initialSubtitle,
             )
         },
         navigation = AppTopBarNavigation.Back(onBack),
@@ -322,15 +321,5 @@ private fun CharacterSheetScreenPreview() {
             callbacks = CharacterSheetCallbacks(),
             modifier = Modifier.fillMaxSize(),
         )
-    }
-}
-
-private fun CharacterListItem.initialSubtitle(): String {
-    return buildString {
-        append("Level ${level.coerceAtLeast(1)}")
-        if (className.isNotBlank()) {
-            append(' ')
-            append(className)
-        }
     }
 }

@@ -6,7 +6,6 @@ import androidx.compose.material.icons.outlined.Casino
 import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,7 +15,9 @@ sealed class AppDestination(open val title: String) {
 
     @Serializable
     data class CharacterSheet(
-        val character: CharacterListItem,
+        val characterId: String,
+        val initialName: String? = null,
+        val initialSubtitle: String? = null,
     ) : AppDestination(title = "Character")
 
     @Serializable
