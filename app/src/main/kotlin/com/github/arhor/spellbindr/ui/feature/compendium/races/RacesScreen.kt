@@ -9,7 +9,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Race
+import com.github.arhor.spellbindr.domain.model.Trait
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun RacesRoute(
@@ -59,5 +64,57 @@ private fun RacesScreen(
                 onItemClick = { onRaceClick(it.name) }
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun RacesScreenPreview() {
+    RacesPreviewContent(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun RacesScreenDarkPreview() {
+    RacesPreviewContent(isDarkTheme = true)
+}
+
+@Composable
+private fun RacesPreviewContent(isDarkTheme: Boolean) {
+    val darkvision = Trait(
+        id = "darkvision",
+        name = "Darkvision",
+        desc = listOf("Accustomed to twilit forests and the night sky, you can see in dim light within 60 feet."),
+    )
+    val keenSenses = Trait(
+        id = "keen_senses",
+        name = "Keen Senses",
+        desc = listOf("You have proficiency in the Perception skill."),
+    )
+    val highElf = Race.Subrace(
+        id = "high_elf",
+        name = "High Elf",
+        desc = "Elves with keen intellect and magic affinity.",
+        traits = listOf(EntityRef(id = "keen_senses")),
+    )
+    val race = Race(
+        id = "elf",
+        name = "Elf",
+        traits = listOf(EntityRef(id = "darkvision")),
+        subraces = listOf(highElf),
+    )
+
+    AppTheme(isDarkTheme = isDarkTheme) {
+        RacesScreen(
+            state = RacesViewModel.RacesState(
+                races = listOf(race),
+                traits = mapOf(
+                    darkvision.id to darkvision,
+                    keenSenses.id to keenSenses,
+                ),
+                expandedItemName = race.name,
+            ),
+            onRaceClick = {},
+        )
     }
 }

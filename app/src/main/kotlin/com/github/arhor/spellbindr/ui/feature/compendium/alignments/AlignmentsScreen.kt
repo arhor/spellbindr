@@ -12,7 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.github.arhor.spellbindr.domain.model.Alignment as AlignmentModel
 import com.github.arhor.spellbindr.ui.components.SelectableGrid
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun AlignmentsRoute(
@@ -68,4 +71,34 @@ private fun AlignmentsScreen(
         },
         onItemClick = { onAlignmentClick(it.name) },
     )
+}
+
+@Preview
+@Composable
+private fun AlignmentsScreenPreview() {
+    AlignmentsPreviewContent(isDarkTheme = false)
+}
+
+@Preview
+@Composable
+private fun AlignmentsScreenDarkPreview() {
+    AlignmentsPreviewContent(isDarkTheme = true)
+}
+
+@Composable
+private fun AlignmentsPreviewContent(isDarkTheme: Boolean) {
+    val alignments = listOf(
+        AlignmentModel(id = "lg", name = "Lawful Good", desc = "Acts with compassion, honor, and duty.", abbr = "LG"),
+        AlignmentModel(id = "tn", name = "True Neutral", desc = "Balances ideals between good and evil, order and chaos.", abbr = "TN"),
+        AlignmentModel(id = "ce", name = "Chaotic Evil", desc = "Seeks personal gain regardless of consequence.", abbr = "CE"),
+    )
+
+    AppTheme(isDarkTheme = isDarkTheme) {
+        AlignmentsScreen(
+            state = AlignmentsViewModel.AlignmentsState(
+                alignments = alignments,
+            ),
+            onAlignmentClick = {},
+        )
+    }
 }
