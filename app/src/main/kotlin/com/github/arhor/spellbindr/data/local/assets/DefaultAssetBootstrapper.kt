@@ -52,9 +52,9 @@ class DefaultAssetBootstrapper @Inject constructor(
     ) {
         val errors =
             assetsDataStores.filter { it.priority == priority }
-                .map { async { runCatching { it.initialize() }.exceptionOrNull() } }
+                .map { async { runCatching { it.initialize() } } }
                 .awaitAll()
-                .filterNotNull()
+                .mapNotNull { it.exceptionOrNull() }
 
         if (errors.isNotEmpty()) {
             val error = errors.first()
