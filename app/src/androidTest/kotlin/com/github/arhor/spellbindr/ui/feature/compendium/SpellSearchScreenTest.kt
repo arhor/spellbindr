@@ -4,16 +4,16 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import androidx.test.ext.junit.runners.AndroidJUnit4
 
 @RunWith(AndroidJUnit4::class)
 class SpellSearchScreenTest {
@@ -40,7 +40,7 @@ class SpellSearchScreenTest {
             source = "PHB",
         )
         val spellsByLevel = mapOf(1 to listOf(spell))
-        val state = SpellsViewModel.SpellsState(
+        val state = SpellsViewModel.State(
             spellsByLevel = spellsByLevel,
             expandedSpellLevels = mapOf(1 to true),
             expandedAll = true,

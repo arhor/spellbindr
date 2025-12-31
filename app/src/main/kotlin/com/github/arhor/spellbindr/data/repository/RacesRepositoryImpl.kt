@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.CharacterRaceAssetDataStore
-import com.github.arhor.spellbindr.domain.model.AssetState
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.repository.RacesRepository
 import kotlinx.coroutines.flow.Flow
@@ -16,13 +16,13 @@ class RacesRepositoryImpl @Inject constructor(
     private val racesDataStore: CharacterRaceAssetDataStore,
 ) : RacesRepository {
 
-    override val allRacesState: Flow<AssetState<List<Race>>>
+    override val allRacesState: Flow<Loadable<List<Race>>>
         get() = racesDataStore.data
 
     override suspend fun findRaceById(id: String): Race? =
-        when (val state = racesDataStore.data.first { it !is AssetState.Loading }) {
-            is AssetState.Ready -> state.data.find { it.id == id }
-            is AssetState.Error -> null
-            is AssetState.Loading -> null
+        when (val state = racesDataStore.data.first { it !is Loadable.Loading }) {
+            is Loadable.Ready -> state.data.find { it.id == id }
+            is Loadable.Error -> null
+            is Loadable.Loading -> null
         }
 }

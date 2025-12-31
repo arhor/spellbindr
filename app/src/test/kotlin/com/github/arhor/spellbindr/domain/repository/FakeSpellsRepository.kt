@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.domain.repository
 
-import com.github.arhor.spellbindr.domain.model.AssetState
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,15 +9,15 @@ class FakeSpellsRepository(
     initialSpells: List<Spell> = emptyList(),
     initialFavoriteIds: List<String> = emptyList(),
 ) : SpellsRepository {
-    override val allSpellsState = MutableStateFlow<AssetState<List<Spell>>>(
-        AssetState.Ready(initialSpells)
+    override val allSpellsState = MutableStateFlow<Loadable<List<Spell>>>(
+        Loadable.Ready(initialSpells)
     )
     val favoriteSpellIdsState = MutableStateFlow(initialFavoriteIds)
 
     override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
     override suspend fun getSpellById(id: String): Spell? =
-        (allSpellsState.value as? AssetState.Ready)
+        (allSpellsState.value as? Loadable.Ready)
             ?.data
             ?.firstOrNull { it.id == id }
 

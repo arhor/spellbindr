@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
-import com.github.arhor.spellbindr.domain.model.AssetState
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.google.common.truth.Truth.assertThat
@@ -16,7 +16,7 @@ class SpellsRepositoryImplTest {
 
     @Test
     fun `getSpellById should return null when asset load fails`() = runTest {
-        val stateFlow = MutableStateFlow<AssetState<List<Spell>>>(AssetState.Error(IllegalStateException("Boom")))
+        val stateFlow = MutableStateFlow<Loadable<List<Spell>>>(Loadable.Error(IllegalStateException("Boom")))
         val dataStore = mockk<SpellAssetDataStore> {
             every { data } returns stateFlow
         }

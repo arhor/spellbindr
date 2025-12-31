@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.compendium.spells
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.EntityRef
@@ -11,7 +12,6 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -22,12 +22,12 @@ fun CompendiumSpellsRoute(
     onSpellSelected: (Spell) -> Unit,
     onBack: () -> Unit,
 ) {
-    val state = vm.spellsState.collectAsStateWithLifecycle().value
+    val state by vm.spellsState.collectAsStateWithLifecycle()
 
     LaunchedEffect(vm) {
-        vm.effects.collectLatest { effect ->
-            when (effect) {
-                is SpellsViewModel.Effect.SpellSelected -> onSpellSelected(effect.spell)
+        vm.effects.collectLatest {
+            when (it) {
+                is SpellsViewModel.Effect.SpellSelected -> onSpellSelected(it.spell)
             }
         }
     }
@@ -90,7 +90,7 @@ private fun CompendiumSpellsRoutePreview() {
             ),
         ) {
             SpellSearchScreen(
-                state = SpellsViewModel.SpellsState(
+                state = SpellsViewModel.State(
                     query = "heal",
                     spellsByLevel = spellsByLevel,
                     expandedSpellLevels = mapOf(0 to true, 1 to true),

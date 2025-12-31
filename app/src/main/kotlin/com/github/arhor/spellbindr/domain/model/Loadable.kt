@@ -5,11 +5,11 @@ package com.github.arhor.spellbindr.domain.model
  *
  * @param T the type of the asset data held when the state is [Ready]
  */
-sealed class AssetState<out T> {
+sealed class Loadable<out T> {
     /**
      * Represents the state when an asset is currently being loaded or processed.
      */
-    data object Loading : AssetState<Nothing>()
+    data object Loading : Loadable<Nothing>()
 
     /**
      * Represents the state when an asset has been successfully loaded and is ready for use.
@@ -17,12 +17,12 @@ sealed class AssetState<out T> {
      * @param T the type of the loaded asset data.
      * @property data the actual content of the loaded asset.
      */
-    data class Ready<T>(val data: T) : AssetState<T>()
+    data class Ready<T>(val data: T) : Loadable<T>()
 
     /**
      * Represents the state when an asset loading or processing has failed.
      *
      * @property cause the exception or error that caused the failure.
      */
-    data class Error(val cause: Throwable) : AssetState<Nothing>()
+    data class Error(val cause: Throwable) : Loadable<Nothing>()
 }

@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
@@ -26,7 +26,7 @@ class SpellsUseCasesTest {
     fun `ObserveAllSpellsUseCase should emit latest spells when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "magic-missile", name = "Magic Missile")
-        repository.allSpellsState.value = AssetState.Ready(listOf(spell))
+        repository.allSpellsState.value = Loadable.Ready(listOf(spell))
 
         // When
         val result = ObserveAllSpellsUseCase(repository)().first()
@@ -39,7 +39,7 @@ class SpellsUseCasesTest {
     fun `ObserveAllSpellsStateUseCase should emit latest state when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "shield", name = "Shield")
-        val state = AssetState.Ready(listOf(spell))
+        val state = Loadable.Ready(listOf(spell))
         repository.allSpellsState.value = state
 
         // When
@@ -91,7 +91,7 @@ class SpellsUseCasesTest {
         // Given
         val classes = setOf(EntityRef("cleric"), EntityRef("wizard"))
         val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = classes.toList()))
-        repository.allSpellsState.value = AssetState.Ready(expected)
+        repository.allSpellsState.value = Loadable.Ready(expected)
         favoritesRepository.favoriteIdsState.value = listOf("cure-wounds")
 
         // When
@@ -110,7 +110,7 @@ class SpellsUseCasesTest {
     fun `SearchSpellsUseCase should skip favorites when favoriteOnly is false`() = runTest {
         // Given
         val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
-        repository.allSpellsState.value = AssetState.Ready(expected)
+        repository.allSpellsState.value = Loadable.Ready(expected)
 
         // When
         val result = SearchSpellsUseCase(SearchAndGroupSpellsUseCase(repository, favoritesRepository))(
@@ -137,7 +137,7 @@ class SpellsUseCasesTest {
             level = 3,
         )
         val cureWounds = sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = listOf(cleric))
-        repository.allSpellsState.value = AssetState.Ready(listOf(magicMissile, fireball, cureWounds))
+        repository.allSpellsState.value = Loadable.Ready(listOf(magicMissile, fireball, cureWounds))
         favoritesRepository.favoriteIdsState.value = listOf("fireball")
 
         // When
@@ -258,7 +258,7 @@ class SpellsUseCasesTest {
 
     private class FakeSpellsRepository : SpellsRepository {
         override val allSpellsState =
-            MutableStateFlow<AssetState<List<Spell>>>(AssetState.Ready(emptyList()))
+            MutableStateFlow<Loadable<List<Spell>>>(Loadable.Ready(emptyList()))
         val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 

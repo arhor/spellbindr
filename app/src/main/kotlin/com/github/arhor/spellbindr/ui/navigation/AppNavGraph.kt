@@ -14,7 +14,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.alignments.CompendiumAlignmentsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.classes.CompendiumClassesRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.CompendiumConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.equipment.CompendiumEquipmentRoute
@@ -96,7 +96,7 @@ fun SpellbindrAppNavGraph(
             )
         }
         composable<AppDestination.CompendiumAlignments> { navEntry ->
-            CompendiumAlignmentsRoute(
+            AlignmentsRoute(
                 vm = hiltViewModel(navEntry),
                 onBack = controller::navigateUp,
             )

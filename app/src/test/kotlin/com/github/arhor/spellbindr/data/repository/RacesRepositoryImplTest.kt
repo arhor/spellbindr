@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.assets.CharacterRaceAssetDataStore
-import com.github.arhor.spellbindr.domain.model.AssetState
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Race
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
@@ -15,7 +15,7 @@ class RacesRepositoryImplTest {
 
     @Test
     fun `findRaceById should return null when asset load fails`() = runTest {
-        val stateFlow = MutableStateFlow<AssetState<List<Race>>>(AssetState.Error(IllegalStateException("Boom")))
+        val stateFlow = MutableStateFlow<Loadable<List<Race>>>(Loadable.Error(IllegalStateException("Boom")))
         val dataStore = mockk<CharacterRaceAssetDataStore> {
             every { data } returns stateFlow
         }

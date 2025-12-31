@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.domain.model.AssetState
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
@@ -13,22 +13,22 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
-import com.github.arhor.spellbindr.utils.Logger
+import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
 @Stable
@@ -56,7 +56,7 @@ class SpellsViewModel @Inject constructor(
     }
 
     @Immutable
-    data class SpellsState(
+    data class State(
         override val query: String = "",
         override val showFavorite: Boolean = false,
         override val showFilterDialog: Boolean = false,
@@ -68,19 +68,28 @@ class SpellsViewModel @Inject constructor(
         override val expandedAll: Boolean = true,
     ) : SpellListState
 
+    private data class SpellsQuery(
+        val filters: SpellListStateReducer.SpellFilters,
+        val allSpellsState: Loadable<List<Spell>>,
+        val favoriteSpellIds: List<String>,
+    ) {
+        val query: String = filters.query
+        val currentClasses: Set<EntityRef> = filters.currentClasses
+        val showFavorite: Boolean = filters.showFavorite
+        val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
+    }
+
     private val _effects = MutableSharedFlow<Effect>()
     val effects: SharedFlow<Effect> = _effects.asSharedFlow()
 
     private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
 
-    private val logger = Logger.createLogger<SpellsViewModel>()
-
     private val castingClassesState = flow {
         emit(getSpellcastingClassRefsUseCase())
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    private val spellsUiState = combine(
+    private val uiState = combine(
         spellFilters,
         observeAllSpellsStateUseCase(),
         observeFavoriteSpellIdsUseCase(),
@@ -90,13 +99,13 @@ class SpellsViewModel @Inject constructor(
         .distinctUntilChanged()
         .transformLatest { data ->
             when (val state = data.allSpellsState) {
-                is AssetState.Loading -> emit(SpellsUiState.Loading)
-                is AssetState.Error -> {
+                is Loadable.Loading -> emit(SpellsUiState.Loading)
+                is Loadable.Error -> {
                     logger.error(state.cause) { "Failed to load spells." }
                     emit(SpellsUiState.Error("Failed to load spells."))
                 }
 
-                is AssetState.Ready -> {
+                is Loadable.Ready -> {
                     emit(SpellsUiState.Loading)
                     runCatching {
                         searchAndGroupSpellsUseCase(
@@ -121,7 +130,7 @@ class SpellsViewModel @Inject constructor(
         spellFilters,
         spellExpansionState,
         castingClassesState,
-        spellsUiState,
+        uiState,
     ) { filters, expansionState, castingClasses, uiState ->
         val spellsByLevel = when (uiState) {
             is SpellsUiState.Loaded -> uiState.spellsByLevel
@@ -135,7 +144,7 @@ class SpellsViewModel @Inject constructor(
 
             else -> emptyMap()
         }
-        SpellsState(
+        State(
             query = filters.query,
             showFavorite = filters.showFavorite,
             showFilterDialog = filters.showFilterDialog,
@@ -146,7 +155,7 @@ class SpellsViewModel @Inject constructor(
             expandedSpellLevels = expandedSpellLevels,
             expandedAll = expansionState.expandedAll,
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), State())
 
     fun onAction(action: Action) {
         when (action) {
@@ -157,11 +166,11 @@ class SpellsViewModel @Inject constructor(
                 )
             }
 
-            Action.FiltersClicked -> spellFilters.update { filters ->
+            is Action.FiltersClicked -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FiltersOpened)
             }
 
-            Action.FavoritesToggled -> spellFilters.update { filters ->
+            is Action.FavoritesToggled -> spellFilters.update { filters ->
                 SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FavoritesToggled)
             }
 
@@ -191,7 +200,7 @@ class SpellsViewModel @Inject constructor(
                 )
             }
 
-            Action.ToggleAllGroups -> spellExpansionState.update { state ->
+            is Action.ToggleAllGroups -> spellExpansionState.update { state ->
                 val levels = spellsState.value.spellsByLevel.keys
                 SpellListStateReducer.toggleAll(
                     state = state,
@@ -201,14 +210,7 @@ class SpellsViewModel @Inject constructor(
         }
     }
 
-    private data class SpellsQuery(
-        val filters: SpellListStateReducer.SpellFilters,
-        val allSpellsState: AssetState<List<Spell>>,
-        val favoriteSpellIds: List<String>,
-    ) {
-        val query: String = filters.query
-        val currentClasses: Set<EntityRef> = filters.currentClasses
-        val showFavorite: Boolean = filters.showFavorite
-        val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
+    companion object {
+        private val logger = createLogger()
     }
 }

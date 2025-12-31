@@ -130,7 +130,7 @@ private fun SpellSearchScreenPreview() {
     )
     AppTheme {
         SpellSearchContent(
-            state = SpellsViewModel.SpellsState(
+            state = SpellsViewModel.State(
                 query = "heal",
                 castingClasses = listOf(EntityRef(id = "cleric")),
                 spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)

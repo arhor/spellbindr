@@ -89,8 +89,8 @@ class SpellsViewModelTest {
 }
 
 private suspend fun SpellsViewModel.awaitSpellsState(
-    predicate: (SpellsViewModel.SpellsState) -> Boolean = { true },
-): SpellsViewModel.SpellsState = spellsState.first(predicate)
+    predicate: (SpellsViewModel.State) -> Boolean = { true },
+): SpellsViewModel.State = spellsState.first(predicate)
 
 private fun TestScope.createViewModel(): SpellsViewModel {
     val spells = listOf(

@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.domain.model.AssetState
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,21 +26,21 @@ abstract class AssetDataStoreBase<T>(
 
     private val logger = createLogger()
     private val mutex = Mutex()
-    private var asset = MutableStateFlow<AssetState<List<T>>>(AssetState.Loading)
+    private var asset = MutableStateFlow<Loadable<List<T>>>(Loadable.Loading)
 
-    override val data: StateFlow<AssetState<List<T>>>
+    override val data: StateFlow<Loadable<List<T>>>
         get() = asset.asStateFlow()
 
     @OptIn(ExperimentalSerializationApi::class)
     override suspend fun initialize() {
         logger.info { "Trying to load static asset: $path" }
         mutex.withLock {
-            if (asset.value is AssetState.Ready) {
+            if (asset.value is Loadable.Ready) {
                 logger.info { "Static asset [$path] is already loaded" }
                 return
             }
 
-            asset.value = AssetState.Loading
+            asset.value = Loadable.Loading
             val result = runCatching {
                 withContext(Dispatchers.IO) {
                     context.assets.open(path).use {
@@ -52,10 +52,10 @@ abstract class AssetDataStoreBase<T>(
                 }
             }
             result.onSuccess {
-                asset.value = AssetState.Ready(it)
+                asset.value = Loadable.Ready(it)
                 logger.info { "Static asset [$path] is successfully loaded" }
             }.onFailure { error ->
-                asset.value = AssetState.Error(error)
+                asset.value = Loadable.Error(error)
                 logger.error(error) { "Failed to load static asset [$path]" }
             }
         }
