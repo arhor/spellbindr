@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 @Suppress("UNUSED", "NOTHING_TO_INLINE")
 value class Logger(val tag: String) {
     constructor(type: Class<*>) : this(tag = type.simpleName ?: "<unknown>")
-    constructor(type: KClass<*>) : this(type = type.let { if (it.isCompanion) it.java.enclosingClass else it.java })
+    constructor(type: KClass<*>) : this(type = if (type.isCompanion) type.java.enclosingClass else type.java)
 
     inline fun info(msg: () -> String) {
         if (Log.isLoggable(tag, Log.INFO)) Log.i(tag, msg())

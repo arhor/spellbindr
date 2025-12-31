@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.components.app
+package com.github.arhor.spellbindr.ui
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable

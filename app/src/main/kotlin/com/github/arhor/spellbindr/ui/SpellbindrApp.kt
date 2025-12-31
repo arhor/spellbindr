@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.components.app
+package com.github.arhor.spellbindr.ui
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
