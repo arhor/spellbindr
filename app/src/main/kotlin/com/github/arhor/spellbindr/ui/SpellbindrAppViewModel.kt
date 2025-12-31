@@ -25,7 +25,6 @@ class SpellbindrAppViewModel @Inject constructor(
 
     @Immutable
     data class State(
-        val initialDelayPassed: Boolean = false,
         val criticalAssetsReady: Boolean = false,
         val deferredAssetsReady: Boolean = false,
         val criticalAssetsError: Throwable? = null,
@@ -33,10 +32,10 @@ class SpellbindrAppViewModel @Inject constructor(
         val isDarkTheme: Boolean? = null,
     ) {
         val readyForInteraction: Boolean
-            get() = initialDelayPassed && criticalAssetsReady
+            get() = criticalAssetsReady
 
         val fullyReady: Boolean
-            get() = readyForInteraction && deferredAssetsReady
+            get() = criticalAssetsReady && deferredAssetsReady
     }
 
     private val _state = MutableStateFlow(State())
@@ -67,7 +66,6 @@ class SpellbindrAppViewModel @Inject constructor(
         assetBootstrapper.state.collectLatest {
             _state.update { state ->
                 state.copy(
-                    initialDelayPassed = it.initialDelayPassed,
                     criticalAssetsReady = it.criticalAssetsReady,
                     deferredAssetsReady = it.deferredAssetsReady,
                     criticalAssetsError = it.criticalAssetsError,

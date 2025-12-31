@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.data.local.assets
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.utils.toCapitalCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -17,27 +18,26 @@ import javax.inject.Singleton
 
 @Singleton
 class DefaultAssetBootstrapper @Inject constructor(
-    loaders: Set<@JvmSuppressWildcards InitializableAssetDataStore>,
+    val applicationScope: CoroutineScope,
+    val assetsDataStores: Set<@JvmSuppressWildcards InitializableAssetDataStore>,
 ) : AssetBootstrapper {
 
-    private val criticalLoaders = loaders.filter { it.priority == AssetLoadingPriority.CRITICAL }
-    private val deferredLoaders = loaders.filter { it.priority == AssetLoadingPriority.DEFERRED }
     private val started = AtomicBoolean(false)
     private val _state = MutableStateFlow(AssetBootstrapState())
 
     override val state: StateFlow<AssetBootstrapState>
         get() = _state.asStateFlow()
 
-    override fun start(scope: CoroutineScope) {
+    override fun start() {
         if (!started.compareAndSet(false, true)) {
             logger.info { "Asset bootstrapper is already running" }
             return
         }
         logger.info { "Asset bootstrapper started" }
 
-        scope.launch {
-            val criticalLoadJob = launch { executeCriticalDataLoading() }
-            val deferredLoadJob = launch { executeDeferredDataLoading() }
+        applicationScope.launch {
+            val criticalLoadJob = launch { initializeDataStores(AssetLoadingPriority.CRITICAL) }
+            val deferredLoadJob = launch { initializeDataStores(AssetLoadingPriority.DEFERRED) }
 
             criticalLoadJob.join()
             logger.info { "Critical initialization phase complete" }
@@ -47,38 +47,43 @@ class DefaultAssetBootstrapper @Inject constructor(
         }
     }
 
-    private suspend fun CoroutineScope.executeCriticalDataLoading() {
-        val errors = if (criticalLoaders.isNotEmpty()) {
-            criticalLoaders.map { async { runCatching { it.initialize() }.exceptionOrNull() } }
+    private suspend fun CoroutineScope.initializeDataStores(
+        priority: AssetLoadingPriority
+    ) {
+        val errors =
+            assetsDataStores.filter { it.priority == priority }
+                .map { async { runCatching { it.initialize() }.exceptionOrNull() } }
                 .awaitAll()
                 .filterNotNull()
-        } else {
-            emptyList()
-        }
+
         if (errors.isNotEmpty()) {
             val error = errors.first()
-            logger.error(error) { "Critical data loading phase failed" }
-            _state.update { it.copy(criticalAssetsError = error) }
+            logger.error(error) { "${priority.name.toCapitalCase()} data loading phase failed" }
+            onError(priority, error)
         }
-        logger.info { "Critical data loading phase passed" }
-        _state.update { it.copy(criticalAssetsReady = true) }
+        logger.info { "${priority.name.toCapitalCase()} data loading phase passed" }
+        onReady(priority)
     }
 
-    private suspend fun CoroutineScope.executeDeferredDataLoading() {
-        val errors = if (deferredLoaders.isNotEmpty()) {
-            deferredLoaders.map { async { runCatching { it.initialize() }.exceptionOrNull() } }
-                .awaitAll()
-                .filterNotNull()
-        } else {
-            emptyList()
+    private fun onReady(priority: AssetLoadingPriority) {
+        _state.update {
+            when (priority) {
+                AssetLoadingPriority.CRITICAL -> it.copy(criticalAssetsReady = true)
+                AssetLoadingPriority.DEFERRED -> it.copy(deferredAssetsReady = true)
+            }
         }
-        if (errors.isNotEmpty()) {
-            val error = errors.first()
-            logger.error(error) { "Deferred data loading phase failed" }
-            _state.update { it.copy(deferredAssetsError = error) }
+    }
+
+    private fun onError(
+        priority: AssetLoadingPriority,
+        error: Throwable
+    ) {
+        _state.update {
+            when (priority) {
+                AssetLoadingPriority.CRITICAL -> it.copy(criticalAssetsError = error)
+                AssetLoadingPriority.DEFERRED -> it.copy(deferredAssetsError = error)
+            }
         }
-        logger.info { "Deferred data loading phase passed" }
-        _state.update { it.copy(deferredAssetsReady = true) }
     }
 
     companion object {

@@ -37,7 +37,7 @@ class DefaultAssetBootstrapperTest {
         // Given
         val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL, initializationDelayMillis = 500)
         val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
-        val bootstrapper = DefaultAssetBootstrapper(loaders = setOf(criticalLoader, deferredLoader))
+        val bootstrapper = DefaultAssetBootstrapper(assetsDataStores = setOf(criticalLoader, deferredLoader))
 
         // When
         bootstrapper.start(this)
@@ -64,7 +64,7 @@ class DefaultAssetBootstrapperTest {
         // Given
         val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL)
         val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_500)
-        val bootstrapper = DefaultAssetBootstrapper(loaders = setOf(criticalLoader, deferredLoader))
+        val bootstrapper = DefaultAssetBootstrapper(assetsDataStores = setOf(criticalLoader, deferredLoader))
 
         // When
         bootstrapper.start(this)
@@ -86,7 +86,7 @@ class DefaultAssetBootstrapperTest {
     fun `critical readiness should resolve when no critical loaders are present`() = runTest {
         // Given
         val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
-        val bootstrapper = DefaultAssetBootstrapper(loaders = setOf(deferredLoader))
+        val bootstrapper = DefaultAssetBootstrapper(assetsDataStores = setOf(deferredLoader))
 
         // When
         bootstrapper.start(this)
