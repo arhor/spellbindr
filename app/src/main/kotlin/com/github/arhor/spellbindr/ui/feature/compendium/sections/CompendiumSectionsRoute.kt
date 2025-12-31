@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.arhor.spellbindr.ui.feature.compendium.sections
 
 import androidx.compose.foundation.clickable
@@ -10,32 +8,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
+import com.github.arhor.spellbindr.ui.theme.AppTheme
+
+private val compendiumSectionEntries = listOf(
+    CompendiumSectionEntry(title = "Spells", destination = AppDestination.CompendiumSpells),
+    CompendiumSectionEntry(title = "Conditions", destination = AppDestination.CompendiumConditions),
+    CompendiumSectionEntry(title = "Alignments", destination = AppDestination.CompendiumAlignments),
+    CompendiumSectionEntry(title = "Races", destination = AppDestination.CompendiumRaces),
+    CompendiumSectionEntry(title = "Traits", destination = AppDestination.CompendiumTraits),
+    CompendiumSectionEntry(title = "Features", destination = AppDestination.CompendiumFeatures),
+    CompendiumSectionEntry(title = "Classes", destination = AppDestination.CompendiumClasses),
+    CompendiumSectionEntry(title = "Equipment", destination = AppDestination.CompendiumEquipment),
+)
 
 @Composable
 fun CompendiumSectionsRoute(
     controller: NavHostController,
 ) {
-    val sections = listOf(
-        CompendiumSectionEntry(title = "Spells", destination = AppDestination.CompendiumSpells),
-        CompendiumSectionEntry(title = "Conditions", destination = AppDestination.CompendiumConditions),
-        CompendiumSectionEntry(title = "Alignments", destination = AppDestination.CompendiumAlignments),
-        CompendiumSectionEntry(title = "Races", destination = AppDestination.CompendiumRaces),
-        CompendiumSectionEntry(title = "Traits", destination = AppDestination.CompendiumTraits),
-        CompendiumSectionEntry(title = "Features", destination = AppDestination.CompendiumFeatures),
-        CompendiumSectionEntry(title = "Classes", destination = AppDestination.CompendiumClasses),
-        CompendiumSectionEntry(title = "Equipment", destination = AppDestination.CompendiumEquipment),
-    )
-
     CompendiumSectionsScreen(
-        sections = sections,
+        sections = compendiumSectionEntries,
         onSectionClick = { controller.navigate(it.destination) },
     )
 }
@@ -69,6 +68,17 @@ private fun CompendiumSectionsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun CompendiumSectionsPreview() {
+    AppTheme {
+        CompendiumSectionsScreen(
+            sections = compendiumSectionEntries,
+            onSectionClick = {},
+        )
     }
 }
 

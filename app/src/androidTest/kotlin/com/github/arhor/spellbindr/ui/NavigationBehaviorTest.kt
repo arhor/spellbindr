@@ -125,21 +125,24 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun `compendium tab should reset search when switching top level tabs`() {
+    fun `compendium sections should reappear when returning from other tabs`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
 
+        waitForText("Spells")
+        composeTestRule.onNodeWithText("Spells").performClick()
         waitForText("Search spell by name")
-        composeTestRule.onNodeWithText("Races").performClick()
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        waitForText("Spells")
 
         // When
         composeTestRule.onNodeWithText("Dice").performClick()
         composeTestRule.onNodeWithText("Compendium").performClick()
 
         // Then
-        waitForText("Search spell by name")
-        composeTestRule.onNodeWithText("Search spell by name").assertIsDisplayed()
+        waitForText("Spells")
+        composeTestRule.onNodeWithText("Equipment").assertIsDisplayed()
     }
 
     private fun createCharacter(name: String) {
