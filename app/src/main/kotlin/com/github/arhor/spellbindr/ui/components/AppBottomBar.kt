@@ -21,9 +21,8 @@ fun AppBottomBar(controller: NavHostController) {
 
     NavigationBar {
         BottomNavItems.forEach { item ->
-            val isSelected = backStackEntry?.destination matches item.destination
             NavigationBarItem(
-                selected = isSelected,
+                selected = backStackEntry?.destination matches item.destination,
                 onClick = {
                     controller.navigate(item.destination) {
                         popUpTo(controller.graph.findStartDestination().id) {
@@ -46,18 +45,16 @@ fun AppBottomBar(controller: NavHostController) {
 }
 
 private infix fun NavDestination?.matches(destination: AppDestination): Boolean {
-    if (this == null) return false
-
+    if (this == null) {
+        return false
+    }
     return when (destination) {
-        AppDestination.CompendiumSections -> hierarchy.any { navDestination ->
-            navDestination.hasRoute(AppDestination.CompendiumSections::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumSpells::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumConditions::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumAlignments::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumRaces::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumFeatures::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumClasses::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumEquipment::class)
+        AppDestination.CompendiumSections -> hierarchy.any {
+            it.hasRoute<AppDestination.CompendiumSections>() ||
+                it.hasRoute<AppDestination.CompendiumSpells>() ||
+                it.hasRoute<AppDestination.CompendiumConditions>() ||
+                it.hasRoute<AppDestination.CompendiumAlignments>() ||
+                it.hasRoute<AppDestination.CompendiumRaces>()
         }
 
         else -> hierarchy.any { it.hasRoute(destination::class) }

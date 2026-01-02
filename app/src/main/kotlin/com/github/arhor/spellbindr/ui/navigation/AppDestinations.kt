@@ -42,15 +42,6 @@ sealed class AppDestination(open val title: String) {
     data object CompendiumRaces : AppDestination(title = "Races")
 
     @Serializable
-    data object CompendiumFeatures : AppDestination(title = "Features")
-
-    @Serializable
-    data object CompendiumClasses : AppDestination(title = "Classes")
-
-    @Serializable
-    data object CompendiumEquipment : AppDestination(title = "Equipment")
-
-    @Serializable
     data class SpellDetail(
         val spellId: String,
         val initialName: String? = null,
