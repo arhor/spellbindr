@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.components.SelectableGrid
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.domain.model.Alignment as AlignmentModel
@@ -24,27 +25,9 @@ internal fun AlignmentsScreen(
     onAlignmentClick: (String) -> Unit,
 ) {
     when (state) {
-        is AlignmentsUiState.Loading -> {
-            AlignmentsLoader()
-        }
-
-        is AlignmentsUiState.Content -> {
-            AlignmentsContent(state, onAlignmentClick)
-        }
-
-        is AlignmentsUiState.Error -> {
-            AlignmentsError(state)
-        }
-    }
-}
-
-@Composable
-private fun AlignmentsLoader() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        CircularProgressIndicator()
+        is AlignmentsUiState.Loading -> LoadingIndicator()
+        is AlignmentsUiState.Content -> AlignmentsContent(state, onAlignmentClick)
+        is AlignmentsUiState.Error -> ErrorMessage(state.errorMessage)
     }
 }
 
@@ -56,54 +39,45 @@ private fun AlignmentsContent(
     SelectableGrid(
         items = state.alignments,
         key = { it.id },
-        smallContent = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text = it.abbr,
-                    style = MaterialTheme.typography.headlineSmall,
-                    textAlign = TextAlign.Center,
-                )
-            }
-        },
-        largeContent = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = it.name,
-                    style = MaterialTheme.typography.displayMedium,
-                    textAlign = TextAlign.Center,
-                )
-                Text(
-                    text = it.desc,
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 16.dp),
-                )
-            }
-        },
+        smallContent = ::AlignmentTileSmall,
+        largeContent = ::AlignmentTileLarge,
         onItemClick = { onAlignmentClick(it.id) },
     )
 }
 
 @Composable
-private fun AlignmentsError(state: AlignmentsUiState.Error) {
+private fun AlignmentTileSmall(alignment: AlignmentModel) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = state.message,
+            text = alignment.abbr,
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
+private fun AlignmentTileLarge(alignment: AlignmentModel) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = alignment.name,
+            style = MaterialTheme.typography.displayMedium,
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = alignment.desc,
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(top = 16.dp),
         )
     }
 }

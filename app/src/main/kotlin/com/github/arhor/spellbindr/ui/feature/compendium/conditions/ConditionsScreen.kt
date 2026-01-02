@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.ui.feature.compendium.conditions
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,19 +10,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.Condition
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -32,27 +31,9 @@ internal fun ConditionsScreen(
     onConditionClick: (Condition) -> Unit,
 ) {
     when (state) {
-        is ConditionsUiState.Loading -> {
-            ConditionLoader()
-        }
-
-        is ConditionsUiState.Content -> {
-            ConditionsContent(state, onConditionClick)
-        }
-
-        is ConditionsUiState.Error -> {
-            ConditionError(state)
-        }
-    }
-}
-
-@Composable
-private fun ConditionLoader() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        CircularProgressIndicator()
+        is ConditionsUiState.Loading -> LoadingIndicator()
+        is ConditionsUiState.Content -> ConditionsContent(state, onConditionClick)
+        is ConditionsUiState.Error -> ErrorMessage(state.errorMessage)
     }
 }
 
@@ -67,12 +48,7 @@ fun ConditionsContent(
         val index = state.conditions.indexOfFirst { it.id == state.selectedItemId }
         if (index != -1) {
             val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
-            if (itemInfo != null) {
-                val viewportHeight = listState.layoutInfo.viewportSize.height
-                if (itemInfo.offset + itemInfo.size > viewportHeight) {
-                    listState.animateScrollToItem(index)
-                }
-            } else {
+            if (itemInfo == null || itemInfo.offset + itemInfo.size > listState.layoutInfo.viewportSize.height) {
                 listState.animateScrollToItem(index)
             }
         }
@@ -92,21 +68,6 @@ fun ConditionsContent(
                 onItemClick = { onConditionClick(condition) },
             )
         }
-    }
-}
-
-@Composable
-private fun ConditionError(state: ConditionsUiState.Error) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = state.message,
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(16.dp),
-        )
     }
 }
 

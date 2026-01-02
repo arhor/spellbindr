@@ -15,6 +15,6 @@ sealed interface AlignmentsUiState {
 
     @Immutable
     data class Error(
-        val message: String,
+        val errorMessage: String,
     ) : AlignmentsUiState
 }
