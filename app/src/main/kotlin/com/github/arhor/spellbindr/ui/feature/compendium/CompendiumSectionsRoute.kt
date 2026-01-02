@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.sections
+package com.github.arhor.spellbindr.ui.feature.compendium
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,6 @@ private val compendiumSectionEntries = listOf(
     CompendiumSectionEntry(title = "Conditions", destination = AppDestination.CompendiumConditions),
     CompendiumSectionEntry(title = "Alignments", destination = AppDestination.CompendiumAlignments),
     CompendiumSectionEntry(title = "Races", destination = AppDestination.CompendiumRaces),
-    CompendiumSectionEntry(title = "Traits", destination = AppDestination.CompendiumTraits),
     CompendiumSectionEntry(title = "Features", destination = AppDestination.CompendiumFeatures),
     CompendiumSectionEntry(title = "Classes", destination = AppDestination.CompendiumClasses),
     CompendiumSectionEntry(title = "Equipment", destination = AppDestination.CompendiumEquipment),

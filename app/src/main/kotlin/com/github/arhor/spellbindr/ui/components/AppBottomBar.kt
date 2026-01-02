@@ -55,7 +55,6 @@ private infix fun NavDestination?.matches(destination: AppDestination): Boolean 
                 navDestination.hasRoute(AppDestination.CompendiumConditions::class) ||
                 navDestination.hasRoute(AppDestination.CompendiumAlignments::class) ||
                 navDestination.hasRoute(AppDestination.CompendiumRaces::class) ||
-                navDestination.hasRoute(AppDestination.CompendiumTraits::class) ||
                 navDestination.hasRoute(AppDestination.CompendiumFeatures::class) ||
                 navDestination.hasRoute(AppDestination.CompendiumClasses::class) ||
                 navDestination.hasRoute(AppDestination.CompendiumEquipment::class)

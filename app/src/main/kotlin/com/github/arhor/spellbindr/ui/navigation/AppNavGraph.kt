@@ -14,16 +14,15 @@ import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumSectionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.classes.CompendiumClassesRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.equipment.CompendiumEquipmentRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.features.CompendiumFeaturesRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.races.CompendiumRacesRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.sections.CompendiumSectionsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.CompendiumSpellsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.traits.CompendiumTraitsRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
 
@@ -96,19 +95,10 @@ fun SpellbindrAppNavGraph(
             )
         }
         composable<AppDestination.CompendiumAlignments> { navEntry ->
-            AlignmentsRoute(
-                vm = hiltViewModel(navEntry),
-                onBack = controller::navigateUp,
-            )
+            AlignmentsRoute(vm = hiltViewModel(navEntry), onBack = controller::navigateUp)
         }
         composable<AppDestination.CompendiumRaces> { navEntry ->
-            CompendiumRacesRoute(
-                vm = hiltViewModel(navEntry),
-                onBack = controller::navigateUp,
-            )
-        }
-        composable<AppDestination.CompendiumTraits> {
-            CompendiumTraitsRoute(onBack = controller::navigateUp)
+            RacesRoute(vm = hiltViewModel(navEntry), onBack = controller::navigateUp)
         }
         composable<AppDestination.CompendiumFeatures> {
             CompendiumFeaturesRoute(onBack = controller::navigateUp)

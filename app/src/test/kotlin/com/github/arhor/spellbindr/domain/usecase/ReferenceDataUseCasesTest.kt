@@ -33,7 +33,7 @@ class ReferenceDataUseCasesTest {
         val result = ObserveRacesUseCase(racesRepository)().first()
 
         // Then
-        assertThat(result).containsExactly(race)
+        assertThat(result).isEqualTo(Loadable.Ready(listOf(race)))
     }
 
     @Test
@@ -46,7 +46,7 @@ class ReferenceDataUseCasesTest {
         val result = ObserveTraitsUseCase(traitsRepository)().first()
 
         // Then
-        assertThat(result).containsExactly(trait)
+        assertThat(result).isEqualTo(Loadable.Ready(listOf(trait)))
     }
 
     @Test

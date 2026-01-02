@@ -14,36 +14,34 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun RacesRoute(
-    state: RacesViewModel.RacesState,
+internal fun RacesScreen(
+    state: RacesUiState,
     onRaceClick: (String) -> Unit,
 ) {
-    RacesScreen(
-        state = state,
-        onRaceClick = onRaceClick,
-    )
+    when (state) {
+        is RacesUiState.Loading -> LoadingIndicator()
+        is RacesUiState.Error -> ErrorMessage(state.errorMessage)
+        is RacesUiState.Content -> RacesContent(state, onRaceClick)
+    }
 }
 
 @Composable
-private fun RacesScreen(
-    state: RacesViewModel.RacesState,
+private fun RacesContent(
+    state: RacesUiState.Content,
     onRaceClick: (String) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
     LaunchedEffect(state) {
-        val index = state.races.indexOfFirst { it.name == state.expandedItemName }
+        val index = state.races.indexOfFirst { it.name == state.selectedItemName }
         if (index != -1) {
             val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
-            if (itemInfo != null) {
-                val viewportHeight = listState.layoutInfo.viewportSize.height
-                if (itemInfo.offset + itemInfo.size > viewportHeight) {
-                    listState.animateScrollToItem(index)
-                }
-            } else {
+            if (itemInfo == null || itemInfo.offset + itemInfo.size > listState.layoutInfo.viewportSize.height) {
                 listState.animateScrollToItem(index)
             }
         }
@@ -60,7 +58,7 @@ private fun RacesScreen(
             RaceListItem(
                 race = it,
                 traits = state.traits,
-                isExpanded = it.name == state.expandedItemName,
+                isExpanded = it.name == state.selectedItemName,
                 onItemClick = { onRaceClick(it.name) }
             )
         }
@@ -95,13 +93,13 @@ private fun RacesScreenPreview() {
 
     AppTheme {
         RacesScreen(
-            state = RacesViewModel.RacesState(
+            state = RacesUiState.Content(
                 races = listOf(race),
                 traits = mapOf(
                     darkvision.id to darkvision,
                     keenSenses.id to keenSenses,
                 ),
-                expandedItemName = race.name,
+                selectedItemName = race.name,
             ),
             onRaceClick = {},
         )
