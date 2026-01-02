@@ -21,15 +21,15 @@ class AlignmentsViewModel @Inject constructor(
     private val observeAlignments: ObserveAlignmentsUseCase,
 ) : ViewModel() {
 
-    private val selectedId = MutableStateFlow<String?>(null)
-    private val alignmentsData = observeAlignments()
+    private val selectedItemIdState = MutableStateFlow<String?>(null)
+    private val alignmentsState = observeAlignments()
         .stateIn(viewModelScope, sharingStrategy, Loadable.Loading)
 
-    val uiState: StateFlow<AlignmentsUiState> = combine(alignmentsData, selectedId, ::toUiState)
+    val uiState: StateFlow<AlignmentsUiState> = combine(alignmentsState, selectedItemIdState, ::toUiState)
         .stateIn(viewModelScope, sharingStrategy, AlignmentsUiState.Loading)
 
     fun onAlignmentClick(alignmentId: String) {
-        selectedId.update {
+        selectedItemIdState.update {
             if (it != alignmentId) {
                 alignmentId
             } else {

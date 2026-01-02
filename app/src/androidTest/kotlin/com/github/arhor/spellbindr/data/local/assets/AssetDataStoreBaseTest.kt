@@ -19,7 +19,7 @@ class AssetDataStoreBaseTest {
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var stores: Set<@JvmSuppressWildcards InitializableAssetDataStore>
+    lateinit var stores: Set<@JvmSuppressWildcards AssetDataStore<*>>
 
     @Before
     fun init() {

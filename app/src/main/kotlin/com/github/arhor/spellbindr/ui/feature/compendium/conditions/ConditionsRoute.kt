@@ -2,19 +2,19 @@ package com.github.arhor.spellbindr.ui.feature.compendium.conditions
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 
 @Composable
-fun CompendiumConditionsRoute(
+fun ConditionsRoute(
     vm: ConditionsViewModel,
     onBack: () -> Unit,
 ) {
-    val state = vm.state.collectAsStateWithLifecycle().value
+    val state by vm.uiState.collectAsStateWithLifecycle()
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -25,11 +25,9 @@ fun CompendiumConditionsRoute(
             ),
         ),
     ) {
-        ConditionsRoute(
+        ConditionsScreen(
             state = state,
-            onConditionClick = { condition: Condition ->
-                vm.onConditionClick(condition)
-            },
+            onConditionClick = vm::onConditionClick,
         )
     }
 }

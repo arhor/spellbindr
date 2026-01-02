@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @Singleton
 class DefaultAssetBootstrapper @Inject constructor(
     val applicationScope: CoroutineScope,
-    val assetsDataStores: Set<@JvmSuppressWildcards InitializableAssetDataStore>,
+    val assetsDataStores: Set<@JvmSuppressWildcards AssetDataStore<*>>,
 ) : AssetBootstrapper {
 
     private val started = AtomicBoolean(false)

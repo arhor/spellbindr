@@ -5,7 +5,9 @@ import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.repository.AlignmentRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ObserveAlignmentsUseCase @Inject constructor(
     private val alignmentRepository: AlignmentRepository,
 ) {

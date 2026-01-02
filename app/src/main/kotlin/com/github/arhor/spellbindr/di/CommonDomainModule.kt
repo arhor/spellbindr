@@ -4,6 +4,7 @@ import com.github.arhor.spellbindr.data.repository.AbilityRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.AlignmentRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.CharacterRepositoryImpl
+import com.github.arhor.spellbindr.data.repository.ConditionsRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.EquipmentRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.FavoritesRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.RacesRepositoryImpl
@@ -14,6 +15,7 @@ import com.github.arhor.spellbindr.domain.repository.AbilityRepository
 import com.github.arhor.spellbindr.domain.repository.AlignmentRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.repository.ConditionsRepository
 import com.github.arhor.spellbindr.domain.repository.EquipmentRepository
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.RacesRepository
@@ -57,4 +59,7 @@ abstract class CommonDomainModule {
 
     @Binds
     abstract fun bindEquipmentRepository(impl: EquipmentRepositoryImpl): EquipmentRepository
+
+    @Binds
+    abstract fun bindConditionsRepository(impl: ConditionsRepositoryImpl): ConditionsRepository
 }
