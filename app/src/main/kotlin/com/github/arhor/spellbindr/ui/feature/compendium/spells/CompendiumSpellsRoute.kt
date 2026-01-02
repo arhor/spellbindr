@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun CompendiumSpellsRoute(
-    vm: SpellsViewModel,
+    vm: SpellsViewModel = hiltViewModel(),
     onSpellSelected: (Spell) -> Unit,
     onBack: () -> Unit,
 ) {

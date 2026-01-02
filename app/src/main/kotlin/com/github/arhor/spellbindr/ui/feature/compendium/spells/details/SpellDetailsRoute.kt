@@ -15,7 +15,7 @@ import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 
 @Composable
-fun SpellDetailRoute(
+fun SpellDetailsRoute(
     vm: SpellDetailsViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {

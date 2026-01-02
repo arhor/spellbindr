@@ -18,10 +18,10 @@ import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 private val compendiumSections = listOf(
-    AppDestination.CompendiumSpells,
-    AppDestination.CompendiumConditions,
-    AppDestination.CompendiumAlignments,
-    AppDestination.CompendiumRaces,
+    AppDestination.Spells,
+    AppDestination.Conditions,
+    AppDestination.Alignments,
+    AppDestination.Races,
 )
 
 @Composable

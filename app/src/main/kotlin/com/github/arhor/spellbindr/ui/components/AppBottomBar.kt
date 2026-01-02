@@ -51,10 +51,10 @@ private infix fun NavDestination?.matches(destination: AppDestination): Boolean 
     return when (destination) {
         AppDestination.CompendiumSections -> hierarchy.any {
             it.hasRoute<AppDestination.CompendiumSections>() ||
-                it.hasRoute<AppDestination.CompendiumSpells>() ||
-                it.hasRoute<AppDestination.CompendiumConditions>() ||
-                it.hasRoute<AppDestination.CompendiumAlignments>() ||
-                it.hasRoute<AppDestination.CompendiumRaces>()
+                it.hasRoute<AppDestination.Spells>() ||
+                it.hasRoute<AppDestination.Conditions>() ||
+                it.hasRoute<AppDestination.Alignments>() ||
+                it.hasRoute<AppDestination.Races>()
         }
 
         else -> hierarchy.any { it.hasRoute(destination::class) }

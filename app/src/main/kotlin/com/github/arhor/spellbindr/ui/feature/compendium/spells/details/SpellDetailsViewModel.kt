@@ -33,7 +33,7 @@ class SpellDetailsViewModel @Inject constructor(
 
     val uiState: StateFlow<SpellDetailsUiState> =
         savedStateHandle
-            .toRoute<AppDestination.SpellDetail>()
+            .toRoute<AppDestination.SpellDetails>()
             .let { observeSpellDetails(it.spellId) }
             .map {
                 when (it) {

@@ -30,19 +30,19 @@ sealed class AppDestination(open val title: String) {
     data object CompendiumSections : AppDestination(title = "Compendium")
 
     @Serializable
-    data object CompendiumSpells : AppDestination(title = "Spells")
+    data object Spells : AppDestination(title = "Spells")
 
     @Serializable
-    data object CompendiumConditions : AppDestination(title = "Conditions")
+    data object Conditions : AppDestination(title = "Conditions")
 
     @Serializable
-    data object CompendiumAlignments : AppDestination(title = "Alignments")
+    data object Alignments : AppDestination(title = "Alignments")
 
     @Serializable
-    data object CompendiumRaces : AppDestination(title = "Races")
+    data object Races : AppDestination(title = "Races")
 
     @Serializable
-    data class SpellDetail(
+    data class SpellDetails(
         val spellId: String,
     ) : AppDestination(title = "Spell Details")
 
