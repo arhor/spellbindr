@@ -58,51 +58,50 @@ fun SpellDetailRoute(
     onBack: () -> Unit,
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
-    val spellId = args.spellId
-    val initialName = args.initialName
+    val isFavorite = (state as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
+    val isFavoriteEnabled = state is SpellDetailsViewModel.UiState.Loaded
 
-    LaunchedEffect(spellId) {
-        vm.loadSpell(spellId)
+    LaunchedEffect(args.spellId) {
+        vm.loadSpell(args.spellId)
     }
-
-    val detailState = state
-    val isFavorite = (detailState as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
-    val title = when (detailState) {
-        is SpellDetailsViewModel.UiState.Loaded -> detailState.spell.name
-        else -> initialName ?: "Spell Details"
-    }
-    val isFavoriteEnabled = detailState is SpellDetailsViewModel.UiState.Loaded
 
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
                 visible = true,
-                title = { Text(title) },
+                title = { Text("Spells") },
                 navigation = AppTopBarNavigation.Back(onBack),
-                actions = {
-                    IconButton(
-                        onClick = vm::toggleFavorite,
-                        enabled = isFavoriteEnabled,
-                    ) {
-                        if (isFavorite) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Remove from favorites",
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Outlined.FavoriteBorder,
-                                contentDescription = "Add to favorites",
-                            )
-                        }
-                    }
-                },
+                actions = { ToggleFavoriteIconButton(vm, isFavoriteEnabled, isFavorite) },
             ),
         ),
     ) {
         SpellDetailScreen(
             uiState = state,
         )
+    }
+}
+
+@Composable
+private fun ToggleFavoriteIconButton(
+    vm: SpellDetailsViewModel,
+    isFavoriteEnabled: Boolean,
+    isFavorite: Boolean
+) {
+    IconButton(
+        onClick = vm::toggleFavorite,
+        enabled = isFavoriteEnabled,
+    ) {
+        if (isFavorite) {
+            Icon(
+                imageVector = Icons.Filled.Favorite,
+                contentDescription = "Remove from favorites",
+            )
+        } else {
+            Icon(
+                imageVector = Icons.Outlined.FavoriteBorder,
+                contentDescription = "Add to favorites",
+            )
+        }
     }
 }
 

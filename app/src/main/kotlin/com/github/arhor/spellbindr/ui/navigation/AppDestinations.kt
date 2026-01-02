@@ -44,7 +44,6 @@ sealed class AppDestination(open val title: String) {
     @Serializable
     data class SpellDetail(
         val spellId: String,
-        val initialName: String? = null,
     ) : AppDestination(title = "Spell Details")
 
     @Serializable

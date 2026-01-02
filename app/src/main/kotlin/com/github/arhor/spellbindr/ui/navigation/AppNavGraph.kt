@@ -81,7 +81,7 @@ fun SpellbindrAppNavGraph(
         composable<AppDestination.CompendiumSpells> { navEntry ->
             CompendiumSpellsRoute(
                 vm = hiltViewModel(navEntry),
-                onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it.id, it.name)) },
+                onSpellSelected = { controller.navigate(AppDestination.SpellDetail(it.id)) },
                 onBack = controller::navigateUp,
             )
         }
