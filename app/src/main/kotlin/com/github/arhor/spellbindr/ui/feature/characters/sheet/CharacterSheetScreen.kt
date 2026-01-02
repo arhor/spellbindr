@@ -32,7 +32,6 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetVie
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetError
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarActions
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarTitle
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponCatalogDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
@@ -148,12 +147,7 @@ fun CharacterSheetRoute(
     val headerState = (state as? CharacterSheetUiState.Content)?.header
 
     val config = AppTopBarConfig(
-        title = {
-            CharacterSheetTopBarTitle(
-                name = headerState?.name ?: args.initialName,
-                subtitle = headerState?.subtitle ?: args.initialSubtitle,
-            )
-        },
+        title = headerState?.name ?: args.initialName,
         navigation = AppTopBarNavigation.Back(onBack),
         actions = {
             CharacterSheetTopBarActions(

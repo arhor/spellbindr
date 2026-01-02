@@ -20,13 +20,13 @@ private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
 /**
  * Simple configuration object describing how the shared app bar should look.
  *
- * @property title Composable content for the title.
+ * @property title Text content for the title.
  * @property navigation Navigation icon configuration (e.g., Back arrow).
  * @property actions RowScope block for action icons.
  */
 @Stable
 data class AppTopBarConfig(
-    val title: @Composable (() -> Unit) = {},
+    val title: String? = null,
     val navigation: AppTopBarNavigation = AppTopBarNavigation.None,
     val actions: @Composable (RowScope.() -> Unit) = {},
 ) {
@@ -69,7 +69,11 @@ sealed interface AppTopBarNavigation {
 @Composable
 fun AppTopBar(config: AppTopBarConfig) {
     TopAppBar(
-        title = config.title,
+        title = {
+            config.title?.let {
+                Text(it)
+            }
+        },
         navigationIcon = config.navigation.asNavigationIcon(),
         actions = config.actions,
     )
@@ -81,7 +85,7 @@ private fun AppTopBarPreview() {
     AppTheme {
         AppTopBar(
             config = AppTopBarConfig(
-                title = { Text(text = "Spellbindr") },
+                title = "Spellbindr",
                 navigation = AppTopBarNavigation.Back {},
                 actions = {
                     IconButton(onClick = {}) {

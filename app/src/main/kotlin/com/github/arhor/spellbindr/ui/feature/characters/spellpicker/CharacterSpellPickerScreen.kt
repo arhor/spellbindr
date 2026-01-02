@@ -66,7 +66,7 @@ private fun CharacterSpellPickerScreen(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text(text = "Add Spells") },
+                title = "Add Spells",
                 navigation = AppTopBarNavigation.Back(onBack),
             ),
         ),

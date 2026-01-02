@@ -79,7 +79,7 @@ fun CharacterEditorRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text(text = title) },
+                title = title,
                 navigation = AppTopBarNavigation.Back(onBack),
                 actions = {
                     TextButton(

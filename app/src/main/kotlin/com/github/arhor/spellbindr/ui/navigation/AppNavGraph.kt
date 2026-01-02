@@ -59,9 +59,9 @@ fun SpellbindrAppNavGraph(
                 vm = hiltViewModel(navEntry),
                 savedStateHandle = navEntry.savedStateHandle,
                 args = navEntry.toRoute<AppDestination.CharacterSheet>(),
-                onOpenSpellDetail = { spellId -> controller.navigate(AppDestination.SpellDetail(spellId)) },
-                onAddSpells = { charId -> controller.navigate(AppDestination.CharacterSpellPicker(charId)) },
-                onOpenFullEditor = { charId -> controller.navigate(AppDestination.CharacterEditor(charId)) },
+                onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetail(it)) },
+                onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(it)) },
+                onOpenFullEditor = { controller.navigate(AppDestination.CharacterEditor(it)) },
                 onCharacterDeleted = controller::navigateUp,
                 onBack = controller::navigateUp,
             )
@@ -100,7 +100,7 @@ fun SpellbindrAppNavGraph(
         composable<AppDestination.SpellDetail> { navEntry ->
             SpellDetailRoute(
                 vm = hiltViewModel(navEntry),
-                args = navEntry.toRoute<AppDestination.SpellDetail>(),
+                spellId = navEntry.toRoute<AppDestination.SpellDetail>().spellId,
                 onBack = controller::navigateUp,
             )
         }

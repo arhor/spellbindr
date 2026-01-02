@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.races
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -19,7 +18,7 @@ fun RacesRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text(text = "Races") },
+                title = "Races",
                 navigation = AppTopBarNavigation.Back(onBack),
             ),
         ),

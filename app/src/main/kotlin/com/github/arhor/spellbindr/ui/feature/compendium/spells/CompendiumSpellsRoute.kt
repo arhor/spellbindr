@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,7 +34,7 @@ fun CompendiumSpellsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text(text = "Spells") },
+                title = "Spells",
                 navigation = AppTopBarNavigation.Back(onBack),
             ),
         ),
@@ -82,7 +81,7 @@ private fun CompendiumSpellsRoutePreview() {
         ProvideTopBarState(
             topBarState = TopBarState(
                 config = AppTopBarConfig(
-                    title = { Text(text = "Spells") },
+                    title = "Spells",
                     navigation = AppTopBarNavigation.Back(onClick = {}),
                 ),
             ),

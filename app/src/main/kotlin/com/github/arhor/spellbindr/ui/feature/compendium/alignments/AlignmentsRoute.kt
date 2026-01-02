@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.alignments
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -19,7 +18,7 @@ fun AlignmentsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text(text = "Alignments") },
+                title = "Alignments",
                 navigation = AppTopBarNavigation.Back(onBack),
             ),
         ),

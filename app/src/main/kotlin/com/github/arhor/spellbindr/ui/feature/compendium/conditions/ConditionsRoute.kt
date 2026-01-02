@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.conditions
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -19,7 +18,7 @@ fun ConditionsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text(text = "Conditions") },
+                title = "Conditions",
                 navigation = AppTopBarNavigation.Back(onBack),
             ),
         ),

@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.ui
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -97,19 +96,19 @@ fun SpellbindrApp(onReady: () -> Unit) {
 private fun defaultTopBarConfig(destination: NavDestination?): AppTopBarConfig =
     when {
         destination matches AppDestination.CharactersHome::class -> AppTopBarConfig(
-            title = { Text(text = "Characters") },
+            title = "Characters"
         )
 
         destination matches AppDestination.CompendiumSections::class -> AppTopBarConfig(
-            title = { Text(text = "Compendium") },
+            title = "Compendium"
         )
 
         destination matches AppDestination.Dice::class -> AppTopBarConfig(
-            title = { Text(text = "Dice Roller") },
+            title = "Dice Roller",
         )
 
         destination matches AppDestination.Settings::class -> AppTopBarConfig(
-            title = { Text(text = "Settings") },
+            title = "Settings",
         )
 
         else -> AppTopBarConfig.None

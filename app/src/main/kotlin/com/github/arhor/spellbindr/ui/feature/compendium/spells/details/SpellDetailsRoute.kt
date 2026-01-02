@@ -5,7 +5,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,7 +31,7 @@ fun SpellDetailRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                title = { Text("Spells") },
+                title = "Spells",
                 navigation = AppTopBarNavigation.Back(onBack),
                 actions = { ToggleFavoriteSpell(vm, isFavoriteEnabled, isFavorite) },
             ),
