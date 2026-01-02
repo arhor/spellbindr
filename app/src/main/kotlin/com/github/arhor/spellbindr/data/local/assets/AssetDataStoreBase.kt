@@ -55,7 +55,7 @@ abstract class AssetDataStoreBase<T>(
                 asset.value = Loadable.Ready(it)
                 logger.info { "Static asset [$path] is successfully loaded" }
             }.onFailure { error ->
-                asset.value = Loadable.Error(error)
+                asset.value = Loadable.Error(cause = error)
                 logger.error(error) { "Failed to load static asset [$path]" }
             }
         }

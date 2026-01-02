@@ -6,8 +6,8 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
@@ -16,42 +16,37 @@ import com.github.arhor.spellbindr.ui.components.TopBarState
 
 @Composable
 fun SpellDetailRoute(
-    vm: SpellDetailsViewModel,
-    spellId: String,
+    vm: SpellDetailsViewModel = hiltViewModel(),
     onBack: () -> Unit,
 ) {
-    val state by vm.state.collectAsStateWithLifecycle()
-    val isFavorite = (state as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
-    val isFavoriteEnabled = state is SpellDetailsViewModel.UiState.Loaded
-
-    LaunchedEffect(spellId) {
-        vm.loadSpell(spellId)
-    }
+    val state by vm.uiState.collectAsStateWithLifecycle()
 
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
                 title = "Spells",
                 navigation = AppTopBarNavigation.Back(onBack),
-                actions = { ToggleFavoriteSpell(vm, isFavoriteEnabled, isFavorite) },
+                actions = { ToggleFavoriteSpell(state, vm::toggleFavorite) },
             ),
         ),
     ) {
         SpellDetailScreen(
-            uiState = state,
+            state = state,
         )
     }
 }
 
 @Composable
 private fun ToggleFavoriteSpell(
-    vm: SpellDetailsViewModel,
-    isFavoriteEnabled: Boolean,
-    isFavorite: Boolean
+    state: SpellDetailsUiState,
+    onClick: () -> Unit,
 ) {
+    val isEnabled = state is SpellDetailsUiState.Content
+    val isFavorite = (state as? SpellDetailsUiState.Content)?.isFavorite == true
+
     IconButton(
-        onClick = vm::toggleFavorite,
-        enabled = isFavoriteEnabled,
+        onClick = onClick,
+        enabled = isEnabled,
     ) {
         if (isFavorite) {
             Icon(

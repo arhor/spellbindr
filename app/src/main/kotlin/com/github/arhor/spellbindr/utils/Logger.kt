@@ -29,7 +29,7 @@ value class Logger(val tag: String) {
         if (Log.isLoggable(tag, Log.ERROR)) Log.e(tag, msg())
     }
 
-    inline fun error(t: Throwable, msg: () -> String) {
+    inline fun error(t: Throwable?, msg: () -> String) {
         if (Log.isLoggable(tag, Log.ERROR)) Log.e(tag, msg(), t)
     }
 

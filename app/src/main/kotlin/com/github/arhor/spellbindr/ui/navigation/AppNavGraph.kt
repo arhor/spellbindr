@@ -85,6 +85,13 @@ fun SpellbindrAppNavGraph(
                 onBack = controller::navigateUp,
             )
         }
+        composable<AppDestination.SpellDetail> { navEntry ->
+            SpellDetailRoute(
+                onBack = controller::navigateUp,
+            )
+        }
+
+
         composable<AppDestination.CompendiumConditions> { navEntry ->
             ConditionsRoute(
                 vm = hiltViewModel(navEntry),
@@ -97,10 +104,8 @@ fun SpellbindrAppNavGraph(
         composable<AppDestination.CompendiumRaces> { navEntry ->
             RacesRoute(vm = hiltViewModel(navEntry), onBack = controller::navigateUp)
         }
-        composable<AppDestination.SpellDetail> { navEntry ->
+        composable<AppDestination.SpellDetail> {
             SpellDetailRoute(
-                vm = hiltViewModel(navEntry),
-                spellId = navEntry.toRoute<AppDestination.SpellDetail>().spellId,
                 onBack = controller::navigateUp,
             )
         }

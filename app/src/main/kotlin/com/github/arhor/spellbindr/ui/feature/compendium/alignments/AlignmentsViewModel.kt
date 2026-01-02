@@ -51,7 +51,7 @@ class AlignmentsViewModel @Inject constructor(
         }
 
         is Loadable.Error -> {
-            AlignmentsUiState.Error(alignments.cause.message ?: "Failed to load alignments")
+            AlignmentsUiState.Error(alignments.cause?.message ?: "Failed to load alignments")
         }
     }
 

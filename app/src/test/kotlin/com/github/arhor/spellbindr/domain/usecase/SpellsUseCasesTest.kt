@@ -175,7 +175,7 @@ class SpellsUseCasesTest {
         repository.spellsById[spell.id] = spell
         val useCase = ObserveSpellDetailsUseCase(
             getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            observeFavoriteSpells = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
         )
 
         // When
@@ -203,7 +203,7 @@ class SpellsUseCasesTest {
         // Given
         val useCase = ObserveSpellDetailsUseCase(
             getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            observeFavoriteSpells = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
         )
 
         // When
@@ -222,7 +222,7 @@ class SpellsUseCasesTest {
         repository.throwOnGetSpellById = true
         val useCase = ObserveSpellDetailsUseCase(
             getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            observeFavoriteSpells = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
         )
 
         // When

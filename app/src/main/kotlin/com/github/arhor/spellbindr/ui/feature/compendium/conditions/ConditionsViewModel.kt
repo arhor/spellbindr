@@ -51,7 +51,7 @@ class ConditionsViewModel @Inject constructor(
         }
 
         is Loadable.Error -> {
-            ConditionsUiState.Error(conditions.cause.message ?: "Failed to load conditions")
+            ConditionsUiState.Error(conditions.cause?.message ?: "Failed to load conditions")
         }
     }
 
