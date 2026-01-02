@@ -35,7 +35,6 @@ fun SettingsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = "Settings") },
             ),
         ),

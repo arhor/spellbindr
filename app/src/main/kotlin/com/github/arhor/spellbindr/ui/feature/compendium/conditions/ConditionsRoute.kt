@@ -19,7 +19,6 @@ fun ConditionsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = "Conditions") },
                 navigation = AppTopBarNavigation.Back(onBack),
             ),

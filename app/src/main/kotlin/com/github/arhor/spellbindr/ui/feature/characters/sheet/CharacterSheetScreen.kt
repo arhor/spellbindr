@@ -148,7 +148,6 @@ fun CharacterSheetRoute(
     val headerState = (state as? CharacterSheetUiState.Content)?.header
 
     val config = AppTopBarConfig(
-        visible = true,
         title = {
             CharacterSheetTopBarTitle(
                 name = headerState?.name ?: args.initialName,

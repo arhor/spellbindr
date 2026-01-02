@@ -19,7 +19,6 @@ fun AlignmentsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = "Alignments") },
                 navigation = AppTopBarNavigation.Back(onBack),
             ),

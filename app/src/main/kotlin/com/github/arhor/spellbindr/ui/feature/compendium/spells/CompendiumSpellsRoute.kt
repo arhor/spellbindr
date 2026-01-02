@@ -35,7 +35,6 @@ fun CompendiumSpellsRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = "Spells") },
                 navigation = AppTopBarNavigation.Back(onBack),
             ),
@@ -83,7 +82,6 @@ private fun CompendiumSpellsRoutePreview() {
         ProvideTopBarState(
             topBarState = TopBarState(
                 config = AppTopBarConfig(
-                    visible = true,
                     title = { Text(text = "Spells") },
                     navigation = AppTopBarNavigation.Back(onClick = {}),
                 ),

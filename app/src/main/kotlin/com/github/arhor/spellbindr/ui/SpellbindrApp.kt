@@ -97,22 +97,18 @@ fun SpellbindrApp(onReady: () -> Unit) {
 private fun defaultTopBarConfig(destination: NavDestination?): AppTopBarConfig =
     when {
         destination matches AppDestination.CharactersHome::class -> AppTopBarConfig(
-            visible = true,
             title = { Text(text = "Characters") },
         )
 
         destination matches AppDestination.CompendiumSections::class -> AppTopBarConfig(
-            visible = true,
             title = { Text(text = "Compendium") },
         )
 
         destination matches AppDestination.Dice::class -> AppTopBarConfig(
-            visible = true,
             title = { Text(text = "Dice Roller") },
         )
 
         destination matches AppDestination.Settings::class -> AppTopBarConfig(
-            visible = true,
             title = { Text(text = "Settings") },
         )
 

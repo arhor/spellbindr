@@ -19,7 +19,6 @@ fun RacesRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = "Races") },
                 navigation = AppTopBarNavigation.Back(onBack),
             ),

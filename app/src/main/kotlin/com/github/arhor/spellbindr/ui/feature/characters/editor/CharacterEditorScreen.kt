@@ -79,7 +79,6 @@ fun CharacterEditorRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = title) },
                 navigation = AppTopBarNavigation.Back(onBack),
                 actions = {

@@ -51,7 +51,6 @@ fun CharactersListRoute(
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
-                visible = true,
                 title = { Text(text = "Characters") },
             ),
         ),
