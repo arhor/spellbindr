@@ -44,12 +44,12 @@ class CharacterEditorViewModel @Inject constructor(
     private val initialId: String? = savedStateHandle.get<String>("characterId")
     private var baseSheet: CharacterSheet? = null
 
-    private val _uiState = MutableStateFlow(
-        CharacterEditorUiState(
-            characterId = initialId,
-            mode = if (initialId == null) EditorMode.Create else EditorMode.Edit,
-            isLoading = initialId != null,
-        )
+    private val _uiState = MutableStateFlow<CharacterEditorUiState>(
+        if (initialId == null) {
+            CharacterEditorUiState.Content()
+        } else {
+            CharacterEditorUiState.Loading
+        },
     )
     val uiState: StateFlow<CharacterEditorUiState> = _uiState.asStateFlow()
 
@@ -63,58 +63,245 @@ class CharacterEditorViewModel @Inject constructor(
     private fun observeCharacter(id: String) {
         loadCharacterSheetUseCase(id)
             .onEach { sheet ->
-                if (sheet != null) {
+                _uiState.value = if (sheet != null) {
                     baseSheet = sheet
-                    _uiState.value = sheet.toEditorState(computeDerivedBonusesUseCase)
+                    sheet.toEditorState(computeDerivedBonusesUseCase)
                 } else {
-                    _uiState.update { it.copy(characterId = id, isLoading = false) }
+                    CharacterEditorUiState.Content(
+                        characterId = id,
+                        mode = EditorMode.Edit,
+                    )
                 }
             }
             .catch { throwable ->
-                _uiState.update { it.copy(isLoading = false, saveError = throwable.message) }
+                _uiState.value = CharacterEditorUiState.Error(
+                    throwable.message ?: "Unable to load character",
+                )
             }
             .launchIn(viewModelScope)
     }
 
-    fun onAction(action: CharacterEditorAction) {
-        _uiState.update { reduceCharacterEditorState(it, action, computeDerivedBonusesUseCase) }
+    fun onNameChanged(value: String) {
+        updateContent { it.copy(name = value, nameError = null) }
+    }
+
+    fun onClassChanged(value: String) {
+        updateContent { it.copy(className = value) }
+    }
+
+    fun onLevelChanged(value: String) {
+        updateContent { it.copy(level = value, levelError = null) }
+    }
+
+    fun onRaceChanged(value: String) {
+        updateContent { it.copy(race = value) }
+    }
+
+    fun onBackgroundChanged(value: String) {
+        updateContent { it.copy(background = value) }
+    }
+
+    fun onAlignmentChanged(value: String) {
+        updateContent { it.copy(alignment = value) }
+    }
+
+    fun onExperienceChanged(value: String) {
+        updateContent { it.copy(experiencePoints = value) }
+    }
+
+    fun onAbilityChanged(abilityId: AbilityId, value: String) {
+        updateContent(recomputeDerivedBonuses = true) { state ->
+            state.copy(
+                abilities = state.abilities.map { field ->
+                    if (field.abilityId == abilityId) field.copy(score = value, error = null) else field
+                },
+            )
+        }
+    }
+
+    fun onProficiencyBonusChanged(value: String) {
+        updateContent(recomputeDerivedBonuses = true) { it.copy(proficiencyBonus = value) }
+    }
+
+    fun onInspirationChanged(value: Boolean) {
+        updateContent { it.copy(inspiration = value) }
+    }
+
+    fun onMaxHpChanged(value: String) {
+        updateContent { it.copy(maxHitPoints = value, maxHitPointsError = null) }
+    }
+
+    fun onCurrentHpChanged(value: String) {
+        updateContent { it.copy(currentHitPoints = value) }
+    }
+
+    fun onTemporaryHpChanged(value: String) {
+        updateContent { it.copy(temporaryHitPoints = value) }
+    }
+
+    fun onArmorClassChanged(value: String) {
+        updateContent { it.copy(armorClass = value) }
+    }
+
+    fun onInitiativeChanged(value: String) {
+        updateContent { it.copy(initiative = value) }
+    }
+
+    fun onSpeedChanged(value: String) {
+        updateContent { it.copy(speed = value) }
+    }
+
+    fun onHitDiceChanged(value: String) {
+        updateContent { it.copy(hitDice = value) }
+    }
+
+    fun onSavingThrowProficiencyChanged(abilityId: AbilityId, value: Boolean) {
+        updateContent(recomputeDerivedBonuses = true) { state ->
+            state.copy(
+                savingThrows = state.savingThrows.map { entry ->
+                    if (entry.abilityId == abilityId) entry.copy(proficient = value) else entry
+                },
+            )
+        }
+    }
+
+    fun onSkillProficiencyChanged(skill: Skill, value: Boolean) {
+        updateContent(recomputeDerivedBonuses = true) { state ->
+            state.copy(
+                skills = state.skills.map { entry ->
+                    if (entry.skill == skill) entry.copy(proficient = value) else entry
+                },
+            )
+        }
+    }
+
+    fun onSkillExpertiseChanged(skill: Skill, value: Boolean) {
+        updateContent(recomputeDerivedBonuses = true) { state ->
+            state.copy(
+                skills = state.skills.map { entry ->
+                    if (entry.skill == skill) entry.copy(expertise = value) else entry
+                },
+            )
+        }
+    }
+
+    fun onSensesChanged(value: String) {
+        updateContent { it.copy(senses = value) }
+    }
+
+    fun onLanguagesChanged(value: String) {
+        updateContent { it.copy(languages = value) }
+    }
+
+    fun onProficienciesChanged(value: String) {
+        updateContent { it.copy(proficiencies = value) }
+    }
+
+    fun onAttacksChanged(value: String) {
+        updateContent { it.copy(attacksAndCantrips = value) }
+    }
+
+    fun onFeaturesChanged(value: String) {
+        updateContent { it.copy(featuresAndTraits = value) }
+    }
+
+    fun onEquipmentChanged(value: String) {
+        updateContent { it.copy(equipment = value) }
+    }
+
+    fun onPersonalityTraitsChanged(value: String) {
+        updateContent { it.copy(personalityTraits = value) }
+    }
+
+    fun onIdealsChanged(value: String) {
+        updateContent { it.copy(ideals = value) }
+    }
+
+    fun onBondsChanged(value: String) {
+        updateContent { it.copy(bonds = value) }
+    }
+
+    fun onFlawsChanged(value: String) {
+        updateContent { it.copy(flaws = value) }
+    }
+
+    fun onNotesChanged(value: String) {
+        updateContent { it.copy(notes = value) }
     }
 
     fun onSaveClicked() {
-        val validation = validateCharacterSheetUseCase(_uiState.value.toDomainInput())
-        _uiState.update { state ->
-            state.copy(
-                nameError = validation.nameError?.toRequiredMessage(),
-                levelError = validation.levelError?.toLevelMessage(),
-                abilities = state.abilities.map { ability ->
-                    val error = validation.abilityErrors[ability.abilityId]?.toRequiredMessage()
-                    ability.copy(error = error)
-                },
-                maxHitPointsError = validation.maxHpError?.toRequiredMessage(),
-            )
+        val currentState = _uiState.value as? CharacterEditorUiState.Content ?: return
+        val validation = validateCharacterSheetUseCase(currentState.toDomainInput())
+        val validatedState = currentState.copy(
+            nameError = validation.nameError?.toRequiredMessage(),
+            levelError = validation.levelError?.toLevelMessage(),
+            abilities = currentState.abilities.map { ability ->
+                val error = validation.abilityErrors[ability.abilityId]?.toRequiredMessage()
+                ability.copy(error = error)
+            },
+            maxHitPointsError = validation.maxHpError?.toRequiredMessage(),
+        )
+        _uiState.value = validatedState
+
+        if (validation.hasErrors) {
+            return
         }
-        if (validation.hasErrors) return
 
         viewModelScope.launch {
-            val sheet = buildCharacterSheetFromInputsUseCase(_uiState.value.toDomainInput(), baseSheet)
-            _uiState.update {
-                it.copy(
-                    isSaving = true,
-                    saveError = null,
-                    characterId = sheet.id,
-                    mode = EditorMode.Edit,
-                )
+            val sheet = buildCharacterSheetFromInputsUseCase(validatedState.toDomainInput(), baseSheet)
+            _uiState.update { state ->
+                if (state is CharacterEditorUiState.Content) {
+                    state.copy(
+                        isSaving = true,
+                        saveError = null,
+                        characterId = sheet.id,
+                        mode = EditorMode.Edit,
+                    )
+                } else {
+                    state
+                }
             }
             runCatching { saveCharacterSheetUseCase(sheet) }
                 .onSuccess {
                     baseSheet = sheet
-                    _uiState.update { it.copy(isSaving = false) }
+                    _uiState.update { state ->
+                        if (state is CharacterEditorUiState.Content) {
+                            state.copy(isSaving = false)
+                        } else {
+                            state
+                        }
+                    }
                     _events.emit(CharacterEditorEvent.Saved)
                 }
                 .onFailure { error ->
-                    _uiState.update { it.copy(isSaving = false, saveError = error.message) }
+                    _uiState.update { state ->
+                        if (state is CharacterEditorUiState.Content) {
+                            state.copy(isSaving = false, saveError = error.message)
+                        } else {
+                            state
+                        }
+                    }
                     _events.emit(CharacterEditorEvent.Error("Unable to save character"))
                 }
+        }
+    }
+
+    private fun updateContent(
+        recomputeDerivedBonuses: Boolean = false,
+        transform: (CharacterEditorUiState.Content) -> CharacterEditorUiState.Content,
+    ) {
+        _uiState.update { state ->
+            if (state is CharacterEditorUiState.Content) {
+                val updated = transform(state)
+                if (recomputeDerivedBonuses) {
+                    val derived = computeDerivedBonusesUseCase(updated.toDomainInput())
+                    updated.withDerivedBonuses(derived)
+                } else {
+                    updated
+                }
+            } else {
+                state
+            }
         }
     }
 }
@@ -129,47 +316,56 @@ sealed interface CharacterEditorEvent {
     data class Error(val message: String) : CharacterEditorEvent
 }
 
-@Immutable
-data class CharacterEditorUiState(
-    val characterId: String? = null,
-    val mode: EditorMode = EditorMode.Create,
-    val isLoading: Boolean = false,
-    val isSaving: Boolean = false,
-    val name: String = "",
-    val nameError: String? = null,
-    val className: String = "",
-    val level: String = "1",
-    val levelError: String? = null,
-    val race: String = "",
-    val background: String = "",
-    val alignment: String = "",
-    val experiencePoints: String = "",
-    val abilities: List<AbilityFieldState> = AbilityFieldState.defaults(),
-    val proficiencyBonus: String = "2",
-    val inspiration: Boolean = false,
-    val maxHitPoints: String = "1",
-    val maxHitPointsError: String? = null,
-    val currentHitPoints: String = "1",
-    val temporaryHitPoints: String = "",
-    val armorClass: String = "",
-    val initiative: String = "",
-    val speed: String = "30 ft",
-    val hitDice: String = "",
-    val savingThrows: List<SavingThrowInputState> = SavingThrowInputState.defaults(),
-    val skills: List<SkillInputState> = SkillInputState.defaults(),
-    val senses: String = "",
-    val languages: String = "",
-    val proficiencies: String = "",
-    val attacksAndCantrips: String = "",
-    val featuresAndTraits: String = "",
-    val equipment: String = "",
-    val personalityTraits: String = "",
-    val ideals: String = "",
-    val bonds: String = "",
-    val flaws: String = "",
-    val notes: String = "",
-    val saveError: String? = null,
-)
+sealed interface CharacterEditorUiState {
+    @Immutable
+    data object Loading : CharacterEditorUiState
+
+    @Immutable
+    data class Content(
+        val characterId: String? = null,
+        val mode: EditorMode = EditorMode.Create,
+        val isSaving: Boolean = false,
+        val name: String = "",
+        val nameError: String? = null,
+        val className: String = "",
+        val level: String = "1",
+        val levelError: String? = null,
+        val race: String = "",
+        val background: String = "",
+        val alignment: String = "",
+        val experiencePoints: String = "",
+        val abilities: List<AbilityFieldState> = AbilityFieldState.defaults(),
+        val proficiencyBonus: String = "2",
+        val inspiration: Boolean = false,
+        val maxHitPoints: String = "1",
+        val maxHitPointsError: String? = null,
+        val currentHitPoints: String = "1",
+        val temporaryHitPoints: String = "",
+        val armorClass: String = "",
+        val initiative: String = "",
+        val speed: String = "30 ft",
+        val hitDice: String = "",
+        val savingThrows: List<SavingThrowInputState> = SavingThrowInputState.defaults(),
+        val skills: List<SkillInputState> = SkillInputState.defaults(),
+        val senses: String = "",
+        val languages: String = "",
+        val proficiencies: String = "",
+        val attacksAndCantrips: String = "",
+        val featuresAndTraits: String = "",
+        val equipment: String = "",
+        val personalityTraits: String = "",
+        val ideals: String = "",
+        val bonds: String = "",
+        val flaws: String = "",
+        val notes: String = "",
+        val saveError: String? = null,
+    ) : CharacterEditorUiState
+
+    @Immutable
+    data class Error(
+        val message: String,
+    ) : CharacterEditorUiState
+}
 
 @Immutable
 data class AbilityFieldState(
@@ -214,11 +410,10 @@ data class SkillInputState(
 
 private fun CharacterSheet.toEditorState(
     computeDerivedBonusesUseCase: ComputeDerivedBonusesUseCase,
-): CharacterEditorUiState {
-    val baseState = CharacterEditorUiState(
+): CharacterEditorUiState.Content {
+    val baseState = CharacterEditorUiState.Content(
         characterId = id,
         mode = EditorMode.Edit,
-        isLoading = false,
         name = name,
         className = className,
         level = level.toString(),

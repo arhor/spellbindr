@@ -1,12 +1,12 @@
 package com.github.arhor.spellbindr.ui.feature.characters.editor
 
 import com.github.arhor.spellbindr.domain.model.AbilityScoreInput
-import com.github.arhor.spellbindr.domain.model.CharacterEditorDerivedBonuses
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
+import com.github.arhor.spellbindr.domain.model.CharacterEditorDerivedBonuses
 import com.github.arhor.spellbindr.domain.model.SavingThrowInput
 import com.github.arhor.spellbindr.domain.model.SkillProficiencyInput
 
-fun CharacterEditorUiState.toDomainInput(): CharacterEditorInput = CharacterEditorInput(
+fun CharacterEditorUiState.Content.toDomainInput(): CharacterEditorInput = CharacterEditorInput(
     characterId = characterId,
     name = name,
     level = level,
@@ -42,9 +42,9 @@ fun CharacterEditorUiState.toDomainInput(): CharacterEditorInput = CharacterEdit
     notes = notes,
 )
 
-fun CharacterEditorUiState.withDerivedBonuses(
+fun CharacterEditorUiState.Content.withDerivedBonuses(
     derived: CharacterEditorDerivedBonuses,
-): CharacterEditorUiState {
+): CharacterEditorUiState.Content {
     val savingThrowBonuses = derived.savingThrows.associateBy { it.abilityId }
     val skillBonuses = derived.skills.associateBy { it.skill }
     return copy(
