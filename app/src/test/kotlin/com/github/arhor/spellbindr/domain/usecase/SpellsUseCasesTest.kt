@@ -4,6 +4,7 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.SpellDetails
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.google.common.truth.Truth.assertThat
@@ -59,31 +60,6 @@ class SpellsUseCasesTest {
 
         // Then
         assertThat(result).containsExactly("fireball", "mage-armor").inOrder()
-    }
-
-    @Test
-    fun `GetSpellByIdUseCase should return matching spell when id exists`() = runTest {
-        // Given
-        val spell = sampleSpell(id = "shield", name = "Shield")
-        repository.spellsById[spell.id] = spell
-
-        // When
-        val result = GetSpellByIdUseCase(repository)(spell.id)
-
-        // Then
-        assertThat(result).isEqualTo(spell)
-    }
-
-    @Test
-    fun `GetSpellByIdUseCase should return null when spell id is unknown`() = runTest {
-        // Given
-        // No spells added to the repository
-
-        // When
-        val result = GetSpellByIdUseCase(repository)("missing")
-
-        // Then
-        assertThat(result).isNull()
     }
 
     @Test
@@ -174,12 +150,12 @@ class SpellsUseCasesTest {
         val spell = sampleSpell(id = "haste", name = "Haste")
         repository.spellsById[spell.id] = spell
         val useCase = ObserveSpellDetailsUseCase(
-            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpells = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            spellsRepository = repository,
+            favoritesRepository = favoritesRepository,
         )
 
         // When
-        val emissions = mutableListOf<ObserveSpellDetailsUseCase.SpellDetailsState>()
+        val emissions = mutableListOf<Loadable<SpellDetails>>()
         val job = launch {
             useCase(spell.id).take(3).toList(emissions)
         }
@@ -189,31 +165,25 @@ class SpellsUseCasesTest {
         job.join()
 
         // Then
-        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
-        assertThat(emissions[1]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Loaded(spell = spell, isFavorite = false)
-        )
-        assertThat(emissions[2]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Loaded(spell = spell, isFavorite = true)
-        )
+        assertThat(emissions[0]).isEqualTo(Loadable.Loading)
+        assertThat(emissions[1]).isEqualTo(Loadable.Ready(SpellDetails(spell = spell, isFavorite = false)))
+        assertThat(emissions[2]).isEqualTo(Loadable.Ready(SpellDetails(spell = spell, isFavorite = true)))
     }
 
     @Test
     fun `ObserveSpellDetailsUseCase should emit error when spell is missing`() = runTest {
         // Given
         val useCase = ObserveSpellDetailsUseCase(
-            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpells = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            spellsRepository = repository,
+            favoritesRepository = favoritesRepository,
         )
 
         // When
         val emissions = useCase("missing").take(2).toList()
 
         // Then
-        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
-        assertThat(emissions[1]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Error("Spell not found.")
-        )
+        assertThat(emissions[0]).isEqualTo(Loadable.Loading)
+        assertThat(emissions[1]).isEqualTo(Loadable.Error("Spell not found."))
     }
 
     @Test
@@ -221,18 +191,17 @@ class SpellsUseCasesTest {
         // Given
         repository.throwOnGetSpellById = true
         val useCase = ObserveSpellDetailsUseCase(
-            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpells = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            spellsRepository = repository,
+            favoritesRepository = favoritesRepository,
         )
 
         // When
         val emissions = useCase("fail").take(2).toList()
 
         // Then
-        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
-        assertThat(emissions[1]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Error("Oops, something went wrong...")
-        )
+        assertThat(emissions[0]).isEqualTo(Loadable.Loading)
+        val errorState = emissions[1] as Loadable.Error
+        assertThat(errorState.message).isEqualTo("Oops, something went wrong...")
     }
 
     private fun sampleSpell(

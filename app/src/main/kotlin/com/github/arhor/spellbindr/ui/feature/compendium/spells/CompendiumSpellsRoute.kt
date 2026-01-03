@@ -22,13 +22,11 @@ fun CompendiumSpellsRoute(
     onSpellSelected: (Spell) -> Unit,
     onBack: () -> Unit,
 ) {
-    val state by vm.spellsState.collectAsStateWithLifecycle()
+    val state by vm.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(vm) {
-        vm.effects.collectLatest {
-            when (it) {
-                is SpellsViewModel.Effect.SpellSelected -> onSpellSelected(it.spell)
-            }
+        vm.spellSelections.collectLatest { spell ->
+            onSpellSelected(spell)
         }
     }
 
@@ -42,14 +40,14 @@ fun CompendiumSpellsRoute(
     ) {
         SpellSearchScreen(
             state = state,
-            onQueryChanged = { vm.onAction(SpellsViewModel.Action.QueryChanged(it)) },
-            onFiltersClick = { vm.onAction(SpellsViewModel.Action.FiltersClicked) },
-            onFavoriteClick = { vm.onAction(SpellsViewModel.Action.FavoritesToggled) },
-            onGroupToggle = { vm.onAction(SpellsViewModel.Action.GroupToggled(it)) },
-            onToggleAllGroups = { vm.onAction(SpellsViewModel.Action.ToggleAllGroups) },
-            onSpellClick = { vm.onAction(SpellsViewModel.Action.SpellClicked(it)) },
-            onSubmitFilters = { vm.onAction(SpellsViewModel.Action.FiltersSubmitted(it)) },
-            onCancelFilters = { vm.onAction(SpellsViewModel.Action.FiltersCanceled(it)) },
+            onQueryChanged = vm::onQueryChanged,
+            onFiltersClick = vm::onFiltersClick,
+            onFavoriteClick = vm::onFavoritesToggled,
+            onGroupToggle = vm::onGroupToggled,
+            onToggleAllGroups = vm::onToggleAllGroups,
+            onSpellClick = vm::onSpellSelected,
+            onSubmitFilters = vm::onFiltersSubmitted,
+            onCancelFilters = vm::onFiltersCanceled,
         )
     }
 }

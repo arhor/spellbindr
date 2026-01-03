@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +11,6 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -40,22 +38,6 @@ class SpellsViewModel @Inject constructor(
     private val searchAndGroupSpellsUseCase: SearchAndGroupSpellsUseCase,
 ) : ViewModel() {
 
-    sealed interface Action {
-        data class QueryChanged(val query: String) : Action
-        data object FiltersClicked : Action
-        data object FavoritesToggled : Action
-        data class GroupToggled(val level: Int) : Action
-        data object ToggleAllGroups : Action
-        data class FiltersSubmitted(val classes: Set<EntityRef>) : Action
-        data class FiltersCanceled(val classes: Set<EntityRef>) : Action
-        data class SpellClicked(val spell: Spell) : Action
-    }
-
-    sealed interface Effect {
-        data class SpellSelected(val spell: Spell) : Effect
-    }
-
-    @Immutable
     data class State(
         override val query: String = "",
         override val showFavorite: Boolean = false,
@@ -68,28 +50,37 @@ class SpellsViewModel @Inject constructor(
         override val expandedAll: Boolean = true,
     ) : SpellListState
 
+    private data class SpellFilters(
+        val query: String = "",
+        val showFavorite: Boolean = false,
+        val showFilterDialog: Boolean = false,
+        val currentClasses: Set<EntityRef> = emptySet(),
+    )
+
+    private data class SpellExpansionState(
+        val expandedAll: Boolean = true,
+        val expandedLevels: Map<Int, Boolean> = emptyMap(),
+    )
+
     private data class SpellsQuery(
-        val filters: SpellListStateReducer.SpellFilters,
+        val filters: SpellFilters,
         val allSpellsState: Loadable<List<Spell>>,
         val favoriteSpellIds: List<String>,
     ) {
-        val query: String = filters.query
-        val currentClasses: Set<EntityRef> = filters.currentClasses
-        val showFavorite: Boolean = filters.showFavorite
         val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
     }
 
-    private val _effects = MutableSharedFlow<Effect>()
-    val effects: SharedFlow<Effect> = _effects.asSharedFlow()
+    private val _spellSelections = MutableSharedFlow<Spell>()
+    val spellSelections: SharedFlow<Spell> = _spellSelections.asSharedFlow()
 
-    private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
-    private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
+    private val spellFilters = MutableStateFlow(SpellFilters())
+    private val spellExpansionState = MutableStateFlow(SpellExpansionState())
 
     private val castingClassesState = flow {
         emit(getSpellcastingClassRefsUseCase())
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    private val uiState = combine(
+    private val spellsUiState = combine(
         spellFilters,
         observeAllSpellsStateUseCase(),
         observeFavoriteSpellIdsUseCase(),
@@ -109,9 +100,9 @@ class SpellsViewModel @Inject constructor(
                     emit(SpellsUiState.Loading)
                     runCatching {
                         searchAndGroupSpellsUseCase(
-                            query = data.query,
-                            classes = data.currentClasses,
-                            favoriteOnly = data.showFavorite,
+                            query = data.filters.query,
+                            classes = data.filters.currentClasses,
+                            favoriteOnly = data.filters.showFavorite,
                             allSpells = state.data,
                             favoriteSpellIds = data.favoriteSpellIdsSet,
                         )
@@ -126,88 +117,113 @@ class SpellsViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
-    val spellsState = combine(
+    val uiState = combine(
+        spellsUiState,
         spellFilters,
         spellExpansionState,
         castingClassesState,
-        uiState,
-    ) { filters, expansionState, castingClasses, uiState ->
-        val spellsByLevel = when (uiState) {
-            is SpellsUiState.Loaded -> uiState.spellsByLevel
-            else -> emptyMap()
-        }
-        val expandedSpellLevels = when (uiState) {
-            is SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
-                levels = uiState.spellsByLevel.keys,
-                state = expansionState,
+    ) { spellsUiState, filters, expansionState, castingClasses ->
+        when (spellsUiState) {
+            is SpellsUiState.Loading -> State(
+                query = filters.query,
+                showFavorite = filters.showFavorite,
+                showFilterDialog = filters.showFilterDialog,
+                castingClasses = castingClasses,
+                currentClasses = filters.currentClasses,
+                uiState = SpellsUiState.Loading,
+                expandedAll = expansionState.expandedAll,
             )
 
-            else -> emptyMap()
+            is SpellsUiState.Error -> State(
+                query = filters.query,
+                showFavorite = filters.showFavorite,
+                showFilterDialog = filters.showFilterDialog,
+                castingClasses = castingClasses,
+                currentClasses = filters.currentClasses,
+                uiState = spellsUiState,
+                expandedAll = expansionState.expandedAll,
+            )
+
+            is SpellsUiState.Loaded -> {
+                val expandedLevels = expandedLevels(
+                    levels = spellsUiState.spellsByLevel.keys,
+                    state = expansionState,
+                )
+                State(
+                    query = filters.query,
+                    showFavorite = filters.showFavorite,
+                    showFilterDialog = filters.showFilterDialog,
+                    castingClasses = castingClasses,
+                    currentClasses = filters.currentClasses,
+                    uiState = spellsUiState,
+                    spellsByLevel = spellsUiState.spellsByLevel,
+                    expandedSpellLevels = expandedLevels,
+                    expandedAll = expansionState.expandedAll,
+                )
+            }
         }
-        State(
-            query = filters.query,
-            showFavorite = filters.showFavorite,
-            showFilterDialog = filters.showFilterDialog,
-            castingClasses = castingClasses,
-            currentClasses = filters.currentClasses,
-            uiState = uiState,
-            spellsByLevel = spellsByLevel,
-            expandedSpellLevels = expandedSpellLevels,
-            expandedAll = expansionState.expandedAll,
-        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), State())
 
-    fun onAction(action: Action) {
-        when (action) {
-            is Action.QueryChanged -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(
-                    filters,
-                    SpellListStateReducer.FilterEvent.QueryChanged(action.query),
-                )
-            }
+    fun onQueryChanged(query: String) {
+        val sanitizedQuery = query.trim()
+        spellFilters.update { it.copy(query = sanitizedQuery) }
+    }
 
-            is Action.FiltersClicked -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FiltersOpened)
-            }
+    fun onFiltersClick() {
+        spellFilters.update { it.copy(showFilterDialog = true) }
+    }
 
-            is Action.FavoritesToggled -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FavoritesToggled)
-            }
+    fun onFavoritesToggled() {
+        spellFilters.update { it.copy(showFavorite = !it.showFavorite) }
+    }
 
-            is Action.FiltersSubmitted -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(
-                    filters,
-                    SpellListStateReducer.FilterEvent.FiltersSubmitted(action.classes),
-                )
-            }
-
-            is Action.FiltersCanceled -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(
-                    filters,
-                    SpellListStateReducer.FilterEvent.FiltersCanceled(action.classes),
-                )
-            }
-
-            is Action.SpellClicked -> viewModelScope.launch {
-                _effects.emit(Effect.SpellSelected(action.spell))
-            }
-
-            is Action.GroupToggled -> spellExpansionState.update { state ->
-                SpellListStateReducer.toggleGroup(
-                    state = state,
-                    level = action.level,
-                    currentExpandedLevels = spellsState.value.expandedSpellLevels,
-                )
-            }
-
-            is Action.ToggleAllGroups -> spellExpansionState.update { state ->
-                val levels = spellsState.value.spellsByLevel.keys
-                SpellListStateReducer.toggleAll(
-                    state = state,
-                    levels = levels,
-                )
-            }
+    fun onFiltersSubmitted(classes: Set<EntityRef>) {
+        spellFilters.update {
+            it.copy(
+                showFilterDialog = false,
+                currentClasses = classes,
+            )
         }
+    }
+
+    fun onFiltersCanceled(classes: Set<EntityRef>) {
+        spellFilters.update {
+            it.copy(
+                showFilterDialog = false,
+                currentClasses = classes,
+            )
+        }
+    }
+
+    fun onGroupToggled(level: Int) {
+        spellExpansionState.update { state ->
+            val isExpanded = uiState.value.expandedSpellLevels[level] ?: state.expandedAll
+            state.copy(expandedLevels = state.expandedLevels + (level to !isExpanded))
+        }
+    }
+
+    fun onToggleAllGroups() {
+        spellExpansionState.update { state ->
+            val levels = uiState.value.spellsByLevel.keys
+            val nextExpandedAll = !state.expandedAll
+            state.copy(
+                expandedAll = nextExpandedAll,
+                expandedLevels = levels.associateWith { nextExpandedAll },
+            )
+        }
+    }
+
+    fun onSpellSelected(spell: Spell) {
+        viewModelScope.launch {
+            _spellSelections.emit(spell)
+        }
+    }
+
+    private fun expandedLevels(
+        levels: Set<Int>,
+        state: SpellExpansionState,
+    ): Map<Int, Boolean> = levels.associateWith { level ->
+        state.expandedLevels[level] ?: state.expandedAll
     }
 
     companion object {
