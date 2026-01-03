@@ -28,69 +28,69 @@ class SpellsViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `onAction should trim and update spell query when query changes`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onQueryChanged should trim and update spell query`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
 
         // When
-        viewModel.onAction(SpellsViewModel.Action.QueryChanged("  Fire "))
-        val state = viewModel.awaitSpellsState { it.query == "Fire" }
+        viewModel.onQueryChanged("  Fire ")
+        val state = viewModel.awaitUiState { it.query == "Fire" }
 
         // Then
         assertThat(state.query).isEqualTo("Fire")
     }
 
     @Test
-    fun `onAction should update favorites filter when toggle is triggered`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onFavoritesToggled should update favorites filter`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
 
         // When
-        viewModel.onAction(SpellsViewModel.Action.FavoritesToggled)
-        val state = viewModel.awaitSpellsState { it.showFavorite }
+        viewModel.onFavoritesToggled()
+        val state = viewModel.awaitUiState { it.showFavorite }
 
         // Then
         assertThat(state.showFavorite).isTrue()
     }
 
     @Test
-    fun `onAction should flip spell group expansion state when level is toggled`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onGroupToggled should flip spell group expansion state`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val viewModel = createViewModel()
         advanceTimeBy(400)
         advanceUntilIdle()
 
         // When
-        viewModel.onAction(SpellsViewModel.Action.GroupToggled(level = 1))
-        val state = viewModel.awaitSpellsState { it.expandedSpellLevels[1] == false }
+        viewModel.onGroupToggled(level = 1)
+        val state = viewModel.awaitUiState { it.expandedSpellLevels[1] == false }
 
         // Then
         assertThat(state.expandedSpellLevels[1]).isFalse()
     }
 
     @Test
-    fun `onAction should emit effect when spell is clicked`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `onSpellSelected should emit selection when spell is clicked`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val viewModel = createViewModel()
         advanceUntilIdle()
-        val spellsState = viewModel.awaitSpellsState { it.uiState is SpellsUiState.Loaded }
+        val spellsState = viewModel.awaitUiState { it.uiState is SpellsUiState.Loaded }
         val spell = (spellsState.uiState as SpellsUiState.Loaded).spells.first()
 
         // When
-        val effectDeferred = async { viewModel.effects.first() }
-        viewModel.onAction(SpellsViewModel.Action.SpellClicked(spell))
-        val effect = effectDeferred.await()
+        val selectionDeferred = async { viewModel.spellSelections.first() }
+        viewModel.onSpellSelected(spell)
+        val effect = selectionDeferred.await()
 
         // Then
-        assertThat(effect).isEqualTo(SpellsViewModel.Effect.SpellSelected(spell))
+        assertThat(effect).isEqualTo(spell)
     }
 }
 
-private suspend fun SpellsViewModel.awaitSpellsState(
+private suspend fun SpellsViewModel.awaitUiState(
     predicate: (SpellsViewModel.State) -> Boolean = { true },
-): SpellsViewModel.State = spellsState.first(predicate)
+): SpellsViewModel.State = uiState.first(predicate)
 
 private fun TestScope.createViewModel(): SpellsViewModel {
     val spells = listOf(

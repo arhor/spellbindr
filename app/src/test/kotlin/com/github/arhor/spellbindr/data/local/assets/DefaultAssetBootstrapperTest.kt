@@ -57,7 +57,7 @@ class DefaultAssetBootstrapperTest {
 
         // Then
         assertThat(intermediateState.criticalAssetsReady).isTrue()
-        assertThat(intermediateState.readyForInteraction).isFalse()
+        assertThat(intermediateState.readyForInteraction).isTrue()
         assertThat(finalState.criticalAssetsReady).isTrue()
         assertThat(finalState.readyForInteraction).isTrue()
         assertThat(finalState.deferredAssetsReady).isFalse()

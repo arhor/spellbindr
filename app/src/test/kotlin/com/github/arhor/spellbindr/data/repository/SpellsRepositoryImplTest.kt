@@ -16,7 +16,7 @@ class SpellsRepositoryImplTest {
 
     @Test
     fun `getSpellById should return null when asset load fails`() = runTest {
-        val stateFlow = MutableStateFlow<Loadable<List<Spell>>>(Loadable.Error(IllegalStateException("Boom")))
+        val stateFlow = MutableStateFlow<Loadable<List<Spell>>>(Loadable.Error(cause = IllegalStateException("Boom")))
         val dataStore = mockk<SpellAssetDataStore> {
             every { data } returns stateFlow
         }
