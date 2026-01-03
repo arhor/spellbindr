@@ -17,9 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
@@ -111,10 +111,10 @@ internal fun CharacterSheetContent(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CharacterSheetContentPreview() {
-    AppTheme(isDarkTheme = false) {
+    AppTheme {
         CharacterSheetContent(
             state = CharacterSheetPreviewData.uiState,
             header = CharacterSheetPreviewData.header,

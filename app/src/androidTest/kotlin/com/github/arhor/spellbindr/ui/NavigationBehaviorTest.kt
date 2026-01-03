@@ -30,7 +30,7 @@ class NavigationBehaviorTest {
     val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
-    val composeTestRule = createAndroidComposeRule<SpellbindrAppActivity>()
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Before
     fun setUp() {
@@ -42,6 +42,9 @@ class NavigationBehaviorTest {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
+
+        waitForText("Spells")
+        composeTestRule.onNodeWithText("Spells").performClick()
 
         waitForText("Search spell by name")
         composeTestRule.onNodeWithText("Search spell by name").performTextInput("Magic Missile")
@@ -125,21 +128,42 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun `compendium tab should reset search when switching top level tabs`() {
+    fun `compendium sections should open conditions and render description`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
 
+        waitForText("Conditions")
+        composeTestRule.onNodeWithText("Conditions").performClick()
+
+        // When
+        waitForText("Blinded")
+        composeTestRule.onNodeWithText("Blinded").performClick()
+
+        // Then
+        waitForText("- A blinded creature can't see and automatically fails any ability check that requires sight.")
+        composeTestRule.onNodeWithText("- A blinded creature can't see and automatically fails any ability check that requires sight.").assertIsDisplayed()
+    }
+
+    @Test
+    fun `compendium sections should reappear when returning from other tabs`() {
+        // Given
+        waitForContentDescription("Create character")
+        composeTestRule.onNodeWithText("Compendium").performClick()
+
+        waitForText("Spells")
+        composeTestRule.onNodeWithText("Spells").performClick()
         waitForText("Search spell by name")
-        composeTestRule.onNodeWithText("Races").performClick()
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        waitForText("Spells")
 
         // When
         composeTestRule.onNodeWithText("Dice").performClick()
         composeTestRule.onNodeWithText("Compendium").performClick()
 
         // Then
-        waitForText("Search spell by name")
-        composeTestRule.onNodeWithText("Search spell by name").assertIsDisplayed()
+        waitForText("Spells")
+        composeTestRule.onNodeWithText("Equipment").assertIsDisplayed()
     }
 
     private fun createCharacter(name: String) {

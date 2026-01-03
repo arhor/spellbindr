@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -35,21 +35,10 @@ fun CharacterSheetError(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun CharacterSheetErrorLightPreview() {
-    CharacterSheetErrorPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun CharacterSheetErrorDarkPreview() {
-    CharacterSheetErrorPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun CharacterSheetErrorPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun CharacterSheetErrorPreview() {
+    AppTheme {
         CharacterSheetError(
             message = "We couldn't load the character sheet right now. Please try again later.",
             modifier = Modifier,

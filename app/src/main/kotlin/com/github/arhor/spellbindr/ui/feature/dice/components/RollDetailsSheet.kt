@@ -21,7 +21,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
@@ -173,21 +173,10 @@ private fun CheckMode.detailLabel(): String = when (this) {
     CheckMode.DISADVANTAGE -> "Disadvantage"
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun RollDetailsSheetLightPreview() {
-    RollDetailsSheetPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun RollDetailsSheetDarkPreview() {
-    RollDetailsSheetPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun RollDetailsSheetPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun RollDetailsSheetPreview() {
+    AppTheme {
         RollDetailsSheetContent(
             result = RollResult.CheckAmountResult(
                 check = CheckResult(

@@ -2,7 +2,6 @@ package com.github.arhor.spellbindr.ui.feature.compendium.spells.details
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -14,14 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,194 +26,122 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
-import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
-import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.GradientDivider
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun SpellDetailRoute(
-    vm: SpellDetailsViewModel,
-    spellId: String,
-    initialName: String?,
-    onBack: () -> Unit,
+internal fun SpellDetailScreen(
+    state: SpellDetailsUiState,
 ) {
-    val state by vm.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(spellId) {
-        vm.loadSpell(spellId)
-    }
-
-    val detailState = state
-    val isFavorite = (detailState as? SpellDetailsViewModel.UiState.Loaded)?.isFavorite == true
-    val title = when (detailState) {
-        is SpellDetailsViewModel.UiState.Loaded -> detailState.spell.name
-        else -> initialName ?: "Spell Details"
-    }
-    val isFavoriteEnabled = detailState is SpellDetailsViewModel.UiState.Loaded
-
-    ProvideTopBarState(
-        topBarState = TopBarState(
-            config = AppTopBarConfig(
-                visible = true,
-                title = { Text(title) },
-                navigation = AppTopBarNavigation.Back(onBack),
-                actions = {
-                    IconButton(
-                        onClick = vm::toggleFavorite,
-                        enabled = isFavoriteEnabled,
-                    ) {
-                        if (isFavorite) {
-                            Icon(
-                                imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Remove from favorites",
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Outlined.FavoriteBorder,
-                                contentDescription = "Add to favorites",
-                            )
-                        }
-                    }
-                },
-            ),
-        ),
-    ) {
-        SpellDetailScreen(
-            uiState = state,
-        )
+    when (state) {
+        is SpellDetailsUiState.Loading -> LoadingIndicator()
+        is SpellDetailsUiState.Content -> SpellDetailsContent(state.spell)
+        is SpellDetailsUiState.Error -> ErrorMessage(state.errorMessage)
     }
 }
 
 @Composable
-private fun SpellDetailScreen(
-    uiState: SpellDetailsViewModel.UiState,
-) {
+private fun SpellDetailsContent(spell: Spell) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        when (uiState) {
-            SpellDetailsViewModel.UiState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-
-            is SpellDetailsViewModel.UiState.Error -> {
-                Text(
-                    text = uiState.message,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
+        Text(
+            text = spell.name,
+            fontSize = 36.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Serif,
+            style = TextStyle(
+                shadow = Shadow(
+                    color = Accent.copy(alpha = 0.5f),
+                    offset = Offset(2f, 2f),
+                    blurRadius = 32f
                 )
-            }
+            ),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        Spacer(Modifier.height(16.dp))
 
-            is SpellDetailsViewModel.UiState.Loaded -> {
-                val spell = uiState.spell
-                Text(
-                    text = spell.name,
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Serif,
-                    style = TextStyle(
-                        shadow = Shadow(
-                            color = Accent.copy(alpha = 0.5f),
-                            offset = Offset(2f, 2f),
-                            blurRadius = 32f
-                        )
-                    ),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-                Spacer(Modifier.height(16.dp))
-
-                Card(
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(
+                    width = 2.dp,
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(
-                            width = 2.dp,
-                            shape = RoundedCornerShape(16.dp),
-                            brush = Brush.linearGradient(
-                                colors = listOf(
-                                    Accent.copy(alpha = 0.2f),
-                                    Accent,
-                                    Accent.copy(alpha = 0.2f),
-                                ),
-                            )
-                        )
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Accent.copy(alpha = 0.2f),
+                            Accent,
+                            Accent.copy(alpha = 0.2f),
+                        ),
+                    )
+                )
+        ) {
+            Column(modifier = Modifier.padding(12.dp)) {
+
+                Row(
+                    modifier = Modifier.padding(start = 15.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.padding(12.dp)) {
-
-                        Row(
-                            modifier = Modifier.padding(start = 15.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SpellIcon(
-                                modifier = Modifier.clip(RoundedCornerShape(16.dp)),
-                                spellName = spell.name,
-                                size = 60.dp,
-                                iconSize = 60.dp,
-                            )
-                            Column {
-                                TableRow(label = "Level", text = buildString {
-                                    append(spell.level)
-                                    if (spell.level == 0) {
-                                        append(" (Cantrip)")
-                                    }
-                                })
-                                TableRow(label = "School", text = spell.school.prettyString())
+                    SpellIcon(
+                        modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+                        spellName = spell.name,
+                        size = 60.dp,
+                        iconSize = 60.dp,
+                    )
+                    Column {
+                        TableRow(label = "Level", text = buildString {
+                            append(spell.level)
+                            if (spell.level == 0) {
+                                append(" (Cantrip)")
                             }
-                        }
-
-                        Spacer(modifier = Modifier.height(12.dp))
-                        GradientDivider()
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        TableRow(label = "Casting Time", text = spell.castingTime)
-                        TableRow(label = "Range", text = spell.range)
-                        TableRow(label = "Components", text = spell.components.joinToString())
-                        TableRow(label = "Duration", text = spell.duration)
-                        TableRow(label = "Classes") {
-                            FlowRow(horizontalArrangement = Arrangement.End) {
-                                spell.classes.forEachIndexed { _, classRef ->
-                                    Text(
-                                        text = " [${classRef.prettyString()}]",
-                                        fontStyle = FontStyle.Italic,
-                                        fontFamily = FontFamily.Serif,
-                                    )
-
-                                }
-                            }
-                        }
-                        TableRow(label = "Ritual", text = spell.ritual.toString())
-                        TableRow(label = "Concentration", text = spell.concentration.toString())
-                        TableRow(label = "Source", text = spell.source)
+                        })
+                        TableRow(label = "School", text = spell.school.prettyString())
                     }
                 }
 
-                DescriptionRow(spell.desc)
+                Spacer(modifier = Modifier.height(12.dp))
+                GradientDivider()
+                Spacer(modifier = Modifier.height(12.dp))
 
-                spell.higherLevel?.takeIf(List<*>::isNotEmpty)?.let { higherLevelText ->
-                    DescriptionRow(higherLevelText)
+                TableRow(label = "Casting Time", text = spell.castingTime)
+                TableRow(label = "Range", text = spell.range)
+                TableRow(label = "Components", text = spell.components.joinToString())
+                TableRow(label = "Duration", text = spell.duration)
+                TableRow(label = "Classes") {
+                    FlowRow(horizontalArrangement = Arrangement.End) {
+                        spell.classes.forEachIndexed { _, classRef ->
+                            Text(
+                                text = " [${classRef.prettyString()}]",
+                                fontStyle = FontStyle.Italic,
+                                fontFamily = FontFamily.Serif,
+                            )
+
+                        }
+                    }
                 }
+                TableRow(label = "Ritual", text = spell.ritual.toString())
+                TableRow(label = "Concentration", text = spell.concentration.toString())
+                TableRow(label = "Source", text = spell.source)
             }
+        }
+
+        DescriptionRow(spell.desc)
+
+        spell.higherLevel?.takeIf(List<*>::isNotEmpty)?.let { higherLevelText ->
+            DescriptionRow(higherLevelText)
         }
     }
 }
@@ -276,21 +198,10 @@ private fun TableRow(label: String, content: @Composable () -> Unit) {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SpellDetailsLightPreview() {
-    SpellDetailsPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SpellDetailsDarkPreview() {
-    SpellDetailsPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SpellDetailsPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun SpellDetailsPreview() {
+    AppTheme {
         val spell = Spell(
             id = "arcane_blast",
             name = "Arcane Blast",
@@ -311,7 +222,7 @@ private fun SpellDetailsPreview(isDarkTheme: Boolean) {
             source = "Homebrew",
         )
         SpellDetailScreen(
-            uiState = SpellDetailsViewModel.UiState.Loaded(
+            state = SpellDetailsUiState.Content(
                 spell = spell,
                 isFavorite = false,
             ),

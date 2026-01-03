@@ -12,7 +12,7 @@ class AlignmentAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Alignment>(
+) : AssetDataStoreBase<Alignment>(
     json = json,
     path = "data/alignments.json",
     context = context,

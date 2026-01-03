@@ -12,7 +12,7 @@ class SpellAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Spell>(
+) : AssetDataStoreBase<Spell>(
     json = json,
     path = "data/spells.json",
     context = context,

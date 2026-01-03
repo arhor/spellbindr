@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
@@ -97,35 +97,19 @@ private fun SavingThrowColumn(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
-private fun SavingThrowsCardLightPreview() {
-    SavingThrowsCardPreview(isDarkTheme = false)
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SavingThrowsCardDarkPreview() {
-    SavingThrowsCardPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SavingThrowsCardPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
-        SavingThrowsCardPreviewContent()
-    }
-}
-
-@Composable
-private fun SavingThrowsCardPreviewContent() {
-    Surface {
-        Box(
-            modifier = Modifier.padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            SavingThrowsCard(
-                abilities = CharacterSheetPreviewData.overview.abilities,
-            )
+private fun SavingThrowsCardPreview() {
+    AppTheme {
+        Surface {
+            Box(
+                modifier = Modifier.padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                SavingThrowsCard(
+                    abilities = CharacterSheetPreviewData.overview.abilities,
+                )
+            }
         }
     }
 }

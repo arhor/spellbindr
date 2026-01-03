@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -60,21 +60,10 @@ fun ValueAdjuster(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun ValueAdjusterLightPreview() {
-    ValueAdjusterPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun ValueAdjusterDarkPreview() {
-    ValueAdjusterPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun ValueAdjusterPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun ValueAdjusterPreview() {
+    AppTheme {
         ValueAdjuster(
             label = "Modifier",
             value = 2,

@@ -14,7 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -68,21 +68,10 @@ fun PercentileCard(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun PercentileCardLightPreview() {
-    PercentileCardPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun PercentileCardDarkPreview() {
-    PercentileCardPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun PercentileCardPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun PercentileCardPreview() {
+    AppTheme {
         PercentileCard(
             lastPercentileRoll = 73,
             onRollPercentile = {},

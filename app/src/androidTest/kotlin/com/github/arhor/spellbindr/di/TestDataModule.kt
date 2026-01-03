@@ -9,9 +9,9 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.github.arhor.spellbindr.data.local.db.CharacterDao
-import com.github.arhor.spellbindr.data.local.db.FavoritesDao
-import com.github.arhor.spellbindr.data.local.db.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
+import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

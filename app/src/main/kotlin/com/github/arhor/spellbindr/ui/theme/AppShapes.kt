@@ -4,6 +4,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
@@ -22,6 +23,21 @@ val AppShapes = Shapes(
     large = RoundedCornerShape(20.dp),
     extraLarge = RoundedCornerShape(28.dp)
 )
+
+object EllipseShape : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+        val rect = size.toRect()
+        val path = Path().apply {
+            addOval(rect)
+            close()
+        }
+        return Outline.Generic(path)
+    }
+}
 
 data class ConvexSidesCardShape(val convexityFactor: Float = 0.35f) : Shape {
 

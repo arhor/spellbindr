@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
@@ -100,41 +100,25 @@ private fun SavingThrowBonusCard(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
-private fun SavingThrowCardLightPreview() {
-    SavingThrowCardPreview(isDarkTheme = false)
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SavingThrowCardDarkPreview() {
-    SavingThrowCardPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SavingThrowCardPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
-        SavingThrowCardPreviewContent()
-    }
-}
-
-@Composable
-private fun SavingThrowCardPreviewContent() {
-    Column(
-        modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        val abilities = CharacterSheetPreviewData.overview.abilities
-        SavingThrowCard(
-            abilityName = abilities[0].abilityId.displayName(),
-            bonus = abilities[0].savingThrowBonus,
-            proficient = abilities[0].savingThrowProficient,
-        )
-        SavingThrowCard(
-            abilityName = abilities[1].abilityId.displayName(),
-            bonus = abilities[1].savingThrowBonus,
-            proficient = abilities[1].savingThrowProficient,
-        )
+private fun SavingThrowCardPreview() {
+    AppTheme {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            val abilities = CharacterSheetPreviewData.overview.abilities
+            SavingThrowCard(
+                abilityName = abilities[0].abilityId.displayName(),
+                bonus = abilities[0].savingThrowBonus,
+                proficient = abilities[0].savingThrowProficient,
+            )
+            SavingThrowCard(
+                abilityName = abilities[1].abilityId.displayName(),
+                bonus = abilities[1].savingThrowBonus,
+                proficient = abilities[1].savingThrowProficient,
+            )
+        }
     }
 }

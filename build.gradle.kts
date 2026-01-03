@@ -7,18 +7,3 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlin.ksp) apply false
 }
-
-tasks.register("resolveAllDependencies") {
-    group = "build setup"
-    description = "Resolves all resolvable configurations in all projects to warm caches for offline builds."
-
-    doLast {
-        rootProject.allprojects.forEach { project ->
-            project.configurations
-                .filter { configuration -> configuration.isCanBeResolved }
-                .forEach { configuration ->
-                    configuration.resolve()
-                }
-        }
-    }
-}

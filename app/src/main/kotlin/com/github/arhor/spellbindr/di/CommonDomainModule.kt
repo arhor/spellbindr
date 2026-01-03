@@ -4,24 +4,24 @@ import com.github.arhor.spellbindr.data.repository.AbilityRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.AlignmentRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.CharacterClassRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.CharacterRepositoryImpl
+import com.github.arhor.spellbindr.data.repository.ConditionsRepositoryImpl
+import com.github.arhor.spellbindr.data.repository.EquipmentRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.FavoritesRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.RacesRepositoryImpl
-import com.github.arhor.spellbindr.data.repository.ReferenceDataRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.SpellsRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.ThemeRepositoryImpl
 import com.github.arhor.spellbindr.data.repository.TraitsRepositoryImpl
-import com.github.arhor.spellbindr.data.repository.WeaponCatalogRepositoryImpl
 import com.github.arhor.spellbindr.domain.repository.AbilityRepository
 import com.github.arhor.spellbindr.domain.repository.AlignmentRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
+import com.github.arhor.spellbindr.domain.repository.ConditionsRepository
+import com.github.arhor.spellbindr.domain.repository.EquipmentRepository
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.RacesRepository
-import com.github.arhor.spellbindr.domain.repository.ReferenceDataRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.github.arhor.spellbindr.domain.repository.ThemeRepository
 import com.github.arhor.spellbindr.domain.repository.TraitsRepository
-import com.github.arhor.spellbindr.domain.repository.WeaponCatalogRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -52,14 +52,14 @@ abstract class CommonDomainModule {
     abstract fun bindTraitsRepository(impl: TraitsRepositoryImpl): TraitsRepository
 
     @Binds
-    abstract fun bindReferenceDataRepository(impl: ReferenceDataRepositoryImpl): ReferenceDataRepository
-
-    @Binds
     abstract fun bindSpellsRepository(impl: SpellsRepositoryImpl): SpellsRepository
 
     @Binds
     abstract fun bindThemeSettingsRepository(impl: ThemeRepositoryImpl): ThemeRepository
 
     @Binds
-    abstract fun bindWeaponCatalogRepository(impl: WeaponCatalogRepositoryImpl): WeaponCatalogRepository
+    abstract fun bindEquipmentRepository(impl: EquipmentRepositoryImpl): EquipmentRepository
+
+    @Binds
+    abstract fun bindConditionsRepository(impl: ConditionsRepositoryImpl): ConditionsRepository
 }

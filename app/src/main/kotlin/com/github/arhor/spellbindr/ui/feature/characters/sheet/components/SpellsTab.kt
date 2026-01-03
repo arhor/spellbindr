@@ -16,7 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
@@ -68,21 +68,10 @@ fun SpellsTab(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SpellsTabLightPreview() {
-    SpellsTabPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SpellsTabDarkPreview() {
-    SpellsTabPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SpellsTabPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun SpellsTabPreview() {
+    AppTheme {
         SpellsTab(
             spellsState = CharacterSheetPreviewData.spells,
             editMode = SheetEditMode.View,

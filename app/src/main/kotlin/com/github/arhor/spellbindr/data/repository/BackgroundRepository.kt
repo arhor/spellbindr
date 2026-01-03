@@ -2,10 +2,10 @@ package com.github.arhor.spellbindr.data.repository
 
 import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
-import com.github.arhor.spellbindr.data.model.Background
+import com.github.arhor.spellbindr.domain.model.Background
+import com.github.arhor.spellbindr.domain.model.Loadable
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,9 +14,13 @@ import javax.inject.Singleton
 class BackgroundRepository @Inject constructor(
     private val backgroundsDataStore: BackgroundsAssetDataStore,
 ) {
-    val allBackgrounds: Flow<List<Background>>
-        get() = backgroundsDataStore.data.map { it ?: emptyList() }
+    val allBackgroundsState: Flow<Loadable<List<Background>>>
+        get() = backgroundsDataStore.data
 
     suspend fun findBackgroundById(id: String): Background? =
-        allBackgrounds.firstOrNull()?.find { it.id == id }
-} 
+        when (val state = backgroundsDataStore.data.first { it !is Loadable.Loading }) {
+            is Loadable.Ready -> state.data.find { it.id == id }
+            is Loadable.Error -> null
+            is Loadable.Loading -> null
+        }
+}

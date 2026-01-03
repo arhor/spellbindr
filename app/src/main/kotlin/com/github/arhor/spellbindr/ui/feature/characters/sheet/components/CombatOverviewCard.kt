@@ -22,7 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.abbreviation
@@ -168,10 +168,10 @@ private fun AbilityUiModel.toAbilityScore(): AbilityScore {
 internal val LEFT_ABILITY_ORDER = listOf(AbilityIds.STR, AbilityIds.DEX, AbilityIds.CON)
 internal val RIGHT_ABILITY_ORDER = listOf(AbilityIds.INT, AbilityIds.WIS, AbilityIds.CHA)
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CombatOverviewCardPreview() {
-    AppTheme(isDarkTheme = true) {
+    AppTheme {
         CombatOverviewCard(
             header = CharacterSheetPreviewData.header,
             abilities = CharacterSheetPreviewData.overview.abilities,

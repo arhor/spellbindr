@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityScore
@@ -184,36 +184,20 @@ private fun ContentDrawScope.createPath(shape: Shape): Path =
     }
 
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
-private fun AbilityScoreCardLightPreview() {
-    AbilityScoreCardPreview(isDarkTheme = false)
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AbilityScoreCardDarkPreview() {
-    AbilityScoreCardPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun AbilityScoreCardPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
-        AbilityScoreCardPreviewContent()
-    }
-}
-
-@Composable
-private fun AbilityScoreCardPreviewContent() {
-    Surface {
-        Box(modifier = Modifier.padding(6.dp)) {
-            AbilityScoreCard(
-                ability = AbilityScore(
-                    name = "CON",
-                    value = 13,
-                    bonus = 1,
-                ),
-            )
+private fun AbilityScoreCardPreview() {
+    AppTheme {
+        Surface {
+            Box(modifier = Modifier.padding(6.dp)) {
+                AbilityScoreCard(
+                    ability = AbilityScore(
+                        name = "CON",
+                        value = 13,
+                        bonus = 1,
+                    ),
+                )
+            }
         }
     }
 }

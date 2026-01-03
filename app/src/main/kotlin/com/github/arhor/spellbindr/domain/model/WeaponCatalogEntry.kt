@@ -6,7 +6,7 @@ package com.github.arhor.spellbindr.domain.model
  * @property id Unique identifier for the weapon.
  * @property name Display name of the weapon.
  * @property categories Equipment categories associated with the weapon.
- * @property damageDiceCount Number of dice rolled for damage.
+ * @property damageDiceNum Number of dice rolled for damage.
  * @property damageDieSize Size of each damage die.
  * @property damageType Type of damage dealt by the weapon.
  */
@@ -14,7 +14,7 @@ data class WeaponCatalogEntry(
     val id: String,
     val name: String,
     val categories: Set<EquipmentCategory>,
-    val damageDiceCount: Int,
+    val damageDiceNum: Int,
     val damageDieSize: Int,
     val damageType: DamageType,
 )

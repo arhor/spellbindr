@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.data.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.CharacterClass
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -12,7 +12,7 @@ class CharacterClassAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<CharacterClass>(
+) : AssetDataStoreBase<CharacterClass>(
     json = json,
     path = "data/classes.json",
     context = context,

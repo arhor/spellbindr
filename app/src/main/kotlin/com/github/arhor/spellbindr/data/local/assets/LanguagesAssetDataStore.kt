@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
-import com.github.arhor.spellbindr.data.model.Language
+import com.github.arhor.spellbindr.domain.model.Language
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -12,11 +12,11 @@ class LanguagesAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-): StaticAssetDataStoreBase<Language>(
+) : AssetDataStoreBase<Language>(
     json = json,
     path = "data/languages.json",
     context = context,
     serializer = Language.serializer(),
-    loadingPriority = AssetLoadingPriority.DEFERRED,
+    priority = AssetLoadingPriority.DEFERRED,
 )
 

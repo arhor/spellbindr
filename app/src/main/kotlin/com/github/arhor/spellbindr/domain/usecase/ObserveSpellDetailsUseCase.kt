@@ -1,59 +1,45 @@
 package com.github.arhor.spellbindr.domain.usecase
 
+import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.SpellDetails
+import com.github.arhor.spellbindr.domain.model.map
+import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
+import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ObserveSpellDetailsUseCase @Inject constructor(
-    private val getSpellByIdUseCase: GetSpellByIdUseCase,
-    private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
+    private val spellsRepository: SpellsRepository,
+    private val favoritesRepository: FavoritesRepository,
 ) {
-    operator fun invoke(spellId: String): Flow<SpellDetailsState> {
-        val spellResultFlow: Flow<SpellResult> = flow {
-            emit(SpellResult.Loading)
-            runCatching { getSpellByIdUseCase(spellId) }
-                .onSuccess { spell ->
-                    if (spell == null) {
-                        emit(SpellResult.Error("Spell not found."))
-                    } else {
-                        emit(SpellResult.Loaded(spell))
-                    }
-                }
-                .onFailure {
-                    emit(SpellResult.Error("Oops, something went wrong..."))
-                }
-        }
-
-        return combine(spellResultFlow, observeFavoriteSpellIdsUseCase()) { spellResult, favoriteIds ->
-            when (spellResult) {
-                SpellResult.Loading -> SpellDetailsState.Loading
-                is SpellResult.Error -> SpellDetailsState.Error(spellResult.message)
-                is SpellResult.Loaded -> SpellDetailsState.Loaded(
-                    spell = spellResult.spell,
-                    isFavorite = favoriteIds.contains(spellResult.spell.id),
+    operator fun invoke(spellId: String): Flow<Loadable<SpellDetails>> =
+        combine(
+            getSpellByIdFlow(spellId),
+            favoritesRepository.observeFavoriteIds(FavoriteType.SPELL),
+        ) { spell, favorites ->
+            spell.map {
+                SpellDetails(
+                    spell = it,
+                    isFavorite = it.id in favorites
                 )
             }
         }
-    }
 
-    sealed interface SpellDetailsState {
-        data object Loading : SpellDetailsState
-
-        data class Loaded(
-            val spell: Spell,
-            val isFavorite: Boolean,
-        ) : SpellDetailsState
-
-        data class Error(val message: String) : SpellDetailsState
-    }
-
-    private sealed interface SpellResult {
-        data object Loading : SpellResult
-
-        data class Loaded(val spell: Spell) : SpellResult
-
-        data class Error(val message: String) : SpellResult
+    private fun getSpellByIdFlow(spellId: String): Flow<Loadable<Spell>> = flow {
+        emit(value = Loadable.Loading)
+        emit(
+            value = try {
+                when (val spell = spellsRepository.getSpellById(spellId)) {
+                    null -> Loadable.Error("Spell not found.")
+                    else -> Loadable.Ready(spell)
+                }
+            } catch (e: Exception) {
+                Loadable.Error("Oops, something went wrong...", e)
+            }
+        )
     }
 }

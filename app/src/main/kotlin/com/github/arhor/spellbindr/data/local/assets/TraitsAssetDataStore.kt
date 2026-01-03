@@ -12,7 +12,7 @@ class TraitsAssetDataStore @Inject constructor(
     @ApplicationContext
     context: Context,
     json: Json,
-) : StaticAssetDataStoreBase<Trait>(
+) : AssetDataStoreBase<Trait>(
     json = json,
     path = "data/traits.json",
     context = context,

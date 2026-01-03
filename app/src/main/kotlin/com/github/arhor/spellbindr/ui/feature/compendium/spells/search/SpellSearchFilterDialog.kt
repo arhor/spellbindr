@@ -33,7 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -140,21 +140,10 @@ fun SearchFilterDialog(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SearchFilterDialogLightPreview() {
-    SearchFilterDialogPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SearchFilterDialogDarkPreview() {
-    SearchFilterDialogPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SearchFilterDialogPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun SearchFilterDialogPreview() {
+    AppTheme {
         SearchFilterDialog(
             showFilterDialog = true,
             castingClasses = listOf(

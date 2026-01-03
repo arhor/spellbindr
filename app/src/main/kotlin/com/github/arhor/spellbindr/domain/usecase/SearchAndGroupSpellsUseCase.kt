@@ -6,6 +6,7 @@ import com.github.arhor.spellbindr.domain.model.SearchAndGroupSpellsResult
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.utils.unwrap
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
         favoriteSpellIds: Set<String>? = null,
     ): SearchAndGroupSpellsResult {
         val normalizedQuery = query.trim()
-        val resolvedSpells = allSpells ?: spellsRepository.allSpells.first()
+        val resolvedSpells = allSpells ?: spellsRepository.allSpellsState.unwrap().first()
         val favoriteIds = if (favoriteOnly) {
             favoriteSpellIds ?: favoritesRepository.observeFavoriteIds(FavoriteType.SPELL).first().toSet()
         } else {

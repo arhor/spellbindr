@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 import kotlinx.serialization.Serializable
 
 
@@ -14,6 +13,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SpellDC(
     val desc: String? = null,
-    val dcType: DomainEntityRef,
+    val dcType: EntityRef,
     val dcSuccess: String,
 )
