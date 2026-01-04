@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
@@ -60,12 +59,13 @@ internal fun CharacterSheetTopBarTitle(
 
 @Composable
 internal fun CharacterSheetTopBarActions(
-    state: CharacterSheetUiState,
+    editMode: SheetEditMode,
+    canEdit: Boolean,
+    hasCharacter: Boolean,
     callbacks: CharacterSheetCallbacks,
     onOverflowOpen: () -> Unit,
 ) {
-    val canEdit = state is CharacterSheetUiState.Content
-    when (state.editMode) {
+    when (editMode) {
         SheetEditMode.View -> {
             TextButton(
                 onClick = callbacks.onEnterEdit,
@@ -78,7 +78,7 @@ internal fun CharacterSheetTopBarActions(
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("Edit")
             }
-            IconButton(onClick = onOverflowOpen, enabled = state.characterId != null) {
+            IconButton(onClick = onOverflowOpen, enabled = hasCharacter) {
                 Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
             }
         }
@@ -128,7 +128,9 @@ private fun CharacterSheetTopBarTitleLoadingPreview() {
 private fun CharacterSheetTopBarActionsViewPreview() {
     AppTheme {
         CharacterSheetTopBarActions(
-            state = CharacterSheetPreviewData.uiState.copy(editMode = SheetEditMode.View),
+            editMode = SheetEditMode.View,
+            canEdit = true,
+            hasCharacter = true,
             callbacks = CharacterSheetCallbacks(),
             onOverflowOpen = {},
         )
@@ -140,7 +142,9 @@ private fun CharacterSheetTopBarActionsViewPreview() {
 private fun CharacterSheetTopBarActionsEditingPreview() {
     AppTheme {
         CharacterSheetTopBarActions(
-            state = CharacterSheetPreviewData.uiState.copy(editMode = SheetEditMode.Editing),
+            editMode = SheetEditMode.Editing,
+            canEdit = true,
+            hasCharacter = true,
             callbacks = CharacterSheetCallbacks(),
             onOverflowOpen = {},
         )
