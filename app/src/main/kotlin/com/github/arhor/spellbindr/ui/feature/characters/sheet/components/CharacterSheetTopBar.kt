@@ -19,8 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -60,15 +58,18 @@ internal fun CharacterSheetTopBarTitle(
 
 @Composable
 internal fun CharacterSheetTopBarActions(
-    state: CharacterSheetUiState,
-    callbacks: CharacterSheetCallbacks,
+    editMode: SheetEditMode,
+    canEdit: Boolean,
+    hasCharacter: Boolean,
+    onEnterEdit: () -> Unit,
+    onCancelEdit: () -> Unit,
+    onSaveEdits: () -> Unit,
     onOverflowOpen: () -> Unit,
 ) {
-    val canEdit = state is CharacterSheetUiState.Content
-    when (state.editMode) {
+    when (editMode) {
         SheetEditMode.View -> {
             TextButton(
-                onClick = callbacks.onEnterEdit,
+                onClick = onEnterEdit,
                 enabled = canEdit,
             ) {
                 Icon(
@@ -78,13 +79,13 @@ internal fun CharacterSheetTopBarActions(
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("Edit")
             }
-            IconButton(onClick = onOverflowOpen, enabled = state.characterId != null) {
+            IconButton(onClick = onOverflowOpen, enabled = hasCharacter) {
                 Icon(imageVector = Icons.Filled.MoreVert, contentDescription = "More")
             }
         }
 
         SheetEditMode.Editing -> {
-            TextButton(onClick = callbacks.onCancelEdit) {
+            TextButton(onClick = onCancelEdit) {
                 Icon(
                     imageVector = Icons.Rounded.Close,
                     contentDescription = null,
@@ -92,7 +93,7 @@ internal fun CharacterSheetTopBarActions(
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("Cancel")
             }
-            TextButton(onClick = callbacks.onSaveEdits) {
+            TextButton(onClick = onSaveEdits) {
                 Icon(
                     imageVector = Icons.Rounded.Check,
                     contentDescription = null,
@@ -128,8 +129,12 @@ private fun CharacterSheetTopBarTitleLoadingPreview() {
 private fun CharacterSheetTopBarActionsViewPreview() {
     AppTheme {
         CharacterSheetTopBarActions(
-            state = CharacterSheetPreviewData.uiState.copy(editMode = SheetEditMode.View),
-            callbacks = CharacterSheetCallbacks(),
+            editMode = SheetEditMode.View,
+            canEdit = true,
+            hasCharacter = true,
+            onEnterEdit = {},
+            onCancelEdit = {},
+            onSaveEdits = {},
             onOverflowOpen = {},
         )
     }
@@ -140,8 +145,12 @@ private fun CharacterSheetTopBarActionsViewPreview() {
 private fun CharacterSheetTopBarActionsEditingPreview() {
     AppTheme {
         CharacterSheetTopBarActions(
-            state = CharacterSheetPreviewData.uiState.copy(editMode = SheetEditMode.Editing),
-            callbacks = CharacterSheetCallbacks(),
+            editMode = SheetEditMode.Editing,
+            canEdit = true,
+            hasCharacter = true,
+            onEnterEdit = {},
+            onCancelEdit = {},
+            onSaveEdits = {},
             onOverflowOpen = {},
         )
     }

@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.OverviewTabState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 
 @Composable
@@ -19,7 +18,6 @@ fun OverviewTab(
     overview: OverviewTabState,
     editMode: SheetEditMode,
     editingState: CharacterSheetEditingState?,
-    callbacks: CharacterSheetCallbacks,
     modifier: Modifier = Modifier,
 ) {
     Column(

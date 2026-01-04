@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun WeaponsTab(
     weapons: WeaponsTabState,
-    callbacks: CharacterSheetCallbacks,
+    onAddWeaponClick: () -> Unit,
+    onWeaponSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -50,7 +50,7 @@ fun WeaponsTab(
                 style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = callbacks.onAddWeaponClicked) {
+            IconButton(onClick = onAddWeaponClick) {
                 Icon(imageVector = Icons.Outlined.Add, contentDescription = "Add weapon")
             }
         }
@@ -69,7 +69,7 @@ fun WeaponsTab(
                 items(weapons.weapons, key = { it.id }) { weapon ->
                     WeaponListItem(
                         weapon = weapon,
-                        onClick = { callbacks.onWeaponSelected(weapon.id) },
+                        onClick = { onWeaponSelected(weapon.id) },
                     )
                 }
             }
@@ -139,7 +139,8 @@ private fun WeaponsTabPreview() {
                     ),
                 ),
             ),
-            callbacks = CharacterSheetCallbacks(),
+            onAddWeaponClick = {},
+            onWeaponSelected = {},
         )
     }
 }

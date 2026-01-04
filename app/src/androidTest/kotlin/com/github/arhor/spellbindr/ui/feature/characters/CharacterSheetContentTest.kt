@@ -6,7 +6,6 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetContent
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Rule
@@ -27,7 +26,14 @@ class CharacterSheetContentTest {
                 CharacterSheetContent(
                     state = CharacterSheetPreviewData.uiState,
                     header = CharacterSheetPreviewData.header,
-                    callbacks = CharacterSheetCallbacks(),
+                    onTabSelected = {},
+                    onAddSpellsClick = {},
+                    onSpellSelected = {},
+                    onSpellRemoved = { _, _ -> },
+                    onSpellSlotToggle = { _, _ -> },
+                    onSpellSlotTotalChanged = { _, _ -> },
+                    onAddWeaponClick = {},
+                    onWeaponSelected = {},
                 )
             }
         }

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSpellUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -37,7 +36,10 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 internal fun SpellLevelCard(
     spellLevel: SpellLevelUiModel,
     editMode: SheetEditMode,
-    callbacks: CharacterSheetCallbacks,
+    onSpellSlotToggle: (Int, Int) -> Unit,
+    onSpellSlotTotalChanged: (Int, Int) -> Unit,
+    onSpellSelected: (String) -> Unit,
+    onSpellRemoved: (String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -56,7 +58,8 @@ internal fun SpellLevelCard(
                 SpellSlotSection(
                     slot = slot,
                     editMode = editMode,
-                    callbacks = callbacks,
+                    onSpellSlotToggle = onSpellSlotToggle,
+                    onSpellSlotTotalChanged = onSpellSlotTotalChanged,
                 )
             }
 
@@ -73,8 +76,8 @@ internal fun SpellLevelCard(
                         SpellRow(
                             spell = spell,
                             editMode = editMode,
-                            onClick = { callbacks.onSpellSelected(spell.spellId) },
-                            onRemove = { callbacks.onSpellRemoved(spell.spellId, spell.sourceClass) },
+                            onClick = { onSpellSelected(spell.spellId) },
+                            onRemove = { onSpellRemoved(spell.spellId, spell.sourceClass) },
                         )
                     }
                 }
@@ -137,7 +140,8 @@ internal fun SpellRow(
 private fun SpellSlotSection(
     slot: SpellSlotUiModel,
     editMode: SheetEditMode,
-    callbacks: CharacterSheetCallbacks,
+    onSpellSlotToggle: (Int, Int) -> Unit,
+    onSpellSlotTotalChanged: (Int, Int) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(
@@ -152,13 +156,13 @@ private fun SpellSlotSection(
             if (editMode == SheetEditMode.Editing) {
                 Row {
                     IconButton(
-                        onClick = { callbacks.onSpellSlotTotalChanged(slot.level, slot.total - 1) },
+                        onClick = { onSpellSlotTotalChanged(slot.level, slot.total - 1) },
                         enabled = slot.total > 0,
                     ) {
                         Text("-")
                     }
                     IconButton(
-                        onClick = { callbacks.onSpellSlotTotalChanged(slot.level, slot.total + 1) },
+                        onClick = { onSpellSlotTotalChanged(slot.level, slot.total + 1) },
                     ) {
                         Text("+")
                     }
@@ -181,7 +185,7 @@ private fun SpellSlotSection(
                     val used = index < slot.expended
                     SpellSlotChip(
                         used = used,
-                        onClick = { callbacks.onSpellSlotToggle(slot.level, index) },
+                        onClick = { onSpellSlotToggle(slot.level, index) },
                     )
                 }
             }
@@ -222,7 +226,10 @@ private fun SpellLevelCardPreview() {
         SpellLevelCard(
             spellLevel = CharacterSheetPreviewData.spells.spellLevels.first(),
             editMode = SheetEditMode.View,
-            callbacks = CharacterSheetCallbacks(),
+            onSpellSlotToggle = { _, _ -> },
+            onSpellSlotTotalChanged = { _, _ -> },
+            onSpellSelected = {},
+            onSpellRemoved = { _, _ -> },
         )
     }
 }
@@ -234,7 +241,10 @@ private fun SpellLevelCardWithSlotsPreview() {
         SpellLevelCard(
             spellLevel = CharacterSheetPreviewData.spells.spellLevels.first { it.level == 1 },
             editMode = SheetEditMode.Editing,
-            callbacks = CharacterSheetCallbacks(),
+            onSpellSlotToggle = { _, _ -> },
+            onSpellSlotTotalChanged = { _, _ -> },
+            onSpellSelected = {},
+            onSpellRemoved = { _, _ -> },
         )
     }
 }
