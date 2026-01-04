@@ -22,7 +22,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
+import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
@@ -33,8 +35,8 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.Charac
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.CharacterSheetTopBarActions
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponCatalogDialog
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.navigation.CHARACTER_SPELL_SELECTION_RESULT_KEY
@@ -88,48 +90,6 @@ fun CharacterSheetRoute(
         }
     }
 
-    val callbacks = CharacterSheetCallbacks(
-        onTabSelected = vm::selectTab,
-        onEnterEdit = vm::enterEditMode,
-        onCancelEdit = vm::cancelEditMode,
-        onSaveEdits = vm::saveInlineEdits,
-        onAdjustHp = vm::adjustCurrentHp,
-        onTempHpChanged = vm::setTemporaryHp,
-        onMaxHpEdited = vm::setMaxHp,
-        onCurrentHpEdited = vm::setCurrentHp,
-        onTempHpEdited = vm::setTempHp,
-        onSpeedEdited = vm::setSpeed,
-        onHitDiceEdited = vm::setHitDice,
-        onSensesEdited = vm::setSenses,
-        onLanguagesEdited = vm::setLanguages,
-        onProficienciesEdited = vm::setProficiencies,
-        onEquipmentEdited = vm::setEquipment,
-        onDeathSaveSuccessesChanged = vm::setDeathSaveSuccesses,
-        onDeathSaveFailuresChanged = vm::setDeathSaveFailures,
-        onSpellSlotToggle = vm::toggleSpellSlot,
-        onSpellSlotTotalChanged = vm::setSpellSlotTotal,
-        onSpellRemoved = vm::removeSpell,
-        onSpellSelected = onOpenSpellDetail,
-        onAddSpellsClicked = { (state as? CharacterSheetUiState.Content)?.characterId?.let(onAddSpells) },
-        onAddWeaponClicked = vm::startNewWeapon,
-        onWeaponSelected = vm::selectWeapon,
-        onWeaponDeleted = vm::deleteWeapon,
-        onWeaponEditorDismissed = vm::dismissWeaponEditor,
-        onWeaponNameChanged = vm::setWeaponName,
-        onWeaponAbilityChanged = vm::setWeaponAbility,
-        onWeaponUseAbilityForDamageChanged = vm::setWeaponUseAbilityForDamage,
-        onWeaponProficiencyChanged = vm::setWeaponProficiency,
-        onWeaponDiceCountChanged = vm::setWeaponDiceCount,
-        onWeaponDieSizeChanged = vm::setWeaponDieSize,
-        onWeaponDamageTypeChanged = vm::setWeaponDamageType,
-        onWeaponSaved = vm::saveWeapon,
-        onWeaponCatalogOpened = vm::openWeaponCatalog,
-        onWeaponCatalogClosed = vm::closeWeaponCatalog,
-        onWeaponCatalogItemSelected = vm::selectWeaponFromCatalog,
-        onOpenFullEditor = { (state as? CharacterSheetUiState.Content)?.characterId?.let(onOpenFullEditor) },
-        onDeleteCharacter = vm::deleteCharacter,
-    )
-
     val headerState = (state as? CharacterSheetUiState.Content)?.header
 
     val config = AppTopBarConfig(
@@ -142,7 +102,9 @@ fun CharacterSheetRoute(
                 canEdit = contentState != null,
                 hasCharacter = contentState?.characterId != null,
                 onOverflowOpen = { overflowExpanded = true },
-                callbacks = callbacks,
+                onEnterEdit = vm::enterEditMode,
+                onCancelEdit = vm::cancelEditMode,
+                onSaveEdits = vm::saveInlineEdits,
             )
             DropdownMenu(
                 expanded = overflowExpanded,
@@ -152,7 +114,7 @@ fun CharacterSheetRoute(
                     text = { Text("Open full editor") },
                     onClick = {
                         overflowExpanded = false
-                        callbacks.onOpenFullEditor()
+                        contentState?.characterId?.let(onOpenFullEditor)
                     },
                     enabled = contentState?.characterId != null,
                 )
@@ -186,7 +148,7 @@ fun CharacterSheetRoute(
                 confirmButton = {
                     TextButton(onClick = {
                         showDeleteConfirmation = false
-                        callbacks.onDeleteCharacter()
+                        vm.deleteCharacter()
                     }) {
                         Text(
                             text = "Delete",
@@ -211,7 +173,27 @@ fun CharacterSheetRoute(
     ) {
         CharacterSheetScreen(
             state = state,
-            callbacks = callbacks,
+            onTabSelected = vm::selectTab,
+            onAddSpellsClick = { (state as? CharacterSheetUiState.Content)?.characterId?.let(onAddSpells) },
+            onSpellSelected = onOpenSpellDetail,
+            onSpellRemoved = vm::removeSpell,
+            onSpellSlotToggle = vm::toggleSpellSlot,
+            onSpellSlotTotalChanged = vm::setSpellSlotTotal,
+            onAddWeaponClick = vm::startNewWeapon,
+            onWeaponSelected = vm::selectWeapon,
+            onWeaponDeleted = vm::deleteWeapon,
+            onWeaponEditorDismissed = vm::dismissWeaponEditor,
+            onWeaponNameChanged = vm::setWeaponName,
+            onWeaponAbilityChanged = vm::setWeaponAbility,
+            onWeaponUseAbilityForDamageChanged = vm::setWeaponUseAbilityForDamage,
+            onWeaponProficiencyChanged = vm::setWeaponProficiency,
+            onWeaponDiceCountChanged = vm::setWeaponDiceCount,
+            onWeaponDieSizeChanged = vm::setWeaponDieSize,
+            onWeaponDamageTypeChanged = vm::setWeaponDamageType,
+            onWeaponSaved = vm::saveWeapon,
+            onWeaponCatalogOpened = vm::openWeaponCatalog,
+            onWeaponCatalogClosed = vm::closeWeaponCatalog,
+            onWeaponCatalogItemSelected = vm::selectWeaponFromCatalog,
             modifier = modifier,
         )
     }
@@ -224,7 +206,27 @@ fun CharacterSheetRoute(
 @Composable
 private fun CharacterSheetScreen(
     state: CharacterSheetUiState,
-    callbacks: CharacterSheetCallbacks,
+    onTabSelected: (CharacterSheetTab) -> Unit,
+    onAddSpellsClick: () -> Unit,
+    onSpellSelected: (String) -> Unit,
+    onSpellRemoved: (String, String) -> Unit,
+    onSpellSlotToggle: (Int, Int) -> Unit,
+    onSpellSlotTotalChanged: (Int, Int) -> Unit,
+    onAddWeaponClick: () -> Unit,
+    onWeaponSelected: (String) -> Unit,
+    onWeaponDeleted: (String) -> Unit,
+    onWeaponEditorDismissed: () -> Unit,
+    onWeaponNameChanged: (String) -> Unit,
+    onWeaponAbilityChanged: (AbilityId) -> Unit,
+    onWeaponUseAbilityForDamageChanged: (Boolean) -> Unit,
+    onWeaponProficiencyChanged: (Boolean) -> Unit,
+    onWeaponDiceCountChanged: (String) -> Unit,
+    onWeaponDieSizeChanged: (String) -> Unit,
+    onWeaponDamageTypeChanged: (DamageType) -> Unit,
+    onWeaponSaved: () -> Unit,
+    onWeaponCatalogOpened: () -> Unit,
+    onWeaponCatalogClosed: () -> Unit,
+    onWeaponCatalogItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     when (state) {
@@ -262,30 +264,37 @@ private fun CharacterSheetScreen(
                 CharacterSheetContent(
                     state = state,
                     header = state.header,
-                    callbacks = callbacks,
+                    onTabSelected = onTabSelected,
+                    onAddSpellsClick = onAddSpellsClick,
+                    onSpellSelected = onSpellSelected,
+                    onSpellRemoved = onSpellRemoved,
+                    onSpellSlotToggle = onSpellSlotToggle,
+                    onSpellSlotTotalChanged = onSpellSlotTotalChanged,
+                    onAddWeaponClick = onAddWeaponClick,
+                    onWeaponSelected = onWeaponSelected,
                     modifier = modifier,
                 )
                 state.weaponEditorState?.let { editor ->
                     WeaponEditorDialog(
                         editorState = editor,
-                        onDismiss = callbacks.onWeaponEditorDismissed,
-                        onNameChange = callbacks.onWeaponNameChanged,
-                        onCatalogOpen = callbacks.onWeaponCatalogOpened,
-                        onAbilityChange = callbacks.onWeaponAbilityChanged,
-                        onUseAbilityForDamageChange = callbacks.onWeaponUseAbilityForDamageChanged,
-                        onProficiencyChange = callbacks.onWeaponProficiencyChanged,
-                        onDiceCountChange = callbacks.onWeaponDiceCountChanged,
-                        onDieSizeChange = callbacks.onWeaponDieSizeChanged,
-                        onDamageTypeChange = callbacks.onWeaponDamageTypeChanged,
-                        onDelete = callbacks.onWeaponDeleted,
-                        onSave = callbacks.onWeaponSaved,
+                        onDismiss = onWeaponEditorDismissed,
+                        onNameChange = onWeaponNameChanged,
+                        onCatalogOpen = onWeaponCatalogOpened,
+                        onAbilityChange = onWeaponAbilityChanged,
+                        onUseAbilityForDamageChange = onWeaponUseAbilityForDamageChanged,
+                        onProficiencyChange = onWeaponProficiencyChanged,
+                        onDiceCountChange = onWeaponDiceCountChanged,
+                        onDieSizeChange = onWeaponDieSizeChanged,
+                        onDamageTypeChange = onWeaponDamageTypeChanged,
+                        onDelete = onWeaponDeleted,
+                        onSave = onWeaponSaved,
                     )
                 }
                 if (state.isWeaponCatalogVisible) {
                     WeaponCatalogDialog(
                         catalog = state.weaponCatalog,
-                        onDismiss = callbacks.onWeaponCatalogClosed,
-                        onItemSelected = callbacks.onWeaponCatalogItemSelected,
+                        onDismiss = onWeaponCatalogClosed,
+                        onItemSelected = onWeaponCatalogItemSelected,
                         isLoading = state.weaponCatalog.isEmpty(),
                     )
                 }
@@ -300,7 +309,27 @@ private fun CharacterSheetScreenPreview() {
     AppTheme {
         CharacterSheetScreen(
             state = CharacterSheetPreviewData.uiState,
-            callbacks = CharacterSheetCallbacks(),
+            onTabSelected = {},
+            onAddSpellsClick = {},
+            onSpellSelected = {},
+            onSpellRemoved = { _, _ -> },
+            onSpellSlotToggle = { _, _ -> },
+            onSpellSlotTotalChanged = { _, _ -> },
+            onAddWeaponClick = {},
+            onWeaponSelected = {},
+            onWeaponDeleted = {},
+            onWeaponEditorDismissed = {},
+            onWeaponNameChanged = {},
+            onWeaponAbilityChanged = {},
+            onWeaponUseAbilityForDamageChanged = {},
+            onWeaponProficiencyChanged = {},
+            onWeaponDiceCountChanged = {},
+            onWeaponDieSizeChanged = {},
+            onWeaponDamageTypeChanged = {},
+            onWeaponSaved = {},
+            onWeaponCatalogOpened = {},
+            onWeaponCatalogClosed = {},
+            onWeaponCatalogItemSelected = {},
             modifier = Modifier.fillMaxSize(),
         )
     }
