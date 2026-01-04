@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
@@ -44,8 +46,7 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import kotlinx.coroutines.launch
 
@@ -53,7 +54,7 @@ import kotlinx.coroutines.launch
 fun DiceRollerRoute(
     vm: DiceRollerViewModel = hiltViewModel(),
 ) {
-    val state by vm.state.collectAsStateWithLifecycle()
+    val state by vm.uiState.collectAsStateWithLifecycle()
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -72,26 +73,70 @@ fun DiceRollerRoute(
     ) {
         DiceRollerRoute(
             state = state,
-            onIntent = vm::onIntent,
+            onToggleCheck = vm::toggleCheck,
+            onCheckModeSelected = vm::setCheckMode,
+            onIncrementCheckModifier = vm::incrementCheckModifier,
+            onDecrementCheckModifier = vm::decrementCheckModifier,
+            onAddAmountDie = vm::addAmountDie,
+            onIncrementAmountDie = vm::incrementAmountDie,
+            onDecrementAmountDie = vm::decrementAmountDie,
+            onClearAll = vm::clearAll,
+            onRollMain = vm::rollMain,
+            onRollPercentile = vm::rollPercentile,
+            onReRollLast = vm::rerollLast,
         )
     }
 }
 
 @Composable
 private fun DiceRollerRoute(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState,
+    onToggleCheck: () -> Unit,
+    onCheckModeSelected: (CheckMode) -> Unit,
+    onIncrementCheckModifier: () -> Unit,
+    onDecrementCheckModifier: () -> Unit,
+    onAddAmountDie: (Int) -> Unit,
+    onIncrementAmountDie: (Int) -> Unit,
+    onDecrementAmountDie: (Int) -> Unit,
+    onClearAll: () -> Unit,
+    onRollMain: () -> Unit,
+    onRollPercentile: () -> Unit,
+    onReRollLast: () -> Unit,
 ) {
-    DiceRollerScreen(
-        state = state,
-        onIntent = onIntent,
-    )
+    when (state) {
+        DiceRollerUiState.Loading -> LoadingIndicator()
+        is DiceRollerUiState.Content -> DiceRollerScreen(
+            state = state,
+            onToggleCheck = onToggleCheck,
+            onCheckModeSelected = onCheckModeSelected,
+            onIncrementCheckModifier = onIncrementCheckModifier,
+            onDecrementCheckModifier = onDecrementCheckModifier,
+            onAddAmountDie = onAddAmountDie,
+            onIncrementAmountDie = onIncrementAmountDie,
+            onDecrementAmountDie = onDecrementAmountDie,
+            onClearAll = onClearAll,
+            onRollMain = onRollMain,
+            onRollPercentile = onRollPercentile,
+            onReRollLast = onReRollLast,
+        )
+        is DiceRollerUiState.Error -> ErrorMessage(state.errorMessage)
+    }
 }
 
 @Composable
 fun DiceRollerScreen(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState.Content,
+    onToggleCheck: () -> Unit,
+    onCheckModeSelected: (CheckMode) -> Unit,
+    onIncrementCheckModifier: () -> Unit,
+    onDecrementCheckModifier: () -> Unit,
+    onAddAmountDie: (Int) -> Unit,
+    onIncrementAmountDie: (Int) -> Unit,
+    onDecrementAmountDie: (Int) -> Unit,
+    onClearAll: () -> Unit,
+    onRollMain: () -> Unit,
+    onRollPercentile: () -> Unit,
+    onReRollLast: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
@@ -128,11 +173,19 @@ fun DiceRollerScreen(
         ) {
             MainDiceRollerCard(
                 state = state,
-                onIntent = onIntent,
+                onToggleCheck = onToggleCheck,
+                onCheckModeSelected = onCheckModeSelected,
+                onIncrementCheckModifier = onIncrementCheckModifier,
+                onDecrementCheckModifier = onDecrementCheckModifier,
+                onAddAmountDie = onAddAmountDie,
+                onIncrementAmountDie = onIncrementAmountDie,
+                onDecrementAmountDie = onDecrementAmountDie,
+                onClearAll = onClearAll,
+                onRollMain = onRollMain,
             )
             PercentileCard(
                 lastPercentileRoll = state.lastPercentileRoll,
-                onRollPercentile = { onIntent(DiceRollerIntent.RollPercentile) },
+                onRollPercentile = onRollPercentile,
                 modifier = Modifier.padding(top = 8.dp),
             )
             Spacer(modifier = Modifier.height(96.dp))
@@ -150,7 +203,7 @@ fun DiceRollerScreen(
             )
             LatestResultBar(
                 latestResult = latestResult,
-                onReRoll = { onIntent(DiceRollerIntent.ReRollLast) },
+                onReRoll = onReRollLast,
                 onShowDetails = { showDetails.value = true },
                 onClose = {
                     showDetails.value = false
@@ -164,7 +217,6 @@ fun DiceRollerScreen(
             )
         }
     }
-
 
     val latestResult = state.latestResult
     if (showDetails.value && latestResult != null) {
@@ -212,7 +264,7 @@ private fun Modifier.consumeClicks(): Modifier = composed {
 @Composable
 private fun DiceRollerScreenPreview() {
     DiceRollerScreen(
-        state = DiceRollerState(
+        state = DiceRollerUiState.Content(
             hasCheck = true,
             checkMode = CheckMode.ADVANTAGE,
             checkModifier = 5,
@@ -237,6 +289,16 @@ private fun DiceRollerScreenPreview() {
                 ),
             ),
         ),
-        onIntent = {},
+        onToggleCheck = {},
+        onCheckModeSelected = {},
+        onIncrementCheckModifier = {},
+        onDecrementCheckModifier = {},
+        onAddAmountDie = {},
+        onIncrementAmountDie = {},
+        onDecrementAmountDie = {},
+        onClearAll = {},
+        onRollMain = {},
+        onRollPercentile = {},
+        onReRollLast = {},
     )
 }
