@@ -12,9 +12,8 @@ import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListStateReducer
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -60,88 +59,36 @@ class CharacterSpellPickerViewModel @Inject constructor(
     ) : SpellListState
 
     @Immutable
-    data class CharacterSpellPickerUiData(
-        val isLoading: Boolean = false,
-        val errorMessage: String? = null,
-        val sourceClass: String = "",
-        val defaultSourceClass: String = "",
-        val spellsState: SpellsState = SpellsState(),
-    )
-
     sealed interface CharacterSpellPickerUiState {
-        val sourceClass: String
-        val defaultSourceClass: String
-        val spellsState: SpellsState
 
-        @Immutable
-        data class Loading(
-            override val sourceClass: String,
-            override val defaultSourceClass: String,
-            override val spellsState: SpellsState,
-        ) : CharacterSpellPickerUiState
+        data object Loading : CharacterSpellPickerUiState
 
-        @Immutable
         data class Content(
-            override val sourceClass: String,
-            override val defaultSourceClass: String,
-            override val spellsState: SpellsState,
+            val sourceClass: String,
+            val defaultSourceClass: String,
+            val spellsState: SpellsState,
         ) : CharacterSpellPickerUiState
 
-        @Immutable
         data class Error(
             val message: String,
-            override val sourceClass: String,
-            override val defaultSourceClass: String,
-            override val spellsState: SpellsState,
         ) : CharacterSpellPickerUiState
-    }
-
-    sealed interface CharacterSpellPickerUiAction {
-        data class SourceClassChanged(val value: String) : CharacterSpellPickerUiAction
-        data class QueryChanged(val query: String) : CharacterSpellPickerUiAction
-        data object FiltersClicked : CharacterSpellPickerUiAction
-        data object FavoritesClicked : CharacterSpellPickerUiAction
-        data class SpellGroupToggled(val level: Int) : CharacterSpellPickerUiAction
-        data object ToggleAllSpellGroups : CharacterSpellPickerUiAction
-        data class FilterChanged(val classes: Set<EntityRef>) : CharacterSpellPickerUiAction
-        data class SpellSelected(val spellId: String) : CharacterSpellPickerUiAction
-    }
-
-    sealed interface CharacterSpellPickerUiEvent {
-        data class SourceClassChanged(val value: String) : CharacterSpellPickerUiEvent
-        data class CharacterLoaded(val defaultSourceClass: String) : CharacterSpellPickerUiEvent
-        data class ErrorChanged(val message: String?) : CharacterSpellPickerUiEvent
-        data class SpellsStateUpdated(val spellsState: SpellsState) : CharacterSpellPickerUiEvent
-    }
-
-    sealed interface CharacterSpellPickerEffect {
-        data class SpellAssignmentReady(val assignment: CharacterSpellAssignment) : CharacterSpellPickerEffect
     }
 
     private val characterId: String? = savedStateHandle.get<String>("characterId")
-    private val _data = MutableStateFlow(
-        CharacterSpellPickerUiData(
-            isLoading = characterId != null,
-            errorMessage = if (characterId == null) "Missing character id" else null,
-        )
-    )
-    private val _effects = MutableSharedFlow<CharacterSpellPickerEffect>()
-    val effects = _effects.asSharedFlow()
-    val uiState: StateFlow<CharacterSpellPickerUiState> = _data
-        .map { data -> data.toUiState() }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5_000),
-            _data.value.toUiState(),
-        )
+    private val isLoadingState = MutableStateFlow(characterId != null)
+    private val errorMessageState = MutableStateFlow<String?>(if (characterId == null) "Missing character id" else null)
+    private val sourceClassState = MutableStateFlow("")
+    private val defaultSourceClassState = MutableStateFlow("")
     private val castingClassesState = MutableStateFlow<List<EntityRef>>(emptyList())
-    private val spellFilters = MutableStateFlow(SpellListStateReducer.SpellFilters())
-    private val spellExpansionState = MutableStateFlow(SpellListStateReducer.SpellExpansionState())
+    private val spellFiltersState = MutableStateFlow(SpellFilters())
+    private val spellExpansionState = MutableStateFlow(SpellExpansionState())
+    private val _spellAssignments = MutableSharedFlow<CharacterSpellAssignment>()
+    val spellAssignments = _spellAssignments.asSharedFlow()
 
     private val logger = Logger.createLogger<CharacterSpellPickerViewModel>()
 
     private val spellsUiState = combine(
-        spellFilters,
+        spellFiltersState,
         observeAllSpellsUseCase(),
         observeFavoriteSpellIdsUseCase(),
         ::SpellsQuery,
@@ -173,7 +120,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
     private val spellsState = combine(
-        spellFilters,
+        spellFiltersState,
         spellExpansionState,
         castingClassesState,
         spellsUiState,
@@ -183,10 +130,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
             else -> emptyMap()
         }
         val expandedSpellLevels = when (uiState) {
-            is SpellsUiState.Loaded -> SpellListStateReducer.expandedLevels(
-                levels = uiState.spellsByLevel.keys,
-                state = expansionState,
-            )
+            is SpellsUiState.Loaded -> expandedLevels(uiState.spellsByLevel.keys, expansionState)
 
             else -> emptyMap()
         }
@@ -203,150 +147,143 @@ class CharacterSpellPickerViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
+    val uiState: StateFlow<CharacterSpellPickerUiState> = combine(
+        isLoadingState,
+        errorMessageState,
+        sourceClassState,
+        defaultSourceClassState,
+        spellsState,
+    ) { isLoading, errorMessage, sourceClass, defaultSourceClass, spellsState ->
+        when {
+            isLoading -> CharacterSpellPickerUiState.Loading
+            errorMessage != null -> CharacterSpellPickerUiState.Error(errorMessage)
+            else -> CharacterSpellPickerUiState.Content(
+                sourceClass = sourceClass,
+                defaultSourceClass = defaultSourceClass,
+                spellsState = spellsState,
+            )
+        }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        CharacterSpellPickerUiState.Loading,
+    )
+
     init {
-        observeStateChanges()
-        viewModelScope.launch {
-            characterClassRepository
-                .findSpellcastingClassesRefs()
-                .let { refs ->
-                    castingClassesState.value = refs
-                }
+        observeCharacter()
+        observeCastingClasses()
+    }
+
+    fun onSourceClassChanged(value: String) {
+        sourceClassState.value = value
+    }
+
+    fun onQueryChanged(query: String) {
+        spellFiltersState.update { filters ->
+            val trimmed = query.trim()
+            if (trimmed.equals(filters.query, ignoreCase = true)) {
+                filters
+            } else {
+                filters.copy(query = trimmed)
+            }
         }
     }
 
-    fun onAction(action: CharacterSpellPickerUiAction) {
-        when (action) {
-            is CharacterSpellPickerUiAction.SourceClassChanged ->
-                updateData(CharacterSpellPickerUiEvent.SourceClassChanged(action.value))
+    fun onFiltersClick() {
+        spellFiltersState.update { filters -> filters.copy(showFilterDialog = true) }
+    }
 
-            is CharacterSpellPickerUiAction.QueryChanged -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(
-                    filters,
-                    SpellListStateReducer.FilterEvent.QueryChanged(action.query),
-                )
-            }
+    fun onFavoritesClick() {
+        spellFiltersState.update { filters -> filters.copy(showFavorite = !filters.showFavorite) }
+    }
 
-            CharacterSpellPickerUiAction.FiltersClicked -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FiltersOpened)
-            }
-
-            CharacterSpellPickerUiAction.FavoritesClicked -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(filters, SpellListStateReducer.FilterEvent.FavoritesToggled)
-            }
-
-            is CharacterSpellPickerUiAction.SpellGroupToggled -> spellExpansionState.update { state ->
-                SpellListStateReducer.toggleGroup(
-                    state = state,
-                    level = action.level,
-                    currentExpandedLevels = _data.value.spellsState.expandedSpellLevels,
-                )
-            }
-
-            CharacterSpellPickerUiAction.ToggleAllSpellGroups -> spellExpansionState.update { state ->
-                SpellListStateReducer.toggleAll(
-                    state = state,
-                    levels = _data.value.spellsState.spellsByLevel.keys,
-                )
-            }
-
-            is CharacterSpellPickerUiAction.FilterChanged -> spellFilters.update { filters ->
-                SpellListStateReducer.reduceFilters(
-                    filters,
-                    SpellListStateReducer.FilterEvent.FiltersSubmitted(action.classes),
-                )
-            }
-
-            is CharacterSpellPickerUiAction.SpellSelected -> handleSpellSelected(action.spellId)
+    fun onSpellGroupToggled(level: Int) {
+        val levels = (spellsUiState.value as? SpellsUiState.Loaded)?.spellsByLevel?.keys ?: emptySet()
+        val currentExpandedLevels = expandedLevels(levels, spellExpansionState.value)
+        val currentExpanded = currentExpandedLevels[level] ?: spellExpansionState.value.expandedAll
+        spellExpansionState.update { state ->
+            state.copy(expandedLevels = state.expandedLevels + (level to !currentExpanded))
         }
     }
 
-    private fun updateData(event: CharacterSpellPickerUiEvent) {
-        _data.update { current -> reduce(current, event) }
+    fun onToggleAllSpellGroups() {
+        val levels = (spellsUiState.value as? SpellsUiState.Loaded)?.spellsByLevel?.keys ?: emptySet()
+        spellExpansionState.update { state ->
+            val nextExpandedAll = !state.expandedAll
+            state.copy(
+                expandedAll = nextExpandedAll,
+                expandedLevels = levels.associateWith { nextExpandedAll },
+            )
+        }
     }
 
-    private fun reduce(
-        data: CharacterSpellPickerUiData,
-        event: CharacterSpellPickerUiEvent,
-    ): CharacterSpellPickerUiData = when (event) {
-        is CharacterSpellPickerUiEvent.SourceClassChanged -> data.copy(sourceClass = event.value)
-        is CharacterSpellPickerUiEvent.CharacterLoaded -> data.copy(
-            isLoading = false,
-            errorMessage = null,
-            defaultSourceClass = event.defaultSourceClass,
-            sourceClass = if (data.sourceClass.isBlank()) event.defaultSourceClass else data.sourceClass,
-        )
-
-        is CharacterSpellPickerUiEvent.ErrorChanged -> data.copy(
-            isLoading = false,
-            errorMessage = event.message,
-        )
-
-        is CharacterSpellPickerUiEvent.SpellsStateUpdated -> data.copy(spellsState = event.spellsState)
+    fun onSubmitFilters(classes: Set<EntityRef>) {
+        spellFiltersState.update { filters ->
+            filters.copy(
+                showFilterDialog = false,
+                currentClasses = classes,
+            )
+        }
     }
 
-    private fun CharacterSpellPickerUiData.toUiState(): CharacterSpellPickerUiState = when {
-        isLoading -> CharacterSpellPickerUiState.Loading(
-            sourceClass = sourceClass,
-            defaultSourceClass = defaultSourceClass,
-            spellsState = spellsState,
-        )
-
-        errorMessage != null -> CharacterSpellPickerUiState.Error(
-            message = errorMessage,
-            sourceClass = sourceClass,
-            defaultSourceClass = defaultSourceClass,
-            spellsState = spellsState,
-        )
-
-        else -> CharacterSpellPickerUiState.Content(
-            sourceClass = sourceClass,
-            defaultSourceClass = defaultSourceClass,
-            spellsState = spellsState,
-        )
+    fun onCancelFilters(classes: Set<EntityRef>) {
+        spellFiltersState.update { filters ->
+            filters.copy(
+                showFilterDialog = false,
+                currentClasses = classes,
+            )
+        }
     }
 
-    private fun handleSpellSelected(spellId: String) {
-        if (spellId.isBlank()) return
-        val state = _data.value
-        if (state.errorMessage != null) return
-        val resolvedSource = state.sourceClass.takeIf { it.isNotBlank() } ?: state.defaultSourceClass
+    fun onSpellSelected(spellId: String) {
+        if (spellId.isBlank() || errorMessageState.value != null) return
+        val resolvedSource = sourceClassState.value.ifBlank { defaultSourceClassState.value }
         viewModelScope.launch {
-            _effects.emit(
-                CharacterSpellPickerEffect.SpellAssignmentReady(
-                    CharacterSpellAssignment(
-                        spellId = spellId,
-                        sourceClass = resolvedSource,
-                    )
+            _spellAssignments.emit(
+                CharacterSpellAssignment(
+                    spellId = spellId,
+                    sourceClass = resolvedSource,
                 )
             )
         }
     }
 
-    private fun observeStateChanges() {
-        spellsState
-            .onEach { spellsState -> updateData(CharacterSpellPickerUiEvent.SpellsStateUpdated(spellsState)) }
-            .launchIn(viewModelScope)
-
+    private fun observeCharacter() {
         characterId?.let { id ->
             characterRepository.observeCharacterSheet(id)
                 .onEach { sheet ->
                     if (sheet != null) {
-                        updateData(CharacterSpellPickerUiEvent.CharacterLoaded(sheet.className.trim()))
+                        val className = sheet.className.trim()
+                        defaultSourceClassState.value = className
+                        if (sourceClassState.value.isBlank()) {
+                            sourceClassState.value = className
+                        }
+                        isLoadingState.value = false
+                        errorMessageState.value = null
                     } else {
-                        updateData(CharacterSpellPickerUiEvent.ErrorChanged("Character not found"))
+                        errorMessageState.value = "Character not found"
+                        isLoadingState.value = false
                     }
                 }
                 .catch { throwable ->
-                    updateData(CharacterSpellPickerUiEvent.ErrorChanged(
-                        throwable.message ?: "Unable to load character",
-                    ))
+                    logger.error(throwable) { "Unable to load character." }
+                    errorMessageState.value = throwable.message ?: "Unable to load character"
+                    isLoadingState.value = false
                 }
                 .launchIn(viewModelScope)
+        } ?: run {
+            isLoadingState.value = false
+        }
+    }
+
+    private fun observeCastingClasses() {
+        viewModelScope.launch {
+            castingClassesState.value = characterClassRepository.findSpellcastingClassesRefs()
         }
     }
 
     private data class SpellsQuery(
-        val filters: SpellListStateReducer.SpellFilters,
+        val filters: SpellFilters,
         val allSpells: List<Spell>,
         val favoriteSpellIds: List<String>,
     ) {
@@ -354,5 +291,24 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val currentClasses: Set<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
         val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
+    }
+
+    private data class SpellFilters(
+        val query: String = "",
+        val showFavorite: Boolean = false,
+        val showFilterDialog: Boolean = false,
+        val currentClasses: Set<EntityRef> = emptySet(),
+    )
+
+    private data class SpellExpansionState(
+        val expandedAll: Boolean = true,
+        val expandedLevels: Map<Int, Boolean> = emptyMap(),
+    )
+
+    private fun expandedLevels(
+        levels: Set<Int>,
+        state: SpellExpansionState,
+    ): Map<Int, Boolean> = levels.associateWith { level ->
+        state.expandedLevels[level] ?: state.expandedAll
     }
 }
