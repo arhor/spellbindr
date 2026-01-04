@@ -12,16 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -30,13 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
-import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
-import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
 import com.github.arhor.spellbindr.ui.feature.dice.components.MainDiceRollerCard
 import com.github.arhor.spellbindr.ui.feature.dice.components.PercentileCard
@@ -51,45 +41,7 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import kotlinx.coroutines.launch
 
 @Composable
-fun DiceRollerRoute(
-    vm: DiceRollerViewModel = hiltViewModel(),
-) {
-    val state by vm.uiState.collectAsStateWithLifecycle()
-
-    ProvideTopBarState(
-        topBarState = TopBarState(
-            config = AppTopBarConfig(
-                title = "Dice Roller",
-                actions = {
-                    IconButton(onClick = { /* Stub: future history action */ }) {
-                        Icon(
-                            imageVector = Icons.Outlined.History,
-                            contentDescription = "History",
-                        )
-                    }
-                },
-            ),
-        ),
-    ) {
-        DiceRollerRoute(
-            state = state,
-            onToggleCheck = vm::toggleCheck,
-            onCheckModeSelected = vm::setCheckMode,
-            onIncrementCheckModifier = vm::incrementCheckModifier,
-            onDecrementCheckModifier = vm::decrementCheckModifier,
-            onAddAmountDie = vm::addAmountDie,
-            onIncrementAmountDie = vm::incrementAmountDie,
-            onDecrementAmountDie = vm::decrementAmountDie,
-            onClearAll = vm::clearAll,
-            onRollMain = vm::rollMain,
-            onRollPercentile = vm::rollPercentile,
-            onReRollLast = vm::rerollLast,
-        )
-    }
-}
-
-@Composable
-private fun DiceRollerRoute(
+fun DiceRollerScreen(
     state: DiceRollerUiState,
     onToggleCheck: () -> Unit,
     onCheckModeSelected: (CheckMode) -> Unit,
@@ -102,10 +54,12 @@ private fun DiceRollerRoute(
     onRollMain: () -> Unit,
     onRollPercentile: () -> Unit,
     onReRollLast: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     when (state) {
         DiceRollerUiState.Loading -> LoadingIndicator()
-        is DiceRollerUiState.Content -> DiceRollerScreen(
+        is DiceRollerUiState.Error -> ErrorMessage(state.errorMessage)
+        is DiceRollerUiState.Content -> DiceRollerContent(
             state = state,
             onToggleCheck = onToggleCheck,
             onCheckModeSelected = onCheckModeSelected,
@@ -118,13 +72,13 @@ private fun DiceRollerRoute(
             onRollMain = onRollMain,
             onRollPercentile = onRollPercentile,
             onReRollLast = onReRollLast,
+            modifier = modifier,
         )
-        is DiceRollerUiState.Error -> ErrorMessage(state.errorMessage)
     }
 }
 
 @Composable
-fun DiceRollerScreen(
+private fun DiceRollerContent(
     state: DiceRollerUiState.Content,
     onToggleCheck: () -> Unit,
     onCheckModeSelected: (CheckMode) -> Unit,
