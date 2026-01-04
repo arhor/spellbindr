@@ -27,19 +27,24 @@ sealed class AppDestination(open val title: String) {
     data class CharacterSpellPicker(val characterId: String) : AppDestination(title = "Add Spells")
 
     @Serializable
-    data object Compendium : AppDestination(title = "Compendium")
+    data object CompendiumSections : AppDestination(title = "Compendium")
 
     @Serializable
-    data class SpellDetail(
+    data object Spells : AppDestination(title = "Spells")
+
+    @Serializable
+    data object Conditions : AppDestination(title = "Conditions")
+
+    @Serializable
+    data object Alignments : AppDestination(title = "Alignments")
+
+    @Serializable
+    data object Races : AppDestination(title = "Races")
+
+    @Serializable
+    data class SpellDetails(
         val spellId: String,
-        val initialName: String? = null,
     ) : AppDestination(title = "Spell Details")
-
-    @Serializable
-    data class MonsterDetail(val monsterId: String) : AppDestination(title = "Monster Details")
-
-    @Serializable
-    data class RuleDetail(val ruleId: String) : AppDestination(title = "Rule Details")
 
     @Serializable
     data object Dice : AppDestination(title = "Dice")
@@ -61,7 +66,7 @@ val BottomNavItems = listOf(
         icon = Icons.Outlined.Groups,
     ),
     BottomNavItem(
-        destination = AppDestination.Compendium,
+        destination = AppDestination.CompendiumSections,
         label = "Compendium",
         icon = Icons.AutoMirrored.Outlined.MenuBook,
     ),
@@ -76,3 +81,5 @@ val BottomNavItems = listOf(
         icon = Icons.Outlined.Settings,
     ),
 )
+
+const val CHARACTER_SPELL_SELECTION_RESULT_KEY = "character_spell_selection_result"

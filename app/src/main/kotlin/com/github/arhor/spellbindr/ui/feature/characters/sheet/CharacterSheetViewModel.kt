@@ -4,18 +4,19 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.domain.model.DamageType
-import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
-import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
+import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
+import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
+import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.Weapon
+import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
@@ -25,21 +26,18 @@ import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
-import com.github.arhor.spellbindr.ui.feature.characters.CharacterSpellAssignment
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.utils.signed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -56,7 +54,6 @@ import javax.inject.Inject
  * - Persisting changes to the repository.
  *
  * The UI state is exposed via [uiState] and side effects via [effects].
- * User interactions are handled via [onAction].
  */
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
@@ -70,334 +67,139 @@ class CharacterSheetViewModel @Inject constructor(
     private val updateWeaponListUseCase: UpdateWeaponListUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
-    /**
-     * Represents all possible user actions on the character sheet.
-     */
-    sealed interface CharacterSheetUiAction {
-        data class TabSelected(val tab: CharacterSheetTab) : CharacterSheetUiAction
-        data object EnterEdit : CharacterSheetUiAction
-        data object CancelEdit : CharacterSheetUiAction
-        data object SaveInlineEdits : CharacterSheetUiAction
-        data class MaxHpEdited(val value: String) : CharacterSheetUiAction
-        data class CurrentHpEdited(val value: String) : CharacterSheetUiAction
-        data class TemporaryHpEdited(val value: String) : CharacterSheetUiAction
-        data class SpeedEdited(val value: String) : CharacterSheetUiAction
-        data class HitDiceEdited(val value: String) : CharacterSheetUiAction
-        data class SensesEdited(val value: String) : CharacterSheetUiAction
-        data class LanguagesEdited(val value: String) : CharacterSheetUiAction
-        data class ProficienciesEdited(val value: String) : CharacterSheetUiAction
-        data class EquipmentEdited(val value: String) : CharacterSheetUiAction
-        data class AdjustCurrentHp(val delta: Int) : CharacterSheetUiAction
-        data class TempHpChanged(val value: Int) : CharacterSheetUiAction
-        data class DeathSaveSuccessesChanged(val count: Int) : CharacterSheetUiAction
-        data class DeathSaveFailuresChanged(val count: Int) : CharacterSheetUiAction
-        data class SpellSlotToggled(val level: Int, val slotIndex: Int) : CharacterSheetUiAction
-        data class SpellSlotTotalChanged(val level: Int, val total: Int) : CharacterSheetUiAction
-        data class SpellRemoved(val spellId: String, val sourceClass: String) : CharacterSheetUiAction
-        data class AddSpells(val assignments: List<CharacterSpellAssignment>) : CharacterSheetUiAction
-        data object AddWeaponClicked : CharacterSheetUiAction
-        data class WeaponSelected(val id: String) : CharacterSheetUiAction
-        data class WeaponDeleted(val id: String) : CharacterSheetUiAction
-        data object WeaponEditorDismissed : CharacterSheetUiAction
-        data class WeaponNameChanged(val value: String) : CharacterSheetUiAction
-        data class WeaponAbilityChanged(val abilityId: AbilityId) : CharacterSheetUiAction
-        data class WeaponUseAbilityForDamageChanged(val enabled: Boolean) : CharacterSheetUiAction
-        data class WeaponProficiencyChanged(val proficient: Boolean) : CharacterSheetUiAction
-        data class WeaponDiceCountChanged(val value: String) : CharacterSheetUiAction
-        data class WeaponDieSizeChanged(val value: String) : CharacterSheetUiAction
-        data class WeaponDamageTypeChanged(val damageType: DamageType) : CharacterSheetUiAction
-        data object WeaponSaved : CharacterSheetUiAction
-        data object WeaponCatalogOpened : CharacterSheetUiAction
-        data object WeaponCatalogClosed : CharacterSheetUiAction
-        data class WeaponCatalogItemSelected(val id: String) : CharacterSheetUiAction
-        data object DeleteCharacter : CharacterSheetUiAction
-    }
-
-    /**
-     * Internal events for reducer.
-     */
-    sealed interface CharacterSheetUiEvent {
-        data class SheetLoaded(val sheet: CharacterSheet?, val loaded: Boolean) : CharacterSheetUiEvent
-        data class SpellsLoaded(val spells: List<Spell>) : CharacterSheetUiEvent
-        data class WeaponCatalogLoaded(val entries: List<WeaponCatalogUiModel>) : CharacterSheetUiEvent
-        data class SelectedTabChanged(val tab: CharacterSheetTab) : CharacterSheetUiEvent
-        data class EditModeChanged(val mode: SheetEditMode) : CharacterSheetUiEvent
-        data class EditingStateChanged(val state: CharacterSheetEditingState?) : CharacterSheetUiEvent
-        data class WeaponEditorChanged(val state: WeaponEditorState?) : CharacterSheetUiEvent
-        data class WeaponCatalogVisibilityChanged(val isVisible: Boolean) : CharacterSheetUiEvent
-        data class ErrorChanged(val message: String?) : CharacterSheetUiEvent
-    }
-
-    /**
-     * One-time side effects for the UI (e.g., navigation).
-     */
     sealed interface CharacterSheetEffect {
         data object CharacterDeleted : CharacterSheetEffect
     }
 
-    /**
-     * Internal mutable state holder.
-     */
-    @Immutable
-    data class CharacterSheetUiData(
-        val characterId: String? = null,
-        val selectedTab: CharacterSheetTab = CharacterSheetTab.Overview,
-        val editMode: SheetEditMode = SheetEditMode.View,
-        val sheet: CharacterSheet? = null,
-        val spells: List<Spell> = emptyList(),
-        val weaponCatalog: List<WeaponCatalogUiModel> = emptyList(),
-        val isWeaponCatalogVisible: Boolean = false,
-        val editingState: CharacterSheetEditingState? = null,
-        val weaponEditorState: WeaponEditorState? = null,
-        val errorMessage: String? = null,
-        val hasLoaded: Boolean = false,
-    )
-
-
     private val characterId: String? = savedStateHandle.get<String>("characterId")
-    private val _data = MutableStateFlow(
-        CharacterSheetUiData(
-            characterId = characterId,
-            hasLoaded = characterId == null,
-            errorMessage = if (characterId == null) "Missing character id" else null,
-        ),
+    private val _uiState = MutableStateFlow<CharacterSheetUiState>(
+        if (characterId == null) CharacterSheetUiState.Error("Missing character id") else CharacterSheetUiState.Loading,
     )
+    val uiState: StateFlow<CharacterSheetUiState> = _uiState
     private val _effects = MutableSharedFlow<CharacterSheetEffect>()
     val effects = _effects.asSharedFlow()
-    val uiState: StateFlow<CharacterSheetUiState> = _data
-        .map { data -> data.toUiState() }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = _data.value.toUiState(),
-        )
+
+    private var hasLoaded = characterId == null
+    private var currentSheet: CharacterSheet? = null
+    private var cachedSpells: List<Spell> = emptyList()
+    private var weaponCatalog: List<WeaponCatalogUiModel> = emptyList()
+    private var selectedTab: CharacterSheetTab = CharacterSheetTab.Overview
+    private var editMode: SheetEditMode = SheetEditMode.View
+    private var editingState: CharacterSheetEditingState? = null
+    private var weaponEditorState: WeaponEditorState? = null
+    private var isWeaponCatalogVisible: Boolean = false
+    private var errorMessage: String? = if (characterId == null) "Missing character id" else null
 
     init {
-        observeCharacter()
-        observeSpells()
-        observeWeaponCatalog()
-    }
-
-    /**
-     * Processes user actions.
-     */
-    fun onAction(action: CharacterSheetUiAction) {
-        when (action) {
-            is CharacterSheetUiAction.TabSelected -> updateData(CharacterSheetUiEvent.SelectedTabChanged(action.tab))
-            CharacterSheetUiAction.EnterEdit -> enterEditMode()
-            CharacterSheetUiAction.CancelEdit -> cancelEditMode()
-            CharacterSheetUiAction.SaveInlineEdits -> saveInlineEdits()
-            is CharacterSheetUiAction.MaxHpEdited -> updateEditingState { it.copy(maxHp = action.value.filterDigits()) }
-            is CharacterSheetUiAction.CurrentHpEdited ->
-                updateEditingState { it.copy(currentHp = action.value.filterDigits()) }
-
-            is CharacterSheetUiAction.TemporaryHpEdited ->
-                updateEditingState { it.copy(tempHp = action.value.filterDigits()) }
-
-            is CharacterSheetUiAction.SpeedEdited -> updateEditingState { it.copy(speed = action.value) }
-            is CharacterSheetUiAction.HitDiceEdited -> updateEditingState { it.copy(hitDice = action.value) }
-            is CharacterSheetUiAction.SensesEdited -> updateEditingState { it.copy(senses = action.value) }
-            is CharacterSheetUiAction.LanguagesEdited -> updateEditingState { it.copy(languages = action.value) }
-            is CharacterSheetUiAction.ProficienciesEdited -> updateEditingState { it.copy(proficiencies = action.value) }
-            is CharacterSheetUiAction.EquipmentEdited -> updateEditingState { it.copy(equipment = action.value) }
-            is CharacterSheetUiAction.AdjustCurrentHp -> adjustCurrentHp(action.delta)
-            is CharacterSheetUiAction.TempHpChanged -> setTemporaryHp(action.value)
-            is CharacterSheetUiAction.DeathSaveSuccessesChanged -> setDeathSaveSuccesses(action.count)
-            is CharacterSheetUiAction.DeathSaveFailuresChanged -> setDeathSaveFailures(action.count)
-            is CharacterSheetUiAction.SpellSlotToggled -> toggleSpellSlot(action.level, action.slotIndex)
-            is CharacterSheetUiAction.SpellSlotTotalChanged -> setSpellSlotTotal(action.level, action.total)
-            is CharacterSheetUiAction.SpellRemoved -> removeSpell(action.spellId, action.sourceClass)
-            is CharacterSheetUiAction.AddSpells -> addSpells(action.assignments)
-            CharacterSheetUiAction.AddWeaponClicked -> updateData(
-                CharacterSheetUiEvent.WeaponEditorChanged(WeaponEditorState()),
-            )
-
-            is CharacterSheetUiAction.WeaponSelected -> onWeaponSelected(action.id)
-            is CharacterSheetUiAction.WeaponDeleted -> onWeaponDeleted(action.id)
-            CharacterSheetUiAction.WeaponEditorDismissed -> updateData(
-                CharacterSheetUiEvent.WeaponEditorChanged(null),
-            )
-
-            is CharacterSheetUiAction.WeaponNameChanged -> updateWeaponEditor { it.copy(name = action.value) }
-            is CharacterSheetUiAction.WeaponAbilityChanged -> updateWeaponEditor { it.copy(abilityId = action.abilityId) }
-            is CharacterSheetUiAction.WeaponUseAbilityForDamageChanged ->
-                updateWeaponEditor { it.copy(useAbilityForDamage = action.enabled) }
-
-            is CharacterSheetUiAction.WeaponProficiencyChanged ->
-                updateWeaponEditor { it.copy(proficient = action.proficient) }
-
-            is CharacterSheetUiAction.WeaponDiceCountChanged ->
-                updateWeaponEditor { it.copy(damageDiceCount = action.value) }
-
-            is CharacterSheetUiAction.WeaponDieSizeChanged ->
-                updateWeaponEditor { it.copy(damageDieSize = action.value) }
-
-            is CharacterSheetUiAction.WeaponDamageTypeChanged ->
-                updateWeaponEditor { it.copy(damageType = action.damageType) }
-
-            CharacterSheetUiAction.WeaponSaved -> onWeaponSaved()
-            CharacterSheetUiAction.WeaponCatalogOpened ->
-                updateData(CharacterSheetUiEvent.WeaponCatalogVisibilityChanged(true))
-            CharacterSheetUiAction.WeaponCatalogClosed ->
-                updateData(CharacterSheetUiEvent.WeaponCatalogVisibilityChanged(false))
-            is CharacterSheetUiAction.WeaponCatalogItemSelected -> onWeaponCatalogItemSelected(action.id)
-            CharacterSheetUiAction.DeleteCharacter -> deleteCharacter()
+        if (characterId == null) {
+            renderState()
+        } else {
+            observeCharacter(characterId)
+            observeSpells()
+            observeWeaponCatalog()
         }
     }
 
-    private fun updateData(event: CharacterSheetUiEvent) {
-        _data.update { current -> reduce(current, event) }
-    }
-
-    private fun reduce(
-        data: CharacterSheetUiData,
-        event: CharacterSheetUiEvent,
-    ): CharacterSheetUiData = when (event) {
-        is CharacterSheetUiEvent.SheetLoaded -> data.copy(
-            characterId = data.characterId ?: event.sheet?.id,
-            sheet = event.sheet,
-            hasLoaded = event.loaded,
-            editMode = if (event.sheet == null) SheetEditMode.View else data.editMode,
-            editingState = if (event.sheet == null) null else data.editingState,
-            weaponEditorState = if (event.sheet == null) null else data.weaponEditorState,
-        )
-
-        is CharacterSheetUiEvent.SpellsLoaded -> data.copy(spells = event.spells)
-        is CharacterSheetUiEvent.WeaponCatalogLoaded -> data.copy(weaponCatalog = event.entries)
-        is CharacterSheetUiEvent.SelectedTabChanged -> data.copy(selectedTab = event.tab)
-        is CharacterSheetUiEvent.EditModeChanged -> data.copy(editMode = event.mode)
-        is CharacterSheetUiEvent.EditingStateChanged -> data.copy(editingState = event.state)
-        is CharacterSheetUiEvent.WeaponEditorChanged -> data.copy(weaponEditorState = event.state)
-        is CharacterSheetUiEvent.WeaponCatalogVisibilityChanged -> data.copy(isWeaponCatalogVisible = event.isVisible)
-        is CharacterSheetUiEvent.ErrorChanged -> data.copy(errorMessage = event.message)
-    }
-
-    private fun CharacterSheetUiData.toUiState(): CharacterSheetUiState =
-        when {
-            !hasLoaded -> CharacterSheetUiState.Loading(
-                characterId = characterId,
-                selectedTab = selectedTab,
-                editMode = editMode,
-            )
-
-            sheet == null -> CharacterSheetUiState.Error(
-                characterId = characterId,
-                selectedTab = selectedTab,
-                editMode = SheetEditMode.View,
-                message = errorMessage ?: "Character not found",
-            )
-
-            else -> CharacterSheetUiState.Content(
-                characterId = sheet.id,
-                selectedTab = selectedTab,
-                editMode = editMode,
-                header = sheet.toHeaderState(),
-                overview = sheet.toOverviewState(),
-                skills = sheet.toSkillsState(),
-                spells = sheet.toSpellsState(spells),
-                weapons = sheet.toWeaponsState(),
-                weaponCatalog = weaponCatalog,
-                isWeaponCatalogVisible = isWeaponCatalogVisible,
-                editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
-                weaponEditorState = weaponEditorState,
-                errorMessage = errorMessage,
-            )
-        }
-
-    private fun observeCharacter() {
-        val id = characterId ?: return
-        loadCharacterSheetUseCase(id)
-            .onEach { sheet ->
-                updateData(CharacterSheetUiEvent.SheetLoaded(sheet, loaded = true))
-            }
-            .catch { throwable ->
-                updateData(CharacterSheetUiEvent.ErrorChanged(throwable.message ?: "Unable to load character"))
-                updateData(CharacterSheetUiEvent.SheetLoaded(null, loaded = true))
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun observeSpells() {
-        observeAllSpellsUseCase()
-            .onEach { spells -> updateData(CharacterSheetUiEvent.SpellsLoaded(spells)) }
-            .launchIn(viewModelScope)
-    }
-
-    private fun observeWeaponCatalog() {
-        observeWeaponCatalogUseCase()
-            .map { entries -> entries.map { entry -> entry.toUiModel() } }
-            .onEach { entries -> updateData(CharacterSheetUiEvent.WeaponCatalogLoaded(entries)) }
-            .launchIn(viewModelScope)
-    }
-
-    private fun deleteCharacter() {
-        val id = _data.value.sheet?.id ?: _data.value.characterId ?: return
-        viewModelScope.launch {
-            updateData(CharacterSheetUiEvent.ErrorChanged(null))
-            runCatching { deleteCharacterUseCase(id) }
-                .onSuccess { _effects.emit(CharacterSheetEffect.CharacterDeleted) }
-                .onFailure { throwable ->
-                    updateData(CharacterSheetUiEvent.ErrorChanged(throwable.message ?: "Unable to delete character"))
-                }
+    fun selectTab(tab: CharacterSheetTab) {
+        if (tab != selectedTab) {
+            selectedTab = tab
+            renderState()
         }
     }
 
-    private fun enterEditMode() {
-        val sheet = _data.value.sheet ?: return
-        updateData(CharacterSheetUiEvent.EditingStateChanged(CharacterSheetEditingState.fromSheet(sheet)))
-        updateData(CharacterSheetUiEvent.EditModeChanged(SheetEditMode.Editing))
-        updateData(CharacterSheetUiEvent.ErrorChanged(null))
+    fun enterEditMode() {
+        val sheet = currentSheet ?: return
+        editingState = CharacterSheetEditingState.fromSheet(sheet)
+        editMode = SheetEditMode.Editing
+        errorMessage = null
+        renderState()
     }
 
-    private fun cancelEditMode() {
-        updateData(CharacterSheetUiEvent.EditingStateChanged(null))
-        updateData(CharacterSheetUiEvent.EditModeChanged(SheetEditMode.View))
+    fun cancelEditMode() {
+        editingState = null
+        editMode = SheetEditMode.View
+        renderState()
     }
 
-    private fun saveInlineEdits() {
-        val edits = _data.value.editingState ?: return
+    fun saveInlineEdits() {
+        val edits = editingState ?: return
         updateSheet { sheet -> sheet.applyInlineEdits(edits) }
         cancelEditMode()
     }
 
-    private fun adjustCurrentHp(delta: Int) {
+    fun adjustCurrentHp(delta: Int) {
         updateSheet { sheet ->
             updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.AdjustCurrentHp(delta))
         }
     }
 
-    private fun setTemporaryHp(value: Int) {
+    fun setTemporaryHp(value: Int) {
         updateSheet { sheet ->
             updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetTemporaryHp(value))
         }
     }
 
-    private fun setDeathSaveSuccesses(count: Int) {
+    fun setMaxHp(value: String) {
+        updateEditingState { it.copy(maxHp = value.filterDigits()) }
+    }
+
+    fun setCurrentHp(value: String) {
+        updateEditingState { it.copy(currentHp = value.filterDigits()) }
+    }
+
+    fun setTempHp(value: String) {
+        updateEditingState { it.copy(tempHp = value.filterDigits()) }
+    }
+
+    fun setSpeed(value: String) {
+        updateEditingState { it.copy(speed = value) }
+    }
+
+    fun setHitDice(value: String) {
+        updateEditingState { it.copy(hitDice = value) }
+    }
+
+    fun setSenses(value: String) {
+        updateEditingState { it.copy(senses = value) }
+    }
+
+    fun setLanguages(value: String) {
+        updateEditingState { it.copy(languages = value) }
+    }
+
+    fun setProficiencies(value: String) {
+        updateEditingState { it.copy(proficiencies = value) }
+    }
+
+    fun setEquipment(value: String) {
+        updateEditingState { it.copy(equipment = value) }
+    }
+
+    fun setDeathSaveSuccesses(count: Int) {
         updateSheet { sheet ->
             updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetDeathSaveSuccesses(count))
         }
     }
 
-    private fun setDeathSaveFailures(count: Int) {
+    fun setDeathSaveFailures(count: Int) {
         updateSheet { sheet ->
             updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetDeathSaveFailures(count))
         }
     }
 
-    private fun toggleSpellSlot(level: Int, slotIndex: Int) {
+    fun toggleSpellSlot(level: Int, slotIndex: Int) {
         updateSheet { sheet ->
             toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.Toggle(level, slotIndex))
         }
     }
 
-    private fun setSpellSlotTotal(level: Int, total: Int) {
+    fun setSpellSlotTotal(level: Int, total: Int) {
         updateSheet { sheet ->
             toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.SetTotal(level, total))
         }
     }
 
-    private fun removeSpell(spellId: String, sourceClass: String) {
+    fun removeSpell(spellId: String, sourceClass: String) {
         updateSheet { sheet ->
             val updated = sheet.characterSpells.filterNot {
                 it.spellId == spellId && it.sourceClass.equals(sourceClass, ignoreCase = true)
@@ -406,7 +208,7 @@ class CharacterSheetViewModel @Inject constructor(
         }
     }
 
-    private fun addSpells(assignments: List<CharacterSpellAssignment>) {
+    fun addSpells(assignments: List<CharacterSpellAssignment>) {
         if (assignments.isEmpty()) return
         updateSheet { sheet ->
             val existing = sheet.characterSpells.toMutableList()
@@ -427,55 +229,194 @@ class CharacterSheetViewModel @Inject constructor(
         }
     }
 
-    private fun onWeaponSelected(id: String) {
-        val sheet = _data.value.sheet ?: return
-        sheet.weapons.firstOrNull { it.id == id }
-            ?.let { weapon -> updateData(CharacterSheetUiEvent.WeaponEditorChanged(WeaponEditorState.fromWeapon(weapon))) }
+    fun startNewWeapon() {
+        weaponEditorState = WeaponEditorState()
+        renderState()
     }
 
-    private fun onWeaponDeleted(id: String) {
+    fun selectWeapon(id: String) {
+        val sheet = currentSheet ?: return
+        sheet.weapons.firstOrNull { it.id == id }
+            ?.let { weapon ->
+                weaponEditorState = WeaponEditorState.fromWeapon(weapon)
+                renderState()
+            }
+    }
+
+    fun deleteWeapon(id: String) {
         updateSheet { sheet ->
             updateWeaponListUseCase(sheet, UpdateWeaponListUseCase.Action.Delete(id))
         }
-        if (_data.value.weaponEditorState?.id == id) {
-            updateData(CharacterSheetUiEvent.WeaponEditorChanged(null))
+        if (weaponEditorState?.id == id) {
+            weaponEditorState = null
+            renderState()
         }
     }
 
-    private fun onWeaponSaved() {
-        val editor = _data.value.weaponEditorState ?: return
+    fun dismissWeaponEditor() {
+        weaponEditorState = null
+        renderState()
+    }
+
+    fun setWeaponName(value: String) {
+        updateWeaponEditor { it.copy(name = value) }
+    }
+
+    fun setWeaponAbility(abilityId: AbilityId) {
+        updateWeaponEditor { it.copy(abilityId = abilityId) }
+    }
+
+    fun setWeaponUseAbilityForDamage(enabled: Boolean) {
+        updateWeaponEditor { it.copy(useAbilityForDamage = enabled) }
+    }
+
+    fun setWeaponProficiency(proficient: Boolean) {
+        updateWeaponEditor { it.copy(proficient = proficient) }
+    }
+
+    fun setWeaponDiceCount(value: String) {
+        updateWeaponEditor { it.copy(damageDiceCount = value) }
+    }
+
+    fun setWeaponDieSize(value: String) {
+        updateWeaponEditor { it.copy(damageDieSize = value) }
+    }
+
+    fun setWeaponDamageType(damageType: DamageType) {
+        updateWeaponEditor { it.copy(damageType = damageType) }
+    }
+
+    fun saveWeapon() {
+        val editor = weaponEditorState ?: return
         val weapon = editor.toWeapon()
         if (weapon.name.isBlank()) return
 
         updateSheet { sheet ->
             updateWeaponListUseCase(sheet, UpdateWeaponListUseCase.Action.Save(weapon))
         }
-        updateData(CharacterSheetUiEvent.WeaponEditorChanged(null))
+        weaponEditorState = null
+        renderState()
     }
 
-    private fun onWeaponCatalogItemSelected(id: String) {
-        val selected = _data.value.weaponCatalog.firstOrNull { entry -> entry.id == id } ?: return
-        updateData(CharacterSheetUiEvent.WeaponEditorChanged(selected.toEditorState()))
-        updateData(CharacterSheetUiEvent.WeaponCatalogVisibilityChanged(false))
+    fun openWeaponCatalog() {
+        isWeaponCatalogVisible = true
+        renderState()
+    }
+
+    fun closeWeaponCatalog() {
+        isWeaponCatalogVisible = false
+        renderState()
+    }
+
+    fun selectWeaponFromCatalog(id: String) {
+        val selected = weaponCatalog.firstOrNull { entry -> entry.id == id } ?: return
+        weaponEditorState = selected.toEditorState()
+        isWeaponCatalogVisible = false
+        renderState()
+    }
+
+    fun deleteCharacter() {
+        val id = currentSheet?.id ?: characterId ?: return
+        viewModelScope.launch {
+            errorMessage = null
+            renderState()
+            runCatching { deleteCharacterUseCase(id) }
+                .onSuccess { _effects.emit(CharacterSheetEffect.CharacterDeleted) }
+                .onFailure { throwable ->
+                    errorMessage = throwable.message ?: "Unable to delete character"
+                    renderState()
+                }
+        }
+    }
+
+    private fun observeCharacter(id: String) {
+        loadCharacterSheetUseCase(id)
+            .onEach { sheet ->
+                hasLoaded = true
+                currentSheet = sheet
+                errorMessage = null
+                if (sheet == null) {
+                    editMode = SheetEditMode.View
+                    editingState = null
+                    weaponEditorState = null
+                }
+                renderState()
+            }
+            .catch { throwable ->
+                hasLoaded = true
+                currentSheet = null
+                editMode = SheetEditMode.View
+                editingState = null
+                weaponEditorState = null
+                errorMessage = throwable.message ?: "Unable to load character"
+                renderState()
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun observeSpells() {
+        observeAllSpellsUseCase()
+            .onEach { spells ->
+                cachedSpells = spells
+                renderState()
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun observeWeaponCatalog() {
+        observeWeaponCatalogUseCase()
+            .map { entries -> entries.map { entry -> entry.toUiModel() } }
+            .onEach { entries ->
+                weaponCatalog = entries
+                renderState()
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun updateEditingState(transform: (CharacterSheetEditingState) -> CharacterSheetEditingState) {
-        val current = _data.value.editingState ?: return
-        updateData(CharacterSheetUiEvent.EditingStateChanged(transform(current)))
+        editingState = editingState?.let(transform)
+        renderState()
     }
 
     private fun updateSheet(transform: (CharacterSheet) -> CharacterSheet) {
-        val sheet = _data.value.sheet ?: return
+        val sheet = currentSheet ?: return
         val transformed = transform(sheet)
         val updated = transformed.clearDeathSavesIfConscious()
-        updateData(CharacterSheetUiEvent.ErrorChanged(null))
-        updateData(CharacterSheetUiEvent.SheetLoaded(updated, loaded = true))
+        currentSheet = updated
+        errorMessage = null
+        hasLoaded = true
+        renderState()
         persist(updated)
     }
 
     private fun updateWeaponEditor(transform: (WeaponEditorState) -> WeaponEditorState) {
-        val current = _data.value.weaponEditorState ?: return
-        updateData(CharacterSheetUiEvent.WeaponEditorChanged(transform(current)))
+        weaponEditorState = weaponEditorState?.let(transform)
+        renderState()
+    }
+
+    private fun renderState() {
+        val sheet = currentSheet
+        _uiState.update {
+            when {
+                !hasLoaded -> CharacterSheetUiState.Loading
+                sheet == null -> CharacterSheetUiState.Error(errorMessage ?: "Character not found")
+                else -> CharacterSheetUiState.Content(
+                    characterId = sheet.id,
+                    selectedTab = selectedTab,
+                    editMode = editMode,
+                    header = sheet.toHeaderState(),
+                    overview = sheet.toOverviewState(),
+                    skills = sheet.toSkillsState(),
+                    spells = sheet.toSpellsState(cachedSpells),
+                    weapons = sheet.toWeaponsState(),
+                    weaponCatalog = weaponCatalog,
+                    isWeaponCatalogVisible = isWeaponCatalogVisible,
+                    editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
+                    weaponEditorState = weaponEditorState,
+                    errorMessage = errorMessage,
+                )
+            }
+        }
     }
 
     private fun persist(updated: CharacterSheet) {
@@ -483,7 +424,8 @@ class CharacterSheetViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching { saveCharacterSheetUseCase(updated) }
                 .onFailure { throwable ->
-                    updateData(CharacterSheetUiEvent.ErrorChanged(throwable.message ?: "Unable to save changes"))
+                    errorMessage = throwable.message ?: "Unable to save changes"
+                    renderState()
                 }
         }
     }
@@ -493,22 +435,14 @@ class CharacterSheetViewModel @Inject constructor(
  * Exposes the UI state for the character sheet.
  */
 sealed interface CharacterSheetUiState {
-    val characterId: String?
-    val selectedTab: CharacterSheetTab
-    val editMode: SheetEditMode
-
     @Immutable
-    data class Loading(
-        override val characterId: String?,
-        override val selectedTab: CharacterSheetTab,
-        override val editMode: SheetEditMode,
-    ) : CharacterSheetUiState
+    data object Loading : CharacterSheetUiState
 
     @Immutable
     data class Content(
-        override val characterId: String,
-        override val selectedTab: CharacterSheetTab,
-        override val editMode: SheetEditMode,
+        val characterId: String,
+        val selectedTab: CharacterSheetTab,
+        val editMode: SheetEditMode,
         val header: CharacterHeaderUiState,
         val overview: OverviewTabState,
         val skills: SkillsTabState,
@@ -523,9 +457,6 @@ sealed interface CharacterSheetUiState {
 
     @Immutable
     data class Error(
-        override val characterId: String?,
-        override val selectedTab: CharacterSheetTab,
-        override val editMode: SheetEditMode,
         val message: String,
     ) : CharacterSheetUiState
 }
@@ -703,7 +634,7 @@ private fun com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry.toUiMode
         name = name,
         category = category,
         categories = categories,
-        damageDiceCount = damageDiceCount,
+        damageDiceCount = damageDiceNum,
         damageDieSize = damageDieSize,
         damageType = damageType,
     )

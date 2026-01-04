@@ -1,0 +1,810 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package com.github.arhor.spellbindr.ui.feature.characters.editor
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.Skill
+import com.github.arhor.spellbindr.domain.model.displayName
+import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
+import com.github.arhor.spellbindr.ui.components.TopBarState
+import com.github.arhor.spellbindr.ui.theme.AppTheme
+
+@Composable
+fun CharacterEditorRoute(
+    vm: CharacterEditorViewModel,
+    onBack: () -> Unit,
+    onFinished: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val state by vm.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val title = when (val uiState = state) {
+        is CharacterEditorUiState.Content -> if (uiState.mode == EditorMode.Create) "New Character" else "Edit Character"
+        else -> "Character"
+    }
+    val canSave = when (val uiState = state) {
+        is CharacterEditorUiState.Content -> !uiState.isSaving
+        else -> false
+    }
+
+    LaunchedEffect(vm.events) {
+        vm.events.collect { event ->
+            when (event) {
+                CharacterEditorEvent.Saved -> onFinished()
+                is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)
+            }
+        }
+    }
+
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                title = title,
+                navigation = AppTopBarNavigation.Back(onBack),
+                actions = {
+                    TextButton(
+                        onClick = vm::onSaveClicked,
+                        enabled = canSave,
+                    ) {
+                        Text("Save")
+                    }
+                },
+            ),
+        ),
+    ) {
+        CharacterEditorScreen(
+            state = state,
+            onSave = vm::onSaveClicked,
+            onNameChanged = vm::onNameChanged,
+            onClassChanged = vm::onClassChanged,
+            onLevelChanged = vm::onLevelChanged,
+            onRaceChanged = vm::onRaceChanged,
+            onBackgroundChanged = vm::onBackgroundChanged,
+            onAlignmentChanged = vm::onAlignmentChanged,
+            onExperienceChanged = vm::onExperienceChanged,
+            onAbilityChanged = vm::onAbilityChanged,
+            onProficiencyBonusChanged = vm::onProficiencyBonusChanged,
+            onInspirationChanged = vm::onInspirationChanged,
+            onMaxHpChanged = vm::onMaxHpChanged,
+            onCurrentHpChanged = vm::onCurrentHpChanged,
+            onTemporaryHpChanged = vm::onTemporaryHpChanged,
+            onArmorClassChanged = vm::onArmorClassChanged,
+            onInitiativeChanged = vm::onInitiativeChanged,
+            onSpeedChanged = vm::onSpeedChanged,
+            onHitDiceChanged = vm::onHitDiceChanged,
+            onSavingThrowProficiencyChanged = vm::onSavingThrowProficiencyChanged,
+            onSkillProficiencyChanged = vm::onSkillProficiencyChanged,
+            onSkillExpertiseChanged = vm::onSkillExpertiseChanged,
+            onSensesChanged = vm::onSensesChanged,
+            onLanguagesChanged = vm::onLanguagesChanged,
+            onProficienciesChanged = vm::onProficienciesChanged,
+            onAttacksChanged = vm::onAttacksChanged,
+            onFeaturesChanged = vm::onFeaturesChanged,
+            onEquipmentChanged = vm::onEquipmentChanged,
+            onPersonalityTraitsChanged = vm::onPersonalityTraitsChanged,
+            onIdealsChanged = vm::onIdealsChanged,
+            onBondsChanged = vm::onBondsChanged,
+            onFlawsChanged = vm::onFlawsChanged,
+            onNotesChanged = vm::onNotesChanged,
+            snackbarHostState = snackbarHostState,
+            modifier = modifier,
+        )
+    }
+}
+
+@Composable
+private fun CharacterEditorScreen(
+    state: CharacterEditorUiState,
+    onSave: () -> Unit,
+    onNameChanged: (String) -> Unit,
+    onClassChanged: (String) -> Unit,
+    onLevelChanged: (String) -> Unit,
+    onRaceChanged: (String) -> Unit,
+    onBackgroundChanged: (String) -> Unit,
+    onAlignmentChanged: (String) -> Unit,
+    onExperienceChanged: (String) -> Unit,
+    onAbilityChanged: (AbilityId, String) -> Unit,
+    onProficiencyBonusChanged: (String) -> Unit,
+    onInspirationChanged: (Boolean) -> Unit,
+    onMaxHpChanged: (String) -> Unit,
+    onCurrentHpChanged: (String) -> Unit,
+    onTemporaryHpChanged: (String) -> Unit,
+    onArmorClassChanged: (String) -> Unit,
+    onInitiativeChanged: (String) -> Unit,
+    onSpeedChanged: (String) -> Unit,
+    onHitDiceChanged: (String) -> Unit,
+    onSavingThrowProficiencyChanged: (AbilityId, Boolean) -> Unit,
+    onSkillProficiencyChanged: (Skill, Boolean) -> Unit,
+    onSkillExpertiseChanged: (Skill, Boolean) -> Unit,
+    onSensesChanged: (String) -> Unit,
+    onLanguagesChanged: (String) -> Unit,
+    onProficienciesChanged: (String) -> Unit,
+    onAttacksChanged: (String) -> Unit,
+    onFeaturesChanged: (String) -> Unit,
+    onEquipmentChanged: (String) -> Unit,
+    onPersonalityTraitsChanged: (String) -> Unit,
+    onIdealsChanged: (String) -> Unit,
+    onBondsChanged: (String) -> Unit,
+    onFlawsChanged: (String) -> Unit,
+    onNotesChanged: (String) -> Unit,
+    snackbarHostState: SnackbarHostState,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+            when (state) {
+                CharacterEditorUiState.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+
+                is CharacterEditorUiState.Error -> {
+                    ErrorMessage(message = state.message)
+                }
+
+            is CharacterEditorUiState.Content -> {
+                CharacterEditorForm(
+                    state = state,
+                    onSave = onSave,
+                    onNameChanged = onNameChanged,
+                    onClassChanged = onClassChanged,
+                    onLevelChanged = onLevelChanged,
+                    onRaceChanged = onRaceChanged,
+                    onBackgroundChanged = onBackgroundChanged,
+                    onAlignmentChanged = onAlignmentChanged,
+                    onExperienceChanged = onExperienceChanged,
+                    onAbilityChanged = onAbilityChanged,
+                    onProficiencyBonusChanged = onProficiencyBonusChanged,
+                    onInspirationChanged = onInspirationChanged,
+                    onMaxHpChanged = onMaxHpChanged,
+                    onCurrentHpChanged = onCurrentHpChanged,
+                    onTemporaryHpChanged = onTemporaryHpChanged,
+                    onArmorClassChanged = onArmorClassChanged,
+                    onInitiativeChanged = onInitiativeChanged,
+                    onSpeedChanged = onSpeedChanged,
+                    onHitDiceChanged = onHitDiceChanged,
+                    onSavingThrowProficiencyChanged = onSavingThrowProficiencyChanged,
+                    onSkillProficiencyChanged = onSkillProficiencyChanged,
+                    onSkillExpertiseChanged = onSkillExpertiseChanged,
+                    onSensesChanged = onSensesChanged,
+                    onLanguagesChanged = onLanguagesChanged,
+                    onProficienciesChanged = onProficienciesChanged,
+                    onAttacksChanged = onAttacksChanged,
+                    onFeaturesChanged = onFeaturesChanged,
+                    onEquipmentChanged = onEquipmentChanged,
+                    onPersonalityTraitsChanged = onPersonalityTraitsChanged,
+                    onIdealsChanged = onIdealsChanged,
+                    onBondsChanged = onBondsChanged,
+                    onFlawsChanged = onFlawsChanged,
+                    onNotesChanged = onNotesChanged,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                )
+            }
+        }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp),
+        )
+    }
+}
+
+@Composable
+private fun CharacterEditorForm(
+    state: CharacterEditorUiState.Content,
+    onSave: () -> Unit,
+    onNameChanged: (String) -> Unit,
+    onClassChanged: (String) -> Unit,
+    onLevelChanged: (String) -> Unit,
+    onRaceChanged: (String) -> Unit,
+    onBackgroundChanged: (String) -> Unit,
+    onAlignmentChanged: (String) -> Unit,
+    onExperienceChanged: (String) -> Unit,
+    onAbilityChanged: (AbilityId, String) -> Unit,
+    onProficiencyBonusChanged: (String) -> Unit,
+    onInspirationChanged: (Boolean) -> Unit,
+    onMaxHpChanged: (String) -> Unit,
+    onCurrentHpChanged: (String) -> Unit,
+    onTemporaryHpChanged: (String) -> Unit,
+    onArmorClassChanged: (String) -> Unit,
+    onInitiativeChanged: (String) -> Unit,
+    onSpeedChanged: (String) -> Unit,
+    onHitDiceChanged: (String) -> Unit,
+    onSavingThrowProficiencyChanged: (AbilityId, Boolean) -> Unit,
+    onSkillProficiencyChanged: (Skill, Boolean) -> Unit,
+    onSkillExpertiseChanged: (Skill, Boolean) -> Unit,
+    onSensesChanged: (String) -> Unit,
+    onLanguagesChanged: (String) -> Unit,
+    onProficienciesChanged: (String) -> Unit,
+    onAttacksChanged: (String) -> Unit,
+    onFeaturesChanged: (String) -> Unit,
+    onEquipmentChanged: (String) -> Unit,
+    onPersonalityTraitsChanged: (String) -> Unit,
+    onIdealsChanged: (String) -> Unit,
+    onBondsChanged: (String) -> Unit,
+    onFlawsChanged: (String) -> Unit,
+    onNotesChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        if (state.isSaving) {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        }
+        if (state.saveError != null) {
+            Surface(
+                tonalElevation = 1.dp,
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.errorContainer,
+            ) {
+                Text(
+                    text = state.saveError,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onErrorContainer,
+                    modifier = Modifier.padding(12.dp),
+                )
+            }
+        }
+        SectionCard(title = "Identity") {
+            OutlinedTextField(
+                value = state.name,
+                onValueChange = onNameChanged,
+                label = { Text("Name") },
+                modifier = Modifier.fillMaxWidth(),
+                isError = state.nameError != null,
+                supportingText = state.nameError?.let { error ->
+                    { Text(error) }
+                },
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.className,
+                    onValueChange = onClassChanged,
+                    label = { Text("Class") },
+                    modifier = Modifier.weight(1f),
+                )
+                OutlinedTextField(
+                    value = state.level,
+                    onValueChange = onLevelChanged,
+                    label = { Text("Level") },
+                    modifier = Modifier.weight(1f),
+                    isError = state.levelError != null,
+                    supportingText = state.levelError?.let { error -> { Text(error) } },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next,
+                    ),
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.race,
+                    onValueChange = onRaceChanged,
+                    label = { Text("Race") },
+                    modifier = Modifier.weight(1f),
+                )
+                OutlinedTextField(
+                    value = state.background,
+                    onValueChange = onBackgroundChanged,
+                    label = { Text("Background") },
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.alignment,
+                    onValueChange = onAlignmentChanged,
+                    label = { Text("Alignment") },
+                    modifier = Modifier.weight(1f),
+                )
+                OutlinedTextField(
+                    value = state.experiencePoints,
+                    onValueChange = onExperienceChanged,
+                    label = { Text("Experience") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next,
+                    ),
+                )
+            }
+        }
+        SectionCard(title = "Ability Scores") {
+            AbilityGrid(
+                abilities = state.abilities,
+                onAbilityChanged = { ability, value ->
+                    onAbilityChanged(ability, value)
+                },
+            )
+        }
+        SectionCard(title = "Proficiency & Inspiration") {
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.proficiencyBonus,
+                    onValueChange = onProficiencyBonusChanged,
+                    label = { Text("Proficiency bonus") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next,
+                    ),
+                )
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Checkbox(
+                        checked = state.inspiration,
+                        onCheckedChange = onInspirationChanged,
+                    )
+                    Text(
+                        text = "Inspiration",
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
+                }
+            }
+        }
+        SectionCard(title = "Combat") {
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.maxHitPoints,
+                    onValueChange = onMaxHpChanged,
+                    label = { Text("Max HP") },
+                    modifier = Modifier.weight(1f),
+                    isError = state.maxHitPointsError != null,
+                    supportingText = state.maxHitPointsError?.let { error -> { Text(error) } },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+                OutlinedTextField(
+                    value = state.currentHitPoints,
+                    onValueChange = onCurrentHpChanged,
+                    label = { Text("Current HP") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+                OutlinedTextField(
+                    value = state.temporaryHitPoints,
+                    onValueChange = onTemporaryHpChanged,
+                    label = { Text("Temp HP") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.armorClass,
+                    onValueChange = onArmorClassChanged,
+                    label = { Text("Armor Class") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+                OutlinedTextField(
+                    value = state.initiative,
+                    onValueChange = onInitiativeChanged,
+                    label = { Text("Initiative") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    value = state.speed,
+                    onValueChange = onSpeedChanged,
+                    label = { Text("Speed") },
+                    modifier = Modifier.weight(1f),
+                )
+                OutlinedTextField(
+                    value = state.hitDice,
+                    onValueChange = onHitDiceChanged,
+                    label = { Text("Hit Dice") },
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+        SectionCard(title = "Saving Throws") {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                state.savingThrows.forEach { entry ->
+                    SavingThrowRow(
+                        entry = entry,
+                        onProficiencyChanged = {
+                            onSavingThrowProficiencyChanged(entry.abilityId, it)
+                        },
+                    )
+                }
+            }
+        }
+        SectionCard(title = "Skills") {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                state.skills.forEach { entry ->
+                    SkillRow(
+                        entry = entry,
+                        onProficiencyChanged = {
+                            onSkillProficiencyChanged(entry.skill, it)
+                        },
+                        onExpertiseChanged = {
+                            onSkillExpertiseChanged(entry.skill, it)
+                        },
+                    )
+                }
+            }
+        }
+        SectionCard(title = "Senses, Languages & Proficiencies") {
+            MultiLineField(
+                value = state.senses,
+                onValueChange = onSensesChanged,
+                label = "Senses",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.languages,
+                onValueChange = onLanguagesChanged,
+                label = "Languages",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.proficiencies,
+                onValueChange = onProficienciesChanged,
+                label = "Proficiencies",
+            )
+        }
+        SectionCard(title = "Attacks & Spellcasting") {
+            MultiLineField(
+                value = state.attacksAndCantrips,
+                onValueChange = onAttacksChanged,
+                label = "Notes",
+            )
+        }
+        SectionCard(title = "Features & Equipment") {
+            MultiLineField(
+                value = state.featuresAndTraits,
+                onValueChange = onFeaturesChanged,
+                label = "Features & Traits",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.equipment,
+                onValueChange = onEquipmentChanged,
+                label = "Equipment",
+            )
+        }
+        SectionCard(title = "Personality & Notes") {
+            MultiLineField(
+                value = state.personalityTraits,
+                onValueChange = onPersonalityTraitsChanged,
+                label = "Personality traits",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.ideals,
+                onValueChange = onIdealsChanged,
+                label = "Ideals",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.bonds,
+                onValueChange = onBondsChanged,
+                label = "Bonds",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.flaws,
+                onValueChange = onFlawsChanged,
+                label = "Flaws",
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            MultiLineField(
+                value = state.notes,
+                onValueChange = onNotesChanged,
+                label = "Notes",
+            )
+        }
+    }
+}
+
+@Composable
+private fun SectionCard(
+    title: String,
+    modifier: Modifier = Modifier,
+    content: @Composable (ColumnScope.() -> Unit),
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 1.dp,
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            content()
+        }
+    }
+}
+
+@Composable
+private fun AbilityGrid(
+    abilities: List<AbilityFieldState>,
+    onAbilityChanged: (AbilityId, String) -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        abilities.chunked(2).forEach { rowItems ->
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                rowItems.forEach { ability ->
+                    AbilityCard(
+                        state = ability,
+                        onAbilityChanged = { value -> onAbilityChanged(ability.abilityId, value) },
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+                if (rowItems.size == 1) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AbilityCard(
+    state: AbilityFieldState,
+    onAbilityChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 1.dp,
+        modifier = modifier,
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = state.abilityId.displayName(),
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Bold,
+            )
+            OutlinedTextField(
+                value = state.score,
+                onValueChange = onAbilityChanged,
+                label = { Text("Score") },
+                singleLine = true,
+                isError = state.error != null,
+                supportingText = state.error?.let { error -> { Text(error) } },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            )
+            Text(
+                text = "Modifier ${formatModifier(state.score.toIntOrNull())}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SavingThrowRow(
+    entry: SavingThrowInputState,
+    onProficiencyChanged: (Boolean) -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(text = entry.abilityId.displayName(), fontWeight = FontWeight.Medium)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(
+                    checked = entry.proficient,
+                    onCheckedChange = onProficiencyChanged,
+                )
+                Text(text = "Proficient")
+            }
+        }
+        Text(
+            text = formatModifier(entry.bonus),
+            style = MaterialTheme.typography.titleMedium,
+        )
+    }
+}
+
+@Composable
+private fun SkillRow(
+    entry: SkillInputState,
+    onProficiencyChanged: (Boolean) -> Unit,
+    onExpertiseChanged: (Boolean) -> Unit,
+) {
+    Column {
+        Text(text = entry.skill.displayName, fontWeight = FontWeight.Medium)
+        Text(
+            text = "Linked to ${entry.skill.abilityAbbreviation}",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(
+                    checked = entry.proficient,
+                    onCheckedChange = onProficiencyChanged,
+                )
+                Text(text = "Proficient")
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(
+                    checked = entry.expertise,
+                    onCheckedChange = onExpertiseChanged,
+                )
+                Text(text = "Expertise")
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = formatModifier(entry.bonus),
+                style = MaterialTheme.typography.titleMedium,
+            )
+        }
+    }
+}
+
+@Composable
+private fun MultiLineField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        modifier = Modifier.fillMaxWidth(),
+        minLines = 3,
+    )
+}
+
+private fun formatModifier(value: Int?): String = when (value) {
+    null -> "—"
+    in Int.MIN_VALUE..-1 -> value.toString()
+    else -> "+$value"
+}
+
+@Preview(showBackground = true, heightDp = 800)
+@Composable
+private fun CharacterEditorScreenPreview() {
+    AppTheme {
+        CharacterEditorScreen(
+            state = previewEditorState(),
+            onSave = {},
+            onNameChanged = {},
+            onClassChanged = {},
+            onLevelChanged = {},
+            onRaceChanged = {},
+            onBackgroundChanged = {},
+            onAlignmentChanged = {},
+            onExperienceChanged = {},
+            onAbilityChanged = { _, _ -> },
+            onProficiencyBonusChanged = {},
+            onInspirationChanged = {},
+            onMaxHpChanged = {},
+            onCurrentHpChanged = {},
+            onTemporaryHpChanged = {},
+            onArmorClassChanged = {},
+            onInitiativeChanged = {},
+            onSpeedChanged = {},
+            onHitDiceChanged = {},
+            onSavingThrowProficiencyChanged = { _, _ -> },
+            onSkillProficiencyChanged = { _, _ -> },
+            onSkillExpertiseChanged = { _, _ -> },
+            onSensesChanged = {},
+            onLanguagesChanged = {},
+            onProficienciesChanged = {},
+            onAttacksChanged = {},
+            onFeaturesChanged = {},
+            onEquipmentChanged = {},
+            onPersonalityTraitsChanged = {},
+            onIdealsChanged = {},
+            onBondsChanged = {},
+            onFlawsChanged = {},
+            onNotesChanged = {},
+            snackbarHostState = remember { SnackbarHostState() },
+        )
+    }
+}
+
+@Composable
+private fun previewEditorState(): CharacterEditorUiState.Content = CharacterEditorUiState.Content(
+    name = "Astra Moonshadow",
+    className = "Wizard",
+    level = "7",
+    race = "Half-elf",
+    background = "Sage",
+    alignment = "CG",
+    experiencePoints = "34000",
+    abilities = AbilityFieldState.defaults().mapIndexed { index, field ->
+        field.copy(score = (10 + index * 2).toString())
+    },
+    proficiencyBonus = "3",
+    inspiration = true,
+    maxHitPoints = "52",
+    currentHitPoints = "40",
+    temporaryHitPoints = "5",
+    armorClass = "15",
+    initiative = "2",
+    speed = "30 ft",
+    hitDice = "7d6",
+    savingThrows = SavingThrowInputState.defaults()
+        .map { it.copy(bonus = 2, proficient = true) },
+    skills = SkillInputState.defaults().map { it.copy(bonus = 4) },
+    senses = "Darkvision 60 ft",
+    languages = "Common, Elvish, Primordial",
+    proficiencies = "Arcana, Investigation, Perception",
+    attacksAndCantrips = "Fire Bolt +9 to hit, 2d10 fire",
+    featuresAndTraits = "Arcane Recovery (3/day)",
+    equipment = "Quarterstaff, Spellbook",
+    personalityTraits = "Curious and driven",
+    ideals = "Knowledge is the path to power",
+    bonds = "Protect the Luna Conservatory",
+    flaws = "Overly cautious",
+    notes = "Keep an eye on the mysterious amulet.",
+)

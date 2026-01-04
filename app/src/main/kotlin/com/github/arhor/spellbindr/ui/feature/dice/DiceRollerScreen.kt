@@ -12,12 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,9 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
-import com.github.arhor.spellbindr.ui.components.TopBarState
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.feature.dice.components.LatestResultBar
 import com.github.arhor.spellbindr.ui.feature.dice.components.MainDiceRollerCard
 import com.github.arhor.spellbindr.ui.feature.dice.components.PercentileCard
@@ -38,61 +36,61 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material3.Text
 import kotlinx.coroutines.launch
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun DiceRollerRoute(
-    vm: DiceRollerViewModel,
+fun DiceRollerScreen(
+    state: DiceRollerUiState,
+    onToggleCheck: () -> Unit,
+    onCheckModeSelected: (CheckMode) -> Unit,
+    onIncrementCheckModifier: () -> Unit,
+    onDecrementCheckModifier: () -> Unit,
+    onAddAmountDie: (Int) -> Unit,
+    onIncrementAmountDie: (Int) -> Unit,
+    onDecrementAmountDie: (Int) -> Unit,
+    onClearAll: () -> Unit,
+    onRollMain: () -> Unit,
+    onRollPercentile: () -> Unit,
+    onReRollLast: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val state by vm.state.collectAsStateWithLifecycle()
-
-    ProvideTopBarState(
-        topBarState = TopBarState(
-            config = AppTopBarConfig(
-                visible = true,
-                title = { Text(text = "Dice Roller") },
-                actions = {
-                    IconButton(onClick = { /* Stub: future history action */ }) {
-                        Icon(
-                            imageVector = Icons.Outlined.History,
-                            contentDescription = "History",
-                        )
-                    }
-                },
-            ),
-        ),
-    ) {
-        DiceRollerRoute(
+    when (state) {
+        DiceRollerUiState.Loading -> LoadingIndicator()
+        is DiceRollerUiState.Error -> ErrorMessage(state.errorMessage)
+        is DiceRollerUiState.Content -> DiceRollerContent(
             state = state,
-            onIntent = vm::onIntent,
+            onToggleCheck = onToggleCheck,
+            onCheckModeSelected = onCheckModeSelected,
+            onIncrementCheckModifier = onIncrementCheckModifier,
+            onDecrementCheckModifier = onDecrementCheckModifier,
+            onAddAmountDie = onAddAmountDie,
+            onIncrementAmountDie = onIncrementAmountDie,
+            onDecrementAmountDie = onDecrementAmountDie,
+            onClearAll = onClearAll,
+            onRollMain = onRollMain,
+            onRollPercentile = onRollPercentile,
+            onReRollLast = onReRollLast,
+            modifier = modifier,
         )
     }
 }
 
 @Composable
-private fun DiceRollerRoute(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
-) {
-    DiceRollerScreen(
-        state = state,
-        onIntent = onIntent,
-    )
-}
-
-@Composable
-fun DiceRollerScreen(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+private fun DiceRollerContent(
+    state: DiceRollerUiState.Content,
+    onToggleCheck: () -> Unit,
+    onCheckModeSelected: (CheckMode) -> Unit,
+    onIncrementCheckModifier: () -> Unit,
+    onDecrementCheckModifier: () -> Unit,
+    onAddAmountDie: (Int) -> Unit,
+    onIncrementAmountDie: (Int) -> Unit,
+    onDecrementAmountDie: (Int) -> Unit,
+    onClearAll: () -> Unit,
+    onRollMain: () -> Unit,
+    onRollPercentile: () -> Unit,
+    onReRollLast: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
@@ -129,11 +127,19 @@ fun DiceRollerScreen(
         ) {
             MainDiceRollerCard(
                 state = state,
-                onIntent = onIntent,
+                onToggleCheck = onToggleCheck,
+                onCheckModeSelected = onCheckModeSelected,
+                onIncrementCheckModifier = onIncrementCheckModifier,
+                onDecrementCheckModifier = onDecrementCheckModifier,
+                onAddAmountDie = onAddAmountDie,
+                onIncrementAmountDie = onIncrementAmountDie,
+                onDecrementAmountDie = onDecrementAmountDie,
+                onClearAll = onClearAll,
+                onRollMain = onRollMain,
             )
             PercentileCard(
                 lastPercentileRoll = state.lastPercentileRoll,
-                onRollPercentile = { onIntent(DiceRollerIntent.RollPercentile) },
+                onRollPercentile = onRollPercentile,
                 modifier = Modifier.padding(top = 8.dp),
             )
             Spacer(modifier = Modifier.height(96.dp))
@@ -151,7 +157,7 @@ fun DiceRollerScreen(
             )
             LatestResultBar(
                 latestResult = latestResult,
-                onReRoll = { onIntent(DiceRollerIntent.ReRollLast) },
+                onReRoll = onReRollLast,
                 onShowDetails = { showDetails.value = true },
                 onClose = {
                     showDetails.value = false
@@ -165,7 +171,6 @@ fun DiceRollerScreen(
             )
         }
     }
-
 
     val latestResult = state.latestResult
     if (showDetails.value && latestResult != null) {
@@ -213,7 +218,7 @@ private fun Modifier.consumeClicks(): Modifier = composed {
 @Composable
 private fun DiceRollerScreenPreview() {
     DiceRollerScreen(
-        state = DiceRollerState(
+        state = DiceRollerUiState.Content(
             hasCheck = true,
             checkMode = CheckMode.ADVANTAGE,
             checkModifier = 5,
@@ -238,6 +243,16 @@ private fun DiceRollerScreenPreview() {
                 ),
             ),
         ),
-        onIntent = {},
+        onToggleCheck = {},
+        onCheckModeSelected = {},
+        onIncrementCheckModifier = {},
+        onDecrementCheckModifier = {},
+        onAddAmountDie = {},
+        onIncrementAmountDie = {},
+        onDecrementAmountDie = {},
+        onClearAll = {},
+        onRollMain = {},
+        onRollPercentile = {},
+        onReRollLast = {},
     )
 }

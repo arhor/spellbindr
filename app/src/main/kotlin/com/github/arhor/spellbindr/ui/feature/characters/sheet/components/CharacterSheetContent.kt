@@ -17,13 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -33,7 +32,14 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 internal fun CharacterSheetContent(
     state: CharacterSheetUiState.Content,
     header: CharacterHeaderUiState,
-    callbacks: CharacterSheetCallbacks,
+    onTabSelected: (CharacterSheetTab) -> Unit,
+    onAddSpellsClick: () -> Unit,
+    onSpellSelected: (String) -> Unit,
+    onSpellRemoved: (String, String) -> Unit,
+    onSpellSlotToggle: (Int, Int) -> Unit,
+    onSpellSlotTotalChanged: (Int, Int) -> Unit,
+    onAddWeaponClick: () -> Unit,
+    onWeaponSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val tabs = CharacterSheetTab.entries
@@ -56,7 +62,7 @@ internal fun CharacterSheetContent(
             .collect { page ->
                 val pageTab = tabs[page]
                 if (pageTab != currentSelectedTab.value) {
-                    callbacks.onTabSelected(pageTab)
+                    onTabSelected(pageTab)
                 }
             }
     }
@@ -69,7 +75,7 @@ internal fun CharacterSheetContent(
             tabs.forEach { tab ->
                 Tab(
                     selected = state.selectedTab == tab,
-                    onClick = { callbacks.onTabSelected(tab) },
+                    onClick = { onTabSelected(tab) },
                     modifier = Modifier.testTag("CharacterSheetTab-${tab.name}"),
                     text = { Text(tab.name.lowercase().replaceFirstChar(Char::titlecase)) },
                 )
@@ -85,7 +91,6 @@ internal fun CharacterSheetContent(
                     overview = state.overview,
                     editMode = state.editMode,
                     editingState = state.editingState,
-                    callbacks = callbacks,
                     modifier = Modifier.fillMaxSize(),
                 )
 
@@ -97,13 +102,18 @@ internal fun CharacterSheetContent(
                 CharacterSheetTab.Spells -> SpellsTab(
                     spellsState = state.spells,
                     editMode = state.editMode,
-                    callbacks = callbacks,
+                    onAddSpellsClick = onAddSpellsClick,
+                    onSpellSlotToggle = onSpellSlotToggle,
+                    onSpellSlotTotalChanged = onSpellSlotTotalChanged,
+                    onSpellSelected = onSpellSelected,
+                    onSpellRemoved = onSpellRemoved,
                     modifier = Modifier.fillMaxSize(),
                 )
 
                 CharacterSheetTab.Weapons -> WeaponsTab(
                     weapons = state.weapons,
-                    callbacks = callbacks,
+                    onAddWeaponClick = onAddWeaponClick,
+                    onWeaponSelected = onWeaponSelected,
                     modifier = Modifier.fillMaxSize(),
                 )
             }
@@ -111,14 +121,21 @@ internal fun CharacterSheetContent(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
 private fun CharacterSheetContentPreview() {
-    AppTheme(isDarkTheme = false) {
+    AppTheme {
         CharacterSheetContent(
             state = CharacterSheetPreviewData.uiState,
             header = CharacterSheetPreviewData.header,
-            callbacks = CharacterSheetCallbacks(),
+            onTabSelected = {},
+            onAddSpellsClick = {},
+            onSpellSelected = {},
+            onSpellRemoved = { _, _ -> },
+            onSpellSlotToggle = { _, _ -> },
+            onSpellSlotTotalChanged = { _, _ -> },
+            onAddWeaponClick = {},
+            onWeaponSelected = {},
             modifier = Modifier.fillMaxSize(),
         )
     }

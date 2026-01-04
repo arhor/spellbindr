@@ -705,9 +705,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcastingAbility": {
-        "id": "cha"
-      },
+      "spellcastingAbility": "cha",
       "info": [
         {
           "name": "Cantrips",
@@ -1641,9 +1639,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcastingAbility": {
-        "id": "wis"
-      },
+      "spellcastingAbility": "wis",
       "info": [
         {
           "name": "Cantrips",
@@ -3078,9 +3074,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcastingAbility": {
-        "id": "wis"
-      },
+      "spellcastingAbility": "wis",
       "info": [
         {
           "name": "Cantrips",
@@ -5012,9 +5006,7 @@
     ],
     "spellcasting": {
       "level": 2,
-      "spellcastingAbility": {
-        "id": "cha"
-      },
+      "spellcastingAbility": "cha",
       "info": [
         {
           "name": "Preparing and Casting Spells",
@@ -5625,9 +5617,7 @@
     ],
     "spellcasting": {
       "level": 2,
-      "spellcastingAbility": {
-        "id": "wis"
-      },
+      "spellcastingAbility": "wis",
       "info": [
         {
           "name": "Spell Slots",
@@ -6796,9 +6786,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcastingAbility": {
-        "id": "cha"
-      },
+      "spellcastingAbility": "wis",
       "info": [
         {
           "name": "Cantrips",
@@ -8040,9 +8028,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcastingAbility": {
-        "id": "cha"
-      },
+      "spellcastingAbility": "cha",
       "info": [
         {
           "name": "Cantrips",
@@ -8697,9 +8683,7 @@
     ],
     "spellcasting": {
       "level": 1,
-      "spellcastingAbility": {
-        "id": "int"
-      },
+      "spellcastingAbility": "int",
       "info": [
         {
           "name": "Cantrips",

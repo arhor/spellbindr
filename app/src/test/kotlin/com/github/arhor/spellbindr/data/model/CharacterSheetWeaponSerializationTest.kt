@@ -1,5 +1,8 @@
 package com.github.arhor.spellbindr.data.model
 
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterSheetSnapshot
+import com.github.arhor.spellbindr.data.mapper.toDomain
+import com.github.arhor.spellbindr.data.mapper.toSnapshot
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.DamageType

@@ -5,12 +5,10 @@ import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.google.common.truth.Truth.assertThat
-import java.nio.file.Files
-import java.nio.file.Paths
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Test
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class AbilitySkillSerializationTest {
 
@@ -27,13 +25,13 @@ class AbilitySkillSerializationTest {
     }
 
     private val abilitiesFromAsset by lazy {
-        json.decodeFromString<List<AbilityAssetModel>>(abilitiesJsonPath.toFile().readText())
+        json.decodeFromString<List<Ability>>(abilitiesJsonPath.toFile().readText())
     }
 
     @Test
     fun `abilities asset should expose ids names and descriptions when parsed from json`() {
         // Given
-        val abilitiesById = abilitiesFromAsset.associateBy(AbilityAssetModel::id)
+        val abilitiesById = abilitiesFromAsset.associateBy(Ability::id)
 
         // When
         val orderedAbilities = AbilityIds.standardOrder.map(abilitiesById::getValue)
@@ -44,9 +42,9 @@ class AbilitySkillSerializationTest {
 
         AbilityIds.standardOrder.forEach { abilityId ->
             val ability = abilitiesById.getValue(abilityId)
-            assertThat(ability.name).isEqualTo(abilityId.displayName())
+            assertThat(ability.displayName).isEqualTo(abilityId.displayName())
             assertThat(ability.description).hasSize(2)
-            assertThat(ability.description.first()).contains(ability.name)
+            assertThat(ability.description.first()).contains(ability.displayName)
             assertThat(ability.description.last()).isNotEmpty()
         }
 
@@ -56,10 +54,10 @@ class AbilitySkillSerializationTest {
     @Test
     fun `skills should reference abilities defined in assets when mapping ability ids`() {
         // Given
-        val abilityIds = abilitiesFromAsset.map(AbilityAssetModel::id).toSet()
+        val abilityIds = abilitiesFromAsset.map(Ability::id).toSet()
 
         // When
-        val referencedAbilityIds = Skill.values().map(Skill::abilityId).toSet()
+        val referencedAbilityIds = Skill.entries.map(Skill::abilityId).toSet()
 
         // Then
         assertThat(abilityIds).containsAtLeastElementsIn(referencedAbilityIds)

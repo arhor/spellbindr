@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.domain.model
 
 import kotlinx.serialization.Serializable
-import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
 
 
 /**
@@ -21,7 +20,7 @@ import com.github.arhor.spellbindr.domain.model.EntityRef as DomainEntityRef
  */
 @Serializable
 data class SpellDamage(
-    val damageType: DomainEntityRef? = null,
+    val damageType: EntityRef? = null,
     val damageAtSlotLevel: Map<String, String>? = null,
     val damageAtCharacterLevel: Map<String, String>? = null,
 )

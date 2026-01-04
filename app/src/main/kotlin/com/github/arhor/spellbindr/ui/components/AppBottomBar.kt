@@ -21,9 +21,8 @@ fun AppBottomBar(controller: NavHostController) {
 
     NavigationBar {
         BottomNavItems.forEach { item ->
-            val isSelected = backStackEntry?.destination matches item.destination
             NavigationBarItem(
-                selected = isSelected,
+                selected = backStackEntry?.destination matches item.destination,
                 onClick = {
                     controller.navigate(item.destination) {
                         popUpTo(controller.graph.findStartDestination().id) {
@@ -45,7 +44,19 @@ fun AppBottomBar(controller: NavHostController) {
     }
 }
 
-private infix fun NavDestination?.matches(destination: AppDestination): Boolean = when (this) {
-    null -> false
-    else -> hierarchy.any { it.hasRoute(destination::class) }
+private infix fun NavDestination?.matches(destination: AppDestination): Boolean {
+    if (this == null) {
+        return false
+    }
+    return when (destination) {
+        AppDestination.CompendiumSections -> hierarchy.any {
+            it.hasRoute<AppDestination.CompendiumSections>() ||
+                it.hasRoute<AppDestination.Spells>() ||
+                it.hasRoute<AppDestination.Conditions>() ||
+                it.hasRoute<AppDestination.Alignments>() ||
+                it.hasRoute<AppDestination.Races>()
+        }
+
+        else -> hierarchy.any { it.hasRoute(destination::class) }
+    }
 }

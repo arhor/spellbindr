@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
@@ -20,15 +20,13 @@ private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
 /**
  * Simple configuration object describing how the shared app bar should look.
  *
- * @property visible Whether the top bar should be shown.
- * @property title Composable content for the title.
+ * @property title Text content for the title.
  * @property navigation Navigation icon configuration (e.g., Back arrow).
  * @property actions RowScope block for action icons.
  */
 @Stable
 data class AppTopBarConfig(
-    val visible: Boolean = false,
-    val title: @Composable (() -> Unit) = {},
+    val title: String? = null,
     val navigation: AppTopBarNavigation = AppTopBarNavigation.None,
     val actions: @Composable (RowScope.() -> Unit) = {},
 ) {
@@ -70,34 +68,24 @@ sealed interface AppTopBarNavigation {
  */
 @Composable
 fun AppTopBar(config: AppTopBarConfig) {
-    if (!config.visible) return
-
     TopAppBar(
-        title = config.title,
+        title = {
+            config.title?.let {
+                Text(it)
+            }
+        },
         navigationIcon = config.navigation.asNavigationIcon(),
         actions = config.actions,
     )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun AppTopBarLightPreview() {
-    AppTopBarPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun AppTopBarDarkPreview() {
-    AppTopBarPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun AppTopBarPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun AppTopBarPreview() {
+    AppTheme {
         AppTopBar(
             config = AppTopBarConfig(
-                visible = true,
-                title = { Text(text = "Spellbindr") },
+                title = "Spellbindr",
                 navigation = AppTopBarNavigation.Back {},
                 actions = {
                     IconButton(onClick = {}) {

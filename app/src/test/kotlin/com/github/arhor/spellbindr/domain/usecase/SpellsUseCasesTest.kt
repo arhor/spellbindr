@@ -2,11 +2,12 @@ package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.SpellDetails
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
@@ -26,13 +27,27 @@ class SpellsUseCasesTest {
     fun `ObserveAllSpellsUseCase should emit latest spells when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "magic-missile", name = "Magic Missile")
-        repository.allSpellsState.value = listOf(spell)
+        repository.allSpellsState.value = Loadable.Ready(listOf(spell))
 
         // When
         val result = ObserveAllSpellsUseCase(repository)().first()
 
         // Then
         assertThat(result).containsExactly(spell)
+    }
+
+    @Test
+    fun `ObserveAllSpellsStateUseCase should emit latest state when repository updates`() = runTest {
+        // Given
+        val spell = sampleSpell(id = "shield", name = "Shield")
+        val state = Loadable.Ready(listOf(spell))
+        repository.allSpellsState.value = state
+
+        // When
+        val result = ObserveAllSpellsStateUseCase(repository)().first()
+
+        // Then
+        assertThat(result).isEqualTo(state)
     }
 
     @Test
@@ -48,36 +63,11 @@ class SpellsUseCasesTest {
     }
 
     @Test
-    fun `GetSpellByIdUseCase should return matching spell when id exists`() = runTest {
-        // Given
-        val spell = sampleSpell(id = "shield", name = "Shield")
-        repository.spellsById[spell.id] = spell
-
-        // When
-        val result = GetSpellByIdUseCase(repository)(spell.id)
-
-        // Then
-        assertThat(result).isEqualTo(spell)
-    }
-
-    @Test
-    fun `GetSpellByIdUseCase should return null when spell id is unknown`() = runTest {
-        // Given
-        // No spells added to the repository
-
-        // When
-        val result = GetSpellByIdUseCase(repository)("missing")
-
-        // Then
-        assertThat(result).isNull()
-    }
-
-    @Test
     fun `SearchSpellsUseCase should return matching favorites when query and filter apply`() = runTest {
         // Given
         val classes = setOf(EntityRef("cleric"), EntityRef("wizard"))
         val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = classes.toList()))
-        repository.allSpellsState.value = expected
+        repository.allSpellsState.value = Loadable.Ready(expected)
         favoritesRepository.favoriteIdsState.value = listOf("cure-wounds")
 
         // When
@@ -96,7 +86,7 @@ class SpellsUseCasesTest {
     fun `SearchSpellsUseCase should skip favorites when favoriteOnly is false`() = runTest {
         // Given
         val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
-        repository.allSpellsState.value = expected
+        repository.allSpellsState.value = Loadable.Ready(expected)
 
         // When
         val result = SearchSpellsUseCase(SearchAndGroupSpellsUseCase(repository, favoritesRepository))(
@@ -123,7 +113,7 @@ class SpellsUseCasesTest {
             level = 3,
         )
         val cureWounds = sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = listOf(cleric))
-        repository.allSpellsState.value = listOf(magicMissile, fireball, cureWounds)
+        repository.allSpellsState.value = Loadable.Ready(listOf(magicMissile, fireball, cureWounds))
         favoritesRepository.favoriteIdsState.value = listOf("fireball")
 
         // When
@@ -154,19 +144,18 @@ class SpellsUseCasesTest {
         assertThat(favoritesRepository.lastToggledType).isEqualTo(FavoriteType.SPELL)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `ObserveSpellDetailsUseCase should emit loading and favorite updates when spell is found`() = runTest {
         // Given
         val spell = sampleSpell(id = "haste", name = "Haste")
         repository.spellsById[spell.id] = spell
         val useCase = ObserveSpellDetailsUseCase(
-            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            spellsRepository = repository,
+            favoritesRepository = favoritesRepository,
         )
 
         // When
-        val emissions = mutableListOf<ObserveSpellDetailsUseCase.SpellDetailsState>()
+        val emissions = mutableListOf<Loadable<SpellDetails>>()
         val job = launch {
             useCase(spell.id).take(3).toList(emissions)
         }
@@ -176,31 +165,25 @@ class SpellsUseCasesTest {
         job.join()
 
         // Then
-        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
-        assertThat(emissions[1]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Loaded(spell = spell, isFavorite = false)
-        )
-        assertThat(emissions[2]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Loaded(spell = spell, isFavorite = true)
-        )
+        assertThat(emissions[0]).isEqualTo(Loadable.Loading)
+        assertThat(emissions[1]).isEqualTo(Loadable.Ready(SpellDetails(spell = spell, isFavorite = false)))
+        assertThat(emissions[2]).isEqualTo(Loadable.Ready(SpellDetails(spell = spell, isFavorite = true)))
     }
 
     @Test
     fun `ObserveSpellDetailsUseCase should emit error when spell is missing`() = runTest {
         // Given
         val useCase = ObserveSpellDetailsUseCase(
-            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            spellsRepository = repository,
+            favoritesRepository = favoritesRepository,
         )
 
         // When
         val emissions = useCase("missing").take(2).toList()
 
         // Then
-        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
-        assertThat(emissions[1]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Error("Spell not found.")
-        )
+        assertThat(emissions[0]).isEqualTo(Loadable.Loading)
+        assertThat(emissions[1]).isEqualTo(Loadable.Error("Spell not found."))
     }
 
     @Test
@@ -208,18 +191,17 @@ class SpellsUseCasesTest {
         // Given
         repository.throwOnGetSpellById = true
         val useCase = ObserveSpellDetailsUseCase(
-            getSpellByIdUseCase = GetSpellByIdUseCase(repository),
-            observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+            spellsRepository = repository,
+            favoritesRepository = favoritesRepository,
         )
 
         // When
         val emissions = useCase("fail").take(2).toList()
 
         // Then
-        assertThat(emissions[0]).isEqualTo(ObserveSpellDetailsUseCase.SpellDetailsState.Loading)
-        assertThat(emissions[1]).isEqualTo(
-            ObserveSpellDetailsUseCase.SpellDetailsState.Error("Oops, something went wrong...")
-        )
+        assertThat(emissions[0]).isEqualTo(Loadable.Loading)
+        val errorState = emissions[1] as Loadable.Error
+        assertThat(errorState.message).isEqualTo("Oops, something went wrong...")
     }
 
     private fun sampleSpell(
@@ -244,7 +226,8 @@ class SpellsUseCasesTest {
     )
 
     private class FakeSpellsRepository : SpellsRepository {
-        val allSpellsState = MutableStateFlow<List<Spell>>(emptyList())
+        override val allSpellsState =
+            MutableStateFlow<Loadable<List<Spell>>>(Loadable.Ready(emptyList()))
         val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 
@@ -252,7 +235,6 @@ class SpellsUseCasesTest {
         var lastToggledSpellId: String? = null
         var lastIsFavoriteSpellId: String? = null
 
-        override val allSpells: Flow<List<Spell>> = allSpellsState
         override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
         override suspend fun getSpellById(id: String): Spell? {

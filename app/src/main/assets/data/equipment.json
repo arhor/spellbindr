@@ -8,21 +8,15 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "light"
-      },
-      {
-        "id": "monk"
-      }
+      "light",
+      "monk"
     ],
     "categories": [
       "weapon",
@@ -39,27 +33,17 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 1,
     "properties": [
-      {
-        "id": "finesse"
-      },
-      {
-        "id": "light"
-      },
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "monk"
-      }
+      "finesse",
+      "light",
+      "thrown",
+      "monk"
     ],
     "throwRange": {
       "base": 20,
@@ -80,18 +64,14 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 10,
     "properties": [
-      {
-        "id": "two-handed"
-      }
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -108,24 +88,16 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "light"
-      },
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "monk"
-      }
+      "light",
+      "thrown",
+      "monk"
     ],
     "throwRange": {
       "base": 20,
@@ -146,21 +118,15 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "monk"
-      }
+      "thrown",
+      "monk"
     ],
     "throwRange": {
       "base": 30,
@@ -181,24 +147,16 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "light"
-      },
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "monk"
-      }
+      "light",
+      "thrown",
+      "monk"
     ],
     "throwRange": {
       "base": 20,
@@ -219,18 +177,14 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 4,
     "properties": [
-      {
-        "id": "monk"
-      }
+      "monk"
     ],
     "categories": [
       "weapon",
@@ -247,27 +201,19 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 4,
     "properties": [
-      {
-        "id": "versatile"
-      },
-      {
-        "id": "monk"
-      }
+      "versatile",
+      "monk"
     ],
     "twoHandedDamage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "categories": [
       "weapon",
@@ -284,21 +230,15 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "light"
-      },
-      {
-        "id": "monk"
-      }
+      "light",
+      "monk"
     ],
     "categories": [
       "weapon",
@@ -315,24 +255,16 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 3,
     "properties": [
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "versatile"
-      },
-      {
-        "id": "monk"
-      }
+      "thrown",
+      "versatile",
+      "monk"
     ],
     "throwRange": {
       "base": 20,
@@ -340,9 +272,7 @@
     },
     "twoHandedDamage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "categories": [
       "weapon",
@@ -359,9 +289,7 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 80,
@@ -369,15 +297,9 @@
     },
     "weight": 5,
     "properties": [
-      {
-        "id": "ammunition"
-      },
-      {
-        "id": "loading"
-      },
-      {
-        "id": "two-handed"
-      }
+      "ammunition",
+      "loading",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -394,9 +316,7 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 20,
@@ -404,12 +324,8 @@
     },
     "weight": 0.25,
     "properties": [
-      {
-        "id": "finesse"
-      },
-      {
-        "id": "thrown"
-      }
+      "finesse",
+      "thrown"
     ],
     "throwRange": {
       "base": 20,
@@ -430,9 +346,7 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 80,
@@ -440,12 +354,8 @@
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "ammunition"
-      },
-      {
-        "id": "two-handed"
-      }
+      "ammunition",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -462,9 +372,7 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 30,
@@ -472,9 +380,7 @@
     },
     "weight": 0,
     "properties": [
-      {
-        "id": "ammunition"
-      }
+      "ammunition"
     ],
     "categories": [
       "weapon",
@@ -491,24 +397,18 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 4,
     "properties": [
-      {
-        "id": "versatile"
-      }
+      "versatile"
     ],
     "twoHandedDamage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "categories": [
       "weapon",
@@ -525,9 +425,7 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
@@ -549,24 +447,16 @@
     },
     "damage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 6,
     "properties": [
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "reach"
-      },
-      {
-        "id": "two-handed"
-      }
+      "heavy",
+      "reach",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -583,21 +473,15 @@
     },
     "damage": {
       "damageDice": "1d12",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 7,
     "properties": [
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "two-handed"
-      }
+      "heavy",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -614,21 +498,15 @@
     },
     "damage": {
       "damageDice": "2d6",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 6,
     "properties": [
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "two-handed"
-      }
+      "heavy",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -645,24 +523,16 @@
     },
     "damage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 6,
     "properties": [
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "reach"
-      },
-      {
-        "id": "two-handed"
-      }
+      "heavy",
+      "reach",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -679,21 +549,15 @@
     },
     "damage": {
       "damageDice": "1d12",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 6,
     "properties": [
-      {
-        "id": "reach"
-      },
-      {
-        "id": "special"
-      }
+      "reach",
+      "special"
     ],
     "special": [
       "You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted."
@@ -713,24 +577,18 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 3,
     "properties": [
-      {
-        "id": "versatile"
-      }
+      "versatile"
     ],
     "twoHandedDamage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "categories": [
       "weapon",
@@ -747,21 +605,15 @@
     },
     "damage": {
       "damageDice": "2d6",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 10,
     "properties": [
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "two-handed"
-      }
+      "heavy",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -778,9 +630,7 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
@@ -802,24 +652,16 @@
     },
     "damage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 18,
     "properties": [
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "reach"
-      },
-      {
-        "id": "two-handed"
-      }
+      "heavy",
+      "reach",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -836,18 +678,14 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "finesse"
-      }
+      "finesse"
     ],
     "categories": [
       "weapon",
@@ -864,21 +702,15 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 3,
     "properties": [
-      {
-        "id": "finesse"
-      },
-      {
-        "id": "light"
-      }
+      "finesse",
+      "light"
     ],
     "categories": [
       "weapon",
@@ -895,24 +727,16 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "finesse"
-      },
-      {
-        "id": "light"
-      },
-      {
-        "id": "monk"
-      }
+      "finesse",
+      "light",
+      "monk"
     ],
     "categories": [
       "weapon",
@@ -929,21 +753,15 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 4,
     "properties": [
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "versatile"
-      }
+      "thrown",
+      "versatile"
     ],
     "throwRange": {
       "base": 20,
@@ -951,9 +769,7 @@
     },
     "twoHandedDamage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "categories": [
       "weapon",
@@ -970,9 +786,7 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 5
@@ -994,24 +808,18 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "range": {
       "base": 5
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "versatile"
-      }
+      "versatile"
     ],
     "twoHandedDamage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "bludgeoning"
-      }
+      "damageType": "bludgeoning"
     },
     "categories": [
       "weapon",
@@ -1028,21 +836,15 @@
     },
     "damage": {
       "damageDice": "1d4",
-      "damageType": {
-        "id": "slashing"
-      }
+      "damageType": "slashing"
     },
     "range": {
       "base": 5
     },
     "weight": 3,
     "properties": [
-      {
-        "id": "finesse"
-      },
-      {
-        "id": "reach"
-      }
+      "finesse",
+      "reach"
     ],
     "categories": [
       "weapon",
@@ -1059,9 +861,7 @@
     },
     "damage": {
       "damageDice": "1",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 25,
@@ -1069,12 +869,8 @@
     },
     "weight": 1,
     "properties": [
-      {
-        "id": "ammunition"
-      },
-      {
-        "id": "loading"
-      }
+      "ammunition",
+      "loading"
     ],
     "categories": [
       "weapon",
@@ -1091,9 +887,7 @@
     },
     "damage": {
       "damageDice": "1d6",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 30,
@@ -1101,15 +895,9 @@
     },
     "weight": 3,
     "properties": [
-      {
-        "id": "ammunition"
-      },
-      {
-        "id": "light"
-      },
-      {
-        "id": "loading"
-      }
+      "ammunition",
+      "light",
+      "loading"
     ],
     "categories": [
       "weapon",
@@ -1126,9 +914,7 @@
     },
     "damage": {
       "damageDice": "1d10",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 100,
@@ -1136,18 +922,10 @@
     },
     "weight": 18,
     "properties": [
-      {
-        "id": "ammunition"
-      },
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "loading"
-      },
-      {
-        "id": "two-handed"
-      }
+      "ammunition",
+      "heavy",
+      "loading",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -1164,9 +942,7 @@
     },
     "damage": {
       "damageDice": "1d8",
-      "damageType": {
-        "id": "piercing"
-      }
+      "damageType": "piercing"
     },
     "range": {
       "base": 150,
@@ -1174,15 +950,9 @@
     },
     "weight": 2,
     "properties": [
-      {
-        "id": "ammunition"
-      },
-      {
-        "id": "heavy"
-      },
-      {
-        "id": "two-handed"
-      }
+      "ammunition",
+      "heavy",
+      "two-handed"
     ],
     "categories": [
       "weapon",
@@ -1203,12 +973,8 @@
     },
     "weight": 3,
     "properties": [
-      {
-        "id": "thrown"
-      },
-      {
-        "id": "special"
-      }
+      "thrown",
+      "special"
     ],
     "special": [
       "A Large or smaller creature hit by a net is restrained until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. A creature can use its action to make a DC 10 Strength check, freeing itself or another creature within its reach on a success. Dealing 5 slashing damage to the net (AC 10) also frees the creature without harming it, ending the effect and destroying the net. When you use an action, bonus action, or reaction to attack with a net, you can make only one attack regardless of the number of attacks you can normally make."
@@ -3115,87 +2881,59 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "backpack"
-        },
+        "item": "backpack",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "ball-bearings-bag-of-1000"
-        },
+        "item": "ball-bearings-bag-of-1000",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "string-10-feet"
-        },
+        "item": "string-10-feet",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "bell"
-        },
+        "item": "bell",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "candle"
-        },
+        "item": "candle",
         "quantity": 5
       },
       {
-        "item": {
-          "id": "crowbar"
-        },
+        "item": "crowbar",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "hammer"
-        },
+        "item": "hammer",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "piton"
-        },
+        "item": "piton",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "lantern-hooded"
-        },
+        "item": "lantern-hooded",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "oil-flask"
-        },
+        "item": "oil-flask",
         "quantity": 2
       },
       {
-        "item": {
-          "id": "rations-1-day"
-        },
+        "item": "rations-1-day",
         "quantity": 5
       },
       {
-        "item": {
-          "id": "tinderbox"
-        },
+        "item": "tinderbox",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "waterskin"
-        },
+        "item": "waterskin",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "rope-hempen-50-feet"
-        },
+        "item": "rope-hempen-50-feet",
         "quantity": 1
       }
     ],
@@ -3213,69 +2951,47 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "chest"
-        },
+        "item": "chest",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "case-map-or-scroll"
-        },
+        "item": "case-map-or-scroll",
         "quantity": 2
       },
       {
-        "item": {
-          "id": "clothes-fine"
-        },
+        "item": "clothes-fine",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "ink-1-ounce-bottle"
-        },
+        "item": "ink-1-ounce-bottle",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "ink-pen"
-        },
+        "item": "ink-pen",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "lamp"
-        },
+        "item": "lamp",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "oil-flask"
-        },
+        "item": "oil-flask",
         "quantity": 2
       },
       {
-        "item": {
-          "id": "paper-one-sheet"
-        },
+        "item": "paper-one-sheet",
         "quantity": 5
       },
       {
-        "item": {
-          "id": "perfume-vial"
-        },
+        "item": "perfume-vial",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "sealing-wax"
-        },
+        "item": "sealing-wax",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "soap"
-        },
+        "item": "soap",
         "quantity": 1
       }
     ],
@@ -3293,57 +3009,39 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "backpack"
-        },
+        "item": "backpack",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "crowbar"
-        },
+        "item": "crowbar",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "hammer"
-        },
+        "item": "hammer",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "piton"
-        },
+        "item": "piton",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "torch"
-        },
+        "item": "torch",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "tinderbox"
-        },
+        "item": "tinderbox",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "rations-1-day"
-        },
+        "item": "rations-1-day",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "waterskin"
-        },
+        "item": "waterskin",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "rope-hempen-50-feet"
-        },
+        "item": "rope-hempen-50-feet",
         "quantity": 1
       }
     ],
@@ -3361,45 +3059,31 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "backpack"
-        },
+        "item": "backpack",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "bedroll"
-        },
+        "item": "bedroll",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "clothes-costume"
-        },
+        "item": "clothes-costume",
         "quantity": 2
       },
       {
-        "item": {
-          "id": "candle"
-        },
+        "item": "candle",
         "quantity": 5
       },
       {
-        "item": {
-          "id": "rations-1-day"
-        },
+        "item": "rations-1-day",
         "quantity": 5
       },
       {
-        "item": {
-          "id": "waterskin"
-        },
+        "item": "waterskin",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "disguise-kit"
-        },
+        "item": "disguise-kit",
         "quantity": 1
       }
     ],
@@ -3417,51 +3101,35 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "backpack"
-        },
+        "item": "backpack",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "bedroll"
-        },
+        "item": "bedroll",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "mess-kit"
-        },
+        "item": "mess-kit",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "tinderbox"
-        },
+        "item": "tinderbox",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "torch"
-        },
+        "item": "torch",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "rations-1-day"
-        },
+        "item": "rations-1-day",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "waterskin"
-        },
+        "item": "waterskin",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "rope-hempen-50-feet"
-        },
+        "item": "rope-hempen-50-feet",
         "quantity": 1
       }
     ],
@@ -3479,63 +3147,43 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "backpack"
-        },
+        "item": "backpack",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "blanket"
-        },
+        "item": "blanket",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "candle"
-        },
+        "item": "candle",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "tinderbox"
-        },
+        "item": "tinderbox",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "rations-1-day"
-        },
+        "item": "rations-1-day",
         "quantity": 2
       },
       {
-        "item": {
-          "id": "waterskin"
-        },
+        "item": "waterskin",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "alms-box"
-        },
+        "item": "alms-box",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "block-of-incense"
-        },
+        "item": "block-of-incense",
         "quantity": 2
       },
       {
-        "item": {
-          "id": "censer"
-        },
+        "item": "censer",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "vestments"
-        },
+        "item": "vestments",
         "quantity": 1
       }
     ],
@@ -3553,45 +3201,31 @@
     },
     "contents": [
       {
-        "item": {
-          "id": "backpack"
-        },
+        "item": "backpack",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "book"
-        },
+        "item": "book",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "ink-1-ounce-bottle"
-        },
+        "item": "ink-1-ounce-bottle",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "ink-pen"
-        },
+        "item": "ink-pen",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "parchment-one-sheet"
-        },
+        "item": "parchment-one-sheet",
         "quantity": 10
       },
       {
-        "item": {
-          "id": "little-bag-of-sand"
-        },
+        "item": "little-bag-of-sand",
         "quantity": 1
       },
       {
-        "item": {
-          "id": "small-knife"
-        },
+        "item": "small-knife",
         "quantity": 1
       }
     ],

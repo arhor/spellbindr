@@ -16,10 +16,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetCallbacks
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -28,7 +27,11 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 fun SpellsTab(
     spellsState: SpellsTabState,
     editMode: SheetEditMode,
-    callbacks: CharacterSheetCallbacks,
+    onAddSpellsClick: () -> Unit,
+    onSpellSlotToggle: (Int, Int) -> Unit,
+    onSpellSlotTotalChanged: (Int, Int) -> Unit,
+    onSpellSelected: (String) -> Unit,
+    onSpellRemoved: (String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val hasSpells = spellsState.spellLevels.any { it.spells.isNotEmpty() }
@@ -39,7 +42,7 @@ fun SpellsTab(
     ) {
         item {
             FilledTonalButton(
-                onClick = callbacks.onAddSpellsClicked,
+                onClick = onAddSpellsClick,
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = null)
@@ -62,31 +65,27 @@ fun SpellsTab(
             SpellLevelCard(
                 spellLevel = spellLevel,
                 editMode = editMode,
-                callbacks = callbacks,
+                onSpellSlotToggle = onSpellSlotToggle,
+                onSpellSlotTotalChanged = onSpellSlotTotalChanged,
+                onSpellSelected = onSpellSelected,
+                onSpellRemoved = onSpellRemoved,
             )
         }
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
-private fun SpellsTabLightPreview() {
-    SpellsTabPreview(isDarkTheme = false)
-}
-
-@Preview
-@Composable
-private fun SpellsTabDarkPreview() {
-    SpellsTabPreview(isDarkTheme = true)
-}
-
-@Composable
-private fun SpellsTabPreview(isDarkTheme: Boolean) {
-    AppTheme(isDarkTheme = isDarkTheme) {
+private fun SpellsTabPreview() {
+    AppTheme {
         SpellsTab(
             spellsState = CharacterSheetPreviewData.spells,
             editMode = SheetEditMode.View,
-            callbacks = CharacterSheetCallbacks(),
+            onAddSpellsClick = {},
+            onSpellSlotToggle = { _, _ -> },
+            onSpellSlotTotalChanged = { _, _ -> },
+            onSpellSelected = {},
+            onSpellRemoved = { _, _ -> },
         )
     }
 }

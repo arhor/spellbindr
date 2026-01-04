@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.mapper
 
-import com.github.arhor.spellbindr.data.local.db.CharacterEntity
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
 import com.github.arhor.spellbindr.domain.model.Character
 
 /**

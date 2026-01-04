@@ -51,6 +51,11 @@ object AppModule {
         produceFile = { context.preferencesDataStoreFile(FAVORITES_DATASTORE_NAME) }
     )
 
+    @Provides
+    @Singleton
+    fun provideApplicationScope(): CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     private const val DATASTORE_NAME = "app_settings.preferences_pb"
     private const val FAVORITES_DATASTORE_NAME = "favorites.preferences_pb"
     private val EMPTY_PREFERENCES_ON_CORRUPTION_HANDLER = ReplaceFileCorruptionHandler { emptyPreferences() }

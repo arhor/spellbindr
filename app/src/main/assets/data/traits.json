@@ -400,7 +400,7 @@
     "effects": [
       {
         "type": "add-languages",
-        "languages": [  
+        "languages": [
           "common",
           "elvish"
         ]
@@ -829,9 +829,7 @@
     "effects": [
       {
         "type": "add-condition-immunity",
-        "condition": {
-          "id": "sleep"
-        }
+        "condition": "sleep"
       }
     ]
   },
@@ -960,16 +958,12 @@
             "times": 1
           },
           "dc": {
-            "dcType": {
-              "id": "dex"
-            },
+            "dcType": "dex",
             "successType": "half"
           },
           "damage": [
             {
-              "damageType": {
-                "id": "acid"
-              },
+              "damageType": "acid",
               "damageAtCharacterLevel": {
                 "1": "2d6",
                 "6": "3d6",
@@ -1005,16 +999,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "dex"
-              },
+              "dcType": "dex",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "lightning"
-                },
+                "damageType": "lightning",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1051,16 +1041,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "dex"
-              },
+              "dcType": "dex",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "fire"
-                },
+                "damageType": "fire",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1097,16 +1083,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "dex"
-              },
+              "dcType": "dex",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "lightning"
-                },
+                "damageType": "lightning",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1143,16 +1125,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "dex"
-              },
+              "dcType": "dex",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "acid"
-                },
+                "damageType": "acid",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1189,16 +1167,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "dex"
-              },
+              "dcType": "dex",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "fire"
-                },
+                "damageType": "fire",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1235,16 +1209,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "con"
-              },
+              "dcType": "con",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "poison"
-                },
+                "damageType": "poison",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1281,16 +1251,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "dex"
-              },
+              "dcType": "dex",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "fire"
-                },
+                "damageType": "fire",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1327,16 +1293,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "con"
-              },
+              "dcType": "con",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "cold"
-                },
+                "damageType": "cold",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1373,16 +1335,12 @@
               "times": 1
             },
             "dc": {
-              "dcType": {
-                "id": "con"
-              },
+              "dcType": "con",
               "successType": "half"
             },
             "damage": [
               {
-                "damageType": {
-                  "id": "cold"
-                },
+                "damageType": "cold",
                 "damageAtCharacterLevel": {
                   "1": "2d6",
                   "6": "3d6",
@@ -1514,9 +1472,7 @@
     "effects": [
       {
         "type": "add-resistance",
-        "damageType": {
-          "id": "fire"
-        }
+        "damageType": "fire"
       }
     ]
   },
@@ -1533,9 +1489,7 @@
       {
         "type": "add-known-spells",
         "spells": [
-          {
-            "id": "thaumaturgy"
-          }
+          "thaumaturgy"
         ]
       },
       {
@@ -1547,9 +1501,7 @@
           }
         ],
         "spells": [
-          {
-            "id": "hellish-rebuke"
-          }
+          "hellish-rebuke"
         ]
       },
       {
@@ -1561,9 +1513,7 @@
           }
         ],
         "spells": [
-          {
-            "id": "darkness"
-          }
+          "darkness"
         ]
       }
     ]
