@@ -32,16 +32,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.canRollMain
 
 private val QUICK_AMOUNT_DICE = listOf(4, 6, 8, 10, 12)
 
 @Composable
 fun MainDiceRollerCard(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState.Content,
+    onToggleCheck: () -> Unit,
+    onCheckModeSelected: (CheckMode) -> Unit,
+    onIncrementCheckModifier: () -> Unit,
+    onDecrementCheckModifier: () -> Unit,
+    onAddAmountDie: (Int) -> Unit,
+    onIncrementAmountDie: (Int) -> Unit,
+    onDecrementAmountDie: (Int) -> Unit,
+    onClearAll: () -> Unit,
+    onRollMain: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     ElevatedCard(
@@ -58,13 +65,30 @@ fun MainDiceRollerCard(
                 style = MaterialTheme.typography.titleMedium,
             )
 
-            QuickDiceRow(state = state, onIntent = onIntent)
+            QuickDiceRow(
+                state = state,
+                onToggleCheck = onToggleCheck,
+                onAddAmountDie = onAddAmountDie,
+            )
 
-            CheckSection(state = state, onIntent = onIntent)
+            CheckSection(
+                state = state,
+                onCheckModeSelected = onCheckModeSelected,
+                onIncrementCheckModifier = onIncrementCheckModifier,
+                onDecrementCheckModifier = onDecrementCheckModifier,
+            )
 
-            AmountDiceSection(state = state, onIntent = onIntent)
+            AmountDiceSection(
+                state = state,
+                onIncrementAmountDie = onIncrementAmountDie,
+                onDecrementAmountDie = onDecrementAmountDie,
+            )
 
-            ActionRow(state = state, onIntent = onIntent)
+            ActionRow(
+                state = state,
+                onClearAll = onClearAll,
+                onRollMain = onRollMain,
+            )
         }
     }
 }
@@ -72,7 +96,7 @@ fun MainDiceRollerCard(
 @Preview
 @Composable
 private fun MainDiceRollerCardPreview() {
-    val previewState = DiceRollerState(
+    val previewState = DiceRollerUiState.Content(
         hasCheck = true,
         checkMode = CheckMode.ADVANTAGE,
         checkModifier = 3,
@@ -83,7 +107,15 @@ private fun MainDiceRollerCardPreview() {
     )
     MainDiceRollerCard(
         state = previewState,
-        onIntent = {},
+        onToggleCheck = {},
+        onCheckModeSelected = {},
+        onIncrementCheckModifier = {},
+        onDecrementCheckModifier = {},
+        onAddAmountDie = {},
+        onIncrementAmountDie = {},
+        onDecrementAmountDie = {},
+        onClearAll = {},
+        onRollMain = {},
         modifier = Modifier.padding(16.dp),
     )
 }
@@ -91,8 +123,9 @@ private fun MainDiceRollerCardPreview() {
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 private fun QuickDiceRow(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState.Content,
+    onToggleCheck: () -> Unit,
+    onAddAmountDie: (Int) -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -110,7 +143,7 @@ private fun QuickDiceRow(
         ) {
             for (sides in QUICK_AMOUNT_DICE) {
                 ElevatedAssistChip(
-                    onClick = { onIntent(DiceRollerIntent.AddAmountDie(sides)) },
+                    onClick = { onAddAmountDie(sides) },
                     label = { Text(text = "d$sides") },
                 )
             }
@@ -118,7 +151,7 @@ private fun QuickDiceRow(
         }
         FilterChip(
             selected = state.hasCheck,
-            onClick = { onIntent(DiceRollerIntent.ToggleCheck) },
+            onClick = onToggleCheck,
             label = { Text(text = "d20 check") },
             leadingIcon = {
                 Icon(
@@ -133,24 +166,22 @@ private fun QuickDiceRow(
 
 @Composable
 private fun CheckSection(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState.Content,
+    onCheckModeSelected: (CheckMode) -> Unit,
+    onIncrementCheckModifier: () -> Unit,
+    onDecrementCheckModifier: () -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-//        Text(
-//            text = "Check (d20)",
-//            style = MaterialTheme.typography.titleSmall,
-//        )
         if (state.hasCheck) {
             CheckModeSelector(
                 selected = state.checkMode,
-                onModeSelected = { onIntent(DiceRollerIntent.SetCheckMode(it)) },
+                onModeSelected = onCheckModeSelected,
             )
             ValueAdjuster(
                 label = "Check modifier",
                 value = state.checkModifier,
-                onIncrement = { onIntent(DiceRollerIntent.IncrementCheckModifier) },
-                onDecrement = { onIntent(DiceRollerIntent.DecrementCheckModifier) },
+                onIncrement = onIncrementCheckModifier,
+                onDecrement = onDecrementCheckModifier,
             )
         }
     }
@@ -177,8 +208,9 @@ private fun CheckModeSelector(
 
 @Composable
 private fun AmountDiceSection(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState.Content,
+    onIncrementAmountDie: (Int) -> Unit,
+    onDecrementAmountDie: (Int) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
@@ -196,8 +228,8 @@ private fun AmountDiceSection(
                 state.amountDice.forEach { group ->
                     DiceGroupRow(
                         group = group,
-                        onIncrement = { onIntent(DiceRollerIntent.IncrementAmountDie(group.sides)) },
-                        onDecrement = { onIntent(DiceRollerIntent.DecrementAmountDie(group.sides)) },
+                        onIncrement = { onIncrementAmountDie(group.sides) },
+                        onDecrement = { onDecrementAmountDie(group.sides) },
                     )
                 }
             }
@@ -247,19 +279,20 @@ private fun DiceGroupRow(
 
 @Composable
 private fun ActionRow(
-    state: DiceRollerState,
-    onIntent: (DiceRollerIntent) -> Unit,
+    state: DiceRollerUiState.Content,
+    onClearAll: () -> Unit,
+    onRollMain: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        TextButton(onClick = { onIntent(DiceRollerIntent.ClearAll) }) {
+        TextButton(onClick = onClearAll) {
             Text("Clear")
         }
         Button(
-            onClick = { onIntent(DiceRollerIntent.RollMain) },
+            onClick = onRollMain,
             enabled = state.canRollMain,
         ) {
             Text("Roll")

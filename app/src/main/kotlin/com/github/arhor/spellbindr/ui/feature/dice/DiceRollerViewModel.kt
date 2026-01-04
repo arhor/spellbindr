@@ -1,13 +1,13 @@
 package com.github.arhor.spellbindr.ui.feature.dice
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import com.github.arhor.spellbindr.ui.feature.dice.model.AmountResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerIntent
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollConfiguration
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,78 +18,62 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 import kotlin.random.Random
 
+@Stable
 @HiltViewModel
 class DiceRollerViewModel @Inject constructor() : ViewModel() {
 
-    private val random = Random.Default
+    private var random: Random = Random.Default
 
-    private val _state = MutableStateFlow(DiceRollerState())
-    val state: StateFlow<DiceRollerState> = _state.asStateFlow()
+    private val _uiState = MutableStateFlow<DiceRollerUiState>(DiceRollerUiState.Content())
+    val uiState: StateFlow<DiceRollerUiState> = _uiState.asStateFlow()
 
-    fun onIntent(intent: DiceRollerIntent) {
-        when (intent) {
-            DiceRollerIntent.ToggleCheck -> toggleCheck()
-            is DiceRollerIntent.SetCheckMode -> setCheckMode(intent.mode)
-            DiceRollerIntent.IncrementCheckModifier -> adjustCheckModifier(1)
-            DiceRollerIntent.DecrementCheckModifier -> adjustCheckModifier(-1)
-            is DiceRollerIntent.AddAmountDie -> addAmountDie(intent.sides)
-            is DiceRollerIntent.IncrementAmountDie -> adjustAmountDie(intent.sides, 1)
-            is DiceRollerIntent.DecrementAmountDie -> adjustAmountDie(intent.sides, -1)
-            DiceRollerIntent.ClearAll -> clearAll()
-            DiceRollerIntent.RollMain -> rollMain()
-            DiceRollerIntent.RollPercentile -> rollPercentile()
-            DiceRollerIntent.ReRollLast -> rerollLast()
-        }
+    internal constructor(
+        random: Random,
+        initialState: DiceRollerUiState = DiceRollerUiState.Content(),
+    ) : this() {
+        this.random = random
+        _uiState.value = initialState
     }
 
-    private fun toggleCheck() {
-        _state.update { it.copy(hasCheck = !it.hasCheck) }
-    }
+    fun toggleCheck() = updateContent { it.copy(hasCheck = !it.hasCheck) }
 
-    private fun setCheckMode(mode: CheckMode) {
-        _state.update { it.copy(checkMode = mode) }
-    }
+    fun setCheckMode(mode: CheckMode) = updateContent { it.copy(checkMode = mode) }
 
-    private fun adjustCheckModifier(delta: Int) {
-        _state.update { it.copy(checkModifier = it.checkModifier + delta) }
-    }
+    fun incrementCheckModifier() = adjustCheckModifier(1)
 
-    private fun addAmountDie(sides: Int) {
+    fun decrementCheckModifier() = adjustCheckModifier(-1)
+
+    fun addAmountDie(sides: Int) {
         adjustAmountDie(sides, 1)
     }
 
-    private fun adjustAmountDie(sides: Int, delta: Int) {
-        if (delta == 0) return
-        _state.update { current ->
-            val updated = if (delta > 0) {
-                current.amountDice.incrementDie(sides, delta)
-            } else {
-                current.amountDice.decrementDie(sides, -delta)
-            }
-            current.copy(amountDice = updated)
-        }
+    fun incrementAmountDie(sides: Int) {
+        adjustAmountDie(sides, 1)
     }
 
-    private fun clearAll() {
-        _state.update {
-            it.copy(
-                hasCheck = false,
-                checkMode = CheckMode.NORMAL,
-                checkModifier = 0,
-                amountDice = emptyList(),
-            )
-        }
+    fun decrementAmountDie(sides: Int) {
+        adjustAmountDie(sides, -1)
     }
 
-    private fun rollMain() {
-        val config = _state.value.toRollConfiguration()
+    fun clearAll() = updateContent {
+        it.copy(
+            hasCheck = false,
+            checkMode = CheckMode.NORMAL,
+            checkModifier = 0,
+            amountDice = emptyList(),
+        )
+    }
+
+    fun rollMain() {
+        val content = _uiState.value.asContentOrNull() ?: return
+        val config = content.toRollConfiguration()
         if (!config.canRoll()) return
         rollWithConfig(config)
     }
 
-    private fun rollPercentile() {
+    fun rollPercentile() {
         val value = randomDie(100)
-        _state.update {
+        updateContent {
             it.copy(
                 lastPercentileRoll = value,
                 latestResult = RollResult.PercentileResult(value),
@@ -98,15 +82,33 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun rerollLast() {
-        when (_state.value.latestResult) {
+    fun rerollLast() {
+        val state = _uiState.value.asContentOrNull() ?: return
+        when (state.latestResult) {
             is RollResult.CheckAmountResult -> {
-                val lastConfig = _state.value.lastRollConfig ?: return
+                val lastConfig = state.lastRollConfig ?: return
                 rollWithConfig(lastConfig)
             }
 
             is RollResult.PercentileResult -> rollPercentile()
             null -> Unit
+        }
+    }
+
+    private fun adjustCheckModifier(delta: Int) = updateContent {
+        it.copy(checkModifier = it.checkModifier + delta)
+    }
+
+    private fun adjustAmountDie(sides: Int, delta: Int) {
+        if (delta == 0) return
+        _uiState.update { current ->
+            val content = current.asContentOrNull() ?: return@update current
+            val updated = if (delta > 0) {
+                content.amountDice.incrementDie(sides, delta)
+            } else {
+                content.amountDice.decrementDie(sides, -delta)
+            }
+            content.copy(amountDice = updated)
         }
     }
 
@@ -122,7 +124,7 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
             check = checkResult,
             amount = amountResult,
         )
-        _state.update {
+        updateContent {
             it.copy(
                 latestResult = latest,
                 lastRollConfig = config,
@@ -168,7 +170,7 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
 
     private fun randomDie(sides: Int): Int = random.nextInt(1, sides + 1)
 
-    private fun DiceRollerState.toRollConfiguration(): RollConfiguration {
+    private fun DiceRollerUiState.Content.toRollConfiguration(): RollConfiguration {
         val diceCopy = amountDice.map { it.copy() }
         return RollConfiguration(
             hasCheck = hasCheck,
@@ -226,5 +228,18 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
             list[index] = group.copy(count = newCount)
         }
         return list
+    }
+
+    private inline fun updateContent(
+        crossinline transform: (DiceRollerUiState.Content) -> DiceRollerUiState.Content,
+    ) {
+        _uiState.update { current ->
+            val content = current.asContentOrNull() ?: return@update current
+            transform(content)
+        }
+    }
+
+    private fun DiceRollerUiState.asContentOrNull(): DiceRollerUiState.Content? {
+        return this as? DiceRollerUiState.Content
     }
 }

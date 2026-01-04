@@ -4,7 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerState
+import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test
@@ -20,14 +20,24 @@ class DiceRollerScreenTest {
     @Test
     fun `DiceRollerScreen should show prompt when no dice are selected`() {
         // Given
-        val state = DiceRollerState()
+        val state = DiceRollerUiState.Content()
 
         // When
         composeTestRule.setContent {
             AppTheme {
                 DiceRollerScreen(
                     state = state,
-                    onIntent = {},
+                    onToggleCheck = {},
+                    onCheckModeSelected = {},
+                    onIncrementCheckModifier = {},
+                    onDecrementCheckModifier = {},
+                    onAddAmountDie = {},
+                    onIncrementAmountDie = {},
+                    onDecrementAmountDie = {},
+                    onClearAll = {},
+                    onRollMain = {},
+                    onRollPercentile = {},
+                    onReRollLast = {},
                 )
             }
         }

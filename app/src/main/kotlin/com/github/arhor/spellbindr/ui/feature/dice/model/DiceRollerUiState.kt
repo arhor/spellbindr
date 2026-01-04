@@ -2,17 +2,28 @@ package com.github.arhor.spellbindr.ui.feature.dice.model
 
 import androidx.compose.runtime.Immutable
 
-@Immutable
-data class DiceRollerState(
-    val hasCheck: Boolean = false,
-    val checkMode: CheckMode = CheckMode.NORMAL,
-    val checkModifier: Int = 0,
-    val amountDice: List<DiceGroup> = emptyList(),
-    val lastPercentileRoll: Int? = null,
-    val latestResult: RollResult? = null,
-    val lastRollConfig: RollConfiguration? = null,
-    val latestResultToken: Long = 0L,
-)
+sealed interface DiceRollerUiState {
+
+    @Immutable
+    data object Loading : DiceRollerUiState
+
+    @Immutable
+    data class Content(
+        val hasCheck: Boolean = false,
+        val checkMode: CheckMode = CheckMode.NORMAL,
+        val checkModifier: Int = 0,
+        val amountDice: List<DiceGroup> = emptyList(),
+        val lastPercentileRoll: Int? = null,
+        val latestResult: RollResult? = null,
+        val lastRollConfig: RollConfiguration? = null,
+        val latestResultToken: Long = 0L,
+    ) : DiceRollerUiState
+
+    @Immutable
+    data class Error(
+        val errorMessage: String,
+    ) : DiceRollerUiState
+}
 
 @Immutable
 enum class CheckMode(val label: String) {
@@ -74,5 +85,5 @@ data class DiceGroupResult(
     val subtotal: Int get() = rolls.sum()
 }
 
-val DiceRollerState.canRollMain: Boolean
+val DiceRollerUiState.Content.canRollMain: Boolean
     get() = hasCheck || amountDice.isNotEmpty()
