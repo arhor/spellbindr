@@ -10,10 +10,8 @@ import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCas
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
@@ -68,23 +66,6 @@ class SpellsViewModelTest {
 
         // Then
         assertThat(state.expandedSpellLevels[1]).isFalse()
-    }
-
-    @Test
-    fun `onSpellSelected should emit selection when spell is clicked`() = runTest(mainDispatcherRule.dispatcher) {
-        // Given
-        val viewModel = createViewModel()
-        advanceUntilIdle()
-        val spellsState = viewModel.awaitUiState { it.uiState is SpellsUiState.Loaded }
-        val spell = (spellsState.uiState as SpellsUiState.Loaded).spells.first()
-
-        // When
-        val selectionDeferred = async { viewModel.spellSelections.first() }
-        viewModel.onSpellSelected(spell)
-        val effect = selectionDeferred.await()
-
-        // Then
-        assertThat(effect).isEqualTo(spell)
     }
 }
 

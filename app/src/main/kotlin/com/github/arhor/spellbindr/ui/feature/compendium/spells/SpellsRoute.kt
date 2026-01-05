@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -13,7 +12,6 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SpellsRoute(
@@ -22,12 +20,6 @@ fun SpellsRoute(
     onBack: () -> Unit,
 ) {
     val state by vm.uiState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(vm) {
-        vm.spellSelections.collectLatest { spell ->
-            onSpellSelected(spell)
-        }
-    }
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -44,7 +36,7 @@ fun SpellsRoute(
             onFavoriteClick = vm::onFavoritesToggled,
             onGroupToggle = vm::onGroupToggled,
             onToggleAllGroups = vm::onToggleAllGroups,
-            onSpellClick = vm::onSpellSelected,
+            onSpellClick = onSpellSelected,
             onSubmitFilters = vm::onFiltersSubmitted,
             onCancelFilters = vm::onFiltersCanceled,
         )

@@ -13,11 +13,8 @@ import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -25,7 +22,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -69,9 +65,6 @@ class SpellsViewModel @Inject constructor(
     ) {
         val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
     }
-
-    private val _spellSelections = MutableSharedFlow<Spell>()
-    val spellSelections: SharedFlow<Spell> = _spellSelections.asSharedFlow()
 
     private val spellFilters = MutableStateFlow(SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellExpansionState())
@@ -210,12 +203,6 @@ class SpellsViewModel @Inject constructor(
                 expandedAll = nextExpandedAll,
                 expandedLevels = levels.associateWith { nextExpandedAll },
             )
-        }
-    }
-
-    fun onSpellSelected(spell: Spell) {
-        viewModelScope.launch {
-            _spellSelections.emit(spell)
         }
     }
 
