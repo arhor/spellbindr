@@ -201,7 +201,7 @@ class SpellsUseCasesTest {
         // Then
         assertThat(emissions[0]).isEqualTo(Loadable.Loading)
         val errorState = emissions[1] as Loadable.Error
-        assertThat(errorState.message).isEqualTo("Oops, something went wrong...")
+        assertThat(errorState.errorMessage).isEqualTo("Oops, something went wrong...")
     }
 
     private fun sampleSpell(

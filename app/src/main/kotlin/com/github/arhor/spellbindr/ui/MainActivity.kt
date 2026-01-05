@@ -12,17 +12,13 @@ class MainActivity : ComponentActivity() {
     private var isSplashVisible = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                isSplashVisible
-            }
+            setKeepOnScreenCondition { isSplashVisible }
         }
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            SpellbindrApp(
-                onReady = { isSplashVisible = false }
-            )
+            SpellbindrApp(onReady = { isSplashVisible = false })
         }
     }
 }

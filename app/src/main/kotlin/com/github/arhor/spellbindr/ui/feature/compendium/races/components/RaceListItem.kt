@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.races
+package com.github.arhor.spellbindr.ui.feature.compendium.races.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -102,31 +102,6 @@ fun RaceListItem(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun TraitDisplay(
-    trait: Trait,
-    modifier: Modifier = Modifier,
-    compact: Boolean = false,
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = trait.name,
-            style = if (compact) MaterialTheme.typography.labelMedium else MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(bottom = 2.dp)
-        )
-        trait.desc.forEach { description ->
-            Text(
-                text = description,
-                style = if (compact) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = if (compact) 8.dp else 12.dp)
-            )
         }
     }
 }

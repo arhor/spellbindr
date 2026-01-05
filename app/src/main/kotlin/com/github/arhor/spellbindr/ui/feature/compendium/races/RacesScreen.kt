@@ -16,17 +16,18 @@ import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
+import com.github.arhor.spellbindr.ui.feature.compendium.races.components.RaceListItem
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 internal fun RacesScreen(
     state: RacesUiState,
-    onRaceClick: (String) -> Unit,
+    onRaceClick: (String) -> Unit = {},
 ) {
     when (state) {
         is RacesUiState.Loading -> LoadingIndicator()
-        is RacesUiState.Error -> ErrorMessage(state.errorMessage)
         is RacesUiState.Content -> RacesContent(state, onRaceClick)
+        is RacesUiState.Error -> ErrorMessage(state.errorMessage)
     }
 }
 
@@ -38,7 +39,7 @@ private fun RacesContent(
     val listState = rememberLazyListState()
 
     LaunchedEffect(state) {
-        val index = state.races.indexOfFirst { it.name == state.selectedItemName }
+        val index = state.races.indexOfFirst { it.name == state.selectedItemId }
         if (index != -1) {
             val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
             if (itemInfo == null || itemInfo.offset + itemInfo.size > listState.layoutInfo.viewportSize.height) {
@@ -54,19 +55,19 @@ private fun RacesContent(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = state.races, key = { it.name }) {
+        items(items = state.races, key = { it.id }) {
             RaceListItem(
                 race = it,
                 traits = state.traits,
-                isExpanded = it.name == state.selectedItemName,
-                onItemClick = { onRaceClick(it.name) }
+                isExpanded = it.id == state.selectedItemId,
+                onItemClick = { onRaceClick(it.id) }
             )
         }
     }
 }
 
-@PreviewLightDark
 @Composable
+@PreviewLightDark
 private fun RacesScreenPreview() {
     val darkvision = Trait(
         id = "darkvision",
@@ -78,17 +79,18 @@ private fun RacesScreenPreview() {
         name = "Keen Senses",
         desc = listOf("You have proficiency in the Perception skill."),
     )
-    val highElf = Race.Subrace(
-        id = "high_elf",
-        name = "High Elf",
-        desc = "Elves with keen intellect and magic affinity.",
-        traits = listOf(EntityRef(id = "keen_senses")),
-    )
     val race = Race(
         id = "elf",
         name = "Elf",
-        traits = listOf(EntityRef(id = "darkvision")),
-        subraces = listOf(highElf),
+        traits = listOf(EntityRef(id = darkvision.id)),
+        subraces = listOf(
+            Race.Subrace(
+                id = "high_elf",
+                name = "High Elf",
+                desc = "Elves with keen intellect and magic affinity.",
+                traits = listOf(EntityRef(id = keenSenses.id)),
+            )
+        ),
     )
 
     AppTheme {
@@ -99,9 +101,8 @@ private fun RacesScreenPreview() {
                     darkvision.id to darkvision,
                     keenSenses.id to keenSenses,
                 ),
-                selectedItemName = race.name,
+                selectedItemId = race.id,
             ),
-            onRaceClick = {},
         )
     }
 }

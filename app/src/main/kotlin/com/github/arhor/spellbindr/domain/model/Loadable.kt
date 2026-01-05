@@ -22,10 +22,10 @@ sealed class Loadable<out T> {
     /**
      * Represents the state when an asset loading or processing has failed.
      *
-     * @property message a human-readable description of the failure.
+     * @property errorMessage a human-readable description of the failure.
      * @property cause the exception or error that caused the failure.
      */
-    data class Error(val message: String? = null, val cause: Throwable? = null) : Loadable<Nothing>()
+    data class Error(val errorMessage: String? = null, val cause: Throwable? = null) : Loadable<Nothing>()
 }
 
 inline fun <T, R> Loadable<T>.map(transform: (T) -> R): Loadable<R> =

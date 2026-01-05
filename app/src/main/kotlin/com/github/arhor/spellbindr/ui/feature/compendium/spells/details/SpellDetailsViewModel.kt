@@ -39,7 +39,7 @@ class SpellDetailsViewModel @Inject constructor(
                 when (it) {
                     is Loadable.Loading -> SpellDetailsUiState.Loading
                     is Loadable.Ready -> SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
-                    is Loadable.Error -> SpellDetailsUiState.Error(it.message ?: "Could not load spell.")
+                    is Loadable.Error -> SpellDetailsUiState.Error(it.errorMessage ?: "Could not load spell.")
                 }
             }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellDetailsUiState.Loading)

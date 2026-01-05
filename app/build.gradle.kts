@@ -49,6 +49,7 @@ kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
         freeCompilerArgs.addAll(
+            "-XXLanguage:+ContextParameters",
             "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode",
             "-opt-in=kotlin.contracts.ExperimentalContracts",
             "-opt-in=kotlin.contracts.ExperimentalExtendedContracts",

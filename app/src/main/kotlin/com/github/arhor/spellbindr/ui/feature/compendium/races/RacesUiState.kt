@@ -12,7 +12,7 @@ sealed interface RacesUiState {
     data class Content(
         val races: List<Race> = emptyList(),
         val traits: Map<String, Trait> = emptyMap(),
-        val selectedItemName: String? = null,
+        val selectedItemId: String? = null,
     ) : RacesUiState
 
     @Immutable
