@@ -43,7 +43,7 @@ class CharactersListScreenTest {
                 CharactersListScreen(
                     uiState = uiState,
                     onCharacterSelected = {},
-                    onCreateCharacter = {},
+                    onCreateCharacter = { _ -> },
                 )
             }
         }

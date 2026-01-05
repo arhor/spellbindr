@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.AutoAwesome
+import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -21,12 +25,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,7 +53,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 fun CharactersListRoute(
     vm: CharactersListViewModel,
     onCharacterSelected: (CharacterListItem) -> Unit,
-    onCreateCharacter: () -> Unit,
+    onCreateCharacter: (CreateCharacterMode) -> Unit,
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
 
@@ -67,7 +76,7 @@ fun CharactersListRoute(
 fun CharactersListScreen(
     vm: CharactersListViewModel,
     onCharacterSelected: (CharacterListItem) -> Unit,
-    onCreateCharacter: () -> Unit,
+    onCreateCharacter: (CreateCharacterMode) -> Unit,
 ) {
     val state by vm.state.collectAsStateWithLifecycle()
 
@@ -85,8 +94,10 @@ fun CharactersListScreen(
 fun CharactersListScreen(
     uiState: CharactersListUiState,
     onCharacterSelected: (CharacterListItem) -> Unit,
-    onCreateCharacter: () -> Unit,
+    onCreateCharacter: (CreateCharacterMode) -> Unit,
 ) {
+    var showCreateDialog by rememberSaveable { mutableStateOf(false) }
+
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             uiState.isLoading -> {
@@ -117,12 +128,26 @@ fun CharactersListScreen(
             }
         }
         FloatingActionButton(
-            onClick = onCreateCharacter,
+            onClick = { showCreateDialog = true },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp),
         ) {
             Icon(Icons.Default.Add, contentDescription = "Create character")
+        }
+
+        if (showCreateDialog) {
+            CreateCharacterDialog(
+                onGuidedSetup = {
+                    showCreateDialog = false
+                    onCreateCharacter(CreateCharacterMode.GuidedSetup)
+                },
+                onManualEntry = {
+                    showCreateDialog = false
+                    onCreateCharacter(CreateCharacterMode.ManualEntry)
+                },
+                onDismissRequest = { showCreateDialog = false },
+            )
         }
     }
 }
@@ -226,7 +251,7 @@ private fun CharactersListPreview() {
                 isEmpty = false,
             ),
             onCharacterSelected = {},
-            onCreateCharacter = {},
+            onCreateCharacter = { _ -> },
         )
     }
 }
@@ -242,9 +267,106 @@ private fun CharactersListEmptyPreview() {
                 isEmpty = true,
             ),
             onCharacterSelected = {},
-            onCreateCharacter = {},
+            onCreateCharacter = { _ -> },
         )
     }
+}
+
+@Composable
+private fun CreateCharacterDialog(
+    onGuidedSetup: () -> Unit,
+    onManualEntry: () -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text(text = "Create character") },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(
+                    text = "Choose how you’d like to start your new hero.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                CreateCharacterOption(
+                    title = "Guided setup",
+                    description = "Follow step-by-step prompts to build a character with recommended defaults.",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.AutoAwesome,
+                            contentDescription = null,
+                        )
+                    },
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    onClick = onGuidedSetup,
+                )
+                CreateCharacterOption(
+                    title = "Manual entry",
+                    description = "Fill in every detail yourself for full control over abilities, gear, and notes.",
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.EditNote,
+                            contentDescription = null,
+                        )
+                    },
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    onClick = onManualEntry,
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismissRequest) {
+                Text("Cancel")
+            }
+        },
+    )
+}
+
+@Composable
+private fun CreateCharacterOption(
+    title: String,
+    description: String,
+    containerColor: Color,
+    contentColor: Color,
+    onClick: () -> Unit,
+    icon: @Composable (() -> Unit)? = null,
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        color = containerColor,
+        contentColor = contentColor,
+        tonalElevation = 1.dp,
+        shape = MaterialTheme.shapes.large,
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            if (icon != null) {
+                icon()
+            }
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+        }
+    }
+}
+
+enum class CreateCharacterMode {
+    GuidedSetup,
+    ManualEntry,
 }
 
 private fun previewCharacters(): List<CharacterListItem> = listOf(
