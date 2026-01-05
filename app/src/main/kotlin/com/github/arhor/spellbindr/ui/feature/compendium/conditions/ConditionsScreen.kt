@@ -1,34 +1,26 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.conditions
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
-import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
+import com.github.arhor.spellbindr.ui.feature.compendium.conditions.components.ConditionListItem
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 internal fun ConditionsScreen(
     state: ConditionsUiState,
-    onConditionClick: (Condition) -> Unit,
+    onConditionClick: (Condition) -> Unit = {},
 ) {
     when (state) {
         is ConditionsUiState.Loading -> LoadingIndicator()
@@ -72,39 +64,6 @@ fun ConditionsContent(
 }
 
 @Composable
-fun ConditionListItem(
-    condition: Condition,
-    isExpanded: Boolean,
-    onItemClick: () -> Unit,
-) {
-    ElevatedCard(
-        onClick = onItemClick,
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .animateContentSize(),
-        ) {
-            Text(
-                text = condition.displayName,
-                modifier = Modifier.fillMaxWidth(),
-                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center,
-            )
-            AnimatedVisibility(visible = isExpanded) {
-                Column {
-                    GradientDivider(modifier = Modifier.padding(vertical = 8.dp))
-                    Text(
-                        text = condition.description.joinToString(separator = "\n\n"),
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
 @PreviewLightDark
 private fun ConditionsScreenPreview() {
     AppTheme {
@@ -121,7 +80,6 @@ private fun ConditionsScreenPreview() {
                     ),
                 )
             ),
-            onConditionClick = {},
         )
     }
 }
