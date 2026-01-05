@@ -11,8 +11,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.ui.feature.characters.editor.CharacterEditorRoute
+import com.github.arhor.spellbindr.ui.feature.characters.guided.GuidedCharacterSetupRoute
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
+import com.github.arhor.spellbindr.ui.feature.characters.list.CreateCharacterMode
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
@@ -64,7 +66,12 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
                     ),
                 )
             },
-            onCreateCharacter = { _ -> controller.navigate(AppDestination.CharacterEditor()) },
+            onCreateCharacter = { mode ->
+                when (mode) {
+                    CreateCharacterMode.GuidedSetup -> controller.navigate(AppDestination.GuidedCharacterSetup)
+                    CreateCharacterMode.ManualEntry -> controller.navigate(AppDestination.CharacterEditor())
+                }
+            },
         )
     }
     composable<AppDestination.CharacterEditor> { navEntry ->
@@ -72,6 +79,11 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
             vm = hiltViewModel(navEntry),
             onBack = controller::navigateUp,
             onFinished = controller::navigateUp,
+        )
+    }
+    composable<AppDestination.GuidedCharacterSetup> {
+        GuidedCharacterSetupRoute(
+            onBack = controller::navigateUp,
         )
     }
     composable<AppDestination.CharacterSheet> { navEntry ->
