@@ -23,7 +23,7 @@ class SearchSpellsUseCase @Inject constructor(
      */
     suspend operator fun invoke(
         query: String = "",
-        classes: Set<EntityRef> = emptySet(),
+        classes: List<EntityRef> = emptyList(),
         favoriteOnly: Boolean = false,
     ): List<Spell> {
         return searchAndGroupSpellsUseCase(

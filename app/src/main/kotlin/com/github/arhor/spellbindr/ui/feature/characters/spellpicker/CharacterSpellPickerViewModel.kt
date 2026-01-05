@@ -50,7 +50,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         override val showFavorite: Boolean = false,
         override val showFilterDialog: Boolean = false,
         override val castingClasses: List<EntityRef> = emptyList(),
-        override val currentClasses: Set<EntityRef> = emptySet(),
+        override val currentClasses: List<EntityRef> = emptyList(),
         override val uiState: SpellsUiState = SpellsUiState.Loading,
         override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
         override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
@@ -216,7 +216,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         }
     }
 
-    fun onSubmitFilters(classes: Set<EntityRef>) {
+    fun onSubmitFilters(classes: List<EntityRef>) {
         spellFiltersState.update { filters ->
             filters.copy(
                 showFilterDialog = false,
@@ -225,7 +225,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         }
     }
 
-    fun onCancelFilters(classes: Set<EntityRef>) {
+    fun onCancelFilters(classes: List<EntityRef>) {
         spellFiltersState.update { filters ->
             filters.copy(
                 showFilterDialog = false,
@@ -287,7 +287,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val favoriteSpellIds: List<String>,
     ) {
         val query: String = filters.query
-        val currentClasses: Set<EntityRef> = filters.currentClasses
+        val currentClasses: List<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
         val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
     }
@@ -296,7 +296,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val query: String = "",
         val showFavorite: Boolean = false,
         val showFilterDialog: Boolean = false,
-        val currentClasses: Set<EntityRef> = emptySet(),
+        val currentClasses: List<EntityRef> = emptyList(),
     )
 
     private data class SpellExpansionState(

@@ -31,8 +31,8 @@ fun SpellsScreen(
     onGroupToggle: (Int) -> Unit,
     onToggleAllGroups: () -> Unit,
     onSpellClick: (Spell) -> Unit,
-    onSubmitFilters: (Set<EntityRef>) -> Unit,
-    onCancelFilters: (Set<EntityRef>) -> Unit,
+    onSubmitFilters: (List<EntityRef>) -> Unit,
+    onCancelFilters: (List<EntityRef>) -> Unit,
 ) {
     SpellSearchContent(
         state = state,
@@ -56,8 +56,8 @@ private fun SpellSearchContent(
     onGroupToggle: (Int) -> Unit,
     onToggleAllGroups: () -> Unit,
     onSpellClick: (Spell) -> Unit,
-    onSubmitFilters: (Set<EntityRef>) -> Unit,
-    onCancelFilters: (Set<EntityRef>) -> Unit,
+    onSubmitFilters: (List<EntityRef>) -> Unit,
+    onCancelFilters: (List<EntityRef>) -> Unit,
 ) {
     Column(
         modifier = Modifier

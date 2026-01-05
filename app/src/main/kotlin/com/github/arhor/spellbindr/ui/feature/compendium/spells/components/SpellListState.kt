@@ -9,7 +9,7 @@ interface SpellListState {
     val showFavorite: Boolean
     val showFilterDialog: Boolean
     val castingClasses: List<EntityRef>
-    val currentClasses: Set<EntityRef>
+    val currentClasses: List<EntityRef>
     val uiState: SpellsUiState
     val spellsByLevel: Map<Int, List<Spell>>
     val expandedSpellLevels: Map<Int, Boolean>

@@ -16,7 +16,7 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         query: String = "",
-        classes: Set<EntityRef> = emptySet(),
+        classes: List<EntityRef> = emptyList(),
         favoriteOnly: Boolean = false,
         allSpells: List<Spell>? = null,
         favoriteSpellIds: Set<String>? = null,
@@ -44,7 +44,7 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
 
     private fun Spell.matches(
         query: String,
-        classes: Set<EntityRef>,
+        classes: List<EntityRef>,
         favoriteOnly: Boolean,
         favoriteIds: Set<String>,
     ): Boolean {

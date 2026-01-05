@@ -74,8 +74,8 @@ private fun CharacterSpellPickerScreen(
     onGroupToggle: (Int) -> Unit,
     onToggleAllGroups: () -> Unit,
     onSpellClick: (String) -> Unit,
-    onSubmitFilters: (Set<EntityRef>) -> Unit,
-    onCancelFilters: (Set<EntityRef>) -> Unit,
+    onSubmitFilters: (List<EntityRef>) -> Unit,
+    onCancelFilters: (List<EntityRef>) -> Unit,
 ) {
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -135,8 +135,8 @@ private fun CharacterSpellPickerContent(
     onGroupToggle: (Int) -> Unit,
     onToggleAllGroups: () -> Unit,
     onSpellClick: (String) -> Unit,
-    onSubmitFilters: (Set<EntityRef>) -> Unit,
-    onCancelFilters: (Set<EntityRef>) -> Unit,
+    onSubmitFilters: (List<EntityRef>) -> Unit,
+    onCancelFilters: (List<EntityRef>) -> Unit,
 ) {
     Column(
         modifier = Modifier

@@ -39,7 +39,7 @@ class SpellsViewModel @Inject constructor(
         override val showFavorite: Boolean = false,
         override val showFilterDialog: Boolean = false,
         override val castingClasses: List<EntityRef> = emptyList(),
-        override val currentClasses: Set<EntityRef> = emptySet(),
+        override val currentClasses: List<EntityRef> = emptyList(),
         override val uiState: SpellsUiState = SpellsUiState.Loading,
         override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
         override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
@@ -50,7 +50,7 @@ class SpellsViewModel @Inject constructor(
         val query: String = "",
         val showFavorite: Boolean = false,
         val showFilterDialog: Boolean = false,
-        val currentClasses: Set<EntityRef> = emptySet(),
+        val currentClasses: List<EntityRef> = emptyList(),
     )
 
     private data class SpellExpansionState(
@@ -170,7 +170,7 @@ class SpellsViewModel @Inject constructor(
         spellFilters.update { it.copy(showFavorite = !it.showFavorite) }
     }
 
-    fun onFiltersSubmitted(classes: Set<EntityRef>) {
+    fun onFiltersSubmitted(classes: List<EntityRef>) {
         spellFilters.update {
             it.copy(
                 showFilterDialog = false,
@@ -179,7 +179,7 @@ class SpellsViewModel @Inject constructor(
         }
     }
 
-    fun onFiltersCanceled(classes: Set<EntityRef>) {
+    fun onFiltersCanceled(classes: List<EntityRef>) {
         spellFilters.update {
             it.copy(
                 showFilterDialog = false,

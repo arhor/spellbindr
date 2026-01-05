@@ -5,6 +5,6 @@ data class SearchAndGroupSpellsResult(
     val spellsByLevel: Map<Int, List<Spell>>,
     val totalCount: Int,
     val query: String,
-    val classes: Set<EntityRef>,
+    val classes: List<EntityRef>,
     val favoriteOnly: Boolean,
 )
