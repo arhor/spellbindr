@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Alignment
 import com.github.arhor.spellbindr.domain.model.Loadable
-import com.github.arhor.spellbindr.domain.usecase.ObserveAlignmentsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllAlignmentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class AlignmentsViewModel @Inject constructor(
-    private val observeAlignments: ObserveAlignmentsUseCase,
+    private val observeAlignments: ObserveAllAlignmentsUseCase,
 ) : ViewModel() {
 
     private val selectedItemIdState = MutableStateFlow<String?>(null)

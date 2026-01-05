@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.domain.model.Loadable
-import com.github.arhor.spellbindr.domain.usecase.ObserveConditionsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllConditionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class ConditionsViewModel @Inject constructor(
-    private val observeConditions: ObserveConditionsUseCase,
+    private val observeConditions: ObserveAllConditionsUseCase,
 ) : ViewModel() {
 
     private val selectedItemIdState = MutableStateFlow<String?>(null)

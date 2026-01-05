@@ -15,7 +15,7 @@ import org.junit.Test
 class ObserveAlignmentsUseCaseTest {
 
     private val alignmentRepository = mockk<AlignmentRepository>()
-    private val observeAlignmentsUseCase = ObserveAlignmentsUseCase(alignmentRepository)
+    private val observeAllAlignmentsUseCase = ObserveAllAlignmentsUseCase(alignmentRepository)
 
     @Test
     fun `ObserveAlignmentsUseCase should emit latest alignments when repository updates`() = runTest {
@@ -27,7 +27,7 @@ class ObserveAlignmentsUseCaseTest {
 
         // When
         val result =
-            observeAlignmentsUseCase()
+            observeAllAlignmentsUseCase()
                 .unwrap()
                 .first()
 

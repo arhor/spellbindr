@@ -6,7 +6,7 @@ import com.github.arhor.spellbindr.domain.repository.RacesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ObserveRacesUseCase @Inject constructor(
+class ObserveAllRacesUseCase @Inject constructor(
     private val racesRepository: RacesRepository,
 ) {
     operator fun invoke(): Flow<Loadable<List<Race>>> =

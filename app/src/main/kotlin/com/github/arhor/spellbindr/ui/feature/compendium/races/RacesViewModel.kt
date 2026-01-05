@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
-import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllRacesUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllTraitsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,8 +20,8 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class RacesViewModel @Inject constructor(
-    private val observeRaces: ObserveRacesUseCase,
-    private val observeTraits: ObserveTraitsUseCase,
+    private val observeRaces: ObserveAllRacesUseCase,
+    private val observeTraits: ObserveAllTraitsUseCase,
 ) : ViewModel() {
 
     private val selectedItemIdState = MutableStateFlow<String?>(null)

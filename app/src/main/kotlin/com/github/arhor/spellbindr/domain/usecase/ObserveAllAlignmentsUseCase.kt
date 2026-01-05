@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ObserveAlignmentsUseCase @Inject constructor(
+class ObserveAllAlignmentsUseCase @Inject constructor(
     private val alignmentRepository: AlignmentRepository,
 ) {
     operator fun invoke(): Flow<Loadable<List<Alignment>>> =

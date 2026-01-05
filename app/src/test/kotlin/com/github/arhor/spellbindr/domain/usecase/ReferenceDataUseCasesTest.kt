@@ -30,7 +30,7 @@ class ReferenceDataUseCasesTest {
         racesRepository.allRacesState.value = Loadable.Ready(listOf(race))
 
         // When
-        val result = ObserveRacesUseCase(racesRepository)().first()
+        val result = ObserveAllRacesUseCase(racesRepository)().first()
 
         // Then
         assertThat(result).isEqualTo(Loadable.Ready(listOf(race)))
@@ -43,7 +43,7 @@ class ReferenceDataUseCasesTest {
         traitsRepository.allTraitsState.value = Loadable.Ready(listOf(trait))
 
         // When
-        val result = ObserveTraitsUseCase(traitsRepository)().first()
+        val result = ObserveAllTraitsUseCase(traitsRepository)().first()
 
         // Then
         assertThat(result).isEqualTo(Loadable.Ready(listOf(trait)))

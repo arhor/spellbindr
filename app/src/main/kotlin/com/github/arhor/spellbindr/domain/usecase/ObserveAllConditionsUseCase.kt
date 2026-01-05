@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ObserveConditionsUseCase @Inject constructor(
+class ObserveAllConditionsUseCase @Inject constructor(
     private val conditionsRepository: ConditionsRepository,
 ) {
     operator fun invoke(): Flow<Loadable<List<Condition>>> =
