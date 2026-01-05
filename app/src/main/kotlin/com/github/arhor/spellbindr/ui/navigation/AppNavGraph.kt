@@ -64,7 +64,7 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
                     ),
                 )
             },
-            onCreateCharacter = { controller.navigate(AppDestination.CharacterEditor()) },
+            onCreateCharacter = { _ -> controller.navigate(AppDestination.CharacterEditor()) },
         )
     }
     composable<AppDestination.CharacterEditor> { navEntry ->
