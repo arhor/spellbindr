@@ -30,10 +30,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
-import com.github.arhor.spellbindr.ui.feature.dice.model.canRollMain
 
 private val QUICK_AMOUNT_DICE = listOf(4, 6, 8, 10, 12)
 

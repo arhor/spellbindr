@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,7 +23,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
@@ -36,44 +36,52 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
+import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun DiceRollerScreen(
     state: DiceRollerUiState,
-    onToggleCheck: () -> Unit,
-    onCheckModeSelected: (CheckMode) -> Unit,
-    onIncrementCheckModifier: () -> Unit,
-    onDecrementCheckModifier: () -> Unit,
-    onAddAmountDie: (Int) -> Unit,
-    onIncrementAmountDie: (Int) -> Unit,
-    onDecrementAmountDie: (Int) -> Unit,
-    onClearAll: () -> Unit,
-    onRollMain: () -> Unit,
-    onRollPercentile: () -> Unit,
-    onReRollLast: () -> Unit,
+    onToggleCheck: () -> Unit = {},
+    onCheckModeSelected: (CheckMode) -> Unit = { _ -> },
+    onIncrementCheckModifier: () -> Unit = {},
+    onDecrementCheckModifier: () -> Unit = {},
+    onAddAmountDie: (Int) -> Unit = { _ -> },
+    onIncrementAmountDie: (Int) -> Unit = { _ -> },
+    onDecrementAmountDie: (Int) -> Unit = { _ -> },
+    onClearAll: () -> Unit = {},
+    onRollMain: () -> Unit = {},
+    onRollPercentile: () -> Unit = {},
+    onReRollLast: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     when (state) {
-        DiceRollerUiState.Loading -> LoadingIndicator()
-        is DiceRollerUiState.Error -> ErrorMessage(state.errorMessage)
-        is DiceRollerUiState.Content -> DiceRollerContent(
-            state = state,
-            onToggleCheck = onToggleCheck,
-            onCheckModeSelected = onCheckModeSelected,
-            onIncrementCheckModifier = onIncrementCheckModifier,
-            onDecrementCheckModifier = onDecrementCheckModifier,
-            onAddAmountDie = onAddAmountDie,
-            onIncrementAmountDie = onIncrementAmountDie,
-            onDecrementAmountDie = onDecrementAmountDie,
-            onClearAll = onClearAll,
-            onRollMain = onRollMain,
-            onRollPercentile = onRollPercentile,
-            onReRollLast = onReRollLast,
-            modifier = modifier,
-        )
+        is DiceRollerUiState.Loading -> {
+            LoadingIndicator()
+        }
+
+        is DiceRollerUiState.Content -> {
+            DiceRollerContent(
+                state = state,
+                onToggleCheck = onToggleCheck,
+                onCheckModeSelected = onCheckModeSelected,
+                onIncrementCheckModifier = onIncrementCheckModifier,
+                onDecrementCheckModifier = onDecrementCheckModifier,
+                onAddAmountDie = onAddAmountDie,
+                onIncrementAmountDie = onIncrementAmountDie,
+                onDecrementAmountDie = onDecrementAmountDie,
+                onClearAll = onClearAll,
+                onRollMain = onRollMain,
+                onRollPercentile = onRollPercentile,
+                onReRollLast = onReRollLast,
+                modifier = modifier,
+            )
+        }
+
+        is DiceRollerUiState.Error -> {
+            ErrorMessage(state.errorMessage)
+        }
     }
 }
 
@@ -198,6 +206,7 @@ private fun Modifier.dismissOnTap(
     onDismiss: () -> Unit,
 ): Modifier = composed {
     val interactionSource = remember { MutableInteractionSource() }
+
     clickable(
         indication = null,
         interactionSource = interactionSource,
@@ -207,6 +216,7 @@ private fun Modifier.dismissOnTap(
 
 private fun Modifier.consumeClicks(): Modifier = composed {
     val interactionSource = remember { MutableInteractionSource() }
+
     clickable(
         indication = null,
         interactionSource = interactionSource,
@@ -214,45 +224,36 @@ private fun Modifier.consumeClicks(): Modifier = composed {
     )
 }
 
-@Preview
 @Composable
+@PreviewLightDark
 private fun DiceRollerScreenPreview() {
-    DiceRollerScreen(
-        state = DiceRollerUiState.Content(
-            hasCheck = true,
-            checkMode = CheckMode.ADVANTAGE,
-            checkModifier = 5,
-            amountDice = listOf(DiceGroup(sides = 8, count = 2)),
-            lastPercentileRoll = 57,
-            latestResult = RollResult.CheckAmountResult(
-                check = CheckResult(
-                    mode = CheckMode.ADVANTAGE,
-                    rolls = listOf(9, 18),
-                    modifier = 5,
-                    keptRoll = 18,
-                    total = 23,
-                ),
-                amount = AmountResult(
-                    groups = listOf(
-                        DiceGroupResult(
-                            sides = 8,
-                            rolls = listOf(5, 6),
-                        ),
+    AppTheme {
+        DiceRollerScreen(
+            state = DiceRollerUiState.Content(
+                hasCheck = true,
+                checkMode = CheckMode.ADVANTAGE,
+                checkModifier = 5,
+                amountDice = listOf(DiceGroup(sides = 8, count = 2)),
+                lastPercentileRoll = 57,
+                latestResult = RollResult.CheckAmountResult(
+                    check = CheckResult(
+                        mode = CheckMode.ADVANTAGE,
+                        rolls = listOf(9, 18),
+                        modifier = 5,
+                        keptRoll = 18,
+                        total = 23,
                     ),
-                    total = 14,
+                    amount = AmountResult(
+                        groups = listOf(
+                            DiceGroupResult(
+                                sides = 8,
+                                rolls = listOf(5, 6),
+                            ),
+                        ),
+                        total = 14,
+                    ),
                 ),
             ),
-        ),
-        onToggleCheck = {},
-        onCheckModeSelected = {},
-        onIncrementCheckModifier = {},
-        onDecrementCheckModifier = {},
-        onAddAmountDie = {},
-        onIncrementAmountDie = {},
-        onDecrementAmountDie = {},
-        onClearAll = {},
-        onRollMain = {},
-        onRollPercentile = {},
-        onReRollLast = {},
-    )
+        )
+    }
 }

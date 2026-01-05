@@ -7,7 +7,6 @@ import com.github.arhor.spellbindr.ui.feature.dice.model.CheckMode
 import com.github.arhor.spellbindr.ui.feature.dice.model.CheckResult
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroup
 import com.github.arhor.spellbindr.ui.feature.dice.model.DiceGroupResult
-import com.github.arhor.spellbindr.ui.feature.dice.model.DiceRollerUiState
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollConfiguration
 import com.github.arhor.spellbindr.ui.feature.dice.model.RollResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,18 +21,10 @@ import kotlin.random.Random
 @HiltViewModel
 class DiceRollerViewModel @Inject constructor() : ViewModel() {
 
-    private var random: Random = Random.Default
+    private val random: Random = Random.Default
+    private val _uiState: MutableStateFlow<DiceRollerUiState> = MutableStateFlow(DiceRollerUiState.Content())
 
-    private val _uiState = MutableStateFlow<DiceRollerUiState>(DiceRollerUiState.Content())
     val uiState: StateFlow<DiceRollerUiState> = _uiState.asStateFlow()
-
-    internal constructor(
-        random: Random,
-        initialState: DiceRollerUiState = DiceRollerUiState.Content(),
-    ) : this() {
-        this.random = random
-        _uiState.value = initialState
-    }
 
     fun toggleCheck() = updateContent { it.copy(hasCheck = !it.hasCheck) }
 
@@ -100,7 +91,9 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun adjustAmountDie(sides: Int, delta: Int) {
-        if (delta == 0) return
+        if (delta == 0) {
+            return
+        }
         _uiState.update { current ->
             val content = current.asContentOrNull() ?: return@update current
             val updated = if (delta > 0) {
@@ -113,20 +106,15 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun rollWithConfig(config: RollConfiguration) {
-        val checkResult = if (config.hasCheck) {
-            rollCheck(config.checkMode, config.checkModifier)
-        } else {
-            null
-        }
-
+        val checkResult = if (config.hasCheck) rollCheck(config.checkMode, config.checkModifier) else null
         val amountResult = config.amountDice.takeIf { it.isNotEmpty() }?.let(::rollAmount)
-        val latest = RollResult.CheckAmountResult(
-            check = checkResult,
-            amount = amountResult,
-        )
+
         updateContent {
             it.copy(
-                latestResult = latest,
+                latestResult = RollResult.CheckAmountResult(
+                    check = checkResult,
+                    amount = amountResult,
+                ),
                 lastRollConfig = config,
                 latestResultToken = it.latestResultToken + 1,
             )
@@ -233,9 +221,11 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
     private inline fun updateContent(
         crossinline transform: (DiceRollerUiState.Content) -> DiceRollerUiState.Content,
     ) {
-        _uiState.update { current ->
-            val content = current.asContentOrNull() ?: return@update current
-            transform(content)
+        _uiState.update {
+            when (it) {
+                is DiceRollerUiState.Content -> transform(it)
+                else -> it
+            }
         }
     }
 
