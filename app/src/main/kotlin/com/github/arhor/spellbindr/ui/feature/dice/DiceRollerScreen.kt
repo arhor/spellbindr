@@ -17,9 +17,11 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -103,24 +105,32 @@ private fun DiceRollerContent(
 ) {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
-    val showDetails = remember { mutableStateOf(false) }
-    val latestVisible = remember { mutableStateOf(false) }
-    val dismissedToken = remember { mutableStateOf<Long?>(null) }
+    var showDetails by remember { mutableStateOf(false) }
+    var latestVisible by remember { mutableStateOf(false) }
+    var dismissedToken by remember { mutableStateOf<Long?>(null) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    val latestResult = state.latestResult
 
     LaunchedEffect(state.latestResultToken, state.latestResult) {
         val result = state.latestResult
         val token = state.latestResultToken
         if (result == null) {
-            showDetails.value = false
-            latestVisible.value = false
-            dismissedToken.value = null
-        } else if (token != dismissedToken.value) {
-            showDetails.value = false
-            latestVisible.value = true
+            showDetails = false
+            latestVisible = false
+            dismissedToken = null
+        } else if (token != dismissedToken) {
+            showDetails = false
+            latestVisible = true
         } else {
-            latestVisible.value = false
+            latestVisible = false
         }
+    }
+
+    fun closeLatestResultDialog() {
+        showDetails = false
+        latestVisible = false
+        dismissedToken = state.latestResultToken
     }
 
     Box(
@@ -152,26 +162,18 @@ private fun DiceRollerContent(
             )
             Spacer(modifier = Modifier.height(96.dp))
         }
-        val latestResult = state.latestResult
-        if (latestVisible.value && latestResult != null) {
+
+        if (latestVisible && latestResult != null) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .dismissOnTap {
-                        latestVisible.value = false
-                        showDetails.value = false
-                        dismissedToken.value = state.latestResultToken
-                    },
+                    .consumeClicks(::closeLatestResultDialog),
             )
             LatestResultBar(
                 latestResult = latestResult,
                 onReRoll = onReRollLast,
-                onShowDetails = { showDetails.value = true },
-                onClose = {
-                    showDetails.value = false
-                    latestVisible.value = false
-                    dismissedToken.value = state.latestResultToken
-                },
+                onShowDetails = { showDetails = true },
+                onClose = ::closeLatestResultDialog,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(16.dp)
@@ -180,30 +182,25 @@ private fun DiceRollerContent(
         }
     }
 
-    val latestResult = state.latestResult
-    if (showDetails.value && latestResult != null) {
+    if (showDetails && latestResult != null) {
         ModalBottomSheet(
-            onDismissRequest = { showDetails.value = false },
+            onDismissRequest = { showDetails = false },
             sheetState = sheetState,
         ) {
             RollDetailsSheetContent(
                 result = latestResult,
                 onClose = {
-                    coroutineScope.launch {
-                        sheetState.hide()
-                    }.invokeOnCompletion {
-                        if (!sheetState.isVisible) {
-                            showDetails.value = false
-                        }
-                    }
+                    coroutineScope
+                        .launch { sheetState.hide() }
+                        .invokeOnCompletion { if (!sheetState.isVisible) showDetails = false }
                 },
             )
         }
     }
 }
 
-private fun Modifier.dismissOnTap(
-    onDismiss: () -> Unit,
+private fun Modifier.consumeClicks(
+    onDismiss: () -> Unit = {}
 ): Modifier = composed {
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -211,16 +208,6 @@ private fun Modifier.dismissOnTap(
         indication = null,
         interactionSource = interactionSource,
         onClick = onDismiss,
-    )
-}
-
-private fun Modifier.consumeClicks(): Modifier = composed {
-    val interactionSource = remember { MutableInteractionSource() }
-
-    clickable(
-        indication = null,
-        interactionSource = interactionSource,
-        onClick = {},
     )
 }
 

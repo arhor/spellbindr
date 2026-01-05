@@ -94,14 +94,14 @@ class DiceRollerViewModel @Inject constructor() : ViewModel() {
         if (delta == 0) {
             return
         }
-        _uiState.update { current ->
-            val content = current.asContentOrNull() ?: return@update current
-            val updated = if (delta > 0) {
-                content.amountDice.incrementDie(sides, delta)
-            } else {
-                content.amountDice.decrementDie(sides, -delta)
-            }
-            content.copy(amountDice = updated)
+        updateContent {
+            it.copy(
+                amountDice = if (delta > 0) {
+                    it.amountDice.incrementDie(sides, delta)
+                } else {
+                    it.amountDice.decrementDie(sides, -delta)
+                }
+            )
         }
     }
 
