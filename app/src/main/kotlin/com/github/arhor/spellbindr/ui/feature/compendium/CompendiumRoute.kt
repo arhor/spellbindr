@@ -1,13 +1,12 @@
 package com.github.arhor.spellbindr.ui.feature.compendium
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
 
 @Composable
 fun CompendiumRoute(
-    controller: NavHostController,
+    onSectionClick: (CompendiumSections) -> Unit,
 ) {
     CompendiumScreen(
-        onSectionClick = { controller.navigate(it) },
+        onSectionClick = onSectionClick,
     )
 }

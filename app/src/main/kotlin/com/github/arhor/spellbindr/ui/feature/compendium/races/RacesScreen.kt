@@ -22,7 +22,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @Composable
 internal fun RacesScreen(
     state: RacesUiState,
-    onRaceClick: (String) -> Unit = {},
+    onRaceClick: (Race) -> Unit = {},
 ) {
     when (state) {
         is RacesUiState.Loading -> LoadingIndicator()
@@ -34,7 +34,7 @@ internal fun RacesScreen(
 @Composable
 private fun RacesContent(
     state: RacesUiState.Content,
-    onRaceClick: (String) -> Unit,
+    onRaceClick: (Race) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
@@ -55,12 +55,12 @@ private fun RacesContent(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = state.races, key = { it.id }) {
+        items(items = state.races, key = { it.id }) { race ->
             RaceListItem(
-                race = it,
+                race = race,
                 traits = state.traits,
-                isExpanded = it.id == state.selectedItemId,
-                onItemClick = { onRaceClick(it.id) }
+                isExpanded = race.id == state.selectedItemId,
+                onItemClick = { onRaceClick(race) }
             )
         }
     }

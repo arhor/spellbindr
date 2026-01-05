@@ -14,19 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-
-private val compendiumSections = listOf(
-    AppDestination.Spells,
-    AppDestination.Conditions,
-    AppDestination.Alignments,
-    AppDestination.Races,
-)
 
 @Composable
 internal fun CompendiumScreen(
-    onSectionClick: (AppDestination) -> Unit,
+    onSectionClick: (CompendiumSections) -> Unit = {},
 ) {
     LazyColumn(
         modifier = Modifier
@@ -34,7 +26,7 @@ internal fun CompendiumScreen(
             .padding(horizontal = 16.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(compendiumSections) { section ->
+        items(CompendiumSections.entries) { section ->
             Card(modifier = Modifier.clickable { onSectionClick(section) }) {
                 Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                     Text(
@@ -47,12 +39,10 @@ internal fun CompendiumScreen(
     }
 }
 
-@PreviewLightDark
 @Composable
+@PreviewLightDark
 private fun CompendiumScreenPreview() {
     AppTheme {
-        CompendiumScreen(
-            onSectionClick = {},
-        )
+        CompendiumScreen()
     }
 }

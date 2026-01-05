@@ -22,11 +22,25 @@ class ConditionsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val selectedItemIdState = MutableStateFlow<String?>(null)
-    private val conditionsState = observeConditions()
-        .stateIn(viewModelScope, sharingStrategy, Loadable.Loading)
 
-    val uiState: StateFlow<ConditionsUiState> = combine(conditionsState, selectedItemIdState, ::toUiState)
-        .stateIn(viewModelScope, sharingStrategy, ConditionsUiState.Loading)
+    val uiState: StateFlow<ConditionsUiState> = combine(
+        observeConditions(),
+        selectedItemIdState
+    ) { conditions, selectedItemId ->
+        when (conditions) {
+            is Loadable.Loading -> {
+                ConditionsUiState.Loading
+            }
+
+            is Loadable.Ready -> {
+                ConditionsUiState.Content(conditions.data, selectedItemId)
+            }
+
+            is Loadable.Error -> {
+                ConditionsUiState.Error(conditions.errorMessage ?: "Failed to load conditions")
+            }
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsUiState.Loading)
 
     fun onConditionClick(condition: Condition) {
         selectedItemIdState.update {
@@ -36,26 +50,5 @@ class ConditionsViewModel @Inject constructor(
                 null
             }
         }
-    }
-
-    private fun toUiState(
-        conditions: Loadable<List<Condition>>,
-        selectedId: String?
-    ): ConditionsUiState = when (conditions) {
-        is Loadable.Loading -> {
-            ConditionsUiState.Loading
-        }
-
-        is Loadable.Ready -> {
-            ConditionsUiState.Content(conditions.data, selectedId)
-        }
-
-        is Loadable.Error -> {
-            ConditionsUiState.Error(conditions.cause?.message ?: "Failed to load conditions")
-        }
-    }
-
-    companion object {
-        private val sharingStrategy = SharingStarted.WhileSubscribed(5_000)
     }
 }

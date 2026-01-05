@@ -30,7 +30,7 @@ import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.SpellsState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -159,7 +159,7 @@ private fun CharacterSpellPickerContent(
             style = MaterialTheme.typography.bodyMedium,
         )
         Box(modifier = Modifier.weight(1f)) {
-            SpellSearchScreen(
+            SpellsScreen(
                 state = state.spellsState,
                 onQueryChanged = onQueryChanged,
                 onFiltersClick = onFiltersClick,

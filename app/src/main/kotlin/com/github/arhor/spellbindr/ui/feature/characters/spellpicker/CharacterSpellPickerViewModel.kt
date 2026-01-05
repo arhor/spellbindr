@@ -13,7 +13,7 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,7 +26,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.spells.details
+package com.github.arhor.spellbindr.ui.feature.compendium.spelldetails
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite

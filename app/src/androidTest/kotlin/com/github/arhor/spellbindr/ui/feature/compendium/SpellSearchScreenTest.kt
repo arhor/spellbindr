@@ -7,9 +7,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test
@@ -53,7 +53,7 @@ class SpellSearchScreenTest {
         // When
         composeTestRule.setContent {
             AppTheme {
-                SpellSearchScreen(
+                SpellsScreen(
                     state = state,
                     onQueryChanged = {},
                     onFiltersClick = {},

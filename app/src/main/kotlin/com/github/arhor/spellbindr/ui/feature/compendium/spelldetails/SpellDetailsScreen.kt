@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.spells.details
+package com.github.arhor.spellbindr.ui.feature.compendium.spelldetails
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +34,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellIcon
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 

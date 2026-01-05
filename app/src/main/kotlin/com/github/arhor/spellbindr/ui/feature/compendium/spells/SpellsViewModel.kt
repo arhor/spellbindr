@@ -10,7 +10,7 @@ import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCas
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellListState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.spells.search
+package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,12 +16,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SearchFilterDialog
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellList
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellSearchInput
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-fun SpellSearchScreen(
+fun SpellsScreen(
     state: SpellListState,
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,

@@ -22,40 +22,33 @@ class AlignmentsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val selectedItemIdState = MutableStateFlow<String?>(null)
-    private val alignmentsState = observeAlignments()
-        .stateIn(viewModelScope, sharingStrategy, Loadable.Loading)
 
-    val uiState: StateFlow<AlignmentsUiState> = combine(alignmentsState, selectedItemIdState, ::toUiState)
-        .stateIn(viewModelScope, sharingStrategy, AlignmentsUiState.Loading)
+    val uiState: StateFlow<AlignmentsUiState> = combine(
+        observeAlignments(),
+        selectedItemIdState,
+    ) { alignments, selectedId ->
+        when (alignments) {
+            is Loadable.Loading -> {
+                AlignmentsUiState.Loading
+            }
 
-    fun onAlignmentClick(alignmentId: String) {
+            is Loadable.Ready -> {
+                AlignmentsUiState.Content(alignments.data, selectedId)
+            }
+
+            is Loadable.Error -> {
+                AlignmentsUiState.Error(alignments.errorMessage ?: "Failed to load alignments")
+            }
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AlignmentsUiState.Loading)
+
+    fun onAlignmentClick(alignment: Alignment) {
         selectedItemIdState.update {
-            if (it != alignmentId) {
-                alignmentId
+            if (it != alignment.id) {
+                alignment.id
             } else {
                 null
             }
         }
-    }
-
-    private fun toUiState(
-        alignments: Loadable<List<Alignment>>,
-        selectedId: String?
-    ): AlignmentsUiState = when (alignments) {
-        is Loadable.Loading -> {
-            AlignmentsUiState.Loading
-        }
-
-        is Loadable.Ready -> {
-            AlignmentsUiState.Content(alignments.data, selectedId)
-        }
-
-        is Loadable.Error -> {
-            AlignmentsUiState.Error(alignments.cause?.message ?: "Failed to load alignments")
-        }
-    }
-
-    companion object {
-        private val sharingStrategy = SharingStarted.WhileSubscribed(5_000)
     }
 }

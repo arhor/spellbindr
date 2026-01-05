@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.spells.details
+package com.github.arhor.spellbindr.ui.feature.compendium.spelldetails
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
@@ -37,9 +37,17 @@ class SpellDetailsViewModel @Inject constructor(
             .let { observeSpellDetails(it.spellId) }
             .map {
                 when (it) {
-                    is Loadable.Loading -> SpellDetailsUiState.Loading
-                    is Loadable.Ready -> SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
-                    is Loadable.Error -> SpellDetailsUiState.Error(it.errorMessage ?: "Could not load spell.")
+                    is Loadable.Loading -> {
+                        SpellDetailsUiState.Loading
+                    }
+
+                    is Loadable.Ready -> {
+                        SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
+                    }
+
+                    is Loadable.Error -> {
+                        SpellDetailsUiState.Error(it.errorMessage ?: "Could not load spell.")
+                    }
                 }
             }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellDetailsUiState.Loading)

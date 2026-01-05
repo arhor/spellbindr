@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.spells.search
+package com.github.arhor.spellbindr.ui.feature.compendium.spells.components
 
 import androidx.compose.runtime.Immutable
 import com.github.arhor.spellbindr.domain.model.EntityRef

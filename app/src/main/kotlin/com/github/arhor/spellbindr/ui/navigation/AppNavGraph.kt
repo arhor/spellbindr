@@ -18,11 +18,12 @@ import com.github.arhor.spellbindr.ui.feature.characters.list.CreateCharacterMod
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumSections
 import com.github.arhor.spellbindr.ui.feature.compendium.alignments.AlignmentsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.ConditionsRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.races.RacesRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.CompendiumSpellsRoute
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.details.SpellDetailsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.spelldetails.SpellDetailsRoute
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsRoute
 import com.github.arhor.spellbindr.ui.feature.dice.DiceRollerRoute
 import com.github.arhor.spellbindr.ui.feature.settings.SettingsRoute
 
@@ -116,11 +117,11 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
 private fun NavGraphBuilder.compendiumNavGraph(controller: NavHostController) {
     composable<AppDestination.CompendiumSections> {
         CompendiumRoute(
-            controller = controller,
+            onSectionClick = { controller.navigate(it.toAppDestination()) },
         )
     }
     composable<AppDestination.Spells> {
-        CompendiumSpellsRoute(
+        SpellsRoute(
             onSpellSelected = { controller.navigate(AppDestination.SpellDetails(it.id)) },
             onBack = controller::navigateUp,
         )
@@ -145,6 +146,13 @@ private fun NavGraphBuilder.compendiumNavGraph(controller: NavHostController) {
             onBack = controller::navigateUp,
         )
     }
+}
+
+private fun CompendiumSections.toAppDestination(): AppDestination = when (this) {
+    CompendiumSections.SPELLS -> AppDestination.Spells
+    CompendiumSections.CONDITIONS -> AppDestination.Conditions
+    CompendiumSections.ALIGNMENTS -> AppDestination.Alignments
+    CompendiumSections.RACES -> AppDestination.Races
 }
 
 private fun CharacterListItem.initialSubtitle(): String {

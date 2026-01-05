@@ -12,12 +12,11 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.search.SpellSearchScreen
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun CompendiumSpellsRoute(
+fun SpellsRoute(
     vm: SpellsViewModel = hiltViewModel(),
     onSpellSelected: (Spell) -> Unit,
     onBack: () -> Unit,
@@ -38,7 +37,7 @@ fun CompendiumSpellsRoute(
             ),
         ),
     ) {
-        SpellSearchScreen(
+        SpellsScreen(
             state = state,
             onQueryChanged = vm::onQueryChanged,
             onFiltersClick = vm::onFiltersClick,
@@ -85,7 +84,7 @@ private fun CompendiumSpellsRoutePreview() {
                 ),
             ),
         ) {
-            SpellSearchScreen(
+            SpellsScreen(
                 state = SpellsViewModel.State(
                     query = "heal",
                     spellsByLevel = spellsByLevel,

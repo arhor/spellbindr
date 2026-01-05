@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.usecase.ObserveRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveTraitsUseCase
@@ -53,10 +54,10 @@ class RacesViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RacesUiState.Loading)
 
-    fun onRaceClick(raceId: String) {
+    fun onRaceClick(race: Race) {
         selectedItemIdState.update {
-            if (it != raceId) {
-                raceId
+            if (it != race.id) {
+                race.id
             } else {
                 null
             }
