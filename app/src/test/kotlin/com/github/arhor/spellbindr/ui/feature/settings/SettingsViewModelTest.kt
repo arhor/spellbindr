@@ -38,15 +38,15 @@ class SettingsViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onThemeModeSelected(ThemeMode.DARK)
+        viewModel.setThemeMode(ThemeMode.DARK)
         advanceUntilIdle()
         val darkSelection = viewModel.state.value.themeMode
 
-        viewModel.onThemeModeSelected(ThemeMode.LIGHT)
+        viewModel.setThemeMode(ThemeMode.LIGHT)
         advanceUntilIdle()
         val lightSelection = viewModel.state.value.themeMode
 
-        viewModel.onThemeModeSelected(null)
+        viewModel.setThemeMode(null)
         advanceUntilIdle()
 
         // Then

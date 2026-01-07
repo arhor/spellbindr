@@ -1,5 +1,7 @@
 package com.github.arhor.spellbindr.domain.model
 
+import com.github.arhor.spellbindr.utils.toCapitalCase
+
 enum class ThemeMode {
     LIGHT,
     DARK;
@@ -7,11 +9,5 @@ enum class ThemeMode {
     val isDark: Boolean
         get() = this == DARK
 
-    override fun toString(): String =
-        name.lowercase().replaceFirstChar { it.titlecase() }
-
-    companion object {
-        fun fromIsDark(isDark: Boolean): ThemeMode =
-            if (isDark) DARK else LIGHT
-    }
+    override fun toString(): String = name.toCapitalCase()
 }

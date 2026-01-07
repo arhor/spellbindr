@@ -14,54 +14,39 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.ThemeMode
-import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
-import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
-import com.github.arhor.spellbindr.ui.components.TopBarState
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
+import com.github.arhor.spellbindr.ui.feature.settings.model.ThemeOption
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-
-@Composable
-fun SettingsRoute(
-    vm: SettingsViewModel = hiltViewModel(),
-) {
-    val state by vm.state.collectAsStateWithLifecycle()
-
-    ProvideTopBarState(
-        topBarState = TopBarState(
-            config = AppTopBarConfig(
-                title = "Settings",
-            ),
-        ),
-    ) {
-        SettingsScreen(
-            state = state,
-            onThemeModeSelected = vm::onThemeModeSelected,
-        )
-    }
-}
-
-@Composable
-fun SettingsScreen(
-    vm: SettingsViewModel,
-) {
-    val state by vm.state.collectAsStateWithLifecycle()
-
-    SettingsScreen(
-        state = state,
-        onThemeModeSelected = vm::onThemeModeSelected,
-    )
-}
 
 @Composable
 fun SettingsScreen(
     state: SettingsUiState,
+    onThemeModeSelected: (ThemeMode?) -> Unit = {},
+) {
+    when (state) {
+        is SettingsUiState.Loading -> {
+            LoadingIndicator()
+        }
+
+        is SettingsUiState.Content -> {
+            SettingsContent(state, onThemeModeSelected)
+        }
+
+        is SettingsUiState.Error -> {
+            ErrorMessage(state.errorMessage)
+        }
+    }
+}
+
+@Composable
+private fun SettingsContent(
+    state: SettingsUiState.Content,
     onThemeModeSelected: (ThemeMode?) -> Unit,
 ) {
     val effectiveIsDarkTheme = state.themeMode?.isDark ?: isSystemInDarkTheme()
@@ -107,7 +92,6 @@ fun SettingsScreen(
                         modifier = Modifier
                             .selectable(
                                 selected = state.themeMode == option.mode,
-                                enabled = state.loaded,
                                 onClick = { onThemeModeSelected(option.mode) },
                                 role = Role.RadioButton,
                             ),
@@ -117,7 +101,6 @@ fun SettingsScreen(
                             RadioButton(
                                 selected = state.themeMode == option.mode,
                                 onClick = { onThemeModeSelected(option.mode) },
-                                enabled = state.loaded,
                             )
                         },
                     )
@@ -127,20 +110,14 @@ fun SettingsScreen(
     }
 }
 
-@Preview(showBackground = true)
 @Composable
+@PreviewLightDark
 private fun SettingsScreenPreview() {
-    val state = SettingsUiState(themeMode = ThemeMode.DARK, loaded = true)
     AppTheme {
         SettingsScreen(
-            state = state,
-            onThemeModeSelected = {},
+            state = SettingsUiState.Content(
+                themeMode = null,
+            ),
         )
     }
 }
-
-private data class ThemeOption(
-    val mode: ThemeMode?,
-    val title: String,
-    val description: String,
-)
