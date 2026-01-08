@@ -10,7 +10,6 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import com.github.arhor.spellbindr.utils.mapWhenReady
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,16 +35,16 @@ class SpellsViewModel @Inject constructor(
 ) : ViewModel() {
 
     data class State(
-        override val query: String = "",
-        override val showFavorite: Boolean = false,
-        override val showFilterDialog: Boolean = false,
-        override val castingClasses: List<EntityRef> = emptyList(),
-        override val currentClasses: List<EntityRef> = emptyList(),
-        override val uiState: SpellsUiState = SpellsUiState.Loading,
-        override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
-        override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
-        override val expandedAll: Boolean = true,
-    ) : SpellListState
+        val query: String = "",
+        val showFavorite: Boolean = false,
+        val showFilterDialog: Boolean = false,
+        val castingClasses: List<EntityRef> = emptyList(),
+        val currentClasses: List<EntityRef> = emptyList(),
+        val uiState: SpellsUiState = SpellsUiState.Loading,
+        val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
+        val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
+        val expandedAll: Boolean = true,
+    )
 
     private data class SpellFilters(
         val query: String = "",

@@ -19,13 +19,12 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SearchFilterDialog
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellList
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellSearchInput
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellsScreen(
-    state: SpellListState,
+    state: SpellsViewModel.State,
     onQueryChanged: (String) -> Unit = {},
     onFiltersClick: () -> Unit = {},
     onFavoriteClick: () -> Unit = {},
@@ -50,7 +49,7 @@ fun SpellsScreen(
 
 @Composable
 private fun SpellSearchContent(
-    state: SpellListState,
+    state: SpellsViewModel.State,
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
