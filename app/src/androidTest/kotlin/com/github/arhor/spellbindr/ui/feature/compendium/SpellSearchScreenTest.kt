@@ -44,7 +44,7 @@ class SpellSearchScreenTest {
             spellsByLevel = spellsByLevel,
             expandedSpellLevels = mapOf(1 to true),
             expandedAll = true,
-            uiState = SpellsUiState.Loaded(
+            uiState = SpellsUiState.Content(
                 spells = listOf(spell),
                 spellsByLevel = spellsByLevel,
             ),

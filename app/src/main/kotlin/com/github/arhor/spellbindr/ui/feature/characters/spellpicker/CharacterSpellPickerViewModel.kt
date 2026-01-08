@@ -106,7 +106,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
                 )
             }.onSuccess { result ->
                 emit(
-                    SpellsUiState.Loaded(
+                    SpellsUiState.Content(
                         spells = result.spells,
                         spellsByLevel = result.spellsByLevel,
                     )
@@ -125,11 +125,11 @@ class CharacterSpellPickerViewModel @Inject constructor(
         spellsUiState,
     ) { filters, expansionState, castingClasses, uiState ->
         val spellsByLevel = when (uiState) {
-            is SpellsUiState.Loaded -> uiState.spellsByLevel
+            is SpellsUiState.Content -> uiState.spellsByLevel
             else -> emptyMap()
         }
         val expandedSpellLevels = when (uiState) {
-            is SpellsUiState.Loaded -> expandedLevels(uiState.spellsByLevel.keys, expansionState)
+            is SpellsUiState.Content -> expandedLevels(uiState.spellsByLevel.keys, expansionState)
 
             else -> emptyMap()
         }
@@ -197,7 +197,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
     }
 
     fun onSpellGroupToggled(level: Int) {
-        val levels = (spellsUiState.value as? SpellsUiState.Loaded)?.spellsByLevel?.keys ?: emptySet()
+        val levels = (spellsUiState.value as? SpellsUiState.Content)?.spellsByLevel?.keys ?: emptySet()
         val currentExpandedLevels = expandedLevels(levels, spellExpansionState.value)
         val currentExpanded = currentExpandedLevels[level] ?: spellExpansionState.value.expandedAll
         spellExpansionState.update { state ->
@@ -206,7 +206,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
     }
 
     fun onToggleAllSpellGroups() {
-        val levels = (spellsUiState.value as? SpellsUiState.Loaded)?.spellsByLevel?.keys ?: emptySet()
+        val levels = (spellsUiState.value as? SpellsUiState.Content)?.spellsByLevel?.keys ?: emptySet()
         spellExpansionState.update { state ->
             val nextExpandedAll = !state.expandedAll
             state.copy(

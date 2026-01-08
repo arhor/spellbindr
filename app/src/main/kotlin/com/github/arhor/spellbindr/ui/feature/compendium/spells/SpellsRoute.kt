@@ -82,7 +82,7 @@ private fun CompendiumSpellsRoutePreview() {
                     spellsByLevel = spellsByLevel,
                     expandedSpellLevels = mapOf(0 to true, 1 to true),
                     expandedAll = true,
-                    uiState = SpellsUiState.Loaded(
+                    uiState = SpellsUiState.Content(
                         spells = spells,
                         spellsByLevel = spellsByLevel,
                     ),

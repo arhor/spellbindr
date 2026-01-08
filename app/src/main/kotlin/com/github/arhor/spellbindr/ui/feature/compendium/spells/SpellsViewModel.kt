@@ -100,7 +100,7 @@ class SpellsViewModel @Inject constructor(
                             favoriteSpellIds = data.favoriteSpellIdsSet,
                         )
                     }.onSuccess { result ->
-                        emit(SpellsUiState.Loaded(result.spells, result.spellsByLevel))
+                        emit(SpellsUiState.Content(result.spells, result.spellsByLevel))
                     }.onFailure { throwable ->
                         logger.error(throwable) { "Failed to load spells." }
                         emit(SpellsUiState.Error("Oops, something went wrong..."))
@@ -137,7 +137,7 @@ class SpellsViewModel @Inject constructor(
                 expandedAll = expansionState.expandedAll,
             )
 
-            is SpellsUiState.Loaded -> {
+            is SpellsUiState.Content -> {
                 val expandedLevels = expandedLevels(
                     levels = spellsUiState.spellsByLevel.keys,
                     state = expansionState,

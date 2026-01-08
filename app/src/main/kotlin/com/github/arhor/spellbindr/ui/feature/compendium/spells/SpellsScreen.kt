@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,14 +26,14 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @Composable
 fun SpellsScreen(
     state: SpellListState,
-    onQueryChanged: (String) -> Unit,
-    onFiltersClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
-    onGroupToggle: (Int) -> Unit,
-    onToggleAllGroups: () -> Unit,
-    onSpellClick: (Spell) -> Unit,
-    onSubmitFilters: (List<EntityRef>) -> Unit,
-    onCancelFilters: (List<EntityRef>) -> Unit,
+    onQueryChanged: (String) -> Unit = {},
+    onFiltersClick: () -> Unit = {},
+    onFavoriteClick: () -> Unit = {},
+    onGroupToggle: (Int) -> Unit = {},
+    onToggleAllGroups: () -> Unit = {},
+    onSpellClick: (Spell) -> Unit = {},
+    onSubmitFilters: (List<EntityRef>) -> Unit = {},
+    onCancelFilters: (List<EntityRef>) -> Unit = {},
 ) {
     SpellSearchContent(
         state = state,
@@ -85,12 +86,12 @@ private fun SpellSearchContent(
 
             is SpellsUiState.Error -> {
                 Text(
-                    text = "Error: ${uiState.message}",
+                    text = "Error: ${uiState.errorMessage}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
 
-            is SpellsUiState.Loaded -> {
+            is SpellsUiState.Content -> {
                 SpellList(
                     spellsByLevel = state.spellsByLevel,
                     expandedSpellLevels = state.expandedSpellLevels,
@@ -112,49 +113,44 @@ private fun SpellSearchContent(
     )
 }
 
-@PreviewLightDark
 @Composable
+@PreviewLightDark
 private fun SpellSearchScreenPreview() {
-    val previewSpell = Spell(
-        id = "healing_word",
-        name = "Healing Word",
-        desc = listOf("A creature of your choice that you can see regains hit points."),
-        level = 1,
-        range = "60 ft",
-        ritual = false,
-        school = EntityRef(id = "evocation"),
-        duration = "Instant",
-        castingTime = "1 bonus action",
-        classes = listOf(EntityRef(id = "cleric")),
-        components = listOf("V"),
-        concentration = false,
-        source = "PHB",
-    )
-    AppTheme {
-        SpellSearchContent(
-            state = SpellsViewModel.State(
-                query = "heal",
-                castingClasses = listOf(EntityRef(id = "cleric")),
-                spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
-                    .groupBy(Spell::level)
-                    .toSortedMap(),
-                expandedSpellLevels = mapOf(0 to true, 1 to true),
-                expandedAll = true,
-                uiState = SpellsUiState.Loaded(
-                    spells = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell),
-                    spellsByLevel = listOf(previewSpell.copy(level = 0, name = "Sacred Flame"), previewSpell)
-                        .groupBy(Spell::level)
-                        .toSortedMap(),
-                ),
-            ),
-            onQueryChanged = {},
-            onFiltersClick = {},
-            onFavoriteClick = {},
-            onGroupToggle = {},
-            onToggleAllGroups = {},
-            onSpellClick = {},
-            onSubmitFilters = {},
-            onCancelFilters = {},
+    val spells = listOf(
+        Spell(
+            id = "healing_word",
+            name = "Healing Word",
+            desc = listOf("A creature of your choice that you can see regains hit points."),
+            level = 1,
+            range = "60 ft",
+            ritual = false,
+            school = EntityRef(id = "evocation"),
+            duration = "Instant",
+            castingTime = "1 bonus action",
+            classes = listOf(EntityRef(id = "cleric")),
+            components = listOf("V"),
+            concentration = false,
+            source = "PHB",
         )
+    )
+    val spellsByLevel = spells
+        .groupBy(Spell::level)
+        .toSortedMap()
+    AppTheme {
+        Surface {
+            SpellsScreen(
+                state = SpellsViewModel.State(
+                    query = "heal",
+                    castingClasses = listOf(EntityRef(id = "cleric")),
+                    spellsByLevel = spellsByLevel,
+                    expandedSpellLevels = mapOf(0 to true, 1 to true),
+                    expandedAll = true,
+                    uiState = SpellsUiState.Content(
+                        spells = spells,
+                        spellsByLevel = spellsByLevel,
+                    ),
+                ),
+            )
+        }
     }
 }

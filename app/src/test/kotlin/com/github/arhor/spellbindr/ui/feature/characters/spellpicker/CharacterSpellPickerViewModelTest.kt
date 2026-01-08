@@ -84,8 +84,8 @@ class CharacterSpellPickerViewModelTest {
         val viewModel = createViewModel()
         advanceTimeBy(400)
         advanceUntilIdle()
-        val spellsState = viewModel.awaitContentState { it.spellsState.uiState is SpellsUiState.Loaded }
-        val spellId = (spellsState.spellsState.uiState as SpellsUiState.Loaded).spells.first().id
+        val spellsState = viewModel.awaitContentState { it.spellsState.uiState is SpellsUiState.Content }
+        val spellId = (spellsState.spellsState.uiState as SpellsUiState.Content).spells.first().id
 
         // When
         val assignmentDeferred = async { viewModel.spellAssignments.first() }
