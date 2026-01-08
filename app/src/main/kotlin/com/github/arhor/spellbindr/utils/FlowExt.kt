@@ -17,5 +17,5 @@ fun <T> Flow<Loadable<T>>.toSharedStateFlow(): StateFlow<Loadable<T>> = stateIn(
     initialValue = Loadable.Loading
 )
 
-inline fun <T, R> Flow<Loadable<T>>.mapLoadable(crossinline transform: (T) -> R): Flow<Loadable<R>> =
+inline fun <T, R> Flow<Loadable<T>>.mapWhenReady(crossinline transform: (T) -> R): Flow<Loadable<R>> =
     map { it.map(transform) }

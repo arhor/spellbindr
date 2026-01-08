@@ -112,8 +112,8 @@ private fun TestScope.createViewModel(): SpellsViewModel {
 
     return SpellsViewModel(
         getSpellcastingClassRefsUseCase = GetSpellcastingClassRefsUseCase(classRepository),
-        observeAllSpellsStateUseCase = ObserveAllSpellsStateUseCase(spellsRepository),
-        observeFavoriteSpellIdsUseCase = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
-        searchAndGroupSpellsUseCase = SearchAndGroupSpellsUseCase(spellsRepository, favoritesRepository),
+        observeAllSpells = ObserveAllSpellsStateUseCase(spellsRepository),
+        observeFavoriteSpellIds = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
+        searchAndGroupSpells = SearchAndGroupSpellsUseCase(spellsRepository, favoritesRepository),
     )
 }

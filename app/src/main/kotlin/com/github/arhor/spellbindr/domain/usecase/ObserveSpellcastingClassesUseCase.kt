@@ -3,7 +3,8 @@ package com.github.arhor.spellbindr.domain.usecase
 import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.repository.CharacterClassRepository
-import com.github.arhor.spellbindr.utils.mapLoadable
+import com.github.arhor.spellbindr.utils.filterNotNullBy
+import com.github.arhor.spellbindr.utils.mapWhenReady
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -13,5 +14,5 @@ class ObserveSpellcastingClassesUseCase @Inject constructor(
     operator fun invoke(): Flow<Loadable<List<CharacterClass>>> =
         characterClassRepository
             .allCharacterClassesState
-            .mapLoadable { data -> data.filter { it.spellcasting != null } }
+            .mapWhenReady { it.filterNotNullBy(CharacterClass::spellcasting) }
 }

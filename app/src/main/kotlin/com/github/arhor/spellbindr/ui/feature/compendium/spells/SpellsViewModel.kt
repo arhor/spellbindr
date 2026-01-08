@@ -6,19 +6,20 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.utils.mapWhenReady
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.flow.update
@@ -28,10 +29,10 @@ import kotlin.time.Duration.Companion.milliseconds
 @Stable
 @HiltViewModel
 class SpellsViewModel @Inject constructor(
-    private val getSpellcastingClassRefsUseCase: GetSpellcastingClassRefsUseCase,
-    private val observeAllSpellsStateUseCase: ObserveAllSpellsStateUseCase,
-    private val observeFavoriteSpellIdsUseCase: ObserveFavoriteSpellIdsUseCase,
-    private val searchAndGroupSpellsUseCase: SearchAndGroupSpellsUseCase,
+    private val observeSpellcastingClasses: ObserveSpellcastingClassesUseCase,
+    private val observeAllSpells: ObserveAllSpellsStateUseCase,
+    private val observeFavoriteSpellIds: ObserveFavoriteSpellIdsUseCase,
+    private val searchAndGroupSpells: SearchAndGroupSpellsUseCase,
 ) : ViewModel() {
 
     data class State(
@@ -69,14 +70,10 @@ class SpellsViewModel @Inject constructor(
     private val spellFilters = MutableStateFlow(SpellFilters())
     private val spellExpansionState = MutableStateFlow(SpellExpansionState())
 
-    private val castingClassesState = flow {
-        emit(getSpellcastingClassRefsUseCase())
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
-
     private val spellsUiState = combine(
         spellFilters,
-        observeAllSpellsStateUseCase(),
-        observeFavoriteSpellIdsUseCase(),
+        observeAllSpells(),
+        observeFavoriteSpellIds(),
         ::SpellsQuery,
     )
         .debounce(350.milliseconds)
@@ -92,7 +89,7 @@ class SpellsViewModel @Inject constructor(
                 is Loadable.Ready -> {
                     emit(SpellsUiState.Loading)
                     runCatching {
-                        searchAndGroupSpellsUseCase(
+                        searchAndGroupSpells(
                             query = data.filters.query,
                             classes = data.filters.currentClasses,
                             favoriteOnly = data.filters.showFavorite,
@@ -110,18 +107,18 @@ class SpellsViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
-    val uiState = combine(
+    val uiState: StateFlow<State> = combine(
         spellsUiState,
         spellFilters,
         spellExpansionState,
-        castingClassesState,
+        observeSpellcastingClasses().mapWhenReady { classes -> classes.map { EntityRef(it.id) } },
     ) { spellsUiState, filters, expansionState, castingClasses ->
         when (spellsUiState) {
             is SpellsUiState.Loading -> State(
                 query = filters.query,
                 showFavorite = filters.showFavorite,
                 showFilterDialog = filters.showFilterDialog,
-                castingClasses = castingClasses,
+                castingClasses = (castingClasses as? Loadable.Ready)?.data ?: emptyList(),
                 currentClasses = filters.currentClasses,
                 uiState = SpellsUiState.Loading,
                 expandedAll = expansionState.expandedAll,
@@ -131,7 +128,7 @@ class SpellsViewModel @Inject constructor(
                 query = filters.query,
                 showFavorite = filters.showFavorite,
                 showFilterDialog = filters.showFilterDialog,
-                castingClasses = castingClasses,
+                castingClasses = (castingClasses as? Loadable.Ready)?.data ?: emptyList(),
                 currentClasses = filters.currentClasses,
                 uiState = spellsUiState,
                 expandedAll = expansionState.expandedAll,
@@ -146,7 +143,7 @@ class SpellsViewModel @Inject constructor(
                     query = filters.query,
                     showFavorite = filters.showFavorite,
                     showFilterDialog = filters.showFilterDialog,
-                    castingClasses = castingClasses,
+                    castingClasses = (castingClasses as? Loadable.Ready)?.data ?: emptyList(),
                     currentClasses = filters.currentClasses,
                     uiState = spellsUiState,
                     spellsByLevel = spellsUiState.spellsByLevel,
