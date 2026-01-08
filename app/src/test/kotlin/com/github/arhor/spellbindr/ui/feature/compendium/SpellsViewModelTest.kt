@@ -6,14 +6,13 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FakeCharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.FakeFavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.FakeSpellsRepository
-import com.github.arhor.spellbindr.domain.usecase.GetSpellcastingClassRefsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsStateUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -73,7 +72,7 @@ private suspend fun SpellsViewModel.awaitUiState(
     predicate: (SpellsViewModel.State) -> Boolean = { true },
 ): SpellsViewModel.State = uiState.first(predicate)
 
-private fun TestScope.createViewModel(): SpellsViewModel {
+private fun createViewModel(): SpellsViewModel {
     val spells = listOf(
         Spell(
             id = "fire-bolt",
@@ -111,7 +110,7 @@ private fun TestScope.createViewModel(): SpellsViewModel {
     val classRepository = FakeCharacterClassRepository()
 
     return SpellsViewModel(
-        getSpellcastingClassRefsUseCase = GetSpellcastingClassRefsUseCase(classRepository),
+        observeSpellcastingClasses = ObserveSpellcastingClassesUseCase(classRepository),
         observeAllSpells = ObserveAllSpellsStateUseCase(spellsRepository),
         observeFavoriteSpellIds = ObserveFavoriteSpellIdsUseCase(favoritesRepository),
         searchAndGroupSpells = SearchAndGroupSpellsUseCase(spellsRepository, favoritesRepository),

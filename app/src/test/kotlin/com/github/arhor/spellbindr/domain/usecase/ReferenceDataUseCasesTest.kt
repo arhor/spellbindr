@@ -48,17 +48,4 @@ class ReferenceDataUseCasesTest {
         // Then
         assertThat(result).isEqualTo(Loadable.Ready(listOf(trait)))
     }
-
-    @Test
-    fun `GetSpellcastingClassRefsUseCase should return repository refs when invoked`() = runTest {
-        // Given
-        val classes = listOf(EntityRef("wizard"), EntityRef("cleric"))
-        characterClassRepository.spellcastingClassesRefs = classes
-
-        // When
-        val result = GetSpellcastingClassRefsUseCase(characterClassRepository)()
-
-        // Then
-        assertThat(result).containsExactlyElementsIn(classes).inOrder()
-    }
 }
