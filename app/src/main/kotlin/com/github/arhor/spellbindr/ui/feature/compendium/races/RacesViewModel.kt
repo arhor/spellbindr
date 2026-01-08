@@ -29,7 +29,7 @@ class RacesViewModel @Inject constructor(
     )
 
     private val _state = MutableStateFlow(State())
-    
+
     val uiState: StateFlow<RacesUiState> = combine(
         _state,
         observeRaces(),

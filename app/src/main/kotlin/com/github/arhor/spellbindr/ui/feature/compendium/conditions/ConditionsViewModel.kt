@@ -21,19 +21,23 @@ class ConditionsViewModel @Inject constructor(
     private val observeConditions: ObserveAllConditionsUseCase,
 ) : ViewModel() {
 
-    private val selectedItemIdState = MutableStateFlow<String?>(null)
+    private data class State(
+        val selectedItemId: String? = null,
+    )
+
+    private val _state = MutableStateFlow(State())
 
     val uiState: StateFlow<ConditionsUiState> = combine(
+        _state,
         observeConditions(),
-        selectedItemIdState
-    ) { conditions, selectedItemId ->
+    ) { state, conditions ->
         when (conditions) {
             is Loadable.Loading -> {
                 ConditionsUiState.Loading
             }
 
             is Loadable.Ready -> {
-                ConditionsUiState.Content(conditions.data, selectedItemId)
+                ConditionsUiState.Content(conditions.data, state.selectedItemId)
             }
 
             is Loadable.Error -> {
@@ -43,12 +47,14 @@ class ConditionsViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsUiState.Loading)
 
     fun onConditionClick(condition: Condition) {
-        selectedItemIdState.update {
-            if (it != condition.id) {
-                condition.id
-            } else {
-                null
-            }
+        _state.update {
+            it.copy(
+                selectedItemId = if (it.selectedItemId != condition.id) {
+                    condition.id
+                } else {
+                    null
+                }
+            )
         }
     }
 }
