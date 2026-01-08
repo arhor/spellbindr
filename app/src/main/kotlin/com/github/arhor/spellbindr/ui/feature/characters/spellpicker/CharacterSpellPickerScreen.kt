@@ -31,6 +31,7 @@ import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.SpellsState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsScreen
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -160,7 +161,19 @@ private fun CharacterSpellPickerContent(
         )
         Box(modifier = Modifier.weight(1f)) {
             SpellsScreen(
-                state = state.spellsState,
+                state = state.spellsState.let {
+                    SpellsViewModel.State(
+                        query = it.query,
+                        showFavorite = it.showFavorite,
+                        showFilterDialog = it.showFilterDialog,
+                        castingClasses = it.castingClasses,
+                        currentClasses = it.currentClasses,
+                        uiState = it.uiState,
+                        spellsByLevel = it.spellsByLevel,
+                        expandedSpellLevels = it.expandedSpellLevels,
+                        expandedAll = it.expandedAll,
+                    )
+                },
                 onQueryChanged = onQueryChanged,
                 onFiltersClick = onFiltersClick,
                 onFavoriteClick = onFavoriteClick,

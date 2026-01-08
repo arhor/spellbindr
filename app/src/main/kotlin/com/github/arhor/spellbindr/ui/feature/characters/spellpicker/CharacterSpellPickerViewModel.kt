@@ -107,6 +107,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
             }.onSuccess { result ->
                 emit(
                     SpellsUiState.Content(
+                        query = data.query,
                         spells = result.spells,
                         spellsByLevel = result.spellsByLevel,
                     )

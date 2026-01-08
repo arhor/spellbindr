@@ -9,6 +9,7 @@ sealed interface SpellsUiState {
 
     @Immutable
     data class Content(
+        val query: String,
         val spells: List<Spell>,
         val spellsByLevel: Map<Int, List<Spell>>,
     ) : SpellsUiState

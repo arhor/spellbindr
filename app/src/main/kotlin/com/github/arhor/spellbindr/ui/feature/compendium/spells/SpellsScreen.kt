@@ -145,6 +145,7 @@ private fun SpellSearchScreenPreview() {
                     expandedSpellLevels = mapOf(0 to true, 1 to true),
                     expandedAll = true,
                     uiState = SpellsUiState.Content(
+                        query = "heal",
                         spells = spells,
                         spellsByLevel = spellsByLevel,
                     ),
