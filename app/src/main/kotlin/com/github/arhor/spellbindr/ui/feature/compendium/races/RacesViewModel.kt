@@ -59,13 +59,9 @@ class RacesViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RacesUiState.Loading)
 
     fun onRaceClick(race: Race) {
-        _state.update {
-            it.copy(
-                selectedItemId = if (it.selectedItemId != race.id) {
-                    race.id
-                } else {
-                    null
-                }
+        _state.update { state ->
+            state.copy(
+                selectedItemId = race.id.takeIf { it != state.selectedItemId }
             )
         }
     }

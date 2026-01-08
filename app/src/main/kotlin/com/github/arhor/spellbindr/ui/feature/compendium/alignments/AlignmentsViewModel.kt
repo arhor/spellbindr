@@ -21,19 +21,23 @@ class AlignmentsViewModel @Inject constructor(
     private val observeAlignments: ObserveAllAlignmentsUseCase,
 ) : ViewModel() {
 
-    private val selectedItemIdState = MutableStateFlow<String?>(null)
+    private data class State(
+        val selectedItemId: String? = null,
+    )
+
+    private val _state = MutableStateFlow(State())
 
     val uiState: StateFlow<AlignmentsUiState> = combine(
+        _state,
         observeAlignments(),
-        selectedItemIdState,
-    ) { alignments, selectedId ->
+    ) { state, alignments ->
         when (alignments) {
             is Loadable.Loading -> {
                 AlignmentsUiState.Loading
             }
 
             is Loadable.Ready -> {
-                AlignmentsUiState.Content(alignments.data, selectedId)
+                AlignmentsUiState.Content(alignments.data, state.selectedItemId)
             }
 
             is Loadable.Error -> {
@@ -43,12 +47,10 @@ class AlignmentsViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AlignmentsUiState.Loading)
 
     fun onAlignmentClick(alignment: Alignment) {
-        selectedItemIdState.update {
-            if (it != alignment.id) {
-                alignment.id
-            } else {
-                null
-            }
+        _state.update { state ->
+            state.copy(
+                selectedItemId = alignment.id.takeIf { it != state.selectedItemId }
+            )
         }
     }
 }

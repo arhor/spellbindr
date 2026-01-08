@@ -47,13 +47,9 @@ class ConditionsViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsUiState.Loading)
 
     fun onConditionClick(condition: Condition) {
-        _state.update {
-            it.copy(
-                selectedItemId = if (it.selectedItemId != condition.id) {
-                    condition.id
-                } else {
-                    null
-                }
+        _state.update { state ->
+            state.copy(
+                selectedItemId = condition.id.takeIf { it != state.selectedItemId }
             )
         }
     }
