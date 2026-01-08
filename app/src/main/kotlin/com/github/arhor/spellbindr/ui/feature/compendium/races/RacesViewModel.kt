@@ -24,19 +24,23 @@ class RacesViewModel @Inject constructor(
     private val observeTraits: ObserveAllTraitsUseCase,
 ) : ViewModel() {
 
-    private val selectedItemIdState = MutableStateFlow<String?>(null)
+    private data class State(
+        val selectedItemId: String? = null,
+    )
 
+    private val _state = MutableStateFlow(State())
+    
     val uiState: StateFlow<RacesUiState> = combine(
+        _state,
         observeRaces(),
         observeTraits(),
-        selectedItemIdState,
-    ) { races, traits, expandedItemId ->
+    ) { state, races, traits ->
         when {
             races is Loadable.Ready && traits is Loadable.Ready -> {
                 RacesUiState.Content(
                     races = races.data,
                     traits = traits.data.associateBy(Trait::id),
-                    selectedItemId = expandedItemId,
+                    selectedItemId = state.selectedItemId,
                 )
             }
 
@@ -55,12 +59,14 @@ class RacesViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RacesUiState.Loading)
 
     fun onRaceClick(race: Race) {
-        selectedItemIdState.update {
-            if (it != race.id) {
-                race.id
-            } else {
-                null
-            }
+        _state.update {
+            it.copy(
+                selectedItemId = if (it.selectedItemId != race.id) {
+                    race.id
+                } else {
+                    null
+                }
+            )
         }
     }
 }
