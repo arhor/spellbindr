@@ -30,7 +30,7 @@ fun SpellsScreen(
 ) {
     when (state) {
         is SpellsUiState.Loading -> LoadingIndicator()
-        is SpellsUiState.Failure -> ErrorMessage(state.errorMessage)
+
         is SpellsUiState.Content -> SpellSearchContent(
             state = state,
             onQueryChanged = onQueryChanged,
@@ -40,6 +40,8 @@ fun SpellsScreen(
             onSubmitFilters = onSubmitFilters,
             onCancelFilters = onCancelFilters,
         )
+
+        is SpellsUiState.Failure -> ErrorMessage(state.errorMessage)
     }
 }
 
