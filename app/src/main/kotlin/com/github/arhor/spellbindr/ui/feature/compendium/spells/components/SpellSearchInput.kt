@@ -27,6 +27,7 @@ fun SpellSearchInput(
     onFiltersClick: () -> Unit,
     showFavorite: Boolean,
     onFavoriteClick: () -> Unit,
+    showFilters: Boolean = true,
 ) {
     OutlinedTextField(
         value = query,
@@ -45,11 +46,13 @@ fun SpellSearchInput(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(onClick = onFiltersClick) {
-                    Icon(
-                        imageVector = Icons.Default.FilterList,
-                        contentDescription = "Advanced Filters",
-                    )
+                if (showFilters) {
+                    IconButton(onClick = onFiltersClick) {
+                        Icon(
+                            imageVector = Icons.Default.FilterList,
+                            contentDescription = "Advanced Filters",
+                        )
+                    }
                 }
                 IconButton(onClick = onFavoriteClick) {
                     Icon(

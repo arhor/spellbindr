@@ -3,32 +3,32 @@ package com.github.arhor.spellbindr.ui.feature.characters.spellpicker
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
-import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
+import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
-import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.SpellsState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsScreen
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellList
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellSearchInput
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -51,11 +51,8 @@ fun CharacterSpellPickerRoute(
         onBack = onBack,
         onSourceClassChanged = vm::onSourceClassChanged,
         onQueryChanged = vm::onQueryChanged,
-        onFiltersClick = vm::onFiltersClick,
-        onFavoriteClick = vm::onFavoritesClick,
+        onFavoriteClick = vm::onFavoritesToggled,
         onSpellClick = vm::onSpellSelected,
-        onSubmitFilters = vm::onSubmitFilters,
-        onCancelFilters = vm::onCancelFilters,
     )
 }
 
@@ -65,11 +62,8 @@ private fun CharacterSpellPickerScreen(
     onBack: () -> Unit,
     onSourceClassChanged: (String) -> Unit,
     onQueryChanged: (String) -> Unit,
-    onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (String) -> Unit,
-    onSubmitFilters: (Set<EntityRef>) -> Unit,
-    onCancelFilters: () -> Unit,
 ) {
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -80,37 +74,17 @@ private fun CharacterSpellPickerScreen(
         ),
     ) {
         when (state) {
-            is CharacterSpellPickerUiState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
+            is CharacterSpellPickerUiState.Loading -> LoadingIndicator()
 
-            is CharacterSpellPickerUiState.Error -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = state.message,
-                        textAlign = TextAlign.Center,
-                    )
-                }
-            }
+            is CharacterSpellPickerUiState.Error -> ErrorMessage(state.message)
 
             is CharacterSpellPickerUiState.Content -> {
                 CharacterSpellPickerContent(
                     state = state,
                     onSourceClassChanged = onSourceClassChanged,
                     onQueryChanged = onQueryChanged,
-                    onFiltersClick = onFiltersClick,
                     onFavoriteClick = onFavoriteClick,
                     onSpellClick = onSpellClick,
-                    onSubmitFilters = onSubmitFilters,
-                    onCancelFilters = onCancelFilters,
                 )
             }
         }
@@ -122,11 +96,8 @@ private fun CharacterSpellPickerContent(
     state: CharacterSpellPickerUiState.Content,
     onSourceClassChanged: (String) -> Unit,
     onQueryChanged: (String) -> Unit,
-    onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (String) -> Unit,
-    onSubmitFilters: (Set<EntityRef>) -> Unit,
-    onCancelFilters: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -136,9 +107,7 @@ private fun CharacterSpellPickerContent(
     ) {
         OutlinedTextField(
             value = state.sourceClass,
-            onValueChange = { value ->
-                onSourceClassChanged(value)
-            },
+            onValueChange = { value -> onSourceClassChanged(value) },
             label = { Text("Spellcasting class") },
             placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
             singleLine = true,
@@ -148,25 +117,34 @@ private fun CharacterSpellPickerContent(
             text = "Tap a spell below to add it to the character.",
             style = MaterialTheme.typography.bodyMedium,
         )
-        Box(modifier = Modifier.weight(1f)) {
-            SpellsScreen(
-                state = state.spellsState.let {
-                    SpellsUiState.Content(
-                        query = it.query,
-                        showFavoriteOnly = it.showFavoriteOnly,
-                        showFilterDialog = it.showFilterDialog,
-                        castingClasses = it.castingClasses,
-                        currentClasses = it.currentClasses,
-                        spells = emptyList(),
-                    )
-                },
-                onQueryChanged = onQueryChanged,
-                onFiltersClick = onFiltersClick,
-                onFavoriteClick = onFavoriteClick,
-                onSpellClick = { onSpellClick(it.id) },
-                onFiltersSubmit = onSubmitFilters,
-                onFiltersCancel = onCancelFilters,
-            )
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            when (val spellsState = state.spellsUiState) {
+                is SpellsUiState.Loading -> LoadingIndicator()
+
+                is SpellsUiState.Failure -> ErrorMessage(spellsState.errorMessage)
+
+                is SpellsUiState.Content -> {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        SpellSearchInput(
+                            query = spellsState.query,
+                            onQueryChanged = onQueryChanged,
+                            onFiltersClick = {},
+                            showFavorite = spellsState.showFavoriteOnly,
+                            onFavoriteClick = onFavoriteClick,
+                            showFilters = false,
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        SpellList(
+                            spells = spellsState.spells,
+                            onSpellClick = { onSpellClick(it.id) },
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -179,16 +157,20 @@ private fun CharacterSpellPickerPreview() {
             state = CharacterSpellPickerUiState.Content(
                 sourceClass = "Wizard",
                 defaultSourceClass = "Wizard",
-                spellsState = SpellsState(),
+                spellsUiState = SpellsUiState.Content(
+                    query = "",
+                    spells = emptyList(),
+                    showFavoriteOnly = false,
+                    showFilterDialog = false,
+                    castingClasses = emptyList(),
+                    currentClasses = emptySet(),
+                ),
             ),
             onBack = {},
             onSourceClassChanged = {},
             onQueryChanged = {},
-            onFiltersClick = {},
             onFavoriteClick = {},
             onSpellClick = {},
-            onSubmitFilters = {},
-            onCancelFilters = {},
         )
     }
 }
