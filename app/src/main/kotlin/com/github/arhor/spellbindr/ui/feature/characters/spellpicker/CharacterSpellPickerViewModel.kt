@@ -49,7 +49,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val showFavoriteOnly: Boolean = false,
         val showFilterDialog: Boolean = false,
         val castingClasses: List<EntityRef> = emptyList(),
-        val currentClasses: List<EntityRef> = emptyList(),
+        val currentClasses: Set<EntityRef> = emptySet(),
         val uiState: SpellsUiState = SpellsUiState.Loading,
     )
 
@@ -94,7 +94,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
             runCatching {
                 searchAndGroupSpellsUseCase(
                     query = data.query,
-                    classes = data.currentClasses,
+                    classes = data.currentClasses.toList(),
                     favoriteOnly = data.showFavorite,
                     allSpells = data.allSpells,
                     favoriteSpellIds = data.favoriteSpellIdsSet,
@@ -107,7 +107,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
                         showFavoriteOnly = false,
                         showFilterDialog = false,
                         castingClasses = emptyList(),
-                        currentClasses = emptyList(),
+                        currentClasses = emptySet(),
                     )
                 )
             }.onFailure { throwable ->
@@ -182,7 +182,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         spellFiltersState.update { filters -> filters.copy(showFavorite = !filters.showFavorite) }
     }
 
-    fun onSubmitFilters(classes: List<EntityRef>) {
+    fun onSubmitFilters(classes: Set<EntityRef>) {
         spellFiltersState.update { filters ->
             filters.copy(
                 showFilterDialog = false,
@@ -191,11 +191,11 @@ class CharacterSpellPickerViewModel @Inject constructor(
         }
     }
 
-    fun onCancelFilters(classes: List<EntityRef>) {
+    fun onCancelFilters() {
         spellFiltersState.update { filters ->
             filters.copy(
                 showFilterDialog = false,
-                currentClasses = classes,
+                currentClasses = emptySet(),
             )
         }
     }
@@ -250,10 +250,10 @@ class CharacterSpellPickerViewModel @Inject constructor(
     private data class SpellsQuery(
         val filters: SpellFilters,
         val allSpells: List<Spell>,
-        val favoriteSpellIds: List<String>,
+        val favoriteSpellIds: Set<String>,
     ) {
         val query: String = filters.query
-        val currentClasses: List<EntityRef> = filters.currentClasses
+        val currentClasses: Set<EntityRef> = filters.currentClasses
         val showFavorite: Boolean = filters.showFavorite
         val favoriteSpellIdsSet: Set<String> = favoriteSpellIds.toSet()
     }
@@ -262,6 +262,6 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val query: String = "",
         val showFavorite: Boolean = false,
         val showFilterDialog: Boolean = false,
-        val currentClasses: List<EntityRef> = emptyList(),
+        val currentClasses: Set<EntityRef> = emptySet(),
     )
 }

@@ -16,7 +16,7 @@ interface SpellsRepository {
     /**
      * A Flow emitting the list of IDs for spells marked as favorites by the user.
      */
-    val favoriteSpellIds: Flow<List<String>>
+    val favoriteSpellIds: Flow<Set<String>>
 
     /**
      * Retrieves a single spell by its [id].

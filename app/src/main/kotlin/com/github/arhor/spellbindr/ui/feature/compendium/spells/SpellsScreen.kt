@@ -25,8 +25,8 @@ fun SpellsScreen(
     onFiltersClick: () -> Unit = {},
     onFavoriteClick: () -> Unit = {},
     onSpellClick: (Spell) -> Unit = {},
-    onSubmitFilters: (List<EntityRef>) -> Unit = {},
-    onCancelFilters: (List<EntityRef>) -> Unit = {},
+    onFiltersSubmit: (Set<EntityRef>) -> Unit = {},
+    onFiltersCancel: () -> Unit = {},
 ) {
     when (state) {
         is SpellsUiState.Loading -> LoadingIndicator()
@@ -37,8 +37,8 @@ fun SpellsScreen(
             onFiltersClick = onFiltersClick,
             onFavoriteClick = onFavoriteClick,
             onSpellClick = onSpellClick,
-            onSubmitFilters = onSubmitFilters,
-            onCancelFilters = onCancelFilters,
+            onFiltersSubmit = onFiltersSubmit,
+            onFiltersCancel = onFiltersCancel,
         )
 
         is SpellsUiState.Failure -> ErrorMessage(state.errorMessage)
@@ -52,8 +52,8 @@ private fun SpellSearchContent(
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (Spell) -> Unit,
-    onSubmitFilters: (List<EntityRef>) -> Unit,
-    onCancelFilters: (List<EntityRef>) -> Unit,
+    onFiltersSubmit: (Set<EntityRef>) -> Unit,
+    onFiltersCancel: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -79,8 +79,8 @@ private fun SpellSearchContent(
         showFilterDialog = state.showFilterDialog,
         castingClasses = state.castingClasses,
         currentClasses = state.currentClasses,
-        onSubmit = onSubmitFilters,
-        onCancel = onCancelFilters,
+        onSubmit = onFiltersSubmit,
+        onCancel = onFiltersCancel,
     )
 }
 
@@ -111,7 +111,7 @@ private fun SpellSearchScreenPreview() {
                 ),
                 showFavoriteOnly = false,
                 showFilterDialog = false,
-                currentClasses = emptyList(),
+                currentClasses = emptySet(),
             ),
         )
     }

@@ -42,16 +42,16 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 fun SearchFilterDialog(
     showFilterDialog: Boolean,
     castingClasses: List<EntityRef>,
-    currentClasses: List<EntityRef>,
-    onSubmit: (List<EntityRef>) -> Unit = { _ -> },
-    onCancel: (List<EntityRef>) -> Unit = { _ -> },
+    currentClasses: Set<EntityRef>,
+    onSubmit: (Set<EntityRef>) -> Unit = {},
+    onCancel: () -> Unit = {},
 ) {
     var classesExpanded by remember { mutableStateOf(false) }
     var selectedClasses by remember { mutableStateOf(currentClasses) }
 
     if (showFilterDialog) {
         AlertDialog(
-            onDismissRequest = { onCancel(currentClasses) },
+            onDismissRequest = {},
             title = { Text("Filters") },
             text = {
                 Column {
@@ -124,13 +124,13 @@ fun SearchFilterDialog(
             confirmButton = {
                 Row {
                     OutlinedButton(
-                        onClick = { onCancel(emptyList()) },
+                        onClick = { onCancel() },
                     ) {
                         Text("Clear")
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
-                        onClick = { onSubmit(selectedClasses) },
+                        onClick = { onSubmit(selectedClasses.toSet()) },
                     ) {
                         Text("Apply")
                     }
@@ -150,7 +150,7 @@ private fun SearchFilterDialogPreview() {
                 EntityRef(id = "wizard"),
                 EntityRef(id = "sorcerer"),
             ),
-            currentClasses = listOf(
+            currentClasses = setOf(
                 EntityRef(id = "wizard"),
             ),
         )

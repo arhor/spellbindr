@@ -17,10 +17,10 @@ import javax.inject.Singleton
 class FavoritesRepositoryImpl @Inject constructor(
     @FavoritesDataStore private val dataStore: DataStore<Preferences>,
 ) : FavoritesRepository {
-    override fun observeFavoriteIds(type: FavoriteType): Flow<List<String>> =
-        dataStore.data.map { preferences ->
-            preferences[favoritesKey(type)]?.toList().orEmpty()
-        }
+    override fun observeFavoriteIds(type: FavoriteType): Flow<Set<String>> =
+        dataStore.data
+            .map { it[favoritesKey(type)] }
+            .map { it.orEmpty() }
 
     override suspend fun toggleFavorite(type: FavoriteType, entityId: String) {
         dataStore.edit { preferences ->

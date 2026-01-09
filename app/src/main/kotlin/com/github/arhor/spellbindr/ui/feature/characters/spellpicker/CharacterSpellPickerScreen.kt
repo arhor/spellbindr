@@ -68,8 +68,8 @@ private fun CharacterSpellPickerScreen(
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (String) -> Unit,
-    onSubmitFilters: (List<EntityRef>) -> Unit,
-    onCancelFilters: (List<EntityRef>) -> Unit,
+    onSubmitFilters: (Set<EntityRef>) -> Unit,
+    onCancelFilters: () -> Unit,
 ) {
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -125,8 +125,8 @@ private fun CharacterSpellPickerContent(
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (String) -> Unit,
-    onSubmitFilters: (List<EntityRef>) -> Unit,
-    onCancelFilters: (List<EntityRef>) -> Unit,
+    onSubmitFilters: (Set<EntityRef>) -> Unit,
+    onCancelFilters: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -164,8 +164,8 @@ private fun CharacterSpellPickerContent(
                 onFiltersClick = onFiltersClick,
                 onFavoriteClick = onFavoriteClick,
                 onSpellClick = { onSpellClick(it.id) },
-                onSubmitFilters = onSubmitFilters,
-                onCancelFilters = onCancelFilters,
+                onFiltersSubmit = onSubmitFilters,
+                onFiltersCancel = onCancelFilters,
             )
         }
     }

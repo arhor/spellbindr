@@ -32,8 +32,8 @@ fun SpellsRoute(
             onFiltersClick = vm::onFiltersClick,
             onFavoriteClick = vm::onFavoritesToggled,
             onSpellClick = onSpellSelected,
-            onSubmitFilters = vm::onFiltersSubmitted,
-            onCancelFilters = vm::onFiltersCanceled,
+            onFiltersSubmit = vm::onFiltersSubmit,
+            onFiltersCancel = vm::onFiltersCancel,
         )
     }
 }

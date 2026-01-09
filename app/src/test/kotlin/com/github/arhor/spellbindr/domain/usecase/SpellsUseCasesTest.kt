@@ -44,7 +44,7 @@ class SpellsUseCasesTest {
         repository.allSpellsState.value = state
 
         // When
-        val result = ObserveAllSpellsStateUseCase(repository)().first()
+        val result = ObserveSpellsUseCase(repository)().first()
 
         // Then
         assertThat(result).isEqualTo(state)

@@ -7,7 +7,9 @@ import com.github.arhor.spellbindr.utils.filterNotNullBy
 import com.github.arhor.spellbindr.utils.mapWhenReady
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ObserveSpellcastingClassesUseCase @Inject constructor(
     private val characterClassRepository: CharacterClassRepository,
 ) {

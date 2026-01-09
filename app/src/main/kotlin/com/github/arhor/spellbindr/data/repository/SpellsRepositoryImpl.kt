@@ -20,7 +20,7 @@ class SpellsRepositoryImpl @Inject constructor(
     override val allSpellsState: Flow<Loadable<List<Spell>>>
         get() = allSpellsDataStore.data
 
-    override val favoriteSpellIds: Flow<List<String>>
+    override val favoriteSpellIds: Flow<Set<String>>
         get() = favoritesRepository.observeFavoriteIds(FavoriteType.SPELL)
 
     override suspend fun getSpellById(id: String): Spell? =

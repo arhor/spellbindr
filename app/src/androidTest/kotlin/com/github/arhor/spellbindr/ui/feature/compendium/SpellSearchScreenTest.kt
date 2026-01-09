@@ -61,8 +61,8 @@ class SpellSearchScreenTest {
                     onGroupToggle = {},
                     onToggleAllGroups = {},
                     onSpellClick = {},
-                    onSubmitFilters = {},
-                    onCancelFilters = {},
+                    onFiltersSubmit = {},
+                    onFiltersCancel = {},
                 )
             }
         }

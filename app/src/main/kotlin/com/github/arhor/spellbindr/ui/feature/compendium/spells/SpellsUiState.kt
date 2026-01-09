@@ -15,7 +15,7 @@ sealed interface SpellsUiState {
         val showFavoriteOnly: Boolean,
         val showFilterDialog: Boolean,
         val castingClasses: List<EntityRef>,
-        val currentClasses: List<EntityRef>,
+        val currentClasses: Set<EntityRef>,
     ) : SpellsUiState
 
     @Immutable
