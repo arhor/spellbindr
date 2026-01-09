@@ -31,8 +31,6 @@ fun SpellsRoute(
             onQueryChanged = vm::onQueryChanged,
             onFiltersClick = vm::onFiltersClick,
             onFavoriteClick = vm::onFavoritesToggled,
-            onGroupToggle = vm::onGroupToggled,
-            onToggleAllGroups = vm::onToggleAllGroups,
             onSpellClick = onSpellSelected,
             onSubmitFilters = vm::onFiltersSubmitted,
             onCancelFilters = vm::onFiltersCanceled,

@@ -13,7 +13,6 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveFavoriteSpellIdsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SearchAndGroupSpellsUseCase
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellListState
 import com.github.arhor.spellbindr.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -46,16 +45,13 @@ class CharacterSpellPickerViewModel @Inject constructor(
 
     @Immutable
     data class SpellsState(
-        override val query: String = "",
-        override val showFavorite: Boolean = false,
-        override val showFilterDialog: Boolean = false,
-        override val castingClasses: List<EntityRef> = emptyList(),
-        override val currentClasses: List<EntityRef> = emptyList(),
-        override val uiState: SpellsUiState = SpellsUiState.Loading,
-        override val spellsByLevel: Map<Int, List<Spell>> = emptyMap(),
-        override val expandedSpellLevels: Map<Int, Boolean> = emptyMap(),
-        override val expandedAll: Boolean = true,
-    ) : SpellListState
+        val query: String = "",
+        val showFavoriteOnly: Boolean = false,
+        val showFilterDialog: Boolean = false,
+        val castingClasses: List<EntityRef> = emptyList(),
+        val currentClasses: List<EntityRef> = emptyList(),
+        val uiState: SpellsUiState = SpellsUiState.Loading,
+    )
 
     @Immutable
     sealed interface CharacterSpellPickerUiState {
@@ -75,12 +71,11 @@ class CharacterSpellPickerViewModel @Inject constructor(
 
     private val characterId: String? = savedStateHandle.get<String>("characterId")
     private val isLoadingState = MutableStateFlow(characterId != null)
-    private val errorMessageState = MutableStateFlow<String?>(if (characterId == null) "Missing character id" else null)
+    private val errorMessageState = MutableStateFlow(if (characterId == null) "Missing character id" else null)
     private val sourceClassState = MutableStateFlow("")
     private val defaultSourceClassState = MutableStateFlow("")
     private val castingClassesState = MutableStateFlow<List<EntityRef>>(emptyList())
     private val spellFiltersState = MutableStateFlow(SpellFilters())
-    private val spellExpansionState = MutableStateFlow(SpellExpansionState())
     private val _spellAssignments = MutableSharedFlow<CharacterSpellAssignment>()
     val spellAssignments = _spellAssignments.asSharedFlow()
 
@@ -109,41 +104,31 @@ class CharacterSpellPickerViewModel @Inject constructor(
                     SpellsUiState.Content(
                         query = data.query,
                         spells = result.spells,
-                        spellsByLevel = result.spellsByLevel,
+                        showFavoriteOnly = false,
+                        showFilterDialog = false,
+                        castingClasses = emptyList(),
+                        currentClasses = emptyList(),
                     )
                 )
             }.onFailure { throwable ->
                 logger.error(throwable) { "Failed to load spells." }
-                emit(SpellsUiState.Error("Oops, something went wrong..."))
+                emit(SpellsUiState.Failure("Oops, something went wrong..."))
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
     private val spellsState = combine(
         spellFiltersState,
-        spellExpansionState,
         castingClassesState,
         spellsUiState,
-    ) { filters, expansionState, castingClasses, uiState ->
-        val spellsByLevel = when (uiState) {
-            is SpellsUiState.Content -> uiState.spellsByLevel
-            else -> emptyMap()
-        }
-        val expandedSpellLevels = when (uiState) {
-            is SpellsUiState.Content -> expandedLevels(uiState.spellsByLevel.keys, expansionState)
-
-            else -> emptyMap()
-        }
+    ) { filters, castingClasses, uiState ->
         SpellsState(
             query = filters.query,
-            showFavorite = filters.showFavorite,
+            showFavoriteOnly = filters.showFavorite,
             showFilterDialog = filters.showFilterDialog,
             castingClasses = castingClasses,
             currentClasses = filters.currentClasses,
             uiState = uiState,
-            spellsByLevel = spellsByLevel,
-            expandedSpellLevels = expandedSpellLevels,
-            expandedAll = expansionState.expandedAll,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsState())
 
@@ -195,26 +180,6 @@ class CharacterSpellPickerViewModel @Inject constructor(
 
     fun onFavoritesClick() {
         spellFiltersState.update { filters -> filters.copy(showFavorite = !filters.showFavorite) }
-    }
-
-    fun onSpellGroupToggled(level: Int) {
-        val levels = (spellsUiState.value as? SpellsUiState.Content)?.spellsByLevel?.keys ?: emptySet()
-        val currentExpandedLevels = expandedLevels(levels, spellExpansionState.value)
-        val currentExpanded = currentExpandedLevels[level] ?: spellExpansionState.value.expandedAll
-        spellExpansionState.update { state ->
-            state.copy(expandedLevels = state.expandedLevels + (level to !currentExpanded))
-        }
-    }
-
-    fun onToggleAllSpellGroups() {
-        val levels = (spellsUiState.value as? SpellsUiState.Content)?.spellsByLevel?.keys ?: emptySet()
-        spellExpansionState.update { state ->
-            val nextExpandedAll = !state.expandedAll
-            state.copy(
-                expandedAll = nextExpandedAll,
-                expandedLevels = levels.associateWith { nextExpandedAll },
-            )
-        }
     }
 
     fun onSubmitFilters(classes: List<EntityRef>) {
@@ -299,16 +264,4 @@ class CharacterSpellPickerViewModel @Inject constructor(
         val showFilterDialog: Boolean = false,
         val currentClasses: List<EntityRef> = emptyList(),
     )
-
-    private data class SpellExpansionState(
-        val expandedAll: Boolean = true,
-        val expandedLevels: Map<Int, Boolean> = emptyMap(),
-    )
-
-    private fun expandedLevels(
-        levels: Set<Int>,
-        state: SpellExpansionState,
-    ): Map<Int, Boolean> = levels.associateWith { level ->
-        state.expandedLevels[level] ?: state.expandedAll
-    }
 }

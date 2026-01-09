@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.arhor.spellbindr.ui.feature.characters.spellpicker
 
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -31,7 +28,7 @@ import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.CharacterSpellPickerUiState
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerViewModel.SpellsState
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsScreen
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsViewModel
+import com.github.arhor.spellbindr.ui.feature.compendium.spells.SpellsUiState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import kotlinx.coroutines.flow.collectLatest
 
@@ -56,8 +53,6 @@ fun CharacterSpellPickerRoute(
         onQueryChanged = vm::onQueryChanged,
         onFiltersClick = vm::onFiltersClick,
         onFavoriteClick = vm::onFavoritesClick,
-        onGroupToggle = vm::onSpellGroupToggled,
-        onToggleAllGroups = vm::onToggleAllSpellGroups,
         onSpellClick = vm::onSpellSelected,
         onSubmitFilters = vm::onSubmitFilters,
         onCancelFilters = vm::onCancelFilters,
@@ -72,8 +67,6 @@ private fun CharacterSpellPickerScreen(
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
-    onGroupToggle: (Int) -> Unit,
-    onToggleAllGroups: () -> Unit,
     onSpellClick: (String) -> Unit,
     onSubmitFilters: (List<EntityRef>) -> Unit,
     onCancelFilters: (List<EntityRef>) -> Unit,
@@ -115,8 +108,6 @@ private fun CharacterSpellPickerScreen(
                     onQueryChanged = onQueryChanged,
                     onFiltersClick = onFiltersClick,
                     onFavoriteClick = onFavoriteClick,
-                    onGroupToggle = onGroupToggle,
-                    onToggleAllGroups = onToggleAllGroups,
                     onSpellClick = onSpellClick,
                     onSubmitFilters = onSubmitFilters,
                     onCancelFilters = onCancelFilters,
@@ -133,8 +124,6 @@ private fun CharacterSpellPickerContent(
     onQueryChanged: (String) -> Unit,
     onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
-    onGroupToggle: (Int) -> Unit,
-    onToggleAllGroups: () -> Unit,
     onSpellClick: (String) -> Unit,
     onSubmitFilters: (List<EntityRef>) -> Unit,
     onCancelFilters: (List<EntityRef>) -> Unit,
@@ -162,26 +151,19 @@ private fun CharacterSpellPickerContent(
         Box(modifier = Modifier.weight(1f)) {
             SpellsScreen(
                 state = state.spellsState.let {
-                    SpellsViewModel.State(
+                    SpellsUiState.Content(
                         query = it.query,
-                        showFavorite = it.showFavorite,
+                        showFavoriteOnly = it.showFavoriteOnly,
                         showFilterDialog = it.showFilterDialog,
                         castingClasses = it.castingClasses,
                         currentClasses = it.currentClasses,
-                        uiState = it.uiState,
-                        spellsByLevel = it.spellsByLevel,
-                        expandedSpellLevels = it.expandedSpellLevels,
-                        expandedAll = it.expandedAll,
+                        spells = emptyList(),
                     )
                 },
                 onQueryChanged = onQueryChanged,
                 onFiltersClick = onFiltersClick,
                 onFavoriteClick = onFavoriteClick,
-                onGroupToggle = onGroupToggle,
-                onToggleAllGroups = onToggleAllGroups,
-                onSpellClick = { spell ->
-                    onSpellClick(spell.id)
-                },
+                onSpellClick = { onSpellClick(it.id) },
                 onSubmitFilters = onSubmitFilters,
                 onCancelFilters = onCancelFilters,
             )
@@ -204,8 +186,6 @@ private fun CharacterSpellPickerPreview() {
             onQueryChanged = {},
             onFiltersClick = {},
             onFavoriteClick = {},
-            onGroupToggle = {},
-            onToggleAllGroups = {},
             onSpellClick = {},
             onSubmitFilters = {},
             onCancelFilters = {},

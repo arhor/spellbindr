@@ -34,7 +34,6 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
 
         return SearchAndGroupSpellsResult(
             spells = filteredSpells,
-            spellsByLevel = filteredSpells.groupBy(Spell::level).toSortedMap(),
             totalCount = filteredSpells.size,
             query = normalizedQuery,
             classes = classes,

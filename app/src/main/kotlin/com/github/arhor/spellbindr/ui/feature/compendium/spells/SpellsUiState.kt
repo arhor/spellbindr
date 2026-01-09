@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
 import androidx.compose.runtime.Immutable
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 
 sealed interface SpellsUiState {
@@ -11,11 +12,14 @@ sealed interface SpellsUiState {
     data class Content(
         val query: String,
         val spells: List<Spell>,
-        val spellsByLevel: Map<Int, List<Spell>>,
+        val showFavoriteOnly: Boolean,
+        val showFilterDialog: Boolean,
+        val castingClasses: List<EntityRef>,
+        val currentClasses: List<EntityRef>,
     ) : SpellsUiState
 
     @Immutable
-    data class Error(
+    data class Failure(
         val errorMessage: String,
     ) : SpellsUiState
 }
