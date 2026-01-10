@@ -15,7 +15,7 @@ interface CharacterRepository {
     /**
      * Observes all saved character sheets. Emits updates whenever the list changes.
      */
-    fun observeCharacterSheets(): Flow<List<CharacterSheet>>
+    fun observeCharacterSheets(): Flow<Loadable<List<CharacterSheet>>>
 
     /**
      * Observes a specific character sheet by [id]. Emits null if not found.

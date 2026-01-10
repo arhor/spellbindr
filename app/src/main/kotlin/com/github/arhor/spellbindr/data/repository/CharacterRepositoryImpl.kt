@@ -11,11 +11,10 @@ import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
+import com.github.arhor.spellbindr.utils.asLoadableFlow
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,15 +31,10 @@ class CharacterRepositoryImpl @Inject constructor(
     private val characterDao: CharacterDao
 ) : CharacterRepository {
 
-    /**
-     * Observes all characters, converting the persisted snapshots back into [CharacterSheet] objects.
-     */
-    override fun observeCharacterSheets(): Flow<List<CharacterSheet>> =
-        characterDao.getAllCharacters().map { entities ->
-            entities.mapNotNull { entity ->
-                entity.manualSheet?.toDomain(entity.id)
-            }
-        }
+    override fun observeCharacterSheets(): Flow<Loadable<List<CharacterSheet>>> =
+        characterDao.getAllCharacters()
+            .map { it.mapNotNull(::entityToCharacterSheet) }
+            .asLoadableFlow()
 
     override fun observeCharacterSheet(id: String): Flow<CharacterSheet?> =
         characterDao.getCharacterById(id).map {
@@ -49,10 +43,8 @@ class CharacterRepositoryImpl @Inject constructor(
 
     override fun observeCharacterSheetState(id: String): Flow<Loadable<CharacterSheet?>> =
         characterDao.getCharacterById(id)
-            .map { it?.manualSheet?.toDomain(it.id) }
-            .map<CharacterSheet?, Loadable<CharacterSheet?>> { Loadable.Success(it) }
-            .onStart { emit(Loadable.Loading) }
-            .catch { emit(Loadable.Failure(cause = it)) }
+            .map(::entityToCharacterSheet)
+            .asLoadableFlow()
 
     /**
      * Saves a character sheet.
@@ -91,6 +83,9 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun deleteCharacter(id: String) {
         characterDao.deleteCharacter(id)
     }
+
+    private fun entityToCharacterSheet(entity: CharacterEntity?): CharacterSheet? =
+        entity?.manualSheet?.toDomain(entity.id)
 
     private fun String.asEntityRef(prefix: String, id: String): EntityRef =
         EntityRef(this.takeIf { it.isNotBlank() } ?: "${prefix}_$id")

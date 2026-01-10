@@ -25,7 +25,7 @@ class SpellsRepositoryImpl @Inject constructor(
 
     override suspend fun getSpellById(id: String): Spell? =
         when (val state = allSpellsDataStore.data.first { it !is Loadable.Loading }) {
-            is Loadable.Success -> state.data.firstOrNull { it.id == id }
+            is Loadable.Content -> state.data.firstOrNull { it.id == id }
             is Loadable.Failure -> null
             is Loadable.Loading -> null
         }

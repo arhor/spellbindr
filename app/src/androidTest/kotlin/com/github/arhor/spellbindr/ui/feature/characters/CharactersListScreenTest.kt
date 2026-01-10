@@ -5,9 +5,9 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListScreen
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListUiState
+import com.github.arhor.spellbindr.ui.feature.characters.list.model.CharacterListItem
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Rule
 import org.junit.Test

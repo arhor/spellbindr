@@ -57,7 +57,7 @@ class CharacterSpellPickerViewModel @Inject constructor(
         observeCharacterSheet(savedStateHandle.toRoute<AppDestination.CharacterSpellPicker>().characterId)
     ) { state, spellsState, characterSheetState ->
         when {
-            spellsState is Loadable.Success && characterSheetState is Loadable.Success ->
+            spellsState is Loadable.Content && characterSheetState is Loadable.Content ->
                 CharacterSpellPickerUiState.Content(
                     query = state.query,
                     spells = spellsState.data,

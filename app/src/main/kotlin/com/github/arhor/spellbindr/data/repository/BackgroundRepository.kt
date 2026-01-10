@@ -19,7 +19,7 @@ class BackgroundRepository @Inject constructor(
 
     suspend fun findBackgroundById(id: String): Background? =
         when (val state = backgroundsDataStore.data.first { it !is Loadable.Loading }) {
-            is Loadable.Success -> state.data.find { it.id == id }
+            is Loadable.Content -> state.data.find { it.id == id }
             is Loadable.Failure -> null
             is Loadable.Loading -> null
         }

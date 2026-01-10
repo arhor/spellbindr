@@ -53,7 +53,7 @@ class SpellsViewModel @Inject constructor(
         observeSpellcastingClasses(),
     ) { state, spells, classes ->
         when {
-            spells is Loadable.Success && classes is Loadable.Success ->
+            spells is Loadable.Content && classes is Loadable.Content ->
                 SpellsUiState.Content(
                     query = state.query,
                     spells = spells.data,

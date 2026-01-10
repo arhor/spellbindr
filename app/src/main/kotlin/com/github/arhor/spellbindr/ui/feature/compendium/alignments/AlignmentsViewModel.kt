@@ -36,7 +36,7 @@ class AlignmentsViewModel @Inject constructor(
                 AlignmentsUiState.Loading
             }
 
-            is Loadable.Success -> {
+            is Loadable.Content -> {
                 AlignmentsUiState.Content(alignments.data, state.selectedItemId)
             }
 

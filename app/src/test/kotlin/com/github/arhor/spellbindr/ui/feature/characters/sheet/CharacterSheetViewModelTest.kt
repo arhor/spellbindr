@@ -171,7 +171,7 @@ private class FakeEquipmentRepository(
     initialEquipment: List<Equipment>,
 ) : EquipmentRepository {
     override val allEquipmentState: Flow<Loadable<List<Equipment>>> =
-        MutableStateFlow(Loadable.Success(initialEquipment))
+        MutableStateFlow(Loadable.Content(initialEquipment))
 
     override suspend fun findEquipmentById(id: String): Equipment? = null
 }

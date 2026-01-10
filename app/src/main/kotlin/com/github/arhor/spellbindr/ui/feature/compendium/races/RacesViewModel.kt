@@ -36,7 +36,7 @@ class RacesViewModel @Inject constructor(
         observeTraits(),
     ) { state, races, traits ->
         when {
-            races is Loadable.Success && traits is Loadable.Success -> {
+            races is Loadable.Content && traits is Loadable.Content -> {
                 RacesUiState.Content(
                     races = races.data,
                     traits = traits.data.associateBy(Trait::id),

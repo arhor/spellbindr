@@ -20,7 +20,7 @@ class CharacterClassRepositoryImpl @Inject constructor(
 
     override suspend fun findSpellcastingClassesRefs(): List<EntityRef> =
         when (val state = characterClassesDataStore.data.first { it !is Loadable.Loading }) {
-            is Loadable.Success -> state.data
+            is Loadable.Content -> state.data
                 .filter { it.spellcasting != null }
                 .map { EntityRef(it.id) }
 

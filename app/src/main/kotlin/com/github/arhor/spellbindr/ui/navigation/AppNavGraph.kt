@@ -12,9 +12,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.ui.feature.characters.editor.CharacterEditorRoute
 import com.github.arhor.spellbindr.ui.feature.characters.guided.GuidedCharacterSetupRoute
-import com.github.arhor.spellbindr.ui.feature.characters.list.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.characters.list.CharactersListRoute
-import com.github.arhor.spellbindr.ui.feature.characters.list.CreateCharacterMode
+import com.github.arhor.spellbindr.ui.feature.characters.list.model.CharacterListItem
+import com.github.arhor.spellbindr.ui.feature.characters.list.model.CreateCharacterMode
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.characters.spellpicker.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute

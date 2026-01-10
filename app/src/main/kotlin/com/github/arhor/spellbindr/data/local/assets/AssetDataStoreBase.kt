@@ -35,7 +35,7 @@ abstract class AssetDataStoreBase<T>(
     override suspend fun initialize() {
         logger.info { "Trying to load static asset: $path" }
         mutex.withLock {
-            if (asset.value is Loadable.Success) {
+            if (asset.value is Loadable.Content) {
                 logger.info { "Static asset [$path] is already loaded" }
                 return
             }
@@ -52,7 +52,7 @@ abstract class AssetDataStoreBase<T>(
                 }
             }
             result.onSuccess {
-                asset.value = Loadable.Success(it)
+                asset.value = Loadable.Content(it)
                 logger.info { "Static asset [$path] is successfully loaded" }
             }.onFailure { error ->
                 asset.value = Loadable.Failure(cause = error)

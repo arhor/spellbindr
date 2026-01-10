@@ -41,7 +41,7 @@ class SpellDetailsViewModel @Inject constructor(
                         SpellDetailsUiState.Loading
                     }
 
-                    is Loadable.Success -> {
+                    is Loadable.Content -> {
                         SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
                     }
 

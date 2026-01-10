@@ -36,7 +36,7 @@ class ConditionsViewModel @Inject constructor(
                 ConditionsUiState.Loading
             }
 
-            is Loadable.Success -> {
+            is Loadable.Content -> {
                 ConditionsUiState.Content(conditions.data, state.selectedItemId)
             }
 

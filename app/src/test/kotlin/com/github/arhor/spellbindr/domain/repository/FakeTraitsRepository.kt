@@ -8,6 +8,6 @@ class FakeTraitsRepository(
     initialTraits: List<Trait> = emptyList(),
 ) : TraitsRepository {
     override val allTraitsState = MutableStateFlow<Loadable<List<Trait>>>(
-        Loadable.Success(initialTraits)
+        Loadable.Content(initialTraits)
     )
 }
