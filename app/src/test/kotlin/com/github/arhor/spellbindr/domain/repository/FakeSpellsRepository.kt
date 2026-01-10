@@ -10,14 +10,14 @@ class FakeSpellsRepository(
     initialFavoriteIds: List<String> = emptyList(),
 ) : SpellsRepository {
     override val allSpellsState = MutableStateFlow<Loadable<List<Spell>>>(
-        Loadable.Ready(initialSpells)
+        Loadable.Success(initialSpells)
     )
     val favoriteSpellIdsState = MutableStateFlow(initialFavoriteIds)
 
     override val favoriteSpellIds: Flow<List<String>> = favoriteSpellIdsState
 
     override suspend fun getSpellById(id: String): Spell? =
-        (allSpellsState.value as? Loadable.Ready)
+        (allSpellsState.value as? Loadable.Success)
             ?.data
             ?.firstOrNull { it.id == id }
 

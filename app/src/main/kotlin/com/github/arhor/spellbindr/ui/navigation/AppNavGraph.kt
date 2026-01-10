@@ -99,9 +99,8 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
             onBack = controller::navigateUp,
         )
     }
-    composable<AppDestination.CharacterSpellPicker> { navEntry ->
+    composable<AppDestination.CharacterSpellPicker> {
         CharacterSpellPickerRoute(
-            vm = hiltViewModel(navEntry),
             onBack = controller::navigateUp,
             onSpellSelected = {
                 controller.previousBackStackEntry?.savedStateHandle?.set(

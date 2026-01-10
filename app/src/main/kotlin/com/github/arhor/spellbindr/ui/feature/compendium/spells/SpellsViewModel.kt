@@ -53,7 +53,7 @@ class SpellsViewModel @Inject constructor(
         observeSpellcastingClasses(),
     ) { state, spells, classes ->
         when {
-            spells is Loadable.Ready && classes is Loadable.Ready ->
+            spells is Loadable.Success && classes is Loadable.Success ->
                 SpellsUiState.Content(
                     query = state.query,
                     spells = spells.data,
@@ -63,10 +63,10 @@ class SpellsViewModel @Inject constructor(
                     currentClasses = state.characterClasses,
                 )
 
-            spells is Loadable.Error ->
+            spells is Loadable.Failure ->
                 SpellsUiState.Failure("Failed to load spells.")
 
-            classes is Loadable.Error ->
+            classes is Loadable.Failure ->
                 SpellsUiState.Failure("Failed to load spellcasting classes.")
 
             else ->

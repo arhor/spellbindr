@@ -36,11 +36,11 @@ class AlignmentsViewModel @Inject constructor(
                 AlignmentsUiState.Loading
             }
 
-            is Loadable.Ready -> {
+            is Loadable.Success -> {
                 AlignmentsUiState.Content(alignments.data, state.selectedItemId)
             }
 
-            is Loadable.Error -> {
+            is Loadable.Failure -> {
                 AlignmentsUiState.Error(alignments.errorMessage ?: "Failed to load alignments")
             }
         }

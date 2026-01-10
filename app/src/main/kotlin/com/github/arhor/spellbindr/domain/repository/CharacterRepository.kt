@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.domain.repository
 
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.Loadable
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -20,6 +21,11 @@ interface CharacterRepository {
      * Observes a specific character sheet by [id]. Emits null if not found.
      */
     fun observeCharacterSheet(id: String): Flow<CharacterSheet?>
+
+    /**
+     * Observes a specific character sheet state by [id]. Emits null if not found.
+     */
+    fun observeCharacterSheetState(id: String): Flow<Loadable<CharacterSheet?>>
 
     /**
      * Inserts or updates a character sheet.

@@ -36,11 +36,11 @@ class ConditionsViewModel @Inject constructor(
                 ConditionsUiState.Loading
             }
 
-            is Loadable.Ready -> {
+            is Loadable.Success -> {
                 ConditionsUiState.Content(conditions.data, state.selectedItemId)
             }
 
-            is Loadable.Error -> {
+            is Loadable.Failure -> {
                 ConditionsUiState.Error(conditions.errorMessage ?: "Failed to load conditions")
             }
         }

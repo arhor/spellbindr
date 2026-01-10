@@ -34,11 +34,11 @@ class ObserveSpellDetailsUseCase @Inject constructor(
         emit(
             value = try {
                 when (val spell = spellsRepository.getSpellById(spellId)) {
-                    null -> Loadable.Error("Spell not found.")
-                    else -> Loadable.Ready(spell)
+                    null -> Loadable.Failure("Spell not found.")
+                    else -> Loadable.Success(spell)
                 }
             } catch (e: Exception) {
-                Loadable.Error("Oops, something went wrong...", e)
+                Loadable.Failure("Oops, something went wrong...", e)
             }
         )
     }

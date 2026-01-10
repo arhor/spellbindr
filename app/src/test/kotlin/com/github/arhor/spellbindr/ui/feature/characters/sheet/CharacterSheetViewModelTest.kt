@@ -3,12 +3,12 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.Cost
 import com.github.arhor.spellbindr.domain.model.Damage
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
-import com.github.arhor.spellbindr.domain.model.Cost
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.repository.EquipmentRepository
@@ -23,7 +23,6 @@ import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
 import com.google.common.truth.Truth.assertThat
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
@@ -172,7 +171,7 @@ private class FakeEquipmentRepository(
     initialEquipment: List<Equipment>,
 ) : EquipmentRepository {
     override val allEquipmentState: Flow<Loadable<List<Equipment>>> =
-        MutableStateFlow(Loadable.Ready(initialEquipment))
+        MutableStateFlow(Loadable.Success(initialEquipment))
 
     override suspend fun findEquipmentById(id: String): Equipment? = null
 }

@@ -70,13 +70,13 @@ fun CharacterSheetRoute(
 
     LaunchedEffect(savedStateHandle) {
         savedStateHandle
-            .getStateFlow<List<CharacterSpellAssignment>?>(
+            .getStateFlow<CharacterSpellAssignment?>(
                 CHARACTER_SPELL_SELECTION_RESULT_KEY,
                 null,
             )
-            .collectLatest { assignments ->
-                if (!assignments.isNullOrEmpty()) {
-                    vm.addSpells(assignments)
+            .collectLatest { assignment ->
+                if (assignment != null) {
+                    vm.addSpells(listOf(assignment))
                     savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
                 }
             }
@@ -201,7 +201,7 @@ fun CharacterSheetRoute(
 
 /**
  * Pure UI composable for the character sheet.
- * Renders Loading, Error, or Content states.
+ * Renders Loading, Failure, or Content states.
  */
 @Composable
 private fun CharacterSheetScreen(

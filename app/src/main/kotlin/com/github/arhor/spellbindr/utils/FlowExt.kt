@@ -9,11 +9,11 @@ inline fun <T, R> Flow<Loadable<T>>.mapWhenReady(
 ): Flow<Loadable<R>> {
     return map {
         when (it) {
-            is Loadable.Ready -> {
-                Loadable.Ready(transform(it.data))
+            is Loadable.Success -> {
+                Loadable.Success(transform(it.data))
             }
 
-            is Loadable.Loading, is Loadable.Error -> {
+            is Loadable.Loading, is Loadable.Failure -> {
                 it
             }
         }

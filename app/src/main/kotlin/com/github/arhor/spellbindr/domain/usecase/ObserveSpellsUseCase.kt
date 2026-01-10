@@ -54,7 +54,7 @@ class ObserveSpellsUseCase @Inject constructor(
 
                 data.filter { it.matches(normalizedQuery, characterClasses, favoritesFilter) }
             }
-        }.catch { emit(Loadable.Error(errorMessage = "Failed to load spells", cause = it)) }
+        }.catch { emit(Loadable.Failure(errorMessage = "Failed to load spells", cause = it)) }
     }
 
     private fun Spell.matches(

@@ -36,7 +36,7 @@ class RacesViewModel @Inject constructor(
         observeTraits(),
     ) { state, races, traits ->
         when {
-            races is Loadable.Ready && traits is Loadable.Ready -> {
+            races is Loadable.Success && traits is Loadable.Success -> {
                 RacesUiState.Content(
                     races = races.data,
                     traits = traits.data.associateBy(Trait::id),
@@ -44,11 +44,11 @@ class RacesViewModel @Inject constructor(
                 )
             }
 
-            races is Loadable.Error -> {
+            races is Loadable.Failure -> {
                 RacesUiState.Error(races.errorMessage ?: "Failed to load races")
             }
 
-            traits is Loadable.Error -> {
+            traits is Loadable.Failure -> {
                 RacesUiState.Error(traits.errorMessage ?: "Failed to load traits")
             }
 

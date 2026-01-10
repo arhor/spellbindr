@@ -8,11 +8,11 @@ class FakeRacesRepository(
     initialRaces: List<Race> = emptyList(),
 ) : RacesRepository {
     override val allRacesState = MutableStateFlow<Loadable<List<Race>>>(
-        Loadable.Ready(initialRaces)
+        Loadable.Success(initialRaces)
     )
 
     override suspend fun findRaceById(id: String): Race? =
-        (allRacesState.value as? Loadable.Ready)
+        (allRacesState.value as? Loadable.Success)
             ?.data
             ?.firstOrNull { it.id == id }
 }

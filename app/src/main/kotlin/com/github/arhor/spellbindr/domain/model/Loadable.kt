@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.domain.model
 /**
  * Represents the lifecycle state of a generic asset within the application.
  *
- * @param T the type of the asset data held when the state is [Ready]
+ * @param T the type of the asset data held when the state is [Success]
  */
 sealed class Loadable<out T> {
     /**
@@ -17,7 +17,7 @@ sealed class Loadable<out T> {
      * @param T the type of the loaded asset data.
      * @property data the actual content of the loaded asset.
      */
-    data class Ready<T>(val data: T) : Loadable<T>()
+    data class Success<T>(val data: T) : Loadable<T>()
 
     /**
      * Represents the state when an asset loading or processing has failed.
@@ -25,11 +25,11 @@ sealed class Loadable<out T> {
      * @property errorMessage a human-readable description of the failure.
      * @property cause the exception or error that caused the failure.
      */
-    data class Error(val errorMessage: String? = null, val cause: Throwable? = null) : Loadable<Nothing>()
+    data class Failure(val errorMessage: String? = null, val cause: Throwable? = null) : Loadable<Nothing>()
 }
 
 inline fun <T, R> Loadable<T>.map(transform: (T) -> R): Loadable<R> =
     when (this) {
-        is Loadable.Loading, is Loadable.Error -> this
-        is Loadable.Ready -> Loadable.Ready(transform(data))
+        is Loadable.Loading, is Loadable.Failure -> this
+        is Loadable.Success -> Loadable.Success(transform(data))
     }

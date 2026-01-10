@@ -15,7 +15,7 @@ class RacesRepositoryImplTest {
 
     @Test
     fun `findRaceById should return null when asset load fails`() = runTest {
-        val stateFlow = MutableStateFlow<Loadable<List<Race>>>(Loadable.Error(cause = IllegalStateException("Boom")))
+        val stateFlow = MutableStateFlow<Loadable<List<Race>>>(Loadable.Failure(cause = IllegalStateException("Boom")))
         val dataStore = mockk<CharacterRaceAssetDataStore> {
             every { data } returns stateFlow
         }

@@ -41,11 +41,11 @@ class SpellDetailsViewModel @Inject constructor(
                         SpellDetailsUiState.Loading
                     }
 
-                    is Loadable.Ready -> {
+                    is Loadable.Success -> {
                         SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
                     }
 
-                    is Loadable.Error -> {
+                    is Loadable.Failure -> {
                         SpellDetailsUiState.Error(it.errorMessage ?: "Could not load spell.")
                     }
                 }

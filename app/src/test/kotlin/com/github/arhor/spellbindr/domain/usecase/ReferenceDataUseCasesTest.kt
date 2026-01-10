@@ -27,25 +27,25 @@ class ReferenceDataUseCasesTest {
             traits = listOf(EntityRef("keen-senses")),
             subraces = emptyList(),
         )
-        racesRepository.allRacesState.value = Loadable.Ready(listOf(race))
+        racesRepository.allRacesState.value = Loadable.Success(listOf(race))
 
         // When
         val result = ObserveAllRacesUseCase(racesRepository)().first()
 
         // Then
-        assertThat(result).isEqualTo(Loadable.Ready(listOf(race)))
+        assertThat(result).isEqualTo(Loadable.Success(listOf(race)))
     }
 
     @Test
     fun `ObserveTraitsUseCase should emit latest traits when repository updates`() = runTest {
         // Given
         val trait = Trait(id = "darkvision", name = "Darkvision", desc = listOf("See in the dark."))
-        traitsRepository.allTraitsState.value = Loadable.Ready(listOf(trait))
+        traitsRepository.allTraitsState.value = Loadable.Success(listOf(trait))
 
         // When
         val result = ObserveAllTraitsUseCase(traitsRepository)().first()
 
         // Then
-        assertThat(result).isEqualTo(Loadable.Ready(listOf(trait)))
+        assertThat(result).isEqualTo(Loadable.Success(listOf(trait)))
     }
 }

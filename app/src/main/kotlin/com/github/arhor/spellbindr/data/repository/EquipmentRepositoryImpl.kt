@@ -21,8 +21,8 @@ class EquipmentRepositoryImpl @Inject constructor(
 
     override suspend fun findEquipmentById(id: String): Equipment? =
         when (val state = equipmentDataStore.data.first { it !is Loadable.Loading }) {
-            is Loadable.Ready -> state.data.find { it.id == id }
-            is Loadable.Error -> null
+            is Loadable.Success -> state.data.find { it.id == id }
+            is Loadable.Failure -> null
             is Loadable.Loading -> null
         }
 }

@@ -21,8 +21,8 @@ class RacesRepositoryImpl @Inject constructor(
 
     override suspend fun findRaceById(id: String): Race? =
         when (val state = racesDataStore.data.first { it !is Loadable.Loading }) {
-            is Loadable.Ready -> state.data.find { it.id == id }
-            is Loadable.Error -> null
+            is Loadable.Success -> state.data.find { it.id == id }
+            is Loadable.Failure -> null
             is Loadable.Loading -> null
         }
 }

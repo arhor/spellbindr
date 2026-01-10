@@ -27,7 +27,7 @@ class SpellsUseCasesTest {
     fun `ObserveAllSpellsUseCase should emit latest spells when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "magic-missile", name = "Magic Missile")
-        repository.allSpellsState.value = Loadable.Ready(listOf(spell))
+        repository.allSpellsState.value = Loadable.Success(listOf(spell))
 
         // When
         val result = ObserveAllSpellsUseCase(repository)().first()
@@ -40,7 +40,7 @@ class SpellsUseCasesTest {
     fun `ObserveAllSpellsStateUseCase should emit latest state when repository updates`() = runTest {
         // Given
         val spell = sampleSpell(id = "shield", name = "Shield")
-        val state = Loadable.Ready(listOf(spell))
+        val state = Loadable.Success(listOf(spell))
         repository.allSpellsState.value = state
 
         // When
@@ -67,7 +67,7 @@ class SpellsUseCasesTest {
         // Given
         val classes = setOf(EntityRef("cleric"), EntityRef("wizard"))
         val expected = listOf(sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = classes.toList()))
-        repository.allSpellsState.value = Loadable.Ready(expected)
+        repository.allSpellsState.value = Loadable.Success(expected)
         favoritesRepository.favoriteIdsState.value = listOf("cure-wounds")
 
         // When
@@ -86,7 +86,7 @@ class SpellsUseCasesTest {
     fun `SearchSpellsUseCase should skip favorites when favoriteOnly is false`() = runTest {
         // Given
         val expected = listOf(sampleSpell(id = "detect-magic", name = "Detect Magic"))
-        repository.allSpellsState.value = Loadable.Ready(expected)
+        repository.allSpellsState.value = Loadable.Success(expected)
 
         // When
         val result = SearchSpellsUseCase(SearchAndGroupSpellsUseCase(repository, favoritesRepository))(
@@ -113,7 +113,7 @@ class SpellsUseCasesTest {
             level = 3,
         )
         val cureWounds = sampleSpell(id = "cure-wounds", name = "Cure Wounds", classes = listOf(cleric))
-        repository.allSpellsState.value = Loadable.Ready(listOf(magicMissile, fireball, cureWounds))
+        repository.allSpellsState.value = Loadable.Success(listOf(magicMissile, fireball, cureWounds))
         favoritesRepository.favoriteIdsState.value = listOf("fireball")
 
         // When
@@ -166,8 +166,8 @@ class SpellsUseCasesTest {
 
         // Then
         assertThat(emissions[0]).isEqualTo(Loadable.Loading)
-        assertThat(emissions[1]).isEqualTo(Loadable.Ready(SpellDetails(spell = spell, isFavorite = false)))
-        assertThat(emissions[2]).isEqualTo(Loadable.Ready(SpellDetails(spell = spell, isFavorite = true)))
+        assertThat(emissions[1]).isEqualTo(Loadable.Success(SpellDetails(spell = spell, isFavorite = false)))
+        assertThat(emissions[2]).isEqualTo(Loadable.Success(SpellDetails(spell = spell, isFavorite = true)))
     }
 
     @Test
@@ -183,7 +183,7 @@ class SpellsUseCasesTest {
 
         // Then
         assertThat(emissions[0]).isEqualTo(Loadable.Loading)
-        assertThat(emissions[1]).isEqualTo(Loadable.Error("Spell not found."))
+        assertThat(emissions[1]).isEqualTo(Loadable.Failure("Spell not found."))
     }
 
     @Test
@@ -200,7 +200,7 @@ class SpellsUseCasesTest {
 
         // Then
         assertThat(emissions[0]).isEqualTo(Loadable.Loading)
-        val errorState = emissions[1] as Loadable.Error
+        val errorState = emissions[1] as Loadable.Failure
         assertThat(errorState.errorMessage).isEqualTo("Oops, something went wrong...")
     }
 
@@ -227,7 +227,7 @@ class SpellsUseCasesTest {
 
     private class FakeSpellsRepository : SpellsRepository {
         override val allSpellsState =
-            MutableStateFlow<Loadable<List<Spell>>>(Loadable.Ready(emptyList()))
+            MutableStateFlow<Loadable<List<Spell>>>(Loadable.Success(emptyList()))
         val favoriteSpellIdsState = MutableStateFlow<List<String>>(emptyList())
         val spellsById = mutableMapOf<String, Spell>()
 

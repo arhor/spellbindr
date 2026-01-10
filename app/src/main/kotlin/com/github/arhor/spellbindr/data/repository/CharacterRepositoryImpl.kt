@@ -9,10 +9,13 @@ import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,13 +42,17 @@ class CharacterRepositoryImpl @Inject constructor(
             }
         }
 
-    /**
-     * Observes a single character sheet by ID.
-     */
     override fun observeCharacterSheet(id: String): Flow<CharacterSheet?> =
-        characterDao.getCharacterById(id).map { entity ->
-            entity?.manualSheet?.toDomain(entity.id)
+        characterDao.getCharacterById(id).map {
+            it?.manualSheet?.toDomain(it.id)
         }
+
+    override fun observeCharacterSheetState(id: String): Flow<Loadable<CharacterSheet?>> =
+        characterDao.getCharacterById(id)
+            .map { it?.manualSheet?.toDomain(it.id) }
+            .map<CharacterSheet?, Loadable<CharacterSheet?>> { Loadable.Success(it) }
+            .onStart { emit(Loadable.Loading) }
+            .catch { emit(Loadable.Failure(cause = it)) }
 
     /**
      * Saves a character sheet.
