@@ -1,21 +1,24 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.model
 
-import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.AbilityIds
-import com.github.arhor.spellbindr.domain.model.abbreviation
+import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.Skill
+import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSpellUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.ConcentrationUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.DeathSaveUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.HitPointSummary
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.OverviewTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.PactSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSourceFilterUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
@@ -82,6 +85,8 @@ internal object CharacterSheetPreviewData {
                         school = "Illusion",
                         castingTime = "1 action",
                         sourceClass = "Wizard",
+                        sourceLabel = "Wizard",
+                        sourceKey = "wizard",
                     )
                 ),
             ),
@@ -97,6 +102,18 @@ internal object CharacterSheetPreviewData {
                         school = "Evocation",
                         castingTime = "1 action",
                         sourceClass = "Wizard",
+                        sourceLabel = "Wizard",
+                        sourceKey = "wizard",
+                    ),
+                    CharacterSpellUiModel(
+                        spellId = "divine_favor",
+                        name = "Divine Favor",
+                        level = 1,
+                        school = "Evocation",
+                        castingTime = "1 action",
+                        sourceClass = "Paladin",
+                        sourceLabel = "Paladin",
+                        sourceKey = "paladin",
                     )
                 ),
             ),
@@ -108,6 +125,31 @@ internal object CharacterSheetPreviewData {
             ),
         ),
         canAddSpells = true,
+        sharedSlots = listOf(
+            SpellSlotUiModel(level = 1, total = 4, expended = 1),
+            SpellSlotUiModel(level = 2, total = 3, expended = 2),
+            SpellSlotUiModel(level = 3, total = 2, expended = 0),
+            SpellSlotUiModel(level = 4, total = 0, expended = 0),
+            SpellSlotUiModel(level = 5, total = 0, expended = 0),
+        ),
+        pactSlots = PactSlotUiModel(
+            slotLevel = 2,
+            total = 2,
+            expended = 1,
+            isConfigured = true,
+        ),
+        concentration = ConcentrationUiModel(
+            spellId = "hex",
+            label = "Hex",
+        ),
+        sourceFilters = listOf(
+            SpellSourceFilterUiModel(id = null, label = "All"),
+            SpellSourceFilterUiModel(id = "paladin", label = "Paladin"),
+            SpellSourceFilterUiModel(id = "wizard", label = "Wizard"),
+        ),
+        selectedSourceId = null,
+        showSourceBadges = true,
+        showSourceFilters = true,
     )
 
     val weapons = WeaponsTabState(

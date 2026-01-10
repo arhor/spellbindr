@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.data.local.database.entity
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
+import com.github.arhor.spellbindr.domain.model.PactSlotState
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.SkillEntry
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
@@ -36,6 +37,8 @@ data class CharacterSheetSnapshot(
     val hitDice: String = "",
     val deathSaves: DeathSaveState = DeathSaveState(),
     val spellSlots: List<SpellSlotState> = defaultSpellSlots(),
+    val pactSlots: PactSlotState? = null,
+    val concentrationSpellId: String? = null,
     val savingThrows: List<SavingThrowEntry> = defaultSavingThrows(),
     val skills: List<SkillEntry> = defaultSkills(),
     val senses: String = "",

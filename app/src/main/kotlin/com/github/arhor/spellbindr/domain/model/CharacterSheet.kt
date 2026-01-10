@@ -28,6 +28,8 @@ import java.util.UUID
  * @property hitDice Available hit dice (e.g. "1d8").
  * @property deathSaves Current death save successes/failures.
  * @property spellSlots Tracked spell slots per level.
+ * @property pactSlots Pact magic slot pool (Warlock), if applicable.
+ * @property concentrationSpellId Spell currently being concentrated on, if any.
  * @property savingThrows Configured saving throws with bonuses and proficiency.
  * @property skills Configured skills with bonuses and proficiency/expertise.
  * @property senses Passive perception or other senses.
@@ -66,6 +68,8 @@ data class CharacterSheet(
     val hitDice: String = "",
     val deathSaves: DeathSaveState = DeathSaveState(),
     val spellSlots: List<SpellSlotState> = defaultSpellSlots(),
+    val pactSlots: PactSlotState? = null,
+    val concentrationSpellId: String? = null,
     val savingThrows: List<SavingThrowEntry> = defaultSavingThrows(),
     val skills: List<SkillEntry> = defaultSkills(),
     val senses: String = "",
@@ -170,6 +174,20 @@ data class DeathSaveState(
 @Serializable
 data class SpellSlotState(
     val level: Int,
+    val total: Int = 0,
+    val expended: Int = 0,
+)
+
+/**
+ * Tracks Pact Magic slots (Warlock).
+ *
+ * @property slotLevel The spell level of pact slots.
+ * @property total Total pact slots available.
+ * @property expended Number of pact slots used.
+ */
+@Serializable
+data class PactSlotState(
+    val slotLevel: Int = 1,
     val total: Int = 0,
     val expended: Int = 0,
 )

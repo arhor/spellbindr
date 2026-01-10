@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.PactSlotState
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 import javax.inject.Inject
@@ -10,6 +11,8 @@ class ToggleSpellSlotUseCase @Inject constructor() {
     sealed interface Action {
         data class Toggle(val level: Int, val slotIndex: Int) : Action
         data class SetTotal(val level: Int, val total: Int) : Action
+        data class TogglePact(val slotIndex: Int) : Action
+        data class SetPactTotal(val total: Int) : Action
     }
 
     operator fun invoke(sheet: CharacterSheet, action: Action): CharacterSheet = when (action) {
@@ -29,6 +32,23 @@ class ToggleSpellSlotUseCase @Inject constructor() {
                 expended = slot.expended.coerceIn(0, safeTotal),
             )
         }
+        is Action.TogglePact -> sheet.updatePactSlots { slot ->
+            val totalSlots = slot.total.coerceAtLeast(0)
+            if (totalSlots == 0) return@updatePactSlots slot
+            val normalizedIndex = action.slotIndex.coerceIn(0, totalSlots - 1)
+            val newExpended =
+                if (normalizedIndex < slot.expended) normalizedIndex
+                else (normalizedIndex + 1).coerceAtMost(totalSlots)
+            slot.copy(expended = newExpended)
+        }
+
+        is Action.SetPactTotal -> sheet.updatePactSlots { slot ->
+            val safeTotal = action.total.coerceAtLeast(0)
+            slot.copy(
+                total = safeTotal,
+                expended = slot.expended.coerceIn(0, safeTotal),
+            )
+        }
     }
 
     private fun CharacterSheet.updateSpellSlot(
@@ -40,5 +60,12 @@ class ToggleSpellSlotUseCase @Inject constructor() {
         val current = slotMap[level] ?: SpellSlotState(level = level)
         slotMap[level] = transform(current)
         return copy(spellSlots = slotMap.values.sortedBy { it.level })
+    }
+
+    private fun CharacterSheet.updatePactSlots(
+        transform: (PactSlotState) -> PactSlotState,
+    ): CharacterSheet {
+        val current = pactSlots ?: PactSlotState()
+        return copy(pactSlots = transform(current))
     }
 }

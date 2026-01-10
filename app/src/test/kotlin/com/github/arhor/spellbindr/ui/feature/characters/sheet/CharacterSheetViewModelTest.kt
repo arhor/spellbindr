@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.Cost
 import com.github.arhor.spellbindr.domain.model.Damage
 import com.github.arhor.spellbindr.domain.model.DamageType
@@ -10,6 +11,7 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.repository.EquipmentRepository
 import com.github.arhor.spellbindr.domain.repository.FakeCharacterRepository
@@ -65,6 +67,30 @@ class CharacterSheetViewModelTest {
         val levelOneSlot = state.spells.spellLevels.first { it.level == 1 }.spellSlot
 
         assertThat(levelOneSlot?.expended).isEqualTo(1)
+    }
+
+    @Test
+    fun `selectSpellSource should filter spells by source`() = runTest(mainDispatcherRule.dispatcher) {
+        val spells = listOf(
+            sampleSpell(id = "magic-missile", name = "Magic Missile"),
+            sampleSpell(id = "cure-wounds", name = "Cure Wounds"),
+        )
+        val sheet = CharacterSheet(
+            id = "hero",
+            characterSpells = listOf(
+                CharacterSpell(spellId = "magic-missile", sourceClass = "Wizard"),
+                CharacterSpell(spellId = "cure-wounds", sourceClass = "Cleric"),
+            ),
+        )
+        val viewModel = createViewModel(sheet = sheet, spells = spells)
+        advanceUntilIdle()
+
+        viewModel.selectSpellSource("wizard")
+        val state = viewModel.awaitContentState { it.spells.selectedSourceId == "wizard" }
+        val levelOneSpells = state.spells.spellLevels.first { it.level == 1 }.spells
+
+        assertThat(levelOneSpells).hasSize(1)
+        assertThat(levelOneSpells.first().name).isEqualTo("Magic Missile")
     }
 
     @Test
@@ -150,9 +176,10 @@ private suspend fun CharacterSheetViewModel.awaitContentState(
 private fun TestScope.createViewModel(
     sheet: CharacterSheet,
     weaponCatalogEntries: List<Equipment> = emptyList(),
+    spells: List<Spell> = emptyList(),
 ): CharacterSheetViewModel {
     val characterRepository = FakeCharacterRepository(initialSheets = listOf(sheet))
-    val spellsRepository = FakeSpellsRepository()
+    val spellsRepository = FakeSpellsRepository(initialSpells = spells)
     val equipmentRepository = FakeEquipmentRepository(weaponCatalogEntries)
     return CharacterSheetViewModel(
         deleteCharacterUseCase = DeleteCharacterUseCase(characterRepository),
@@ -175,3 +202,23 @@ private class FakeEquipmentRepository(
 
     override suspend fun findEquipmentById(id: String): Equipment? = null
 }
+
+private fun sampleSpell(
+    id: String,
+    name: String,
+    level: Int = 1,
+): Spell = Spell(
+    id = id,
+    name = name,
+    desc = listOf("A sample spell."),
+    level = level,
+    range = "Self",
+    ritual = false,
+    school = EntityRef("evocation"),
+    duration = "Instantaneous",
+    castingTime = "1 action",
+    classes = listOf(EntityRef("wizard")),
+    components = listOf("V", "S"),
+    concentration = false,
+    source = "SRD",
+)

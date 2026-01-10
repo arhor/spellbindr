@@ -84,6 +84,7 @@ class CharacterSheetViewModel @Inject constructor(
     private var cachedSpells: List<Spell> = emptyList()
     private var weaponCatalog: List<WeaponCatalogUiModel> = emptyList()
     private var selectedTab: CharacterSheetTab = CharacterSheetTab.Overview
+    private var selectedSpellSourceId: String? = null
     private var editMode: SheetEditMode = SheetEditMode.View
     private var editingState: CharacterSheetEditingState? = null
     private var weaponEditorState: WeaponEditorState? = null
@@ -196,6 +197,29 @@ class CharacterSheetViewModel @Inject constructor(
     fun setSpellSlotTotal(level: Int, total: Int) {
         updateSheet { sheet ->
             toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.SetTotal(level, total))
+        }
+    }
+
+    fun togglePactSlot(slotIndex: Int) {
+        updateSheet { sheet ->
+            toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.TogglePact(slotIndex))
+        }
+    }
+
+    fun setPactSlotTotal(total: Int) {
+        updateSheet { sheet ->
+            toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.SetPactTotal(total))
+        }
+    }
+
+    fun clearConcentration() {
+        updateSheet { sheet -> sheet.copy(concentrationSpellId = null) }
+    }
+
+    fun selectSpellSource(sourceId: String?) {
+        if (selectedSpellSourceId != sourceId) {
+            selectedSpellSourceId = sourceId
+            renderState()
         }
     }
 
@@ -400,21 +424,25 @@ class CharacterSheetViewModel @Inject constructor(
             when {
                 !hasLoaded -> CharacterSheetUiState.Loading
                 sheet == null -> CharacterSheetUiState.Error(errorMessage ?: "Character not found")
-                else -> CharacterSheetUiState.Content(
-                    characterId = sheet.id,
-                    selectedTab = selectedTab,
-                    editMode = editMode,
-                    header = sheet.toHeaderState(),
-                    overview = sheet.toOverviewState(),
-                    skills = sheet.toSkillsState(),
-                    spells = sheet.toSpellsState(cachedSpells),
-                    weapons = sheet.toWeaponsState(),
-                    weaponCatalog = weaponCatalog,
-                    isWeaponCatalogVisible = isWeaponCatalogVisible,
-                    editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
-                    weaponEditorState = weaponEditorState,
-                    errorMessage = errorMessage,
-                )
+                else -> {
+                    val spellsState = sheet.toSpellsState(cachedSpells, selectedSpellSourceId)
+                    selectedSpellSourceId = spellsState.selectedSourceId
+                    CharacterSheetUiState.Content(
+                        characterId = sheet.id,
+                        selectedTab = selectedTab,
+                        editMode = editMode,
+                        header = sheet.toHeaderState(),
+                        overview = sheet.toOverviewState(),
+                        skills = sheet.toSkillsState(),
+                        spells = spellsState,
+                        weapons = sheet.toWeaponsState(),
+                        weaponCatalog = weaponCatalog,
+                        isWeaponCatalogVisible = isWeaponCatalogVisible,
+                        editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
+                        weaponEditorState = weaponEditorState,
+                        errorMessage = errorMessage,
+                    )
+                }
             }
         }
     }
@@ -529,6 +557,33 @@ data class SkillUiModel(
 data class SpellsTabState(
     val spellLevels: List<SpellLevelUiModel>,
     val canAddSpells: Boolean,
+    val sharedSlots: List<SpellSlotUiModel>,
+    val pactSlots: PactSlotUiModel?,
+    val concentration: ConcentrationUiModel?,
+    val sourceFilters: List<SpellSourceFilterUiModel>,
+    val selectedSourceId: String?,
+    val showSourceBadges: Boolean,
+    val showSourceFilters: Boolean,
+)
+
+@Immutable
+data class SpellSourceFilterUiModel(
+    val id: String?,
+    val label: String,
+)
+
+@Immutable
+data class PactSlotUiModel(
+    val slotLevel: Int?,
+    val total: Int,
+    val expended: Int,
+    val isConfigured: Boolean,
+)
+
+@Immutable
+data class ConcentrationUiModel(
+    val spellId: String,
+    val label: String,
 )
 
 @Immutable
@@ -547,6 +602,8 @@ data class CharacterSpellUiModel(
     val school: String,
     val castingTime: String,
     val sourceClass: String,
+    val sourceLabel: String,
+    val sourceKey: String,
 )
 
 @Immutable
@@ -755,32 +812,50 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
     return SkillsTabState(models)
 }
 
-private fun CharacterSheet.toSpellsState(allSpells: List<Spell>): SpellsTabState {
+private fun CharacterSheet.toSpellsState(
+    allSpells: List<Spell>,
+    selectedSourceId: String?,
+): SpellsTabState {
     val spellLookup = allSpells.associateBy { it.id }
     val normalizedSlots = if (spellSlots.isEmpty()) defaultSpellSlots() else spellSlots
-    val slotsByLevel = normalizedSlots
+    val allSharedSlots = normalizedSlots
         .sortedBy { it.level }
-        .associate { slot ->
-            slot.level to SpellSlotUiModel(
+        .map { slot ->
+            SpellSlotUiModel(
                 level = slot.level,
                 total = slot.total,
                 expended = slot.expended.coerceIn(0, slot.total.coerceAtLeast(0)),
             )
         }
+    val slotsByLevel = allSharedSlots.associateBy { it.level }
 
-    val spellsByLevel = characterSpells
-        .map { stored ->
-            val spell = spellLookup[stored.spellId]
-            CharacterSpellUiModel(
-                spellId = stored.spellId,
-                name = spell?.name ?: stored.spellId,
-                level = spell?.level ?: 0,
-                school = spell?.school?.prettyString() ?: "—",
-                castingTime = spell?.castingTime ?: "",
-                sourceClass = stored.sourceClass,
-            )
-        }
-        .groupBy { it.level }
+    val spellEntries = characterSpells.map { stored ->
+        val spell = spellLookup[stored.spellId]
+        val sourceClass = stored.sourceClass.trim()
+        CharacterSpellUiModel(
+            spellId = stored.spellId,
+            name = spell?.name ?: stored.spellId,
+            level = spell?.level ?: 0,
+            school = spell?.school?.prettyString() ?: "—",
+            castingTime = spell?.castingTime ?: "",
+            sourceClass = sourceClass,
+            sourceLabel = formatSourceLabel(sourceClass),
+            sourceKey = normalizeSourceKey(sourceClass),
+        )
+    }
+
+    val sources = spellEntries
+        .associate { it.sourceKey to it.sourceLabel }
+        .toList()
+        .sortedBy { it.second.lowercase() }
+    val sourceIds = sources.map { it.first }.toSet()
+    val resolvedSelectedSourceId = selectedSourceId?.takeIf { it in sourceIds }
+    val filteredEntries = if (resolvedSelectedSourceId == null) {
+        spellEntries
+    } else {
+        spellEntries.filter { it.sourceKey == resolvedSelectedSourceId }
+    }
+    val spellsByLevel = filteredEntries.groupBy { it.level }
 
     val spellLevels = buildList {
         spellsByLevel[0]?.let { cantrips ->
@@ -802,17 +877,88 @@ private fun CharacterSheet.toSpellsState(allSpells: List<Spell>): SpellsTabState
                     spellSlot = slotsByLevel[level],
                     spells = spellsByLevel[level]
                         .orEmpty()
-                        .sortedWith(compareBy<CharacterSpellUiModel> { it.name.lowercase() }.thenBy { it.sourceClass.lowercase() }),
+                        .sortedWith(
+                            compareBy<CharacterSpellUiModel> { it.name.lowercase() }
+                                .thenBy { it.sourceLabel.lowercase() },
+                        ),
                 )
             )
         }
     }
 
+    val pactSlotUi = when {
+        sources.any { (key, label) ->
+            key.contains("warlock") || label.contains("warlock", ignoreCase = true)
+        } || pactSlots != null -> {
+            pactSlots?.let { slot ->
+                PactSlotUiModel(
+                    slotLevel = slot.slotLevel,
+                    total = slot.total,
+                    expended = slot.expended.coerceIn(0, slot.total.coerceAtLeast(0)),
+                    isConfigured = true,
+                )
+            } ?: PactSlotUiModel(
+                slotLevel = null,
+                total = 0,
+                expended = 0,
+                isConfigured = false,
+            )
+        }
+
+        else -> null
+    }
+
+    val concentrationUi = concentrationSpellId?.let { spellId ->
+        val label = spellLookup[spellId]?.name ?: spellId
+        ConcentrationUiModel(spellId = spellId, label = label)
+    }
+
+    val sourceFilters = buildList {
+        add(SpellSourceFilterUiModel(id = null, label = "All"))
+        sources.forEach { (id, label) ->
+            add(SpellSourceFilterUiModel(id = id, label = label))
+        }
+    }
+
+    val showSourceFilters = sources.size > 1
+    val showSourceBadges = sources.size > 1
+
+    val highestSpellLevel = spellEntries.maxOfOrNull { it.level }?.coerceAtLeast(1) ?: 1
+    val highestSlotLevel = allSharedSlots.filter { it.total > 0 }.maxOfOrNull { it.level } ?: 1
+    val maxDisplayedSlotLevel = maxOf(highestSpellLevel, highestSlotLevel)
+    val sharedSlots = allSharedSlots.filter { it.level <= maxDisplayedSlotLevel }
+
     return SpellsTabState(
         spellLevels = spellLevels,
         canAddSpells = true,
+        sharedSlots = sharedSlots,
+        pactSlots = pactSlotUi,
+        concentration = concentrationUi,
+        sourceFilters = sourceFilters,
+        selectedSourceId = resolvedSelectedSourceId,
+        showSourceBadges = showSourceBadges,
+        showSourceFilters = showSourceFilters,
     )
 }
+
+private fun normalizeSourceKey(sourceClass: String): String {
+    val normalized = sourceClass.trim().lowercase()
+    return if (normalized.isBlank()) UNASSIGNED_SOURCE_KEY else normalized
+}
+
+private fun formatSourceLabel(sourceClass: String): String {
+    val trimmed = sourceClass.trim()
+    if (trimmed.isBlank()) return UNASSIGNED_SOURCE_LABEL
+    return trimmed
+        .split(" ")
+        .filter { it.isNotBlank() }
+        .joinToString(" ") { part ->
+            part.replaceFirstChar { char -> char.titlecase() }
+        }
+}
+
+private const val UNASSIGNED_SOURCE_KEY = "__unassigned__"
+private const val UNASSIGNED_SOURCE_LABEL = "Unassigned"
 
 internal fun CharacterSheet.toWeaponsState(): WeaponsTabState {
     val scores = abilityScores
