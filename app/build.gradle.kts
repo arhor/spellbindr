@@ -1,8 +1,11 @@
+@file:Suppress("UnstableApiUsage")
+
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.hilt)
+    alias(libs.plugins.android.screenshot)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
@@ -22,7 +25,6 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "com.github.arhor.spellbindr.HiltApplicationTestRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -43,6 +45,7 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 kotlin {
@@ -98,6 +101,10 @@ dependencies {
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.hilt.android.testing)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    screenshotTestImplementation(libs.screenshot.validation.api)
+    screenshotTestImplementation(libs.androidx.ui.tooling)
 }
