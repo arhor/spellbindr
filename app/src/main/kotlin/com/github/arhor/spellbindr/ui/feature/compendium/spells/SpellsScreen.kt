@@ -1,10 +1,19 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -13,7 +22,6 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SearchFilterDialog
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellList
 import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellSearchInput
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -22,11 +30,9 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 fun SpellsScreen(
     state: SpellsUiState,
     onQueryChanged: (String) -> Unit = {},
-    onFiltersClick: () -> Unit = {},
     onFavoriteClick: () -> Unit = {},
     onSpellClick: (Spell) -> Unit = {},
-    onFiltersSubmit: (Set<EntityRef>) -> Unit = {},
-    onFiltersCancel: () -> Unit = {},
+    onClassToggled: (EntityRef) -> Unit = {},
 ) {
     when (state) {
         is SpellsUiState.Loading -> LoadingIndicator()
@@ -34,11 +40,9 @@ fun SpellsScreen(
         is SpellsUiState.Content -> SpellSearchContent(
             state = state,
             onQueryChanged = onQueryChanged,
-            onFiltersClick = onFiltersClick,
             onFavoriteClick = onFavoriteClick,
             onSpellClick = onSpellClick,
-            onFiltersSubmit = onFiltersSubmit,
-            onFiltersCancel = onFiltersCancel,
+            onClassToggled = onClassToggled,
         )
 
         is SpellsUiState.Failure -> ErrorMessage(state.errorMessage)
@@ -49,39 +53,70 @@ fun SpellsScreen(
 private fun SpellSearchContent(
     state: SpellsUiState.Content,
     onQueryChanged: (String) -> Unit,
-    onFiltersClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (Spell) -> Unit,
-    onFiltersSubmit: (Set<EntityRef>) -> Unit,
-    onFiltersCancel: () -> Unit,
+    onClassToggled: (EntityRef) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         SpellSearchInput(
             query = state.query,
             onQueryChanged = onQueryChanged,
-            onFiltersClick = onFiltersClick,
             showFavorite = state.showFavoriteOnly,
             onFavoriteClick = onFavoriteClick,
         )
-        Spacer(modifier = Modifier.height(16.dp))
+
+        if (state.castingClasses.isNotEmpty()) {
+            SpellClassFilterRow(
+                castingClasses = state.castingClasses,
+                selectedClasses = state.selectedClasses,
+                onClassToggled = onClassToggled,
+            )
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
 
         SpellList(
             spells = state.spells,
             onSpellClick = onSpellClick,
         )
     }
+}
 
-    SearchFilterDialog(
-        showFilterDialog = state.showFilterDialog,
-        castingClasses = state.castingClasses,
-        currentClasses = state.currentClasses,
-        onSubmit = onFiltersSubmit,
-        onCancel = onFiltersCancel,
-    )
+@Composable
+private fun SpellClassFilterRow(
+    castingClasses: List<EntityRef>,
+    selectedClasses: Set<EntityRef>,
+    onClassToggled: (EntityRef) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier.horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        castingClasses.forEach { spellClass ->
+            val selected = spellClass in selectedClasses
+            FilterChip(
+                selected = selected,
+                onClick = { onClassToggled(spellClass) },
+                label = { Text(spellClass.prettyString()) },
+                leadingIcon = if (selected) {
+                    {
+                        Icon(
+                            imageVector = Icons.Rounded.Check,
+                            contentDescription = "Selected",
+                        )
+                    }
+                } else {
+                    null
+                },
+            )
+        }
+    }
 }
 
 @Composable
@@ -110,8 +145,7 @@ private fun SpellSearchScreenPreview() {
                     )
                 ),
                 showFavoriteOnly = false,
-                showFilterDialog = false,
-                currentClasses = emptySet(),
+                selectedClasses = emptySet(),
             ),
         )
     }

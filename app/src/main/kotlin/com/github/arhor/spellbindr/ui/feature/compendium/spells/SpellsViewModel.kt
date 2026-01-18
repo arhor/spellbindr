@@ -34,7 +34,6 @@ class SpellsViewModel @Inject constructor(
     private data class State(
         val query: String = "",
         val showFavoriteOnly: Boolean = false,
-        val showFilterDialog: Boolean = false,
         val characterClasses: Set<EntityRef> = emptySet(),
     )
 
@@ -58,9 +57,8 @@ class SpellsViewModel @Inject constructor(
                     query = state.query,
                     spells = spells.data,
                     showFavoriteOnly = state.showFavoriteOnly,
-                    showFilterDialog = state.showFilterDialog,
                     castingClasses = classes.data.map { EntityRef(it.id) },
-                    currentClasses = state.characterClasses,
+                    selectedClasses = state.characterClasses,
                 )
 
             spells is Loadable.Failure ->
@@ -78,20 +76,19 @@ class SpellsViewModel @Inject constructor(
         _state.update { it.copy(query = query) }
     }
 
-    fun onFiltersClick() {
-        _state.update { it.copy(showFilterDialog = true) }
-    }
-
     fun onFavoritesToggled() {
         _state.update { it.copy(showFavoriteOnly = !it.showFavoriteOnly) }
     }
 
-    fun onFiltersSubmit(classes: Set<EntityRef>) {
-        _state.update { it.copy(showFilterDialog = false, characterClasses = classes) }
-    }
-
-    fun onFiltersCancel() {
-        _state.update { it.copy(showFilterDialog = false, characterClasses = emptySet()) }
+    fun onClassFilterToggled(spellClass: EntityRef) {
+        _state.update { state ->
+            val updatedClasses = if (spellClass in state.characterClasses) {
+                state.characterClasses - spellClass
+            } else {
+                state.characterClasses + spellClass
+            }
+            state.copy(characterClasses = updatedClasses)
+        }
     }
 
     /**

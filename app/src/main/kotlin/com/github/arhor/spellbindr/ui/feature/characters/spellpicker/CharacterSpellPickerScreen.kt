@@ -80,10 +80,8 @@ private fun CharacterSpellPickerContent(
                 SpellSearchInput(
                     query = state.query,
                     onQueryChanged = onQueryChanged,
-                    onFiltersClick = {},
                     showFavorite = state.showFavoriteOnly,
                     onFavoriteClick = onFavoriteClick,
-                    showFilters = false,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 SpellList(
