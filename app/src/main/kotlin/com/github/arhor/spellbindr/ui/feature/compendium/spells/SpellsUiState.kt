@@ -13,9 +13,8 @@ sealed interface SpellsUiState {
         val query: String,
         val spells: List<Spell>,
         val showFavoriteOnly: Boolean,
-        val showFilterDialog: Boolean,
         val castingClasses: List<EntityRef>,
-        val currentClasses: Set<EntityRef>,
+        val selectedClasses: Set<EntityRef>,
     ) : SpellsUiState
 
     @Immutable

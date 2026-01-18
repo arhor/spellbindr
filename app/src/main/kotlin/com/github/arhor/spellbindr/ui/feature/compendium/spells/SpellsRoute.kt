@@ -29,11 +29,9 @@ fun SpellsRoute(
         SpellsScreen(
             state = state,
             onQueryChanged = vm::onQueryChanged,
-            onFiltersClick = vm::onFiltersClick,
             onFavoriteClick = vm::onFavoritesToggled,
             onSpellClick = onSpellSelected,
-            onFiltersSubmit = vm::onFiltersSubmit,
-            onFiltersCancel = vm::onFiltersCancel,
+            onClassToggled = vm::onClassFilterToggled,
         )
     }
 }
