@@ -22,7 +22,7 @@ class CharactersListScreenTest {
     @Test
     fun `CharactersListScreen should show derived character details when state contains character`() {
         // Given
-        val uiState = CharactersListUiState(
+        val uiState = CharactersListUiState.Content(
             characters = listOf(
                 CharacterListItem(
                     id = "hero-1",
@@ -33,15 +33,13 @@ class CharactersListScreenTest {
                     background = "",
                 )
             ),
-            isLoading = false,
-            isEmpty = false,
         )
 
         // When
         composeTestRule.setContent {
             AppTheme {
                 CharactersListScreen(
-                    uiState = uiState,
+                    state = uiState,
                     onCharacterSelected = {},
                     onCreateCharacter = { _ -> },
                 )

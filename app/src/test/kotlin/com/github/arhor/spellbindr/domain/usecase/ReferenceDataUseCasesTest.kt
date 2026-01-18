@@ -4,7 +4,6 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
-import com.github.arhor.spellbindr.domain.repository.FakeCharacterClassRepository
 import com.github.arhor.spellbindr.domain.repository.FakeRacesRepository
 import com.github.arhor.spellbindr.domain.repository.FakeTraitsRepository
 import com.google.common.truth.Truth.assertThat
@@ -16,7 +15,6 @@ class ReferenceDataUseCasesTest {
 
     private val racesRepository = FakeRacesRepository()
     private val traitsRepository = FakeTraitsRepository()
-    private val characterClassRepository = FakeCharacterClassRepository()
 
     @Test
     fun `ObserveRacesUseCase should emit latest races when repository updates`() = runTest {

@@ -34,6 +34,10 @@ class CharacterSheetContentTest {
                     onSpellSlotTotalChanged = { _, _ -> },
                     onAddWeaponClick = {},
                     onWeaponSelected = {},
+                    onPactSlotToggle = {},
+                    onPactSlotTotalChanged = {},
+                    onConcentrationClear = {},
+                    onSpellSourceSelected = {},
                 )
             }
         }

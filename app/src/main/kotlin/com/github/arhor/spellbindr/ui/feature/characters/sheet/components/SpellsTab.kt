@@ -143,9 +143,9 @@ private fun SourceFilterRow(
     }
 }
 
-@PreviewLightDark
 @Composable
-private fun SpellsTabPreview() {
+@PreviewLightDark
+internal fun SpellsTabPreview() {
     AppTheme {
         SpellsTab(
             spellsState = CharacterSheetPreviewData.spells,
