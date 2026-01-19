@@ -35,6 +35,11 @@ object TestDataModule {
 
     @Provides
     @Singleton
+    fun provideApplicationScope(): CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    @Provides
+    @Singleton
     @AppSettingsDataStore
     fun provideTestSettingsDataStore(): DataStore<Preferences> {
         val context = ApplicationProvider.getApplicationContext<Context>()
