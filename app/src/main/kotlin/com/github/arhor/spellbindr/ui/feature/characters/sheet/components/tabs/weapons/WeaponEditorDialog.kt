@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.weapons
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +24,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.displayName
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponEditorState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponEditorState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

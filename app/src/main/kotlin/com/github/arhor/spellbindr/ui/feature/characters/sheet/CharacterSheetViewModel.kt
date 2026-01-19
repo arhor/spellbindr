@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet
 
-import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +14,7 @@ import com.github.arhor.spellbindr.domain.model.DeathSaveState
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.model.Weapon
+import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
 import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
@@ -26,8 +25,27 @@ import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterHeaderUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSpellUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.ConcentrationUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.DeathSaveUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.HitPointSummary
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.OverviewTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.PactSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellLevelUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSourceFilterUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponCatalogUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponEditorState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponsTabState
 import com.github.arhor.spellbindr.utils.signed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -40,7 +58,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.UUID
 import javax.inject.Inject
 
 /**
@@ -73,7 +90,7 @@ class CharacterSheetViewModel @Inject constructor(
 
     private val characterId: String? = savedStateHandle.get<String>("characterId")
     private val _uiState = MutableStateFlow<CharacterSheetUiState>(
-        if (characterId == null) CharacterSheetUiState.Error("Missing character id") else CharacterSheetUiState.Loading,
+        if (characterId == null) CharacterSheetUiState.Failure("Missing character id") else CharacterSheetUiState.Loading,
     )
     val uiState: StateFlow<CharacterSheetUiState> = _uiState
     private val _effects = MutableSharedFlow<CharacterSheetEffect>()
@@ -111,7 +128,7 @@ class CharacterSheetViewModel @Inject constructor(
     fun enterEditMode() {
         val sheet = currentSheet ?: return
         editingState = CharacterSheetEditingState.fromSheet(sheet)
-        editMode = SheetEditMode.Editing
+        editMode = SheetEditMode.Edit
         errorMessage = null
         renderState()
     }
@@ -423,7 +440,7 @@ class CharacterSheetViewModel @Inject constructor(
         _uiState.update {
             when {
                 !hasLoaded -> CharacterSheetUiState.Loading
-                sheet == null -> CharacterSheetUiState.Error(errorMessage ?: "Character not found")
+                sheet == null -> CharacterSheetUiState.Failure(errorMessage ?: "Character not found")
                 else -> {
                     val spellsState = sheet.toSpellsState(cachedSpells, selectedSpellSourceId)
                     selectedSpellSourceId = spellsState.selectedSourceId
@@ -438,7 +455,7 @@ class CharacterSheetViewModel @Inject constructor(
                         weapons = sheet.toWeaponsState(),
                         weaponCatalog = weaponCatalog,
                         isWeaponCatalogVisible = isWeaponCatalogVisible,
-                        editingState = editingState.takeIf { editMode == SheetEditMode.Editing },
+                        editingState = editingState.takeIf { editMode == SheetEditMode.Edit },
                         weaponEditorState = weaponEditorState,
                         errorMessage = errorMessage,
                     )
@@ -459,231 +476,7 @@ class CharacterSheetViewModel @Inject constructor(
     }
 }
 
-/**
- * Exposes the UI state for the character sheet.
- */
-sealed interface CharacterSheetUiState {
-    @Immutable
-    data object Loading : CharacterSheetUiState
-
-    @Immutable
-    data class Content(
-        val characterId: String,
-        val selectedTab: CharacterSheetTab,
-        val editMode: SheetEditMode,
-        val header: CharacterHeaderUiState,
-        val overview: OverviewTabState,
-        val skills: SkillsTabState,
-        val spells: SpellsTabState,
-        val weapons: WeaponsTabState,
-        val weaponCatalog: List<WeaponCatalogUiModel>,
-        val isWeaponCatalogVisible: Boolean,
-        val editingState: CharacterSheetEditingState?,
-        val weaponEditorState: WeaponEditorState?,
-        val errorMessage: String?,
-    ) : CharacterSheetUiState
-
-    @Immutable
-    data class Error(
-        val message: String,
-    ) : CharacterSheetUiState
-}
-
-@Immutable
-data class CharacterHeaderUiState(
-    val name: String,
-    val subtitle: String,
-    val hitPoints: HitPointSummary,
-    val armorClass: Int,
-    val initiative: Int,
-    val speed: String,
-    val proficiencyBonus: Int,
-    val inspiration: Boolean,
-)
-
-@Immutable
-data class HitPointSummary(
-    val max: Int,
-    val current: Int,
-    val temporary: Int,
-)
-
-@Immutable
-data class OverviewTabState(
-    val abilities: List<AbilityUiModel>,
-    val hitDice: String,
-    val senses: String,
-    val languages: String,
-    val proficiencies: String,
-    val equipment: String,
-    val background: String,
-    val race: String,
-    val alignment: String,
-    val deathSaves: DeathSaveUiState,
-)
-
-@Immutable
-data class AbilityUiModel(
-    val abilityId: AbilityId,
-    val label: String,
-    val score: Int,
-    val modifier: Int,
-    val savingThrowBonus: Int,
-    val savingThrowProficient: Boolean,
-)
-
-@Immutable
-data class DeathSaveUiState(
-    val successes: Int,
-    val failures: Int,
-)
-
-@Immutable
-data class SkillsTabState(
-    val skills: List<SkillUiModel>,
-)
-
-@Immutable
-data class SkillUiModel(
-    val id: Skill,
-    val name: String,
-    val abilityAbbreviation: String,
-    val totalBonus: Int,
-    val proficient: Boolean,
-    val expertise: Boolean,
-)
-
-@Immutable
-data class SpellsTabState(
-    val spellLevels: List<SpellLevelUiModel>,
-    val canAddSpells: Boolean,
-    val sharedSlots: List<SpellSlotUiModel>,
-    val pactSlots: PactSlotUiModel?,
-    val concentration: ConcentrationUiModel?,
-    val sourceFilters: List<SpellSourceFilterUiModel>,
-    val selectedSourceId: String?,
-    val showSourceBadges: Boolean,
-    val showSourceFilters: Boolean,
-)
-
-@Immutable
-data class SpellSourceFilterUiModel(
-    val id: String?,
-    val label: String,
-)
-
-@Immutable
-data class PactSlotUiModel(
-    val slotLevel: Int?,
-    val total: Int,
-    val expended: Int,
-    val isConfigured: Boolean,
-)
-
-@Immutable
-data class ConcentrationUiModel(
-    val spellId: String,
-    val label: String,
-)
-
-@Immutable
-data class SpellLevelUiModel(
-    val level: Int,
-    val label: String,
-    val spellSlot: SpellSlotUiModel?,
-    val spells: List<CharacterSpellUiModel>,
-)
-
-@Immutable
-data class CharacterSpellUiModel(
-    val spellId: String,
-    val name: String,
-    val level: Int,
-    val school: String,
-    val castingTime: String,
-    val sourceClass: String,
-    val sourceLabel: String,
-    val sourceKey: String,
-)
-
-@Immutable
-data class SpellSlotUiModel(
-    val level: Int,
-    val total: Int,
-    val expended: Int,
-)
-
-@Immutable
-data class WeaponsTabState(
-    val weapons: List<WeaponUiModel>,
-)
-
-@Immutable
-data class WeaponCatalogUiModel(
-    val id: String,
-    val name: String,
-    val category: EquipmentCategory?,
-    val categories: Set<EquipmentCategory>,
-    val damageDiceCount: Int,
-    val damageDieSize: Int,
-    val damageType: DamageType,
-)
-
-@Immutable
-data class WeaponUiModel(
-    val id: String,
-    val name: String,
-    val attackBonusLabel: String,
-    val damageLabel: String,
-    val damageType: DamageType,
-)
-
-@Immutable
-data class WeaponEditorState(
-    val id: String? = null,
-    val catalogId: String? = null,
-    val name: String = "",
-    val category: EquipmentCategory? = null,
-    val categories: Set<EquipmentCategory> = emptySet(),
-    val abilityId: AbilityId = AbilityIds.STR,
-    val proficient: Boolean = false,
-    val useAbilityForDamage: Boolean = true,
-    val damageDiceCount: String = "1",
-    val damageDieSize: String = "6",
-    val damageType: DamageType = DamageType.SLASHING,
-) {
-    fun toWeapon(): Weapon = Weapon(
-        id = id ?: UUID.randomUUID().toString(),
-        catalogId = catalogId,
-        name = name.trim(),
-        category = category,
-        categories = categories,
-        abilityId = abilityId,
-        proficient = proficient,
-        damageDiceCount = damageDiceCount.toIntOrNull()?.coerceAtLeast(1) ?: 1,
-        damageDieSize = damageDieSize.toIntOrNull()?.coerceAtLeast(1) ?: 6,
-        useAbilityForDamage = useAbilityForDamage,
-        damageType = damageType,
-    )
-
-    companion object {
-        fun fromWeapon(weapon: Weapon): WeaponEditorState = WeaponEditorState(
-            id = weapon.id,
-            catalogId = weapon.catalogId,
-            name = weapon.name,
-            category = weapon.category,
-            categories = weapon.categories,
-            abilityId = weapon.abilityId,
-            proficient = weapon.proficient,
-            useAbilityForDamage = weapon.useAbilityForDamage,
-            damageDiceCount = weapon.damageDiceCount.toString(),
-            damageDieSize = weapon.damageDieSize.toString(),
-            damageType = weapon.damageType,
-        )
-    }
-}
-
-private fun com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry.toUiModel(): WeaponCatalogUiModel {
+private fun WeaponCatalogEntry.toUiModel(): WeaponCatalogUiModel {
     val category = categories.firstOrNull { it != EquipmentCategory.WEAPON }
         ?: categories.firstOrNull()
     return WeaponCatalogUiModel(
@@ -706,33 +499,6 @@ private fun WeaponCatalogUiModel.toEditorState(): WeaponEditorState = WeaponEdit
     damageDieSize = damageDieSize.toString(),
     damageType = damageType,
 )
-
-@Immutable
-data class CharacterSheetEditingState(
-    val maxHp: String,
-    val currentHp: String,
-    val tempHp: String,
-    val speed: String,
-    val hitDice: String,
-    val senses: String,
-    val languages: String,
-    val proficiencies: String,
-    val equipment: String,
-) {
-    companion object {
-        fun fromSheet(sheet: CharacterSheet): CharacterSheetEditingState = CharacterSheetEditingState(
-            maxHp = sheet.maxHitPoints.toString(),
-            currentHp = sheet.currentHitPoints.toString(),
-            tempHp = sheet.temporaryHitPoints.toString(),
-            speed = sheet.speed,
-            hitDice = sheet.hitDice,
-            senses = sheet.senses,
-            languages = sheet.languages,
-            proficiencies = sheet.proficiencies,
-            equipment = sheet.equipment,
-        )
-    }
-}
 
 private fun CharacterSheet.toHeaderState(): CharacterHeaderUiState {
     val subtitleParts = buildList {

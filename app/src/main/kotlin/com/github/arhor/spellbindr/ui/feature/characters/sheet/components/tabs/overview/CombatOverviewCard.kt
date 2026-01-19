@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.overview
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,9 +26,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.abbreviation
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityScore
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.github.arhor.spellbindr.utils.signed

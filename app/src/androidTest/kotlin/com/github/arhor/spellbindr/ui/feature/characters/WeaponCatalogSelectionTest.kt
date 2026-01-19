@@ -15,10 +15,10 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponCatalogUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponEditorState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponCatalogDialog
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.WeaponEditorDialog
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.weapons.WeaponCatalogDialog
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.weapons.WeaponEditorDialog
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponCatalogUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponEditorState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule

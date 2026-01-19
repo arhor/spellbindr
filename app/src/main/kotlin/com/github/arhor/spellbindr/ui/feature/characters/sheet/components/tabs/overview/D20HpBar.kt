@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.overview
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box

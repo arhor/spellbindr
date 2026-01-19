@@ -7,6 +7,7 @@ import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.spells.SpellsTabPreview
 import org.junit.Rule
 import org.junit.Test
 import java.io.File

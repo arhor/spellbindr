@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.weapons
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponCatalogUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponCatalogUiModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

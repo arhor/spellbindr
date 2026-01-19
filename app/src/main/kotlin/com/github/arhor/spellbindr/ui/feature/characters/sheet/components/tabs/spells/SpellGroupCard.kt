@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.spells
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,10 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSpellUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSpellUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -116,7 +116,7 @@ internal fun SpellRow(
             if (showSourceBadge) {
                 SpellSourceBadge(label = spell.sourceLabel)
             }
-            if (editMode == SheetEditMode.Editing) {
+            if (editMode == SheetEditMode.Edit) {
                 IconButton(onClick = onRemove) {
                     Icon(imageVector = Icons.Rounded.Close, contentDescription = "Remove spell")
                 }
@@ -165,7 +165,7 @@ private fun SpellRowPreview() {
     AppTheme {
         SpellRow(
             spell = CharacterSheetPreviewData.spells.spellLevels.first { it.spells.isNotEmpty() }.spells.first(),
-            editMode = SheetEditMode.Editing,
+            editMode = SheetEditMode.Edit,
             showSourceBadge = CharacterSheetPreviewData.spells.showSourceBadges,
             onClick = {},
             onRemove = {},

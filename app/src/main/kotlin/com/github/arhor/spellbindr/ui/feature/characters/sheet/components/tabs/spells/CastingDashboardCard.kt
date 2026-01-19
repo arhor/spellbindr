@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.spells
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -20,10 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.ConcentrationUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.PactSlotUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.ConcentrationUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.PactSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotUiModel
 
 @Composable
 internal fun CastingDashboardCard(
@@ -140,7 +140,7 @@ private fun SharedSlotItem(
                 expended = slot.expended,
                 onPipClick = { index -> onSlotToggle(slot.level, index) },
             )
-            if (editMode == SheetEditMode.Editing) {
+            if (editMode == SheetEditMode.Edit) {
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     IconButton(
                         onClick = { onSlotTotalChanged(slot.level, slot.total - 1) },
@@ -198,7 +198,7 @@ private fun PactSlotsSection(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            if (editMode == SheetEditMode.Editing) {
+            if (editMode == SheetEditMode.Edit) {
                 Row {
                     IconButton(
                         onClick = { onPactSlotTotalChanged(pactSlots.total - 1) },

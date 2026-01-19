@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.spells
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -23,10 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSourceFilterUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSourceFilterUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellsTabState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable

@@ -4,24 +4,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.abbreviation
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.AbilityUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSpellUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.ConcentrationUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.DeathSaveUiState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.HitPointSummary
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.OverviewTabState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.PactSlotUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SkillsTabState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellLevelUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSlotUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellSourceFilterUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.SpellsTabState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.WeaponsTabState
 
 internal object CharacterSheetPreviewData {
 

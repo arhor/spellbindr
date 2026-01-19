@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.ui.feature.characters.sheet.components
+package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.overview
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,9 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetEditingState
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.OverviewTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterHeaderUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetEditingState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.OverviewTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 
 @Composable

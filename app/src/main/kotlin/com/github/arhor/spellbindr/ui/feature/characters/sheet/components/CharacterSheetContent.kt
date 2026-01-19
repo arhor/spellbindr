@@ -21,8 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.CharacterSheetUiState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.overview.OverviewTab
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.skills.SkillsTab
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.spells.SpellsTab
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.weapons.WeaponsTab
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.theme.AppTheme
