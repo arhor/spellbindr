@@ -14,7 +14,7 @@ sealed interface ConditionsUiState {
     ) : ConditionsUiState
 
     @Immutable
-    data class Error(
+    data class Failure(
         val errorMessage: String,
     ) : ConditionsUiState
 }

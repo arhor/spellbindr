@@ -63,13 +63,13 @@ class AlignmentsViewModelTest {
             val viewModel = AlignmentsViewModel(observeAlignments)
 
             // When
-            val errorState = async { viewModel.uiState.first { it is AlignmentsUiState.Error } }
+            val errorState = async { viewModel.uiState.first { it is AlignmentsUiState.Failure } }
             alignmentsFlow.value = Loadable.Failure()
             advanceUntilIdle()
 
             // Then
             assertThat(errorState.await())
-                .isEqualTo(AlignmentsUiState.Error("Failed to load alignments"))
+                .isEqualTo(AlignmentsUiState.Failure("Failed to load alignments"))
         }
 
     @Test

@@ -31,7 +31,7 @@ fun SpellDetailsRoute(
         ),
     ) {
         SpellDetailScreen(
-            state = state,
+            uiState = state,
         )
     }
 }

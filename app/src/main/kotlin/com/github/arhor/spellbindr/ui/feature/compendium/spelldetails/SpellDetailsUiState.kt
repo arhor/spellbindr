@@ -14,7 +14,7 @@ sealed interface SpellDetailsUiState {
     ) : SpellDetailsUiState
 
     @Immutable
-    data class Error(
+    data class Failure(
         val errorMessage: String,
     ) : SpellDetailsUiState
 }

@@ -48,7 +48,7 @@ class SpellsScreenTest {
         // When
         composeTestRule.setContent {
             AppTheme {
-                SpellsScreen(state = state)
+                SpellsScreen(uiState = state)
             }
         }
 
@@ -66,7 +66,7 @@ class SpellsScreenTest {
         // When
         composeTestRule.setContent {
             AppTheme {
-                SpellsScreen(state = state)
+                SpellsScreen(uiState = state)
             }
         }
 
@@ -82,7 +82,7 @@ class SpellsScreenTest {
         // When
         composeTestRule.setContent {
             AppTheme {
-                SpellsScreen(state = state)
+                SpellsScreen(uiState = state)
             }
         }
 
@@ -100,7 +100,7 @@ class SpellsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 SpellsScreen(
-                    state = state,
+                    uiState = state,
                     onQueryChanged = { lastQuery = it },
                 )
             }
@@ -123,7 +123,7 @@ class SpellsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 SpellsScreen(
-                    state = state,
+                    uiState = state,
                     onFavoriteClick = { favoriteClicks += 1 },
                 )
             }
@@ -146,7 +146,7 @@ class SpellsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 SpellsScreen(
-                    state = state,
+                    uiState = state,
                     onClassToggled = { toggledClass = it },
                 )
             }
@@ -169,7 +169,7 @@ class SpellsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 SpellsScreen(
-                    state = state,
+                    uiState = state,
                     onSpellClick = { clickedSpell = it },
                 )
             }

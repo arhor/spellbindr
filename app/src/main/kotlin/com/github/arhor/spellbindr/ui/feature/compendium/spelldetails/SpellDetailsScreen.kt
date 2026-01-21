@@ -40,17 +40,19 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 internal fun SpellDetailScreen(
-    state: SpellDetailsUiState,
+    uiState: SpellDetailsUiState,
 ) {
-    when (state) {
+    when (uiState) {
         is SpellDetailsUiState.Loading -> LoadingIndicator()
-        is SpellDetailsUiState.Content -> SpellDetailsContent(state.spell)
-        is SpellDetailsUiState.Error -> ErrorMessage(state.errorMessage)
+        is SpellDetailsUiState.Failure -> ErrorMessage(uiState.errorMessage)
+        is SpellDetailsUiState.Content -> SpellDetailsContent(uiState.spell)
     }
 }
 
 @Composable
-private fun SpellDetailsContent(spell: Spell) {
+private fun SpellDetailsContent(
+    spell: Spell,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -147,7 +149,9 @@ private fun SpellDetailsContent(spell: Spell) {
 }
 
 @Composable
-private fun DescriptionRow(text: Iterable<String>) {
+private fun DescriptionRow(
+    text: Iterable<String>,
+) {
     for (paragraph in text) {
         Text(
             text = paragraph,
@@ -160,7 +164,10 @@ private fun DescriptionRow(text: Iterable<String>) {
 }
 
 @Composable
-private fun TableRow(label: String, text: String) {
+private fun TableRow(
+    label: String,
+    text: String,
+) {
     TableRow(label) {
         Text(
             text = text,
@@ -172,7 +179,10 @@ private fun TableRow(label: String, text: String) {
 }
 
 @Composable
-private fun TableRow(label: String, content: @Composable () -> Unit) {
+private fun TableRow(
+    label: String,
+    content: @Composable () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -198,32 +208,31 @@ private fun TableRow(label: String, content: @Composable () -> Unit) {
     }
 }
 
-@PreviewLightDark
 @Composable
+@PreviewLightDark
 private fun SpellDetailsPreview() {
     AppTheme {
-        val spell = Spell(
-            id = "arcane_blast",
-            name = "Arcane Blast",
-            desc = listOf(
-                "A surge of arcane energy leaps from your hands to strike a creature.",
-                "On a hit, the target takes 2d8 force damage.",
-            ),
-            level = 2,
-            range = "60 ft",
-            ritual = false,
-            school = EntityRef(id = "evocation"),
-            duration = "Instant",
-            castingTime = "1 action",
-            classes = listOf(EntityRef(id = "wizard")),
-            components = listOf("V", "S"),
-            concentration = false,
-            higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
-            source = "Homebrew",
-        )
         SpellDetailScreen(
-            state = SpellDetailsUiState.Content(
-                spell = spell,
+            uiState = SpellDetailsUiState.Content(
+                spell = Spell(
+                    id = "arcane_blast",
+                    name = "Arcane Blast",
+                    desc = listOf(
+                        "A surge of arcane energy leaps from your hands to strike a creature.",
+                        "On a hit, the target takes 2d8 force damage.",
+                    ),
+                    level = 2,
+                    range = "60 ft",
+                    ritual = false,
+                    school = EntityRef(id = "evocation"),
+                    duration = "Instant",
+                    castingTime = "1 action",
+                    classes = listOf(EntityRef(id = "wizard")),
+                    components = listOf("V", "S"),
+                    concentration = false,
+                    higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
+                    source = "Homebrew",
+                ),
                 isFavorite = false,
             ),
         )

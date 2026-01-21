@@ -72,7 +72,7 @@ class ConditionsViewModelTest {
             val state = viewModel.uiState.drop(1).first()
 
             // Then
-            assertThat(state).isEqualTo(ConditionsUiState.Error("Failed to load conditions"))
+            assertThat(state).isEqualTo(ConditionsUiState.Failure("Failed to load conditions"))
         }
 
     @Test

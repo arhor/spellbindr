@@ -28,30 +28,28 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 fun SpellsScreen(
-    state: SpellsUiState,
+    uiState: SpellsUiState,
     onQueryChanged: (String) -> Unit = {},
     onFavoriteClick: () -> Unit = {},
     onSpellClick: (Spell) -> Unit = {},
     onClassToggled: (EntityRef) -> Unit = {},
 ) {
-    when (state) {
+    when (uiState) {
         is SpellsUiState.Loading -> LoadingIndicator()
-
+        is SpellsUiState.Failure -> ErrorMessage(uiState.errorMessage)
         is SpellsUiState.Content -> SpellSearchContent(
-            state = state,
+            uiState = uiState,
             onQueryChanged = onQueryChanged,
             onFavoriteClick = onFavoriteClick,
             onSpellClick = onSpellClick,
             onClassToggled = onClassToggled,
         )
-
-        is SpellsUiState.Failure -> ErrorMessage(state.errorMessage)
     }
 }
 
 @Composable
 private fun SpellSearchContent(
-    state: SpellsUiState.Content,
+    uiState: SpellsUiState.Content,
     onQueryChanged: (String) -> Unit,
     onFavoriteClick: () -> Unit,
     onSpellClick: (Spell) -> Unit,
@@ -64,16 +62,16 @@ private fun SpellSearchContent(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         SpellSearchInput(
-            query = state.query,
+            query = uiState.query,
             onQueryChanged = onQueryChanged,
-            showFavorite = state.showFavoriteOnly,
+            showFavorite = uiState.showFavoriteOnly,
             onFavoriteClick = onFavoriteClick,
         )
 
-        if (state.castingClasses.isNotEmpty()) {
+        if (uiState.castingClasses.isNotEmpty()) {
             SpellClassFilterRow(
-                castingClasses = state.castingClasses,
-                selectedClasses = state.selectedClasses,
+                castingClasses = uiState.castingClasses,
+                selectedClasses = uiState.selectedClasses,
                 onClassToggled = onClassToggled,
             )
         }
@@ -81,7 +79,7 @@ private fun SpellSearchContent(
         Spacer(modifier = Modifier.height(4.dp))
 
         SpellList(
-            spells = state.spells,
+            spells = uiState.spells,
             onSpellClick = onSpellClick,
         )
     }
@@ -124,7 +122,7 @@ private fun SpellClassFilterRow(
 private fun SpellSearchScreenPreview() {
     AppTheme {
         SpellsScreen(
-            state = SpellsUiState.Content(
+            uiState = SpellsUiState.Content(
                 query = "heal",
                 castingClasses = listOf(EntityRef(id = "cleric")),
                 spells = listOf(

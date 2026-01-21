@@ -16,34 +16,33 @@ import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.feature.compendium.conditions.components.ConditionListItem
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.utils.scrollToItemIfNeeded
 
 @Composable
 internal fun ConditionsScreen(
-    state: ConditionsUiState,
+    uiState: ConditionsUiState,
     onConditionClick: (Condition) -> Unit = {},
 ) {
-    when (state) {
+    when (uiState) {
         is ConditionsUiState.Loading -> LoadingIndicator()
-        is ConditionsUiState.Content -> ConditionsContent(state, onConditionClick)
-        is ConditionsUiState.Error -> ErrorMessage(state.errorMessage)
+        is ConditionsUiState.Failure -> ErrorMessage(uiState.errorMessage)
+        is ConditionsUiState.Content -> ConditionsContent(uiState, onConditionClick)
     }
 }
 
 @Composable
 fun ConditionsContent(
-    state: ConditionsUiState.Content,
+    uiState: ConditionsUiState.Content,
     onConditionClick: (Condition) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
-    LaunchedEffect(state) {
-        val index = state.conditions.indexOfFirst { it.id == state.selectedItemId }
-        if (index != -1) {
-            val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
-            if (itemInfo == null || itemInfo.offset + itemInfo.size > listState.layoutInfo.viewportSize.height) {
-                listState.animateScrollToItem(index)
-            }
-        }
+    LaunchedEffect(uiState) {
+        listState.scrollToItemIfNeeded(
+            items = uiState.conditions,
+            selector = Condition::id,
+            selectedKey = uiState.selectedItemId,
+        )
     }
 
     LazyColumn(
@@ -53,10 +52,10 @@ fun ConditionsContent(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = state.conditions, key = { it.id }) { condition ->
+        items(items = uiState.conditions, key = { it.id }) { condition ->
             ConditionListItem(
                 condition = condition,
-                isExpanded = condition.id == state.selectedItemId,
+                isExpanded = condition.id == uiState.selectedItemId,
                 onItemClick = { onConditionClick(condition) },
             )
         }
@@ -68,7 +67,7 @@ fun ConditionsContent(
 private fun ConditionsScreenPreview() {
     AppTheme {
         ConditionsScreen(
-            state = ConditionsUiState.Content(
+            uiState = ConditionsUiState.Content(
                 conditions = listOf(
                     Condition(
                         id = "blinded",

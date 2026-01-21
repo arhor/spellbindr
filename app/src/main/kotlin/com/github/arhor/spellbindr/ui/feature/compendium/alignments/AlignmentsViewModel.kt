@@ -41,7 +41,7 @@ class AlignmentsViewModel @Inject constructor(
             }
 
             is Loadable.Failure -> {
-                AlignmentsUiState.Error(alignments.errorMessage ?: "Failed to load alignments")
+                AlignmentsUiState.Failure(alignments.errorMessage ?: "Failed to load alignments")
             }
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AlignmentsUiState.Loading)

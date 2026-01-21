@@ -45,11 +45,11 @@ class RacesViewModel @Inject constructor(
             }
 
             races is Loadable.Failure -> {
-                RacesUiState.Error(races.errorMessage ?: "Failed to load races")
+                RacesUiState.Failure(races.errorMessage ?: "Failed to load races")
             }
 
             traits is Loadable.Failure -> {
-                RacesUiState.Error(traits.errorMessage ?: "Failed to load traits")
+                RacesUiState.Failure(traits.errorMessage ?: "Failed to load traits")
             }
 
             else -> {

@@ -16,7 +16,7 @@ sealed interface RacesUiState {
     ) : RacesUiState
 
     @Immutable
-    data class Error(
+    data class Failure(
         val errorMessage: String,
     ) : RacesUiState
 }

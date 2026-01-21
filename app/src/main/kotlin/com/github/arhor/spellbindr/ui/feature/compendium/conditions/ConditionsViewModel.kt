@@ -41,7 +41,7 @@ class ConditionsViewModel @Inject constructor(
             }
 
             is Loadable.Failure -> {
-                ConditionsUiState.Error(conditions.errorMessage ?: "Failed to load conditions")
+                ConditionsUiState.Failure(conditions.errorMessage ?: "Failed to load conditions")
             }
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsUiState.Loading)

@@ -32,7 +32,7 @@ class RacesScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 RacesScreen(
-                    state = state,
+                    uiState = state,
                 )
             }
         }
@@ -46,13 +46,13 @@ class RacesScreenTest {
     @Test
     fun `render should show error message when state is error`() {
         // Given
-        val state = RacesUiState.Error("Something went wrong")
+        val state = RacesUiState.Failure("Something went wrong")
 
         // When
         composeTestRule.setContent {
             AppTheme {
                 RacesScreen(
-                    state = state,
+                    uiState = state,
                 )
             }
         }
@@ -85,7 +85,7 @@ class RacesScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 RacesScreen(
-                    state = state,
+                    uiState = state,
                 )
             }
         }
@@ -118,7 +118,7 @@ class RacesScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 RacesScreen(
-                    state = state,
+                    uiState = state,
                     onRaceClick = { clickedRace = it },
                 )
             }

@@ -85,12 +85,12 @@ class RacesViewModelTest {
             val viewModel = RacesViewModel(observeRaces, observeTraits)
 
             // When
-            val errorState = async { viewModel.uiState.first { it is RacesUiState.Error } }
+            val errorState = async { viewModel.uiState.first { it is RacesUiState.Failure } }
             racesFlow.value = Loadable.Failure()
             advanceUntilIdle()
 
             // Then
-            assertThat(errorState.await()).isEqualTo(RacesUiState.Error("Failed to load races"))
+            assertThat(errorState.await()).isEqualTo(RacesUiState.Failure("Failed to load races"))
         }
 
     @Test
@@ -104,12 +104,12 @@ class RacesViewModelTest {
             val viewModel = RacesViewModel(observeRaces, observeTraits)
 
             // When
-            val errorState = async { viewModel.uiState.first { it is RacesUiState.Error } }
+            val errorState = async { viewModel.uiState.first { it is RacesUiState.Failure } }
             traitsFlow.value = Loadable.Failure(errorMessage = "Traits failed")
             advanceUntilIdle()
 
             // Then
-            assertThat(errorState.await()).isEqualTo(RacesUiState.Error("Traits failed"))
+            assertThat(errorState.await()).isEqualTo(RacesUiState.Failure("Traits failed"))
         }
 
     @Test

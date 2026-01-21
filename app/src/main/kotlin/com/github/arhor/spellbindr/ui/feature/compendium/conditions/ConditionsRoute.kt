@@ -25,7 +25,7 @@ fun ConditionsRoute(
         ),
     ) {
         ConditionsScreen(
-            state = state,
+            uiState = state,
             onConditionClick = vm::onConditionClick,
         )
     }

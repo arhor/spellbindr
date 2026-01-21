@@ -18,34 +18,33 @@ import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.feature.compendium.races.components.RaceListItem
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.github.arhor.spellbindr.utils.scrollToItemIfNeeded
 
 @Composable
 internal fun RacesScreen(
-    state: RacesUiState,
+    uiState: RacesUiState,
     onRaceClick: (Race) -> Unit = {},
 ) {
-    when (state) {
+    when (uiState) {
         is RacesUiState.Loading -> LoadingIndicator()
-        is RacesUiState.Content -> RacesContent(state, onRaceClick)
-        is RacesUiState.Error -> ErrorMessage(state.errorMessage)
+        is RacesUiState.Failure -> ErrorMessage(uiState.errorMessage)
+        is RacesUiState.Content -> RacesContent(uiState, onRaceClick)
     }
 }
 
 @Composable
 private fun RacesContent(
-    state: RacesUiState.Content,
+    uiState: RacesUiState.Content,
     onRaceClick: (Race) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
-    LaunchedEffect(state) {
-        val index = state.races.indexOfFirst { it.name == state.selectedItemId }
-        if (index != -1) {
-            val itemInfo = listState.layoutInfo.visibleItemsInfo.find { it.index == index }
-            if (itemInfo == null || itemInfo.offset + itemInfo.size > listState.layoutInfo.viewportSize.height) {
-                listState.animateScrollToItem(index)
-            }
-        }
+    LaunchedEffect(uiState) {
+        listState.scrollToItemIfNeeded(
+            items = uiState.races,
+            selector = Race::id,
+            selectedKey = uiState.selectedItemId,
+        )
     }
 
     LazyColumn(
@@ -55,11 +54,11 @@ private fun RacesContent(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(items = state.races, key = { it.id }) { race ->
+        items(items = uiState.races, key = { it.id }) { race ->
             RaceListItem(
                 race = race,
-                traits = state.traits,
-                isExpanded = race.id == state.selectedItemId,
+                traits = uiState.traits,
+                isExpanded = race.id == uiState.selectedItemId,
                 onItemClick = { onRaceClick(race) }
             )
         }
@@ -95,7 +94,7 @@ private fun RacesScreenPreview() {
 
     AppTheme {
         RacesScreen(
-            state = RacesUiState.Content(
+            uiState = RacesUiState.Content(
                 races = listOf(race),
                 traits = mapOf(
                     darkvision.id to darkvision,

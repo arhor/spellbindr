@@ -46,7 +46,7 @@ class SpellDetailsViewModel @Inject constructor(
                     }
 
                     is Loadable.Failure -> {
-                        SpellDetailsUiState.Error(it.errorMessage ?: "Could not load spell.")
+                        SpellDetailsUiState.Failure(it.errorMessage ?: "Could not load spell.")
                     }
                 }
             }

@@ -27,7 +27,7 @@ fun SpellsRoute(
         ),
     ) {
         SpellsScreen(
-            state = state,
+            uiState = state,
             onQueryChanged = vm::onQueryChanged,
             onFavoriteClick = vm::onFavoritesToggled,
             onSpellClick = onSpellSelected,

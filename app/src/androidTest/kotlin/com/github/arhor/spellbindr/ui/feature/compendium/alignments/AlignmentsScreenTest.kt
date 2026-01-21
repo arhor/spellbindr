@@ -29,7 +29,7 @@ class AlignmentsScreenTest {
         // When
         composeTestRule.setContent {
             AppTheme {
-                AlignmentsScreen(state = state)
+                AlignmentsScreen(uiState = state)
             }
         }
 
@@ -40,12 +40,12 @@ class AlignmentsScreenTest {
     @Test
     fun `render should show error message when state is error`() {
         // Given
-        val state = AlignmentsUiState.Error("Failed to load alignments")
+        val state = AlignmentsUiState.Failure("Failed to load alignments")
 
         // When
         composeTestRule.setContent {
             AppTheme {
-                AlignmentsScreen(state = state)
+                AlignmentsScreen(uiState = state)
             }
         }
 
@@ -69,7 +69,7 @@ class AlignmentsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 AlignmentsScreen(
-                    state = state,
+                    uiState = state,
                     onAlignmentClick = { clickedAlignment = it },
                 )
             }

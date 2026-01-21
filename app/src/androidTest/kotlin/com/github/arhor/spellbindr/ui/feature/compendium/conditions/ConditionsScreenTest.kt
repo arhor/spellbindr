@@ -1,8 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.conditions
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -30,7 +30,7 @@ class ConditionsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 ConditionsScreen(
-                    state = state,
+                    uiState = state,
                 )
             }
         }
@@ -42,13 +42,13 @@ class ConditionsScreenTest {
     @Test
     fun `render should show error message when state is error`() {
         // Given
-        val state = ConditionsUiState.Error("Something went wrong")
+        val state = ConditionsUiState.Failure("Something went wrong")
 
         // When
         composeTestRule.setContent {
             AppTheme {
                 ConditionsScreen(
-                    state = state,
+                    uiState = state,
                 )
             }
         }
@@ -74,7 +74,7 @@ class ConditionsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 ConditionsScreen(
-                    state = state,
+                    uiState = state,
                 )
             }
         }
@@ -100,7 +100,7 @@ class ConditionsScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 ConditionsScreen(
-                    state = state,
+                    uiState = state,
                     onConditionClick = { clickedCondition = it },
                 )
             }
