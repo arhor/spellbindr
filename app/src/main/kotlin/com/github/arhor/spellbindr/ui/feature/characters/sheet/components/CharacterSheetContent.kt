@@ -103,7 +103,7 @@ internal fun CharacterSheetContent(
                 )
 
                 CharacterSheetTab.Skills -> SkillsTab(
-                    skills = state.skills,
+                    state = state.skills,
                     modifier = Modifier.fillMaxSize(),
                 )
 
