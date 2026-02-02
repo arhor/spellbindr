@@ -85,6 +85,20 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
     composable<AppDestination.GuidedCharacterSetup> {
         GuidedCharacterSetupRoute(
             onBack = controller::navigateUp,
+            onFinished = { characterId ->
+                controller.navigate(
+                    AppDestination.CharacterSheet(
+                        characterId = characterId,
+                        initialName = null,
+                        initialSubtitle = "Level 1",
+                    ),
+                ) {
+                    popUpTo(AppDestination.GuidedCharacterSetup) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            },
         )
     }
     composable<AppDestination.CharacterSheet> { navEntry ->

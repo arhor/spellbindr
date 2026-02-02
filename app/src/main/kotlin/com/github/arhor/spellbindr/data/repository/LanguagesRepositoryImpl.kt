@@ -4,15 +4,17 @@ import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.LanguagesAssetDataStore
 import com.github.arhor.spellbindr.domain.model.Language
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.repository.LanguagesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Stable
 @Singleton
-class LanguagesRepository @Inject constructor(
+class LanguagesRepositoryImpl @Inject constructor(
     private val languagesDataStore: LanguagesAssetDataStore,
-) {
-    val allLanguagesState: Flow<Loadable<List<Language>>>
+) : LanguagesRepository {
+    override val allLanguagesState: Flow<Loadable<List<Language>>>
         get() = languagesDataStore.data
 }
+
