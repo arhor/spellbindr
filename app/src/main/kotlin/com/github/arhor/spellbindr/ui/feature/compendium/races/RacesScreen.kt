@@ -39,7 +39,7 @@ private fun RacesContent(
 ) {
     val listState = rememberLazyListState()
 
-    LaunchedEffect(uiState) {
+    LaunchedEffect(uiState.selectedItemId, uiState.races) {
         listState.scrollToItemIfNeeded(
             items = uiState.races,
             selector = Race::id,
