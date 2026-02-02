@@ -7,9 +7,12 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.map
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -48,13 +51,16 @@ class ObserveSpellsUseCase @Inject constructor(
             spellsRepository.allSpellsState,
             favoritesRepository.observeFavoriteIds(FavoriteType.SPELL),
         ) { spells, favoriteSpellIds ->
+            spells to favoriteSpellIds
+        }.mapLatest { (spells, favoriteSpellIds) ->
             spells.map { data ->
                 val normalizedQuery = query.trim()
                 val favoritesFilter = if (getFavoritesOnly) favoriteSpellIds else emptySet()
 
                 data.filter { it.matches(normalizedQuery, characterClasses, favoritesFilter) }
             }
-        }.catch { emit(Loadable.Failure(errorMessage = "Failed to load spells", cause = it)) }
+        }.flowOn(Dispatchers.Default)
+            .catch { emit(Loadable.Failure(errorMessage = "Failed to load spells", cause = it)) }
     }
 
     private fun Spell.matches(
