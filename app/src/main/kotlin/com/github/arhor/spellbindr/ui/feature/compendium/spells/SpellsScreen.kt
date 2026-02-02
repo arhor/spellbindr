@@ -1,14 +1,13 @@
 package com.github.arhor.spellbindr.ui.feature.compendium.spells
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.FilterChip
@@ -92,11 +91,11 @@ private fun SpellClassFilterRow(
     onClassToggled: (EntityRef) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier.horizontalScroll(rememberScrollState()),
+    LazyRow(
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        castingClasses.forEach { spellClass ->
+        items(castingClasses, key = { it.id }) { spellClass ->
             val selected = spellClass in selectedClasses
             FilterChip(
                 selected = selected,
