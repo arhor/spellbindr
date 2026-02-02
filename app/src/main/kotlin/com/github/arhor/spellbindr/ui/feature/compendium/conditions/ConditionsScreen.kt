@@ -37,7 +37,7 @@ fun ConditionsContent(
 ) {
     val listState = rememberLazyListState()
 
-    LaunchedEffect(uiState) {
+    LaunchedEffect(uiState.selectedItemId, uiState.conditions) {
         listState.scrollToItemIfNeeded(
             items = uiState.conditions,
             selector = Condition::id,
