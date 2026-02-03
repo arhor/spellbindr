@@ -4,7 +4,7 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
-import com.github.arhor.spellbindr.domain.model.map
+import com.github.arhor.spellbindr.domain.model.mapContent
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.Dispatchers
@@ -53,7 +53,7 @@ class ObserveSpellsUseCase @Inject constructor(
         ) { spells, favoriteSpellIds ->
             spells to favoriteSpellIds
         }.mapLatest { (spells, favoriteSpellIds) ->
-            spells.map { data ->
+            spells.mapContent { data ->
                 val normalizedQuery = query.trim()
                 val favoritesFilter = if (getFavoritesOnly) favoriteSpellIds else emptySet()
 

@@ -55,56 +55,97 @@ internal object CharacterSheetPreviewData {
     )
 
     val spells = SpellsTabState(
-        spellLevels = listOf(
-            SpellLevelUiModel(
-                level = 0,
-                label = "Cantrips",
-                spellSlot = null,
-                spells = listOf(
-                    CharacterSpellUiModel(
-                        spellId = "minor_illusion",
-                        name = "Minor Illusion",
+        spellcastingClasses = listOf(
+            SpellcastingClassUiModel(
+                sourceKey = "wizard",
+                name = "Wizard",
+                spellcastingAbilityLabel = "INT",
+                spellSaveDcLabel = "DC 15",
+                spellAttackBonusLabel = "ATK +7",
+                spellLevels = listOf(
+                    SpellLevelUiModel(
                         level = 0,
-                        school = "Illusion",
-                        castingTime = "1 action",
-                        sourceClass = "Wizard",
-                        sourceLabel = "Wizard",
-                        sourceKey = "wizard",
-                    )
-                ),
-            ),
-            SpellLevelUiModel(
-                level = 1,
-                label = "Level 1",
-                spellSlot = SpellSlotUiModel(level = 1, total = 4, expended = 1),
-                spells = listOf(
-                    CharacterSpellUiModel(
-                        spellId = "magic_missile",
-                        name = "Magic Missile",
-                        level = 1,
-                        school = "Evocation",
-                        castingTime = "1 action",
-                        sourceClass = "Wizard",
-                        sourceLabel = "Wizard",
-                        sourceKey = "wizard",
+                        label = "Cantrips",
+                        spells = listOf(
+                            CharacterSpellUiModel(
+                                spellId = "minor_illusion",
+                                name = "Minor Illusion",
+                                level = 0,
+                                school = "Illusion",
+                                castingTime = "1 action",
+                                sourceClass = "Wizard",
+                                sourceLabel = "Wizard",
+                                sourceKey = "wizard",
+                            )
+                        ),
                     ),
-                    CharacterSpellUiModel(
-                        spellId = "divine_favor",
-                        name = "Divine Favor",
+                    SpellLevelUiModel(
                         level = 1,
-                        school = "Evocation",
-                        castingTime = "1 action",
-                        sourceClass = "Paladin",
-                        sourceLabel = "Paladin",
-                        sourceKey = "paladin",
-                    )
+                        label = "Level 1",
+                        spells = listOf(
+                            CharacterSpellUiModel(
+                                spellId = "magic_missile",
+                                name = "Magic Missile",
+                                level = 1,
+                                school = "Evocation",
+                                castingTime = "1 action",
+                                sourceClass = "Wizard",
+                                sourceLabel = "Wizard",
+                                sourceKey = "wizard",
+                            ),
+                        ),
+                    ),
                 ),
             ),
-            SpellLevelUiModel(
-                level = 2,
-                label = "Level 2",
-                spellSlot = SpellSlotUiModel(level = 2, total = 3, expended = 2),
-                spells = emptyList(),
+            SpellcastingClassUiModel(
+                sourceKey = "paladin",
+                name = "Paladin",
+                spellcastingAbilityLabel = "CHA",
+                spellSaveDcLabel = "DC 13",
+                spellAttackBonusLabel = "ATK +5",
+                spellLevels = listOf(
+                    SpellLevelUiModel(
+                        level = 1,
+                        label = "Level 1",
+                        spells = listOf(
+                            CharacterSpellUiModel(
+                                spellId = "divine_favor",
+                                name = "Divine Favor",
+                                level = 1,
+                                school = "Evocation",
+                                castingTime = "1 action",
+                                sourceClass = "Paladin",
+                                sourceLabel = "Paladin",
+                                sourceKey = "paladin",
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            SpellcastingClassUiModel(
+                sourceKey = "warlock",
+                name = "Warlock",
+                spellcastingAbilityLabel = "CHA",
+                spellSaveDcLabel = "DC 14",
+                spellAttackBonusLabel = "ATK +6",
+                spellLevels = listOf(
+                    SpellLevelUiModel(
+                        level = 1,
+                        label = "Level 1",
+                        spells = listOf(
+                            CharacterSpellUiModel(
+                                spellId = "hex",
+                                name = "Hex",
+                                level = 1,
+                                school = "Enchantment",
+                                castingTime = "1 bonus action",
+                                sourceClass = "Warlock",
+                                sourceLabel = "Warlock",
+                                sourceKey = "warlock",
+                            ),
+                        ),
+                    ),
+                ),
             ),
         ),
         canAddSpells = true,
@@ -125,14 +166,6 @@ internal object CharacterSheetPreviewData {
             spellId = "hex",
             label = "Hex",
         ),
-        sourceFilters = listOf(
-            SpellSourceFilterUiModel(id = null, label = "All"),
-            SpellSourceFilterUiModel(id = "paladin", label = "Paladin"),
-            SpellSourceFilterUiModel(id = "wizard", label = "Wizard"),
-        ),
-        selectedSourceId = null,
-        showSourceBadges = true,
-        showSourceFilters = true,
     )
 
     val weapons = WeaponsTabState(

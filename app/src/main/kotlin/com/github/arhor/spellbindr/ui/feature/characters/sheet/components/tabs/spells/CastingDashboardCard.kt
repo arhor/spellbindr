@@ -80,12 +80,12 @@ private fun SharedSlotsSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "Shared slots",
+            text = "Spell slots",
             style = MaterialTheme.typography.titleSmall,
         )
         if (sharedSlots.isEmpty()) {
             Text(
-                text = "No shared slots configured.",
+                text = "No spell slots configured.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

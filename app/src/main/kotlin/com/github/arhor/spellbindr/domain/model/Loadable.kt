@@ -1,5 +1,8 @@
 package com.github.arhor.spellbindr.domain.model
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
 /**
  * Represents the lifecycle state of a generic asset within the application.
  *
@@ -28,8 +31,21 @@ sealed class Loadable<out T> {
     data class Failure(val errorMessage: String? = null, val cause: Throwable? = null) : Loadable<Nothing>()
 }
 
-inline fun <T, R> Loadable<T>.map(transform: (T) -> R): Loadable<R> =
+inline fun <T, R> Loadable<T>.mapContent(
+    transform: (T) -> R,
+): Loadable<R> =
     when (this) {
-        is Loadable.Loading, is Loadable.Failure -> this
+        is Loadable.Loading,
+        is Loadable.Failure -> this
+
         is Loadable.Content -> Loadable.Content(transform(data))
+    }
+
+inline fun <T, R> Flow<Loadable<T>>.mapContent(
+    crossinline transform: suspend (T) -> R,
+): Flow<Loadable<R>> =
+    map { loadable ->
+        loadable.mapContent { data ->
+            transform(data)
+        }
     }

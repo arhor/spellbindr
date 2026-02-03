@@ -28,6 +28,7 @@ fun CharacterSpellPickerRoute(
     ) {
         CharacterSpellPickerScreen(
             state = state,
+            onSpellcastingClassSelected = vm::onSpellcastingClassSelected,
             onSourceClassChanged = vm::onSourceClassChanged,
             onQueryChanged = vm::onQueryChanged,
             onFavoriteClick = vm::onFavoritesToggled,

@@ -4,7 +4,7 @@ import com.github.arhor.spellbindr.domain.model.FavoriteType
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.SpellDetails
-import com.github.arhor.spellbindr.domain.model.map
+import com.github.arhor.spellbindr.domain.model.mapContent
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +21,7 @@ class ObserveSpellDetailsUseCase @Inject constructor(
             getSpellByIdFlow(spellId),
             favoritesRepository.observeFavoriteIds(FavoriteType.SPELL),
         ) { spell, favorites ->
-            spell.map {
+            spell.mapContent {
                 SpellDetails(
                     spell = it,
                     isFavorite = it.id in favorites

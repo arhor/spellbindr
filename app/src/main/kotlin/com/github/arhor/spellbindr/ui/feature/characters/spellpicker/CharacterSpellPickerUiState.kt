@@ -4,6 +4,12 @@ import androidx.compose.runtime.Immutable
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
 
+@Immutable
+data class SpellcastingClassOption(
+    val id: EntityRef,
+    val name: String,
+)
+
 sealed interface CharacterSpellPickerUiState {
 
     @Immutable
@@ -13,11 +19,11 @@ sealed interface CharacterSpellPickerUiState {
     data class Content(
         val query: String,
         val showFavoriteOnly: Boolean,
+        val spells: List<Spell>,
         val sourceClass: String,
         val defaultSourceClass: String,
-        val spells: List<Spell>,
-        val castingClasses: List<EntityRef>,
-        val currentClasses: Set<EntityRef>,
+        val spellcastingClassOptions: List<SpellcastingClassOption>,
+        val selectedSpellcastingClass: SpellcastingClassOption?,
     ) : CharacterSpellPickerUiState
 
     @Immutable

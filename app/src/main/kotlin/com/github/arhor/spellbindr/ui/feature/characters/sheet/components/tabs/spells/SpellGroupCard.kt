@@ -3,9 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
@@ -22,58 +20,12 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSpellUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
-
-@Composable
-internal fun SpellLevelCard(
-    spellLevel: SpellLevelUiModel,
-    editMode: SheetEditMode,
-    showSourceBadges: Boolean,
-    onSpellSelected: (String) -> Unit,
-    onSpellRemoved: (String, String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        shape = MaterialTheme.shapes.large,
-        tonalElevation = 1.dp,
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = spellLevel.label,
-                style = MaterialTheme.typography.titleMedium,
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-            if (spellLevel.spells.isEmpty()) {
-                Text(
-                    text = "No spells for this level yet.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            } else {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    spellLevel.spells.forEach { spell ->
-                        SpellRow(
-                            spell = spell,
-                            editMode = editMode,
-                            showSourceBadge = showSourceBadges,
-                            onClick = { onSpellSelected(spell.spellId) },
-                            onRemove = { onSpellRemoved(spell.spellId, spell.sourceClass) },
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 @Composable
 internal fun SpellRow(
     spell: CharacterSpellUiModel,
     editMode: SheetEditMode,
-    showSourceBadge: Boolean,
     onClick: () -> Unit,
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
@@ -101,9 +53,6 @@ internal fun SpellRow(
                 val detailParts = buildList {
                     add(spell.school)
                     spell.castingTime.takeIf { it.isNotBlank() }?.let { add(it) }
-                    if (!showSourceBadge) {
-                        spell.sourceLabel.takeIf { it.isNotBlank() }?.let { add(it) }
-                    }
                 }
                 if (detailParts.isNotEmpty()) {
                     Text(
@@ -112,9 +61,6 @@ internal fun SpellRow(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-            }
-            if (showSourceBadge) {
-                SpellSourceBadge(label = spell.sourceLabel)
             }
             if (editMode == SheetEditMode.Edit) {
                 IconButton(onClick = onRemove) {
@@ -126,47 +72,18 @@ internal fun SpellRow(
 }
 
 @Composable
-private fun SpellSourceBadge(
-    label: String,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        shape = MaterialTheme.shapes.extraLarge,
-        tonalElevation = 1.dp,
-        color = MaterialTheme.colorScheme.secondaryContainer,
-        modifier = modifier,
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-        )
-    }
-}
-
 @Preview
-@Composable
-private fun SpellLevelCardPreview() {
-    AppTheme {
-        SpellLevelCard(
-            spellLevel = CharacterSheetPreviewData.spells.spellLevels.first(),
-            editMode = SheetEditMode.View,
-            showSourceBadges = CharacterSheetPreviewData.spells.showSourceBadges,
-            onSpellSelected = {},
-            onSpellRemoved = { _, _ -> },
-        )
-    }
-}
-
-@Preview
-@Composable
 private fun SpellRowPreview() {
     AppTheme {
         SpellRow(
-            spell = CharacterSheetPreviewData.spells.spellLevels.first { it.spells.isNotEmpty() }.spells.first(),
+            spell = CharacterSheetPreviewData.spells
+                .spellcastingClasses
+                .first()
+                .spellLevels
+                .first()
+                .spells
+                .first(),
             editMode = SheetEditMode.Edit,
-            showSourceBadge = CharacterSheetPreviewData.spells.showSourceBadges,
             onClick = {},
             onRemove = {},
         )

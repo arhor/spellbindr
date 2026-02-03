@@ -4,13 +4,9 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class SpellsTabState(
-    val spellLevels: List<SpellLevelUiModel>,
+    val spellcastingClasses: List<SpellcastingClassUiModel>,
     val canAddSpells: Boolean,
     val sharedSlots: List<SpellSlotUiModel>,
     val pactSlots: PactSlotUiModel?,
     val concentration: ConcentrationUiModel?,
-    val sourceFilters: List<SpellSourceFilterUiModel>,
-    val selectedSourceId: String?,
-    val showSourceBadges: Boolean,
-    val showSourceFilters: Boolean,
 )

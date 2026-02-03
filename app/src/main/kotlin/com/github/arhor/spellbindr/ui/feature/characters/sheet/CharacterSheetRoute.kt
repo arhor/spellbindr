@@ -162,7 +162,6 @@ fun CharacterSheetRoute(
             onPactSlotToggle = vm::togglePactSlot,
             onPactSlotTotalChanged = vm::setPactSlotTotal,
             onConcentrationClear = vm::clearConcentration,
-            onSpellSourceSelected = vm::selectSpellSource,
             onAddWeaponClick = vm::startNewWeapon,
             onWeaponSelected = vm::selectWeapon,
             onWeaponDeleted = vm::deleteWeapon,

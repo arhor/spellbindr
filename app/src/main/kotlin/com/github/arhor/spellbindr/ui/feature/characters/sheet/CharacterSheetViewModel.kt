@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
@@ -20,6 +21,7 @@ import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
 import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveWeaponCatalogUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
@@ -40,13 +42,14 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillUiMode
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellLevelUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotUiModel
-import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSourceFilterUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellcastingClassUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponCatalogUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponEditorState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponsTabState
 import com.github.arhor.spellbindr.utils.signed
+import com.github.arhor.spellbindr.utils.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -77,6 +80,7 @@ class CharacterSheetViewModel @Inject constructor(
     private val deleteCharacterUseCase: DeleteCharacterUseCase,
     private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
     private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
+    private val observeSpellcastingClassesUseCase: ObserveSpellcastingClassesUseCase,
     private val observeWeaponCatalogUseCase: ObserveWeaponCatalogUseCase,
     private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
     private val updateHitPointsUseCase: UpdateHitPointsUseCase,
@@ -99,9 +103,9 @@ class CharacterSheetViewModel @Inject constructor(
     private var hasLoaded = characterId == null
     private var currentSheet: CharacterSheet? = null
     private var cachedSpells: List<Spell> = emptyList()
+    private var cachedSpellcastingClasses: List<CharacterClass> = emptyList()
     private var weaponCatalog: List<WeaponCatalogUiModel> = emptyList()
     private var selectedTab: CharacterSheetTab = CharacterSheetTab.Overview
-    private var selectedSpellSourceId: String? = null
     private var editMode: SheetEditMode = SheetEditMode.View
     private var editingState: CharacterSheetEditingState? = null
     private var weaponEditorState: WeaponEditorState? = null
@@ -114,6 +118,7 @@ class CharacterSheetViewModel @Inject constructor(
         } else {
             observeCharacter(characterId)
             observeSpells()
+            observeSpellcastingClasses()
             observeWeaponCatalog()
         }
     }
@@ -231,13 +236,6 @@ class CharacterSheetViewModel @Inject constructor(
 
     fun clearConcentration() {
         updateSheet { sheet -> sheet.copy(concentrationSpellId = null) }
-    }
-
-    fun selectSpellSource(sourceId: String?) {
-        if (selectedSpellSourceId != sourceId) {
-            selectedSpellSourceId = sourceId
-            renderState()
-        }
     }
 
     fun removeSpell(spellId: String, sourceClass: String) {
@@ -404,6 +402,16 @@ class CharacterSheetViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    private fun observeSpellcastingClasses() {
+        observeSpellcastingClassesUseCase()
+            .unwrap()
+            .onEach { classes ->
+                cachedSpellcastingClasses = classes
+                renderState()
+            }
+            .launchIn(viewModelScope)
+    }
+
     private fun observeWeaponCatalog() {
         observeWeaponCatalogUseCase()
             .map { entries -> entries.map { entry -> entry.toUiModel() } }
@@ -442,8 +450,7 @@ class CharacterSheetViewModel @Inject constructor(
                 !hasLoaded -> CharacterSheetUiState.Loading
                 sheet == null -> CharacterSheetUiState.Failure(errorMessage ?: "Character not found")
                 else -> {
-                    val spellsState = sheet.toSpellsState(cachedSpells, selectedSpellSourceId)
-                    selectedSpellSourceId = spellsState.selectedSourceId
+                    val spellsState = sheet.toSpellsState(cachedSpells, cachedSpellcastingClasses)
                     CharacterSheetUiState.Content(
                         characterId = sheet.id,
                         selectedTab = selectedTab,
@@ -580,7 +587,7 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
 
 private fun CharacterSheet.toSpellsState(
     allSpells: List<Spell>,
-    selectedSourceId: String?,
+    spellcastingClasses: List<CharacterClass>,
 ): SpellsTabState {
     val spellLookup = allSpells.associateBy { it.id }
     val normalizedSlots = if (spellSlots.isEmpty()) defaultSpellSlots() else spellSlots
@@ -593,7 +600,6 @@ private fun CharacterSheet.toSpellsState(
                 expended = slot.expended.coerceIn(0, slot.total.coerceAtLeast(0)),
             )
         }
-    val slotsByLevel = allSharedSlots.associateBy { it.level }
 
     val spellEntries = characterSpells.map { stored ->
         val spell = spellLookup[stored.spellId]
@@ -610,51 +616,58 @@ private fun CharacterSheet.toSpellsState(
         )
     }
 
-    val sources = spellEntries
-        .associate { it.sourceKey to it.sourceLabel }
-        .toList()
-        .sortedBy { it.second.lowercase() }
-    val sourceIds = sources.map { it.first }.toSet()
-    val resolvedSelectedSourceId = selectedSourceId?.takeIf { it in sourceIds }
-    val filteredEntries = if (resolvedSelectedSourceId == null) {
-        spellEntries
-    } else {
-        spellEntries.filter { it.sourceKey == resolvedSelectedSourceId }
-    }
-    val spellsByLevel = filteredEntries.groupBy { it.level }
+    val spellsBySource = spellEntries.groupBy { it.sourceKey }
+    val classModels = spellsBySource
+        .map { (sourceKey, spells) ->
+            val abilityId = spellcastingClasses.resolveSpellcastingAbility(sourceKey)
+            val abilityLabel = abilityId?.abbreviation() ?: "—"
+            val abilityModifier = abilityId?.let(abilityScores::modifierFor)
+            val spellAttack = abilityModifier?.let { signed(proficiencyBonus + it) }
+            val spellDc = abilityModifier?.let { (8 + proficiencyBonus + it).toString() }
 
-    val spellLevels = buildList {
-        spellsByLevel[0]?.let { cantrips ->
-            add(
-                SpellLevelUiModel(
-                    level = 0,
-                    label = "Cantrips",
-                    spellSlot = null,
-                    spells = cantrips.sortedBy { it.name.lowercase() },
-                )
+            val spellsByLevel = spells.groupBy { it.level }
+            val spellLevels = buildList {
+                spellsByLevel[0]?.let { cantrips ->
+                    add(
+                        SpellLevelUiModel(
+                            level = 0,
+                            label = "Cantrips",
+                            spells = cantrips.sortedBy { it.name.lowercase() },
+                        )
+                    )
+                }
+
+                (1..9).forEach { level ->
+                    val levelSpells = spellsByLevel[level].orEmpty()
+                    if (levelSpells.isNotEmpty()) {
+                        add(
+                            SpellLevelUiModel(
+                                level = level,
+                                label = "Level $level",
+                                spells = levelSpells.sortedBy { it.name.lowercase() },
+                            )
+                        )
+                    }
+                }
+            }
+
+            SpellcastingClassUiModel(
+                sourceKey = sourceKey,
+                name = spells.firstOrNull()?.sourceLabel ?: formatSourceLabel(sourceKey),
+                spellcastingAbilityLabel = abilityLabel,
+                spellSaveDcLabel = "DC ${spellDc ?: "—"}",
+                spellAttackBonusLabel = "ATK ${spellAttack ?: "—"}",
+                spellLevels = spellLevels,
             )
         }
-
-        (1..9).forEach { level ->
-            add(
-                SpellLevelUiModel(
-                    level = level,
-                    label = "Level $level",
-                    spellSlot = slotsByLevel[level],
-                    spells = spellsByLevel[level]
-                        .orEmpty()
-                        .sortedWith(
-                            compareBy<CharacterSpellUiModel> { it.name.lowercase() }
-                                .thenBy { it.sourceLabel.lowercase() },
-                        ),
-                )
-            )
-        }
-    }
+        .sortedWith(
+            compareBy<SpellcastingClassUiModel> { it.sourceKey == UNASSIGNED_SOURCE_KEY }
+                .thenBy { it.name.lowercase() },
+        )
 
     val pactSlotUi = when {
-        sources.any { (key, label) ->
-            key.contains("warlock") || label.contains("warlock", ignoreCase = true)
+        spellsBySource.any { (key, spells) ->
+            key.contains("warlock") || spells.any { it.sourceLabel.contains("warlock", ignoreCase = true) }
         } || pactSlots != null -> {
             pactSlots?.let { slot ->
                 PactSlotUiModel(
@@ -679,32 +692,26 @@ private fun CharacterSheet.toSpellsState(
         ConcentrationUiModel(spellId = spellId, label = label)
     }
 
-    val sourceFilters = buildList {
-        add(SpellSourceFilterUiModel(id = null, label = "All"))
-        sources.forEach { (id, label) ->
-            add(SpellSourceFilterUiModel(id = id, label = label))
-        }
-    }
-
-    val showSourceFilters = sources.size > 1
-    val showSourceBadges = sources.size > 1
-
     val highestSpellLevel = spellEntries.maxOfOrNull { it.level }?.coerceAtLeast(1) ?: 1
     val highestSlotLevel = allSharedSlots.filter { it.total > 0 }.maxOfOrNull { it.level } ?: 1
     val maxDisplayedSlotLevel = maxOf(highestSpellLevel, highestSlotLevel)
     val sharedSlots = allSharedSlots.filter { it.level <= maxDisplayedSlotLevel }
 
     return SpellsTabState(
-        spellLevels = spellLevels,
+        spellcastingClasses = classModels,
         canAddSpells = true,
         sharedSlots = sharedSlots,
         pactSlots = pactSlotUi,
         concentration = concentrationUi,
-        sourceFilters = sourceFilters,
-        selectedSourceId = resolvedSelectedSourceId,
-        showSourceBadges = showSourceBadges,
-        showSourceFilters = showSourceFilters,
     )
+}
+
+private fun List<CharacterClass>.resolveSpellcastingAbility(sourceKey: String): AbilityId? {
+    val normalizedKey = sourceKey.trim().lowercase()
+    val clazz = firstOrNull { it.id.equals(normalizedKey, ignoreCase = true) }
+        ?: firstOrNull { normalizeSourceKey(it.name) == normalizedKey }
+    val abilityId = clazz?.spellcasting?.spellcastingAbility?.id
+    return abilityId?.trim()?.lowercase()?.takeIf { it in AbilityIds.standardOrder }
 }
 
 private fun normalizeSourceKey(sourceClass: String): String {

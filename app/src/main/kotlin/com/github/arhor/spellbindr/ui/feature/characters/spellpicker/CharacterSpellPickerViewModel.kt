@@ -6,10 +6,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.usecase.ObserveCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellsUseCase
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +33,7 @@ import javax.inject.Inject
 class CharacterSpellPickerViewModel @Inject constructor(
     private val observeCharacterSheet: ObserveCharacterSheetUseCase,
     private val observeSpells: ObserveSpellsUseCase,
+    private val observeSpellcastingClasses: ObserveSpellcastingClassesUseCase,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -38,8 +41,14 @@ class CharacterSpellPickerViewModel @Inject constructor(
     private data class State(
         val query: String = "",
         val sourceClass: String = "",
-        val defaultSourceClass: String = "",
+        val selectedSpellcastingClass: EntityRef? = null,
         val showFavoriteOnly: Boolean = false,
+    )
+
+    @Immutable
+    private data class SourceContext(
+        val defaultSourceClass: String,
+        val spellcastingClassOptions: List<SpellcastingClassOption>,
     )
 
     @Immutable
@@ -50,26 +59,58 @@ class CharacterSpellPickerViewModel @Inject constructor(
     )
 
     private val _state = MutableStateFlow(State())
+    private val characterId: String = savedStateHandle.toRoute<AppDestination.CharacterSpellPicker>().characterId
+
+    private val characterSheetState = observeCharacterSheet(characterId)
+    private val sourceContext = combine(
+        characterSheetState,
+        observeSpellcastingClasses(),
+    ) { sheetState, spellcastingClassesState ->
+        val sheet = (sheetState as? Loadable.Content)?.data
+        val rawClassName = sheet?.className.orEmpty().trim()
+        val defaultSourceClass = rawClassName.extractPrimaryClassName()
+        val spellcastingOptions = when {
+            sheet == null -> emptyList()
+            spellcastingClassesState is Loadable.Content ->
+                resolveSpellcastingClassOptions(
+                    className = rawClassName,
+                    spellcastingClasses = spellcastingClassesState.data,
+                )
+
+            else -> emptyList()
+        }
+        SourceContext(
+            defaultSourceClass = defaultSourceClass,
+            spellcastingClassOptions = spellcastingOptions,
+        )
+    }.distinctUntilChanged()
 
     val uiState: StateFlow<CharacterSpellPickerUiState> = combine(
         _state,
         observeSpellsUsingFilters(),
-        observeCharacterSheet(savedStateHandle.toRoute<AppDestination.CharacterSpellPicker>().characterId)
-    ) { state, spellsState, characterSheetState ->
+        characterSheetState,
+        sourceContext,
+    ) { state, spellsState, sheetState, sourceContext ->
         when {
-            spellsState is Loadable.Content && characterSheetState is Loadable.Content ->
+            spellsState is Loadable.Content && sheetState is Loadable.Content && sheetState.data != null -> {
+                val selected = state.selectedSpellcastingClass
+                    ?.let { selection -> sourceContext.spellcastingClassOptions.firstOrNull { it.id == selection } }
+                    ?: sourceContext.spellcastingClassOptions.firstOrNull()
+
                 CharacterSpellPickerUiState.Content(
                     query = state.query,
                     spells = spellsState.data,
                     showFavoriteOnly = state.showFavoriteOnly,
-                    castingClasses = emptyList(),
-                    currentClasses = emptySet(),
                     sourceClass = state.sourceClass,
-                    defaultSourceClass = state.defaultSourceClass,
+                    defaultSourceClass = sourceContext.defaultSourceClass,
+                    spellcastingClassOptions = sourceContext.spellcastingClassOptions,
+                    selectedSpellcastingClass = selected,
                 )
+            }
 
             spellsState is Loadable.Failure -> CharacterSpellPickerUiState.Failure("Failed to load spells.")
-            characterSheetState is Loadable.Failure -> CharacterSpellPickerUiState.Failure("Failed to load character.")
+            sheetState is Loadable.Failure -> CharacterSpellPickerUiState.Failure("Failed to load character.")
+            sheetState is Loadable.Content && sheetState.data == null -> CharacterSpellPickerUiState.Failure("Character not found.")
 
             else -> CharacterSpellPickerUiState.Loading
         }
@@ -77,6 +118,10 @@ class CharacterSpellPickerViewModel @Inject constructor(
 
     fun onSourceClassChanged(value: String) {
         _state.update { it.copy(sourceClass = value) }
+    }
+
+    fun onSpellcastingClassSelected(value: EntityRef) {
+        _state.update { it.copy(selectedSpellcastingClass = value) }
     }
 
     fun onQueryChanged(query: String) {
@@ -90,18 +135,84 @@ class CharacterSpellPickerViewModel @Inject constructor(
     private fun observeSpellsUsingFilters(): Flow<Loadable<List<Spell>>> {
         return combine(
             _state.map { it.query.trim() }.distinctUntilChanged().debounce { if (it.isBlank()) 0L else 350L },
-            _state.map { resolveClassFilter(it.sourceClass, it.defaultSourceClass) }.distinctUntilChanged(),
             _state.map { it.showFavoriteOnly }.distinctUntilChanged(),
-        ) { query, classes, favoriteOnly -> Filters(query, classes, favoriteOnly) }
+            _state.map { it.sourceClass }.distinctUntilChanged(),
+            _state.map { it.selectedSpellcastingClass }.distinctUntilChanged(),
+            sourceContext,
+        ) { query, favoriteOnly, sourceClass, selectedSpellcastingClass, sourceContext ->
+            val classes = resolveClassFilter(
+                sourceClass = sourceClass,
+                defaultSourceClass = sourceContext.defaultSourceClass,
+                selectedSpellcastingClass = selectedSpellcastingClass,
+                spellcastingClassOptions = sourceContext.spellcastingClassOptions,
+            )
+            Filters(query, classes, favoriteOnly)
+        }
             .distinctUntilChanged()
             .flatMapLatest { observeSpells(it.query, it.classes, it.favoritesOnly) }
     }
 
-    private fun resolveClassFilter(sourceClass: String, defaultSourceClass: String): Set<EntityRef> =
-        sourceClass.ifBlank { defaultSourceClass }
-            .trim()
-            .lowercase()
-            .takeIf { it.isNotBlank() }
-            ?.let { setOf(EntityRef(it)) }
-            ?: emptySet()
+    private fun resolveClassFilter(
+        sourceClass: String,
+        defaultSourceClass: String,
+        selectedSpellcastingClass: EntityRef?,
+        spellcastingClassOptions: List<SpellcastingClassOption>,
+    ): Set<EntityRef> {
+        if (spellcastingClassOptions.isNotEmpty()) {
+            val selected = spellcastingClassOptions.firstOrNull { it.id == selectedSpellcastingClass }
+                ?: spellcastingClassOptions.first()
+            return setOf(selected.id)
+        }
+
+        val normalized = sourceClass.ifBlank { defaultSourceClass }.toEntityRefId()
+        return normalized?.let { setOf(EntityRef(it)) } ?: emptySet()
+    }
+
+    private fun resolveSpellcastingClassOptions(
+        className: String,
+        spellcastingClasses: List<CharacterClass>,
+    ): List<SpellcastingClassOption> {
+        val normalizedClassName = className.trim()
+        if (normalizedClassName.isBlank()) return emptyList()
+
+        val classNameLowercase = normalizedClassName.lowercase()
+        return spellcastingClasses
+            .mapNotNull { clazz ->
+                val nameIndex = classNameLowercase.indexOf(clazz.name.lowercase())
+                val idIndex = classNameLowercase.indexOf(clazz.id.lowercase())
+                val index = listOf(nameIndex, idIndex).filter { it >= 0 }.minOrNull() ?: return@mapNotNull null
+                clazz to index
+            }
+            .sortedWith(
+                compareBy<Pair<CharacterClass, Int>> { it.second }
+                    .thenBy { it.first.name.lowercase() },
+            )
+            .map { (clazz, _) ->
+                SpellcastingClassOption(
+                    id = EntityRef(clazz.id),
+                    name = clazz.name,
+                )
+            }
+    }
+}
+
+private fun String.toEntityRefId(): String? {
+    val normalized = trim()
+        .lowercase()
+        .replace(Regex("[^a-z0-9]+"), "-")
+        .trim('-')
+    return normalized.takeIf { it.isNotBlank() }
+}
+
+private fun String.extractPrimaryClassName(): String {
+    val raw = trim()
+    if (raw.isBlank()) return ""
+
+    val firstSegment = raw.split(Regex("[/,&;|]+")).firstOrNull().orEmpty().trim()
+    if (firstSegment.isBlank()) return raw
+
+    return firstSegment
+        .replace(Regex("\\s*\\d+\\s*$"), "")
+        .trim()
+        .ifBlank { firstSegment }
 }
