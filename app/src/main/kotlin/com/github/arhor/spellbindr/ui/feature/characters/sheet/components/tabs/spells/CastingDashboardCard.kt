@@ -1,7 +1,9 @@
 package com.github.arhor.spellbindr.ui.feature.characters.sheet.components.tabs.spells
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -19,7 +25,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.ConcentrationUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.PactSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
@@ -28,6 +39,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotUi
 @Composable
 internal fun CastingDashboardCard(
     sharedSlots: List<SpellSlotUiModel>,
+    hasConfiguredSharedSlots: Boolean,
     pactSlots: PactSlotUiModel?,
     concentration: ConcentrationUiModel?,
     editMode: SheetEditMode,
@@ -55,6 +67,7 @@ internal fun CastingDashboardCard(
             }
             SharedSlotsSection(
                 sharedSlots = sharedSlots,
+                hasConfiguredSharedSlots = hasConfiguredSharedSlots,
                 editMode = editMode,
                 onSlotToggle = onSharedSlotToggle,
                 onSlotTotalChanged = onSharedSlotTotalChanged,
@@ -74,22 +87,32 @@ internal fun CastingDashboardCard(
 @Composable
 private fun SharedSlotsSection(
     sharedSlots: List<SpellSlotUiModel>,
+    hasConfiguredSharedSlots: Boolean,
     editMode: SheetEditMode,
     onSlotToggle: (Int, Int) -> Unit,
     onSlotTotalChanged: (Int, Int) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "Spell slots",
+            text = stringResource(R.string.spells_slots_title),
             style = MaterialTheme.typography.titleSmall,
         )
-        if (sharedSlots.isEmpty()) {
+        val showEmptyState = !hasConfiguredSharedSlots
+        if (sharedSlots.isEmpty() || (showEmptyState && editMode == SheetEditMode.View)) {
             Text(
-                text = "No spell slots configured.",
+                text = stringResource(R.string.spells_slots_empty),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            return
+            if (sharedSlots.isEmpty() || editMode == SheetEditMode.View) {
+                return
+            }
+        } else if (showEmptyState) {
+            Text(
+                text = stringResource(R.string.spells_slots_empty),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
 
         Row(
@@ -127,18 +150,19 @@ private fun SharedSlotItem(
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Text(
-                text = "L${slot.level}",
+                text = stringResource(R.string.spells_slot_level, slot.level),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text(
-                text = "$available/${slot.total}",
+                text = stringResource(R.string.spells_slot_count, available, slot.total),
                 style = MaterialTheme.typography.labelLarge,
             )
             SlotPipsRow(
                 total = slot.total,
                 expended = slot.expended,
                 onPipClick = { index -> onSlotToggle(slot.level, index) },
+                slotTypeLabel = stringResource(R.string.spells_slot_type_shared),
             )
             if (editMode == SheetEditMode.Edit) {
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -146,12 +170,24 @@ private fun SharedSlotItem(
                         onClick = { onSlotTotalChanged(slot.level, slot.total - 1) },
                         enabled = slot.total > 0,
                     ) {
-                        Text(text = "-")
+                        Icon(
+                            imageVector = Icons.Filled.Remove,
+                            contentDescription = stringResource(
+                                R.string.spells_shared_slots_decrease,
+                                slot.level,
+                            ),
+                        )
                     }
                     IconButton(
                         onClick = { onSlotTotalChanged(slot.level, slot.total + 1) },
                     ) {
-                        Text(text = "+")
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = stringResource(
+                                R.string.spells_shared_slots_increase,
+                                slot.level,
+                            ),
+                        )
                     }
                 }
             }
@@ -178,22 +214,22 @@ private fun PactSlotsSection(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text(
-                    text = "Pact slots",
+                    text = stringResource(R.string.spells_pact_slots_title),
                     style = MaterialTheme.typography.titleSmall,
                 )
                 Text(
-                    text = "$available/${pactSlots.total}",
+                    text = stringResource(R.string.spells_slot_count, available, pactSlots.total),
                     style = MaterialTheme.typography.labelLarge,
                 )
                 pactSlots.slotLevel?.let { level ->
                     Text(
-                        text = "Level $level",
+                        text = stringResource(R.string.spells_level_label, level),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 Text(
-                    text = "Short Rest",
+                    text = stringResource(R.string.spells_short_rest_label),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -204,19 +240,25 @@ private fun PactSlotsSection(
                         onClick = { onPactSlotTotalChanged(pactSlots.total - 1) },
                         enabled = pactSlots.total > 0,
                     ) {
-                        Text(text = "-")
+                        Icon(
+                            imageVector = Icons.Filled.Remove,
+                            contentDescription = stringResource(R.string.spells_pact_slots_decrease),
+                        )
                     }
                     IconButton(
                         onClick = { onPactSlotTotalChanged(pactSlots.total + 1) },
                     ) {
-                        Text(text = "+")
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = stringResource(R.string.spells_pact_slots_increase),
+                        )
                     }
                 }
             }
         }
         if (!pactSlots.isConfigured && pactSlots.total == 0) {
             Text(
-                text = "Not configured.",
+                text = stringResource(R.string.spells_not_configured),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -225,6 +267,7 @@ private fun PactSlotsSection(
                 total = pactSlots.total,
                 expended = pactSlots.expended,
                 onPipClick = onPactSlotToggle,
+                slotTypeLabel = stringResource(R.string.spells_slot_type_pact),
             )
         }
     }
@@ -235,6 +278,7 @@ private fun SlotPipsRow(
     total: Int,
     expended: Int,
     onPipClick: (Int) -> Unit,
+    slotTypeLabel: String,
     modifier: Modifier = Modifier,
 ) {
     if (total <= 0) {
@@ -247,13 +291,26 @@ private fun SlotPipsRow(
     ) {
         repeat(total) { index ->
             val used = index < expended
-            Surface(
-                shape = CircleShape,
-                color = if (used) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-                tonalElevation = if (used) 2.dp else 0.dp,
-                onClick = { onPipClick(index) },
+            val contentDescription = if (used) {
+                stringResource(R.string.spells_slot_pip_used, slotTypeLabel, index + 1, total)
+            } else {
+                stringResource(R.string.spells_slot_pip_available, slotTypeLabel, index + 1, total)
+            }
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .semantics { this.contentDescription = contentDescription }
+                    .clickable { onPipClick(index) },
+                contentAlignment = Alignment.Center,
             ) {
-                Spacer(modifier = Modifier.size(14.dp))
+                Surface(
+                    shape = CircleShape,
+                    color = if (used) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                    tonalElevation = if (used) 2.dp else 0.dp,
+                ) {
+                    Spacer(modifier = Modifier.size(14.dp))
+                }
             }
         }
     }
@@ -276,12 +333,12 @@ private fun ConcentrationBanner(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = "Concentrating: ${concentration.label}",
+                text = stringResource(R.string.spells_concentrating, concentration.label),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
             )
             TextButton(onClick = onClear) {
-                Text(text = "Clear")
+                Text(text = stringResource(R.string.spells_clear))
             }
         }
     }

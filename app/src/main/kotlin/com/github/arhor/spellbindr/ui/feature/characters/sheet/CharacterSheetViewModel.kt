@@ -61,6 +61,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -585,12 +586,13 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
     return SkillsTabState(models)
 }
 
-private fun CharacterSheet.toSpellsState(
+internal fun CharacterSheet.toSpellsState(
     allSpells: List<Spell>,
     spellcastingClasses: List<CharacterClass>,
 ): SpellsTabState {
     val spellLookup = allSpells.associateBy { it.id }
     val normalizedSlots = if (spellSlots.isEmpty()) defaultSpellSlots() else spellSlots
+    val hasConfiguredSharedSlots = normalizedSlots.any { it.total > 0 }
     val allSharedSlots = normalizedSlots
         .sortedBy { it.level }
         .map { slot ->
@@ -608,7 +610,7 @@ private fun CharacterSheet.toSpellsState(
             spellId = stored.spellId,
             name = spell?.name ?: stored.spellId,
             level = spell?.level ?: 0,
-            school = spell?.school?.prettyString() ?: "—",
+            school = spell?.school?.prettyString().orEmpty(),
             castingTime = spell?.castingTime ?: "",
             sourceClass = sourceClass,
             sourceLabel = formatSourceLabel(sourceClass),
@@ -620,10 +622,10 @@ private fun CharacterSheet.toSpellsState(
     val classModels = spellsBySource
         .map { (sourceKey, spells) ->
             val abilityId = spellcastingClasses.resolveSpellcastingAbility(sourceKey)
-            val abilityLabel = abilityId?.abbreviation() ?: "—"
+            val abilityLabel = abilityId?.abbreviation()
             val abilityModifier = abilityId?.let(abilityScores::modifierFor)
-            val spellAttack = abilityModifier?.let { signed(proficiencyBonus + it) }
-            val spellDc = abilityModifier?.let { (8 + proficiencyBonus + it).toString() }
+            val spellAttack = abilityModifier?.let { proficiencyBonus + it }
+            val spellDc = abilityModifier?.let { 8 + proficiencyBonus + it }
 
             val spellsByLevel = spells.groupBy { it.level }
             val spellLevels = buildList {
@@ -631,8 +633,7 @@ private fun CharacterSheet.toSpellsState(
                     add(
                         SpellLevelUiModel(
                             level = 0,
-                            label = "Cantrips",
-                            spells = cantrips.sortedBy { it.name.lowercase() },
+                            spells = cantrips.sortedBy { it.name.lowercase(Locale.ROOT) },
                         )
                     )
                 }
@@ -643,32 +644,46 @@ private fun CharacterSheet.toSpellsState(
                         add(
                             SpellLevelUiModel(
                                 level = level,
-                                label = "Level $level",
-                                spells = levelSpells.sortedBy { it.name.lowercase() },
+                                spells = levelSpells.sortedBy { it.name.lowercase(Locale.ROOT) },
                             )
                         )
                     }
                 }
             }
 
+            val displayName = if (sourceKey == UNASSIGNED_SOURCE_KEY) {
+                ""
+            } else {
+                spellcastingClasses.firstOrNull { clazz ->
+                    normalizeSourceKey(clazz.id) == sourceKey || normalizeSourceKey(clazz.name) == sourceKey
+                }?.name ?: spells.firstOrNull()?.sourceLabel?.ifBlank { null }
+                ?: formatSourceLabel(sourceKey)
+            }
+
             SpellcastingClassUiModel(
                 sourceKey = sourceKey,
-                name = spells.firstOrNull()?.sourceLabel ?: formatSourceLabel(sourceKey),
-                spellcastingAbilityLabel = abilityLabel,
-                spellSaveDcLabel = "DC ${spellDc ?: "—"}",
-                spellAttackBonusLabel = "ATK ${spellAttack ?: "—"}",
+                name = displayName,
+                isUnassigned = sourceKey == UNASSIGNED_SOURCE_KEY,
+                spellcastingAbility = abilityLabel,
+                spellSaveDc = spellDc,
+                spellAttackBonus = spellAttack,
                 spellLevels = spellLevels,
             )
         }
         .sortedWith(
             compareBy<SpellcastingClassUiModel> { it.sourceKey == UNASSIGNED_SOURCE_KEY }
-                .thenBy { it.name.lowercase() },
+                .thenBy { it.name.lowercase(Locale.ROOT) },
         )
 
+    val warlockKeys = spellcastingClasses
+        .filter { clazz ->
+            clazz.id.equals("warlock", ignoreCase = true) || clazz.name.equals("Warlock", ignoreCase = true)
+        }
+        .flatMap { clazz -> listOf(normalizeSourceKey(clazz.id), normalizeSourceKey(clazz.name)) }
+        .toSet()
+    val hasWarlockSpells = warlockKeys.isNotEmpty() && spellsBySource.keys.any { key -> key in warlockKeys }
     val pactSlotUi = when {
-        spellsBySource.any { (key, spells) ->
-            key.contains("warlock") || spells.any { it.sourceLabel.contains("warlock", ignoreCase = true) }
-        } || pactSlots != null -> {
+        hasWarlockSpells || pactSlots != null -> {
             pactSlots?.let { slot ->
                 PactSlotUiModel(
                     slotLevel = slot.slotLevel,
@@ -699,39 +714,39 @@ private fun CharacterSheet.toSpellsState(
 
     return SpellsTabState(
         spellcastingClasses = classModels,
-        canAddSpells = true,
+        canAddSpells = allSpells.isNotEmpty(),
         sharedSlots = sharedSlots,
+        hasConfiguredSharedSlots = hasConfiguredSharedSlots,
         pactSlots = pactSlotUi,
         concentration = concentrationUi,
     )
 }
 
 private fun List<CharacterClass>.resolveSpellcastingAbility(sourceKey: String): AbilityId? {
-    val normalizedKey = sourceKey.trim().lowercase()
+    val normalizedKey = sourceKey.trim().lowercase(Locale.ROOT)
     val clazz = firstOrNull { it.id.equals(normalizedKey, ignoreCase = true) }
         ?: firstOrNull { normalizeSourceKey(it.name) == normalizedKey }
     val abilityId = clazz?.spellcasting?.spellcastingAbility?.id
-    return abilityId?.trim()?.lowercase()?.takeIf { it in AbilityIds.standardOrder }
+    return abilityId?.trim()?.lowercase(Locale.ROOT)?.takeIf { it in AbilityIds.standardOrder }
 }
 
 private fun normalizeSourceKey(sourceClass: String): String {
-    val normalized = sourceClass.trim().lowercase()
+    val normalized = sourceClass.trim().lowercase(Locale.ROOT)
     return if (normalized.isBlank()) UNASSIGNED_SOURCE_KEY else normalized
 }
 
 private fun formatSourceLabel(sourceClass: String): String {
     val trimmed = sourceClass.trim()
-    if (trimmed.isBlank()) return UNASSIGNED_SOURCE_LABEL
+    if (trimmed.isBlank()) return ""
     return trimmed
         .split(" ")
         .filter { it.isNotBlank() }
         .joinToString(" ") { part ->
-            part.replaceFirstChar { char -> char.titlecase() }
+            part.replaceFirstChar { char -> char.titlecase(Locale.ROOT) }
         }
 }
 
 private const val UNASSIGNED_SOURCE_KEY = "__unassigned__"
-private const val UNASSIGNED_SOURCE_LABEL = "Unassigned"
 
 internal fun CharacterSheet.toWeaponsState(): WeaponsTabState {
     val scores = abilityScores

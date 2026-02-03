@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -55,6 +57,9 @@ internal fun CharacterSheetContent(
         pageCount = { tabs.size },
     )
     val currentSelectedTab = rememberUpdatedState(state.selectedTab)
+    val spellsListState = rememberSaveable(state.characterId, saver = LazyListState.Saver) {
+        LazyListState()
+    }
 
     LaunchedEffect(state.selectedTab) {
         val targetPage = state.selectedTab.ordinal
@@ -117,6 +122,7 @@ internal fun CharacterSheetContent(
                     onConcentrationClear = onConcentrationClear,
                     onSpellSelected = onSpellSelected,
                     onSpellRemoved = onSpellRemoved,
+                    listState = spellsListState,
                     modifier = Modifier.fillMaxSize(),
                 )
 

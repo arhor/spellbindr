@@ -15,8 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSpellUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
@@ -51,7 +53,7 @@ internal fun SpellRow(
                     style = MaterialTheme.typography.bodyLarge,
                 )
                 val detailParts = buildList {
-                    add(spell.school)
+                    spell.school.takeIf { it.isNotBlank() }?.let { add(it) }
                     spell.castingTime.takeIf { it.isNotBlank() }?.let { add(it) }
                 }
                 if (detailParts.isNotEmpty()) {
@@ -64,7 +66,10 @@ internal fun SpellRow(
             }
             if (editMode == SheetEditMode.Edit) {
                 IconButton(onClick = onRemove) {
-                    Icon(imageVector = Icons.Rounded.Close, contentDescription = "Remove spell")
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = stringResource(R.string.spells_remove_spell),
+                    )
                 }
             }
         }

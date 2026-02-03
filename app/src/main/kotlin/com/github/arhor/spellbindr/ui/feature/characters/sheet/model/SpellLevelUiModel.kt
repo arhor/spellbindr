@@ -5,6 +5,5 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class SpellLevelUiModel(
     val level: Int,
-    val label: String,
     val spells: List<CharacterSpellUiModel>,
 )

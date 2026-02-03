@@ -7,6 +7,7 @@ data class SpellsTabState(
     val spellcastingClasses: List<SpellcastingClassUiModel>,
     val canAddSpells: Boolean,
     val sharedSlots: List<SpellSlotUiModel>,
+    val hasConfiguredSharedSlots: Boolean,
     val pactSlots: PactSlotUiModel?,
     val concentration: ConcentrationUiModel?,
 )

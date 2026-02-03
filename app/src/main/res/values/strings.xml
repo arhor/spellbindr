@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Spellbindr</string>
+    <string name="spells_add_spells">Add spells</string>
+    <string name="spells_empty_state">No spells linked to this character yet.</string>
+    <string name="spells_slots_title">Spell slots</string>
+    <string name="spells_slots_empty">No spell slots configured.</string>
+    <string name="spells_slot_level">L%1$d</string>
+    <string name="spells_slot_count">%1$d/%2$d</string>
+    <string name="spells_pact_slots_title">Pact slots</string>
+    <string name="spells_short_rest_label">Short Rest</string>
+    <string name="spells_not_configured">Not configured.</string>
+    <string name="spells_concentrating">Concentrating: %1$s</string>
+    <string name="spells_clear">Clear</string>
+    <string name="spells_ability_label">Ability %1$s</string>
+    <string name="spells_dc_label">DC %1$s</string>
+    <string name="spells_attack_label">ATK %1$s</string>
+    <string name="spells_no_spells_for_class">No spells for this class yet.</string>
+    <string name="spells_level_cantrips">Cantrips</string>
+    <string name="spells_level_label">Level %1$d</string>
+    <string name="spells_remove_spell">Remove spell</string>
+    <string name="spells_unassigned">Unassigned</string>
+    <string name="spells_unknown_placeholder">—</string>
+    <string name="spells_shared_slots_increase">Increase level %1$d spell slots</string>
+    <string name="spells_shared_slots_decrease">Decrease level %1$d spell slots</string>
+    <string name="spells_pact_slots_increase">Increase pact slots</string>
+    <string name="spells_pact_slots_decrease">Decrease pact slots</string>
+    <string name="spells_slot_type_shared">Spell slot</string>
+    <string name="spells_slot_type_pact">Pact slot</string>
+    <string name="spells_slot_pip_used">%1$s %2$d of %3$d expended</string>
+    <string name="spells_slot_pip_available">%1$s %2$d of %3$d available</string>
 </resources>

@@ -37,7 +37,6 @@ class CharacterSheetContentTest {
                     onPactSlotToggle = {},
                     onPactSlotTotalChanged = {},
                     onConcentrationClear = {},
-                    onSpellSourceSelected = {},
                 )
             }
         }

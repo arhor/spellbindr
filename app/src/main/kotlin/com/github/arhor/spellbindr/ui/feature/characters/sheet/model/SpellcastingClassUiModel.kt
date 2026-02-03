@@ -6,9 +6,9 @@ import androidx.compose.runtime.Immutable
 data class SpellcastingClassUiModel(
     val sourceKey: String,
     val name: String,
-    val spellcastingAbilityLabel: String,
-    val spellSaveDcLabel: String,
-    val spellAttackBonusLabel: String,
+    val isUnassigned: Boolean,
+    val spellcastingAbility: String?,
+    val spellSaveDc: Int?,
+    val spellAttackBonus: Int?,
     val spellLevels: List<SpellLevelUiModel>,
 )
-

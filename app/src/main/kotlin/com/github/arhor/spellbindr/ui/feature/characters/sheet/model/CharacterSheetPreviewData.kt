@@ -59,13 +59,13 @@ internal object CharacterSheetPreviewData {
             SpellcastingClassUiModel(
                 sourceKey = "wizard",
                 name = "Wizard",
-                spellcastingAbilityLabel = "INT",
-                spellSaveDcLabel = "DC 15",
-                spellAttackBonusLabel = "ATK +7",
+                isUnassigned = false,
+                spellcastingAbility = "INT",
+                spellSaveDc = 15,
+                spellAttackBonus = 7,
                 spellLevels = listOf(
                     SpellLevelUiModel(
                         level = 0,
-                        label = "Cantrips",
                         spells = listOf(
                             CharacterSpellUiModel(
                                 spellId = "minor_illusion",
@@ -81,7 +81,6 @@ internal object CharacterSheetPreviewData {
                     ),
                     SpellLevelUiModel(
                         level = 1,
-                        label = "Level 1",
                         spells = listOf(
                             CharacterSpellUiModel(
                                 spellId = "magic_missile",
@@ -100,13 +99,13 @@ internal object CharacterSheetPreviewData {
             SpellcastingClassUiModel(
                 sourceKey = "paladin",
                 name = "Paladin",
-                spellcastingAbilityLabel = "CHA",
-                spellSaveDcLabel = "DC 13",
-                spellAttackBonusLabel = "ATK +5",
+                isUnassigned = false,
+                spellcastingAbility = "CHA",
+                spellSaveDc = 13,
+                spellAttackBonus = 5,
                 spellLevels = listOf(
                     SpellLevelUiModel(
                         level = 1,
-                        label = "Level 1",
                         spells = listOf(
                             CharacterSpellUiModel(
                                 spellId = "divine_favor",
@@ -125,13 +124,13 @@ internal object CharacterSheetPreviewData {
             SpellcastingClassUiModel(
                 sourceKey = "warlock",
                 name = "Warlock",
-                spellcastingAbilityLabel = "CHA",
-                spellSaveDcLabel = "DC 14",
-                spellAttackBonusLabel = "ATK +6",
+                isUnassigned = false,
+                spellcastingAbility = "CHA",
+                spellSaveDc = 14,
+                spellAttackBonus = 6,
                 spellLevels = listOf(
                     SpellLevelUiModel(
                         level = 1,
-                        label = "Level 1",
                         spells = listOf(
                             CharacterSpellUiModel(
                                 spellId = "hex",
@@ -156,6 +155,7 @@ internal object CharacterSheetPreviewData {
             SpellSlotUiModel(level = 4, total = 0, expended = 0),
             SpellSlotUiModel(level = 5, total = 0, expended = 0),
         ),
+        hasConfiguredSharedSlots = true,
         pactSlots = PactSlotUiModel(
             slotLevel = 2,
             total = 2,
