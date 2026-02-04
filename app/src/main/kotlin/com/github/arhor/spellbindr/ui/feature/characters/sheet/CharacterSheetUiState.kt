@@ -7,6 +7,7 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSh
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.OverviewTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellCastUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellsTabState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponCatalogUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.WeaponEditorState
@@ -28,6 +29,7 @@ sealed interface CharacterSheetUiState {
         val overview: OverviewTabState,
         val skills: SkillsTabState,
         val spells: SpellsTabState,
+        val castSpell: SpellCastUiModel?,
         val weapons: WeaponsTabState,
         val weaponCatalog: List<WeaponCatalogUiModel>,
         val isWeaponCatalogVisible: Boolean,

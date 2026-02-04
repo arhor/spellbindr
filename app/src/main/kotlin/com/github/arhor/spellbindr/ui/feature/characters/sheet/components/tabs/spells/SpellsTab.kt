@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSpellUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.PactSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellLevelUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellcastingClassUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellsTabState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -38,10 +40,15 @@ fun SpellsTab(
     spellsState: SpellsTabState,
     editMode: SheetEditMode,
     onAddSpellsClick: () -> Unit,
+    onCastSpellClick: (String) -> Unit,
+    onLongRestClick: () -> Unit,
+    onShortRestClick: () -> Unit,
+    onConfigureSlotsClick: () -> Unit,
     onSpellSlotToggle: (Int, Int) -> Unit,
     onSpellSlotTotalChanged: (Int, Int) -> Unit,
     onPactSlotToggle: (Int) -> Unit,
     onPactSlotTotalChanged: (Int) -> Unit,
+    onPactSlotLevelChanged: (Int) -> Unit,
     onConcentrationClear: () -> Unit,
     onSpellSelected: (String) -> Unit,
     onSpellRemoved: (String, String) -> Unit,
@@ -61,10 +68,14 @@ fun SpellsTab(
                 pactSlots = spellsState.pactSlots,
                 concentration = spellsState.concentration,
                 editMode = editMode,
+                onLongRestClick = onLongRestClick,
+                onShortRestClick = onShortRestClick,
+                onConfigureSlotsClick = onConfigureSlotsClick,
                 onSharedSlotToggle = onSpellSlotToggle,
                 onSharedSlotTotalChanged = onSpellSlotTotalChanged,
                 onPactSlotToggle = onPactSlotToggle,
                 onPactSlotTotalChanged = onPactSlotTotalChanged,
+                onPactSlotLevelChanged = onPactSlotLevelChanged,
                 onConcentrationClear = onConcentrationClear,
             )
         }
@@ -104,6 +115,9 @@ fun SpellsTab(
             spellcastingClassSection(
                 spellcastingClass = spellcastingClass,
                 editMode = editMode,
+                sharedSlots = spellsState.sharedSlots,
+                pactSlots = spellsState.pactSlots,
+                onCastSpellClick = onCastSpellClick,
                 onSpellSelected = onSpellSelected,
                 onSpellRemoved = onSpellRemoved,
             )
@@ -124,10 +138,15 @@ internal fun SpellsTabPreview() {
             spellsState = CharacterSheetPreviewData.spells,
             editMode = SheetEditMode.View,
             onAddSpellsClick = {},
+            onCastSpellClick = {},
+            onLongRestClick = {},
+            onShortRestClick = {},
+            onConfigureSlotsClick = {},
             onSpellSlotToggle = { _, _ -> },
             onSpellSlotTotalChanged = { _, _ -> },
             onPactSlotToggle = {},
             onPactSlotTotalChanged = {},
+            onPactSlotLevelChanged = {},
             onConcentrationClear = {},
             onSpellSelected = {},
             onSpellRemoved = { _, _ -> },
@@ -139,6 +158,9 @@ internal fun SpellsTabPreview() {
 private fun LazyListScope.spellcastingClassSection(
     spellcastingClass: SpellcastingClassUiModel,
     editMode: SheetEditMode,
+    sharedSlots: List<SpellSlotUiModel>,
+    pactSlots: PactSlotUiModel?,
+    onCastSpellClick: (String) -> Unit,
     onSpellSelected: (String) -> Unit,
     onSpellRemoved: (String, String) -> Unit,
 ) {
@@ -187,10 +209,17 @@ private fun LazyListScope.spellcastingClassSection(
                 }
 
                 is SpellClassRow.Spell -> {
+                    val canCast = canCastSpell(
+                        spellLevel = row.spell.level,
+                        sharedSlots = sharedSlots,
+                        pactSlots = pactSlots,
+                    )
                     SpellRow(
                         spell = row.spell,
                         editMode = editMode,
                         onClick = { onSpellSelected(row.spell.spellId) },
+                        canCast = canCast,
+                        onCastClick = { onCastSpellClick(row.spell.spellId) },
                         onRemove = { onSpellRemoved(row.spell.spellId, row.spell.sourceClass) },
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                     )
@@ -198,6 +227,21 @@ private fun LazyListScope.spellcastingClassSection(
             }
         }
     }
+}
+
+private fun canCastSpell(
+    spellLevel: Int,
+    sharedSlots: List<SpellSlotUiModel>,
+    pactSlots: PactSlotUiModel?,
+): Boolean {
+    if (spellLevel <= 0) return true
+    val hasShared = sharedSlots.any { slot ->
+        slot.level >= spellLevel && (slot.total - slot.expended) > 0
+    }
+    if (hasShared) return true
+    val pactLevel = pactSlots?.slotLevel ?: return false
+    val pactAvailable = (pactSlots.total - pactSlots.expended).coerceAtLeast(0)
+    return pactAvailable > 0 && pactLevel >= spellLevel
 }
 
 private sealed interface SpellClassRow {

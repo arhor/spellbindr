@@ -1,65 +1,115 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.PactSlotState
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.google.common.truth.Truth.assertThat
-import org.junit.Rule
 import org.junit.Test
 
 class ToggleSpellSlotUseCaseTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
-
     private val useCase = ToggleSpellSlotUseCase()
 
     @Test
-    fun `invoke should update expended count when toggling spell slot`() {
-        // Given
+    fun longRest_resetsSharedAndPactSlots_andClearsConcentration() {
         val sheet = CharacterSheet(
             id = "hero",
-            spellSlots = listOf(SpellSlotState(level = 1, total = 2, expended = 0)),
+            concentrationSpellId = "hex",
+            spellSlots = listOf(
+                SpellSlotState(level = 1, total = 4, expended = 2),
+                SpellSlotState(level = 2, total = 2, expended = 1),
+            ),
+            pactSlots = PactSlotState(
+                slotLevel = 2,
+                total = 2,
+                expended = 2,
+            ),
         )
 
-        // When
-        val toggled = useCase(sheet, ToggleSpellSlotUseCase.Action.Toggle(level = 1, slotIndex = 0))
-        val reset = useCase(toggled, ToggleSpellSlotUseCase.Action.Toggle(level = 1, slotIndex = 0))
+        val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.LongRest)
 
-        // Then
-        assertThat(toggled.spellSlots.first { it.level == 1 }.expended).isEqualTo(1)
-        assertThat(reset.spellSlots.first { it.level == 1 }.expended).isEqualTo(0)
+        assertThat(updated.concentrationSpellId).isNull()
+        assertThat(updated.spellSlots).containsExactly(
+            SpellSlotState(level = 1, total = 4, expended = 0),
+            SpellSlotState(level = 2, total = 2, expended = 0),
+        ).inOrder()
+        assertThat(updated.pactSlots).isEqualTo(
+            PactSlotState(
+                slotLevel = 2,
+                total = 2,
+                expended = 0,
+            )
+        )
     }
 
     @Test
-    fun `invoke should clamp expended and total when setting total below zero`() {
-        // Given
+    fun shortRest_resetsOnlyPactSlots() {
         val sheet = CharacterSheet(
             id = "hero",
-            spellSlots = listOf(SpellSlotState(level = 1, total = 3, expended = 3)),
+            concentrationSpellId = "hex",
+            spellSlots = listOf(
+                SpellSlotState(level = 1, total = 4, expended = 2),
+            ),
+            pactSlots = PactSlotState(
+                slotLevel = 2,
+                total = 2,
+                expended = 1,
+            ),
         )
 
-        // When
-        val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.SetTotal(level = 1, total = -1))
+        val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.ShortRest)
 
-        // Then
-        val slot = updated.spellSlots.first { it.level == 1 }
-        assertThat(slot.total).isEqualTo(0)
-        assertThat(slot.expended).isEqualTo(0)
+        assertThat(updated.concentrationSpellId).isEqualTo("hex")
+        assertThat(updated.spellSlots).containsExactly(
+            SpellSlotState(level = 1, total = 4, expended = 2),
+        )
+        assertThat(updated.pactSlots).isEqualTo(
+            PactSlotState(
+                slotLevel = 2,
+                total = 2,
+                expended = 0,
+            )
+        )
     }
 
     @Test
-    fun `invoke should leave expended unchanged when total is zero`() {
-        // Given
+    fun setPactSlotLevel_createsPactSlotsWhenMissing() {
         val sheet = CharacterSheet(
             id = "hero",
-            spellSlots = listOf(SpellSlotState(level = 2, total = 0, expended = 0)),
+            pactSlots = null,
         )
 
-        // When
-        val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.Toggle(level = 2, slotIndex = 0))
+        val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.SetPactSlotLevel(level = 5))
 
-        // Then
-        assertThat(updated.spellSlots.first { it.level == 2 }.expended).isEqualTo(0)
+        assertThat(updated.pactSlots).isEqualTo(
+            PactSlotState(
+                slotLevel = 5,
+                total = 0,
+                expended = 0,
+            )
+        )
+    }
+
+    @Test
+    fun setPactSlotLevel_updatesExistingPactSlots() {
+        val sheet = CharacterSheet(
+            id = "hero",
+            pactSlots = PactSlotState(
+                slotLevel = 2,
+                total = 3,
+                expended = 1,
+            ),
+        )
+
+        val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.SetPactSlotLevel(level = 4))
+
+        assertThat(updated.pactSlots).isEqualTo(
+            PactSlotState(
+                slotLevel = 4,
+                total = 3,
+                expended = 1,
+            )
+        )
     }
 }
+

@@ -207,6 +207,7 @@ internal object CharacterSheetPreviewData {
         overview = overview,
         skills = skills,
         spells = spells,
+        castSpell = null,
         weapons = weapons,
         weaponCatalog = emptyList(),
         isWeaponCatalogVisible = false,

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,8 @@ internal fun SpellRow(
     spell: CharacterSpellUiModel,
     editMode: SheetEditMode,
     onClick: () -> Unit,
+    canCast: Boolean,
+    onCastClick: () -> Unit,
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -64,12 +67,26 @@ internal fun SpellRow(
                     )
                 }
             }
-            if (editMode == SheetEditMode.Edit) {
-                IconButton(onClick = onRemove) {
-                    Icon(
-                        imageVector = Icons.Rounded.Close,
-                        contentDescription = stringResource(R.string.spells_remove_spell),
-                    )
+            when (editMode) {
+                SheetEditMode.Edit -> {
+                    IconButton(onClick = onRemove) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = stringResource(R.string.spells_remove_spell),
+                        )
+                    }
+                }
+
+                SheetEditMode.View -> {
+                    IconButton(
+                        onClick = onCastClick,
+                        enabled = canCast,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.PlayArrow,
+                            contentDescription = stringResource(R.string.spells_cast_spell),
+                        )
+                    }
                 }
             }
         }
@@ -90,6 +107,8 @@ private fun SpellRowPreview() {
                 .first(),
             editMode = SheetEditMode.Edit,
             onClick = {},
+            canCast = true,
+            onCastClick = {},
             onRemove = {},
         )
     }

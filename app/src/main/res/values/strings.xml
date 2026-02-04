@@ -28,4 +28,35 @@
     <string name="spells_slot_type_pact">Pact slot</string>
     <string name="spells_slot_pip_used">%1$s %2$d of %3$d expended</string>
     <string name="spells_slot_pip_available">%1$s %2$d of %3$d available</string>
+
+    <string name="spells_cantrip_chip">Cantrip</string>
+    <string name="spells_concentration_chip">Concentration</string>
+    <string name="spells_ritual_chip">Ritual</string>
+    <string name="spells_cast_spell">Cast spell</string>
+    <string name="spells_cast_action">Cast</string>
+    <string name="spells_cast_action_with_level">Cast (Level %1$d)</string>
+    <string name="spells_cast_as_ritual">Cast as ritual (no slot)</string>
+    <string name="spells_select_slot_level">Choose slot</string>
+    <string name="spells_slot_option_shared">Shared slots • Level %1$d</string>
+    <string name="spells_slot_option_pact">Pact slots • Level %1$d</string>
+    <string name="spells_no_slot_required">No slot required.</string>
+    <string name="spells_at_higher_levels">At Higher Levels</string>
+    <string name="spells_cancel">Cancel</string>
+
+    <string name="spells_long_rest">Long Rest</string>
+    <string name="spells_long_rest_confirm_message">Restore all spell slots and clear concentration?</string>
+    <string name="spells_short_rest_confirm_message">Restore all pact slots?</string>
+    <string name="spells_restore">Restore</string>
+
+    <string name="spells_replace_concentration_title">Replace concentration?</string>
+    <string name="spells_replace_concentration_message">You’re concentrating on %1$s. Casting this will replace it.</string>
+    <string name="spells_replace">Replace</string>
+
+    <string name="spells_configure_slots">Configure slots</string>
+    <string name="spells_use_slot">Use</string>
+    <string name="spells_restore_slot">Restore</string>
+    <string name="spells_total_label">Total</string>
+    <string name="spells_pact_level_label">Slot level</string>
+    <string name="spells_pact_level_increase">Increase pact slot level</string>
+    <string name="spells_pact_level_decrease">Decrease pact slot level</string>
 </resources>

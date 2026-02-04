@@ -15,6 +15,7 @@ import com.github.arhor.spellbindr.domain.model.DeathSaveState
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
 import com.github.arhor.spellbindr.domain.model.abbreviation
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
@@ -28,6 +29,7 @@ import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateHitPointsUseCase
 import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.AbilityUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CastSlotOptionUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterHeaderUiState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.CharacterSheetTab
@@ -40,7 +42,9 @@ import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.PactSlotUiM
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SkillsTabState
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellCastUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellLevelUiModel
+import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotPool
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellcastingClassUiModel
 import com.github.arhor.spellbindr.ui.feature.characters.sheet.model.SpellsTabState
@@ -111,6 +115,7 @@ class CharacterSheetViewModel @Inject constructor(
     private var editingState: CharacterSheetEditingState? = null
     private var weaponEditorState: WeaponEditorState? = null
     private var isWeaponCatalogVisible: Boolean = false
+    private var castingSpellId: String? = null
     private var errorMessage: String? = if (characterId == null) "Missing character id" else null
 
     init {
@@ -267,6 +272,99 @@ class CharacterSheetViewModel @Inject constructor(
             }
             sheet.copy(characterSpells = existing)
         }
+    }
+
+    fun startCasting(spellId: String) {
+        castingSpellId = spellId
+        errorMessage = null
+        renderState()
+    }
+
+    fun dismissCasting() {
+        if (castingSpellId != null) {
+            castingSpellId = null
+            renderState()
+        }
+    }
+
+    fun confirmCast(
+        pool: SpellSlotPool?,
+        slotLevel: Int?,
+        castAsRitual: Boolean,
+    ) {
+        val spellId = castingSpellId ?: return
+        castingSpellId = null
+        updateSheet { sheet ->
+            val spell = cachedSpells.firstOrNull { it.id == spellId }
+            val spellLevel = spell?.level ?: 0
+            val slotOptions = buildCastSlotOptions(sheet, spell, spellLevel)
+            val defaultOption = slotOptions
+                .filter { it.enabled }
+                .minWithOrNull(
+                    compareBy<CastSlotOptionUiModel> { it.slotLevel }
+                        .thenBy { if (it.pool == SpellSlotPool.Pact) 0 else 1 }
+                )
+
+            val resolvedPool = pool ?: defaultOption?.pool
+            val resolvedSlotLevel = slotLevel ?: defaultOption?.slotLevel
+
+            val castAsRitualEffective = castAsRitual && spell?.ritual == true
+            val shouldSpendSlot = !castAsRitualEffective && spellLevel > 0
+
+            val updatedSheet = if (!shouldSpendSlot) {
+                sheet
+            } else {
+                when (resolvedPool) {
+                    SpellSlotPool.Pact -> {
+                        val pact = sheet.pactSlots
+                        if (pact == null || pact.total <= 0 || pact.expended >= pact.total) {
+                            sheet
+                        } else if (pact.slotLevel < spellLevel) {
+                            sheet
+                        } else {
+                            toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.TogglePact(pact.expended))
+                        }
+                    }
+
+                    SpellSlotPool.Shared -> {
+                        val normalizedSlots = if (sheet.spellSlots.isEmpty()) defaultSpellSlots() else sheet.spellSlots
+                        val slot = normalizedSlots.firstOrNull { it.level == resolvedSlotLevel }
+                        if (resolvedSlotLevel == null || resolvedSlotLevel < spellLevel) {
+                            sheet
+                        } else if (slot == null || slot.total <= 0 || slot.expended >= slot.total) {
+                            sheet
+                        } else {
+                            toggleSpellSlotUseCase(
+                                sheet,
+                                ToggleSpellSlotUseCase.Action.Toggle(slot.level, slot.expended)
+                            )
+                        }
+                    }
+
+                    null -> sheet
+                }
+            }
+
+            if (spell?.concentration == true) {
+                updatedSheet.copy(concentrationSpellId = spellId)
+            } else {
+                updatedSheet
+            }
+        }
+    }
+
+    fun longRest() {
+        castingSpellId = null
+        updateSheet { sheet -> toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.LongRest) }
+    }
+
+    fun shortRest() {
+        castingSpellId = null
+        updateSheet { sheet -> toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.ShortRest) }
+    }
+
+    fun setPactSlotLevel(level: Int) {
+        updateSheet { sheet -> toggleSpellSlotUseCase(sheet, ToggleSpellSlotUseCase.Action.SetPactSlotLevel(level)) }
     }
 
     fun startNewWeapon() {
@@ -452,6 +550,7 @@ class CharacterSheetViewModel @Inject constructor(
                 sheet == null -> CharacterSheetUiState.Failure(errorMessage ?: "Character not found")
                 else -> {
                     val spellsState = sheet.toSpellsState(cachedSpells, cachedSpellcastingClasses)
+                    val castSpell = castingSpellId?.let { spellId -> sheet.toCastSpellState(spellId, cachedSpells) }
                     CharacterSheetUiState.Content(
                         characterId = sheet.id,
                         selectedTab = selectedTab,
@@ -460,6 +559,7 @@ class CharacterSheetViewModel @Inject constructor(
                         overview = sheet.toOverviewState(),
                         skills = sheet.toSkillsState(),
                         spells = spellsState,
+                        castSpell = castSpell,
                         weapons = sheet.toWeaponsState(),
                         weaponCatalog = weaponCatalog,
                         isWeaponCatalogVisible = isWeaponCatalogVisible,
@@ -732,6 +832,67 @@ internal fun CharacterSheet.toSpellsState(
         pactSlots = pactSlotUi,
         concentration = concentrationUi,
     )
+}
+
+internal fun CharacterSheet.toCastSpellState(
+    spellId: String,
+    allSpells: List<Spell>,
+): SpellCastUiModel {
+    val spell = allSpells.firstOrNull { it.id == spellId }
+    val spellLevel = spell?.level ?: 0
+    return SpellCastUiModel(
+        spellId = spellId,
+        name = spell?.name ?: spellId,
+        level = spellLevel,
+        isRitual = spell?.ritual == true,
+        isConcentration = spell?.concentration == true,
+        higherLevel = spell?.higherLevel.orEmpty(),
+        slotOptions = buildCastSlotOptions(this, spell, spellLevel),
+    )
+}
+
+private fun buildCastSlotOptions(
+    sheet: CharacterSheet,
+    spell: Spell?,
+    spellLevel: Int,
+): List<CastSlotOptionUiModel> {
+    if (spell == null || spellLevel <= 0) return emptyList()
+
+    val normalizedSharedSlots = if (sheet.spellSlots.isEmpty()) defaultSpellSlots() else sheet.spellSlots
+    val sharedByLevel = normalizedSharedSlots.associateBy(SpellSlotState::level)
+
+    val sharedOptions = (spellLevel..9).map { slotLevel ->
+        val slot = sharedByLevel[slotLevel] ?: SpellSlotState(level = slotLevel)
+        val total = slot.total.coerceAtLeast(0)
+        val expended = slot.expended.coerceIn(0, total)
+        val available = (total - expended).coerceAtLeast(0)
+        CastSlotOptionUiModel(
+            pool = SpellSlotPool.Shared,
+            slotLevel = slotLevel,
+            available = available,
+            total = total,
+            enabled = available > 0,
+        )
+    }
+
+    val pactOption = sheet.pactSlots?.let { slot ->
+        val total = slot.total.coerceAtLeast(0)
+        val expended = slot.expended.coerceIn(0, total)
+        val available = (total - expended).coerceAtLeast(0)
+        val pactLevel = slot.slotLevel.coerceIn(1, 9)
+        CastSlotOptionUiModel(
+            pool = SpellSlotPool.Pact,
+            slotLevel = pactLevel,
+            available = available,
+            total = total,
+            enabled = available > 0 && pactLevel >= spellLevel,
+        )
+    }
+
+    return buildList {
+        addAll(sharedOptions)
+        pactOption?.let(::add)
+    }
 }
 
 private fun List<CharacterClass>.resolveSpellcastingAbility(sourceKey: String): AbilityId? {

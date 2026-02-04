@@ -13,6 +13,9 @@ class ToggleSpellSlotUseCase @Inject constructor() {
         data class SetTotal(val level: Int, val total: Int) : Action
         data class TogglePact(val slotIndex: Int) : Action
         data class SetPactTotal(val total: Int) : Action
+        data class SetPactSlotLevel(val level: Int) : Action
+        data object LongRest : Action
+        data object ShortRest : Action
     }
 
     operator fun invoke(sheet: CharacterSheet, action: Action): CharacterSheet = when (action) {
@@ -49,6 +52,35 @@ class ToggleSpellSlotUseCase @Inject constructor() {
                 expended = slot.expended.coerceIn(0, safeTotal),
             )
         }
+
+        is Action.SetPactSlotLevel -> sheet.updatePactSlots { slot ->
+            slot.copy(slotLevel = action.level.coerceIn(1, 9))
+        }
+
+        Action.LongRest -> {
+            val normalizedSharedSlots = if (sheet.spellSlots.isEmpty()) defaultSpellSlots() else sheet.spellSlots
+            val resetSharedSlots = normalizedSharedSlots
+                .map { slot -> slot.copy(expended = 0) }
+                .sortedBy { it.level }
+
+            val resetPactSlots = sheet.pactSlots?.let { slot ->
+                slot.copy(expended = 0)
+            }
+
+            sheet.copy(
+                spellSlots = resetSharedSlots,
+                pactSlots = resetPactSlots,
+                concentrationSpellId = null,
+            )
+        }
+
+        Action.ShortRest -> sheet.pactSlots?.let { slot ->
+            sheet.copy(
+                pactSlots = slot.copy(
+                    expended = 0,
+                ),
+            )
+        } ?: sheet
     }
 
     private fun CharacterSheet.updateSpellSlot(
