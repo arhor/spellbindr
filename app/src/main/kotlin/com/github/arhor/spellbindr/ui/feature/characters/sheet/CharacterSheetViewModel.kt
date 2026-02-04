@@ -538,12 +538,18 @@ private fun CharacterSheet.toOverviewState(): OverviewTabState {
         val modifier = abilityScores.modifierFor(abilityId)
         val entry = savingThrowLookup[abilityId]
         val proficiencyBonusValue = if (entry?.proficient == true) proficiencyBonus else 0
+        val computedBonus = modifier + proficiencyBonusValue
+        val resolvedBonus = when {
+            entry == null -> modifier
+            entry.bonus != 0 || entry.proficient -> entry.bonus
+            else -> computedBonus
+        }
         AbilityUiModel(
             abilityId = abilityId,
             label = abilityId.abbreviation(),
             score = abilityScores.scoreFor(abilityId),
             modifier = modifier,
-            savingThrowBonus = modifier + (entry?.bonus ?: 0) + proficiencyBonusValue,
+            savingThrowBonus = resolvedBonus,
             savingThrowProficient = entry?.proficient ?: false,
         )
     }
@@ -574,11 +580,17 @@ private fun CharacterSheet.toSkillsState(): SkillsTabState {
             entry?.proficient == true -> this.proficiencyBonus
             else -> 0
         }
+        val computedBonus = abilityScores.modifierFor(skill.abilityId) + proficiencyBonus
+        val resolvedBonus = when {
+            entry == null -> abilityScores.modifierFor(skill.abilityId)
+            entry.bonus != 0 || entry.proficient || entry.expertise -> entry.bonus
+            else -> computedBonus
+        }
         SkillUiModel(
             id = skill,
             name = skill.displayName,
             abilityAbbreviation = skill.abilityAbbreviation,
-            totalBonus = abilityScores.modifierFor(skill.abilityId) + proficiencyBonus + (entry?.bonus ?: 0),
+            totalBonus = resolvedBonus,
             proficient = entry?.proficient ?: false,
             expertise = entry?.expertise ?: false,
         )

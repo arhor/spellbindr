@@ -55,6 +55,7 @@ sealed interface Choice {
     data class ResourceListChoice(
         override val choose: Int,
         val from: String,
+        val where: Map<String, String>? = null,
     ) : Choice
 
     /**

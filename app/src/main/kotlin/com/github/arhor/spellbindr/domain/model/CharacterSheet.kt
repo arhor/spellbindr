@@ -111,12 +111,12 @@ data class AbilityScores(
      * Formula: `(score - 10) / 2` (integer division).
      */
     fun modifierFor(abilityId: AbilityId): Int = when (abilityId.lowercase()) {
-        AbilityIds.STR -> (strength - 10) / 2
-        AbilityIds.DEX -> (dexterity - 10) / 2
-        AbilityIds.CON -> (constitution - 10) / 2
-        AbilityIds.INT -> (intelligence - 10) / 2
-        AbilityIds.WIS -> (wisdom - 10) / 2
-        AbilityIds.CHA -> (charisma - 10) / 2
+        AbilityIds.STR -> Math.floorDiv(strength - 10, 2)
+        AbilityIds.DEX -> Math.floorDiv(dexterity - 10, 2)
+        AbilityIds.CON -> Math.floorDiv(constitution - 10, 2)
+        AbilityIds.INT -> Math.floorDiv(intelligence - 10, 2)
+        AbilityIds.WIS -> Math.floorDiv(wisdom - 10, 2)
+        AbilityIds.CHA -> Math.floorDiv(charisma - 10, 2)
         else -> 0
     }
 }

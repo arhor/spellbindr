@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.characters.guided
 import androidx.compose.runtime.Immutable
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.AbilityScores
 
 @Immutable
 enum class GuidedStep(val title: String) {
@@ -40,6 +41,16 @@ data class GuidedValidationResult(
     val hasErrors: Boolean = issues.any { it.severity == GuidedValidationIssue.Severity.ERROR }
 }
 
+@Immutable
+data class GuidedCharacterPreview(
+    val abilityScores: AbilityScores,
+    val maxHitPoints: Int,
+    val armorClass: Int,
+    val speed: Int,
+    val languagesCount: Int,
+    val proficienciesCount: Int,
+)
+
 internal val StandardArray: List<Int> = listOf(15, 14, 13, 12, 10, 8)
 
 internal fun defaultStandardArrayAssignments(): Map<AbilityId, Int?> =
@@ -59,4 +70,3 @@ internal fun pointBuyCost(score: Int): Int = when (score) {
     15 -> 9
     else -> Int.MAX_VALUE
 }
-

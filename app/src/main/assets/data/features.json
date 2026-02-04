@@ -3525,7 +3525,7 @@
       "At 6th level, you can choose two more of your proficiencies (in skills or with thieves' tools) to gain this benefit"
     ],
     "choice": {
-      "choose": 1,
+      "choose": 2,
       "type": "proficiency",
       "from": [
         "skill-acrobatics",
