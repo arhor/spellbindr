@@ -1,0 +1,183 @@
+package com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.weapons
+
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.DamageType
+import com.github.arhor.spellbindr.domain.model.displayName
+import com.github.arhor.spellbindr.ui.feature.character.sheet.model.WeaponEditorState
+import com.github.arhor.spellbindr.ui.theme.AppTheme
+
+@Composable
+fun WeaponEditorDialog(
+    editorState: WeaponEditorState,
+    onDismiss: () -> Unit,
+    onNameChange: (String) -> Unit,
+    onCatalogOpen: () -> Unit,
+    onAbilityChange: (AbilityId) -> Unit,
+    onUseAbilityForDamageChange: (Boolean) -> Unit,
+    onProficiencyChange: (Boolean) -> Unit,
+    onDiceCountChange: (String) -> Unit,
+    onDieSizeChange: (String) -> Unit,
+    onDamageTypeChange: (DamageType) -> Unit,
+    onDelete: (String) -> Unit,
+    onSave: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    AlertDialog(
+        modifier = modifier,
+        onDismissRequest = onDismiss,
+        title = { Text(if (editorState.id == null) "Add weapon" else "Edit weapon") },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                OutlinedTextField(
+                    value = editorState.name,
+                    onValueChange = onNameChange,
+                    label = { Text("Weapon name") },
+                    singleLine = true,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("WeaponNameField"),
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    TextButton(onClick = onCatalogOpen) {
+                        Text("Select weapon")
+                    }
+                }
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Ability", modifier = Modifier.padding(horizontal = 4.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        AbilityIds.standardOrder.forEach { abilityId ->
+                            FilterChip(
+                                selected = editorState.abilityId == abilityId,
+                                onClick = { onAbilityChange(abilityId) },
+                                label = { Text(abilityId.displayName()) },
+                            )
+                        }
+                    }
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    OutlinedTextField(
+                        value = editorState.damageDiceCount,
+                        onValueChange = onDiceCountChange,
+                        label = { Text("Dice count") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        singleLine = true,
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("WeaponDiceCountField"),
+                    )
+                    OutlinedTextField(
+                        value = editorState.damageDieSize,
+                        onValueChange = onDieSizeChange,
+                        label = { Text("Die size") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        singleLine = true,
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("WeaponDieSizeField"),
+                    )
+                }
+                FilterChip(
+                    selected = editorState.proficient,
+                    onClick = { onProficiencyChange(!editorState.proficient) },
+                    label = { Text("Proficient") },
+                )
+                FilterChip(
+                    selected = editorState.useAbilityForDamage,
+                    onClick = { onUseAbilityForDamageChange(!editorState.useAbilityForDamage) },
+                    label = { Text("Add ability to damage") },
+                )
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Damage type", modifier = Modifier.padding(horizontal = 4.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        DamageType.entries.forEach { type ->
+                            FilterChip(
+                                selected = editorState.damageType == type,
+                                onClick = { onDamageTypeChange(type) },
+                                label = { Text(type.name) },
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        dismissButton = {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (editorState.id != null) {
+                    TextButton(onClick = { onDelete(editorState.id) }) {
+                        Text("Delete")
+                    }
+                }
+                TextButton(onClick = onDismiss) {
+                    Text("Cancel")
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onSave, enabled = editorState.name.isNotBlank()) {
+                Text("Save")
+            }
+        },
+    )
+}
+
+@PreviewLightDark
+@Composable
+private fun WeaponEditorDialogPreview() {
+    AppTheme {
+        WeaponEditorDialog(
+            editorState = WeaponEditorState(
+                name = "Longsword",
+                abilityId = AbilityIds.STR,
+                damageDiceCount = "1",
+                damageDieSize = "8",
+                proficient = true,
+            ),
+            onDismiss = {},
+            onNameChange = {},
+            onCatalogOpen = {},
+            onAbilityChange = {},
+            onUseAbilityForDamageChange = {},
+            onProficiencyChange = {},
+            onDiceCountChange = {},
+            onDieSizeChange = {},
+            onDamageTypeChange = {},
+            onDelete = {},
+            onSave = {},
+        )
+    }
+}
