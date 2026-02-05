@@ -64,3 +64,41 @@ history; follow the pattern when possible. CI only runs for PRs targeting `maste
 
 The instrumentation runner is `com.github.arhor.spellbindr.HiltApplicationTestRunner`; keep it when adding or updating
 androidTest components. Avoid committing local SDK paths or secrets.
+
+## Compose Screenshot Exports (Preview → PNG)
+
+This repo is configured for Android’s Compose Screenshot Testing (AGP screenshot plugin) to generate PNGs from Compose
+previews.
+
+Workflow:
+
+- Add screenshot previews under `app/src/screenshotTest/kotlin/...` (example package:
+  `com.github.arhor.spellbindr.ui.screenshot`).
+- Wrap preview content with `ScreenshotHarness` (
+  `app/src/screenshotTest/kotlin/com/github/arhor/spellbindr/ui/screenshot/ScreenshotHarness.kt`)
+  to ensure consistent theme/background/padding.
+- Each exported preview must be annotated with:
+    - `@PreviewTest` (from `com.android.tools.screenshot.PreviewTest`)
+    - a Compose `@Preview...` annotation (`@Preview`, `@PreviewLightDark`, etc.)
+    - `@Composable`
+- Generate/update reference PNGs for a specific preview (or file/class) via Gradle test filtering:
+    - `./gradlew :app:updateDebugScreenshotTest --tests '*AppTopBar_Screenshot*'`
+- Reference images are written to:
+    - `app/src/screenshotTestDebug/reference/` (gitignored in this repo)
+- Export the generated PNGs to a clean timestamped folder:
+    - `run/export-preview-screenshot.sh --tests '*AppTopBar_Screenshot*'`
+    - If Gradle can’t be invoked from the script (sandbox/permissions), run Gradle first and then:
+      `run/export-preview-screenshot.sh --tests '*AppTopBar_Screenshot*' --skip-gradle`
+
+## Visual Comparison Workflow (User-provided image → “match this”)
+
+When the user provides a reference image and asks to make a composable match it:
+
+1. Identify the target composable + state needed to reproduce the UI (inputs, theme, screen size, font scale, etc.).
+2. Create/adjust a dedicated `@PreviewTest` preview in `app/src/screenshotTest/kotlin/...` that renders that exact
+   state (use explicit `@Preview(widthDp=..., heightDp=...)` when size matters).
+3. Generate a screenshot PNG and export it (commands above).
+4. Compare images in-chat:
+    - Render the exported PNG using a local absolute path in Markdown: `![generated](/absolute/path/to.png)`
+    - Compare visually against the user-provided image, list differences (layout, padding, typography, colors, icons),
+      and iterate on the composable until it matches closely.

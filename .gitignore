@@ -51,3 +51,7 @@ google-services.json
 .externalNativeBuild
 .cxx
 android-commandlinetools.zip
+
+# Compose screenshot testing (ad-hoc exports)
+app/src/screenshotTestDebug/reference/
+app/src/screenshotTest*/reference/
