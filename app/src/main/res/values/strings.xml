@@ -2,11 +2,13 @@
     <string name="app_name">Spellbindr</string>
     <string name="spells_add_spells">Add spells</string>
     <string name="spells_empty_state">No spells linked to this character yet.</string>
+    <string name="spells_no_spells_match_filters">No spells match filters.</string>
     <string name="spells_slots_title">Spell slots</string>
+    <string name="spells_shared_spellcasting_slots">Shared Spellcasting Slots</string>
     <string name="spells_slots_empty">No spell slots configured.</string>
     <string name="spells_slot_level">L%1$d</string>
     <string name="spells_slot_count">%1$d/%2$d</string>
-    <string name="spells_pact_slots_title">Pact slots</string>
+    <string name="spells_pact_slots_title">Pact Slots</string>
     <string name="spells_short_rest_label">Short Rest</string>
     <string name="spells_not_configured">Not configured.</string>
     <string name="spells_concentrating">Concentrating: %1$s</string>

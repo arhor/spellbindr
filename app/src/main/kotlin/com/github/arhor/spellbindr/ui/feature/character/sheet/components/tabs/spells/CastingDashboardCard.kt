@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.spells
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,9 +17,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material3.AssistChip
+import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material.icons.outlined.Spa
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,10 +35,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.ConcentrationUiModel
@@ -59,11 +67,11 @@ internal fun CastingDashboardCard(
     onConcentrationClear: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val canLongRest = remember(sharedSlots, pactSlots) {
-        sharedSlots.any { it.expended > 0 } || (pactSlots?.expended ?: 0) > 0
+    val canLongRest = remember(sharedSlots, pactSlots, concentration) {
+        concentration != null || sharedSlots.any { it.expended > 0 } || (pactSlots?.expended ?: 0) > 0
     }
     val canShortRest = remember(pactSlots) {
-        pactSlots != null && pactSlots.expended > 0
+        pactSlots != null && pactSlots.total > 0
     }
 
     Surface(
@@ -72,7 +80,7 @@ internal fun CastingDashboardCard(
         modifier = modifier.fillMaxWidth(),
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             concentration?.let {
@@ -82,32 +90,293 @@ internal fun CastingDashboardCard(
                 )
             }
 
-            SlotsHeader(
-                hasPactSlots = pactSlots != null,
-                canLongRest = canLongRest,
-                canShortRest = canShortRest,
-                onLongRestClick = onLongRestClick,
-                onShortRestClick = onShortRestClick,
-            )
+            when (editMode) {
+                SheetEditMode.View -> {
+                    ViewModeDashboard(
+                        sharedSlots = sharedSlots,
+                        hasConfiguredSharedSlots = hasConfiguredSharedSlots,
+                        pactSlots = pactSlots,
+                        canLongRest = canLongRest,
+                        canShortRest = canShortRest,
+                        onLongRestClick = onLongRestClick,
+                        onShortRestClick = onShortRestClick,
+                        onConfigureSlotsClick = onConfigureSlotsClick,
+                        onSharedSlotToggle = onSharedSlotToggle,
+                        onPactSlotToggle = onPactSlotToggle,
+                    )
+                }
 
-            SharedSlotsSection(
-                sharedSlots = sharedSlots,
-                hasConfiguredSharedSlots = hasConfiguredSharedSlots,
-                editMode = editMode,
-                onConfigureSlotsClick = onConfigureSlotsClick,
-                onSlotToggle = onSharedSlotToggle,
-                onSlotTotalChanged = onSharedSlotTotalChanged,
-            )
+                SheetEditMode.Edit -> {
+                    SlotsHeader(
+                        hasPactSlots = pactSlots != null,
+                        canLongRest = canLongRest,
+                        canShortRest = canShortRest,
+                        onLongRestClick = onLongRestClick,
+                        onShortRestClick = onShortRestClick,
+                    )
 
-            pactSlots?.let {
-                PactSlotsSection(
-                    pactSlots = it,
-                    editMode = editMode,
-                    onPactSlotToggle = onPactSlotToggle,
-                    onPactSlotTotalChanged = onPactSlotTotalChanged,
-                    onPactSlotLevelChanged = onPactSlotLevelChanged,
-                )
+                    SharedSlotsSection(
+                        sharedSlots = sharedSlots,
+                        hasConfiguredSharedSlots = hasConfiguredSharedSlots,
+                        editMode = editMode,
+                        onConfigureSlotsClick = onConfigureSlotsClick,
+                        onSlotToggle = onSharedSlotToggle,
+                        onSlotTotalChanged = onSharedSlotTotalChanged,
+                    )
+
+                    pactSlots?.let {
+                        PactSlotsSection(
+                            pactSlots = it,
+                            editMode = editMode,
+                            onPactSlotToggle = onPactSlotToggle,
+                            onPactSlotTotalChanged = onPactSlotTotalChanged,
+                            onPactSlotLevelChanged = onPactSlotLevelChanged,
+                        )
+                    }
+                }
             }
+        }
+    }
+}
+
+@Composable
+private fun ViewModeDashboard(
+    sharedSlots: List<SpellSlotUiModel>,
+    hasConfiguredSharedSlots: Boolean,
+    pactSlots: PactSlotUiModel?,
+    canLongRest: Boolean,
+    canShortRest: Boolean,
+    onLongRestClick: () -> Unit,
+    onShortRestClick: () -> Unit,
+    onConfigureSlotsClick: () -> Unit,
+    onSharedSlotToggle: (Int, Int) -> Unit,
+    onPactSlotToggle: (Int) -> Unit,
+) {
+    val tiles = remember(sharedSlots) { sharedSlots.sortedBy(SpellSlotUiModel::level).take(4) }
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+            ) {
+                Text(
+                    text = stringResource(R.string.spells_shared_spellcasting_slots),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.DarkMode,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(16.dp),
+                    )
+                    Text(
+                        text = stringResource(R.string.spells_long_rest),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+            ) {
+                if (!hasConfiguredSharedSlots) {
+                    Text(
+                        text = stringResource(R.string.spells_slots_empty),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                } else {
+                    tiles.forEach { slot ->
+                        SharedSlotSummaryTile(
+                            slot = slot,
+                            onSlotToggle = onSharedSlotToggle,
+                        )
+                    }
+                }
+
+                Surface(
+                    shape = MaterialTheme.shapes.medium,
+                    tonalElevation = 0.dp,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                ) {
+                    IconButton(onClick = onConfigureSlotsClick) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                            contentDescription = stringResource(R.string.spells_configure_slots),
+                        )
+                    }
+                }
+            }
+        }
+
+        pactSlots?.let { pact ->
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.outlineVariant,
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(
+                        imageVector = classIconFor("warlock"),
+                        contentDescription = null,
+                        tint = classAccentColorFor("warlock"),
+                        modifier = Modifier.size(20.dp),
+                    )
+                    val label = pact.slotLevel?.let { level ->
+                        "(${level.toOrdinalLabel()})"
+                    }.orEmpty()
+                    Text(
+                        text = "${stringResource(R.string.spells_pact_slots_title)} $label".trim(),
+                        style = MaterialTheme.typography.labelMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    DashboardActionChip(
+                        onClick = onShortRestClick,
+                        enabled = canShortRest,
+                        filled = true,
+                        icon = Icons.Outlined.Spa,
+                        label = stringResource(R.string.spells_short_rest_label),
+                    )
+                    DashboardActionChip(
+                        onClick = onLongRestClick,
+                        enabled = canLongRest,
+                        filled = false,
+                        icon = Icons.Outlined.Schedule,
+                        label = stringResource(R.string.spells_long_rest),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DashboardActionChip(
+    onClick: () -> Unit,
+    enabled: Boolean,
+    filled: Boolean,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    modifier: Modifier = Modifier,
+) {
+    val containerColor = when {
+        filled && enabled -> MaterialTheme.colorScheme.outline
+        filled && !enabled -> MaterialTheme.colorScheme.outlineVariant
+        else -> MaterialTheme.colorScheme.surfaceVariant
+    }
+    val contentColor = when {
+        filled && enabled -> MaterialTheme.colorScheme.surfaceBright
+        filled && !enabled -> MaterialTheme.colorScheme.onSurfaceVariant
+        enabled -> MaterialTheme.colorScheme.onSurfaceVariant
+        else -> MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+    val border = if (filled) {
+        null
+    } else {
+        BorderStroke(
+            width = 1.dp,
+            color = if (enabled) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.outlineVariant,
+        )
+    }
+
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 0.dp,
+        color = containerColor,
+        contentColor = contentColor,
+        border = border,
+        onClick = onClick,
+        enabled = enabled,
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 6.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(12.dp),
+            )
+            Text(
+                text = label,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.labelMedium,
+            )
+        }
+    }
+}
+
+@Composable
+private fun SharedSlotSummaryTile(
+    slot: SpellSlotUiModel,
+    onSlotToggle: (Int, Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val available = (slot.total - slot.expended).coerceAtLeast(0)
+    fun spendOne() {
+        if (available > 0) onSlotToggle(slot.level, slot.expended)
+    }
+
+    fun restoreOne() {
+        if (slot.expended > 0) onSlotToggle(slot.level, slot.expended - 1)
+    }
+
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 0.dp,
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        modifier = modifier.widthIn(min = 48.dp),
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 6.dp, vertical = 6.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.spells_slot_count, available, slot.total),
+                style = MaterialTheme.typography.labelMedium,
+            )
+            SlotPipsRow(
+                total = slot.total,
+                expended = slot.expended,
+                enabled = slot.total > 0,
+                onSpendOne = ::spendOne,
+                onRestoreOne = ::restoreOne,
+                slotTypeLabel = stringResource(R.string.spells_slot_type_shared),
+                pipSize = 8.dp,
+                pipSpacing = 2.dp,
+                availableColor = MaterialTheme.colorScheme.secondaryContainer,
+                availableBorderColor = MaterialTheme.colorScheme.secondary,
+            )
         }
     }
 }
@@ -283,22 +552,6 @@ private fun PactSlotsSection(
 
             when (editMode) {
                 SheetEditMode.View -> {
-                    if (pactSlots.total > 0) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            AssistChip(
-                                onClick = ::spendOne,
-                                enabled = canSpend,
-                                label = { Text(text = stringResource(R.string.spells_use_slot)) },
-                                leadingIcon = { Icon(imageVector = Icons.Filled.Remove, contentDescription = null) },
-                            )
-                            AssistChip(
-                                onClick = ::restoreOne,
-                                enabled = canRestore,
-                                label = { Text(text = stringResource(R.string.spells_restore_slot)) },
-                                leadingIcon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
-                            )
-                        }
-                    }
                 }
 
                 SheetEditMode.Edit -> {
@@ -339,6 +592,10 @@ private fun SlotPipsRow(
     onSpendOne: () -> Unit,
     onRestoreOne: () -> Unit,
     slotTypeLabel: String,
+    pipSize: Dp = 32.dp,
+    pipSpacing: Dp = 6.dp,
+    availableColor: Color = MaterialTheme.colorScheme.primaryContainer,
+    availableBorderColor: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier,
 ) {
     if (total <= 0) {
@@ -348,7 +605,7 @@ private fun SlotPipsRow(
 
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(pipSpacing),
     ) {
         repeat(total) { index ->
             val isExpended = index < expended
@@ -359,14 +616,14 @@ private fun SlotPipsRow(
             }
             Box(
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(pipSize)
                     .clip(CircleShape)
                     .background(
-                        color = if (isExpended) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primaryContainer,
+                        color = if (isExpended) MaterialTheme.colorScheme.surface else availableColor,
                     )
                     .border(
                         width = 1.dp,
-                        color = if (isExpended) MaterialTheme.colorScheme.outlineVariant else MaterialTheme.colorScheme.primary,
+                        color = if (isExpended) MaterialTheme.colorScheme.outlineVariant else availableBorderColor,
                         shape = CircleShape,
                     )
                     .semantics { this.contentDescription = contentDescription }
@@ -431,22 +688,6 @@ private fun SharedSlotTile(
 
             when (editMode) {
                 SheetEditMode.View -> {
-                    if (slot.total > 0) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            AssistChip(
-                                onClick = ::spendOne,
-                                enabled = canSpend,
-                                label = { Text(text = stringResource(R.string.spells_use_slot)) },
-                                leadingIcon = { Icon(imageVector = Icons.Filled.Remove, contentDescription = null) },
-                            )
-                            AssistChip(
-                                onClick = ::restoreOne,
-                                enabled = canRestore,
-                                label = { Text(text = stringResource(R.string.spells_restore_slot)) },
-                                leadingIcon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
-                            )
-                        }
-                    }
                 }
 
                 SheetEditMode.Edit -> {
