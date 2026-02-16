@@ -211,6 +211,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
     private data class SpellsData(
         val spells: List<Spell>,
         val spellsById: Map<String, Spell>,
+        val errorMessage: String? = null,
     )
 
     private val spellsData: StateFlow<SpellsData> = combine(_state, referenceDataState) { state, reference ->
@@ -223,12 +224,25 @@ class GuidedCharacterSetupViewModel @Inject constructor(
                 kotlinx.coroutines.flow.flowOf(SpellsData(emptyList(), emptyMap()))
             } else {
                 observeSpells()
-                    .onStart { emit(emptyList()) }
-                    .map { spells ->
-                        SpellsData(
-                            spells = spells,
-                            spellsById = spells.associateBy(Spell::id),
-                        )
+                    .onStart { emit(Loadable.Loading) }
+                    .map { spellsState ->
+                        when (spellsState) {
+                            is Loadable.Content -> SpellsData(
+                                spells = spellsState.data,
+                                spellsById = spellsState.data.associateBy(Spell::id),
+                            )
+
+                            is Loadable.Failure -> SpellsData(
+                                spells = emptyList(),
+                                spellsById = emptyMap(),
+                                errorMessage = spellsState.errorMessage ?: "Failed to load spells.",
+                            )
+
+                            is Loadable.Loading -> SpellsData(
+                                spells = emptyList(),
+                                spellsById = emptyMap(),
+                            )
+                        }
                     }
             }
         }
@@ -270,6 +284,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
                 GuidedCharacterSetupUiState.Failure(referenceDataState.errorMessage)
 
             is ReferenceDataState.Content -> {
+                spellsData.errorMessage?.let { return@combine GuidedCharacterSetupUiState.Failure(it) }
                 val referenceData = referenceDataState.data
                 val selectedClass = state.classId?.let { id ->
                     referenceData.classes.firstOrNull { it.id == id }

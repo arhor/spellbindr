@@ -2,11 +2,11 @@ package com.github.arhor.spellbindr.domain.usecase
 
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.FavoriteType
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.SearchAndGroupSpellsResult
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
-import com.github.arhor.spellbindr.utils.unwrap
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -22,7 +22,16 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
         favoriteSpellIds: Set<String>? = null,
     ): SearchAndGroupSpellsResult {
         val normalizedQuery = query.trim()
-        val resolvedSpells = allSpells ?: spellsRepository.allSpellsState.unwrap().first()
+        val resolvedSpells = allSpells ?: when (
+            val spellsState = spellsRepository.allSpellsState.first { it !is Loadable.Loading }
+        ) {
+            is Loadable.Content -> spellsState.data
+            is Loadable.Failure -> throw (spellsState.cause ?: IllegalStateException(
+                spellsState.errorMessage ?: "Failed to load spells."
+            ))
+
+            is Loadable.Loading -> emptyList()
+        }
         val favoriteIds = if (favoriteOnly) {
             favoriteSpellIds ?: favoritesRepository.observeFavoriteIds(FavoriteType.SPELL).first().toSet()
         } else {

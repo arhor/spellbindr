@@ -13,6 +13,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
@@ -53,15 +54,15 @@ import com.github.arhor.spellbindr.ui.feature.character.sheet.model.WeaponEditor
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.WeaponUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.WeaponsTabState
 import com.github.arhor.spellbindr.utils.signed
-import com.github.arhor.spellbindr.utils.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -117,6 +118,7 @@ class CharacterSheetViewModel @Inject constructor(
     private var isWeaponCatalogVisible: Boolean = false
     private var castingSpellId: String? = null
     private var errorMessage: String? = if (characterId == null) "Missing character id" else null
+    private var persistJob: Job? = null
 
     init {
         if (characterId == null) {
@@ -494,8 +496,25 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun observeSpells() {
         observeAllSpellsUseCase()
-            .onEach { spells ->
-                cachedSpells = spells
+            .onEach { state ->
+                when (state) {
+                    is Loadable.Content -> {
+                        cachedSpells = state.data
+                        if (errorMessage == SPELLS_ERROR_MESSAGE) {
+                            errorMessage = null
+                        }
+                    }
+
+                    is Loadable.Failure -> {
+                        errorMessage = SPELLS_ERROR_MESSAGE
+                    }
+
+                    is Loadable.Loading -> Unit
+                }
+                renderState()
+            }
+            .catch {
+                errorMessage = SPELLS_ERROR_MESSAGE
                 renderState()
             }
             .launchIn(viewModelScope)
@@ -503,9 +522,25 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun observeSpellcastingClasses() {
         observeSpellcastingClassesUseCase()
-            .unwrap()
-            .onEach { classes ->
-                cachedSpellcastingClasses = classes
+            .onEach { state ->
+                when (state) {
+                    is Loadable.Content -> {
+                        cachedSpellcastingClasses = state.data
+                        if (errorMessage == SPELLCASTING_CLASSES_ERROR_MESSAGE) {
+                            errorMessage = null
+                        }
+                    }
+
+                    is Loadable.Failure -> {
+                        errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
+                    }
+
+                    is Loadable.Loading -> Unit
+                }
+                renderState()
+            }
+            .catch {
+                errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
                 renderState()
             }
             .launchIn(viewModelScope)
@@ -513,9 +548,25 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun observeWeaponCatalog() {
         observeWeaponCatalogUseCase()
-            .map { entries -> entries.map { entry -> entry.toUiModel() } }
-            .onEach { entries ->
-                weaponCatalog = entries
+            .onEach { state ->
+                when (state) {
+                    is Loadable.Content -> {
+                        weaponCatalog = state.data.map { entry -> entry.toUiModel() }
+                        if (errorMessage == WEAPON_CATALOG_ERROR_MESSAGE) {
+                            errorMessage = null
+                        }
+                    }
+
+                    is Loadable.Failure -> {
+                        errorMessage = WEAPON_CATALOG_ERROR_MESSAGE
+                    }
+
+                    is Loadable.Loading -> Unit
+                }
+                renderState()
+            }
+            .catch {
+                errorMessage = WEAPON_CATALOG_ERROR_MESSAGE
                 renderState()
             }
             .launchIn(viewModelScope)
@@ -574,13 +625,22 @@ class CharacterSheetViewModel @Inject constructor(
 
     private fun persist(updated: CharacterSheet) {
         if (characterId == null) return
-        viewModelScope.launch {
+        persistJob?.cancel()
+        persistJob = viewModelScope.launch {
+            delay(SAVE_DEBOUNCE_MS)
             runCatching { saveCharacterSheetUseCase(updated) }
                 .onFailure { throwable ->
                     errorMessage = throwable.message ?: "Unable to save changes"
                     renderState()
                 }
         }
+    }
+
+    companion object {
+        private const val SAVE_DEBOUNCE_MS = 150L
+        private const val SPELLS_ERROR_MESSAGE = "Unable to load spells"
+        private const val SPELLCASTING_CLASSES_ERROR_MESSAGE = "Unable to load spellcasting classes"
+        private const val WEAPON_CATALOG_ERROR_MESSAGE = "Unable to load weapon catalog"
     }
 }
 

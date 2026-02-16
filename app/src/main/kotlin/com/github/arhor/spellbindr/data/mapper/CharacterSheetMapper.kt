@@ -2,12 +2,6 @@ package com.github.arhor.spellbindr.data.mapper
 
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
-import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
-import com.github.arhor.spellbindr.domain.model.SkillEntry
-import com.github.arhor.spellbindr.domain.model.SpellSlotState
-import com.github.arhor.spellbindr.domain.model.defaultSavingThrows
-import com.github.arhor.spellbindr.domain.model.defaultSkills
-import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 
 fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet(
     id = id,
@@ -87,12 +81,3 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
     characterSpells = characterSpells,
     weapons = weapons,
 )
-
-private fun defaultSavingThrows(): List<SavingThrowEntry> =
-    defaultSavingThrows()
-
-private fun defaultSkills(): List<SkillEntry> =
-    defaultSkills()
-
-private fun defaultSpellSlots(): List<SpellSlotState> =
-    defaultSpellSlots()

@@ -3,21 +3,20 @@ package com.github.arhor.spellbindr.domain.usecase
 import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry
+import com.github.arhor.spellbindr.domain.model.mapContent
 import com.github.arhor.spellbindr.domain.repository.EquipmentRepository
-import com.github.arhor.spellbindr.utils.unwrap
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ObserveWeaponCatalogUseCase @Inject constructor(
     private val equipmentRepository: EquipmentRepository,
 ) {
-    operator fun invoke(): Flow<List<WeaponCatalogEntry>> =
+    operator fun invoke(): Flow<Loadable<List<WeaponCatalogEntry>>> =
         equipmentRepository
             .allEquipmentState
-            .unwrap()
-            .map(::toWeaponCatalogEntries)
+            .mapContent(::toWeaponCatalogEntries)
 
     private fun toWeaponCatalogEntries(equipment: List<Equipment>): List<WeaponCatalogEntry> =
         equipment.mapNotNull {

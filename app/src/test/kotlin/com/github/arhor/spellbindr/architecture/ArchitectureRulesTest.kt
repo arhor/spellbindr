@@ -69,7 +69,7 @@ class ArchitectureRulesTest {
             .that().resideInAnyPackage("..ui.feature..")
             .and().haveSimpleNameEndingWith("ViewModel")
             .should().dependOnClassesThat().resideInAnyPackage(
-                "..data.local.db..",
+                "..data.local.database..",
                 "androidx.room..",
                 "androidx.datastore..",
                 "android.database..",

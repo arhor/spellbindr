@@ -26,9 +26,9 @@ concurrency:
 
 jobs:
   build:
-    name: Lint, test, and assemble
+    name: Lint, unit test, and release assemble
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
@@ -49,8 +49,8 @@ jobs:
           cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/master') && !startsWith(github.ref, 'refs/heads/stable') }}
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: Lint and test
-        run: ./gradlew lintDebug testDebugUnitTest --stacktrace
+      - name: Lint, unit test, and release assemble
+        run: ./gradlew lintDebug testDebugUnitTest assembleRelease --stacktrace
 
       - name: Assemble debug APK
         uses: ./.github/actions/assemble-debug-apk

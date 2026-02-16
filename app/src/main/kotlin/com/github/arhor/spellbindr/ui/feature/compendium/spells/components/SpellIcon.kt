@@ -9,7 +9,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,11 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.concurrent.ConcurrentHashMap
+
+private val spellIconBitmapCache = ConcurrentHashMap<String, ImageBitmap>()
 
 @Composable
 fun SpellIcon(
@@ -28,15 +34,17 @@ fun SpellIcon(
     size: Dp = 40.dp,
     iconSize: Dp = 30.dp,
 ) {
-    val context = LocalContext.current
+    val context = LocalContext.current.applicationContext
     val assetName = "icons/spells/${spellName.lowercase().replace(" ", "_")}.png"
-    val bitmap: ImageBitmap? = remember(spellName) {
-        try {
-            context.assets.open(assetName).use { stream ->
-                BitmapFactory.decodeStream(stream)?.asImageBitmap()
-            }
-        } catch (e: Exception) {
-            null
+    val bitmap by produceState<ImageBitmap?>(initialValue = null, key1 = assetName) {
+        value = spellIconBitmapCache[assetName] ?: withContext(Dispatchers.IO) {
+            runCatching {
+                context.assets.open(assetName).use { stream ->
+                    BitmapFactory.decodeStream(stream)?.asImageBitmap()
+                }
+            }.getOrNull()
+        }?.also { decoded ->
+            spellIconBitmapCache[assetName] = decoded
         }
     }
 
@@ -46,9 +54,10 @@ fun SpellIcon(
             .background(color = Color.Transparent),
         contentAlignment = Alignment.Center
     ) {
-        if (bitmap != null) {
+        val resolvedBitmap = bitmap
+        if (resolvedBitmap != null) {
             Image(
-                bitmap = bitmap,
+                bitmap = resolvedBitmap,
                 contentDescription = null,
                 modifier = Modifier.size(iconSize),
             )

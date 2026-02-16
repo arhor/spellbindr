@@ -17,7 +17,7 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 
 ## Tech Stack
 
-- Kotlin 2.3, JVM 17 (`.java-version`), Android Gradle Plugin 8.13.2.
+- Kotlin 2.3, JVM 17 (`.java-version`), Android Gradle Plugin 9.0.0.
 - Android minSdk 33, target/compile SDK 36 (`app/build.gradle.kts`).
 - Jetpack Compose (Material3, Navigation), Hilt DI, KSP.
 - Room for character persistence; DataStore Preferences for app settings and favorites.
@@ -80,5 +80,5 @@ Exports are copied to `app/build/outputs/preview-screenshots/<timestamp>/`.
 
 ## CI / Quality
 
-- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug testDebugUnitTest` on push and PRs.
+- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug testDebugUnitTest assembleRelease` on push and PRs.
 - PRs also assemble a debug APK and upload it as the `app-debug-apk` artifact.

@@ -354,7 +354,7 @@ class GuidedCharacterSetupSheetBuilderTest {
         every { observeLanguages() } returns flowOf(Loadable.Content(emptyList()))
         every { observeFeatures() } returns flowOf(Loadable.Content(emptyList()))
         every { observeEquipment() } returns flowOf(Loadable.Content(emptyList()))
-        every { observeSpells() } returns flowOf(emptyList())
+        every { observeSpells() } returns flowOf(Loadable.Content(emptyList()))
 
         return GuidedCharacterSetupViewModel(
             observeClasses = observeClasses,

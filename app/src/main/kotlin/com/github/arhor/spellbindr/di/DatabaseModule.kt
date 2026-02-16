@@ -26,7 +26,6 @@ object DatabaseModule {
     ): SpellbindrDatabase =
         Room.databaseBuilder<SpellbindrDatabase>(context, "spellbindr.db")
             .apply { converters.forEach(::addTypeConverter) }
-            .addMigrations(*SpellbindrDatabase.allMigrations)
             .build()
 
     @Provides
