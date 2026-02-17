@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.settings
 
 import androidx.activity.ComponentActivity
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -31,7 +30,6 @@ class SettingsScreenTest {
                 SettingsScreen(
                     state = state,
                     dispatch = {},
-                    snackbarHostState = SnackbarHostState(),
                 )
             }
         }
@@ -53,7 +51,6 @@ class SettingsScreenTest {
                 SettingsScreen(
                     state = state,
                     dispatch = { intent -> capturedIntent = intent },
-                    snackbarHostState = SnackbarHostState(),
                 )
             }
         }

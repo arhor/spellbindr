@@ -2,7 +2,6 @@ package com.github.arhor.spellbindr.ui.feature.compendium.spelldetails
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -15,8 +14,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,21 +42,11 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 internal fun SpellDetailScreen(
     uiState: SpellDetailsUiState,
     dispatch: SpellDetailsDispatch = {},
-    snackbarHostState: SnackbarHostState,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        when (uiState) {
-            is SpellDetailsUiState.Loading -> LoadingIndicator()
-            is SpellDetailsUiState.Failure -> ErrorMessage(uiState.errorMessage)
-            is SpellDetailsUiState.Content -> SpellDetailsContent(uiState.spell)
-        }
-
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp),
-        )
+    when (uiState) {
+        is SpellDetailsUiState.Loading -> LoadingIndicator()
+        is SpellDetailsUiState.Failure -> ErrorMessage(uiState.errorMessage)
+        is SpellDetailsUiState.Content -> SpellDetailsContent(uiState.spell)
     }
 }
 
@@ -249,8 +236,6 @@ private fun SpellDetailsPreview() {
                 ),
                 isFavorite = false,
             ),
-            dispatch = {},
-            snackbarHostState = SnackbarHostState(),
         )
     }
 }

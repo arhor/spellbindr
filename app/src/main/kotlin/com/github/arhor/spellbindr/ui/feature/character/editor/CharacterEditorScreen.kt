@@ -21,15 +21,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +41,7 @@ import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
+import com.github.arhor.spellbindr.ui.components.LocalSnackbarHostState
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -53,10 +51,9 @@ fun CharacterEditorRoute(
     vm: CharacterEditorViewModel,
     onBack: () -> Unit,
     onFinished: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     val state by vm.uiState.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = LocalSnackbarHostState.current
 
     val title = when (val uiState = state) {
         is CharacterEditorUiState.Content -> if (uiState.mode == EditorMode.Create) "New Character" else "Edit Character"
@@ -95,8 +92,6 @@ fun CharacterEditorRoute(
         CharacterEditorScreen(
             state = state,
             dispatch = vm::dispatch,
-            snackbarHostState = snackbarHostState,
-            modifier = modifier,
         )
     }
 }
@@ -105,10 +100,8 @@ fun CharacterEditorRoute(
 private fun CharacterEditorScreen(
     state: CharacterEditorUiState,
     dispatch: CharacterEditorDispatch = {},
-    snackbarHostState: SnackbarHostState,
-    modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
             when (state) {
                 CharacterEditorUiState.Loading -> {
                     CircularProgressIndicator(
@@ -170,12 +163,6 @@ private fun CharacterEditorScreen(
                 )
             }
         }
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp),
-        )
     }
 }
 
@@ -682,7 +669,6 @@ private fun CharacterEditorScreenPreview() {
         CharacterEditorScreen(
             state = previewEditorState(),
             dispatch = {},
-            snackbarHostState = remember { SnackbarHostState() },
         )
     }
 }

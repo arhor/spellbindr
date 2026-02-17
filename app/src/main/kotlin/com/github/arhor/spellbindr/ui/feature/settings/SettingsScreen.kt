@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.settings
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,11 +12,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -32,32 +28,22 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 fun SettingsScreen(
     state: SettingsUiState,
     dispatch: SettingsDispatch = {},
-    snackbarHostState: SnackbarHostState,
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        when (state) {
-            is SettingsUiState.Loading -> {
-                LoadingIndicator()
-            }
-
-            is SettingsUiState.Content -> {
-                SettingsContent(
-                    state = state,
-                    dispatch = dispatch,
-                )
-            }
-
-            is SettingsUiState.Error -> {
-                ErrorMessage(state.errorMessage)
-            }
+    when (state) {
+        is SettingsUiState.Loading -> {
+            LoadingIndicator()
         }
 
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp),
-        )
+        is SettingsUiState.Content -> {
+            SettingsContent(
+                state = state,
+                dispatch = dispatch,
+            )
+        }
+
+        is SettingsUiState.Error -> {
+            ErrorMessage(state.errorMessage)
+        }
     }
 }
 
@@ -135,7 +121,6 @@ private fun SettingsScreenPreview() {
             state = SettingsUiState.Content(
                 themeMode = null,
             ),
-            snackbarHostState = SnackbarHostState(),
         )
     }
 }

@@ -18,6 +18,8 @@ Feature entry screen composables must expose:
 - `dispatch: FeatureDispatch`
 
 Feature-level `onX` callback parameters are not allowed on the entry screen API.
+Feature entry screens should use the app-shared snackbar host; avoid per-screen `SnackbarHost` unless truly local-only
+behavior is required.
 
 ## Route responsibilities
 

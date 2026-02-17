@@ -29,8 +29,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -45,6 +43,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.EquipmentCategory
@@ -54,14 +54,15 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
+import com.github.arhor.spellbindr.ui.components.LocalSnackbarHostState
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import kotlinx.coroutines.flow.collectLatest
 
-private fun com.github.arhor.spellbindr.domain.model.CharacterClass.requiresLevelOneSubclass(): Boolean =
+private fun CharacterClass.requiresLevelOneSubclass(): Boolean =
     id in setOf("cleric", "sorcerer", "warlock")
 
-private fun com.github.arhor.spellbindr.domain.model.AbilityScores.scoreFor(abilityId: AbilityId): Int =
+private fun AbilityScores.scoreFor(abilityId: AbilityId): Int =
     when (abilityId.lowercase()) {
         AbilityIds.STR -> strength
         AbilityIds.DEX -> dexterity
@@ -76,11 +77,10 @@ private fun com.github.arhor.spellbindr.domain.model.AbilityScores.scoreFor(abil
 fun GuidedCharacterSetupRoute(
     onBack: () -> Unit,
     onFinished: (String) -> Unit,
-    modifier: Modifier = Modifier,
     vm: GuidedCharacterSetupViewModel = hiltViewModel(),
 ) {
     val state by vm.uiState.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = LocalSnackbarHostState.current
 
     LaunchedEffect(vm.effects) {
         vm.effects.collectLatest { effect ->
@@ -108,9 +108,7 @@ fun GuidedCharacterSetupRoute(
     ) {
         GuidedCharacterSetupScreen(
             state = state,
-            snackbarHostState = snackbarHostState,
             dispatch = vm::dispatch,
-            modifier = modifier,
         )
     }
 }
@@ -118,11 +116,9 @@ fun GuidedCharacterSetupRoute(
 @Composable
 private fun GuidedCharacterSetupScreen(
     state: GuidedCharacterSetupUiState,
-    snackbarHostState: SnackbarHostState,
     dispatch: GuidedCharacterSetupDispatch = {},
-    modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         when (state) {
             GuidedCharacterSetupUiState.Loading -> LoadingIndicator()
             is GuidedCharacterSetupUiState.Failure -> ErrorMessage(state.errorMessage)
@@ -131,13 +127,6 @@ private fun GuidedCharacterSetupScreen(
                 dispatch = dispatch,
             )
         }
-
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp),
-        )
     }
 }
 
@@ -1884,7 +1873,7 @@ private data class SpellRequirements(
 )
 
 private fun computeSpellRequirements(
-    clazz: com.github.arhor.spellbindr.domain.model.CharacterClass,
+    clazz: CharacterClass,
     preview: GuidedCharacterPreview,
 ): SpellRequirements? {
     if (clazz.spellcasting?.level != 1) return null

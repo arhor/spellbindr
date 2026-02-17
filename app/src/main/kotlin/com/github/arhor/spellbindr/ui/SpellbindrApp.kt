@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.github.arhor.spellbindr.ui.components.AppBottomBar
 import com.github.arhor.spellbindr.ui.components.AppTopBar
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
+import com.github.arhor.spellbindr.ui.components.LocalSnackbarHostState
 import com.github.arhor.spellbindr.ui.components.LocalTopBarState
 import com.github.arhor.spellbindr.ui.components.rememberTopBarStateHolder
 import com.github.arhor.spellbindr.ui.navigation.AppDestination
@@ -77,7 +78,10 @@ fun SpellbindrApp(onReady: () -> Unit) {
     }
 
     AppTheme(isDarkTheme = state.isDarkTheme) {
-        CompositionLocalProvider(LocalTopBarState provides topBarStateHolder) {
+        CompositionLocalProvider(
+            LocalTopBarState provides topBarStateHolder,
+            LocalSnackbarHostState provides snackbarHostState,
+        ) {
             Scaffold(
                 topBar = { AppTopBar(resolvedConfig) },
                 bottomBar = { AppBottomBar(controller) },
