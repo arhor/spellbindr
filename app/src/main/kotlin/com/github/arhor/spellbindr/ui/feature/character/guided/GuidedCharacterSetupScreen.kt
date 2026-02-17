@@ -1387,7 +1387,11 @@ private fun ReviewStep(
                     ) {
                         Text(text = "Checks", style = MaterialTheme.typography.titleSmall)
                         validation.issues.forEach { issue ->
-                            val prefix = if (issue.severity == GuidedValidationIssue.Severity.ERROR) "Error" else "Note"
+                            val prefix = if (issue.severity == GuidedValidationIssue.Severity.ERROR) {
+                                "Failure"
+                            } else {
+                                "Note"
+                            }
                             Text(text = "$prefix: ${issue.message}", style = MaterialTheme.typography.bodyMedium)
                         }
                     }

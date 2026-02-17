@@ -13,8 +13,8 @@ import io.mockk.verify
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
@@ -114,6 +114,6 @@ class SettingsViewModelTest {
             advanceUntilIdle()
 
             // Then
-            assertThat(viewModel.uiState.value).isEqualTo(SettingsUiState.Error("Broken flow"))
+            assertThat(viewModel.uiState.value).isEqualTo(SettingsUiState.Failure("Broken flow"))
         }
 }

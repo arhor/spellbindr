@@ -102,16 +102,16 @@ private fun CharacterEditorScreen(
     dispatch: CharacterEditorDispatch = {},
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
-            when (state) {
-                CharacterEditorUiState.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                    )
-                }
+        when (state) {
+            CharacterEditorUiState.Loading -> {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                )
+            }
 
-                is CharacterEditorUiState.Error -> {
-                    ErrorMessage(message = state.message)
-                }
+            is CharacterEditorUiState.Failure -> {
+                ErrorMessage(message = state.message)
+            }
 
             is CharacterEditorUiState.Content -> {
                 CharacterEditorForm(

@@ -28,7 +28,7 @@ sealed interface DiceRollerUiState {
     }
 
     @Immutable
-    data class Error(
+    data class Failure(
         val errorMessage: String,
     ) : DiceRollerUiState
 }

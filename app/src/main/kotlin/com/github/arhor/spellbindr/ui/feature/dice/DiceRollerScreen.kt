@@ -61,7 +61,7 @@ fun DiceRollerScreen(
             )
         }
 
-        is DiceRollerUiState.Error -> {
+        is DiceRollerUiState.Failure -> {
             ErrorMessage(state.errorMessage)
         }
     }

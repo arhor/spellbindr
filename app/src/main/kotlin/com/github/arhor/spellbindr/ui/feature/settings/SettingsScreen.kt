@@ -41,7 +41,7 @@ fun SettingsScreen(
             )
         }
 
-        is SettingsUiState.Error -> {
+        is SettingsUiState.Failure -> {
             ErrorMessage(state.errorMessage)
         }
     }

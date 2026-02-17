@@ -74,7 +74,7 @@ class CharacterEditorViewModel @Inject constructor(
                 }
             }
             .catch { throwable ->
-                _uiState.value = CharacterEditorUiState.Error(
+                _uiState.value = CharacterEditorUiState.Failure(
                     throwable.message ?: "Unable to load character",
                 )
             }
@@ -397,7 +397,7 @@ sealed interface CharacterEditorUiState {
     ) : CharacterEditorUiState
 
     @Immutable
-    data class Error(
+    data class Failure(
         val message: String,
     ) : CharacterEditorUiState
 }
