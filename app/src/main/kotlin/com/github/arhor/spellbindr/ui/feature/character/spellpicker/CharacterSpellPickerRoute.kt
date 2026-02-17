@@ -28,11 +28,12 @@ fun CharacterSpellPickerRoute(
     ) {
         CharacterSpellPickerScreen(
             state = state,
-            onSpellcastingClassSelected = vm::onSpellcastingClassSelected,
-            onSourceClassChanged = vm::onSourceClassChanged,
-            onQueryChanged = vm::onQueryChanged,
-            onFavoriteClick = vm::onFavoritesToggled,
-            onSpellClick = onSpellSelected,
+            dispatch = { intent ->
+                when (intent) {
+                    is CharacterSpellPickerIntent.SpellClicked -> onSpellSelected(intent.assignment)
+                    else -> vm.dispatch(intent)
+                }
+            },
         )
     }
 }

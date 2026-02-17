@@ -18,7 +18,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
 internal fun CompendiumScreen(
-    onSectionClick: (CompendiumSections) -> Unit = {},
+    dispatch: CompendiumDispatch = {},
 ) {
     LazyColumn(
         modifier = Modifier
@@ -27,7 +27,7 @@ internal fun CompendiumScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(CompendiumSections.entries) { section ->
-            Card(modifier = Modifier.clickable { onSectionClick(section) }) {
+            Card(modifier = Modifier.clickable { dispatch(CompendiumIntent.SectionClicked(section)) }) {
                 Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                     Text(
                         text = section.title,

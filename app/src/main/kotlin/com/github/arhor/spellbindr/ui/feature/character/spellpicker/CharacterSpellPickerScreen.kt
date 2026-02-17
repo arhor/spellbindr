@@ -35,22 +35,14 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @Composable
 fun CharacterSpellPickerScreen(
     state: CharacterSpellPickerUiState,
-    onSpellcastingClassSelected: (EntityRef) -> Unit = {},
-    onSourceClassChanged: (String) -> Unit = {},
-    onQueryChanged: (String) -> Unit = {},
-    onFavoriteClick: () -> Unit = {},
-    onSpellClick: (CharacterSpellAssignment) -> Unit = {},
+    dispatch: CharacterSpellPickerDispatch = {},
 ) {
     when (state) {
         is CharacterSpellPickerUiState.Loading -> LoadingIndicator()
 
         is CharacterSpellPickerUiState.Content -> CharacterSpellPickerContent(
             state = state,
-            onSpellcastingClassSelected = onSpellcastingClassSelected,
-            onSourceClassChanged = onSourceClassChanged,
-            onQueryChanged = onQueryChanged,
-            onFavoriteClick = onFavoriteClick,
-            onSpellClick = onSpellClick,
+            dispatch = dispatch,
         )
 
         is CharacterSpellPickerUiState.Failure -> ErrorMessage(state.errorMessage)
@@ -60,11 +52,7 @@ fun CharacterSpellPickerScreen(
 @Composable
 private fun CharacterSpellPickerContent(
     state: CharacterSpellPickerUiState.Content,
-    onSpellcastingClassSelected: (EntityRef) -> Unit,
-    onSourceClassChanged: (String) -> Unit,
-    onQueryChanged: (String) -> Unit,
-    onFavoriteClick: () -> Unit,
-    onSpellClick: (CharacterSpellAssignment) -> Unit,
+    dispatch: CharacterSpellPickerDispatch,
 ) {
     Column(
         modifier = Modifier
@@ -76,13 +64,17 @@ private fun CharacterSpellPickerContent(
             SpellcastingClassSelector(
                 spellcastingClassOptions = state.spellcastingClassOptions,
                 selectedSpellcastingClass = state.selectedSpellcastingClass,
-                onSpellcastingClassSelected = onSpellcastingClassSelected,
+                onSpellcastingClassSelected = {
+                    dispatch(CharacterSpellPickerIntent.SpellcastingClassSelected(it))
+                },
                 modifier = Modifier.fillMaxWidth(),
             )
         } else {
             OutlinedTextField(
                 value = state.sourceClass,
-                onValueChange = { value -> onSourceClassChanged(value) },
+                onValueChange = { value ->
+                    dispatch(CharacterSpellPickerIntent.SourceClassChanged(value))
+                },
                 label = { Text("Spellcasting class") },
                 placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
                 singleLine = true,
@@ -101,9 +93,9 @@ private fun CharacterSpellPickerContent(
             Column(modifier = Modifier.fillMaxSize()) {
                 SpellSearchInput(
                     query = state.query,
-                    onQueryChanged = onQueryChanged,
+                    onQueryChanged = { dispatch(CharacterSpellPickerIntent.QueryChanged(it)) },
                     showFavorite = state.showFavoriteOnly,
-                    onFavoriteClick = onFavoriteClick,
+                    onFavoriteClick = { dispatch(CharacterSpellPickerIntent.FavoritesToggled) },
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 SpellList(
@@ -111,11 +103,13 @@ private fun CharacterSpellPickerContent(
                     onSpellClick = {
                         val resolvedSourceClass = state.selectedSpellcastingClass?.name
                             ?: state.sourceClass.ifBlank { state.defaultSourceClass }
-                        onSpellClick(
-                            CharacterSpellAssignment(
-                                it.id,
-                                resolvedSourceClass,
-                            )
+                        dispatch(
+                            CharacterSpellPickerIntent.SpellClicked(
+                                CharacterSpellAssignment(
+                                    it.id,
+                                    resolvedSourceClass,
+                                ),
+                            ),
                         )
                     },
                 )

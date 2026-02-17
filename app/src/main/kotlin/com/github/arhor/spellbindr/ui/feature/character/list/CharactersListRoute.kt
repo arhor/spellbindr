@@ -31,8 +31,12 @@ fun CharactersListRoute(
     ) {
         CharactersListScreen(
             state = state,
-            onCharacterSelected = onCharacterSelected,
-            onCreateCharacter = onCreateCharacter,
+            dispatch = { intent ->
+                when (intent) {
+                    is CharactersListIntent.CharacterSelected -> onCharacterSelected(intent.character)
+                    is CharactersListIntent.CreateCharacterSelected -> onCreateCharacter(intent.mode)
+                }
+            },
         )
     }
 }

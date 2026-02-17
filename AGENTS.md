@@ -65,6 +65,12 @@ history; follow the pattern when possible. CI only runs for PRs targeting `maste
 The instrumentation runner is `com.github.arhor.spellbindr.HiltApplicationTestRunner`; keep it when adding or updating
 androidTest components. Avoid committing local SDK paths or secrets.
 
+### Architecture Reference for Agents
+
+- MVI feature-entry contract: `docs/mvi-dispatch-contract.md`
+  Use this as the source of truth for `Intent/Route/Screen/ViewModel/Effect` wiring, route-owned navigation
+  interception, and dispatch-based screen APIs.
+
 ## Compose Screenshot Exports (Preview → PNG)
 
 This repo is configured for Android’s Compose Screenshot Testing (AGP screenshot plugin) to generate PNGs from Compose

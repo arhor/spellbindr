@@ -28,20 +28,14 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 @Composable
 fun SpellsScreen(
     uiState: SpellsUiState,
-    onQueryChanged: (String) -> Unit = {},
-    onFavoriteClick: () -> Unit = {},
-    onSpellClick: (Spell) -> Unit = {},
-    onClassToggled: (EntityRef) -> Unit = {},
+    dispatch: SpellsDispatch = {},
 ) {
     when (uiState) {
         is SpellsUiState.Loading -> LoadingIndicator()
         is SpellsUiState.Failure -> ErrorMessage(uiState.errorMessage)
         is SpellsUiState.Content -> SpellSearchContent(
             uiState = uiState,
-            onQueryChanged = onQueryChanged,
-            onFavoriteClick = onFavoriteClick,
-            onSpellClick = onSpellClick,
-            onClassToggled = onClassToggled,
+            dispatch = dispatch,
         )
     }
 }
@@ -49,10 +43,7 @@ fun SpellsScreen(
 @Composable
 private fun SpellSearchContent(
     uiState: SpellsUiState.Content,
-    onQueryChanged: (String) -> Unit,
-    onFavoriteClick: () -> Unit,
-    onSpellClick: (Spell) -> Unit,
-    onClassToggled: (EntityRef) -> Unit,
+    dispatch: SpellsDispatch,
 ) {
     Column(
         modifier = Modifier
@@ -62,16 +53,16 @@ private fun SpellSearchContent(
     ) {
         SpellSearchInput(
             query = uiState.query,
-            onQueryChanged = onQueryChanged,
+            onQueryChanged = { dispatch(SpellsIntent.QueryChanged(it)) },
             showFavorite = uiState.showFavoriteOnly,
-            onFavoriteClick = onFavoriteClick,
+            onFavoriteClick = { dispatch(SpellsIntent.FavoritesToggled) },
         )
 
         if (uiState.castingClasses.isNotEmpty()) {
             SpellClassFilterRow(
                 castingClasses = uiState.castingClasses,
                 selectedClasses = uiState.selectedClasses,
-                onClassToggled = onClassToggled,
+                onClassToggled = { dispatch(SpellsIntent.ClassFilterToggled(it)) },
             )
         }
 
@@ -79,7 +70,7 @@ private fun SpellSearchContent(
 
         SpellList(
             spells = uiState.spells,
-            onSpellClick = onSpellClick,
+            onSpellClick = { dispatch(SpellsIntent.SpellClicked(it)) },
         )
     }
 }

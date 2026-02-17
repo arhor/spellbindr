@@ -28,7 +28,6 @@ import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
 import com.github.arhor.spellbindr.ui.components.AppTopBarNavigation
 import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
-import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetViewModel.CharacterSheetEffect
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.CharacterSheetTopBarActions
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.spells.CastSpellBottomSheetContent
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode
@@ -77,7 +76,7 @@ fun CharacterSheetRoute(
             )
             .collectLatest { assignment ->
                 if (assignment != null) {
-                    vm.addSpells(listOf(assignment))
+                    vm.dispatch(CharacterSheetIntent.SpellsAssigned(listOf(assignment)))
                     savedStateHandle[CHARACTER_SPELL_SELECTION_RESULT_KEY] = null
                 }
             }
@@ -94,6 +93,16 @@ fun CharacterSheetRoute(
     val headerState = (state as? CharacterSheetUiState.Content)?.header
     val contentState = state as? CharacterSheetUiState.Content
     val castSpell = contentState?.castSpell
+    val dispatch: CharacterSheetDispatch = { intent ->
+        when (intent) {
+            is CharacterSheetIntent.SpellSelected -> onOpenSpellDetail(intent.spellId)
+            CharacterSheetIntent.AddSpellsClicked -> contentState?.characterId?.let(onAddSpells)
+            CharacterSheetIntent.OpenFullEditorClicked -> contentState?.characterId?.let(onOpenFullEditor)
+            CharacterSheetIntent.LongRestClicked -> showLongRestConfirmation = true
+            CharacterSheetIntent.ShortRestClicked -> showShortRestConfirmation = true
+            else -> vm.dispatch(intent)
+        }
+    }
 
     LaunchedEffect(castSpell) {
         if (castSpell == null) {
@@ -105,7 +114,7 @@ fun CharacterSheetRoute(
         pendingConcentrationReplacement = null
         coroutineScope
             .launch { castSheetState.hide() }
-            .invokeOnCompletion { vm.dismissCasting() }
+            .invokeOnCompletion { vm.dispatch(CharacterSheetIntent.CastSheetDismissed) }
     }
 
     ProvideTopBarState(
@@ -120,9 +129,9 @@ fun CharacterSheetRoute(
                         canEdit = contentState != null,
                         hasCharacter = contentState?.characterId != null,
                         onOverflowOpen = { overflowExpanded = true },
-                        onEnterEdit = vm::enterEditMode,
-                        onCancelEdit = vm::cancelEditMode,
-                        onSaveEdits = vm::saveInlineEdits,
+                        onEnterEdit = { dispatch(CharacterSheetIntent.EnterEditMode) },
+                        onCancelEdit = { dispatch(CharacterSheetIntent.CancelEditMode) },
+                        onSaveEdits = { dispatch(CharacterSheetIntent.SaveEditsClicked) },
                     )
                     DropdownMenu(
                         expanded = overflowExpanded,
@@ -132,7 +141,7 @@ fun CharacterSheetRoute(
                             text = { Text("Open full editor") },
                             onClick = {
                                 overflowExpanded = false
-                                contentState?.characterId?.let(onOpenFullEditor)
+                                dispatch(CharacterSheetIntent.OpenFullEditorClicked)
                             },
                             enabled = contentState?.characterId != null,
                         )
@@ -165,7 +174,7 @@ fun CharacterSheetRoute(
                         confirmButton = {
                             TextButton(onClick = {
                                 showDeleteConfirmation = false
-                                vm.deleteCharacter()
+                                dispatch(CharacterSheetIntent.DeleteCharacterClicked)
                             }) {
                                 Text(
                                     text = "Delete",
@@ -188,7 +197,7 @@ fun CharacterSheetRoute(
                         confirmButton = {
                             TextButton(onClick = {
                                 showLongRestConfirmation = false
-                                vm.longRest()
+                                dispatch(CharacterSheetIntent.LongRestConfirmed)
                             }) {
                                 Text(text = stringResource(R.string.spells_restore))
                             }
@@ -208,7 +217,7 @@ fun CharacterSheetRoute(
                         confirmButton = {
                             TextButton(onClick = {
                                 showShortRestConfirmation = false
-                                vm.shortRest()
+                                dispatch(CharacterSheetIntent.ShortRestConfirmed)
                             }) {
                                 Text(text = stringResource(R.string.spells_restore))
                             }
@@ -241,10 +250,12 @@ fun CharacterSheetRoute(
                                 coroutineScope
                                     .launch { castSheetState.hide() }
                                     .invokeOnCompletion {
-                                        vm.confirmCast(
-                                            pool = pendingCast.pool,
-                                            slotLevel = pendingCast.slotLevel,
-                                            castAsRitual = pendingCast.castAsRitual,
+                                        dispatch(
+                                            CharacterSheetIntent.CastConfirmed(
+                                                pool = pendingCast.pool,
+                                                slotLevel = pendingCast.slotLevel,
+                                                castAsRitual = pendingCast.castAsRitual,
+                                            ),
                                         )
                                     }
                             }) {
@@ -282,10 +293,12 @@ fun CharacterSheetRoute(
                                     coroutineScope
                                         .launch { castSheetState.hide() }
                                         .invokeOnCompletion {
-                                            vm.confirmCast(
-                                                pool = pool,
-                                                slotLevel = slotLevel,
-                                                castAsRitual = castAsRitual,
+                                            dispatch(
+                                                CharacterSheetIntent.CastConfirmed(
+                                                    pool = pool,
+                                                    slotLevel = slotLevel,
+                                                    castAsRitual = castAsRitual,
+                                                ),
                                             )
                                         }
                                 }
@@ -298,35 +311,7 @@ fun CharacterSheetRoute(
     ) {
         CharacterSheetScreen(
             state = state,
-            onTabSelected = vm::selectTab,
-            onAddSpellsClick = { (state as? CharacterSheetUiState.Content)?.characterId?.let(onAddSpells) },
-            onSpellSelected = onOpenSpellDetail,
-            onSpellRemoved = vm::removeSpell,
-            onCastSpellClick = vm::startCasting,
-            onLongRestClick = { showLongRestConfirmation = true },
-            onShortRestClick = { showShortRestConfirmation = true },
-            onConfigureSlotsClick = vm::enterEditMode,
-            onSpellSlotToggle = vm::toggleSpellSlot,
-            onSpellSlotTotalChanged = vm::setSpellSlotTotal,
-            onPactSlotToggle = vm::togglePactSlot,
-            onPactSlotTotalChanged = vm::setPactSlotTotal,
-            onPactSlotLevelChanged = vm::setPactSlotLevel,
-            onConcentrationClear = vm::clearConcentration,
-            onAddWeaponClick = vm::startNewWeapon,
-            onWeaponSelected = vm::selectWeapon,
-            onWeaponDeleted = vm::deleteWeapon,
-            onWeaponEditorDismissed = vm::dismissWeaponEditor,
-            onWeaponNameChanged = vm::setWeaponName,
-            onWeaponAbilityChanged = vm::setWeaponAbility,
-            onWeaponUseAbilityForDamageChanged = vm::setWeaponUseAbilityForDamage,
-            onWeaponProficiencyChanged = vm::setWeaponProficiency,
-            onWeaponDiceCountChanged = vm::setWeaponDiceCount,
-            onWeaponDieSizeChanged = vm::setWeaponDieSize,
-            onWeaponDamageTypeChanged = vm::setWeaponDamageType,
-            onWeaponSaved = vm::saveWeapon,
-            onWeaponCatalogOpened = vm::openWeaponCatalog,
-            onWeaponCatalogClosed = vm::closeWeaponCatalog,
-            onWeaponCatalogItemSelected = vm::selectWeaponFromCatalog,
+            dispatch = dispatch,
             modifier = modifier,
         )
     }

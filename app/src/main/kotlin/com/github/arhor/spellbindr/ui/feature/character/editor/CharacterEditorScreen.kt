@@ -67,11 +67,11 @@ fun CharacterEditorRoute(
         else -> false
     }
 
-    LaunchedEffect(vm.events) {
-        vm.events.collect { event ->
-            when (event) {
-                CharacterEditorEvent.Saved -> onFinished()
-                is CharacterEditorEvent.Error -> snackbarHostState.showSnackbar(event.message)
+    LaunchedEffect(vm.effects) {
+        vm.effects.collect { effect ->
+            when (effect) {
+                is CharacterEditorEffect.Saved -> onFinished()
+                is CharacterEditorEffect.Error -> snackbarHostState.showSnackbar(effect.message)
             }
         }
     }
@@ -83,7 +83,7 @@ fun CharacterEditorRoute(
                 navigation = AppTopBarNavigation.Back(onBack),
                 actions = {
                     TextButton(
-                        onClick = vm::onSaveClicked,
+                        onClick = { vm.dispatch(CharacterEditorIntent.SaveClicked) },
                         enabled = canSave,
                     ) {
                         Text("Save")
@@ -94,38 +94,7 @@ fun CharacterEditorRoute(
     ) {
         CharacterEditorScreen(
             state = state,
-            onSave = vm::onSaveClicked,
-            onNameChanged = vm::onNameChanged,
-            onClassChanged = vm::onClassChanged,
-            onLevelChanged = vm::onLevelChanged,
-            onRaceChanged = vm::onRaceChanged,
-            onBackgroundChanged = vm::onBackgroundChanged,
-            onAlignmentChanged = vm::onAlignmentChanged,
-            onExperienceChanged = vm::onExperienceChanged,
-            onAbilityChanged = vm::onAbilityChanged,
-            onProficiencyBonusChanged = vm::onProficiencyBonusChanged,
-            onInspirationChanged = vm::onInspirationChanged,
-            onMaxHpChanged = vm::onMaxHpChanged,
-            onCurrentHpChanged = vm::onCurrentHpChanged,
-            onTemporaryHpChanged = vm::onTemporaryHpChanged,
-            onArmorClassChanged = vm::onArmorClassChanged,
-            onInitiativeChanged = vm::onInitiativeChanged,
-            onSpeedChanged = vm::onSpeedChanged,
-            onHitDiceChanged = vm::onHitDiceChanged,
-            onSavingThrowProficiencyChanged = vm::onSavingThrowProficiencyChanged,
-            onSkillProficiencyChanged = vm::onSkillProficiencyChanged,
-            onSkillExpertiseChanged = vm::onSkillExpertiseChanged,
-            onSensesChanged = vm::onSensesChanged,
-            onLanguagesChanged = vm::onLanguagesChanged,
-            onProficienciesChanged = vm::onProficienciesChanged,
-            onAttacksChanged = vm::onAttacksChanged,
-            onFeaturesChanged = vm::onFeaturesChanged,
-            onEquipmentChanged = vm::onEquipmentChanged,
-            onPersonalityTraitsChanged = vm::onPersonalityTraitsChanged,
-            onIdealsChanged = vm::onIdealsChanged,
-            onBondsChanged = vm::onBondsChanged,
-            onFlawsChanged = vm::onFlawsChanged,
-            onNotesChanged = vm::onNotesChanged,
+            dispatch = vm::dispatch,
             snackbarHostState = snackbarHostState,
             modifier = modifier,
         )
@@ -135,38 +104,7 @@ fun CharacterEditorRoute(
 @Composable
 private fun CharacterEditorScreen(
     state: CharacterEditorUiState,
-    onSave: () -> Unit,
-    onNameChanged: (String) -> Unit,
-    onClassChanged: (String) -> Unit,
-    onLevelChanged: (String) -> Unit,
-    onRaceChanged: (String) -> Unit,
-    onBackgroundChanged: (String) -> Unit,
-    onAlignmentChanged: (String) -> Unit,
-    onExperienceChanged: (String) -> Unit,
-    onAbilityChanged: (AbilityId, String) -> Unit,
-    onProficiencyBonusChanged: (String) -> Unit,
-    onInspirationChanged: (Boolean) -> Unit,
-    onMaxHpChanged: (String) -> Unit,
-    onCurrentHpChanged: (String) -> Unit,
-    onTemporaryHpChanged: (String) -> Unit,
-    onArmorClassChanged: (String) -> Unit,
-    onInitiativeChanged: (String) -> Unit,
-    onSpeedChanged: (String) -> Unit,
-    onHitDiceChanged: (String) -> Unit,
-    onSavingThrowProficiencyChanged: (AbilityId, Boolean) -> Unit,
-    onSkillProficiencyChanged: (Skill, Boolean) -> Unit,
-    onSkillExpertiseChanged: (Skill, Boolean) -> Unit,
-    onSensesChanged: (String) -> Unit,
-    onLanguagesChanged: (String) -> Unit,
-    onProficienciesChanged: (String) -> Unit,
-    onAttacksChanged: (String) -> Unit,
-    onFeaturesChanged: (String) -> Unit,
-    onEquipmentChanged: (String) -> Unit,
-    onPersonalityTraitsChanged: (String) -> Unit,
-    onIdealsChanged: (String) -> Unit,
-    onBondsChanged: (String) -> Unit,
-    onFlawsChanged: (String) -> Unit,
-    onNotesChanged: (String) -> Unit,
+    dispatch: CharacterEditorDispatch = {},
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
@@ -185,38 +123,46 @@ private fun CharacterEditorScreen(
             is CharacterEditorUiState.Content -> {
                 CharacterEditorForm(
                     state = state,
-                    onSave = onSave,
-                    onNameChanged = onNameChanged,
-                    onClassChanged = onClassChanged,
-                    onLevelChanged = onLevelChanged,
-                    onRaceChanged = onRaceChanged,
-                    onBackgroundChanged = onBackgroundChanged,
-                    onAlignmentChanged = onAlignmentChanged,
-                    onExperienceChanged = onExperienceChanged,
-                    onAbilityChanged = onAbilityChanged,
-                    onProficiencyBonusChanged = onProficiencyBonusChanged,
-                    onInspirationChanged = onInspirationChanged,
-                    onMaxHpChanged = onMaxHpChanged,
-                    onCurrentHpChanged = onCurrentHpChanged,
-                    onTemporaryHpChanged = onTemporaryHpChanged,
-                    onArmorClassChanged = onArmorClassChanged,
-                    onInitiativeChanged = onInitiativeChanged,
-                    onSpeedChanged = onSpeedChanged,
-                    onHitDiceChanged = onHitDiceChanged,
-                    onSavingThrowProficiencyChanged = onSavingThrowProficiencyChanged,
-                    onSkillProficiencyChanged = onSkillProficiencyChanged,
-                    onSkillExpertiseChanged = onSkillExpertiseChanged,
-                    onSensesChanged = onSensesChanged,
-                    onLanguagesChanged = onLanguagesChanged,
-                    onProficienciesChanged = onProficienciesChanged,
-                    onAttacksChanged = onAttacksChanged,
-                    onFeaturesChanged = onFeaturesChanged,
-                    onEquipmentChanged = onEquipmentChanged,
-                    onPersonalityTraitsChanged = onPersonalityTraitsChanged,
-                    onIdealsChanged = onIdealsChanged,
-                    onBondsChanged = onBondsChanged,
-                    onFlawsChanged = onFlawsChanged,
-                    onNotesChanged = onNotesChanged,
+                    onSave = { dispatch(CharacterEditorIntent.SaveClicked) },
+                    onNameChanged = { dispatch(CharacterEditorIntent.NameChanged(it)) },
+                    onClassChanged = { dispatch(CharacterEditorIntent.ClassChanged(it)) },
+                    onLevelChanged = { dispatch(CharacterEditorIntent.LevelChanged(it)) },
+                    onRaceChanged = { dispatch(CharacterEditorIntent.RaceChanged(it)) },
+                    onBackgroundChanged = { dispatch(CharacterEditorIntent.BackgroundChanged(it)) },
+                    onAlignmentChanged = { dispatch(CharacterEditorIntent.AlignmentChanged(it)) },
+                    onExperienceChanged = { dispatch(CharacterEditorIntent.ExperienceChanged(it)) },
+                    onAbilityChanged = { abilityId, value ->
+                        dispatch(CharacterEditorIntent.AbilityChanged(abilityId, value))
+                    },
+                    onProficiencyBonusChanged = { dispatch(CharacterEditorIntent.ProficiencyBonusChanged(it)) },
+                    onInspirationChanged = { dispatch(CharacterEditorIntent.InspirationChanged(it)) },
+                    onMaxHpChanged = { dispatch(CharacterEditorIntent.MaxHpChanged(it)) },
+                    onCurrentHpChanged = { dispatch(CharacterEditorIntent.CurrentHpChanged(it)) },
+                    onTemporaryHpChanged = { dispatch(CharacterEditorIntent.TemporaryHpChanged(it)) },
+                    onArmorClassChanged = { dispatch(CharacterEditorIntent.ArmorClassChanged(it)) },
+                    onInitiativeChanged = { dispatch(CharacterEditorIntent.InitiativeChanged(it)) },
+                    onSpeedChanged = { dispatch(CharacterEditorIntent.SpeedChanged(it)) },
+                    onHitDiceChanged = { dispatch(CharacterEditorIntent.HitDiceChanged(it)) },
+                    onSavingThrowProficiencyChanged = { abilityId, value ->
+                        dispatch(CharacterEditorIntent.SavingThrowProficiencyChanged(abilityId, value))
+                    },
+                    onSkillProficiencyChanged = { skill, value ->
+                        dispatch(CharacterEditorIntent.SkillProficiencyChanged(skill, value))
+                    },
+                    onSkillExpertiseChanged = { skill, value ->
+                        dispatch(CharacterEditorIntent.SkillExpertiseChanged(skill, value))
+                    },
+                    onSensesChanged = { dispatch(CharacterEditorIntent.SensesChanged(it)) },
+                    onLanguagesChanged = { dispatch(CharacterEditorIntent.LanguagesChanged(it)) },
+                    onProficienciesChanged = { dispatch(CharacterEditorIntent.ProficienciesChanged(it)) },
+                    onAttacksChanged = { dispatch(CharacterEditorIntent.AttacksChanged(it)) },
+                    onFeaturesChanged = { dispatch(CharacterEditorIntent.FeaturesChanged(it)) },
+                    onEquipmentChanged = { dispatch(CharacterEditorIntent.EquipmentChanged(it)) },
+                    onPersonalityTraitsChanged = { dispatch(CharacterEditorIntent.PersonalityTraitsChanged(it)) },
+                    onIdealsChanged = { dispatch(CharacterEditorIntent.IdealsChanged(it)) },
+                    onBondsChanged = { dispatch(CharacterEditorIntent.BondsChanged(it)) },
+                    onFlawsChanged = { dispatch(CharacterEditorIntent.FlawsChanged(it)) },
+                    onNotesChanged = { dispatch(CharacterEditorIntent.NotesChanged(it)) },
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
@@ -735,38 +681,7 @@ private fun CharacterEditorScreenPreview() {
     AppTheme {
         CharacterEditorScreen(
             state = previewEditorState(),
-            onSave = {},
-            onNameChanged = {},
-            onClassChanged = {},
-            onLevelChanged = {},
-            onRaceChanged = {},
-            onBackgroundChanged = {},
-            onAlignmentChanged = {},
-            onExperienceChanged = {},
-            onAbilityChanged = { _, _ -> },
-            onProficiencyBonusChanged = {},
-            onInspirationChanged = {},
-            onMaxHpChanged = {},
-            onCurrentHpChanged = {},
-            onTemporaryHpChanged = {},
-            onArmorClassChanged = {},
-            onInitiativeChanged = {},
-            onSpeedChanged = {},
-            onHitDiceChanged = {},
-            onSavingThrowProficiencyChanged = { _, _ -> },
-            onSkillProficiencyChanged = { _, _ -> },
-            onSkillExpertiseChanged = { _, _ -> },
-            onSensesChanged = {},
-            onLanguagesChanged = {},
-            onProficienciesChanged = {},
-            onAttacksChanged = {},
-            onFeaturesChanged = {},
-            onEquipmentChanged = {},
-            onPersonalityTraitsChanged = {},
-            onIdealsChanged = {},
-            onBondsChanged = {},
-            onFlawsChanged = {},
-            onNotesChanged = {},
+            dispatch = {},
             snackbarHostState = remember { SnackbarHostState() },
         )
     }

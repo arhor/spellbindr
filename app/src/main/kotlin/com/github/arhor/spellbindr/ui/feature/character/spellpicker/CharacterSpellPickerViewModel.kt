@@ -5,7 +5,6 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
@@ -13,7 +12,6 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.usecase.ObserveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellsUseCase
-import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +21,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -59,9 +58,10 @@ class CharacterSpellPickerViewModel @Inject constructor(
     )
 
     private val _state = MutableStateFlow(State())
-    private val characterId: String = savedStateHandle.toRoute<AppDestination.CharacterSpellPicker>().characterId
-
-    private val characterSheetState = observeCharacterSheet(characterId)
+    private val characterId: String? = savedStateHandle.get<String>("characterId")
+    private val characterSheetState = characterId
+        ?.let { observeCharacterSheet(it) }
+        ?: flowOf(Loadable.Failure("Missing character id."))
     private val sourceContext = combine(
         characterSheetState,
         observeSpellcastingClasses(),
@@ -109,26 +109,37 @@ class CharacterSpellPickerViewModel @Inject constructor(
             }
 
             spellsState is Loadable.Failure -> CharacterSpellPickerUiState.Failure("Failed to load spells.")
-            sheetState is Loadable.Failure -> CharacterSpellPickerUiState.Failure("Failed to load character.")
+            sheetState is Loadable.Failure ->
+                CharacterSpellPickerUiState.Failure(sheetState.errorMessage ?: "Failed to load character.")
             sheetState is Loadable.Content && sheetState.data == null -> CharacterSpellPickerUiState.Failure("Character not found.")
 
             else -> CharacterSpellPickerUiState.Loading
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CharacterSpellPickerUiState.Loading)
 
-    fun onSourceClassChanged(value: String) {
+    fun dispatch(intent: CharacterSpellPickerIntent) {
+        when (intent) {
+            is CharacterSpellPickerIntent.SourceClassChanged -> setSourceClass(intent.value)
+            is CharacterSpellPickerIntent.SpellcastingClassSelected -> selectSpellcastingClass(intent.value)
+            is CharacterSpellPickerIntent.QueryChanged -> updateQuery(intent.query)
+            CharacterSpellPickerIntent.FavoritesToggled -> toggleFavorites()
+            is CharacterSpellPickerIntent.SpellClicked -> Unit
+        }
+    }
+
+    private fun setSourceClass(value: String) {
         _state.update { it.copy(sourceClass = value) }
     }
 
-    fun onSpellcastingClassSelected(value: EntityRef) {
+    private fun selectSpellcastingClass(value: EntityRef) {
         _state.update { it.copy(selectedSpellcastingClass = value) }
     }
 
-    fun onQueryChanged(query: String) {
+    private fun updateQuery(query: String) {
         _state.update { it.copy(query = query) }
     }
 
-    fun onFavoritesToggled() {
+    private fun toggleFavorites() {
         _state.update { it.copy(showFavoriteOnly = !it.showFavoriteOnly) }
     }
 

@@ -28,10 +28,12 @@ fun SpellsRoute(
     ) {
         SpellsScreen(
             uiState = state,
-            onQueryChanged = vm::onQueryChanged,
-            onFavoriteClick = vm::onFavoritesToggled,
-            onSpellClick = onSpellSelected,
-            onClassToggled = vm::onClassFilterToggled,
+            dispatch = { intent ->
+                when (intent) {
+                    is SpellsIntent.SpellClicked -> onSpellSelected(intent.spell)
+                    else -> vm.dispatch(intent)
+                }
+            },
         )
     }
 }

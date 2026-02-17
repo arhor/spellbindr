@@ -4,11 +4,14 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.arhor.spellbindr.ui.feature.character.list.CharactersListIntent
 import com.github.arhor.spellbindr.ui.feature.character.list.CharactersListScreen
 import com.github.arhor.spellbindr.ui.feature.character.list.CharactersListUiState
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CharacterListItem
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,8 +43,7 @@ class CharactersListScreenTest {
             AppTheme {
                 CharactersListScreen(
                     state = uiState,
-                    onCharacterSelected = {},
-                    onCreateCharacter = { _ -> },
+                    dispatch = {},
                 )
             }
         }
@@ -50,5 +52,36 @@ class CharactersListScreenTest {
         composeTestRule.onNodeWithText("Unnamed hero").assertIsDisplayed()
         composeTestRule.onNodeWithText("Level 2 Rogue").assertIsDisplayed()
         composeTestRule.onNodeWithText("Elf").assertIsDisplayed()
+    }
+
+    @Test
+    fun `CharactersListScreen should dispatch intent when character is tapped`() {
+        // Given
+        val character = CharacterListItem(
+            id = "hero-1",
+            name = "",
+            level = 2,
+            className = "Rogue",
+            race = "Elf",
+            background = "",
+        )
+        var capturedIntent: CharactersListIntent? = null
+        val uiState = CharactersListUiState.Content(characters = listOf(character))
+
+        // When
+        composeTestRule.setContent {
+            AppTheme {
+                CharactersListScreen(
+                    state = uiState,
+                    dispatch = { intent -> capturedIntent = intent },
+                )
+            }
+        }
+        composeTestRule.onNodeWithText("Unnamed hero").performClick()
+
+        // Then
+        composeTestRule.runOnIdle {
+            assertThat(capturedIntent).isEqualTo(CharactersListIntent.CharacterSelected(character))
+        }
     }
 }

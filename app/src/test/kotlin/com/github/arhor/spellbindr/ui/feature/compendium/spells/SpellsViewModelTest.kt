@@ -143,7 +143,7 @@ class SpellsViewModelTest {
         }
 
     @Test
-    fun `onQueryChanged should debounce non blank query when user types`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `dispatch should debounce non blank query when user types`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val calls = mutableListOf<ObserveSpellsArgs>()
 
@@ -163,7 +163,7 @@ class SpellsViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onQueryChanged("  Heal  ")
+        viewModel.dispatch(SpellsIntent.QueryChanged("  Heal  "))
 
         advanceTimeBy(349)
         runCurrent()
@@ -182,7 +182,7 @@ class SpellsViewModelTest {
     }
 
     @Test
-    fun `onQueryChanged should emit immediately when query cleared`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `dispatch should emit immediately when query cleared`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val calls = mutableListOf<Triple<String, Set<EntityRef>, Boolean>>()
         val expectedArgs = listOf(
@@ -206,10 +206,10 @@ class SpellsViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onQueryChanged("Heal")
+        viewModel.dispatch(SpellsIntent.QueryChanged("Heal"))
         advanceTimeBy(350)
         advanceUntilIdle()
-        viewModel.onQueryChanged("   ")
+        viewModel.dispatch(SpellsIntent.QueryChanged("   "))
         advanceUntilIdle()
 
         // Then
@@ -221,7 +221,7 @@ class SpellsViewModelTest {
     }
 
     @Test
-    fun `onFavoritesToggled should show favorites only when toggled on`() =
+    fun `dispatch should show favorites only when favorites toggled`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             every { observeSpells(any(), any(), any()) } answers {
@@ -242,7 +242,7 @@ class SpellsViewModelTest {
             advanceUntilIdle()
 
             // When
-            viewModel.onFavoritesToggled()
+            viewModel.dispatch(SpellsIntent.FavoritesToggled)
             advanceUntilIdle()
 
             // Then
@@ -255,7 +255,7 @@ class SpellsViewModelTest {
         }
 
     @Test
-    fun `onClassFilterToggled should update selected classes when class toggled`() =
+    fun `dispatch should update selected classes when class filter toggled`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             every { observeSpells(any(), any(), any()) } answers {
@@ -276,12 +276,12 @@ class SpellsViewModelTest {
             advanceUntilIdle()
 
             // When
-            viewModel.onClassFilterToggled(wizard)
+            viewModel.dispatch(SpellsIntent.ClassFilterToggled(wizard))
             advanceUntilIdle()
             val filteredState = viewModel.uiState.first {
                 it is SpellsUiState.Content && it.selectedClasses == setOf(wizard)
             } as SpellsUiState.Content
-            viewModel.onClassFilterToggled(wizard)
+            viewModel.dispatch(SpellsIntent.ClassFilterToggled(wizard))
             advanceUntilIdle()
 
             // Then

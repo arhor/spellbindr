@@ -4,15 +4,17 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellDetailsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleFavoriteSpellUseCase
-import com.github.arhor.spellbindr.ui.navigation.AppDestination
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -31,32 +33,49 @@ class SpellDetailsViewModel @Inject constructor(
     private val toggleFavoriteSpell: ToggleFavoriteSpellUseCase,
 ) : ViewModel() {
 
+    private val _effects = MutableSharedFlow<SpellDetailsEffect>()
+    val effects: SharedFlow<SpellDetailsEffect> = _effects.asSharedFlow()
+    private val spellId: String? = savedStateHandle.get<String>("spellId")
+
     val uiState: StateFlow<SpellDetailsUiState> =
-        savedStateHandle
-            .toRoute<AppDestination.SpellDetails>()
-            .let { observeSpellDetails(it.spellId) }
-            .map {
-                when (it) {
-                    is Loadable.Loading -> {
-                        SpellDetailsUiState.Loading
-                    }
+        spellId?.let { id ->
+            observeSpellDetails(id)
+                .map {
+                    when (it) {
+                        is Loadable.Loading -> {
+                            SpellDetailsUiState.Loading
+                        }
 
-                    is Loadable.Content -> {
-                        SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
-                    }
+                        is Loadable.Content -> {
+                            SpellDetailsUiState.Content(it.data.spell, it.data.isFavorite)
+                        }
 
-                    is Loadable.Failure -> {
-                        SpellDetailsUiState.Failure(it.errorMessage ?: "Could not load spell.")
+                        is Loadable.Failure -> {
+                            SpellDetailsUiState.Failure(it.errorMessage ?: "Could not load spell.")
+                        }
                     }
                 }
-            }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellDetailsUiState.Loading)
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellDetailsUiState.Loading)
+        } ?: MutableStateFlow(SpellDetailsUiState.Failure("Missing spell id."))
 
-    fun toggleFavorite() {
+    fun dispatch(intent: SpellDetailsIntent) {
+        when (intent) {
+            SpellDetailsIntent.ToggleFavorite -> toggleFavorite()
+        }
+    }
+
+    private fun toggleFavorite() {
         when (val currState = uiState.value) {
             is SpellDetailsUiState.Content -> {
                 viewModelScope.launch {
-                    toggleFavoriteSpell(currState.spell.id)
+                    runCatching { toggleFavoriteSpell(currState.spell.id) }
+                        .onFailure { throwable ->
+                            _effects.emit(
+                                SpellDetailsEffect.ShowMessage(
+                                    throwable.message ?: "Unable to update favorite",
+                                ),
+                            )
+                        }
                 }
             }
 

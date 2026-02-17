@@ -45,17 +45,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DiceRollerScreen(
     state: DiceRollerUiState,
-    onToggleCheck: () -> Unit = {},
-    onCheckModeSelected: (CheckMode) -> Unit = { _ -> },
-    onIncrementCheckModifier: () -> Unit = {},
-    onDecrementCheckModifier: () -> Unit = {},
-    onAddAmountDie: (Int) -> Unit = { _ -> },
-    onIncrementAmountDie: (Int) -> Unit = { _ -> },
-    onDecrementAmountDie: (Int) -> Unit = { _ -> },
-    onClearAll: () -> Unit = {},
-    onRollMain: () -> Unit = {},
-    onRollPercentile: () -> Unit = {},
-    onReRollLast: () -> Unit = {},
+    dispatch: DiceRollerDispatch = {},
     modifier: Modifier = Modifier,
 ) {
     when (state) {
@@ -66,17 +56,7 @@ fun DiceRollerScreen(
         is DiceRollerUiState.Content -> {
             DiceRollerContent(
                 state = state,
-                onToggleCheck = onToggleCheck,
-                onCheckModeSelected = onCheckModeSelected,
-                onIncrementCheckModifier = onIncrementCheckModifier,
-                onDecrementCheckModifier = onDecrementCheckModifier,
-                onAddAmountDie = onAddAmountDie,
-                onIncrementAmountDie = onIncrementAmountDie,
-                onDecrementAmountDie = onDecrementAmountDie,
-                onClearAll = onClearAll,
-                onRollMain = onRollMain,
-                onRollPercentile = onRollPercentile,
-                onReRollLast = onReRollLast,
+                dispatch = dispatch,
                 modifier = modifier,
             )
         }
@@ -90,17 +70,7 @@ fun DiceRollerScreen(
 @Composable
 private fun DiceRollerContent(
     state: DiceRollerUiState.Content,
-    onToggleCheck: () -> Unit,
-    onCheckModeSelected: (CheckMode) -> Unit,
-    onIncrementCheckModifier: () -> Unit,
-    onDecrementCheckModifier: () -> Unit,
-    onAddAmountDie: (Int) -> Unit,
-    onIncrementAmountDie: (Int) -> Unit,
-    onDecrementAmountDie: (Int) -> Unit,
-    onClearAll: () -> Unit,
-    onRollMain: () -> Unit,
-    onRollPercentile: () -> Unit,
-    onReRollLast: () -> Unit,
+    dispatch: DiceRollerDispatch,
     modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
@@ -145,19 +115,19 @@ private fun DiceRollerContent(
         ) {
             MainDiceRollerCard(
                 state = state,
-                onToggleCheck = onToggleCheck,
-                onCheckModeSelected = onCheckModeSelected,
-                onIncrementCheckModifier = onIncrementCheckModifier,
-                onDecrementCheckModifier = onDecrementCheckModifier,
-                onAddAmountDie = onAddAmountDie,
-                onIncrementAmountDie = onIncrementAmountDie,
-                onDecrementAmountDie = onDecrementAmountDie,
-                onClearAll = onClearAll,
-                onRollMain = onRollMain,
+                onToggleCheck = { dispatch(DiceRollerIntent.ToggleCheck) },
+                onCheckModeSelected = { dispatch(DiceRollerIntent.CheckModeSelected(it)) },
+                onIncrementCheckModifier = { dispatch(DiceRollerIntent.IncrementCheckModifier) },
+                onDecrementCheckModifier = { dispatch(DiceRollerIntent.DecrementCheckModifier) },
+                onAddAmountDie = { dispatch(DiceRollerIntent.AddAmountDie(it)) },
+                onIncrementAmountDie = { dispatch(DiceRollerIntent.IncrementAmountDie(it)) },
+                onDecrementAmountDie = { dispatch(DiceRollerIntent.DecrementAmountDie(it)) },
+                onClearAll = { dispatch(DiceRollerIntent.ClearAll) },
+                onRollMain = { dispatch(DiceRollerIntent.RollMain) },
             )
             PercentileCard(
                 lastPercentileRoll = state.lastPercentileRoll,
-                onRollPercentile = onRollPercentile,
+                onRollPercentile = { dispatch(DiceRollerIntent.RollPercentile) },
                 modifier = Modifier.padding(top = 8.dp),
             )
             Spacer(modifier = Modifier.height(96.dp))
@@ -171,7 +141,7 @@ private fun DiceRollerContent(
             )
             LatestResultBar(
                 latestResult = latestResult,
-                onReRoll = onReRollLast,
+                onReRoll = { dispatch(DiceRollerIntent.RerollLast) },
                 onShowDetails = { showDetails = true },
                 onClose = ::closeLatestResultDialog,
                 modifier = Modifier

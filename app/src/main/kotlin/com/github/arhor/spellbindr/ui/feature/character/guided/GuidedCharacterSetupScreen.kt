@@ -82,11 +82,11 @@ fun GuidedCharacterSetupRoute(
     val state by vm.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(vm.events) {
-        vm.events.collectLatest { event ->
-            when (event) {
-                is GuidedCharacterSetupViewModel.GuidedCharacterSetupEvent.CharacterCreated -> onFinished(event.characterId)
-                is GuidedCharacterSetupViewModel.GuidedCharacterSetupEvent.Error -> snackbarHostState.showSnackbar(event.message)
+    LaunchedEffect(vm.effects) {
+        vm.effects.collectLatest { effect ->
+            when (effect) {
+                is GuidedCharacterSetupEffect.CharacterCreated -> onFinished(effect.characterId)
+                is GuidedCharacterSetupEffect.Error -> snackbarHostState.showSnackbar(effect.message)
             }
         }
     }
@@ -109,22 +109,7 @@ fun GuidedCharacterSetupRoute(
         GuidedCharacterSetupScreen(
             state = state,
             snackbarHostState = snackbarHostState,
-            onNameChanged = vm::onNameChanged,
-            onClassSelected = vm::onClassSelected,
-            onSubclassSelected = vm::onSubclassSelected,
-            onRaceSelected = vm::onRaceSelected,
-            onSubraceSelected = vm::onSubraceSelected,
-            onBackgroundSelected = vm::onBackgroundSelected,
-            onAbilityMethodSelected = vm::onAbilityMethodSelected,
-            onStandardArrayAssigned = vm::onStandardArrayAssigned,
-            onPointBuyIncrement = vm::onPointBuyIncrement,
-            onPointBuyDecrement = vm::onPointBuyDecrement,
-            onChoiceToggled = vm::onChoiceToggled,
-            onNext = vm::onNext,
-            onPrev = vm::onBack,
-            onCreate = vm::onCreateCharacter,
-            onGoToStep = vm::onGoToStep,
-            validate = vm::validate,
+            dispatch = vm::dispatch,
             modifier = modifier,
         )
     }
@@ -134,22 +119,7 @@ fun GuidedCharacterSetupRoute(
 private fun GuidedCharacterSetupScreen(
     state: GuidedCharacterSetupUiState,
     snackbarHostState: SnackbarHostState,
-    onNameChanged: (String) -> Unit,
-    onClassSelected: (String) -> Unit,
-    onSubclassSelected: (String) -> Unit,
-    onRaceSelected: (String) -> Unit,
-    onSubraceSelected: (String) -> Unit,
-    onBackgroundSelected: (String) -> Unit,
-    onAbilityMethodSelected: (AbilityScoreMethod) -> Unit,
-    onStandardArrayAssigned: (AbilityId, Int?) -> Unit,
-    onPointBuyIncrement: (AbilityId) -> Unit,
-    onPointBuyDecrement: (AbilityId) -> Unit,
-    onChoiceToggled: (key: String, optionId: String, maxSelected: Int) -> Unit,
-    onNext: () -> Unit,
-    onPrev: () -> Unit,
-    onCreate: () -> Unit,
-    onGoToStep: (GuidedStep) -> Unit,
-    validate: (GuidedCharacterSetupUiState.Content) -> GuidedValidationResult,
+    dispatch: GuidedCharacterSetupDispatch = {},
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -158,22 +128,7 @@ private fun GuidedCharacterSetupScreen(
             is GuidedCharacterSetupUiState.Failure -> ErrorMessage(state.errorMessage)
             is GuidedCharacterSetupUiState.Content -> GuidedCharacterSetupContent(
                 state = state,
-                onNameChanged = onNameChanged,
-                onClassSelected = onClassSelected,
-                onSubclassSelected = onSubclassSelected,
-                onRaceSelected = onRaceSelected,
-                onSubraceSelected = onSubraceSelected,
-                onBackgroundSelected = onBackgroundSelected,
-                onAbilityMethodSelected = onAbilityMethodSelected,
-                onStandardArrayAssigned = onStandardArrayAssigned,
-                onPointBuyIncrement = onPointBuyIncrement,
-                onPointBuyDecrement = onPointBuyDecrement,
-                onChoiceToggled = onChoiceToggled,
-                onNext = onNext,
-                onPrev = onPrev,
-                onCreate = onCreate,
-                onGoToStep = onGoToStep,
-                validate = validate,
+                dispatch = dispatch,
             )
         }
 
@@ -189,22 +144,7 @@ private fun GuidedCharacterSetupScreen(
 @Composable
 private fun GuidedCharacterSetupContent(
     state: GuidedCharacterSetupUiState.Content,
-    onNameChanged: (String) -> Unit,
-    onClassSelected: (String) -> Unit,
-    onSubclassSelected: (String) -> Unit,
-    onRaceSelected: (String) -> Unit,
-    onSubraceSelected: (String) -> Unit,
-    onBackgroundSelected: (String) -> Unit,
-    onAbilityMethodSelected: (AbilityScoreMethod) -> Unit,
-    onStandardArrayAssigned: (AbilityId, Int?) -> Unit,
-    onPointBuyIncrement: (AbilityId) -> Unit,
-    onPointBuyDecrement: (AbilityId) -> Unit,
-    onChoiceToggled: (key: String, optionId: String, maxSelected: Int) -> Unit,
-    onNext: () -> Unit,
-    onPrev: () -> Unit,
-    onCreate: () -> Unit,
-    onGoToStep: (GuidedStep) -> Unit,
-    validate: (GuidedCharacterSetupUiState.Content) -> GuidedValidationResult,
+    dispatch: GuidedCharacterSetupDispatch,
 ) {
     val listState = rememberLazyListState()
     LaunchedEffect(state.step) {
@@ -221,24 +161,94 @@ private fun GuidedCharacterSetupContent(
 
         Box(modifier = Modifier.weight(1f)) {
             when (state.step) {
-                GuidedStep.BASICS -> BasicsStep(state, onNameChanged, listState)
-                GuidedStep.CLASS -> ClassStep(state, onClassSelected, listState)
-                GuidedStep.CLASS_CHOICES -> ClassChoicesStep(state, onSubclassSelected, onChoiceToggled, listState)
-                GuidedStep.RACE -> RaceStep(state, onRaceSelected, onSubraceSelected, onChoiceToggled, listState)
-                GuidedStep.BACKGROUND -> BackgroundStep(state, onBackgroundSelected, onChoiceToggled, listState)
-                GuidedStep.ABILITY_METHOD -> AbilityMethodStep(state, onAbilityMethodSelected, listState)
-                GuidedStep.ABILITY_ASSIGN -> AbilityAssignStep(
+                GuidedStep.BASICS -> BasicsStep(
                     state = state,
-                    onStandardArrayAssigned = onStandardArrayAssigned,
-                    onPointBuyIncrement = onPointBuyIncrement,
-                    onPointBuyDecrement = onPointBuyDecrement,
+                    onNameChanged = { dispatch(GuidedCharacterSetupIntent.NameChanged(it)) },
                     listState = listState,
                 )
 
-                GuidedStep.SKILLS_PROFICIENCIES -> SkillsStep(state, onChoiceToggled, listState)
-                GuidedStep.EQUIPMENT -> EquipmentStep(state, onChoiceToggled, listState)
-                GuidedStep.SPELLS -> SpellsStep(state, onChoiceToggled, listState)
-                GuidedStep.REVIEW -> ReviewStep(state, validate(state), onGoToStep, listState)
+                GuidedStep.CLASS -> ClassStep(
+                    state = state,
+                    onClassSelected = { dispatch(GuidedCharacterSetupIntent.ClassSelected(it)) },
+                    listState = listState,
+                )
+
+                GuidedStep.CLASS_CHOICES -> ClassChoicesStep(
+                    state = state,
+                    onSubclassSelected = { dispatch(GuidedCharacterSetupIntent.SubclassSelected(it)) },
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.RACE -> RaceStep(
+                    state = state,
+                    onRaceSelected = { dispatch(GuidedCharacterSetupIntent.RaceSelected(it)) },
+                    onSubraceSelected = { dispatch(GuidedCharacterSetupIntent.SubraceSelected(it)) },
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.BACKGROUND -> BackgroundStep(
+                    state = state,
+                    onBackgroundSelected = { dispatch(GuidedCharacterSetupIntent.BackgroundSelected(it)) },
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.ABILITY_METHOD -> AbilityMethodStep(
+                    state = state,
+                    onAbilityMethodSelected = {
+                        dispatch(GuidedCharacterSetupIntent.AbilityMethodSelected(it))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.ABILITY_ASSIGN -> AbilityAssignStep(
+                    state = state,
+                    onStandardArrayAssigned = { abilityId, score ->
+                        dispatch(GuidedCharacterSetupIntent.StandardArrayAssigned(abilityId, score))
+                    },
+                    onPointBuyIncrement = { dispatch(GuidedCharacterSetupIntent.PointBuyIncrement(it)) },
+                    onPointBuyDecrement = { dispatch(GuidedCharacterSetupIntent.PointBuyDecrement(it)) },
+                    listState = listState,
+                )
+
+                GuidedStep.SKILLS_PROFICIENCIES -> SkillsStep(
+                    state = state,
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.EQUIPMENT -> EquipmentStep(
+                    state = state,
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.SPELLS -> SpellsStep(
+                    state = state,
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.REVIEW -> ReviewStep(
+                    state = state,
+                    validation = state.validation,
+                    onGoToStep = { dispatch(GuidedCharacterSetupIntent.GoToStep(it)) },
+                    listState = listState,
+                )
             }
         }
 
@@ -246,7 +256,7 @@ private fun GuidedCharacterSetupContent(
 
         val isReview = state.step == GuidedStep.REVIEW
         val canGoPrev = state.currentStepIndex > 0 && !state.isSaving
-        val validation = if (isReview) validate(state) else null
+        val validation = if (isReview) state.validation else null
         val canContinue = if (isReview) !validation!!.hasErrors && !state.isSaving else canProceedFromStep(state)
         val blockingReason = if (!canContinue) {
             if (isReview) {
@@ -278,7 +288,7 @@ private fun GuidedCharacterSetupContent(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             OutlinedButton(
-                onClick = onPrev,
+                onClick = { dispatch(GuidedCharacterSetupIntent.BackClicked) },
                 enabled = canGoPrev,
             ) {
                 Text("Back")
@@ -288,7 +298,11 @@ private fun GuidedCharacterSetupContent(
 
             Button(
                 onClick = {
-                    if (isReview) onCreate() else onNext()
+                    if (isReview) {
+                        dispatch(GuidedCharacterSetupIntent.CreateClicked)
+                    } else {
+                        dispatch(GuidedCharacterSetupIntent.NextClicked)
+                    }
                 },
                 enabled = canContinue,
             ) {

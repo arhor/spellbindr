@@ -94,10 +94,6 @@ class CharacterSheetViewModel @Inject constructor(
     private val updateWeaponListUseCase: UpdateWeaponListUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    sealed interface CharacterSheetEffect {
-        data object CharacterDeleted : CharacterSheetEffect
-    }
-
     private val characterId: String? = savedStateHandle.get<String>("characterId")
     private val _uiState = MutableStateFlow<CharacterSheetUiState>(
         if (characterId == null) CharacterSheetUiState.Failure("Missing character id") else CharacterSheetUiState.Loading,
@@ -128,6 +124,57 @@ class CharacterSheetViewModel @Inject constructor(
             observeSpells()
             observeSpellcastingClasses()
             observeWeaponCatalog()
+        }
+    }
+
+    fun dispatch(intent: CharacterSheetIntent) {
+        when (intent) {
+            is CharacterSheetIntent.TabSelected -> selectTab(intent.tab)
+            CharacterSheetIntent.AddSpellsClicked -> Unit
+            is CharacterSheetIntent.SpellSelected -> Unit
+            is CharacterSheetIntent.SpellRemoved -> removeSpell(intent.spellId, intent.sourceClass)
+            is CharacterSheetIntent.CastSpellClicked -> startCasting(intent.spellId)
+            CharacterSheetIntent.LongRestClicked -> Unit
+            CharacterSheetIntent.ShortRestClicked -> Unit
+            CharacterSheetIntent.ConfigureSlotsClicked -> enterEditMode()
+            is CharacterSheetIntent.SpellSlotToggled -> toggleSpellSlot(intent.level, intent.slotIndex)
+            is CharacterSheetIntent.SpellSlotTotalChanged -> setSpellSlotTotal(intent.level, intent.total)
+            is CharacterSheetIntent.PactSlotToggled -> togglePactSlot(intent.slotIndex)
+            is CharacterSheetIntent.PactSlotTotalChanged -> setPactSlotTotal(intent.total)
+            is CharacterSheetIntent.PactSlotLevelChanged -> setPactSlotLevel(intent.level)
+            CharacterSheetIntent.ConcentrationCleared -> clearConcentration()
+            CharacterSheetIntent.AddWeaponClicked -> startNewWeapon()
+            is CharacterSheetIntent.WeaponSelected -> selectWeapon(intent.id)
+            is CharacterSheetIntent.WeaponDeleted -> deleteWeapon(intent.id)
+            CharacterSheetIntent.WeaponEditorDismissed -> dismissWeaponEditor()
+            is CharacterSheetIntent.WeaponNameChanged -> setWeaponName(intent.value)
+            is CharacterSheetIntent.WeaponAbilityChanged -> setWeaponAbility(intent.abilityId)
+            is CharacterSheetIntent.WeaponUseAbilityForDamageChanged -> setWeaponUseAbilityForDamage(intent.value)
+            is CharacterSheetIntent.WeaponProficiencyChanged -> setWeaponProficiency(intent.value)
+            is CharacterSheetIntent.WeaponDiceCountChanged -> setWeaponDiceCount(intent.value)
+            is CharacterSheetIntent.WeaponDieSizeChanged -> setWeaponDieSize(intent.value)
+            is CharacterSheetIntent.WeaponDamageTypeChanged -> setWeaponDamageType(intent.value)
+            CharacterSheetIntent.WeaponSaved -> saveWeapon()
+            CharacterSheetIntent.WeaponCatalogOpened -> openWeaponCatalog()
+            CharacterSheetIntent.WeaponCatalogClosed -> closeWeaponCatalog()
+            is CharacterSheetIntent.WeaponCatalogItemSelected -> selectWeaponFromCatalog(intent.id)
+            CharacterSheetIntent.EnterEditMode -> enterEditMode()
+            CharacterSheetIntent.CancelEditMode -> cancelEditMode()
+            CharacterSheetIntent.SaveEditsClicked -> saveInlineEdits()
+            CharacterSheetIntent.OpenFullEditorClicked -> Unit
+            CharacterSheetIntent.DeleteCharacterClicked -> deleteCharacter()
+            CharacterSheetIntent.LongRestConfirmed -> longRest()
+            CharacterSheetIntent.ShortRestConfirmed -> shortRest()
+            CharacterSheetIntent.CastSheetDismissed -> dismissCasting()
+            is CharacterSheetIntent.CastConfirmed -> {
+                confirmCast(
+                    pool = intent.pool,
+                    slotLevel = intent.slotLevel,
+                    castAsRitual = intent.castAsRitual,
+                )
+            }
+
+            is CharacterSheetIntent.SpellsAssigned -> addSpells(intent.assignments)
         }
     }
 

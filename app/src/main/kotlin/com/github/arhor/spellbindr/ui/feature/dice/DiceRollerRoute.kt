@@ -26,17 +26,7 @@ fun DiceRollerRoute(
     ) {
         DiceRollerScreen(
             state = state,
-            onToggleCheck = vm::toggleCheck,
-            onCheckModeSelected = vm::setCheckMode,
-            onIncrementCheckModifier = vm::incrementCheckModifier,
-            onDecrementCheckModifier = vm::decrementCheckModifier,
-            onAddAmountDie = vm::addAmountDie,
-            onIncrementAmountDie = vm::incrementAmountDie,
-            onDecrementAmountDie = vm::decrementAmountDie,
-            onClearAll = vm::clearAll,
-            onRollMain = vm::rollMain,
-            onRollPercentile = vm::rollPercentile,
-            onReRollLast = vm::rerollLast,
+            dispatch = vm::dispatch,
         )
     }
 }

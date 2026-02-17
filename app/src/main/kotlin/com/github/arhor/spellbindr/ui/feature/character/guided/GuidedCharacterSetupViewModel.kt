@@ -86,15 +86,10 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         val isSaving: Boolean = false,
     )
 
-    sealed interface GuidedCharacterSetupEvent {
-        data class CharacterCreated(val characterId: String) : GuidedCharacterSetupEvent
-        data class Error(val message: String) : GuidedCharacterSetupEvent
-    }
-
     private val _state = MutableStateFlow(State())
 
-    private val _events = MutableSharedFlow<GuidedCharacterSetupEvent>()
-    val events: SharedFlow<GuidedCharacterSetupEvent> = _events.asSharedFlow()
+    private val _effects = MutableSharedFlow<GuidedCharacterSetupEffect>()
+    val effects: SharedFlow<GuidedCharacterSetupEffect> = _effects.asSharedFlow()
 
     private data class ReferenceData(
         val version: Int,
@@ -317,7 +312,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
                     referenceData = referenceData,
                 )
 
-                GuidedCharacterSetupUiState.Content(
+                val content = GuidedCharacterSetupUiState.Content(
                     step = resolvedStep,
                     steps = steps,
                     currentStepIndex = currentIndex,
@@ -339,6 +334,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
                     preview = preview,
                     isSaving = state.isSaving,
                 )
+                content.copy(validation = validate(content))
             }
         }
     }.stateIn(
@@ -347,11 +343,40 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         GuidedCharacterSetupUiState.Loading
     )
 
-    fun onNameChanged(value: String) {
+    fun dispatch(intent: GuidedCharacterSetupIntent) {
+        when (intent) {
+            is GuidedCharacterSetupIntent.NameChanged -> onNameChanged(intent.value)
+            is GuidedCharacterSetupIntent.ClassSelected -> onClassSelected(intent.classId)
+            is GuidedCharacterSetupIntent.SubclassSelected -> onSubclassSelected(intent.subclassId)
+            is GuidedCharacterSetupIntent.RaceSelected -> onRaceSelected(intent.raceId)
+            is GuidedCharacterSetupIntent.SubraceSelected -> onSubraceSelected(intent.subraceId)
+            is GuidedCharacterSetupIntent.BackgroundSelected -> onBackgroundSelected(intent.backgroundId)
+            is GuidedCharacterSetupIntent.AbilityMethodSelected -> onAbilityMethodSelected(intent.method)
+            is GuidedCharacterSetupIntent.StandardArrayAssigned -> onStandardArrayAssigned(
+                intent.abilityId,
+                intent.score
+            )
+
+            is GuidedCharacterSetupIntent.PointBuyIncrement -> onPointBuyIncrement(intent.abilityId)
+            is GuidedCharacterSetupIntent.PointBuyDecrement -> onPointBuyDecrement(intent.abilityId)
+            is GuidedCharacterSetupIntent.ChoiceToggled -> onChoiceToggled(
+                intent.key,
+                intent.optionId,
+                intent.maxSelected
+            )
+
+            GuidedCharacterSetupIntent.NextClicked -> onNext()
+            GuidedCharacterSetupIntent.BackClicked -> onBack()
+            GuidedCharacterSetupIntent.CreateClicked -> onCreateCharacter()
+            is GuidedCharacterSetupIntent.GoToStep -> onGoToStep(intent.step)
+        }
+    }
+
+    private fun onNameChanged(value: String) {
         _state.update { it.copy(name = value) }
     }
 
-    fun onClassSelected(classId: String) {
+    private fun onClassSelected(classId: String) {
         _state.update {
             it.copy(
                 classId = classId,
@@ -365,11 +390,11 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onSubclassSelected(subclassId: String) {
+    private fun onSubclassSelected(subclassId: String) {
         _state.update { it.copy(subclassId = subclassId) }
     }
 
-    fun onRaceSelected(raceId: String) {
+    private fun onRaceSelected(raceId: String) {
         _state.update {
             it.copy(
                 raceId = raceId,
@@ -379,11 +404,11 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onSubraceSelected(subraceId: String) {
+    private fun onSubraceSelected(subraceId: String) {
         _state.update { it.copy(subraceId = subraceId) }
     }
 
-    fun onBackgroundSelected(backgroundId: String) {
+    private fun onBackgroundSelected(backgroundId: String) {
         _state.update {
             it.copy(
                 backgroundId = backgroundId,
@@ -392,7 +417,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onAbilityMethodSelected(method: AbilityScoreMethod) {
+    private fun onAbilityMethodSelected(method: AbilityScoreMethod) {
         _state.update {
             it.copy(
                 abilityMethod = method,
@@ -402,7 +427,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onStandardArrayAssigned(abilityId: AbilityId, score: Int?) {
+    private fun onStandardArrayAssigned(abilityId: AbilityId, score: Int?) {
         _state.update { state ->
             state.copy(
                 standardArrayAssignments = state.standardArrayAssignments.toMutableMap().apply {
@@ -412,7 +437,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onPointBuyIncrement(abilityId: AbilityId) {
+    private fun onPointBuyIncrement(abilityId: AbilityId) {
         _state.update { state ->
             val current = state.pointBuyScores[abilityId] ?: 8
             val next = (current + 1).coerceAtMost(15)
@@ -425,7 +450,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onPointBuyDecrement(abilityId: AbilityId) {
+    private fun onPointBuyDecrement(abilityId: AbilityId) {
         _state.update { state ->
             val current = state.pointBuyScores[abilityId] ?: 8
             val next = (current - 1).coerceAtLeast(8)
@@ -435,7 +460,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onChoiceToggled(key: String, optionId: String, maxSelected: Int) {
+    private fun onChoiceToggled(key: String, optionId: String, maxSelected: Int) {
         _state.update { state ->
             val current = state.choiceSelections[key].orEmpty()
             val next = if (optionId in current) {
@@ -453,7 +478,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    fun onNext() {
+    private fun onNext() {
         val content = uiState.value as? GuidedCharacterSetupUiState.Content ?: return
         val steps = content.steps
         val index = steps.indexOf(content.step)
@@ -462,7 +487,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         _state.update { it.copy(step = next) }
     }
 
-    fun onBack() {
+    private fun onBack() {
         val content = uiState.value as? GuidedCharacterSetupUiState.Content ?: return
         val steps = content.steps
         val index = steps.indexOf(content.step)
@@ -471,7 +496,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         _state.update { it.copy(step = prev) }
     }
 
-    fun onGoToStep(step: GuidedStep) {
+    private fun onGoToStep(step: GuidedStep) {
         val content = uiState.value as? GuidedCharacterSetupUiState.Content ?: return
         val resolved = when {
             step in content.steps -> step
@@ -481,7 +506,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         _state.update { it.copy(step = resolved) }
     }
 
-    fun onCreateCharacter() {
+    private fun onCreateCharacter() {
         val content = uiState.value as? GuidedCharacterSetupUiState.Content ?: return
         val validation = validate(content)
         if (validation.hasErrors) return
@@ -491,9 +516,9 @@ class GuidedCharacterSetupViewModel @Inject constructor(
             try {
                 val sheet = buildCharacterSheet(content)
                 saveCharacterSheet(sheet)
-                _events.emit(GuidedCharacterSetupEvent.CharacterCreated(sheet.id))
+                _effects.emit(GuidedCharacterSetupEffect.CharacterCreated(sheet.id))
             } catch (t: Throwable) {
-                _events.emit(GuidedCharacterSetupEvent.Error(t.message ?: "Failed to save character."))
+                _effects.emit(GuidedCharacterSetupEffect.Error(t.message ?: "Failed to save character."))
             } finally {
                 _state.update { it.copy(isSaving = false) }
             }
@@ -1295,5 +1320,6 @@ sealed interface GuidedCharacterSetupUiState {
         val selection: GuidedSelection,
         val preview: GuidedCharacterPreview,
         val isSaving: Boolean,
+        val validation: GuidedValidationResult = GuidedValidationResult(emptyList()),
     ) : GuidedCharacterSetupUiState
 }

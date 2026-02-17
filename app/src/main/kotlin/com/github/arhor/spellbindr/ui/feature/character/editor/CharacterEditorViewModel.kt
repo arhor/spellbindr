@@ -53,8 +53,8 @@ class CharacterEditorViewModel @Inject constructor(
     )
     val uiState: StateFlow<CharacterEditorUiState> = _uiState.asStateFlow()
 
-    private val _events = MutableSharedFlow<CharacterEditorEvent>()
-    val events: SharedFlow<CharacterEditorEvent> = _events.asSharedFlow()
+    private val _effects = MutableSharedFlow<CharacterEditorEffect>()
+    val effects: SharedFlow<CharacterEditorEffect> = _effects.asSharedFlow()
 
     init {
         initialId?.let(::observeCharacter)
@@ -81,35 +81,75 @@ class CharacterEditorViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    fun onNameChanged(value: String) {
+    fun dispatch(intent: CharacterEditorIntent) {
+        when (intent) {
+            is CharacterEditorIntent.SaveClicked -> onSaveClicked()
+            is CharacterEditorIntent.NameChanged -> onNameChanged(intent.value)
+            is CharacterEditorIntent.ClassChanged -> onClassChanged(intent.value)
+            is CharacterEditorIntent.LevelChanged -> onLevelChanged(intent.value)
+            is CharacterEditorIntent.RaceChanged -> onRaceChanged(intent.value)
+            is CharacterEditorIntent.BackgroundChanged -> onBackgroundChanged(intent.value)
+            is CharacterEditorIntent.AlignmentChanged -> onAlignmentChanged(intent.value)
+            is CharacterEditorIntent.ExperienceChanged -> onExperienceChanged(intent.value)
+            is CharacterEditorIntent.AbilityChanged -> onAbilityChanged(intent.abilityId, intent.value)
+            is CharacterEditorIntent.ProficiencyBonusChanged -> onProficiencyBonusChanged(intent.value)
+            is CharacterEditorIntent.InspirationChanged -> onInspirationChanged(intent.value)
+            is CharacterEditorIntent.MaxHpChanged -> onMaxHpChanged(intent.value)
+            is CharacterEditorIntent.CurrentHpChanged -> onCurrentHpChanged(intent.value)
+            is CharacterEditorIntent.TemporaryHpChanged -> onTemporaryHpChanged(intent.value)
+            is CharacterEditorIntent.ArmorClassChanged -> onArmorClassChanged(intent.value)
+            is CharacterEditorIntent.InitiativeChanged -> onInitiativeChanged(intent.value)
+            is CharacterEditorIntent.SpeedChanged -> onSpeedChanged(intent.value)
+            is CharacterEditorIntent.HitDiceChanged -> onHitDiceChanged(intent.value)
+            is CharacterEditorIntent.SavingThrowProficiencyChanged -> {
+                onSavingThrowProficiencyChanged(intent.abilityId, intent.value)
+            }
+
+            is CharacterEditorIntent.SkillProficiencyChanged -> onSkillProficiencyChanged(intent.skill, intent.value)
+            is CharacterEditorIntent.SkillExpertiseChanged -> onSkillExpertiseChanged(intent.skill, intent.value)
+            is CharacterEditorIntent.SensesChanged -> onSensesChanged(intent.value)
+            is CharacterEditorIntent.LanguagesChanged -> onLanguagesChanged(intent.value)
+            is CharacterEditorIntent.ProficienciesChanged -> onProficienciesChanged(intent.value)
+            is CharacterEditorIntent.AttacksChanged -> onAttacksChanged(intent.value)
+            is CharacterEditorIntent.FeaturesChanged -> onFeaturesChanged(intent.value)
+            is CharacterEditorIntent.EquipmentChanged -> onEquipmentChanged(intent.value)
+            is CharacterEditorIntent.PersonalityTraitsChanged -> onPersonalityTraitsChanged(intent.value)
+            is CharacterEditorIntent.IdealsChanged -> onIdealsChanged(intent.value)
+            is CharacterEditorIntent.BondsChanged -> onBondsChanged(intent.value)
+            is CharacterEditorIntent.FlawsChanged -> onFlawsChanged(intent.value)
+            is CharacterEditorIntent.NotesChanged -> onNotesChanged(intent.value)
+        }
+    }
+
+    private fun onNameChanged(value: String) {
         updateContent { it.copy(name = value, nameError = null) }
     }
 
-    fun onClassChanged(value: String) {
+    private fun onClassChanged(value: String) {
         updateContent { it.copy(className = value) }
     }
 
-    fun onLevelChanged(value: String) {
+    private fun onLevelChanged(value: String) {
         updateContent { it.copy(level = value, levelError = null) }
     }
 
-    fun onRaceChanged(value: String) {
+    private fun onRaceChanged(value: String) {
         updateContent { it.copy(race = value) }
     }
 
-    fun onBackgroundChanged(value: String) {
+    private fun onBackgroundChanged(value: String) {
         updateContent { it.copy(background = value) }
     }
 
-    fun onAlignmentChanged(value: String) {
+    private fun onAlignmentChanged(value: String) {
         updateContent { it.copy(alignment = value) }
     }
 
-    fun onExperienceChanged(value: String) {
+    private fun onExperienceChanged(value: String) {
         updateContent { it.copy(experiencePoints = value) }
     }
 
-    fun onAbilityChanged(abilityId: AbilityId, value: String) {
+    private fun onAbilityChanged(abilityId: AbilityId, value: String) {
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 abilities = state.abilities.map { field ->
@@ -119,43 +159,43 @@ class CharacterEditorViewModel @Inject constructor(
         }
     }
 
-    fun onProficiencyBonusChanged(value: String) {
+    private fun onProficiencyBonusChanged(value: String) {
         updateContent(recomputeDerivedBonuses = true) { it.copy(proficiencyBonus = value) }
     }
 
-    fun onInspirationChanged(value: Boolean) {
+    private fun onInspirationChanged(value: Boolean) {
         updateContent { it.copy(inspiration = value) }
     }
 
-    fun onMaxHpChanged(value: String) {
+    private fun onMaxHpChanged(value: String) {
         updateContent { it.copy(maxHitPoints = value, maxHitPointsError = null) }
     }
 
-    fun onCurrentHpChanged(value: String) {
+    private fun onCurrentHpChanged(value: String) {
         updateContent { it.copy(currentHitPoints = value) }
     }
 
-    fun onTemporaryHpChanged(value: String) {
+    private fun onTemporaryHpChanged(value: String) {
         updateContent { it.copy(temporaryHitPoints = value) }
     }
 
-    fun onArmorClassChanged(value: String) {
+    private fun onArmorClassChanged(value: String) {
         updateContent { it.copy(armorClass = value) }
     }
 
-    fun onInitiativeChanged(value: String) {
+    private fun onInitiativeChanged(value: String) {
         updateContent { it.copy(initiative = value) }
     }
 
-    fun onSpeedChanged(value: String) {
+    private fun onSpeedChanged(value: String) {
         updateContent { it.copy(speed = value) }
     }
 
-    fun onHitDiceChanged(value: String) {
+    private fun onHitDiceChanged(value: String) {
         updateContent { it.copy(hitDice = value) }
     }
 
-    fun onSavingThrowProficiencyChanged(abilityId: AbilityId, value: Boolean) {
+    private fun onSavingThrowProficiencyChanged(abilityId: AbilityId, value: Boolean) {
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 savingThrows = state.savingThrows.map { entry ->
@@ -165,7 +205,7 @@ class CharacterEditorViewModel @Inject constructor(
         }
     }
 
-    fun onSkillProficiencyChanged(skill: Skill, value: Boolean) {
+    private fun onSkillProficiencyChanged(skill: Skill, value: Boolean) {
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 skills = state.skills.map { entry ->
@@ -175,7 +215,7 @@ class CharacterEditorViewModel @Inject constructor(
         }
     }
 
-    fun onSkillExpertiseChanged(skill: Skill, value: Boolean) {
+    private fun onSkillExpertiseChanged(skill: Skill, value: Boolean) {
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 skills = state.skills.map { entry ->
@@ -185,51 +225,51 @@ class CharacterEditorViewModel @Inject constructor(
         }
     }
 
-    fun onSensesChanged(value: String) {
+    private fun onSensesChanged(value: String) {
         updateContent { it.copy(senses = value) }
     }
 
-    fun onLanguagesChanged(value: String) {
+    private fun onLanguagesChanged(value: String) {
         updateContent { it.copy(languages = value) }
     }
 
-    fun onProficienciesChanged(value: String) {
+    private fun onProficienciesChanged(value: String) {
         updateContent { it.copy(proficiencies = value) }
     }
 
-    fun onAttacksChanged(value: String) {
+    private fun onAttacksChanged(value: String) {
         updateContent { it.copy(attacksAndCantrips = value) }
     }
 
-    fun onFeaturesChanged(value: String) {
+    private fun onFeaturesChanged(value: String) {
         updateContent { it.copy(featuresAndTraits = value) }
     }
 
-    fun onEquipmentChanged(value: String) {
+    private fun onEquipmentChanged(value: String) {
         updateContent { it.copy(equipment = value) }
     }
 
-    fun onPersonalityTraitsChanged(value: String) {
+    private fun onPersonalityTraitsChanged(value: String) {
         updateContent { it.copy(personalityTraits = value) }
     }
 
-    fun onIdealsChanged(value: String) {
+    private fun onIdealsChanged(value: String) {
         updateContent { it.copy(ideals = value) }
     }
 
-    fun onBondsChanged(value: String) {
+    private fun onBondsChanged(value: String) {
         updateContent { it.copy(bonds = value) }
     }
 
-    fun onFlawsChanged(value: String) {
+    private fun onFlawsChanged(value: String) {
         updateContent { it.copy(flaws = value) }
     }
 
-    fun onNotesChanged(value: String) {
+    private fun onNotesChanged(value: String) {
         updateContent { it.copy(notes = value) }
     }
 
-    fun onSaveClicked() {
+    private fun onSaveClicked() {
         val currentState = _uiState.value as? CharacterEditorUiState.Content ?: return
         val validation = validateCharacterSheetUseCase(currentState.toDomainInput())
         val validatedState = currentState.copy(
@@ -271,7 +311,7 @@ class CharacterEditorViewModel @Inject constructor(
                             state
                         }
                     }
-                    _events.emit(CharacterEditorEvent.Saved)
+                    _effects.emit(CharacterEditorEffect.Saved)
                 }
                 .onFailure { error ->
                     _uiState.update { state ->
@@ -281,7 +321,7 @@ class CharacterEditorViewModel @Inject constructor(
                             state
                         }
                     }
-                    _events.emit(CharacterEditorEvent.Error("Unable to save character"))
+                    _effects.emit(CharacterEditorEffect.Error("Unable to save character"))
                 }
         }
     }
@@ -309,11 +349,6 @@ class CharacterEditorViewModel @Inject constructor(
 enum class EditorMode {
     Create,
     Edit,
-}
-
-sealed interface CharacterEditorEvent {
-    data object Saved : CharacterEditorEvent
-    data class Error(val message: String) : CharacterEditorEvent
 }
 
 sealed interface CharacterEditorUiState {

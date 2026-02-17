@@ -7,6 +7,10 @@ fun CompendiumRoute(
     onSectionClick: (CompendiumSections) -> Unit,
 ) {
     CompendiumScreen(
-        onSectionClick = onSectionClick,
+        dispatch = { intent ->
+            when (intent) {
+                is CompendiumIntent.SectionClicked -> onSectionClick(intent.section)
+            }
+        },
     )
 }

@@ -18,18 +18,15 @@ import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
 import com.github.arhor.spellbindr.ui.feature.character.list.components.CharacterCard
 import com.github.arhor.spellbindr.ui.feature.character.list.components.CreateCharacterDialog
-import com.github.arhor.spellbindr.ui.feature.character.list.model.CharacterListItem
-import com.github.arhor.spellbindr.ui.feature.character.list.model.CreateCharacterMode
 
 @Composable
 fun CharactersListScreen(
     state: CharactersListUiState,
-    onCharacterSelected: (CharacterListItem) -> Unit,
-    onCreateCharacter: (CreateCharacterMode) -> Unit,
+    dispatch: CharactersListDispatch = {},
 ) {
     when (state) {
         is CharactersListUiState.Loading -> LoadingIndicator()
-        is CharactersListUiState.Content -> CharactersListContent(state, onCharacterSelected, onCreateCharacter)
+        is CharactersListUiState.Content -> CharactersListContent(state, dispatch)
         is CharactersListUiState.Failure -> ErrorMessage(state.errorMessage)
     }
 }
@@ -37,8 +34,7 @@ fun CharactersListScreen(
 @Composable
 private fun CharactersListContent(
     state: CharactersListUiState.Content,
-    onCharacterSelected: (CharacterListItem) -> Unit,
-    onCreateCharacter: (CreateCharacterMode) -> Unit,
+    dispatch: CharactersListDispatch,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (state.characters.isEmpty()) {
@@ -75,11 +71,15 @@ private fun CharactersListContent(
                 items(items = state.characters, key = { it.id }) { character ->
                     CharacterCard(
                         item = character,
-                        onClick = { onCharacterSelected(character) },
+                        onClick = { dispatch(CharactersListIntent.CharacterSelected(character)) },
                     )
                 }
             }
         }
-        CreateCharacterDialog(onCreateCharacter = onCreateCharacter)
+        CreateCharacterDialog(
+            onCreateCharacter = {
+                dispatch(CharactersListIntent.CreateCharacterSelected(it))
+            },
+        )
     }
 }

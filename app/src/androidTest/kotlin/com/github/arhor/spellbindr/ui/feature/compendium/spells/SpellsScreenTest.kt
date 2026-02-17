@@ -93,7 +93,7 @@ class SpellsScreenTest {
     @Test
     fun `input should call onQueryChanged when user types`() {
         // Given
-        var lastQuery = ""
+        var capturedIntent: SpellsIntent? = null
         val state = contentState(query = "")
 
         // When
@@ -101,7 +101,7 @@ class SpellsScreenTest {
             AppTheme {
                 SpellsScreen(
                     uiState = state,
-                    onQueryChanged = { lastQuery = it },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
@@ -109,14 +109,14 @@ class SpellsScreenTest {
 
         // Then
         composeTestRule.runOnIdle {
-            assertThat(lastQuery).isEqualTo("Magic")
+            assertThat(capturedIntent).isEqualTo(SpellsIntent.QueryChanged("Magic"))
         }
     }
 
     @Test
     fun `click should call onFavoriteClick when favorite icon tapped`() {
         // Given
-        var favoriteClicks = 0
+        var capturedIntent: SpellsIntent? = null
         val state = contentState(showFavoriteOnly = false)
 
         // When
@@ -124,7 +124,7 @@ class SpellsScreenTest {
             AppTheme {
                 SpellsScreen(
                     uiState = state,
-                    onFavoriteClick = { favoriteClicks += 1 },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
@@ -132,14 +132,14 @@ class SpellsScreenTest {
 
         // Then
         composeTestRule.runOnIdle {
-            assertThat(favoriteClicks).isEqualTo(1)
+            assertThat(capturedIntent).isEqualTo(SpellsIntent.FavoritesToggled)
         }
     }
 
     @Test
     fun `click should call onClassToggled when class chip tapped`() {
         // Given
-        var toggledClass: EntityRef? = null
+        var capturedIntent: SpellsIntent? = null
         val state = contentState(castingClasses = listOf(wizard, cleric))
 
         // When
@@ -147,7 +147,7 @@ class SpellsScreenTest {
             AppTheme {
                 SpellsScreen(
                     uiState = state,
-                    onClassToggled = { toggledClass = it },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
@@ -155,14 +155,14 @@ class SpellsScreenTest {
 
         // Then
         composeTestRule.runOnIdle {
-            assertThat(toggledClass).isEqualTo(wizard)
+            assertThat(capturedIntent).isEqualTo(SpellsIntent.ClassFilterToggled(wizard))
         }
     }
 
     @Test
     fun `click should call onSpellClick when spell card tapped`() {
         // Given
-        var clickedSpell: Spell? = null
+        var capturedIntent: SpellsIntent? = null
         val state = contentState(spells = spells)
 
         // When
@@ -170,7 +170,7 @@ class SpellsScreenTest {
             AppTheme {
                 SpellsScreen(
                     uiState = state,
-                    onSpellClick = { clickedSpell = it },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
@@ -178,7 +178,7 @@ class SpellsScreenTest {
 
         // Then
         composeTestRule.runOnIdle {
-            assertThat(clickedSpell).isEqualTo(spells[0])
+            assertThat(capturedIntent).isEqualTo(SpellsIntent.SpellClicked(spells[0]))
         }
     }
 

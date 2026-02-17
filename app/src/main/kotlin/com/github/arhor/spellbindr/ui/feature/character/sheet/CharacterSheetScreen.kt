@@ -9,14 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.domain.model.AbilityId
-import com.github.arhor.spellbindr.domain.model.DamageType
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.CharacterSheetContent
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.CharacterSheetError
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.weapons.WeaponCatalogDialog
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.weapons.WeaponEditorDialog
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetPreviewData
-import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 /**
@@ -27,35 +24,7 @@ import com.github.arhor.spellbindr.ui.theme.AppTheme
 internal fun CharacterSheetScreen(
     state: CharacterSheetUiState,
     modifier: Modifier = Modifier,
-    onTabSelected: (CharacterSheetTab) -> Unit = {},
-    onAddSpellsClick: () -> Unit = {},
-    onSpellSelected: (String) -> Unit = {},
-    onSpellRemoved: (String, String) -> Unit = { _, _ -> },
-    onCastSpellClick: (String) -> Unit = {},
-    onLongRestClick: () -> Unit = {},
-    onShortRestClick: () -> Unit = {},
-    onConfigureSlotsClick: () -> Unit = {},
-    onSpellSlotToggle: (Int, Int) -> Unit = { _, _ -> },
-    onSpellSlotTotalChanged: (Int, Int) -> Unit = { _, _ -> },
-    onPactSlotToggle: (Int) -> Unit = {},
-    onPactSlotTotalChanged: (Int) -> Unit = {},
-    onPactSlotLevelChanged: (Int) -> Unit = {},
-    onConcentrationClear: () -> Unit = {},
-    onAddWeaponClick: () -> Unit = {},
-    onWeaponSelected: (String) -> Unit = {},
-    onWeaponDeleted: (String) -> Unit = {},
-    onWeaponEditorDismissed: () -> Unit = {},
-    onWeaponNameChanged: (String) -> Unit = {},
-    onWeaponAbilityChanged: (AbilityId) -> Unit = {},
-    onWeaponUseAbilityForDamageChanged: (Boolean) -> Unit = {},
-    onWeaponProficiencyChanged: (Boolean) -> Unit = {},
-    onWeaponDiceCountChanged: (String) -> Unit = {},
-    onWeaponDieSizeChanged: (String) -> Unit = {},
-    onWeaponDamageTypeChanged: (DamageType) -> Unit = {},
-    onWeaponSaved: () -> Unit = {},
-    onWeaponCatalogOpened: () -> Unit = {},
-    onWeaponCatalogClosed: () -> Unit = {},
-    onWeaponCatalogItemSelected: (String) -> Unit = {},
+    dispatch: CharacterSheetDispatch = {},
 ) {
     when (state) {
         is CharacterSheetUiState.Loading -> {
@@ -92,45 +61,53 @@ internal fun CharacterSheetScreen(
                 CharacterSheetContent(
                     state = state,
                     header = state.header,
-                    onTabSelected = onTabSelected,
-                    onAddSpellsClick = onAddSpellsClick,
-                    onSpellSelected = onSpellSelected,
-                    onSpellRemoved = onSpellRemoved,
-                    onCastSpellClick = onCastSpellClick,
-                    onLongRestClick = onLongRestClick,
-                    onShortRestClick = onShortRestClick,
-                    onConfigureSlotsClick = onConfigureSlotsClick,
-                    onSpellSlotToggle = onSpellSlotToggle,
-                    onSpellSlotTotalChanged = onSpellSlotTotalChanged,
-                    onPactSlotToggle = onPactSlotToggle,
-                    onPactSlotTotalChanged = onPactSlotTotalChanged,
-                    onPactSlotLevelChanged = onPactSlotLevelChanged,
-                    onConcentrationClear = onConcentrationClear,
-                    onAddWeaponClick = onAddWeaponClick,
-                    onWeaponSelected = onWeaponSelected,
+                    onTabSelected = { dispatch(CharacterSheetIntent.TabSelected(it)) },
+                    onAddSpellsClick = { dispatch(CharacterSheetIntent.AddSpellsClicked) },
+                    onSpellSelected = { dispatch(CharacterSheetIntent.SpellSelected(it)) },
+                    onSpellRemoved = { spellId, sourceClass ->
+                        dispatch(CharacterSheetIntent.SpellRemoved(spellId, sourceClass))
+                    },
+                    onCastSpellClick = { dispatch(CharacterSheetIntent.CastSpellClicked(it)) },
+                    onLongRestClick = { dispatch(CharacterSheetIntent.LongRestClicked) },
+                    onShortRestClick = { dispatch(CharacterSheetIntent.ShortRestClicked) },
+                    onConfigureSlotsClick = { dispatch(CharacterSheetIntent.ConfigureSlotsClicked) },
+                    onSpellSlotToggle = { level, slotIndex ->
+                        dispatch(CharacterSheetIntent.SpellSlotToggled(level, slotIndex))
+                    },
+                    onSpellSlotTotalChanged = { level, total ->
+                        dispatch(CharacterSheetIntent.SpellSlotTotalChanged(level, total))
+                    },
+                    onPactSlotToggle = { dispatch(CharacterSheetIntent.PactSlotToggled(it)) },
+                    onPactSlotTotalChanged = { dispatch(CharacterSheetIntent.PactSlotTotalChanged(it)) },
+                    onPactSlotLevelChanged = { dispatch(CharacterSheetIntent.PactSlotLevelChanged(it)) },
+                    onConcentrationClear = { dispatch(CharacterSheetIntent.ConcentrationCleared) },
+                    onAddWeaponClick = { dispatch(CharacterSheetIntent.AddWeaponClicked) },
+                    onWeaponSelected = { dispatch(CharacterSheetIntent.WeaponSelected(it)) },
                     modifier = modifier,
                 )
                 state.weaponEditorState?.let { editor ->
                     WeaponEditorDialog(
                         editorState = editor,
-                        onDismiss = onWeaponEditorDismissed,
-                        onNameChange = onWeaponNameChanged,
-                        onCatalogOpen = onWeaponCatalogOpened,
-                        onAbilityChange = onWeaponAbilityChanged,
-                        onUseAbilityForDamageChange = onWeaponUseAbilityForDamageChanged,
-                        onProficiencyChange = onWeaponProficiencyChanged,
-                        onDiceCountChange = onWeaponDiceCountChanged,
-                        onDieSizeChange = onWeaponDieSizeChanged,
-                        onDamageTypeChange = onWeaponDamageTypeChanged,
-                        onDelete = onWeaponDeleted,
-                        onSave = onWeaponSaved,
+                        onDismiss = { dispatch(CharacterSheetIntent.WeaponEditorDismissed) },
+                        onNameChange = { dispatch(CharacterSheetIntent.WeaponNameChanged(it)) },
+                        onCatalogOpen = { dispatch(CharacterSheetIntent.WeaponCatalogOpened) },
+                        onAbilityChange = { dispatch(CharacterSheetIntent.WeaponAbilityChanged(it)) },
+                        onUseAbilityForDamageChange = {
+                            dispatch(CharacterSheetIntent.WeaponUseAbilityForDamageChanged(it))
+                        },
+                        onProficiencyChange = { dispatch(CharacterSheetIntent.WeaponProficiencyChanged(it)) },
+                        onDiceCountChange = { dispatch(CharacterSheetIntent.WeaponDiceCountChanged(it)) },
+                        onDieSizeChange = { dispatch(CharacterSheetIntent.WeaponDieSizeChanged(it)) },
+                        onDamageTypeChange = { dispatch(CharacterSheetIntent.WeaponDamageTypeChanged(it)) },
+                        onDelete = { dispatch(CharacterSheetIntent.WeaponDeleted(it)) },
+                        onSave = { dispatch(CharacterSheetIntent.WeaponSaved) },
                     )
                 }
                 if (state.isWeaponCatalogVisible) {
                     WeaponCatalogDialog(
                         catalog = state.weaponCatalog,
-                        onDismiss = onWeaponCatalogClosed,
-                        onItemSelected = onWeaponCatalogItemSelected,
+                        onDismiss = { dispatch(CharacterSheetIntent.WeaponCatalogClosed) },
+                        onItemSelected = { dispatch(CharacterSheetIntent.WeaponCatalogItemSelected(it)) },
                         isLoading = state.weaponCatalog.isEmpty(),
                     )
                 }

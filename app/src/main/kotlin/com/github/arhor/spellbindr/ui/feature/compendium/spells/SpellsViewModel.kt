@@ -72,15 +72,24 @@ class SpellsViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SpellsUiState.Loading)
 
-    fun onQueryChanged(query: String) {
+    fun dispatch(intent: SpellsIntent) {
+        when (intent) {
+            is SpellsIntent.QueryChanged -> updateQuery(intent.query)
+            SpellsIntent.FavoritesToggled -> toggleFavorites()
+            is SpellsIntent.ClassFilterToggled -> toggleClassFilter(intent.spellClass)
+            is SpellsIntent.SpellClicked -> Unit
+        }
+    }
+
+    private fun updateQuery(query: String) {
         _state.update { it.copy(query = query) }
     }
 
-    fun onFavoritesToggled() {
+    private fun toggleFavorites() {
         _state.update { it.copy(showFavoriteOnly = !it.showFavoriteOnly) }
     }
 
-    fun onClassFilterToggled(spellClass: EntityRef) {
+    private fun toggleClassFilter(spellClass: EntityRef) {
         _state.update { state ->
             val updatedClasses = if (spellClass in state.characterClasses) {
                 state.characterClasses - spellClass

@@ -5,8 +5,11 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
@@ -20,18 +23,34 @@ fun SpellDetailsRoute(
     onBack: () -> Unit,
 ) {
     val state by vm.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(vm) {
+        vm.effects.collect { effect ->
+            when (effect) {
+                is SpellDetailsEffect.ShowMessage -> snackbarHostState.showSnackbar(effect.message)
+            }
+        }
+    }
 
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
                 title = "Spells",
                 navigation = AppTopBarNavigation.Back(onBack),
-                actions = { ToggleFavoriteSpell(state, vm::toggleFavorite) },
+                actions = {
+                    ToggleFavoriteSpell(
+                        state = state,
+                        dispatch = vm::dispatch,
+                    )
+                },
             ),
         ),
     ) {
         SpellDetailScreen(
             uiState = state,
+            dispatch = vm::dispatch,
+            snackbarHostState = snackbarHostState,
         )
     }
 }
@@ -39,13 +58,13 @@ fun SpellDetailsRoute(
 @Composable
 private fun ToggleFavoriteSpell(
     state: SpellDetailsUiState,
-    onClick: () -> Unit,
+    dispatch: SpellDetailsDispatch,
 ) {
     val isEnabled = state is SpellDetailsUiState.Content
     val isFavorite = (state as? SpellDetailsUiState.Content)?.isFavorite == true
 
     IconButton(
-        onClick = onClick,
+        onClick = { dispatch(SpellDetailsIntent.ToggleFavorite) },
         enabled = isEnabled,
     ) {
         if (isFavorite) {
