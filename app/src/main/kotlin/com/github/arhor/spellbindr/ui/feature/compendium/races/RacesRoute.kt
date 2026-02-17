@@ -26,7 +26,7 @@ fun RacesRoute(
     ) {
         RacesScreen(
             uiState = state,
-            onRaceClick = vm::onRaceClick,
+            dispatch = vm::dispatch,
         )
     }
 }

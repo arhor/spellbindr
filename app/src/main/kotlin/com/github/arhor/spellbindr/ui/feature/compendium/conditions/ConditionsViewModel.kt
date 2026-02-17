@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.ui.feature.compendium.conditions
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllConditionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,10 +45,16 @@ class ConditionsViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ConditionsUiState.Loading)
 
-    fun onConditionClick(condition: Condition) {
+    fun dispatch(intent: ConditionsIntent) {
+        when (intent) {
+            is ConditionsIntent.ConditionClicked -> toggleSelection(intent.conditionId)
+        }
+    }
+
+    private fun toggleSelection(conditionId: String) {
         _state.update { state ->
             state.copy(
-                selectedItemId = condition.id.takeIf { it != state.selectedItemId }
+                selectedItemId = conditionId.takeIf { it != state.selectedItemId }
             )
         }
     }

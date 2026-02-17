@@ -23,19 +23,19 @@ import com.github.arhor.spellbindr.utils.scrollToItemIfNeeded
 @Composable
 internal fun RacesScreen(
     uiState: RacesUiState,
-    onRaceClick: (Race) -> Unit = {},
+    dispatch: RacesDispatch = {},
 ) {
     when (uiState) {
         is RacesUiState.Loading -> LoadingIndicator()
         is RacesUiState.Failure -> ErrorMessage(uiState.errorMessage)
-        is RacesUiState.Content -> RacesContent(uiState, onRaceClick)
+        is RacesUiState.Content -> RacesContent(uiState, dispatch)
     }
 }
 
 @Composable
 private fun RacesContent(
     uiState: RacesUiState.Content,
-    onRaceClick: (Race) -> Unit,
+    dispatch: RacesDispatch,
 ) {
     val listState = rememberLazyListState()
 
@@ -59,7 +59,7 @@ private fun RacesContent(
                 race = race,
                 traits = uiState.traits,
                 isExpanded = race.id == uiState.selectedItemId,
-                onItemClick = { onRaceClick(race) }
+                onItemClick = { dispatch(RacesIntent.RaceClicked(race.id)) }
             )
         }
     }

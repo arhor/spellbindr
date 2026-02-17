@@ -13,26 +13,26 @@ import com.github.arhor.spellbindr.domain.model.Alignment as AlignmentModel
 @Composable
 internal fun AlignmentsScreen(
     uiState: AlignmentsUiState,
-    onAlignmentClick: (AlignmentModel) -> Unit = {},
+    dispatch: AlignmentsDispatch = {},
 ) {
     when (uiState) {
         is AlignmentsUiState.Loading -> LoadingIndicator()
         is AlignmentsUiState.Failure -> ErrorMessage(uiState.errorMessage)
-        is AlignmentsUiState.Content -> AlignmentsContent(uiState, onAlignmentClick)
+        is AlignmentsUiState.Content -> AlignmentsContent(uiState, dispatch)
     }
 }
 
 @Composable
 private fun AlignmentsContent(
     uiState: AlignmentsUiState.Content,
-    onAlignmentClick: (AlignmentModel) -> Unit,
+    dispatch: AlignmentsDispatch,
 ) {
     SelectableGrid(
         items = uiState.alignments,
         key = { it.id },
         smallContent = ::AlignmentTileSmall,
         largeContent = ::AlignmentTileLarge,
-        onItemClick = { onAlignmentClick(it) },
+        onItemClick = { dispatch(AlignmentsIntent.AlignmentClicked(it.id)) },
     )
 }
 

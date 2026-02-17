@@ -73,7 +73,7 @@ class AlignmentsViewModelTest {
         }
 
     @Test
-    fun `onAlignmentClick should select alignment when new alignment tapped`() =
+    fun `dispatch should select alignment when new alignment id is tapped`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val alignment = Alignment(id = "tn", name = "True Neutral", desc = "Desc", abbr = "TN")
@@ -85,7 +85,7 @@ class AlignmentsViewModelTest {
             val states = mutableListOf<AlignmentsUiState>()
             val job = launch { viewModel.uiState.take(3).toList(states) }
             advanceUntilIdle()
-            viewModel.onAlignmentClick(alignment)
+            viewModel.dispatch(AlignmentsIntent.AlignmentClicked(alignment.id))
             advanceUntilIdle()
             job.cancel()
 
@@ -95,7 +95,7 @@ class AlignmentsViewModelTest {
         }
 
     @Test
-    fun `onAlignmentClick should clear selection when same alignment tapped again`() =
+    fun `dispatch should clear selection when same alignment id tapped again`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val alignment = Alignment(id = "ce", name = "Chaotic Evil", desc = "Desc", abbr = "CE")
@@ -107,9 +107,9 @@ class AlignmentsViewModelTest {
             val states = mutableListOf<AlignmentsUiState>()
             val job = launch { viewModel.uiState.take(4).toList(states) }
             advanceUntilIdle()
-            viewModel.onAlignmentClick(alignment)
+            viewModel.dispatch(AlignmentsIntent.AlignmentClicked(alignment.id))
             advanceUntilIdle()
-            viewModel.onAlignmentClick(alignment)
+            viewModel.dispatch(AlignmentsIntent.AlignmentClicked(alignment.id))
             advanceUntilIdle()
             job.cancel()
 

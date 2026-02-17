@@ -76,7 +76,7 @@ class ConditionsViewModelTest {
         }
 
     @Test
-    fun `onConditionClick should toggle selected item when same condition clicked`() =
+    fun `dispatch should toggle selected item when same condition id clicked`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val condition = Condition(
@@ -97,10 +97,10 @@ class ConditionsViewModelTest {
             }
             advanceUntilIdle()
 
-            viewModel.onConditionClick(condition)
+            viewModel.dispatch(ConditionsIntent.ConditionClicked(condition.id))
             advanceUntilIdle()
 
-            viewModel.onConditionClick(condition)
+            viewModel.dispatch(ConditionsIntent.ConditionClicked(condition.id))
             advanceUntilIdle()
             job.join()
 

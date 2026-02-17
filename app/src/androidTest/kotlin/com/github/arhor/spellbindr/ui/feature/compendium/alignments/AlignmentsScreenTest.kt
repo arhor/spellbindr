@@ -54,7 +54,7 @@ class AlignmentsScreenTest {
     }
 
     @Test
-    fun `click should call onAlignmentClick when alignment tile tapped`() {
+    fun `click should dispatch intent when alignment tile tapped`() {
         // Given
         val alignment = Alignment(
             id = "lg",
@@ -62,7 +62,7 @@ class AlignmentsScreenTest {
             desc = "Acts with compassion, honor, and duty.",
             abbr = "LG",
         )
-        var clickedAlignment: Alignment? = null
+        var capturedIntent: AlignmentsIntent? = null
         val state = AlignmentsUiState.Content(alignments = listOf(alignment))
 
         // When
@@ -70,7 +70,7 @@ class AlignmentsScreenTest {
             AppTheme {
                 AlignmentsScreen(
                     uiState = state,
-                    onAlignmentClick = { clickedAlignment = it },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
@@ -80,7 +80,7 @@ class AlignmentsScreenTest {
         composeTestRule.onNodeWithText("Lawful Good").assertIsDisplayed()
         composeTestRule.onNodeWithText("Acts with compassion, honor, and duty.").assertIsDisplayed()
         composeTestRule.runOnIdle {
-            assertThat(clickedAlignment).isEqualTo(alignment)
+            assertThat(capturedIntent).isEqualTo(AlignmentsIntent.AlignmentClicked(alignment.id))
         }
     }
 }

@@ -1,7 +1,10 @@
 package com.github.arhor.spellbindr.ui.feature.settings
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
@@ -13,6 +16,15 @@ fun SettingsRoute(
     vm: SettingsViewModel = hiltViewModel(),
 ) {
     val state by vm.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(vm) {
+        vm.effects.collect { effect ->
+            when (effect) {
+                is SettingsEffect.ShowMessage -> snackbarHostState.showSnackbar(effect.message)
+            }
+        }
+    }
 
     ProvideTopBarState(
         topBarState = TopBarState(
@@ -23,7 +35,8 @@ fun SettingsRoute(
     ) {
         SettingsScreen(
             state = state,
-            onThemeModeSelected = vm::setThemeMode,
+            dispatch = vm::dispatch,
+            snackbarHostState = snackbarHostState,
         )
     }
 }

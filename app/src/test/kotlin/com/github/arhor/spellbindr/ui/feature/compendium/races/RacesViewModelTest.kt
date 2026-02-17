@@ -113,7 +113,7 @@ class RacesViewModelTest {
         }
 
     @Test
-    fun `onRaceClick should select race when new race tapped`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `dispatch should select race when new race id tapped`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val trait = Trait(
             id = "keen_senses",
@@ -134,7 +134,7 @@ class RacesViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onRaceClick(race)
+        viewModel.dispatch(RacesIntent.RaceClicked(race.id))
         advanceUntilIdle()
 
         // Then
@@ -145,7 +145,7 @@ class RacesViewModelTest {
     }
 
     @Test
-    fun `onRaceClick should clear selection when same race tapped again`() = runTest(mainDispatcherRule.dispatcher) {
+    fun `dispatch should clear selection when same race id tapped again`() = runTest(mainDispatcherRule.dispatcher) {
         // Given
         val trait = Trait(
             id = "darkvision",
@@ -166,10 +166,10 @@ class RacesViewModelTest {
         advanceUntilIdle()
 
         // When
-        viewModel.onRaceClick(race)
+        viewModel.dispatch(RacesIntent.RaceClicked(race.id))
         advanceUntilIdle()
         viewModel.uiState.first { it is RacesUiState.Content && it.selectedItemId == race.id }
-        viewModel.onRaceClick(race)
+        viewModel.dispatch(RacesIntent.RaceClicked(race.id))
         advanceUntilIdle()
 
         // Then

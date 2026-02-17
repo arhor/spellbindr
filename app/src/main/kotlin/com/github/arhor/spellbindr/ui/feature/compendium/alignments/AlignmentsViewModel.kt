@@ -3,7 +3,6 @@ package com.github.arhor.spellbindr.ui.feature.compendium.alignments
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.arhor.spellbindr.domain.model.Alignment
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllAlignmentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,10 +45,16 @@ class AlignmentsViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AlignmentsUiState.Loading)
 
-    fun onAlignmentClick(alignment: Alignment) {
+    fun dispatch(intent: AlignmentsIntent) {
+        when (intent) {
+            is AlignmentsIntent.AlignmentClicked -> toggleSelection(intent.alignmentId)
+        }
+    }
+
+    private fun toggleSelection(alignmentId: String) {
         _state.update { state ->
             state.copy(
-                selectedItemId = alignment.id.takeIf { it != state.selectedItemId }
+                selectedItemId = alignmentId.takeIf { it != state.selectedItemId }
             )
         }
     }

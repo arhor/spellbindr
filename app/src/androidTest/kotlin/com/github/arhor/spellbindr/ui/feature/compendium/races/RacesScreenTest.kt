@@ -95,7 +95,7 @@ class RacesScreenTest {
     }
 
     @Test
-    fun `click should call onRaceClick when race item tapped`() {
+    fun `click should dispatch intent when race item tapped`() {
         // Given
         val trait = Trait(
             id = "keen_senses",
@@ -112,20 +112,20 @@ class RacesScreenTest {
             races = listOf(race),
             traits = mapOf(trait.id to trait),
         )
-        var clickedRace: Race? = null
+        var capturedIntent: RacesIntent? = null
 
         // When
         composeTestRule.setContent {
             AppTheme {
                 RacesScreen(
                     uiState = state,
-                    onRaceClick = { clickedRace = it },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
         composeTestRule.onNodeWithText("Elf").performClick()
 
         // Then
-        assertThat(clickedRace).isEqualTo(race)
+        assertThat(capturedIntent).isEqualTo(RacesIntent.RaceClicked(race.id))
     }
 }

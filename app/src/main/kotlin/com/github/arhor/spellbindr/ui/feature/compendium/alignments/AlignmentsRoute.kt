@@ -26,7 +26,7 @@ fun AlignmentsRoute(
     ) {
         AlignmentsScreen(
             uiState = state,
-            onAlignmentClick = vm::onAlignmentClick,
+            dispatch = vm::dispatch,
         )
     }
 }

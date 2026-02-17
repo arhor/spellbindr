@@ -21,19 +21,19 @@ import com.github.arhor.spellbindr.utils.scrollToItemIfNeeded
 @Composable
 internal fun ConditionsScreen(
     uiState: ConditionsUiState,
-    onConditionClick: (Condition) -> Unit = {},
+    dispatch: ConditionsDispatch = {},
 ) {
     when (uiState) {
         is ConditionsUiState.Loading -> LoadingIndicator()
         is ConditionsUiState.Failure -> ErrorMessage(uiState.errorMessage)
-        is ConditionsUiState.Content -> ConditionsContent(uiState, onConditionClick)
+        is ConditionsUiState.Content -> ConditionsContent(uiState, dispatch)
     }
 }
 
 @Composable
 fun ConditionsContent(
     uiState: ConditionsUiState.Content,
-    onConditionClick: (Condition) -> Unit,
+    dispatch: ConditionsDispatch,
 ) {
     val listState = rememberLazyListState()
 
@@ -56,7 +56,7 @@ fun ConditionsContent(
             ConditionListItem(
                 condition = condition,
                 isExpanded = condition.id == uiState.selectedItemId,
-                onItemClick = { onConditionClick(condition) },
+                onItemClick = { dispatch(ConditionsIntent.ConditionClicked(condition.id)) },
             )
         }
     }

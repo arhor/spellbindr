@@ -84,14 +84,14 @@ class ConditionsScreenTest {
     }
 
     @Test
-    fun `click should call onConditionClick when condition item tapped`() {
+    fun `click should dispatch intent when condition item tapped`() {
         // Given
         val condition = Condition(
             id = "blinded",
             displayName = "Blinded",
             description = listOf("Cannot see"),
         )
-        var clickedCondition: Condition? = null
+        var capturedIntent: ConditionsIntent? = null
         val state = ConditionsUiState.Content(
             conditions = listOf(condition),
         )
@@ -101,13 +101,13 @@ class ConditionsScreenTest {
             AppTheme {
                 ConditionsScreen(
                     uiState = state,
-                    onConditionClick = { clickedCondition = it },
+                    dispatch = { intent -> capturedIntent = intent },
                 )
             }
         }
         composeTestRule.onNodeWithText("Blinded").performClick()
 
         // Then
-        assertThat(clickedCondition).isEqualTo(condition)
+        assertThat(capturedIntent).isEqualTo(ConditionsIntent.ConditionClicked(condition.id))
     }
 }

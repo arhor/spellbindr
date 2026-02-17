@@ -4,7 +4,6 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Loadable
-import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllTraitsUseCase
@@ -58,10 +57,16 @@ class RacesViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), RacesUiState.Loading)
 
-    fun onRaceClick(race: Race) {
+    fun dispatch(intent: RacesIntent) {
+        when (intent) {
+            is RacesIntent.RaceClicked -> toggleSelection(intent.raceId)
+        }
+    }
+
+    private fun toggleSelection(raceId: String) {
         _state.update { state ->
             state.copy(
-                selectedItemId = race.id.takeIf { it != state.selectedItemId }
+                selectedItemId = raceId.takeIf { it != state.selectedItemId }
             )
         }
     }
