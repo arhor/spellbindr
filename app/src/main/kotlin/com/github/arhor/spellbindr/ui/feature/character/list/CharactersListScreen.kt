@@ -71,15 +71,13 @@ private fun CharactersListContent(
                 items(items = state.characters, key = { it.id }) { character ->
                     CharacterCard(
                         item = character,
-                        onClick = { dispatch(CharactersListIntent.CharacterSelected(character)) },
+                        onClick = { dispatch(CharactersListIntent.SelectCharacterClicked(character)) },
                     )
                 }
             }
         }
         CreateCharacterDialog(
-            onCreateCharacter = {
-                dispatch(CharactersListIntent.CreateCharacterSelected(it))
-            },
+            onCreateCharacter = { dispatch(CharactersListIntent.CreateCharacterClicked(it)) },
         )
     }
 }

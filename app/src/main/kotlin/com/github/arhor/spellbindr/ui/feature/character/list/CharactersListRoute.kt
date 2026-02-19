@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.character.list
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
@@ -8,6 +9,7 @@ import com.github.arhor.spellbindr.ui.components.ProvideTopBarState
 import com.github.arhor.spellbindr.ui.components.TopBarState
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CreateCharacterMode
+import kotlinx.coroutines.flow.collectLatest
 
 /**
  * Stateful entry point for the Characters List screen.
@@ -22,6 +24,15 @@ fun CharactersListRoute(
 ) {
     val state by vm.uiState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(vm.effects) {
+        vm.effects.collectLatest {
+            when (it) {
+                is CharactersListEffect.CharacterSelected -> onCharacterSelected(it.character)
+                is CharactersListEffect.CreateCharacterSelected -> onCreateCharacter(it.mode)
+            }
+        }
+    }
+
     ProvideTopBarState(
         topBarState = TopBarState(
             config = AppTopBarConfig(
@@ -31,12 +42,7 @@ fun CharactersListRoute(
     ) {
         CharactersListScreen(
             state = state,
-            dispatch = { intent ->
-                when (intent) {
-                    is CharactersListIntent.CharacterSelected -> onCharacterSelected(intent.character)
-                    is CharactersListIntent.CreateCharacterSelected -> onCreateCharacter(intent.mode)
-                }
-            },
+            dispatch = vm::dispatch,
         )
     }
 }

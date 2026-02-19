@@ -10,12 +10,12 @@ sealed interface CharactersListIntent {
     /**
      * Intent emitted when a character card is selected.
      */
-    data class CharacterSelected(val character: CharacterListItem) : CharactersListIntent
+    data class SelectCharacterClicked(val character: CharacterListItem) : CharactersListIntent
 
     /**
      * Intent emitted when a create character mode is chosen.
      */
-    data class CreateCharacterSelected(val mode: CreateCharacterMode) : CharactersListIntent
+    data class CreateCharacterClicked(val mode: CreateCharacterMode) : CharactersListIntent
 }
 
 /**
