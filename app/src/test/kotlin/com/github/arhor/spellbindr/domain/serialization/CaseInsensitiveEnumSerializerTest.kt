@@ -1,6 +1,5 @@
-package com.github.arhor.spellbindr.utils
+package com.github.arhor.spellbindr.domain.serialization
 
-import com.github.arhor.spellbindr.data.serialization.CaseInsensitiveEnumSerializer
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertThrows

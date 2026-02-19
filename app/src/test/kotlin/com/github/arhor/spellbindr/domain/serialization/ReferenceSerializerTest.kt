@@ -1,6 +1,5 @@
-package com.github.arhor.spellbindr.utils
+package com.github.arhor.spellbindr.domain.serialization
 
-import com.github.arhor.spellbindr.data.serialization.EntityRefSerializer
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
