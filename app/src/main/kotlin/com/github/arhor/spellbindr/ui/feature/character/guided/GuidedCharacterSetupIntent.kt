@@ -1,6 +1,8 @@
 package com.github.arhor.spellbindr.ui.feature.character.guided
 
 import com.github.arhor.spellbindr.domain.model.AbilityId
+import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
+import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedStep
 
 /**
  * Represents user intents for the Guided Character Setup screen.
