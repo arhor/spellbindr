@@ -39,7 +39,7 @@ import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
-internal fun SpellDetailScreen(
+internal fun SpellDetailsScreen(
     uiState: SpellDetailsUiState,
     dispatch: SpellDetailsDispatch = {},
 ) {
@@ -213,7 +213,7 @@ private fun TableRow(
 @PreviewLightDark
 private fun SpellDetailsPreview() {
     AppTheme {
-        SpellDetailScreen(
+        SpellDetailsScreen(
             uiState = SpellDetailsUiState.Content(
                 spell = Spell(
                     id = "arcane_blast",

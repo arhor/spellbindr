@@ -46,7 +46,7 @@ fun SpellDetailsRoute(
             ),
         ),
     ) {
-        SpellDetailScreen(
+        SpellDetailsScreen(
             uiState = state,
             dispatch = vm::dispatch,
         )
