@@ -28,18 +28,18 @@ internal fun validateGuidedSetupContent(
 ): GuidedValidationResult {
     val issues = mutableListOf<GuidedValidationIssue>()
 
-    if (content.selection.classId == null) issues plusAssign validationError("Choose a class.")
-    if (content.selection.raceId == null) issues plusAssign validationError("Choose a race.")
-    if (content.selection.backgroundId == null) issues plusAssign validationError("Choose a background.")
+    if (content.selection.classId == null) issues += validationError("Choose a class.")
+    if (content.selection.raceId == null) issues += validationError("Choose a race.")
+    if (content.selection.backgroundId == null) issues += validationError("Choose a background.")
 
     when (content.selection.abilityMethod) {
-        null -> issues plusAssign validationError("Choose an ability score method.")
+        null -> issues += validationError("Choose an ability score method.")
         AbilityScoreMethod.STANDARD_ARRAY -> if (!guidedIsStandardArrayValid(content.selection.standardArrayAssignments)) {
-            issues plusAssign validationError("Assign all ability scores using the standard array (15, 14, 13, 12, 10, 8).")
+            issues += validationError("Assign all ability scores using the standard array (15, 14, 13, 12, 10, 8).")
         }
 
         AbilityScoreMethod.POINT_BUY -> if (guidedPointBuyTotalCost(content.selection.pointBuyScores) > pointBuyBudget) {
-            issues plusAssign validationError("Point buy exceeds 27 points.")
+            issues += validationError("Point buy exceeds 27 points.")
         }
     }
 
@@ -49,7 +49,7 @@ internal fun validateGuidedSetupContent(
         val selected =
             content.selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()].orEmpty()
         if (selected.size != bgLangChoice.choose) {
-            issues plusAssign validationError("Select ${bgLangChoice.choose} background language(s).")
+            issues += validationError("Select ${bgLangChoice.choose} background language(s).")
         }
     }
 
@@ -58,7 +58,7 @@ internal fun validateGuidedSetupContent(
         val selected =
             content.selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()].orEmpty()
         if (selected.size != bgEquipChoice.choose) {
-            issues plusAssign validationError("Select ${bgEquipChoice.choose} background equipment item(s).")
+            issues += validationError("Select ${bgEquipChoice.choose} background equipment item(s).")
         }
     }
 
@@ -77,7 +77,7 @@ internal fun validateGuidedSetupContent(
                     GuidedCharacterSetupViewModel.raceTraitAbilityBonusChoiceKey(trait.id)
                 ].orEmpty()
                 if (selected.size != choice.choose) {
-                    issues plusAssign validationError("Select ${choice.choose} race ability bonus option(s).")
+                    issues += validationError("Select ${choice.choose} race ability bonus option(s).")
                 }
             }
             trait.languageChoice?.let { choice ->
@@ -87,7 +87,7 @@ internal fun validateGuidedSetupContent(
                     )]
                         .orEmpty()
                 if (selected.size != choice.choose) {
-                    issues plusAssign validationError("Select ${choice.choose} race language option(s).")
+                    issues += validationError("Select ${choice.choose} race language option(s).")
                 }
             }
             trait.proficiencyChoice?.let { choice ->
@@ -95,7 +95,7 @@ internal fun validateGuidedSetupContent(
                     GuidedCharacterSetupViewModel.raceTraitProficiencyChoiceKey(trait.id)
                 ].orEmpty()
                 if (selected.size != choice.choose) {
-                    issues plusAssign validationError("Select ${choice.choose} race proficiency option(s).")
+                    issues += validationError("Select ${choice.choose} race proficiency option(s).")
                 }
             }
             trait.draconicAncestryChoice?.let { choice ->
@@ -103,7 +103,7 @@ internal fun validateGuidedSetupContent(
                     GuidedCharacterSetupViewModel.raceTraitDraconicAncestryChoiceKey(trait.id)
                 ].orEmpty()
                 if (selected.size != choice.choose) {
-                    issues plusAssign validationError("Select ${choice.choose} option(s) for ${trait.name}.")
+                    issues += validationError("Select ${choice.choose} option(s) for ${trait.name}.")
                 }
             }
             trait.spellChoice?.let { choice ->
@@ -112,7 +112,7 @@ internal fun validateGuidedSetupContent(
                         trait.id
                     )].orEmpty()
                 if (selected.size != choice.choose) {
-                    issues plusAssign validationError("Select ${choice.choose} spell option(s) for ${trait.name}.")
+                    issues += validationError("Select ${choice.choose} spell option(s) for ${trait.name}.")
                 }
             }
         }
@@ -121,7 +121,7 @@ internal fun validateGuidedSetupContent(
     val clazz = content.selection.classId?.let { id -> content.classes.firstOrNull { it.id == id } }
     if (clazz != null) {
         if (clazz.requiresLevelOneSubclassAtLevelOne() && content.selection.subclassId == null) {
-            issues plusAssign validationError("Choose a subclass.")
+            issues += validationError("Choose a subclass.")
         }
 
         clazz.proficiencyChoices.forEachIndexed { index, choice ->
@@ -131,7 +131,7 @@ internal fun validateGuidedSetupContent(
                 )]
                     .orEmpty()
             if (selected.size != choice.choose) {
-                issues plusAssign validationError("Select ${choice.choose} class proficiency option(s).")
+                issues += validationError("Select ${choice.choose} class proficiency option(s).")
             }
         }
 
@@ -139,7 +139,7 @@ internal fun validateGuidedSetupContent(
             val selected =
                 content.selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(featureId)].orEmpty()
             if (selected.size != choice.choose) {
-                issues plusAssign validationError(
+                issues += validationError(
                     "Select ${choice.choose} option(s) for ${content.featuresById[featureId]?.name ?: featureId}.",
                 )
             }
@@ -149,18 +149,18 @@ internal fun validateGuidedSetupContent(
             val selectedCantrips =
                 content.selection.choiceSelections[GuidedCharacterSetupViewModel.spellCantripsChoiceKey()].orEmpty()
             if (req.cantrips > 0 && selectedCantrips.size != req.cantrips) {
-                issues plusAssign validationError("Select ${req.cantrips} cantrip(s).")
+                issues += validationError("Select ${req.cantrips} cantrip(s).")
             }
             val selectedSpells =
                 content.selection.choiceSelections[GuidedCharacterSetupViewModel.spellLevel1ChoiceKey()].orEmpty()
             if (req.level1Spells > 0 && selectedSpells.size != req.level1Spells) {
-                issues plusAssign validationError("Select ${req.level1Spells} ${req.level1Label}.")
+                issues += validationError("Select ${req.level1Spells} ${req.level1Label}.")
             }
         }
     }
 
     if (content.name.isBlank()) {
-        issues plusAssign validationWarning("Name is empty (you can set it later).")
+        issues += validationWarning("Name is empty (you can set it later).")
     }
 
     return GuidedValidationResult(issues = issues)

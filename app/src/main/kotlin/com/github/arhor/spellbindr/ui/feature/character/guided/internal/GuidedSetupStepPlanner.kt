@@ -23,7 +23,7 @@ internal fun computeGuidedSetupSteps(
         requiresSubclass || level1FeatureChoiceCount > 0
     } == true
 
-    if (classChoicesNeeded) steps plusAssign GuidedStep.CLASS_CHOICES
+    if (classChoicesNeeded) steps += GuidedStep.CLASS_CHOICES
 
     steps += listOf(
         GuidedStep.RACE,
@@ -35,9 +35,9 @@ internal fun computeGuidedSetupSteps(
     )
 
     val spellsStepNeeded = selectedClass?.spellcasting?.level == 1
-    if (spellsStepNeeded) steps plusAssign GuidedStep.SPELLS
+    if (spellsStepNeeded) steps += GuidedStep.SPELLS
 
-    steps plusAssign GuidedStep.REVIEW
+    steps += GuidedStep.REVIEW
 
     return steps
 }
