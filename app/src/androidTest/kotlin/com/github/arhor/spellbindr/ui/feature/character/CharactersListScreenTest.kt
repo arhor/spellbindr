@@ -81,7 +81,7 @@ class CharactersListScreenTest {
 
         // Then
         composeTestRule.runOnIdle {
-            assertThat(capturedIntent).isEqualTo(CharactersListIntent.CharacterSelected(character))
+            assertThat(capturedIntent).isEqualTo(CharactersListIntent.SelectCharacterClicked(character))
         }
     }
 }

@@ -26,6 +26,11 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllTraitsUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultPointBuyScores
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultStandardArrayAssignments
+import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
+import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedCharacterPreview
+import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedStep
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
