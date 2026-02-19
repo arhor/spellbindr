@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.architecture
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import java.nio.file.Files
+import java.nio.file.LinkOption
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.text.Charsets.UTF_8
@@ -17,60 +18,9 @@ class FeatureEntryDispatchContractTest {
     @Test
     fun `feature entry screens should expose dispatch and not expose feature onX callbacks`() {
         val projectRoot = resolveProjectRoot()
-        val entryScreens = listOf(
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/settings/SettingsScreen.kt",
-                functionName = "SettingsScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/compendium/alignments/AlignmentsScreen.kt",
-                functionName = "AlignmentsScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/compendium/conditions/ConditionsScreen.kt",
-                functionName = "ConditionsScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/compendium/races/RacesScreen.kt",
-                functionName = "RacesScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/compendium/spells/SpellsScreen.kt",
-                functionName = "SpellsScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/compendium/spelldetails/SpellDetailsScreen.kt",
-                functionName = "SpellDetailScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/compendium/CompendiumScreen.kt",
-                functionName = "CompendiumScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/dice/DiceRollerScreen.kt",
-                functionName = "DiceRollerScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/list/CharactersListScreen.kt",
-                functionName = "CharactersListScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/spellpicker/CharacterSpellPickerScreen.kt",
-                functionName = "CharacterSpellPickerScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/editor/CharacterEditorScreen.kt",
-                functionName = "CharacterEditorScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/guided/GuidedCharacterSetupScreen.kt",
-                functionName = "GuidedCharacterSetupScreen",
-            ),
-            FeatureEntryScreen(
-                path = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/sheet/CharacterSheetScreen.kt",
-                functionName = "CharacterSheetScreen",
-            ),
-        )
+        val entryScreens = findEntryScreens(projectRoot)
+
+        assertThat(entryScreens).isNotEmpty()
 
         entryScreens.forEach { screen ->
             val filePath = projectRoot.resolve(screen.path)
@@ -91,6 +41,30 @@ class FeatureEntryDispatchContractTest {
         }
     }
 
+    private fun findEntryScreens(projectRoot: Path): List<FeatureEntryScreen> {
+        val featureRoot = projectRoot.resolve(FEATURE_ROOT)
+        if (!Files.exists(featureRoot, LinkOption.NOFOLLOW_LINKS)) return emptyList()
+
+        return Files.walk(featureRoot)
+            .use { paths ->
+                paths
+                    .filter { Files.isRegularFile(it) }
+                    .map(featureRoot::relativize)
+                    .map { it.toString().replace('\\', '/') }
+                    .filter { it.endsWith("Screen.kt") }
+                    .filter { !it.contains("/components/") }
+                    .map { relativePath ->
+                        FeatureEntryScreen(
+                            path = "$FEATURE_ROOT/$relativePath",
+                            functionName = relativePath.substringAfterLast('/').removeSuffix(".kt"),
+                        )
+                    }
+                    .filter { it.path !in IGNORED_SCREEN_PATHS }
+                    .sorted(compareBy(FeatureEntryScreen::path))
+                    .toList()
+            }
+    }
+
     private fun resolveProjectRoot(): Path {
         var current = Paths.get(System.getProperty("user.dir")).toAbsolutePath()
         while (true) {
@@ -100,5 +74,10 @@ class FeatureEntryDispatchContractTest {
             val parent = current.parent ?: return current
             current = parent
         }
+    }
+
+    companion object {
+        private const val FEATURE_ROOT = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature"
+        private val IGNORED_SCREEN_PATHS: Set<String> = emptySet()
     }
 }

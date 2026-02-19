@@ -12,28 +12,6 @@ import org.junit.runner.RunWith
 @RunWith(ArchUnitRunner::class)
 @AnalyzeClasses(packagesOf = [SpellbindrApplication::class], importOptions = [DoNotIncludeTests::class])
 class ArchitectureRulesTest {
-//
-//    @ArchTest
-//    fun `should check that correct layered architecture is observed`(
-//        // Given
-//        appClasses: JavaClasses,
-//    ) {
-//        // When
-//        val archRule =
-//            layeredArchitecture()
-//                .consideringOnlyDependenciesInLayers()
-//                .layer(DI).definedBy("..di..")
-//                .layer(UI).definedBy("..ui..")
-//                .layer(DATA).definedBy("..data..")
-//                .layer(DOMAIN).definedBy("..domain..")
-//                .whereLayer(DI).mayNotBeAccessedByAnyLayer()
-//                .whereLayer(UI).mayOnlyBeAccessedByLayers(DI)
-//                .whereLayer(DATA).mayOnlyBeAccessedByLayers(DI)
-//                .whereLayer(DOMAIN).mayOnlyBeAccessedByLayers(UI, DI, DATA)
-//
-//        // Then
-//        archRule.check(appClasses)
-//    }
 
     @ArchTest
     fun `should check that feature UI don't depend on data implementations`(
@@ -110,31 +88,9 @@ class ArchitectureRulesTest {
                 "..domain..",
             )
             .should().dependOnClassesThat().resideInAnyPackage(
-                "..data.local..",
-                "..data.mapper..",
-                "..data.repository..",
+                "..data..",
             )
             .because("Domain layer should not depend on data implementations.")
-
-        // Then
-        archRule.check(appClasses)
-    }
-
-    @ArchTest
-    fun `should check that domain layer doesn't depend on data models or assets`(
-        // Given
-        appClasses: JavaClasses,
-    ) {
-        // When
-        val archRule = noClasses()
-            .that().resideInAnyPackage(
-                "..domain..",
-            )
-            .should().dependOnClassesThat().resideInAnyPackage(
-                "..data.model..",
-                "..data.local.assets..",
-            )
-            .because("Domain models should not rely on data serialization models or asset loaders.")
 
         // Then
         archRule.check(appClasses)
@@ -152,7 +108,8 @@ class ArchitectureRulesTest {
                 "..data..",
                 "..di..",
             )
-            .should().dependOnClassesThat().resideInAnyPackage(
+            .should().accessClassesThat().resideInAnyPackage(
+                "androidx.compose.runtime..",
                 "androidx.compose.animation..",
                 "androidx.compose.foundation..",
                 "androidx.compose.material..",
@@ -163,14 +120,5 @@ class ArchitectureRulesTest {
 
         // Then
         archRule.check(appClasses)
-    }
-
-    companion object {
-        // @formatter:off
-        private const val DI     = "DI"
-        private const val UI     = "UI"
-        private const val DATA   = "Data"
-        private const val DOMAIN = "Domain"
-        // @formatter:on
     }
 }
