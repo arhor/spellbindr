@@ -7,9 +7,12 @@ import com.github.arhor.spellbindr.domain.model.SearchAndGroupSpellsResult
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.usecase.internal.matchesFilters
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SearchAndGroupSpellsUseCase @Inject constructor(
     private val spellsRepository: SpellsRepository,
     private val favoritesRepository: FavoritesRepository,
@@ -21,7 +24,6 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
         allSpells: List<Spell>? = null,
         favoriteSpellIds: Set<String>? = null,
     ): SearchAndGroupSpellsResult {
-        val normalizedQuery = query.trim()
         val resolvedSpells = allSpells ?: when (
             val spellsState = spellsRepository.allSpellsState.first { it !is Loadable.Loading }
         ) {
@@ -38,27 +40,16 @@ class SearchAndGroupSpellsUseCase @Inject constructor(
             emptySet()
         }
         val filteredSpells = resolvedSpells.filter { spell ->
-            spell.matches(normalizedQuery, classes, favoriteOnly, favoriteIds)
+            val favoritesFilter = if (favoriteOnly) favoriteIds else emptySet()
+            spell.matchesFilters(query = query, classes = classes, favoriteSpellIds = favoritesFilter)
         }
 
         return SearchAndGroupSpellsResult(
             spells = filteredSpells,
             totalCount = filteredSpells.size,
-            query = normalizedQuery,
+            query = query.trim(),
             classes = classes,
             favoriteOnly = favoriteOnly,
         )
-    }
-
-    private fun Spell.matches(
-        query: String,
-        classes: List<EntityRef>,
-        favoriteOnly: Boolean,
-        favoriteIds: Set<String>,
-    ): Boolean {
-        val matchesQuery = query.isBlank() || name.contains(query, ignoreCase = true)
-        val matchesClasses = classes.isEmpty() || classes.all { this.classes.contains(it) }
-        val matchesFavorite = !favoriteOnly || id in favoriteIds
-        return matchesQuery && matchesClasses && matchesFavorite
     }
 }

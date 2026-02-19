@@ -7,6 +7,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.mapContent
 import com.github.arhor.spellbindr.domain.repository.FavoritesRepository
 import com.github.arhor.spellbindr.domain.repository.SpellsRepository
+import com.github.arhor.spellbindr.domain.usecase.internal.matchesFilters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -54,31 +55,11 @@ class ObserveSpellsUseCase @Inject constructor(
             spells to favoriteSpellIds
         }.mapLatest { (spells, favoriteSpellIds) ->
             spells.mapContent { data ->
-                val normalizedQuery = query.trim()
                 val favoritesFilter = if (getFavoritesOnly) favoriteSpellIds else emptySet()
 
-                data.filter { it.matches(normalizedQuery, characterClasses, favoritesFilter) }
+                data.filter { it.matchesFilters(query, characterClasses, favoritesFilter) }
             }
         }.flowOn(Dispatchers.Default)
             .catch { emit(Loadable.Failure(errorMessage = "Failed to load spells", cause = it)) }
     }
-
-    private fun Spell.matches(
-        queryFilter: String,
-        classesFilter: Set<EntityRef>,
-        favoritesFilter: Set<String>,
-    ): Boolean {
-        return id matchesFavoritesFilter favoritesFilter
-            && name matchesQueryFilter queryFilter
-            && classes matchesClassesFilter classesFilter
-    }
-
-    private infix fun String.matchesQueryFilter(query: String): Boolean =
-        query.isEmpty() || this.contains(query, ignoreCase = true)
-
-    private infix fun List<EntityRef>.matchesClassesFilter(characterClasses: Set<EntityRef>): Boolean =
-        characterClasses.isEmpty() || characterClasses.any { it in this }
-
-    private infix fun String.matchesFavoritesFilter(favoriteSpellIds: Set<String>): Boolean =
-        favoriteSpellIds.isEmpty() || this in favoriteSpellIds
 }

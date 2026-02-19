@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.serialization.EntityRefSerializer
+import com.github.arhor.spellbindr.domain.serialization.EntityRefSerializer
 import com.github.arhor.spellbindr.utils.toTitleCase
 import kotlinx.serialization.Serializable
 

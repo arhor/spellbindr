@@ -1,22 +1,23 @@
 package com.github.arhor.spellbindr.domain.usecase
 
-import com.github.arhor.spellbindr.domain.model.AbilityId
-import com.github.arhor.spellbindr.domain.model.AbilityIds
-import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterEditorInput
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
-import com.github.arhor.spellbindr.domain.model.SavingThrowInput
 import com.github.arhor.spellbindr.domain.model.SkillEntry
-import com.github.arhor.spellbindr.domain.model.SkillProficiencyInput
+import com.github.arhor.spellbindr.domain.usecase.internal.proficiencyBonusFor
+import com.github.arhor.spellbindr.domain.usecase.internal.resolveAbilityScores
+import com.github.arhor.spellbindr.domain.usecase.internal.resolveProficiency
 import java.util.UUID
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class BuildCharacterSheetFromInputsUseCase @Inject constructor() {
+
     operator fun invoke(input: CharacterEditorInput, base: CharacterSheet?): CharacterSheet {
         val ensuredId = input.characterId ?: base?.id ?: UUID.randomUUID().toString()
-        val abilityScores = input.toAbilityScores()
-        val proficiencyValue = input.proficiencyBonus.toIntOrNull() ?: 2
+        val abilityScores = input.resolveAbilityScores()
+        val proficiencyValue = input.resolveProficiency(defaultValue = 2)
         val baseline = base ?: CharacterSheet(id = ensuredId)
 
         return baseline.copy(
@@ -41,14 +42,16 @@ class BuildCharacterSheetFromInputsUseCase @Inject constructor() {
             savingThrows = input.savingThrows.map { entry ->
                 SavingThrowEntry(
                     abilityId = entry.abilityId,
-                    bonus = abilityScores.modifierFor(entry.abilityId) + entry.proficiencyBonus(proficiencyValue),
+                    bonus = abilityScores.modifierFor(entry.abilityId) + entry.proficiencyBonusFor(proficiencyValue),
                     proficient = entry.proficient,
                 )
             },
             skills = input.skills.map { entry ->
                 SkillEntry(
                     skill = entry.skill,
-                    bonus = abilityScores.modifierFor(entry.skill.abilityId) + entry.proficiencyBonus(proficiencyValue),
+                    bonus = abilityScores.modifierFor(entry.skill.abilityId) + entry.proficiencyBonusFor(
+                        proficiencyValue
+                    ),
                     proficient = entry.proficient,
                     expertise = entry.expertise,
                 )
@@ -66,25 +69,4 @@ class BuildCharacterSheetFromInputsUseCase @Inject constructor() {
             notes = input.notes,
         )
     }
-}
-
-private fun CharacterEditorInput.toAbilityScores(): AbilityScores = AbilityScores(
-    strength = abilityScoreFor(AbilityIds.STR),
-    dexterity = abilityScoreFor(AbilityIds.DEX),
-    constitution = abilityScoreFor(AbilityIds.CON),
-    intelligence = abilityScoreFor(AbilityIds.INT),
-    wisdom = abilityScoreFor(AbilityIds.WIS),
-    charisma = abilityScoreFor(AbilityIds.CHA),
-)
-
-private fun CharacterEditorInput.abilityScoreFor(abilityId: AbilityId): Int =
-    abilities.firstOrNull { it.abilityId == abilityId }?.score?.toIntOrNull() ?: 10
-
-private fun SavingThrowInput.proficiencyBonus(proficiencyValue: Int): Int =
-    if (proficient) proficiencyValue else 0
-
-private fun SkillProficiencyInput.proficiencyBonus(proficiencyValue: Int): Int = when {
-    expertise -> proficiencyValue * 2
-    proficient -> proficiencyValue
-    else -> 0
 }

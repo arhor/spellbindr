@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.domain.model
 
-import com.github.arhor.spellbindr.data.serialization.CaseInsensitiveEnumSerializer
+import com.github.arhor.spellbindr.domain.serialization.CaseInsensitiveEnumSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 

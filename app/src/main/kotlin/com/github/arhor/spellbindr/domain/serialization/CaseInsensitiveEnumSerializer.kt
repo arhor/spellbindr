@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.serialization
+package com.github.arhor.spellbindr.domain.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
