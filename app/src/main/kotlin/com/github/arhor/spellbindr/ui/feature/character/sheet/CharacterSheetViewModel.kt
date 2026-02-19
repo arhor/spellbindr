@@ -68,8 +68,12 @@ class CharacterSheetViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val characterId: String? = savedStateHandle.get<String>("characterId")
-    private val _uiState = MutableStateFlow<CharacterSheetUiState>(
-        if (characterId == null) CharacterSheetUiState.Failure("Missing character id") else CharacterSheetUiState.Loading,
+    private val _uiState = MutableStateFlow(
+        if (characterId != null) {
+            CharacterSheetUiState.Loading
+        } else {
+            CharacterSheetUiState.Failure("Missing character id")
+        },
     )
     val uiState: StateFlow<CharacterSheetUiState> = _uiState
     private val _effects = MutableSharedFlow<CharacterSheetEffect>()
@@ -103,23 +107,23 @@ class CharacterSheetViewModel @Inject constructor(
     fun dispatch(intent: CharacterSheetIntent) {
         when (intent) {
             is CharacterSheetIntent.TabSelected -> selectTab(intent.tab)
-            CharacterSheetIntent.AddSpellsClicked -> Unit
+            is CharacterSheetIntent.AddSpellsClicked -> Unit
             is CharacterSheetIntent.SpellSelected -> Unit
             is CharacterSheetIntent.SpellRemoved -> removeSpell(intent.spellId, intent.sourceClass)
             is CharacterSheetIntent.CastSpellClicked -> startCasting(intent.spellId)
-            CharacterSheetIntent.LongRestClicked -> Unit
-            CharacterSheetIntent.ShortRestClicked -> Unit
-            CharacterSheetIntent.ConfigureSlotsClicked -> enterEditMode()
+            is CharacterSheetIntent.LongRestClicked -> Unit
+            is CharacterSheetIntent.ShortRestClicked -> Unit
+            is CharacterSheetIntent.ConfigureSlotsClicked -> enterEditMode()
             is CharacterSheetIntent.SpellSlotToggled -> toggleSpellSlot(intent.level, intent.slotIndex)
             is CharacterSheetIntent.SpellSlotTotalChanged -> setSpellSlotTotal(intent.level, intent.total)
             is CharacterSheetIntent.PactSlotToggled -> togglePactSlot(intent.slotIndex)
             is CharacterSheetIntent.PactSlotTotalChanged -> setPactSlotTotal(intent.total)
             is CharacterSheetIntent.PactSlotLevelChanged -> setPactSlotLevel(intent.level)
-            CharacterSheetIntent.ConcentrationCleared -> clearConcentration()
-            CharacterSheetIntent.AddWeaponClicked -> startNewWeapon()
+            is CharacterSheetIntent.ConcentrationCleared -> clearConcentration()
+            is CharacterSheetIntent.AddWeaponClicked -> startNewWeapon()
             is CharacterSheetIntent.WeaponSelected -> selectWeapon(intent.id)
             is CharacterSheetIntent.WeaponDeleted -> deleteWeapon(intent.id)
-            CharacterSheetIntent.WeaponEditorDismissed -> dismissWeaponEditor()
+            is CharacterSheetIntent.WeaponEditorDismissed -> dismissWeaponEditor()
             is CharacterSheetIntent.WeaponNameChanged -> setWeaponName(intent.value)
             is CharacterSheetIntent.WeaponAbilityChanged -> setWeaponAbility(intent.abilityId)
             is CharacterSheetIntent.WeaponUseAbilityForDamageChanged -> setWeaponUseAbilityForDamage(intent.value)
@@ -127,18 +131,18 @@ class CharacterSheetViewModel @Inject constructor(
             is CharacterSheetIntent.WeaponDiceCountChanged -> setWeaponDiceCount(intent.value)
             is CharacterSheetIntent.WeaponDieSizeChanged -> setWeaponDieSize(intent.value)
             is CharacterSheetIntent.WeaponDamageTypeChanged -> setWeaponDamageType(intent.value)
-            CharacterSheetIntent.WeaponSaved -> saveWeapon()
-            CharacterSheetIntent.WeaponCatalogOpened -> openWeaponCatalog()
-            CharacterSheetIntent.WeaponCatalogClosed -> closeWeaponCatalog()
+            is CharacterSheetIntent.WeaponSaved -> saveWeapon()
+            is CharacterSheetIntent.WeaponCatalogOpened -> openWeaponCatalog()
+            is CharacterSheetIntent.WeaponCatalogClosed -> closeWeaponCatalog()
             is CharacterSheetIntent.WeaponCatalogItemSelected -> selectWeaponFromCatalog(intent.id)
-            CharacterSheetIntent.EnterEditMode -> enterEditMode()
-            CharacterSheetIntent.CancelEditMode -> cancelEditMode()
-            CharacterSheetIntent.SaveEditsClicked -> saveInlineEdits()
-            CharacterSheetIntent.OpenFullEditorClicked -> Unit
-            CharacterSheetIntent.DeleteCharacterClicked -> deleteCharacter()
-            CharacterSheetIntent.LongRestConfirmed -> longRest()
-            CharacterSheetIntent.ShortRestConfirmed -> shortRest()
-            CharacterSheetIntent.CastSheetDismissed -> dismissCasting()
+            is CharacterSheetIntent.EnterEditMode -> enterEditMode()
+            is CharacterSheetIntent.CancelEditMode -> cancelEditMode()
+            is CharacterSheetIntent.SaveEditsClicked -> saveInlineEdits()
+            is CharacterSheetIntent.OpenFullEditorClicked -> Unit
+            is CharacterSheetIntent.DeleteCharacterClicked -> deleteCharacter()
+            is CharacterSheetIntent.LongRestConfirmed -> longRest()
+            is CharacterSheetIntent.ShortRestConfirmed -> shortRest()
+            is CharacterSheetIntent.CastSheetDismissed -> dismissCasting()
             is CharacterSheetIntent.CastConfirmed -> {
                 confirmCast(
                     pool = intent.pool,
@@ -181,60 +185,6 @@ class CharacterSheetViewModel @Inject constructor(
     fun adjustCurrentHp(delta: Int) {
         updateSheet { sheet ->
             updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.AdjustCurrentHp(delta))
-        }
-    }
-
-    fun setTemporaryHp(value: Int) {
-        updateSheet { sheet ->
-            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetTemporaryHp(value))
-        }
-    }
-
-    fun setMaxHp(value: String) {
-        updateEditingState { it.copy(maxHp = value.filterDigits()) }
-    }
-
-    fun setCurrentHp(value: String) {
-        updateEditingState { it.copy(currentHp = value.filterDigits()) }
-    }
-
-    fun setTempHp(value: String) {
-        updateEditingState { it.copy(tempHp = value.filterDigits()) }
-    }
-
-    fun setSpeed(value: String) {
-        updateEditingState { it.copy(speed = value) }
-    }
-
-    fun setHitDice(value: String) {
-        updateEditingState { it.copy(hitDice = value) }
-    }
-
-    fun setSenses(value: String) {
-        updateEditingState { it.copy(senses = value) }
-    }
-
-    fun setLanguages(value: String) {
-        updateEditingState { it.copy(languages = value) }
-    }
-
-    fun setProficiencies(value: String) {
-        updateEditingState { it.copy(proficiencies = value) }
-    }
-
-    fun setEquipment(value: String) {
-        updateEditingState { it.copy(equipment = value) }
-    }
-
-    fun setDeathSaveSuccesses(count: Int) {
-        updateSheet { sheet ->
-            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetDeathSaveSuccesses(count))
-        }
-    }
-
-    fun setDeathSaveFailures(count: Int) {
-        updateSheet { sheet ->
-            updateHitPointsUseCase(sheet, UpdateHitPointsUseCase.Action.SetDeathSaveFailures(count))
         }
     }
 
@@ -349,7 +299,7 @@ class CharacterSheetViewModel @Inject constructor(
                     }
 
                     SpellSlotPool.Shared -> {
-                        val normalizedSlots = if (sheet.spellSlots.isEmpty()) defaultSpellSlots() else sheet.spellSlots
+                        val normalizedSlots = sheet.spellSlots.ifEmpty { defaultSpellSlots() }
                         val slot = normalizedSlots.firstOrNull { it.level == resolvedSlotLevel }
                         if (resolvedSlotLevel == null || resolvedSlotLevel < spellLevel) {
                             sheet
@@ -590,11 +540,6 @@ class CharacterSheetViewModel @Inject constructor(
                 renderState()
             }
             .launchIn(viewModelScope)
-    }
-
-    private fun updateEditingState(transform: (CharacterSheetEditingState) -> CharacterSheetEditingState) {
-        editingState = editingState?.let(transform)
-        renderState()
     }
 
     private fun updateSheet(transform: (CharacterSheet) -> CharacterSheet) {
