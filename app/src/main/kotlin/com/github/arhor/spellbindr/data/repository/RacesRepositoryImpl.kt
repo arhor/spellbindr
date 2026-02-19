@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.data.repository
 
-import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.CharacterRaceAssetDataStore
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.Race
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Stable
 @Singleton
 class RacesRepositoryImpl @Inject constructor(
     private val racesDataStore: CharacterRaceAssetDataStore,

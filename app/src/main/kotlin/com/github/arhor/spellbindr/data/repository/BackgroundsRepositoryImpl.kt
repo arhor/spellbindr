@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.data.repository
 
-import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.BackgroundsAssetDataStore
 import com.github.arhor.spellbindr.domain.model.Background
 import com.github.arhor.spellbindr.domain.model.Loadable
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Stable
 @Singleton
 class BackgroundsRepositoryImpl @Inject constructor(
     private val backgroundsDataStore: BackgroundsAssetDataStore,
@@ -25,4 +23,3 @@ class BackgroundsRepositoryImpl @Inject constructor(
             is Loadable.Loading -> null
         }
 }
-

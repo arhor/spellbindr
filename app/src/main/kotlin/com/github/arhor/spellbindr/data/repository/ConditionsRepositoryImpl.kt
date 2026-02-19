@@ -1,6 +1,5 @@
 package com.github.arhor.spellbindr.data.repository
 
-import androidx.compose.runtime.Stable
 import com.github.arhor.spellbindr.data.local.assets.ConditionsDataStore
 import com.github.arhor.spellbindr.domain.model.Condition
 import com.github.arhor.spellbindr.domain.model.Loadable
@@ -9,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Stable
 @Singleton
 class ConditionsRepositoryImpl @Inject constructor(
     private val conditionsDataStore: ConditionsDataStore,
