@@ -15,7 +15,9 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedCharacterSe
 import com.github.arhor.spellbindr.ui.feature.character.list.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CreateCharacterMode
+import com.github.arhor.spellbindr.ui.feature.character.sheet.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetRoute
+import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetRouteArgs
 import com.github.arhor.spellbindr.ui.feature.character.spellpicker.CharacterSpellPickerRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumRoute
 import com.github.arhor.spellbindr.ui.feature.compendium.CompendiumSections
@@ -105,7 +107,13 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
         CharacterSheetRoute(
             vm = hiltViewModel(navEntry),
             savedStateHandle = navEntry.savedStateHandle,
-            args = navEntry.toRoute<AppDestination.CharacterSheet>(),
+            args = navEntry.toRoute<AppDestination.CharacterSheet>().let {
+                CharacterSheetRouteArgs(
+                    characterId = it.characterId,
+                    initialName = it.initialName,
+                    initialSubtitle = it.initialSubtitle,
+                )
+            },
             onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetails(it)) },
             onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(it)) },
             onOpenFullEditor = { controller.navigate(AppDestination.CharacterEditor(it)) },

@@ -29,3 +29,18 @@ dependencyResolutionManagement {
 rootProject.name = "Spellbindr"
 
 include(":app")
+
+include(":core:common")
+include(":core:common-android")
+include(":core:domain")
+include(":core:ui")
+include(":core:ui-spells")
+
+include(":data:character")
+include(":data:compendium")
+include(":data:preferences")
+
+include(":feature:character")
+include(":feature:compendium")
+include(":feature:dice")
+include(":feature:settings")

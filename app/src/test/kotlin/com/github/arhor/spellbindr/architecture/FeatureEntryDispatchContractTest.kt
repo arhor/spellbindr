@@ -42,27 +42,30 @@ class FeatureEntryDispatchContractTest {
     }
 
     private fun findEntryScreens(projectRoot: Path): List<FeatureEntryScreen> {
-        val featureRoot = projectRoot.resolve(FEATURE_ROOT)
-        if (!Files.exists(featureRoot, LinkOption.NOFOLLOW_LINKS)) return emptyList()
-
-        return Files.walk(featureRoot)
-            .use { paths ->
-                paths
-                    .filter { Files.isRegularFile(it) }
-                    .map(featureRoot::relativize)
-                    .map { it.toString().replace('\\', '/') }
-                    .filter { it.endsWith("Screen.kt") }
-                    .filter { !it.contains("/components/") }
-                    .map { relativePath ->
-                        FeatureEntryScreen(
-                            path = "$FEATURE_ROOT/$relativePath",
-                            functionName = relativePath.substringAfterLast('/').removeSuffix(".kt"),
-                        )
-                    }
-                    .filter { it.path !in IGNORED_SCREEN_PATHS }
-                    .sorted(compareBy(FeatureEntryScreen::path))
-                    .toList()
+        return FEATURE_ROOTS.asSequence()
+            .map(projectRoot::resolve)
+            .filter { Files.exists(it, LinkOption.NOFOLLOW_LINKS) }
+            .flatMap { featureRoot ->
+                Files.walk(featureRoot)
+                    .use { paths ->
+                        paths
+                            .filter { Files.isRegularFile(it) }
+                            .map(featureRoot::relativize)
+                            .map { it.toString().replace('\\', '/') }
+                            .filter { it.endsWith("Screen.kt") }
+                            .filter { !it.contains("/components/") }
+                            .map { relativePath ->
+                                FeatureEntryScreen(
+                                    path = "${featureRoot.toAbsolutePath().normalize()}/$relativePath",
+                                    functionName = relativePath.substringAfterLast('/').removeSuffix(".kt"),
+                                )
+                            }
+                            .toList()
+                    }.asSequence()
             }
+            .filter { it.path !in IGNORED_SCREEN_PATHS }
+            .sortedBy(FeatureEntryScreen::path)
+            .toList()
     }
 
     private fun resolveProjectRoot(): Path {
@@ -77,7 +80,12 @@ class FeatureEntryDispatchContractTest {
     }
 
     companion object {
-        private const val FEATURE_ROOT = "app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature"
+        private val FEATURE_ROOTS = listOf(
+            "feature/character/src/main/kotlin/com/github/arhor/spellbindr/ui/feature",
+            "feature/compendium/src/main/kotlin/com/github/arhor/spellbindr/ui/feature",
+            "feature/dice/src/main/kotlin/com/github/arhor/spellbindr/ui/feature",
+            "feature/settings/src/main/kotlin/com/github/arhor/spellbindr/ui/feature",
+        )
         private val IGNORED_SCREEN_PATHS: Set<String> = emptySet()
     }
 }

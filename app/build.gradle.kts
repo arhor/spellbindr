@@ -65,7 +65,19 @@ kotlin {
 
 dependencies {
     ksp(libs.hilt.android.compiler)
-    ksp(libs.androidx.room.compiler)
+
+    implementation(project(":core:common"))
+    implementation(project(":core:common-android"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:ui-spells"))
+    implementation(project(":data:character"))
+    implementation(project(":data:compendium"))
+    implementation(project(":data:preferences"))
+    implementation(project(":feature:character"))
+    implementation(project(":feature:compendium"))
+    implementation(project(":feature:dice"))
+    implementation(project(":feature:settings"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)

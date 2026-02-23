@@ -8,6 +8,7 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
 import org.junit.Test
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 
 class AbilitySkillSerializationTest {
@@ -17,11 +18,19 @@ class AbilitySkillSerializationTest {
         classDiscriminator = "type"
     }
 
+    private val projectRoot by lazy {
+        resolveProjectRoot()
+    }
+
     private val abilitiesJsonPath by lazy {
         listOf(
+            projectRoot.resolve(Paths.get("data", "compendium", "src", "main", "assets", "data", "abilities.json")),
+            projectRoot.resolve(Paths.get("app", "src", "main", "assets", "data", "abilities.json")),
+            Paths.get("data", "compendium", "src", "main", "assets", "data", "abilities.json"),
             Paths.get("app", "src", "main", "assets", "data", "abilities.json"),
             Paths.get("src", "main", "assets", "data", "abilities.json"),
-        ).firstOrNull(Files::exists) ?: error("Expected abilities asset under src/main/assets/data")
+        ).firstOrNull(Files::exists)
+            ?: error("Expected abilities asset under data/compendium/src/main/assets/data")
     }
 
     private val abilitiesFromAsset by lazy {
@@ -128,5 +137,16 @@ class AbilitySkillSerializationTest {
 
         // Then
         assertThat(decoded).isEqualTo(Skill.PERCEPTION)
+    }
+
+    private fun resolveProjectRoot(): Path {
+        var current = Paths.get(System.getProperty("user.dir")).toAbsolutePath()
+        while (true) {
+            if (Files.exists(current.resolve("settings.gradle.kts"))) {
+                return current
+            }
+            val parent = current.parent ?: return current
+            current = parent
+        }
     }
 }
