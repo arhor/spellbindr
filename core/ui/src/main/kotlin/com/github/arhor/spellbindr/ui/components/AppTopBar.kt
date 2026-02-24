@@ -57,10 +57,6 @@ sealed interface AppTopBarNavigation {
             }
         }
     }
-
-    data class Custom(val content: @Composable () -> Unit) : AppTopBarNavigation {
-        override fun asNavigationIcon(): @Composable (() -> Unit) = content
-    }
 }
 
 /**

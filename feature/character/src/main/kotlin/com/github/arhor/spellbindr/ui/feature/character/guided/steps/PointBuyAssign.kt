@@ -22,6 +22,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.pointBuyCost
+import com.github.arhor.spellbindr.utils.calculatePointBuyCost
 
 @Composable
 internal fun PointBuyAssign(
@@ -29,7 +30,7 @@ internal fun PointBuyAssign(
     onPointBuyIncrement: (AbilityId) -> Unit,
     onPointBuyDecrement: (AbilityId) -> Unit,
 ) {
-    val totalCost = state.selection.pointBuyScores.values.sumOf(::pointBuyCost)
+    val totalCost = calculatePointBuyCost(state.selection.pointBuyScores)
     val remaining = (27 - totalCost).coerceAtLeast(0)
 
     Text(
@@ -75,4 +76,3 @@ internal fun PointBuyAssign(
         }
     }
 }
-

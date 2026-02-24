@@ -7,6 +7,7 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedCharacterSe
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedValidationIssue
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedValidationResult
+import com.github.arhor.spellbindr.utils.calculatePointBuyCost
 
 internal data class GuidedSpellRequirementSummary(
     val cantrips: Int,
@@ -20,7 +21,7 @@ internal fun guidedIsStandardArrayValid(assignments: Map<AbilityId, Int?>): Bool
 }
 
 internal fun guidedPointBuyTotalCost(scores: Map<AbilityId, Int>): Int =
-    scores.values.sumOf(::pointBuyCost)
+    calculatePointBuyCost(scores)
 
 internal fun validateGuidedSetupContent(
     content: GuidedCharacterSetupUiState.Content,

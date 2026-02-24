@@ -2,8 +2,9 @@ package com.github.arhor.spellbindr.ui.feature.character.guided.internal
 
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.utils.standardArray
 
-internal val StandardArray: List<Int> = listOf(15, 14, 13, 12, 10, 8)
+internal val StandardArray: List<Int> = standardArray()
 
 internal fun defaultStandardArrayAssignments(): Map<AbilityId, Int?> =
     AbilityIds.standardOrder.associateWith { null }
