@@ -33,6 +33,7 @@ include(":app")
 include(":core:common")
 include(":core:common-android")
 include(":core:domain")
+include(":core:testing")
 include(":core:ui")
 include(":core:ui-spells")
 

@@ -26,23 +26,30 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 ## Project Structure
 
 ```
-app/
-  src/main/kotlin/com/github/arhor/spellbindr/
-    ui/                 # Compose screens, navigation, components
-    domain/             # models, repositories, use cases
-    data/               # Room, asset loaders, repository implementations
-    di/                 # Hilt modules
-  src/main/assets/data/ # D&D JSON assets
-  src/androidTest/      # instrumentation tests
-  src/test/             # unit + ArchUnit tests
+app/                    # app shell + nav wiring + integration tests
+core/
+  common/               # pure Kotlin shared utils
+  common-android/       # Android-aware shared utils
+  domain/               # models, repository contracts, use cases
+  testing/              # shared test helpers/fakes
+  ui/                   # shared Compose theme/components
+  ui-spells/            # shared spell UI components
+data/
+  character/            # Room persistence
+  compendium/           # SRD asset stores + repositories
+  preferences/          # DataStore-backed repositories
+feature/
+  character/
+  compendium/
+  dice/
+  settings/
 ```
 
 ## Architecture
 
-- Layered packages (`ui`, `domain`, `data`) with repository interfaces in `domain/repository` and implementations in
-  `data/repository`.
-- Asset bootstrapper (`DefaultAssetBootstrapper`) loads JSON assets into `data/local/assets` stores during app startup.
-- ArchUnit tests in `app/src/test/kotlin/com/github/arhor/spellbindr/architecture` enforce dependency boundaries.
+- Repository interfaces live in `:core:domain`, while data implementations live in `:data:*`.
+- Feature UI and state live in `:feature:*`, consumed by the `:app` shell.
+- ArchUnit and end-to-end integration tests remain in `:app` as cross-module quality gates.
 
 ## Getting Started
 
@@ -54,31 +61,33 @@ Prereqs:
 ## Build / Run / Test
 
 - Build debug APK: `./gradlew assembleDebug` (output: `app/build/outputs/apk/debug/app-debug.apk`).
-- Lint + unit tests (CI): `./gradlew lintDebug testDebugUnitTest`.
+- Lint + unit tests (CI): `./gradlew lintDebug test testDebugUnitTest`.
 - Instrumentation tests: `./gradlew connectedDebugAndroidTest` (requires a device or emulator).
 
 ## Screenshot exports (Compose previews → PNG)
 
-This project is set up for Android Studio / AGP Compose Screenshot Testing.
+This project uses AGP Compose Screenshot Testing in module-local screenshot source sets.
 
-- Screenshot previews live in `app/src/screenshotTest/kotlin/...` and must be annotated with:
+- Screenshot previews currently live in:
+    - `core/ui/src/screenshotTest/kotlin/...`
+    - `feature/character/src/screenshotTest/kotlin/...`
+- Each preview must be annotated with:
     - `@Preview...`
     - `@PreviewTest`
     - `@Composable`
-- Reference images are generated under `app/src/screenshotTestDebug/reference/` (gitignored).
+- Reference images are generated under `<module>/src/screenshotTestDebug/reference/` (gitignored).
 
 CLI export helper:
 
-- Export screenshots for a single preview (or any pattern):
-    - `run/export-preview-screenshot.sh --tests '*AppTopBar*'`
-- Export the provided smoke templates:
-    - `run/export-preview-screenshot.sh --tests '*SmokeScreenshotPreviews*'`
+- Export screenshots for a module + preview filter:
+    - `run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar*'`
+    - `run/export-preview-screenshot.sh --module :feature:character --tests '*SpellsTab_Screenshot*'`
     - If you already ran Gradle separately:
-      `run/export-preview-screenshot.sh --tests '*SmokeScreenshotPreviews*' --skip-gradle`
+      `run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar*' --skip-gradle`
 
-Exports are copied to `app/build/outputs/preview-screenshots/<timestamp>/`.
+Exports are copied to `<module>/build/outputs/preview-screenshots/<timestamp>/`.
 
 ## CI / Quality
 
-- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug testDebugUnitTest assembleRelease` on push and PRs.
+- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug test testDebugUnitTest assembleRelease` on push and PRs.
 - PRs also assemble a debug APK and upload it as the `app-debug-apk` artifact.

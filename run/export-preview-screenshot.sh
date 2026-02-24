@@ -6,30 +6,36 @@ usage() {
 Export Compose preview screenshots to a clean output folder.
 
 This uses Android's Compose Screenshot Testing (AGP screenshot plugin) and runs:
-  ./gradlew :app:updateDebugScreenshotTest --tests '<pattern>'
+  ./gradlew <module>:updateDebugScreenshotTest --tests '<pattern>'
 
 Required:
+  --module <path>      Gradle module path, e.g. :core:ui or :feature:character
   --tests <pattern>    Gradle test filter (supports '*'), e.g. '*AppTopBar*'
 
 Optional:
   --variant <name>     Only 'debug' is supported (default: debug)
-  --out <path>         Output base directory (default: app/build/outputs/preview-screenshots)
+  --out <path>         Output base directory (default: <module-dir>/build/outputs/preview-screenshots)
   --skip-gradle        Skip running Gradle; only export from existing reference images
   -h, --help           Show this help
 
 Examples:
-  run/export-preview-screenshot.sh --tests '*AppTopBar*'
-  run/export-preview-screenshot.sh --tests '*SmokeScreenshotPreviews*'
+  run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar*'
+  run/export-preview-screenshot.sh --module :feature:character --tests '*SpellsTab_Screenshot*'
 EOF
 }
 
+module_path=""
 tests_filter=""
 variant="debug"
-out_base="app/build/outputs/preview-screenshots"
+out_base=""
 skip_gradle="false"
 
 while [ $# -gt 0 ]; do
   case "$1" in
+    --module)
+      module_path="${2:-}"
+      shift 2
+      ;;
     --tests)
       tests_filter="${2:-}"
       shift 2
@@ -58,6 +64,12 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+if [ -z "$module_path" ]; then
+  echo "--module is required" >&2
+  usage >&2
+  exit 2
+fi
+
 if [ -z "$tests_filter" ]; then
   echo "--tests is required" >&2
   usage >&2
@@ -72,6 +84,21 @@ fi
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo_root"
 
+if [[ "$module_path" != :* ]]; then
+  module_path=":$module_path"
+fi
+
+module_dir="${module_path#:}"
+module_dir="$(printf '%s' "$module_dir" | tr ':' '/')"
+if [ ! -d "$repo_root/$module_dir" ]; then
+  echo "Module directory not found: $repo_root/$module_dir (from --module $module_path)" >&2
+  exit 1
+fi
+
+if [ -z "$out_base" ]; then
+  out_base="$module_dir/build/outputs/preview-screenshots"
+fi
+
 marker="$(mktemp)"
 cleanup() {
   rm -f "$marker"
@@ -80,13 +107,13 @@ trap cleanup EXIT
 touch "$marker"
 
 if [ "$skip_gradle" != "true" ]; then
-  ./gradlew :app:updateDebugScreenshotTest --tests "$tests_filter"
+  ./gradlew "${module_path}:updateDebugScreenshotTest" --tests "$tests_filter"
 fi
 
-ref_dir="$repo_root/app/src/screenshotTestDebug/reference"
+ref_dir="$repo_root/$module_dir/src/screenshotTestDebug/reference"
 if [ ! -d "$ref_dir" ]; then
   echo "Reference screenshot directory not found: $ref_dir" >&2
-  echo "Did the screenshot task run successfully and generate any screenshots?" >&2
+  echo "Did ${module_path}:updateDebugScreenshotTest run successfully and generate screenshots?" >&2
   exit 1
 fi
 

@@ -50,7 +50,7 @@ jobs:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
       - name: Lint, unit test, and release assemble
-        run: ./gradlew lintDebug testDebugUnitTest assembleRelease --stacktrace
+        run: ./gradlew lintDebug test testDebugUnitTest assembleRelease --stacktrace
 
       - name: Assemble debug APK
         uses: ./.github/actions/assemble-debug-apk
