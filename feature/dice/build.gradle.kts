@@ -39,5 +39,14 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
 
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.truth)
+
     debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

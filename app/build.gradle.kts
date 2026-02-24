@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.hilt)
-    alias(libs.plugins.android.screenshot)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
@@ -45,7 +44,6 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 kotlin {
@@ -117,7 +115,4 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    screenshotTestImplementation(libs.screenshot.validation.api)
-    screenshotTestImplementation(libs.androidx.ui.tooling)
 }

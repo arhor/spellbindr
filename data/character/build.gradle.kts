@@ -30,4 +30,7 @@ dependencies {
 
     implementation(project(":core:common"))
     implementation(project(":core:domain"))
+
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
 }

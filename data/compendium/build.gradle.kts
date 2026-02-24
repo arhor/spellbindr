@@ -28,4 +28,10 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:common-android"))
     implementation(project(":core:domain"))
+
+    testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(project(":core:testing"))
 }
