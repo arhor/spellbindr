@@ -15,19 +15,11 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-
-    @Provides
-    @Singleton
-    fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
-        classDiscriminator = "type"
-    }
+object PreferencesModule {
 
     @Provides
     @Singleton
@@ -50,11 +42,6 @@ object AppModule {
         scope = PREFERENCE_DATA_STORE_SCOPE,
         produceFile = { context.preferencesDataStoreFile(FAVORITES_DATASTORE_NAME) }
     )
-
-    @Provides
-    @Singleton
-    fun provideApplicationScope(): CoroutineScope =
-        CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private const val DATASTORE_NAME = "app_settings.preferences_pb"
     private const val FAVORITES_DATASTORE_NAME = "favorites.preferences_pb"

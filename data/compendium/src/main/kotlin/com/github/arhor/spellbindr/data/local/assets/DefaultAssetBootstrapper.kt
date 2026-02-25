@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.local.assets
 
+import com.github.arhor.spellbindr.di.ApplicationScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 
 @Singleton
 class DefaultAssetBootstrapper @Inject constructor(
+    @ApplicationScope
     val applicationScope: CoroutineScope,
     val assetsDataStores: Set<@JvmSuppressWildcards AssetDataStore<*>>,
 ) : AssetBootstrapper {
