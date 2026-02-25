@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.arhor.spellbindr.data.preferences"
+    namespace = "com.github.arhor.spellbindr.data.favorites"
     compileSdk = 36
 
     defaultConfig {
@@ -25,7 +25,6 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.android)
 
-    implementation(project(":core:common-android"))
     implementation(project(":core:domain"))
 
     testImplementation(libs.junit)

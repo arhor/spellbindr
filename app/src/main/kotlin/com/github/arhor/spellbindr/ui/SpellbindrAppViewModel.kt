@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
-import com.github.arhor.spellbindr.domain.repository.ThemeRepository
+import com.github.arhor.spellbindr.domain.usecase.ObserveSettingsUseCase
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SpellbindrAppViewModel @Inject constructor(
     private val assetBootstrapper: AssetBootstrapper,
-    private val themeRepository: ThemeRepository,
+    private val observeSettings: ObserveSettingsUseCase,
 ) : ViewModel() {
 
     @Immutable
@@ -53,10 +53,10 @@ class SpellbindrAppViewModel @Inject constructor(
     }
 
     private suspend fun observeThemeUpdates() {
-        themeRepository.themeMode.collectLatest {
+        observeSettings().collectLatest {
             _state.update { state ->
                 state.copy(
-                    isDarkTheme = it?.isDark,
+                    isDarkTheme = it.themeMode?.isDark,
                 )
             }
         }

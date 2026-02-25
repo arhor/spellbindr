@@ -1,9 +1,10 @@
 package com.github.arhor.spellbindr.ui.feature.settings
 
 import com.github.arhor.spellbindr.MainDispatcherRule
+import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
-import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
-import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSettingsUseCase
+import com.github.arhor.spellbindr.domain.usecase.SetThemeModeSettingUseCase
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -29,24 +30,24 @@ class SettingsViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    private val observeThemeMode = mockk<ObserveThemeModeUseCase>()
-    private val setThemeModeUseCase = mockk<SetThemeModeUseCase>()
+    private val observeSettingsUseCase = mockk<ObserveSettingsUseCase>()
+    private val setThemeModeUseCase = mockk<SetThemeModeSettingUseCase>()
 
     @Test
     fun `uiState should emit loading then content when theme mode is available`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
-            val themeModes = MutableSharedFlow<ThemeMode?>()
-            every { observeThemeMode() } returns themeModes
+            val settingsFlow = MutableSharedFlow<AppSettings>()
+            every { observeSettingsUseCase() } returns settingsFlow
             coEvery { setThemeModeUseCase(any()) } returns Unit
 
-            val viewModel = SettingsViewModel(observeThemeMode, setThemeModeUseCase)
+            val viewModel = SettingsViewModel(observeSettingsUseCase, setThemeModeUseCase)
             val states = mutableListOf<SettingsUiState>()
 
             // When
             val job = launch { viewModel.uiState.take(2).toList(states) }
             runCurrent()
-            themeModes.emit(ThemeMode.DARK)
+            settingsFlow.emit(AppSettings(themeMode = ThemeMode.DARK))
             advanceUntilIdle()
             job.join()
 
@@ -54,21 +55,21 @@ class SettingsViewModelTest {
             assertThat(states)
                 .containsExactly(
                     SettingsUiState.Loading,
-                    SettingsUiState.Content(ThemeMode.DARK),
+                    SettingsUiState.Content(AppSettings(themeMode = ThemeMode.DARK)),
                 )
                 .inOrder()
-            verify(exactly = 1) { observeThemeMode() }
+            verify(exactly = 1) { observeSettingsUseCase() }
         }
 
     @Test
     fun `dispatch should update theme only when selected mode differs from current`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
-            every { observeThemeMode() } returns MutableStateFlow(ThemeMode.DARK)
+            every { observeSettingsUseCase() } returns MutableStateFlow(AppSettings(themeMode = ThemeMode.DARK))
             coEvery { setThemeModeUseCase(ThemeMode.LIGHT) } returns Unit
             coEvery { setThemeModeUseCase(ThemeMode.DARK) } returns Unit
 
-            val viewModel = SettingsViewModel(observeThemeMode, setThemeModeUseCase)
+            val viewModel = SettingsViewModel(observeSettingsUseCase, setThemeModeUseCase)
             advanceUntilIdle()
 
             // When
@@ -85,10 +86,10 @@ class SettingsViewModelTest {
     fun `dispatch should emit show message effect when theme update fails`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
-            every { observeThemeMode() } returns MutableStateFlow(ThemeMode.DARK)
+            every { observeSettingsUseCase() } returns MutableStateFlow(AppSettings(themeMode = ThemeMode.DARK))
             coEvery { setThemeModeUseCase(ThemeMode.LIGHT) } throws IllegalStateException("Write failed")
 
-            val viewModel = SettingsViewModel(observeThemeMode, setThemeModeUseCase)
+            val viewModel = SettingsViewModel(observeSettingsUseCase, setThemeModeUseCase)
             advanceUntilIdle()
 
             // When
@@ -104,13 +105,13 @@ class SettingsViewModelTest {
     fun `uiState should become error when observing theme mode fails`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
-            every { observeThemeMode() } returns flow {
+            every { observeSettingsUseCase() } returns flow {
                 throw IllegalStateException("Broken flow")
             }
             coEvery { setThemeModeUseCase(any()) } returns Unit
 
             // When
-            val viewModel = SettingsViewModel(observeThemeMode, setThemeModeUseCase)
+            val viewModel = SettingsViewModel(observeSettingsUseCase, setThemeModeUseCase)
             advanceUntilIdle()
 
             // Then

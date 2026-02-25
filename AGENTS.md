@@ -6,7 +6,7 @@ Spellbindr is a multi-module Android project. Primary modules:
 
 - `:app` (application shell, nav wiring, cross-module architecture tests, integration android tests)
 - `:core:common`, `:core:common-android`, `:core:domain`, `:core:ui`, `:core:ui-spells`, `:core:testing`
-- `:data:character`, `:data:compendium`, `:data:preferences`
+- `:data:character`, `:data:compendium`, `:data:favorites`, `:data:settings`
 - `:feature:character`, `:feature:compendium`, `:feature:dice`, `:feature:settings`
 
 Code should be tested in the same module that owns it. `:app` tests are reserved for cross-module and app-wiring

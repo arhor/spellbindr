@@ -39,7 +39,8 @@ include(":core:ui-spells")
 
 include(":data:character")
 include(":data:compendium")
-include(":data:preferences")
+include(":data:favorites")
+include(":data:settings")
 
 include(":feature:character")
 include(":feature:compendium")

@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.settings
 
 import androidx.compose.runtime.Immutable
-import com.github.arhor.spellbindr.domain.model.ThemeMode
+import com.github.arhor.spellbindr.domain.model.AppSettings
 
 sealed interface SettingsUiState {
 
@@ -10,7 +10,7 @@ sealed interface SettingsUiState {
 
     @Immutable
     data class Content(
-        val themeMode: ThemeMode? = null,
+        val settings: AppSettings = AppSettings(),
     ) : SettingsUiState
 
     @Immutable

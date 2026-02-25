@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
@@ -52,7 +53,8 @@ private fun SettingsContent(
     state: SettingsUiState.Content,
     dispatch: SettingsDispatch,
 ) {
-    val effectiveIsDarkTheme = state.themeMode?.isDark ?: isSystemInDarkTheme()
+    val selectedThemeMode = state.settings.themeMode
+    val effectiveIsDarkTheme = selectedThemeMode?.isDark ?: isSystemInDarkTheme()
     val themeOptions = listOf(
         ThemeOption(
             mode = null,
@@ -94,7 +96,7 @@ private fun SettingsContent(
                     ListItem(
                         modifier = Modifier
                             .selectable(
-                                selected = state.themeMode == option.mode,
+                                selected = selectedThemeMode == option.mode,
                                 onClick = { dispatch(SettingsIntent.ThemeModeSelected(option.mode)) },
                                 role = Role.RadioButton,
                             ),
@@ -102,7 +104,7 @@ private fun SettingsContent(
                         supportingContent = { Text(option.description) },
                         trailingContent = {
                             RadioButton(
-                                selected = state.themeMode == option.mode,
+                                selected = selectedThemeMode == option.mode,
                                 onClick = { dispatch(SettingsIntent.ThemeModeSelected(option.mode)) },
                             )
                         },
@@ -119,7 +121,7 @@ private fun SettingsScreenPreview() {
     AppTheme {
         SettingsScreen(
             state = SettingsUiState.Content(
-                themeMode = null,
+                settings = AppSettings(themeMode = null),
             ),
         )
     }

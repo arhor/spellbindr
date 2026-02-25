@@ -4,8 +4,4 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class AppSettingsDataStore
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
 annotation class FavoritesDataStore

@@ -41,7 +41,7 @@ object TestDataModule {
 
     @Provides
     @Singleton
-    @AppSettingsDataStore
+    @SettingsDataStore
     fun provideTestSettingsDataStore(): DataStore<Preferences> {
         val context = ApplicationProvider.getApplicationContext<Context>()
         return PreferenceDataStoreFactory.create(

@@ -19,12 +19,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object PreferencesModule {
+object SettingsDataStoreModule {
 
     @Provides
     @Singleton
-    @AppSettingsDataStore
-    fun provideAppSettingsDataStore(
+    @SettingsDataStore
+    fun provideSettingsDataStore(
         @ApplicationContext context: Context,
     ): DataStore<Preferences> = PreferenceDataStoreFactory.create(
         corruptionHandler = EMPTY_PREFERENCES_ON_CORRUPTION_HANDLER,
@@ -32,19 +32,7 @@ object PreferencesModule {
         produceFile = { context.preferencesDataStoreFile(DATASTORE_NAME) },
     )
 
-    @Provides
-    @Singleton
-    @FavoritesDataStore
-    fun provideFavoritesDataStore(
-        @ApplicationContext context: Context,
-    ): DataStore<Preferences> = PreferenceDataStoreFactory.create(
-        corruptionHandler = EMPTY_PREFERENCES_ON_CORRUPTION_HANDLER,
-        scope = PREFERENCE_DATA_STORE_SCOPE,
-        produceFile = { context.preferencesDataStoreFile(FAVORITES_DATASTORE_NAME) }
-    )
-
     private const val DATASTORE_NAME = "app_settings.preferences_pb"
-    private const val FAVORITES_DATASTORE_NAME = "favorites.preferences_pb"
     private val EMPTY_PREFERENCES_ON_CORRUPTION_HANDLER = ReplaceFileCorruptionHandler { emptyPreferences() }
     private val PREFERENCE_DATA_STORE_SCOPE = CoroutineScope(Dispatchers.IO + SupervisorJob())
 }

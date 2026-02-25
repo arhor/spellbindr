@@ -3,9 +3,10 @@ package com.github.arhor.spellbindr.ui.feature.settings
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
-import com.github.arhor.spellbindr.domain.usecase.ObserveThemeModeUseCase
-import com.github.arhor.spellbindr.domain.usecase.SetThemeModeUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveSettingsUseCase
+import com.github.arhor.spellbindr.domain.usecase.SetThemeModeSettingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,8 +24,8 @@ import javax.inject.Inject
 @Stable
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val observeThemeMode: ObserveThemeModeUseCase,
-    private val setThemeModeUseCase: SetThemeModeUseCase,
+    private val observeSettingsUseCase: ObserveSettingsUseCase,
+    private val setThemeModeUseCase: SetThemeModeSettingUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<SettingsUiState>(SettingsUiState.Loading)
@@ -44,13 +45,13 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun observeThemeModeChanges() {
-        observeThemeMode()
-            .map<ThemeMode?, SettingsUiState> { SettingsUiState.Content(it) }
+        observeSettingsUseCase()
+            .map<AppSettings, SettingsUiState> { SettingsUiState.Content(it) }
             .onEach { state -> reduce { state } }
             .catch { throwable ->
                 reduce {
                     SettingsUiState.Failure(
-                        throwable.message ?: "Unable to load theme settings",
+                        throwable.message ?: "Unable to load settings",
                     )
                 }
             }
@@ -59,7 +60,7 @@ class SettingsViewModel @Inject constructor(
 
     private fun updateThemeMode(mode: ThemeMode?) {
         val currentState = _uiState.value as? SettingsUiState.Content ?: return
-        if (currentState.themeMode == mode) return
+        if (currentState.settings.themeMode == mode) return
 
         viewModelScope.launch {
             runCatching { setThemeModeUseCase(mode) }

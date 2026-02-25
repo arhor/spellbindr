@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import org.junit.Assert.assertEquals
@@ -22,7 +23,7 @@ class SettingsScreenTest {
     @Test
     fun `SettingsScreen should show selected theme option details when state is loaded`() {
         // Given
-        val state = SettingsUiState.Content(themeMode = ThemeMode.DARK)
+        val state = SettingsUiState.Content(settings = AppSettings(themeMode = ThemeMode.DARK))
 
         // When
         composeTestRule.setContent {
@@ -42,7 +43,7 @@ class SettingsScreenTest {
     @Test
     fun `SettingsScreen should dispatch intent when theme option clicked`() {
         // Given
-        val state = SettingsUiState.Content(themeMode = null)
+        val state = SettingsUiState.Content(settings = AppSettings(themeMode = null))
         var capturedIntent: SettingsIntent? = null
 
         // When

@@ -12,7 +12,8 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.di.AppInfrastructureModule
 import com.github.arhor.spellbindr.di.DatabaseModule
-import com.github.arhor.spellbindr.di.PreferencesModule
+import com.github.arhor.spellbindr.di.FavoritesDataStoreModule
+import com.github.arhor.spellbindr.di.SettingsDataStoreModule
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -23,7 +24,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @HiltAndroidTest
-@UninstallModules(AppInfrastructureModule::class, DatabaseModule::class, PreferencesModule::class)
+@UninstallModules(
+    AppInfrastructureModule::class,
+    DatabaseModule::class,
+    FavoritesDataStoreModule::class,
+    SettingsDataStoreModule::class,
+)
 @RunWith(AndroidJUnit4::class)
 class NavigationBehaviorTest {
 
