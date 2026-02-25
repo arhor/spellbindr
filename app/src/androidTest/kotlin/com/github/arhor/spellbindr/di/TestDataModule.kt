@@ -12,6 +12,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
+import com.github.arhor.spellbindr.settings.di.SettingsDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

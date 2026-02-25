@@ -1,13 +1,13 @@
-package com.github.arhor.spellbindr.data.repository
+package com.github.arhor.spellbindr.settings.data.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.github.arhor.spellbindr.di.SettingsDataStore
 import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.SettingsRepository
+import com.github.arhor.spellbindr.settings.di.SettingsDataStore
 import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

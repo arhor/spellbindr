@@ -1,7 +1,7 @@
-package com.github.arhor.spellbindr.di
+package com.github.arhor.spellbindr.settings.di
 
-import com.github.arhor.spellbindr.data.repository.SettingsRepositoryImpl
 import com.github.arhor.spellbindr.domain.repository.SettingsRepository
+import com.github.arhor.spellbindr.settings.data.repository.SettingsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

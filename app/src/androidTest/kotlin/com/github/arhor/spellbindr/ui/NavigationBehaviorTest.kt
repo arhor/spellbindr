@@ -13,7 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.di.AppInfrastructureModule
 import com.github.arhor.spellbindr.di.DatabaseModule
 import com.github.arhor.spellbindr.di.FavoritesDataStoreModule
-import com.github.arhor.spellbindr.di.SettingsDataStoreModule
+import com.github.arhor.spellbindr.settings.di.SettingsDataStoreModule
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest

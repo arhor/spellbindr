@@ -3,7 +3,7 @@ package com.github.arhor.spellbindr.data.local.assets
 import com.github.arhor.spellbindr.di.AppInfrastructureModule
 import com.github.arhor.spellbindr.di.DatabaseModule
 import com.github.arhor.spellbindr.di.FavoritesDataStoreModule
-import com.github.arhor.spellbindr.di.SettingsDataStoreModule
+import com.github.arhor.spellbindr.settings.di.SettingsDataStoreModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules

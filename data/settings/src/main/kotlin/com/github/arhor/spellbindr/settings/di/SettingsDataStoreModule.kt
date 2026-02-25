@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.di
+package com.github.arhor.spellbindr.settings.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore

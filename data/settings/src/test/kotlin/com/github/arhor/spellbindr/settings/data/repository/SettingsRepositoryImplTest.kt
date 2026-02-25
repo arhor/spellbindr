@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.data.repository
+package com.github.arhor.spellbindr.settings.data.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory

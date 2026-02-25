@@ -1,4 +1,4 @@
-package com.github.arhor.spellbindr.di
+package com.github.arhor.spellbindr.settings.di
 
 import javax.inject.Qualifier
 
