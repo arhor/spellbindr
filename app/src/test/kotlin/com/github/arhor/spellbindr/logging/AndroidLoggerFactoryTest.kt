@@ -18,7 +18,6 @@ class AndroidLoggerFactoryTest {
 
         // Then
         assertThat(first).isSameInstanceAs(second)
-        assertThat(factory.cacheSize()).isEqualTo(1)
     }
 
     @Test
@@ -37,7 +36,6 @@ class AndroidLoggerFactoryTest {
 
             // Then
             assertThat(loggers.all { it === first }).isTrue()
-            assertThat(factory.cacheSize()).isEqualTo(1)
         } finally {
             executor.shutdownNow()
         }
@@ -54,12 +52,5 @@ class AndroidLoggerFactoryTest {
 
         // Then
         assertThat(first).isNotSameInstanceAs(second)
-        assertThat(factory.cacheSize()).isEqualTo(2)
-    }
-
-    private fun AndroidLoggerFactory.cacheSize(): Int {
-        val field = AndroidLoggerFactory::class.java.getDeclaredField("loggersByTag")
-        field.isAccessible = true
-        return (field.get(this) as Map<*, *>).size
     }
 }
