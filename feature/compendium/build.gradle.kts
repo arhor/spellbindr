@@ -37,7 +37,6 @@ dependencies {
     implementation(libs.hilt.android)
 
     implementation(project(":core:common"))
-    implementation(project(":core:common-android"))
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
     implementation(project(":core:ui-spells"))

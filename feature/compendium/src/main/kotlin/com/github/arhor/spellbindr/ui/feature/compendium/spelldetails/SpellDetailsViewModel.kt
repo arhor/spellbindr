@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellDetailsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleFavoriteSpellUseCase
-import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.logging.LoggerFactory
+import com.github.arhor.spellbindr.logging.debug
+import com.github.arhor.spellbindr.logging.getLogger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,11 +33,13 @@ class SpellDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val observeSpellDetails: ObserveSpellDetailsUseCase,
     private val toggleFavoriteSpell: ToggleFavoriteSpellUseCase,
+    loggerFactory: LoggerFactory,
 ) : ViewModel() {
 
+    private val logger = loggerFactory.getLogger()
+    private val spellId: String? = savedStateHandle.get<String>("spellId")
     private val _effects = MutableSharedFlow<SpellDetailsEffect>()
     val effects: SharedFlow<SpellDetailsEffect> = _effects.asSharedFlow()
-    private val spellId: String? = savedStateHandle.get<String>("spellId")
 
     val uiState: StateFlow<SpellDetailsUiState> =
         spellId?.let { id ->
@@ -85,7 +89,4 @@ class SpellDetailsViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        private val logger = createLogger()
-    }
 }

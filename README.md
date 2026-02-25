@@ -29,7 +29,6 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 app/                    # app shell + nav wiring + integration tests
 core/
   common/               # pure Kotlin shared utils
-  common-android/       # Android-aware shared utils
   domain/               # models, repository contracts, use cases
   testing/              # shared test helpers/fakes
   ui/                   # shared Compose theme/components

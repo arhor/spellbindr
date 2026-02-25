@@ -8,6 +8,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.SpellDetails
 import com.github.arhor.spellbindr.domain.usecase.ObserveSpellDetailsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleFavoriteSpellUseCase
+import com.github.arhor.spellbindr.logging.NoOpLoggerFactory
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -42,6 +43,7 @@ class SpellDetailsViewModelTest {
                 savedStateHandle = SavedStateHandle(mapOf("spellId" to "magic_missile")),
                 observeSpellDetails = observeSpellDetails,
                 toggleFavoriteSpell = toggleFavoriteSpell,
+                loggerFactory = NoOpLoggerFactory,
             )
             vm.uiState.first { it is SpellDetailsUiState.Content }
 
@@ -69,6 +71,7 @@ class SpellDetailsViewModelTest {
                 savedStateHandle = SavedStateHandle(mapOf("spellId" to "shield")),
                 observeSpellDetails = observeSpellDetails,
                 toggleFavoriteSpell = toggleFavoriteSpell,
+                loggerFactory = NoOpLoggerFactory,
             )
             vm.uiState.first { it is SpellDetailsUiState.Content }
 

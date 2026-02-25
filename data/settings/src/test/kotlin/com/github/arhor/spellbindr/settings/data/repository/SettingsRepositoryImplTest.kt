@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
+import com.github.arhor.spellbindr.logging.NoOpLoggerFactory
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
@@ -95,7 +96,10 @@ private fun TestScope.createRepository(): Triple<SettingsRepositoryImpl, DataSto
     val dataStore = PreferenceDataStoreFactory.create(scope = this) { file }
 
     return Triple(
-        first = SettingsRepositoryImpl(dataStore),
+        first = SettingsRepositoryImpl(
+            dataStore = dataStore,
+            loggerFactory = NoOpLoggerFactory,
+        ),
         second = dataStore,
         third = file,
     )

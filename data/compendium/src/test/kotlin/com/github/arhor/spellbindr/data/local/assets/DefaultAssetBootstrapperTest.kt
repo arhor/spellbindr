@@ -1,19 +1,15 @@
 package com.github.arhor.spellbindr.data.local.assets
 
-import android.util.Log
 import com.github.arhor.spellbindr.MainDispatcherRule
+import com.github.arhor.spellbindr.logging.NoOpLoggerFactory
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.mockkStatic
-import io.mockk.unmockkStatic
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,23 +18,16 @@ class DefaultAssetBootstrapperTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    @Before
-    fun setUp() {
-        mockkStatic(Log::class)
-        every { Log.isLoggable(any(), any()) } returns false
-    }
-
-    @After
-    fun tearDown() {
-        unmockkStatic(Log::class)
-    }
-
     @Test
     fun `readyForInteraction should wait for critical assets and initial delay`() = runTest {
         // Given
         val criticalAssetStore = mockk<AssetDataStore<*>>()
         val deferredAssetStore = mockk<AssetDataStore<*>>()
-        val bootstrapper = DefaultAssetBootstrapper(this, setOf(criticalAssetStore, deferredAssetStore))
+        val bootstrapper = DefaultAssetBootstrapper(
+            applicationScope = this,
+            assetsDataStores = setOf(criticalAssetStore, deferredAssetStore),
+            loggerFactory = NoOpLoggerFactory,
+        )
 
         every { criticalAssetStore.priority } returns AssetLoadingPriority.CRITICAL
         every { deferredAssetStore.priority } returns AssetLoadingPriority.DEFERRED
@@ -91,7 +80,7 @@ class DefaultAssetBootstrapperTest {
 //        // Given
 //        val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
 //        val bootstrapper = DefaultAssetBootstrapper(assetsDataStores = setOf(deferredLoader))
-//
+// 
 //        // When
 //        bootstrapper.start(this)
 //        advanceTimeBy(1_500)

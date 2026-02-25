@@ -26,7 +26,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":core:common"))
-    implementation(project(":core:common-android"))
     implementation(project(":core:domain"))
 
     testImplementation(libs.junit)

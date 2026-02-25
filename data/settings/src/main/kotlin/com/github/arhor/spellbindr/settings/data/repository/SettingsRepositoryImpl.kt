@@ -7,8 +7,10 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.arhor.spellbindr.domain.model.AppSettings
 import com.github.arhor.spellbindr.domain.model.ThemeMode
 import com.github.arhor.spellbindr.domain.repository.SettingsRepository
+import com.github.arhor.spellbindr.logging.LoggerFactory
+import com.github.arhor.spellbindr.logging.error
+import com.github.arhor.spellbindr.logging.getLogger
 import com.github.arhor.spellbindr.settings.di.SettingsDataStore
-import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -17,20 +19,18 @@ import javax.inject.Singleton
 @Singleton
 class SettingsRepositoryImpl @Inject constructor(
     @SettingsDataStore private val dataStore: DataStore<Preferences>,
+    loggerFactory: LoggerFactory,
 ) : SettingsRepository {
 
     private val themeModeKey = stringPreferencesKey("theme_mode")
-    private val logger = createLogger()
+    private val logger = loggerFactory.getLogger()
 
     override val settings: Flow<AppSettings>
         get() = dataStore.data.map { preferences ->
             val themeMode = preferences[themeModeKey]?.let { storedValue ->
                 runCatching { ThemeMode.valueOf(storedValue) }
                     .getOrElse { error ->
-                        // Android Log calls are not available in plain JVM unit tests.
-                        runCatching {
-                            logger.error(error) { "Invalid theme mode stored: $storedValue" }
-                        }
+                        logger.error(error) { "Invalid theme mode stored: $storedValue" }
                         null
                     }
             }

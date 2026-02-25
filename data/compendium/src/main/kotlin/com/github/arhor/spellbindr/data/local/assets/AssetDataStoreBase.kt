@@ -2,7 +2,10 @@ package com.github.arhor.spellbindr.data.local.assets
 
 import android.content.Context
 import com.github.arhor.spellbindr.domain.model.Loadable
-import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.logging.LoggerFactory
+import com.github.arhor.spellbindr.logging.error
+import com.github.arhor.spellbindr.logging.getLogger
+import com.github.arhor.spellbindr.logging.info
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,10 +24,11 @@ abstract class AssetDataStoreBase<T>(
     private val path: String,
     private val context: Context,
     private val serializer: KSerializer<T>,
+    loggerFactory: LoggerFactory,
     override val priority: AssetLoadingPriority = AssetLoadingPriority.CRITICAL,
 ) : AssetDataStore<List<T>> {
 
-    private val logger = createLogger()
+    private val logger = loggerFactory.getLogger()
     private val mutex = Mutex()
     private var asset = MutableStateFlow<Loadable<List<T>>>(Loadable.Loading)
 

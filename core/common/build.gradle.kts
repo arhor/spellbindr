@@ -8,6 +8,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
+    testImplementation(project(":core:testing"))
 }
 
 kotlin {

@@ -3,7 +3,10 @@ package com.github.arhor.spellbindr.data.local.assets
 import com.github.arhor.spellbindr.di.ApplicationScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
-import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.logging.LoggerFactory
+import com.github.arhor.spellbindr.logging.error
+import com.github.arhor.spellbindr.logging.getLogger
+import com.github.arhor.spellbindr.logging.info
 import com.github.arhor.spellbindr.utils.toCapitalCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -22,8 +25,10 @@ class DefaultAssetBootstrapper @Inject constructor(
     @ApplicationScope
     val applicationScope: CoroutineScope,
     val assetsDataStores: Set<@JvmSuppressWildcards AssetDataStore<*>>,
+    loggerFactory: LoggerFactory,
 ) : AssetBootstrapper {
 
+    private val logger = loggerFactory.getLogger()
     private val started = AtomicBoolean(false)
     private val _state = MutableStateFlow(AssetBootstrapState())
 
@@ -86,9 +91,5 @@ class DefaultAssetBootstrapper @Inject constructor(
                 AssetLoadingPriority.DEFERRED -> it.copy(deferredAssetsError = error)
             }
         }
-    }
-
-    companion object {
-        private val logger = createLogger()
     }
 }

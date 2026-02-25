@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.usecase.ObserveSettingsUseCase
-import com.github.arhor.spellbindr.utils.Logger.Companion.createLogger
+import com.github.arhor.spellbindr.logging.LoggerFactory
+import com.github.arhor.spellbindr.logging.getLogger
+import com.github.arhor.spellbindr.logging.info
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +23,7 @@ import javax.inject.Inject
 class SpellbindrAppViewModel @Inject constructor(
     private val assetBootstrapper: AssetBootstrapper,
     private val observeSettings: ObserveSettingsUseCase,
+    private val loggerFactory: LoggerFactory,
 ) : ViewModel() {
 
     @Immutable
@@ -38,6 +41,7 @@ class SpellbindrAppViewModel @Inject constructor(
             get() = criticalAssetsReady && deferredAssetsReady
     }
 
+    private val logger = loggerFactory.getLogger()
     private val _state = MutableStateFlow(State())
     val state: StateFlow<State> = _state.asStateFlow()
 
@@ -75,7 +79,4 @@ class SpellbindrAppViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        private val logger = createLogger()
-    }
 }
