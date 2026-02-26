@@ -46,20 +46,18 @@ class ObserveSpellsUseCase @Inject constructor(
         query: String = "",
         characterClasses: Set<EntityRef> = emptySet(),
         getFavoritesOnly: Boolean = false,
-    ): Flow<Loadable<List<Spell>>> {
-
-        return combine(
+    ): Flow<Loadable<List<Spell>>> =
+        combine(
             spellsRepository.allSpellsState,
             favoritesRepository.observeFavoriteIds(FavoriteType.SPELL),
-        ) { spells, favoriteSpellIds ->
-            spells to favoriteSpellIds
-        }.mapLatest { (spells, favoriteSpellIds) ->
-            spells.mapContent { data ->
-                val favoritesFilter = if (getFavoritesOnly) favoriteSpellIds else emptySet()
+        ) { spells, favoriteSpellIds -> Pair(spells, favoriteSpellIds) }
+            .mapLatest { (spells, favoriteSpellIds) ->
+                spells.mapContent { data ->
+                    val favoritesFilter = if (getFavoritesOnly) favoriteSpellIds else emptySet()
 
-                data.filter { it.matchesFilters(query, characterClasses, favoritesFilter) }
+                    data.filter { it.matchesFilters(query, characterClasses, favoritesFilter) }
+                }
             }
-        }.flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.Default)
             .catch { emit(Loadable.Failure(errorMessage = "Failed to load spells", cause = it)) }
-    }
 }

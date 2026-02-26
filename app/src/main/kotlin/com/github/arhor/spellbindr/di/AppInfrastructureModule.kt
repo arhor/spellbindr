@@ -23,7 +23,6 @@ object AppInfrastructureModule {
 
     @Provides
     @Singleton
-    @ApplicationScope
-    fun provideApplicationScope(): CoroutineScope =
-        CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    @AppCoroutineScope
+    fun provideAppCoroutineScope(): CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 }

@@ -1,6 +1,6 @@
 package com.github.arhor.spellbindr.data.local.assets
 
-import com.github.arhor.spellbindr.di.ApplicationScope
+import com.github.arhor.spellbindr.di.AppCoroutineScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
 import com.github.arhor.spellbindr.logging.LoggerFactory
@@ -22,8 +22,8 @@ import javax.inject.Singleton
 
 @Singleton
 class DefaultAssetBootstrapper @Inject constructor(
-    @ApplicationScope
-    val applicationScope: CoroutineScope,
+    @AppCoroutineScope
+    val appCoroutineScope: CoroutineScope,
     val assetsDataStores: Set<@JvmSuppressWildcards AssetDataStore<*>>,
     loggerFactory: LoggerFactory,
 ) : AssetBootstrapper {
@@ -42,7 +42,7 @@ class DefaultAssetBootstrapper @Inject constructor(
         }
         logger.info { "Asset bootstrapper started" }
 
-        applicationScope.launch {
+        appCoroutineScope.launch {
             val criticalLoadJob = launch { initializeDataStores(AssetLoadingPriority.CRITICAL) }
             val deferredLoadJob = launch { initializeDataStores(AssetLoadingPriority.DEFERRED) }
 

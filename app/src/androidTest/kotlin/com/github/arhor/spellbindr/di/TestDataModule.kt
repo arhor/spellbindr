@@ -36,7 +36,7 @@ object TestDataModule {
 
     @Provides
     @Singleton
-    @ApplicationScope
+    @AppCoroutineScope
     fun provideApplicationScope(): CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Default)
 

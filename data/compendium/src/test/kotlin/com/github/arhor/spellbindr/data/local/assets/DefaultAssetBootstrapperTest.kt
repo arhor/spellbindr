@@ -24,7 +24,7 @@ class DefaultAssetBootstrapperTest {
         val criticalAssetStore = mockk<AssetDataStore<*>>()
         val deferredAssetStore = mockk<AssetDataStore<*>>()
         val bootstrapper = DefaultAssetBootstrapper(
-            applicationScope = this,
+            appCoroutineScope = this,
             assetsDataStores = setOf(criticalAssetStore, deferredAssetStore),
             loggerFactory = NoOpLoggerFactory,
         )
