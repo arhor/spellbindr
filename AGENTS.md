@@ -65,6 +65,13 @@ history; follow the pattern when possible. CI only runs for PRs targeting `maste
 The instrumentation runner is `com.github.arhor.spellbindr.HiltApplicationTestRunner`; keep it when adding or updating
 androidTest components. Avoid committing local SDK paths or secrets.
 
+### Project documentation
+
+- App overview: `docs/app-overview.md`
+  - Contains a code-evidenced summary of product goals, architecture, module responsibilities, feature/data flows,
+    persistence/assets/integrations, workflow commands, and known ambiguities.
+  - Consult this document before making non-trivial architectural, feature, or refactoring changes.
+
 ### Architecture Reference for Agents
 
 - MVI feature-entry contract: `docs/mvi-dispatch-contract.md`
