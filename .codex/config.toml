@@ -1,0 +1,18 @@
+[features]
+multi_agent = true
+
+[agents]
+max_threads = 6
+max_depth = 1
+
+[agents.explorer]
+description = "Read-only codebase explorer for architecture and context gathering."
+config_file = "agents/explorer.toml"
+
+[agents.worker]
+description = "Implementation-focused agent for making code changes and fixes."
+config_file = "agents/worker.toml"
+
+[agents.reviewer]
+description = "Read-only reviewer for correctness, security, and test-risk analysis."
+config_file = "agents/reviewer.toml"
