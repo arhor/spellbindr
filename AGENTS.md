@@ -36,7 +36,7 @@ implementations.
 
 ## Testing Guidelines
 
-Unit tests use JUnit4, Truth, MockK, and ArchUnit. Place unit/android tests in the owning module under
+Unit tests use JUnit4, Truth, and MockK. Place unit/android tests in the owning module under
 `src/test/kotlin` and `src/androidTest/kotlin`. Shared helper/fake test fixtures live in `:core:testing`.
 App-only tests in `app/src/test/kotlin/com/github/arhor/spellbindr/architecture` and
 `app/src/androidTest/kotlin` cover cross-module rules and app integration wiring.

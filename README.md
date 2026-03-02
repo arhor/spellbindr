@@ -48,7 +48,6 @@ feature/
 
 - Repository interfaces live in `:core:domain`, while data implementations live in `:data:*`.
 - Feature UI and state live in `:feature:*`, consumed by the `:app` shell.
-- ArchUnit and end-to-end integration tests remain in `:app` as cross-module quality gates.
 
 ## Getting Started
 
