@@ -2319,31 +2319,6 @@
     "source": "PHB"
   },
   {
-    "id": "commune-with-nature",
-    "name": "Commune with Nature",
-    "desc": [
-      "You briefly become one with nature and gain knowledge of the surrounding territory. In the outdoors, the spell gives you knowledge of the land within 3 miles of you. In caves and other natural underground settings, the radius is limited to 300 feet. The spell doesn't function where nature has been replaced by construction, such as in dungeons and towns. You instantly gain knowledge of up to three facts of your choice about any of the following subjects as they relate to the area - terrain and bodies of water; prevalent plants, minerals, animals, or peoples; powerful celestials, fey, fiends, elementals, or undead; influence from other planes of existence; buildings. For example, you could determine the location of powerful undead in the area, the location of major sources of safe drinking water, and the location of any nearby towns."
-    ],
-    "range": "Self",
-    "components": [
-      "V",
-      "S"
-    ],
-    "material": "none",
-    "ritual": false,
-    "duration": "Instantaneous",
-    "concentration": false,
-    "castingTime": "1 minute",
-    "level": 5,
-    "school": "divination",
-    "classes": [
-      "druid",
-      "paladin",
-      "ranger"
-    ],
-    "source": "PHB"
-  },
-  {
     "id": "compelled-duel",
     "name": "Compelled Duel",
     "desc": [
@@ -9300,30 +9275,6 @@
     "source": "PHB"
   },
   {
-    "id": "meld-into-stone",
-    "name": "Meld into Stone",
-    "desc": [
-      "You step into a stone object or surface large enough to fully contain your body, melding yourself and all the equipment you carry with the stone for the duration. Using your movement, you step into the stone at a point you can touch. Nothing of your presence remains visible or otherwise detectable by nonmagical senses. While merged with the stone, you can't see what occurs outside it, and any Wisdom (Perception) checks you make to hear sounds outside it are made with disadvantage. You remain aware of the passage of time and can cast spells on yourself while merged in the stone. You can use your movement to leave the stone where you entered it, which ends the spell. You otherwise can't move. Minor physical damage to the stone doesn't harm you, but its partial destruction or a change in its shape (to the extent that you no longer fit within it) expels you and deals 6d6 bludgeoning damage to you. The stone's complete destruction (or transmutation into a different substance) expels you and deals 50 bludgeoning damage to you. If expelled, you fall prone in an unoccupied space closest to where you first entered."
-    ],
-    "range": "Touch",
-    "components": [
-      "V",
-      "S"
-    ],
-    "material": "none",
-    "ritual": false,
-    "duration": "8 hours",
-    "concentration": false,
-    "castingTime": "1 action",
-    "level": 3,
-    "school": "transmutation",
-    "classes": [
-      "druid",
-      "cleric"
-    ],
-    "source": "PHB"
-  },
-  {
     "id": "melfs-acid-arrow",
     "name": "Melf's Acid Arrow",
     "desc": [
@@ -10927,33 +10878,6 @@
     "subclasses": [
       "lore",
       "land"
-    ],
-    "source": "PHB"
-  },
-  {
-    "id": "protection-from-energy",
-    "name": "Protection from Energy",
-    "desc": [
-      "For the duration, the willing creature you touch has resistance to one damage type of your choice - acid, cold, fire, lightning, or thunder."
-    ],
-    "range": "Touch",
-    "components": [
-      "V",
-      "S"
-    ],
-    "material": "none",
-    "ritual": false,
-    "duration": "Concentration, up to 1 hour",
-    "concentration": true,
-    "castingTime": "action",
-    "level": 3,
-    "school": "abjuration",
-    "classes": [
-      "cleric",
-      "druid",
-      "ranger",
-      "sorcerer",
-      "wizard"
     ],
     "source": "PHB"
   },
