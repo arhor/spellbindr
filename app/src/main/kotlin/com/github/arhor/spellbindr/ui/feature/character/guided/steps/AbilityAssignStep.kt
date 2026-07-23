@@ -45,13 +45,15 @@ internal fun AbilityAssignStep(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        item { Text(text = "Assign scores", style = MaterialTheme.typography.titleMedium) }
+        item { Text(text = "Assign ability scores", style = MaterialTheme.typography.titleMedium) }
         item {
             when (method) {
-                AbilityScoreMethod.STANDARD_ARRAY -> StandardArrayAssign(state, onStandardArrayAssigned)
+                AbilityScoreMethod.STANDARD_ARRAY -> StandardArrayAssign(
+                    assignments = state.selection.standardArrayAssignments,
+                    onStandardArrayAssigned = onStandardArrayAssigned,
+                )
                 AbilityScoreMethod.POINT_BUY -> PointBuyAssign(state, onPointBuyIncrement, onPointBuyDecrement)
             }
         }
     }
 }
-
