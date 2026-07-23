@@ -29,7 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.feature.character.R
+import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CastSlotOptionUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SpellCastUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SpellSlotPool

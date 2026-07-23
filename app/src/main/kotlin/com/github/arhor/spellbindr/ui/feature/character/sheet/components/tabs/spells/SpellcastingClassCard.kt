@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.feature.character.R
+import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSpellUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.PactSlotUiModel

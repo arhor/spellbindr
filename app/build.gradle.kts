@@ -7,23 +7,24 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.hilt)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.android.screenshot)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.ksp)
 }
 
 android {
     namespace = "com.github.arhor.spellbindr"
-    compileSdk = 36
-    buildToolsVersion = "36.0.0"
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.github.arhor.spellbindr"
         minSdk = 33
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "com.github.arhor.spellbindr.HiltApplicationTestRunner"
     }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -34,16 +35,21 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     buildFeatures {
         compose = true
     }
+
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
+
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 kotlin {
@@ -72,7 +78,6 @@ dependencies {
     implementation(project(":data:compendium"))
     implementation(project(":data:favorites"))
     implementation(project(":data:settings"))
-    implementation(project(":feature:character"))
     implementation(project(":feature:compendium"))
     implementation(project(":feature:dice"))
     implementation(project(":feature:settings"))
@@ -101,6 +106,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(project(":core:testing"))
 
     kspAndroidTest(libs.hilt.android.compiler)
 
@@ -114,4 +120,7 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    screenshotTestImplementation(libs.screenshot.validation.api)
+    screenshotTestImplementation(libs.androidx.ui.tooling)
 }

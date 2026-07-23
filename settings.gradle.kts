@@ -41,7 +41,6 @@ include(":data:compendium")
 include(":data:favorites")
 include(":data:settings")
 
-include(":feature:character")
 include(":feature:compendium")
 include(":feature:dice")
 include(":feature:settings")

@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.github.arhor.spellbindr.feature.dice"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 33

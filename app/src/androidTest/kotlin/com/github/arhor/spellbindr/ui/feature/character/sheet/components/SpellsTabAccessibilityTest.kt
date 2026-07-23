@@ -6,7 +6,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.arhor.spellbindr.feature.character.R
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.spells.SpellsTab
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode

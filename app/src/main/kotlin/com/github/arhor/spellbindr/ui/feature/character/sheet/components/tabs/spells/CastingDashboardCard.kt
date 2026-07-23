@@ -43,7 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.feature.character.R
+import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.ConcentrationUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.PactSlotUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode

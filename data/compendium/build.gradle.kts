@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.github.arhor.spellbindr.data.compendium"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 33
