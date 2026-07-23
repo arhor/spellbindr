@@ -18,7 +18,7 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 ## Tech Stack
 
 - Kotlin 2.3, JVM 17 (`.java-version`), Android Gradle Plugin 9.0.0.
-- Android minSdk 33, target/compile SDK 36 (`app/build.gradle.kts`).
+- Android minSdk 33, target/compile SDK 37 (`app/build.gradle.kts`).
 - Jetpack Compose (Material3, Navigation), Hilt DI, KSP.
 - Room for character persistence; DataStore Preferences for app settings and favorites.
 - Kotlinx Serialization + Coroutines/Flow.
@@ -26,35 +26,23 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 ## Project Structure
 
 ```
-app/                    # app shell + nav wiring + integration tests
-core/
-  common/               # pure Kotlin shared utils
-  domain/               # models, repository contracts, use cases
-  testing/              # shared test helpers/fakes
-  ui/                   # shared Compose theme/components
-  ui-spells/            # shared spell UI components
-data/
-  character/            # Room persistence
-  compendium/           # SRD asset stores + repositories
-  preferences/          # DataStore-backed repositories
-feature/
-  character/
-  compendium/
-  dice/
-  settings/
+app/                    # all application, domain, data, feature, UI, and test code
+  src/main/assets/data/ # SRD reference data
+  src/main/kotlin/     # application and package-organized implementation code
+  src/test/kotlin/      # JVM tests and shared test helpers
+  src/androidTest/     # instrumentation tests
 ```
 
 ## Architecture
 
-- Repository interfaces live in `:core:domain`, while data implementations live in `:data:*`.
-- Feature UI and state live in `:feature:*`, consumed by the `:app` shell.
+- Repository interfaces, data implementations, domain logic, feature UI, and application wiring all live in `:app`.
 
 ## Getting Started
 
 Prereqs:
 
 - JDK 17.
-- Android SDK 36 + build-tools 36.0.0.
+- Android SDK 37.
 
 ## Build / Run / Test
 
@@ -67,8 +55,7 @@ Prereqs:
 This project uses AGP Compose Screenshot Testing in module-local screenshot source sets.
 
 - Screenshot previews currently live in:
-    - `core/ui/src/screenshotTest/kotlin/...`
-    - `feature/character/src/screenshotTest/kotlin/...`
+    - `app/src/screenshotTest/kotlin/...`
 - Each preview must be annotated with:
     - `@Preview...`
     - `@PreviewTest`
@@ -78,10 +65,10 @@ This project uses AGP Compose Screenshot Testing in module-local screenshot sour
 CLI export helper:
 
 - Export screenshots for a module + preview filter:
-    - `run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar*'`
-    - `run/export-preview-screenshot.sh --module :feature:character --tests '*SpellsTab_Screenshot*'`
+    - `run/export-preview-screenshot.sh --module :app --tests '*AppTopBar*'`
+    - `run/export-preview-screenshot.sh --module :app --tests '*SpellsTab_Screenshot*'`
     - If you already ran Gradle separately:
-      `run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar*' --skip-gradle`
+      `run/export-preview-screenshot.sh --module :app --tests '*AppTopBar*' --skip-gradle`
 
 Exports are copied to `<module>/build/outputs/preview-screenshots/<timestamp>/`.
 

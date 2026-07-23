@@ -2,15 +2,13 @@
 
 ## Project Structure & Module Organization
 
-Spellbindr is a multi-module Android project. Primary modules:
+Spellbindr is a single-module Android project:
 
-- `:app` (application shell, nav wiring, cross-module architecture tests, integration android tests)
-- `:core:common`, `:core:domain`, `:core:ui`, `:core:ui-spells`, `:core:testing`
-- `:data:character`, `:data:compendium`, `:data:favorites`, `:data:settings`
-- `:feature:character`, `:feature:compendium`, `:feature:dice`, `:feature:settings`
+- `:app` contains application wiring, domain models/use cases, data implementations, UI components, features, and
+  integration tests.
 
-Code should be tested in the same module that owns it. `:app` tests are reserved for cross-module and app-wiring
-coverage. Static SRD data remains in `app/src/main/assets/data`, icons in `app/src/main/assets/icons`.
+Code should be tested in `:app`, close to the package that owns it. Static SRD data remains in
+`app/src/main/assets/data`, icons in `app/src/main/assets/icons`.
 
 ## Build, Test, and Development Commands
 
@@ -18,13 +16,13 @@ Golden paths:
 
 - `./gradlew assembleDebug`: build the debug APK at `app/build/outputs/apk/debug/app-debug.apk`.
 - `./gradlew lintDebug test testDebugUnitTest --stacktrace`: CI task set in `.github/workflows/android-ci.yml`.
-- `./gradlew test`: JVM tests for Kotlin/JVM modules (`:core:common`, `:core:domain`, `:core:testing`).
+- `./gradlew test`: JVM unit tests in `:app`.
 - `./gradlew testDebugUnitTest`: JVM unit tests for Android modules.
 - `./gradlew connectedDebugAndroidTest`: instrumentation/UI tests (device or emulator required).
-- `run/setup.sh`: Linux-only SDK bootstrap (downloads cmdline tools, installs SDK 36 + build-tools 36.0.0, runs
+- `run/setup.sh`: Linux-only SDK bootstrap (downloads cmdline tools, installs the required Android SDK, runs
   `git submodule update`).
 
-Prereqs: JDK 17 (`.java-version`) and Android SDK 36 / build-tools 36.0.0 (`app/build.gradle.kts`).
+Prereqs: JDK 17 (`.java-version`) and Android SDK 37 (`app/build.gradle.kts`).
 Set the SDK path in `local.properties` or `ANDROID_HOME`.
 
 ## Coding Style & Naming Conventions
@@ -36,10 +34,8 @@ implementations.
 
 ## Testing Guidelines
 
-Unit tests use JUnit4, Truth, and MockK. Place unit/android tests in the owning module under
-`src/test/kotlin` and `src/androidTest/kotlin`. Shared helper/fake test fixtures live in `:core:testing`.
-App-only tests in `app/src/test/kotlin/com/github/arhor/spellbindr/architecture` and
-`app/src/androidTest/kotlin` cover cross-module rules and app integration wiring.
+Unit tests use JUnit4, Truth, and MockK. Place unit tests under `app/src/test/kotlin` and instrumentation tests under
+`app/src/androidTest/kotlin`. Shared helper/fake test fixtures live under `app/src/test/kotlin`.
 
 ## CI / Automation
 
@@ -79,21 +75,20 @@ previews.
 Workflow:
 
 - Add screenshot previews under the owning module, e.g.:
-    - `core/ui/src/screenshotTest/kotlin/...`
-    - `feature/character/src/screenshotTest/kotlin/...`
+    - `app/src/screenshotTest/kotlin/...`
 - Wrap preview content with that module’s `ScreenshotHarness` to ensure consistent theme/background/padding.
 - Each exported preview must be annotated with:
     - `@PreviewTest` (from `com.android.tools.screenshot.PreviewTest`)
     - a Compose `@Preview...` annotation (`@Preview`, `@PreviewLightDark`, etc.)
     - `@Composable`
 - Generate/update reference PNGs for a specific preview (or file/class) via Gradle test filtering:
-    - `./gradlew :core:ui:updateDebugScreenshotTest --tests '*AppTopBar_Screenshot*'`
+    - `./gradlew :app:updateDebugScreenshotTest --tests '*AppTopBar_Screenshot*'`
 - Reference images are written to:
     - `<module>/src/screenshotTestDebug/reference/` (gitignored in this repo)
 - Export the generated PNGs to a clean timestamped folder:
-    - `run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar_Screenshot*'`
+    - `run/export-preview-screenshot.sh --module :app --tests '*AppTopBar_Screenshot*'`
     - If Gradle can’t be invoked from the script (sandbox/permissions), run Gradle first and then:
-      `run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar_Screenshot*' --skip-gradle`
+      `run/export-preview-screenshot.sh --module :app --tests '*AppTopBar_Screenshot*' --skip-gradle`
 
 ## Visual Comparison Workflow (User-provided image → “match this”)
 

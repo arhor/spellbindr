@@ -69,18 +69,7 @@ kotlin {
 
 dependencies {
     ksp(libs.hilt.android.compiler)
-
-    implementation(project(":core:common"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:ui-spells"))
-    implementation(project(":data:character"))
-    implementation(project(":data:compendium"))
-    implementation(project(":data:favorites"))
-    implementation(project(":data:settings"))
-    implementation(project(":feature:compendium"))
-    implementation(project(":feature:dice"))
-    implementation(project(":feature:settings"))
+    ksp(libs.androidx.room.compiler)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
@@ -98,7 +87,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.hilt.android)
+    implementation(libs.javax.inject)
     implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
 
@@ -106,7 +97,6 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(project(":core:testing"))
 
     kspAndroidTest(libs.hilt.android.compiler)
 
