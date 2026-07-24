@@ -7,7 +7,7 @@ Spellbindr is a single-module Android project:
 - `:app` contains application wiring, domain models/use cases, data implementations, UI components, features, and
   integration tests.
 
-Code should be tested in `:app`, close to the package that owns it. Static SRD data remains in
+Code should be tested in `:app`, close to the package that owns it. Static multi-source 5e reference data remains in
 `app/src/main/assets/data`, icons in `app/src/main/assets/icons`.
 
 ## Build, Test, and Development Commands

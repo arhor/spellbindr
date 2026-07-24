@@ -1,12 +1,13 @@
 # Spellbindr
 
-Spellbindr is an Android app for Dungeons & Dragons 5e. It provides a Compose UI for browsing SRD reference data,
-managing characters, and rolling dice.
+Spellbindr is an Android app for Dungeons & Dragons 5e. It provides a Compose UI for browsing bundled, multi-source
+reference data, managing characters, and rolling dice.
 
 ## Overview
 
-Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD JSON assets in
-`app/src/main/assets/data` via the asset bootstrapper.
+Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads the JSON assets in
+`app/src/main/assets/data` via the asset bootstrapper. The bundled data is drawn from multiple 5e data sets—not only
+the SRD—and includes source metadata where provided.
 
 ## Key Features
 
@@ -17,7 +18,7 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 
 ## Tech Stack
 
-- Kotlin 2.3, JVM 17 (`.java-version`), Android Gradle Plugin 9.0.0.
+- Kotlin 2.4.10, JVM 17 (`.java-version`), Android Gradle Plugin 9.3.1.
 - Android minSdk 33, target/compile SDK 37 (`app/build.gradle.kts`).
 - Jetpack Compose (Material3, Navigation), Hilt DI, KSP.
 - Room for character persistence; DataStore Preferences for app settings and favorites.
@@ -27,7 +28,7 @@ Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads SRD
 
 ```
 app/                    # all application, domain, data, feature, UI, and test code
-  src/main/assets/data/ # SRD reference data
+  src/main/assets/data/ # bundled multi-source 5e reference data
   src/main/kotlin/     # application and package-organized implementation code
   src/test/kotlin/      # JVM tests and shared test helpers
   src/androidTest/     # instrumentation tests
@@ -43,12 +44,14 @@ Prereqs:
 
 - JDK 17.
 - Android SDK 37.
+- An SDK path configured in `local.properties` or `ANDROID_HOME`.
 
 ## Build / Run / Test
 
 - Build debug APK: `./gradlew assembleDebug` (output: `app/build/outputs/apk/debug/app-debug.apk`).
 - Lint + unit tests (CI): `./gradlew lintDebug test testDebugUnitTest`.
 - Instrumentation tests: `./gradlew connectedDebugAndroidTest` (requires a device or emulator).
+- Linux SDK bootstrap: `run/setup.sh`.
 
 ## Screenshot exports (Compose previews → PNG)
 
