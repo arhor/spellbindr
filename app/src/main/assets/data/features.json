@@ -129,7 +129,7 @@
     "name": "Path feature",
     "level": 6,
     "desc": [
-      "At 3rd level, you choose a path that shapes the nature of your rage. Choose the Path of the Berserker or the Path of the Totem Warrior, both detailed at the end of the class description. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+      "Your chosen Primal Path grants you a feature at 6th level."
     ]
   },
   {
@@ -163,7 +163,7 @@
     "name": "Brutal Critical (1 die)",
     "level": 9,
     "desc": [
-      "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two additional dice at 13th level and three additional dice at 17th level."
+      "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack."
     ]
   },
   {
@@ -189,7 +189,7 @@
     "name": "Path feature",
     "level": 10,
     "desc": [
-      "At 3rd level, you choose a path that shapes the nature of your rage. Choose the Path of the Berserker or the Path of the Totem Warrior, both detailed at the end of the class description. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels."
+      "Your chosen Primal Path grants you a feature at 10th level."
     ]
   },
   {
@@ -223,7 +223,7 @@
     "name": "Brutal Critical (2 dice)",
     "level": 13,
     "desc": [
-      "Beginning at 9th level, you can roll one additional weapon damage die when determining the extra damage for a critical hit with a melee attack. This increases to two additional dice at 13th level and three additional dice at 17th level."
+      "Beginning at 13th level, you can roll two additional weapon damage dice when determining the extra damage for a critical hit with a melee attack."
     ]
   },
   {
@@ -4134,7 +4134,7 @@
     "name": "Flexible Casting: Converting Spell Slot",
     "level": 2,
     "desc": [
-      "As a bonus action on your turn, you can expend one spell slot and gain a number of sorcery points equal to the slot's level.."
+      "As a bonus action on your turn, you can expend one spell slot and gain a number of sorcery points equal to the slot's level."
     ]
   },
   {
@@ -5183,7 +5183,7 @@
     "name": "Mystic Arcanum (6th level)",
     "level": 11,
     "desc": [
-      "At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th- level spell from the warlock spell list as this arcanum.",
+      "At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th-level spell from the warlock spell list as this arcanum.",
       "You can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again.",
       "At higher levels, you gain more warlock spells of your choice that can be cast in this way: one 7th- level spell at 13th level, one 8th-level spell at 15th level, and one 9th-level spell at 17th level. You regain all uses of your Mystic Arcanum when you finish a long rest."
     ]
@@ -5207,7 +5207,7 @@
     "name": "Mystic Arcanum (7th level)",
     "level": 13,
     "desc": [
-      "At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th- level spell from the warlock spell list as this arcanum.",
+      "At 13th level, choose one 7th-level spell from the warlock spell list as this arcanum.",
       "You can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again.",
       "At higher levels, you gain more warlock spells of your choice that can be cast in this way: one 7th- level spell at 13th level, one 8th-level spell at 15th level, and one 9th-level spell at 17th level. You regain all uses of your Mystic Arcanum when you finish a long rest."
     ]
@@ -5236,7 +5236,7 @@
     "name": "Mystic Arcanum (8th level)",
     "level": 15,
     "desc": [
-      "At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th- level spell from the warlock spell list as this arcanum.",
+      "At 15th level, choose one 8th-level spell from the warlock spell list as this arcanum.",
       "You can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again.",
       "At higher levels, you gain more warlock spells of your choice that can be cast in this way: one 7th- level spell at 13th level, one 8th-level spell at 15th level, and one 9th-level spell at 17th level. You regain all uses of your Mystic Arcanum when you finish a long rest."
     ]
@@ -5260,7 +5260,7 @@
     "name": "Mystic Arcanum (9th level)",
     "level": 17,
     "desc": [
-      "At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th- level spell from the warlock spell list as this arcanum.",
+      "At 17th level, choose one 9th-level spell from the warlock spell list as this arcanum.",
       "You can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again.",
       "At higher levels, you gain more warlock spells of your choice that can be cast in this way: one 7th- level spell at 13th level, one 8th-level spell at 15th level, and one 9th-level spell at 17th level. You regain all uses of your Mystic Arcanum when you finish a long rest."
     ]
