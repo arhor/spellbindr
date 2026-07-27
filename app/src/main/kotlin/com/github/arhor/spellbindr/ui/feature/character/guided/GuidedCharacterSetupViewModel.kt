@@ -24,14 +24,22 @@ import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedReferenceData
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedReferenceDataState
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedSpellsData
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceCategory
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceContext
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceRequirement
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceRequirements
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedFixedGrant
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.buildGuidedCharacterSheet
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.computeGuidedPreview
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.computeGuidedSetupSteps
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultPointBuyScores
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultStandardArrayAssignments
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.deriveGuidedChoiceRequirements
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.guidedPointBuyTotalCost
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.observeGuidedReferenceDataState
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.observeGuidedSpellsDataState
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.reconcileGuidedChoiceSelections
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.resolveGuidedSetupStep
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.validateGuidedSetupContent
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedCharacterPreview
@@ -116,17 +124,17 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
         if (hasSpellSelections) return true
         if (state.step == GuidedStep.SPELLS) return true
+        if (state.step == GuidedStep.ANCESTRY_CHOICES) return true
 
-        if (state.step != GuidedStep.RACE) return false
-
-        val race = state.raceId?.let { id -> referenceData?.races?.firstOrNull { it.id == id } } ?: return false
-        val traitIds = buildList {
-            addAll(race.traits.map { it.id })
-            val subrace = state.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
-            if (subrace != null) addAll(subrace.traits.map { it.id })
+        val data = referenceData ?: return false
+        return deriveChoiceRequirements(
+            state = state,
+            referenceData = data,
+            spells = emptyList(),
+        ).requirements.any { requirement ->
+            requirement.category == GuidedChoiceCategory.ANCESTRY &&
+                requirement.key.endsWith("/spell")
         }
-        val traitsById = referenceData?.traitsById ?: return false
-        return traitIds.mapNotNull(traitsById::get).any { it.spellChoice != null }
     }
 
     val uiState: StateFlow<GuidedCharacterSetupUiState> = combine(
@@ -147,26 +155,21 @@ class GuidedCharacterSetupViewModel @Inject constructor(
                 val selectedClass = state.classId?.let { id ->
                     referenceData.classes.firstOrNull { it.id == id }
                 }
+                val selection = state.toSelection()
+                val choiceRequirements = deriveChoiceRequirements(
+                    state = state,
+                    referenceData = referenceData,
+                    spells = spellsData.spells,
+                )
 
                 val steps = computeSteps(
                     selectedClass = selectedClass,
                     featuresById = referenceData.featuresById,
+                    choiceRequirements = choiceRequirements,
                 )
 
-                val resolvedStep = state.step.takeIf { it in steps } ?: steps.first()
+                val resolvedStep = resolveGuidedSetupStep(state.step, steps)
                 val currentIndex = steps.indexOf(resolvedStep).coerceAtLeast(0)
-
-                val selection = GuidedSelection(
-                    classId = state.classId,
-                    subclassId = state.subclassId,
-                    raceId = state.raceId,
-                    subraceId = state.subraceId,
-                    backgroundId = state.backgroundId,
-                    abilityMethod = state.abilityMethod,
-                    standardArrayAssignments = state.standardArrayAssignments,
-                    pointBuyScores = state.pointBuyScores,
-                    choiceSelections = state.choiceSelections,
-                )
 
                 val preview = computePreview(
                     selection = selection,
@@ -196,6 +199,8 @@ class GuidedCharacterSetupViewModel @Inject constructor(
                     spellsById = spellsData.spellsById,
                     referenceDataVersion = referenceData.version,
                     selection = selection,
+                    choiceRequirements = choiceRequirements.requirements,
+                    fixedGrants = choiceRequirements.fixedGrants,
                     preview = preview,
                     isSaving = state.isSaving,
                 )
@@ -242,17 +247,15 @@ class GuidedCharacterSetupViewModel @Inject constructor(
     }
 
     private fun onClassSelected(classId: String) {
-        _state.update {
-            it.copy(
-                classId = classId,
-                subclassId = null,
-                choiceSelections = it.choiceSelections.filterKeys { key ->
-                    !key.startsWith(CLASS_CHOICE_PREFIX) &&
-                        !key.startsWith(FEATURE_CHOICE_PREFIX) &&
-                        !key.startsWith(SPELL_CHOICE_PREFIX)
-                },
-            )
-        }
+        updateUpstreamSelection(
+            transform = {
+                it.copy(
+                    classId = classId,
+                    subclassId = null,
+                )
+            },
+            preserveClassOwnedSelections = false,
+        )
     }
 
     private fun onSubclassSelected(subclassId: String) {
@@ -260,26 +263,26 @@ class GuidedCharacterSetupViewModel @Inject constructor(
     }
 
     private fun onRaceSelected(raceId: String) {
-        _state.update {
-            it.copy(
-                raceId = raceId,
-                subraceId = null,
-                choiceSelections = it.choiceSelections.filterKeys { key -> !key.startsWith(RACE_CHOICE_PREFIX) },
-            )
-        }
+        updateUpstreamSelection(
+            transform = { state ->
+                state.copy(
+                    raceId = raceId,
+                    subraceId = null,
+                )
+            },
+        )
     }
 
     private fun onSubraceSelected(subraceId: String) {
-        _state.update { it.copy(subraceId = subraceId) }
+        updateUpstreamSelection(
+            transform = { it.copy(subraceId = subraceId) },
+        )
     }
 
     private fun onBackgroundSelected(backgroundId: String) {
-        _state.update {
-            it.copy(
-                backgroundId = backgroundId,
-                choiceSelections = it.choiceSelections.filterKeys { key -> !key.startsWith(BACKGROUND_CHOICE_PREFIX) },
-            )
-        }
+        updateUpstreamSelection(
+            transform = { it.copy(backgroundId = backgroundId) },
+        )
     }
 
     private fun onAbilityMethodSelected(method: AbilityScoreMethod) {
@@ -363,13 +366,93 @@ class GuidedCharacterSetupViewModel @Inject constructor(
 
     private fun onGoToStep(step: GuidedStep) {
         val content = uiState.value as? GuidedCharacterSetupUiState.Content ?: return
-        val resolved = when {
-            step in content.steps -> step
-            step == GuidedStep.CLASS_CHOICES -> GuidedStep.CLASS
-            else -> return
-        }
+        val resolved = resolveGuidedSetupStep(step, content.steps)
         _state.update { it.copy(step = resolved) }
     }
+
+    private fun updateUpstreamSelection(
+        transform: (State) -> State,
+        preserveClassOwnedSelections: Boolean = true,
+    ) {
+        val referenceData = (referenceDataState.value as? GuidedReferenceDataState.Content)?.data
+        _state.update { current ->
+            val updated = transform(current)
+            if (referenceData == null) {
+                updated
+            } else {
+                val requirements = deriveChoiceRequirements(
+                    state = updated,
+                    referenceData = referenceData,
+                    spells = spellsData.value.spells,
+                )
+                updated.copy(
+                    choiceSelections = reconcileGuidedChoiceSelections(
+                        choiceSelections = updated.choiceSelections,
+                        choiceRequirements = requirements,
+                        additionalActiveKeys = additionalActiveChoiceKeys(
+                            state = updated,
+                            referenceData = referenceData,
+                            includeClassOwnedSelections = preserveClassOwnedSelections,
+                        ),
+                    ),
+                )
+            }
+        }
+    }
+
+    private fun deriveChoiceRequirements(
+        state: State,
+        referenceData: GuidedReferenceData,
+        spells: List<Spell>,
+    ): GuidedChoiceRequirements = deriveGuidedChoiceRequirements(
+        GuidedChoiceContext(
+            selection = state.toSelection(),
+            classes = referenceData.classes,
+            races = referenceData.races,
+            backgrounds = referenceData.backgrounds,
+            traitsById = referenceData.traitsById,
+            languages = referenceData.languages,
+            equipment = referenceData.equipment,
+            featuresById = referenceData.featuresById,
+            spells = spells,
+            referenceDataVersion = referenceData.version,
+        ),
+    )
+
+    private fun additionalActiveChoiceKeys(
+        state: State,
+        referenceData: GuidedReferenceData,
+        includeClassOwnedSelections: Boolean,
+    ): Set<String> {
+        val selectedClass = referenceData.classes.firstOrNull { it.id == state.classId } ?: return emptySet()
+        return buildSet {
+            if (includeClassOwnedSelections) {
+                selectedClass.levels
+                    .firstOrNull { it.level == 1 }
+                    ?.features
+                    .orEmpty()
+                    .filter { referenceData.featuresById[it]?.choice != null }
+                    .forEach { add(featureChoiceKey(it)) }
+            }
+
+            if (includeClassOwnedSelections && selectedClass.spellcasting?.level == 1) {
+                add(spellCantripsChoiceKey())
+                add(spellLevel1ChoiceKey())
+            }
+        }
+    }
+
+    private fun State.toSelection(): GuidedSelection = GuidedSelection(
+        classId = classId,
+        subclassId = subclassId,
+        raceId = raceId,
+        subraceId = subraceId,
+        backgroundId = backgroundId,
+        abilityMethod = abilityMethod,
+        standardArrayAssignments = standardArrayAssignments,
+        pointBuyScores = pointBuyScores,
+        choiceSelections = choiceSelections,
+    )
 
     private fun onCreateCharacter() {
         val content = uiState.value as? GuidedCharacterSetupUiState.Content ?: return
@@ -420,9 +503,11 @@ class GuidedCharacterSetupViewModel @Inject constructor(
     private fun computeSteps(
         selectedClass: com.github.arhor.spellbindr.domain.model.CharacterClass?,
         featuresById: Map<String, Feature>,
+        choiceRequirements: GuidedChoiceRequirements,
     ): List<GuidedStep> = computeGuidedSetupSteps(
         selectedClass = selectedClass,
         featuresById = featuresById,
+        choiceRequirements = choiceRequirements,
     )
 
     companion object {
@@ -490,6 +575,8 @@ sealed interface GuidedCharacterSetupUiState {
         val spellsById: Map<String, Spell>,
         val referenceDataVersion: Int,
         val selection: GuidedSelection,
+        val choiceRequirements: List<GuidedChoiceRequirement> = emptyList(),
+        val fixedGrants: List<GuidedFixedGrant> = emptyList(),
         val preview: GuidedCharacterPreview,
         val isSaving: Boolean,
         val validation: GuidedValidationResult = GuidedValidationResult(emptyList()),

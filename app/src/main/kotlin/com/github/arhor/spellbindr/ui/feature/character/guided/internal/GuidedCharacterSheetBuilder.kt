@@ -311,8 +311,8 @@ internal fun buildGuidedAllEffects(
         if (background.languageChoice != null && backgroundLanguages.isNotEmpty()) {
             effects += Effect.AddLanguagesEffect(backgroundLanguages)
         }
-        val backgroundEquipment =
-            selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()].orEmpty()
+        val backgroundEquipment = activeBackgroundEquipmentChoiceKeys(background.equipmentChoice)
+            .flatMapTo(linkedSetOf()) { key -> selection.choiceSelections[key].orEmpty() }
         if (background.equipmentChoice != null && backgroundEquipment.isNotEmpty()) {
             effects += Effect.AddEquipmentEffect(
                 backgroundEquipment.map { CountedEntityRef(it, 1) },
@@ -558,8 +558,8 @@ internal fun buildGuidedFeaturesAndTraitsText(
             }
         }
         background.equipmentChoice?.let {
-            val selected =
-                selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()].orEmpty()
+            val selected = activeBackgroundEquipmentChoiceKeys(it)
+                .flatMapTo(linkedSetOf()) { key -> selection.choiceSelections[key].orEmpty() }
             if (selected.isNotEmpty()) {
                 bullet("Equipment: ${selected.map(::optionName).sorted().joinToString(", ")}")
             }
@@ -589,6 +589,18 @@ internal fun skillFromProficiencyId(id: String): Skill? {
         .replace("-", "_")
         .uppercase()
     return Skill.entries.firstOrNull { it.name == normalized }
+}
+
+private fun activeBackgroundEquipmentChoiceKeys(
+    choice: Choice?,
+    baseKey: String = GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey(),
+): List<String> = when (choice) {
+    null -> emptyList()
+    is Choice.NestedChoice -> choice.from.flatMapIndexed { index, nested ->
+        activeBackgroundEquipmentChoiceKeys(nested, "$baseKey/$index")
+    }
+
+    else -> listOf(baseKey)
 }
 
 private const val ROGUE_EXPERTISE_FEATURE_ID = "rogue-expertise-1"

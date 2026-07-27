@@ -36,8 +36,11 @@ import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.displayName
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceCategory
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.StandardArray
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.firstIncompleteRequirement
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.pointBuyCost
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.requirementBlockingMessage
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedCharacterPreview
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedStep
@@ -120,18 +123,11 @@ private fun GuidedCharacterSetupContent(
                     state = state,
                     onRaceSelected = { dispatch(GuidedCharacterSetupIntent.RaceSelected(it)) },
                     onSubraceSelected = { dispatch(GuidedCharacterSetupIntent.SubraceSelected(it)) },
-                    onChoiceToggled = { key, optionId, maxSelected ->
-                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
-                    },
-                    listState = listState,
                 )
 
                 GuidedStep.BACKGROUND -> BackgroundStep(
                     state = state,
                     onBackgroundSelected = { dispatch(GuidedCharacterSetupIntent.BackgroundSelected(it)) },
-                    onChoiceToggled = { key, optionId, maxSelected ->
-                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
-                    },
                     listState = listState,
                 )
 
@@ -153,8 +149,17 @@ private fun GuidedCharacterSetupContent(
                     listState = listState,
                 )
 
-                GuidedStep.SKILLS_PROFICIENCIES -> SkillsStep(
-                    state = state,
+                GuidedStep.ANCESTRY_CHOICES -> AncestryChoicesStep(
+                    requirements = state.choiceRequirements,
+                    onChoiceToggled = { key, optionId, maxSelected ->
+                        dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
+                    },
+                    listState = listState,
+                )
+
+                GuidedStep.PROFICIENCIES_LANGUAGES -> ProficienciesLanguagesStep(
+                    fixedGrants = state.fixedGrants,
+                    requirements = state.choiceRequirements,
                     onChoiceToggled = { key, optionId, maxSelected ->
                         dispatch(GuidedCharacterSetupIntent.ChoiceToggled(key, optionId, maxSelected))
                     },
@@ -515,11 +520,37 @@ private fun canProceedFromStep(state: GuidedCharacterSetupUiState.Content): Bool
         GuidedStep.CLASS -> selection.classId != null
         GuidedStep.CLASS_CHOICES -> classChoicesComplete(state)
         GuidedStep.RACE -> raceComplete(state)
-        GuidedStep.BACKGROUND -> backgroundComplete(state)
+        GuidedStep.BACKGROUND -> selection.backgroundId != null
         GuidedStep.ABILITY_METHOD -> selection.abilityMethod != null
         GuidedStep.ABILITY_ASSIGN -> abilityAssignComplete(state)
-        GuidedStep.SKILLS_PROFICIENCIES -> classProficiencyChoicesComplete(state)
-        GuidedStep.EQUIPMENT -> backgroundEquipmentComplete(state)
+        GuidedStep.ANCESTRY_CHOICES ->
+            firstIncompleteRequirement(
+                state.choiceRequirements,
+                GuidedChoiceCategory.ANCESTRY,
+                selection.choiceSelections,
+            ) == null
+
+        GuidedStep.PROFICIENCIES_LANGUAGES ->
+            firstIncompleteRequirement(
+                state.choiceRequirements.filter {
+                    it.category == GuidedChoiceCategory.PROFICIENCY ||
+                        it.category == GuidedChoiceCategory.LANGUAGE
+                },
+                GuidedChoiceCategory.PROFICIENCY,
+                selection.choiceSelections,
+            ) == null &&
+                firstIncompleteRequirement(
+                    state.choiceRequirements,
+                    GuidedChoiceCategory.LANGUAGE,
+                    selection.choiceSelections,
+                ) == null
+
+        GuidedStep.EQUIPMENT ->
+            firstIncompleteRequirement(
+                state.choiceRequirements,
+                GuidedChoiceCategory.EQUIPMENT,
+                selection.choiceSelections,
+            ) == null
         GuidedStep.SPELLS -> spellsComplete(state)
         GuidedStep.REVIEW -> false
     }
@@ -557,45 +588,14 @@ private fun stepBlockingReason(state: GuidedCharacterSetupUiState.Content): Stri
         GuidedStep.RACE -> {
             val race = selection.raceId?.let { id -> state.races.firstOrNull { it.id == id } }
                 ?: return "Select a race to continue."
-            if (race.subraces.isNotEmpty() && selection.subraceId == null) return "Select a subrace to continue."
-
-            val traitIds = buildList {
-                addAll(race.traits.map { it.id })
-                val subrace = selection.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
-                if (subrace != null) addAll(subrace.traits.map { it.id })
-            }
-            val traits = traitIds.mapNotNull { state.traitsById[it] }
-            for (trait in traits) {
-                val requiredChoices = listOfNotNull(
-                    trait.abilityBonusChoice?.let { GuidedCharacterSetupViewModel.raceTraitAbilityBonusChoiceKey(trait.id) to it.choose },
-                    trait.languageChoice?.let { GuidedCharacterSetupViewModel.raceTraitLanguageChoiceKey(trait.id) to it.choose },
-                    trait.proficiencyChoice?.let { GuidedCharacterSetupViewModel.raceTraitProficiencyChoiceKey(trait.id) to it.choose },
-                    trait.draconicAncestryChoice?.let {
-                        GuidedCharacterSetupViewModel.raceTraitDraconicAncestryChoiceKey(trait.id) to it.choose
-                    },
-                    trait.spellChoice?.let { GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(trait.id) to it.choose },
-                )
-                for ((key, choose) in requiredChoices) {
-                    if (selection.choiceSelections[key].orEmpty().size != choose) {
-                        return "Select $choose option(s) for ${trait.name}."
-                    }
-                }
+            if (race.subraces.isNotEmpty() && race.subraces.none { it.id == selection.subraceId }) {
+                return "Select a subrace to continue."
             }
             null
         }
 
-        GuidedStep.BACKGROUND -> {
-            val bg = selection.backgroundId?.let { id -> state.backgrounds.firstOrNull { it.id == id } }
-                ?: return "Select a background to continue."
-            val languageChoice = bg.languageChoice ?: return null
-            val selected =
-                selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()].orEmpty()
-            if (selected.size != languageChoice.choose) {
-                "Select ${languageChoice.choose} language(s) to continue."
-            } else {
-                null
-            }
-        }
+        GuidedStep.BACKGROUND ->
+            if (selection.backgroundId == null) "Select a background to continue." else null
 
         GuidedStep.ABILITY_METHOD ->
             if (selection.abilityMethod == null) "Choose an ability score method to continue." else null
@@ -614,26 +614,29 @@ private fun stepBlockingReason(state: GuidedCharacterSetupUiState.Content): Stri
             }
         }
 
-        GuidedStep.SKILLS_PROFICIENCIES -> {
-            val clazz = selection.classId?.let { id -> state.classes.firstOrNull { it.id == id } } ?: return null
-            clazz.proficiencyChoices.withIndex().firstOrNull { (index, choice) ->
-                selection.choiceSelections[GuidedCharacterSetupViewModel.classProficiencyChoiceKey(index)].orEmpty().size != choice.choose
-            }?.let { (index, choice) ->
-                "Select ${choice.choose} option(s) for class choice ${index + 1}."
-            }
-        }
+        GuidedStep.ANCESTRY_CHOICES ->
+            firstIncompleteRequirement(
+                state.choiceRequirements,
+                GuidedChoiceCategory.ANCESTRY,
+                selection.choiceSelections,
+            )?.let { requirementBlockingMessage(it, selection.choiceSelections) }
 
-        GuidedStep.EQUIPMENT -> {
-            val bg = selection.backgroundId?.let { id -> state.backgrounds.firstOrNull { it.id == id } } ?: return null
-            val equipmentChoice = bg.equipmentChoice ?: return null
-            val selected =
-                selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()].orEmpty()
-            if (selected.size != equipmentChoice.choose) {
-                "Select ${equipmentChoice.choose} equipment option(s) to continue."
-            } else {
-                null
-            }
-        }
+        GuidedStep.PROFICIENCIES_LANGUAGES ->
+            state.choiceRequirements.firstOrNull {
+                (it.category == GuidedChoiceCategory.PROFICIENCY ||
+                    it.category == GuidedChoiceCategory.LANGUAGE) &&
+                    !com.github.arhor.spellbindr.ui.feature.character.guided.internal.isRequirementComplete(
+                        it,
+                        selection.choiceSelections,
+                    )
+            }?.let { requirementBlockingMessage(it, selection.choiceSelections) }
+
+        GuidedStep.EQUIPMENT ->
+            firstIncompleteRequirement(
+                state.choiceRequirements,
+                GuidedChoiceCategory.EQUIPMENT,
+                selection.choiceSelections,
+            )?.let { requirementBlockingMessage(it, selection.choiceSelections) }
 
         GuidedStep.SPELLS -> {
             val clazz = selection.classId?.let { id -> state.classes.firstOrNull { it.id == id } } ?: return null
@@ -672,39 +675,7 @@ private fun classChoicesComplete(state: GuidedCharacterSetupUiState.Content): Bo
 
 private fun raceComplete(state: GuidedCharacterSetupUiState.Content): Boolean {
     val race = state.selection.raceId?.let { id -> state.races.firstOrNull { it.id == id } } ?: return false
-    if (race.subraces.isNotEmpty() && state.selection.subraceId == null) return false
-
-    val traitIds = buildList {
-        addAll(race.traits.map { it.id })
-        val subrace = state.selection.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
-        if (subrace != null) {
-            addAll(subrace.traits.map { it.id })
-        }
-    }
-    val traits = traitIds.mapNotNull { state.traitsById[it] }
-    return traits.all { trait ->
-        listOfNotNull(
-            trait.abilityBonusChoice?.let { GuidedCharacterSetupViewModel.raceTraitAbilityBonusChoiceKey(trait.id) to it.choose },
-            trait.languageChoice?.let { GuidedCharacterSetupViewModel.raceTraitLanguageChoiceKey(trait.id) to it.choose },
-            trait.proficiencyChoice?.let { GuidedCharacterSetupViewModel.raceTraitProficiencyChoiceKey(trait.id) to it.choose },
-            trait.draconicAncestryChoice?.let { GuidedCharacterSetupViewModel.raceTraitDraconicAncestryChoiceKey(trait.id) to it.choose },
-            trait.spellChoice?.let { GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(trait.id) to it.choose },
-        ).all { (key, choose) ->
-            state.selection.choiceSelections[key].orEmpty().size == choose
-        }
-    }
-}
-
-private fun backgroundComplete(state: GuidedCharacterSetupUiState.Content): Boolean {
-    val bg = state.selection.backgroundId?.let { id -> state.backgrounds.firstOrNull { it.id == id } } ?: return false
-    val languageChoice = bg.languageChoice ?: return true
-    return state.selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()].orEmpty().size == languageChoice.choose
-}
-
-private fun backgroundEquipmentComplete(state: GuidedCharacterSetupUiState.Content): Boolean {
-    val bg = state.selection.backgroundId?.let { id -> state.backgrounds.firstOrNull { it.id == id } } ?: return true
-    val equipmentChoice = bg.equipmentChoice ?: return true
-    return state.selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()].orEmpty().size == equipmentChoice.choose
+    return race.subraces.isEmpty() || race.subraces.any { it.id == state.selection.subraceId }
 }
 
 private fun abilityAssignComplete(state: GuidedCharacterSetupUiState.Content): Boolean {
@@ -716,15 +687,6 @@ private fun abilityAssignComplete(state: GuidedCharacterSetupUiState.Content): B
 
         AbilityScoreMethod.POINT_BUY -> state.selection.pointBuyScores.values.sumOf(::pointBuyCost) <= 27
         null -> false
-    }
-}
-
-private fun classProficiencyChoicesComplete(state: GuidedCharacterSetupUiState.Content): Boolean {
-    val clazz = state.selection.classId?.let { id -> state.classes.firstOrNull { it.id == id } } ?: return true
-    return clazz.proficiencyChoices.withIndex().all { (index, choice) ->
-        state.selection.choiceSelections[GuidedCharacterSetupViewModel.classProficiencyChoiceKey(index)]
-            .orEmpty()
-            .size == choice.choose
     }
 }
 

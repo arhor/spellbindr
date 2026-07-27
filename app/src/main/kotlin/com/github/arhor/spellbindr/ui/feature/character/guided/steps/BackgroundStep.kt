@@ -28,13 +28,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.arhor.spellbindr.ui.feature.character.guided.components.ChoiceSection
-
 @Composable
 internal fun BackgroundStep(
     state: GuidedCharacterSetupUiState.Content,
     onBackgroundSelected: (String) -> Unit,
-    onChoiceToggled: (key: String, optionId: String, maxSelected: Int) -> Unit,
     listState: LazyListState,
 ) {
     var query by remember { mutableStateOf("") }
@@ -46,9 +43,6 @@ internal fun BackgroundStep(
             state.backgrounds.filter { it.name.contains(trimmed, ignoreCase = true) }
         }
     }
-
-    val bg = state.selection.backgroundId?.let { id -> state.backgrounds.firstOrNull { it.id == id } }
-
     LazyColumn(
         state = listState,
         modifier = Modifier.fillMaxSize(),
@@ -118,30 +112,5 @@ internal fun BackgroundStep(
             }
         }
 
-        val languageChoice = bg?.languageChoice
-        if (bg != null && languageChoice != null) {
-            item {
-                val choiceKey = GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()
-                val selected = state.selection.choiceSelections[choiceKey].orEmpty()
-                val options =
-                    remember(languageChoice, state.referenceDataVersion) { resolveOptions(languageChoice, state) }
-                ChoiceSection(
-                    title = "Languages",
-                    description = "Choose ${languageChoice.choose}",
-                    choice = languageChoice,
-                    selected = selected,
-                    options = options,
-                    disabledOptions = computeAlreadySelectedLanguageReasons(state, choiceKey),
-                    onToggle = { optionId ->
-                        onChoiceToggled(
-                            choiceKey,
-                            optionId,
-                            languageChoice.choose
-                        )
-                    },
-                )
-            }
-        }
     }
 }
-

@@ -2,9 +2,13 @@ package com.github.arhor.spellbindr.ui.feature.character.guided.internal
 
 import com.github.arhor.spellbindr.domain.model.AbilityId
 import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.Background
+import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedCharacterSetupUiState
 import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedCharacterSetupViewModel
+import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedSelection
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
+import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedStep
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedValidationIssue
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedValidationResult
 import com.github.arhor.spellbindr.utils.calculatePointBuyCost
@@ -23,6 +27,117 @@ internal fun guidedIsStandardArrayValid(assignments: Map<AbilityId, Int?>): Bool
 internal fun guidedPointBuyTotalCost(scores: Map<AbilityId, Int>): Int =
     calculatePointBuyCost(scores)
 
+internal fun isGuidedRaceSelectionComplete(
+    selection: GuidedSelection,
+    races: List<Race>,
+): Boolean {
+    val race = races.firstOrNull { it.id == selection.raceId } ?: return false
+    return race.subraces.isEmpty() || race.subraces.any { it.id == selection.subraceId }
+}
+
+internal fun isGuidedBackgroundSelectionComplete(
+    selection: GuidedSelection,
+    backgrounds: List<Background>,
+): Boolean = backgrounds.any { it.id == selection.backgroundId }
+
+internal fun isRequirementComplete(
+    requirement: GuidedChoiceRequirement,
+    selections: Map<String, Set<String>>,
+): Boolean {
+    val selected = selections[requirement.key].orEmpty()
+    if (selected.size != requirement.choice.choose) return false
+    if (selected.any { it in requirement.disabledOptions }) return false
+
+    val legalOptionIds = requirement.options.mapTo(hashSetOf()) { it.id }
+    return legalOptionIds.isEmpty() || selected.all { it in legalOptionIds }
+}
+
+internal fun firstIncompleteRequirement(
+    requirements: List<GuidedChoiceRequirement>,
+    category: GuidedChoiceCategory,
+    selections: Map<String, Set<String>>,
+): GuidedChoiceRequirement? = requirements.firstOrNull {
+    it.category == category && !isRequirementComplete(it, selections)
+}
+
+internal fun guidedStepForChoiceCategory(category: GuidedChoiceCategory): GuidedStep = when (category) {
+    GuidedChoiceCategory.ANCESTRY -> GuidedStep.ANCESTRY_CHOICES
+    GuidedChoiceCategory.PROFICIENCY,
+    GuidedChoiceCategory.LANGUAGE,
+    -> GuidedStep.PROFICIENCIES_LANGUAGES
+
+    GuidedChoiceCategory.EQUIPMENT -> GuidedStep.EQUIPMENT
+}
+
+internal fun requirementBlockingMessage(
+    requirement: GuidedChoiceRequirement,
+    selections: Map<String, Set<String>>,
+): String {
+    val selectedCount = selections[requirement.key].orEmpty().count { it !in requirement.disabledOptions }
+    val remaining = (requirement.choice.choose - selectedCount).coerceAtLeast(0)
+    val selectionLabel = when (requirement.category) {
+        GuidedChoiceCategory.PROFICIENCY -> "proficiency"
+        GuidedChoiceCategory.LANGUAGE -> "language"
+        GuidedChoiceCategory.ANCESTRY -> "ancestry option"
+        GuidedChoiceCategory.EQUIPMENT -> "equipment option"
+    }
+    if (remaining == 0) {
+        return "Replace the invalid $selectionLabel selection for ${requirement.sourceLabel}."
+    }
+    return "Select $remaining more $selectionLabel${if (remaining == 1) "" else "s"} for " +
+        "${requirement.sourceLabel}."
+}
+
+/**
+ * Reconciles downstream choices after class, race, subrace, or background changes.
+ *
+ * Requirements are processed in their canonical order. Fixed grants win over selectable duplicates, and an earlier
+ * requirement wins when two requirements currently select the same proficiency or language.
+ */
+internal fun reconcileGuidedChoiceSelections(
+    choiceSelections: Map<String, Set<String>>,
+    choiceRequirements: GuidedChoiceRequirements,
+    additionalActiveKeys: Set<String> = emptySet(),
+): Map<String, Set<String>> {
+    val fixedOptionIdsByCategory = choiceRequirements.fixedGrants
+        .groupBy(GuidedFixedGrant::category)
+        .mapValues { (_, grants) -> grants.mapTo(hashSetOf(), GuidedFixedGrant::optionId) }
+    val selectedByCategory = mutableMapOf<GuidedChoiceCategory, MutableSet<String>>()
+    val reconciled = linkedMapOf<String, Set<String>>()
+
+    choiceRequirements.requirements.forEach { requirement ->
+        val selected = choiceSelections[requirement.key].orEmpty()
+        val legalOptionIds = requirement.options.mapTo(linkedSetOf()) { it.id }
+        val categoryRejectsDuplicates =
+            requirement.category == GuidedChoiceCategory.PROFICIENCY ||
+                requirement.category == GuidedChoiceCategory.LANGUAGE
+        val fixedOptionIds = fixedOptionIdsByCategory[requirement.category].orEmpty()
+        val earlierSelected = selectedByCategory.getOrPut(requirement.category, ::linkedSetOf)
+
+        val kept = selected
+            .asSequence()
+            .filter { legalOptionIds.isEmpty() || it in legalOptionIds }
+            .filterNot { categoryRejectsDuplicates && it in fixedOptionIds }
+            .filterNot { categoryRejectsDuplicates && it in earlierSelected }
+            .sortedBy { optionId ->
+                legalOptionIds.indexOf(optionId).takeIf { it >= 0 } ?: Int.MAX_VALUE
+            }
+            .take(requirement.choice.choose)
+            .toCollection(linkedSetOf())
+
+        if (kept.isNotEmpty()) {
+            reconciled[requirement.key] = kept
+            if (categoryRejectsDuplicates) earlierSelected += kept
+        }
+    }
+
+    additionalActiveKeys.forEach { key ->
+        choiceSelections[key]?.let { selected -> reconciled[key] = selected }
+    }
+
+    return reconciled
+}
+
 internal fun validateGuidedSetupContent(
     content: GuidedCharacterSetupUiState.Content,
     pointBuyBudget: Int,
@@ -30,8 +145,15 @@ internal fun validateGuidedSetupContent(
     val issues = mutableListOf<GuidedValidationIssue>()
 
     if (content.selection.classId == null) issues += validationError("Choose a class.")
-    if (content.selection.raceId == null) issues += validationError("Choose a race.")
-    if (content.selection.backgroundId == null) issues += validationError("Choose a background.")
+    val race = content.selection.raceId?.let { id -> content.races.firstOrNull { it.id == id } }
+    if (race == null) {
+        issues += validationError("Choose a race.")
+    } else if (!isGuidedRaceSelectionComplete(content.selection, content.races)) {
+        issues += validationError("Choose a valid subrace for ${race.name}.")
+    }
+    if (!isGuidedBackgroundSelectionComplete(content.selection, content.backgrounds)) {
+        issues += validationError("Choose a background.")
+    }
 
     when (content.selection.abilityMethod) {
         null -> issues += validationError("Choose an ability score method.")
@@ -44,78 +166,11 @@ internal fun validateGuidedSetupContent(
         }
     }
 
-    val background = content.selection.backgroundId?.let { id -> content.backgrounds.firstOrNull { it.id == id } }
-    val bgLangChoice = background?.languageChoice
-    if (bgLangChoice != null) {
-        val selected =
-            content.selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()].orEmpty()
-        if (selected.size != bgLangChoice.choose) {
-            issues += validationError("Select ${bgLangChoice.choose} background language(s).")
-        }
-    }
-
-    val bgEquipChoice = background?.equipmentChoice
-    if (bgEquipChoice != null) {
-        val selected =
-            content.selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()].orEmpty()
-        if (selected.size != bgEquipChoice.choose) {
-            issues += validationError("Select ${bgEquipChoice.choose} background equipment item(s).")
-        }
-    }
-
-    val race = content.selection.raceId?.let { id -> content.races.firstOrNull { it.id == id } }
-    if (race != null) {
-        val traitIds = buildList {
-            addAll(race.traits.map { it.id })
-            val subrace = content.selection.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
-            if (subrace != null) {
-                addAll(subrace.traits.map { it.id })
-            }
-        }
-        traitIds.mapNotNull { content.traitsById[it] }.forEach { trait ->
-            trait.abilityBonusChoice?.let { choice ->
-                val selected = content.selection.choiceSelections[
-                    GuidedCharacterSetupViewModel.raceTraitAbilityBonusChoiceKey(trait.id)
-                ].orEmpty()
-                if (selected.size != choice.choose) {
-                    issues += validationError("Select ${choice.choose} race ability bonus option(s).")
-                }
-            }
-            trait.languageChoice?.let { choice ->
-                val selected =
-                    content.selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitLanguageChoiceKey(
-                        trait.id
-                    )]
-                        .orEmpty()
-                if (selected.size != choice.choose) {
-                    issues += validationError("Select ${choice.choose} race language option(s).")
-                }
-            }
-            trait.proficiencyChoice?.let { choice ->
-                val selected = content.selection.choiceSelections[
-                    GuidedCharacterSetupViewModel.raceTraitProficiencyChoiceKey(trait.id)
-                ].orEmpty()
-                if (selected.size != choice.choose) {
-                    issues += validationError("Select ${choice.choose} race proficiency option(s).")
-                }
-            }
-            trait.draconicAncestryChoice?.let { choice ->
-                val selected = content.selection.choiceSelections[
-                    GuidedCharacterSetupViewModel.raceTraitDraconicAncestryChoiceKey(trait.id)
-                ].orEmpty()
-                if (selected.size != choice.choose) {
-                    issues += validationError("Select ${choice.choose} option(s) for ${trait.name}.")
-                }
-            }
-            trait.spellChoice?.let { choice ->
-                val selected =
-                    content.selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(
-                        trait.id
-                    )].orEmpty()
-                if (selected.size != choice.choose) {
-                    issues += validationError("Select ${choice.choose} spell option(s) for ${trait.name}.")
-                }
-            }
+    content.choiceRequirements.forEach { requirement ->
+        if (!isRequirementComplete(requirement, content.selection.choiceSelections)) {
+            issues += validationError(
+                requirementBlockingMessage(requirement, content.selection.choiceSelections),
+            )
         }
     }
 
@@ -123,17 +178,6 @@ internal fun validateGuidedSetupContent(
     if (clazz != null) {
         if (clazz.requiresLevelOneSubclassAtLevelOne() && content.selection.subclassId == null) {
             issues += validationError("Choose a subclass.")
-        }
-
-        clazz.proficiencyChoices.forEachIndexed { index, choice ->
-            val selected =
-                content.selection.choiceSelections[GuidedCharacterSetupViewModel.classProficiencyChoiceKey(
-                    index
-                )]
-                    .orEmpty()
-            if (selected.size != choice.choose) {
-                issues += validationError("Select ${choice.choose} class proficiency option(s).")
-            }
         }
 
         findGuidedLevelOneFeatureChoices(clazz, content.featuresById).forEach { (featureId, choice) ->

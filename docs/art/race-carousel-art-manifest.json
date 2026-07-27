@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "pipeline": {
+    "aspectRatio": "3:4",
+    "format": "webp",
+    "quality": 84,
+    "compressionLevel": 6,
+    "maximumBytesPerAsset": 163840
+  },
+  "assets": [
+    {
+      "raceId": "human",
+      "file": "app/src/main/assets/images/races/human.webp",
+      "status": "proof",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset; distribution approval pending project review",
+        "sourceMaterial": []
+      },
+      "promptArchive": "docs/art/prompts/human.md",
+      "generation": {
+        "seed": null,
+        "aspectRatio": "3:4"
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 84,
+        "compressionLevel": 6,
+        "bytes": 87864,
+        "sha256": "a10f1c4e395138b2d5ff8bd3d58487a2fb6db35241b0f6e859cdfeeedf46a868"
+      },
+      "review": {
+        "reviewedAt": null,
+        "reviewer": null,
+        "notes": "Awaiting in-carousel light and dark screenshot review."
+      }
+    }
+  ]
+}

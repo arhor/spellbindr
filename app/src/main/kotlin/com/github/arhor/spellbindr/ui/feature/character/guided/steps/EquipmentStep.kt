@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.ui.feature.character.guided.components.ChoiceSection
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceCategory
 
 @Composable
 internal fun EquipmentStep(
@@ -57,8 +58,7 @@ internal fun EquipmentStep(
         item { Text(text = "Starting equipment", style = MaterialTheme.typography.titleMedium) }
         item {
             Text(
-                text = "This MVP supports fixed starting equipment and simple background equipment choices. "
-                    + "Some class equipment options may be missing.",
+                text = "Review included gear, then complete each required background equipment choice.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -75,29 +75,34 @@ internal fun EquipmentStep(
             }
         }
 
-        val equipmentChoice = bg?.equipmentChoice
-        if (equipmentChoice != null) {
-            item {
-                val choiceKey = GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey()
-                val selected = state.selection.choiceSelections[choiceKey].orEmpty()
-                val options =
-                    remember(equipmentChoice, state.referenceDataVersion) { resolveOptions(equipmentChoice, state) }
-                ChoiceSection(
-                    title = "Background equipment",
-                    description = "Choose ${equipmentChoice.choose}",
-                    choice = equipmentChoice,
-                    selected = selected,
-                    options = options,
-                    onToggle = { optionId ->
-                        onChoiceToggled(
-                            choiceKey,
-                            optionId,
-                            equipmentChoice.choose
-                        )
-                    },
-                )
+        state.choiceRequirements
+            .filter { it.category == GuidedChoiceCategory.EQUIPMENT }
+            .forEachIndexed { index, requirement ->
+                item(key = requirement.key) {
+                    val selected = state.selection.choiceSelections[requirement.key].orEmpty()
+                    val options = requirement.options.associate { it.id to it.displayName }
+                    ChoiceSection(
+                        title = if (state.choiceRequirements.count {
+                            it.category == GuidedChoiceCategory.EQUIPMENT
+                        } > 1
+                        ) {
+                            "Background equipment ${index + 1}"
+                        } else {
+                            "Background equipment"
+                        },
+                        description = "Choose ${requirement.choice.choose} · ${requirement.sourceLabel}",
+                        choice = requirement.choice,
+                        selected = selected,
+                        options = options,
+                        onToggle = { optionId ->
+                            onChoiceToggled(
+                                requirement.key,
+                                optionId,
+                                requirement.choice.choose,
+                            )
+                        },
+                    )
+                }
             }
-        }
     }
 }
-
