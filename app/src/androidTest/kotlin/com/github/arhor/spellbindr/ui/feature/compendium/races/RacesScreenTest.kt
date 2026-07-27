@@ -24,7 +24,7 @@ class RacesScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `render should show loading indicator when state is loading`() {
+    fun `RacesScreen should show loading indicator when state is loading`() {
         // Given
         val state = RacesUiState.Loading
 
@@ -44,7 +44,7 @@ class RacesScreenTest {
     }
 
     @Test
-    fun `render should show error message when state is error`() {
+    fun `RacesScreen should show error message when state is error`() {
         // Given
         val state = RacesUiState.Failure("Something went wrong")
 
@@ -62,7 +62,7 @@ class RacesScreenTest {
     }
 
     @Test
-    fun `render should show trait description when selected item id matches`() {
+    fun `RacesScreen should show trait description when selected item id matches`() {
         // Given
         val trait = Trait(
             id = "darkvision",
@@ -95,7 +95,7 @@ class RacesScreenTest {
     }
 
     @Test
-    fun `click should dispatch intent when race item tapped`() {
+    fun `RacesScreen should dispatch intent when race item is tapped`() {
         // Given
         val trait = Trait(
             id = "keen_senses",

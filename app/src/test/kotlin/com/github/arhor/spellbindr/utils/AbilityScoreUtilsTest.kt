@@ -18,7 +18,7 @@ class AbilityScoreUtilsTest {
     }
 
     @Test
-    fun `standardArray should return canonical six values`() {
+    fun `standardArray should return canonical six values when invoked`() {
         // Given
         val expected = listOf(15, 14, 13, 12, 10, 8)
 

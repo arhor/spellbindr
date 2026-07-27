@@ -38,7 +38,7 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `abilities asset should expose ids names and descriptions when parsed from json`() {
+    fun `abilitiesFromAsset should expose ids names and descriptions when asset is decoded`() {
         // Given
         val abilitiesById = abilitiesFromAsset.associateBy(Ability::id)
 
@@ -73,7 +73,7 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `ability serializer should round trip when encoding and decoding object`() {
+    fun `decodeFromString should return original ability when encoded ability is decoded`() {
         // Given
         val ability = Ability(
             id = "str",
@@ -90,7 +90,7 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `ability serializer should decode from json object when attributes are provided`() {
+    fun `decodeFromString should create ability when required attributes are provided`() {
         // Given
         val encoded = """
             {
@@ -116,7 +116,7 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `skill serializer should serialize to kebab case when encoding value`() {
+    fun `encodeToString should use kebab case when skill is encoded`() {
         // Given
         val skill = Skill.ANIMAL_HANDLING
 
@@ -128,7 +128,7 @@ class AbilitySkillSerializationTest {
     }
 
     @Test
-    fun `skill serializer should deserialize case-insensitively when decoding value`() {
+    fun `decodeFromString should ignore case when skill is decoded`() {
         // Given
         val encoded = "\"PeRcEpTiOn\""
 

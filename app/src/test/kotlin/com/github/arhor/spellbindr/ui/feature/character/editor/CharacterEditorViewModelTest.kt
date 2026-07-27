@@ -16,7 +16,7 @@ class CharacterEditorViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `dispatch should update name field in content state`() {
+    fun `dispatch should update name in content state when name changes`() {
         // Given
         val vm = CharacterEditorViewModel(
             loadCharacterSheetUseCase = mockk(relaxed = true),

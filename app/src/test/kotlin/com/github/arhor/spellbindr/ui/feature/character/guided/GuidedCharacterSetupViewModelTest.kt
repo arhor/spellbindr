@@ -27,7 +27,7 @@ class GuidedCharacterSetupViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `dispatch should update name in content state`() =
+    fun `dispatch should update name in content state when name changes`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val observeClasses = mockk<ObserveAllCharacterClassesUseCase>()

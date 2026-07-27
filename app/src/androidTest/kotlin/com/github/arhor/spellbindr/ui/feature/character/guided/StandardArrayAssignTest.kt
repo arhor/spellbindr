@@ -26,12 +26,15 @@ class StandardArrayAssignTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `assigning an available score updates the row and progress`() {
+    fun `StandardArrayAssign should update row and progress when available score is assigned`() {
+        // Given
         setContent()
 
+        // When
         composeTestRule.onNodeWithContentDescription("15 available. Tap to select.").performClick()
         composeTestRule.onNodeWithContentDescription("Strength: unassigned. Tap to assign 15.").performClick()
 
+        // Then
         composeTestRule.onNodeWithText("1 of 6 assigned").assertIsDisplayed()
         composeTestRule
             .onNodeWithContentDescription("Strength: 15, modifier +2. Tap to pick up 15.")
@@ -40,23 +43,29 @@ class StandardArrayAssignTest {
     }
 
     @Test
-    fun `picking up an assigned score clears its row and selects the score`() {
+    fun `StandardArrayAssign should clear row and select score when assigned score is picked up`() {
+        // Given
         setContent(assignments = assignments(strength = 15))
 
+        // When
         composeTestRule
             .onNodeWithContentDescription("Strength: 15, modifier +2. Tap to pick up 15.")
             .performClick()
 
+        // Then
         composeTestRule.onNodeWithText("0 of 6 assigned").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("15 selected. Tap to cancel selection.").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Strength: unassigned. Tap to assign 15.").assertIsDisplayed()
     }
 
     @Test
-    fun `replacing an assigned score returns the displaced score to the tray`() {
+    fun `StandardArrayAssign should return displaced score when assigned score is replaced`() {
+        // Given
         setContent(assignments = assignments(strength = 15, dexterity = 14))
 
+        // When
         composeTestRule.onNodeWithContentDescription("13 available. Tap to select.").performClick()
+        // Then
         composeTestRule
             .onNodeWithContentDescription("Strength: 15, modifier +2. Tap to assign 13.")
             .performClick()

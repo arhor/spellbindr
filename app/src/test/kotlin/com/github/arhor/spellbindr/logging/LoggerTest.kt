@@ -23,7 +23,7 @@ class LoggerTest {
     }
 
     @Test
-    fun `error should pass throwable and message to logger backend`() {
+    fun `error should pass throwable and message to backend when error level is enabled`() {
         // Given
         val logger = CapturingLogger(enabledLevels = setOf(LogLevel.ERROR))
         val throwable = IllegalStateException("failed")
@@ -43,7 +43,7 @@ class LoggerTest {
     }
 
     @Test
-    fun `warn should pass throwable and message to logger backend`() {
+    fun `warn should pass throwable and message to backend when warn level is enabled`() {
         // Given
         val logger = CapturingLogger(enabledLevels = setOf(LogLevel.WARN))
         val throwable = IllegalArgumentException("invalid")
@@ -63,7 +63,7 @@ class LoggerTest {
     }
 
     @Test
-    fun `tagOf should return companion owner class name for companion type`() {
+    fun `tagOf should return owner class name when type is a companion`() {
         // Given
         val type = CompanionHost.Companion::class.java
 
@@ -75,7 +75,7 @@ class LoggerTest {
     }
 
     @Test
-    fun `tagOf should return simple class name for regular type`() {
+    fun `tagOf should return simple class name when type is regular`() {
         // Given
         val type = RegularType::class.java
 
@@ -87,7 +87,7 @@ class LoggerTest {
     }
 
     @Test
-    fun `tagOf should return non-empty fallback tag for anonymous type`() {
+    fun `tagOf should return non-empty fallback tag when type is anonymous`() {
         // Given
         val anonymousObject = object {}
 

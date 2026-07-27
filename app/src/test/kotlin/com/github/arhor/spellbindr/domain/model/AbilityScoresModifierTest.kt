@@ -6,7 +6,8 @@ import org.junit.Test
 class AbilityScoresModifierTest {
 
     @Test
-    fun `modifierFor should floor negative modifiers`() {
+    fun `modifierFor should floor negative modifiers when score is below ten`() {
+        // Given
         val cases = mapOf(
             8 to -1,
             9 to -1,
@@ -15,10 +16,13 @@ class AbilityScoresModifierTest {
             12 to 1,
         )
 
-        cases.forEach { (score, expected) ->
+        // When
+        val actual = cases.mapValues { (score, _) ->
             val scores = AbilityScores(strength = score)
-            assertThat(scores.modifierFor(AbilityIds.STR)).isEqualTo(expected)
+            scores.modifierFor(AbilityIds.STR)
         }
+
+        // Then
+        assertThat(actual).containsExactlyEntriesIn(cases)
     }
 }
-

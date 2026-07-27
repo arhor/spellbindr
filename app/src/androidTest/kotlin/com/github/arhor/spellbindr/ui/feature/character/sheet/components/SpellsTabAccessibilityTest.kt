@@ -21,11 +21,15 @@ class SpellsTabAccessibilityTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `SpellsTab exposes slot control content descriptions`() {
+    fun `SpellsTab should expose slot control descriptions when edit mode is active`() {
+        // Given
+        val spellsState = CharacterSheetPreviewData.spells
+
+        // When
         composeTestRule.setContent {
             AppTheme {
                 SpellsTab(
-                    spellsState = CharacterSheetPreviewData.spells,
+                    spellsState = spellsState,
                     editMode = SheetEditMode.Edit,
                     onAddSpellsClick = {},
                     onCastSpellClick = {},
@@ -45,6 +49,7 @@ class SpellsTabAccessibilityTest {
             }
         }
 
+        // Then
         val context = composeTestRule.activity
         val increaseShared = context.getString(R.string.spells_shared_slots_increase, 1)
         val decreaseShared = context.getString(R.string.spells_shared_slots_decrease, 1)

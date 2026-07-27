@@ -19,7 +19,7 @@ class DefaultAssetBootstrapperTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `readyForInteraction should wait for critical assets and initial delay`() = runTest {
+    fun `readyForInteraction should wait for critical assets and initial delay when bootstrap starts`() = runTest {
         // Given
         val criticalAssetStore = mockk<AssetDataStore<*>>()
         val deferredAssetStore = mockk<AssetDataStore<*>>()
@@ -51,45 +51,4 @@ class DefaultAssetBootstrapperTest {
         assertThat(finalState.readyForInteraction).isTrue()
         assertThat(finalState.deferredAssetsReady).isFalse()
     }
-
-//    @Test
-//    fun `fullyReady should flip after deferred assets finish`() = runTest {
-//        // Given
-//        val criticalLoader = FakeAssetLoader(AssetLoadingPriority.CRITICAL)
-//        val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_500)
-//        val bootstrapper = DefaultAssetBootstrapper(assetsDataStores = setOf(criticalLoader, deferredLoader))
-//
-//        // When
-//        bootstrapper.start(this)
-//        advanceTimeBy(1_600)
-//        runCurrent()
-//        val stateBeforeDeferredReady = bootstrapper.state.value
-//
-//        advanceUntilIdle()
-//        val stateAfterDeferredReady = bootstrapper.state.value
-//
-//        // Then
-//        assertThat(stateBeforeDeferredReady.readyForInteraction).isTrue()
-//        assertThat(stateBeforeDeferredReady.fullyReady).isFalse()
-//        assertThat(stateAfterDeferredReady.deferredAssetsReady).isTrue()
-//        assertThat(stateAfterDeferredReady.fullyReady).isTrue()
-//    }
-//
-//    @Test
-//    fun `critical readiness should resolve when no critical loaders are present`() = runTest {
-//        // Given
-//        val deferredLoader = FakeAssetLoader(AssetLoadingPriority.DEFERRED, initializationDelayMillis = 2_000)
-//        val bootstrapper = DefaultAssetBootstrapper(assetsDataStores = setOf(deferredLoader))
-// 
-//        // When
-//        bootstrapper.start(this)
-//        advanceTimeBy(1_500)
-//        runCurrent()
-//        val state = bootstrapper.state.value
-//
-//        // Then
-//        assertThat(state.criticalAssetsReady).isTrue()
-//        assertThat(state.readyForInteraction).isTrue()
-//        assertThat(state.deferredAssetsReady).isFalse()
-//    }
 }

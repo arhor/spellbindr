@@ -18,7 +18,8 @@ import org.junit.Test
 class GuidedChoiceRequirementsTest {
 
     @Test
-    fun `class proficiency choices use stable keys and resolved skill names`() {
+    fun `deriveGuidedChoiceRequirements should resolve skills when class has proficiency choice`() {
+        // Given
         val clazz = characterClass(
             id = "rogue",
             name = "Rogue",
@@ -36,6 +37,7 @@ class GuidedChoiceRequirementsTest {
             ),
         )
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection,
@@ -43,6 +45,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.requirements).hasSize(1)
         with(result.requirements.single()) {
             assertThat(key).isEqualTo("class/proficiency/0")
@@ -59,7 +62,8 @@ class GuidedChoiceRequirementsTest {
     }
 
     @Test
-    fun `race traits expose fixed grants and selectable proficiency and language conflicts`() {
+    fun `deriveGuidedChoiceRequirements should expose grants and conflicts when race trait has choices`() {
+        // Given
         val trait = Trait(
             id = "elf-training",
             name = "Elf Training",
@@ -80,6 +84,7 @@ class GuidedChoiceRequirementsTest {
             traitIds = listOf(trait.id),
         )
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection(raceId = race.id),
@@ -92,6 +97,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.fixedGrants.map { it.optionId }).containsExactly(
             "skill-perception",
             "common",
@@ -115,7 +121,8 @@ class GuidedChoiceRequirementsTest {
     }
 
     @Test
-    fun `background exposes fixed grants and language and equipment requirements`() {
+    fun `deriveGuidedChoiceRequirements should expose grants and requirements when background has choices`() {
+        // Given
         val background = background(
             id = "artisan",
             name = "Guild Artisan",
@@ -130,6 +137,7 @@ class GuidedChoiceRequirementsTest {
             ),
         )
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection(backgroundId = background.id),
@@ -141,6 +149,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.fixedGrants.map { it.optionId }).containsExactly(
             "skill-insight",
             "common",
@@ -156,7 +165,8 @@ class GuidedChoiceRequirementsTest {
     }
 
     @Test
-    fun `nested background equipment is expanded without flattening child limits`() {
+    fun `deriveGuidedChoiceRequirements should preserve child limits when background equipment choice is nested`() {
+        // Given
         val background = background(
             id = "soldier",
             name = "Soldier",
@@ -170,6 +180,7 @@ class GuidedChoiceRequirementsTest {
             ),
         )
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection(
@@ -180,6 +191,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.requirements.map { it.key }).containsExactly(
             "background/equipment/0",
             "background/equipment/1",
@@ -193,7 +205,8 @@ class GuidedChoiceRequirementsTest {
     }
 
     @Test
-    fun `duplicate grants and selections retain every source in deterministic reasons`() {
+    fun `deriveGuidedChoiceRequirements should retain deterministic sources when grants and selections overlap`() {
+        // Given
         val clazz = characterClass(
             id = "ranger",
             name = "Ranger",
@@ -225,6 +238,7 @@ class GuidedChoiceRequirementsTest {
         val raceLanguageKey = GuidedCharacterSetupViewModel.raceTraitLanguageChoiceKey(trait.id)
         val backgroundLanguageKey = GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection(
@@ -247,6 +261,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.fixedGrants.filter { it.optionId == "skill-survival" }.map { it.sourceLabel })
             .containsExactly(
                 "Class: Ranger",
@@ -269,7 +284,8 @@ class GuidedChoiceRequirementsTest {
     }
 
     @Test
-    fun `only traits from the selected subrace are active`() {
+    fun `deriveGuidedChoiceRequirements should include only active traits when subrace is selected`() {
+        // Given
         val baseTrait = Trait(
             id = "base-choice",
             name = "Base Choice",
@@ -298,6 +314,7 @@ class GuidedChoiceRequirementsTest {
             ),
         )
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection(raceId = race.id, subraceId = "high-elf"),
@@ -306,6 +323,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.requirements.map { it.sourceId }).containsExactly(
             baseTrait.id,
             highTrait.id,
@@ -316,7 +334,8 @@ class GuidedChoiceRequirementsTest {
     }
 
     @Test
-    fun `ability draconic ancestry and racial spell choices are classified as ancestry`() {
+    fun `deriveGuidedChoiceRequirements should classify ancestry choices when race trait provides them`() {
+        // Given
         val trait = Trait(
             id = "lineage-choices",
             name = "Lineage Choices",
@@ -341,6 +360,7 @@ class GuidedChoiceRequirementsTest {
         )
         val race = race("dragonborn", "Dragonborn", listOf(trait.id))
 
+        // When
         val result = deriveGuidedChoiceRequirements(
             GuidedChoiceContext(
                 selection = selection(raceId = race.id),
@@ -352,6 +372,7 @@ class GuidedChoiceRequirementsTest {
             )
         )
 
+        // Then
         assertThat(result.requirements).hasSize(3)
         assertThat(result.requirements.map { it.category }.distinct())
             .containsExactly(GuidedChoiceCategory.ANCESTRY)

@@ -19,7 +19,7 @@ class CharacterEditorUseCasesTest {
     private val buildCharacterSheetFromInputsUseCase = BuildCharacterSheetFromInputsUseCase()
 
     @Test
-    fun `ValidateCharacterSheetUseCase should return errors when required fields or abilities are invalid`() {
+    fun `invoke should return errors when required fields or abilities are invalid`() {
         // Given
         val input = CharacterEditorInput(
             name = "",
@@ -42,7 +42,7 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `ValidateCharacterSheetUseCase should return no errors when inputs are valid`() {
+    fun `invoke should return no errors when character inputs are valid`() {
         // Given
         val input = CharacterEditorInput(
             name = "Ayla",
@@ -62,7 +62,7 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `ComputeDerivedBonusesUseCase should update saving throws and skills when proficiency applies`() {
+    fun `invoke should update saving throws and skills when proficiency applies`() {
         // Given
         val input = CharacterEditorInput(
             proficiencyBonus = "2",
@@ -92,7 +92,7 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `BuildCharacterSheetFromInputsUseCase should build sheet when inputs are provided`() {
+    fun `invoke should build sheet when character inputs are provided`() {
         // Given
         val baseSheet = CharacterSheet(id = "base-id", maxHitPoints = 10)
         val input = CharacterEditorInput(
@@ -132,7 +132,7 @@ class CharacterEditorUseCasesTest {
     }
 
     @Test
-    fun `ValidateCharacterSheetUseCase should handle blank and invalid numeric values when validating`() {
+    fun `invoke should return errors when numeric values are blank or invalid`() {
         // Given
         val input = CharacterEditorInput(
             name = "Ayla",

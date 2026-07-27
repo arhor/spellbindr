@@ -41,7 +41,7 @@ class SpellsScreenTest {
     )
 
     @Test
-    fun `render should show loading indicator when state is loading`() {
+    fun `SpellsScreen should show loading indicator when state is loading`() {
         // Given
         val state = SpellsUiState.Loading
 
@@ -59,7 +59,7 @@ class SpellsScreenTest {
     }
 
     @Test
-    fun `render should show error message when state is failure`() {
+    fun `SpellsScreen should show error message when state is failure`() {
         // Given
         val state = SpellsUiState.Failure("Failed to load spells.")
 
@@ -75,7 +75,7 @@ class SpellsScreenTest {
     }
 
     @Test
-    fun `render should hide class filters when casting classes are empty`() {
+    fun `SpellsScreen should hide class filters when casting classes are empty`() {
         // Given
         val state = contentState(castingClasses = emptyList())
 
@@ -91,7 +91,7 @@ class SpellsScreenTest {
     }
 
     @Test
-    fun `input should call onQueryChanged when user types`() {
+    fun `SpellsScreen should call onQueryChanged when user types`() {
         // Given
         var capturedIntent: SpellsIntent? = null
         val state = contentState(query = "")
@@ -114,7 +114,7 @@ class SpellsScreenTest {
     }
 
     @Test
-    fun `click should call onFavoriteClick when favorite icon tapped`() {
+    fun `SpellsScreen should call onFavoriteClick when favorite icon is tapped`() {
         // Given
         var capturedIntent: SpellsIntent? = null
         val state = contentState(showFavoriteOnly = false)
@@ -137,7 +137,7 @@ class SpellsScreenTest {
     }
 
     @Test
-    fun `click should call onClassToggled when class chip tapped`() {
+    fun `SpellsScreen should call onClassToggled when class chip is tapped`() {
         // Given
         var capturedIntent: SpellsIntent? = null
         val state = contentState(castingClasses = listOf(wizard, cleric))
@@ -160,7 +160,7 @@ class SpellsScreenTest {
     }
 
     @Test
-    fun `click should call onSpellClick when spell card tapped`() {
+    fun `SpellsScreen should call onSpellClick when spell card is tapped`() {
         // Given
         var capturedIntent: SpellsIntent? = null
         val state = contentState(spells = spells)

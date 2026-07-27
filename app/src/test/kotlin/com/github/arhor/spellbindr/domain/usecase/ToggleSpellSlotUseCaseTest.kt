@@ -11,7 +11,8 @@ class ToggleSpellSlotUseCaseTest {
     private val useCase = ToggleSpellSlotUseCase()
 
     @Test
-    fun longRest_resetsSharedAndPactSlots_andClearsConcentration() {
+    fun `invoke should reset all slots and concentration when action is long rest`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             concentrationSpellId = "hex",
@@ -26,8 +27,10 @@ class ToggleSpellSlotUseCaseTest {
             ),
         )
 
+        // When
         val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.LongRest)
 
+        // Then
         assertThat(updated.concentrationSpellId).isNull()
         assertThat(updated.spellSlots).containsExactly(
             SpellSlotState(level = 1, total = 4, expended = 0),
@@ -43,7 +46,8 @@ class ToggleSpellSlotUseCaseTest {
     }
 
     @Test
-    fun shortRest_resetsOnlyPactSlots() {
+    fun `invoke should reset only pact slots when action is short rest`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             concentrationSpellId = "hex",
@@ -57,8 +61,10 @@ class ToggleSpellSlotUseCaseTest {
             ),
         )
 
+        // When
         val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.ShortRest)
 
+        // Then
         assertThat(updated.concentrationSpellId).isEqualTo("hex")
         assertThat(updated.spellSlots).containsExactly(
             SpellSlotState(level = 1, total = 4, expended = 2),
@@ -73,14 +79,17 @@ class ToggleSpellSlotUseCaseTest {
     }
 
     @Test
-    fun setPactSlotLevel_createsPactSlotsWhenMissing() {
+    fun `invoke should create pact slots when setting level without existing state`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             pactSlots = null,
         )
 
+        // When
         val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.SetPactSlotLevel(level = 5))
 
+        // Then
         assertThat(updated.pactSlots).isEqualTo(
             PactSlotState(
                 slotLevel = 5,
@@ -91,7 +100,8 @@ class ToggleSpellSlotUseCaseTest {
     }
 
     @Test
-    fun setPactSlotLevel_updatesExistingPactSlots() {
+    fun `invoke should retain pact slot usage when setting level with existing state`() {
+        // Given
         val sheet = CharacterSheet(
             id = "hero",
             pactSlots = PactSlotState(
@@ -101,8 +111,10 @@ class ToggleSpellSlotUseCaseTest {
             ),
         )
 
+        // When
         val updated = useCase(sheet, ToggleSpellSlotUseCase.Action.SetPactSlotLevel(level = 4))
 
+        // Then
         assertThat(updated.pactSlots).isEqualTo(
             PactSlotState(
                 slotLevel = 4,
@@ -112,4 +124,3 @@ class ToggleSpellSlotUseCaseTest {
         )
     }
 }
-

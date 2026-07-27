@@ -11,13 +11,18 @@ import org.junit.Test
 class GuidedSetupStepPlannerTest {
 
     @Test
-    fun `planner omits empty conditional choice steps`() {
+    fun `computeGuidedSetupSteps should omit conditional steps when choices are empty`() {
+        // Given
+        val choiceRequirements = GuidedChoiceRequirements(emptyList(), emptyList())
+
+        // When
         val steps = computeGuidedSetupSteps(
             selectedClass = null,
             featuresById = emptyMap(),
-            choiceRequirements = GuidedChoiceRequirements(emptyList(), emptyList()),
+            choiceRequirements = choiceRequirements,
         )
 
+        // Then
         assertThat(steps).containsExactly(
             GuidedStep.BASICS,
             GuidedStep.CLASS,
@@ -31,7 +36,8 @@ class GuidedSetupStepPlannerTest {
     }
 
     @Test
-    fun `planner places ancestry and proficiencies in target order`() {
+    fun `computeGuidedSetupSteps should order ancestry before proficiencies when both choices exist`() {
+        // Given
         val ancestry = requirement(
             key = "race/trait/ancestry",
             category = GuidedChoiceCategory.ANCESTRY,
@@ -41,6 +47,7 @@ class GuidedSetupStepPlannerTest {
             category = GuidedChoiceCategory.LANGUAGE,
         )
 
+        // When
         val steps = computeGuidedSetupSteps(
             selectedClass = null,
             featuresById = emptyMap(),
@@ -50,6 +57,7 @@ class GuidedSetupStepPlannerTest {
             ),
         )
 
+        // Then
         assertThat(steps).containsExactly(
             GuidedStep.BASICS,
             GuidedStep.CLASS,
@@ -65,7 +73,8 @@ class GuidedSetupStepPlannerTest {
     }
 
     @Test
-    fun `fixed grant retains proficiencies step without selectable requirements`() {
+    fun `computeGuidedSetupSteps should retain proficiencies step when only fixed grant exists`() {
+        // Given
         val grant = GuidedFixedGrant(
             optionId = "skill-perception",
             displayName = "Perception",
@@ -75,17 +84,20 @@ class GuidedSetupStepPlannerTest {
             sourceLabel = "Class: Fighter",
         )
 
+        // When
         val steps = computeGuidedSetupSteps(
             selectedClass = null,
             featuresById = emptyMap(),
             choiceRequirements = GuidedChoiceRequirements(emptyList(), listOf(grant)),
         )
 
+        // Then
         assertThat(steps).contains(GuidedStep.PROFICIENCIES_LANGUAGES)
     }
 
     @Test
-    fun `level one spellcaster with class choice gets both conditional steps`() {
+    fun `computeGuidedSetupSteps should include class and spell steps when class is level one spellcaster`() {
+        // Given
         val cleric = CharacterClass(
             id = "cleric",
             name = "Cleric",
@@ -102,12 +114,14 @@ class GuidedSetupStepPlannerTest {
             levels = emptyList(),
         )
 
+        // When
         val steps = computeGuidedSetupSteps(
             selectedClass = cleric,
             featuresById = emptyMap(),
             choiceRequirements = GuidedChoiceRequirements(emptyList(), emptyList()),
         )
 
+        // Then
         assertThat(steps).contains(GuidedStep.CLASS_CHOICES)
         assertThat(steps).contains(GuidedStep.SPELLS)
         assertThat(steps.indexOf(GuidedStep.CLASS_CHOICES)).isLessThan(steps.indexOf(GuidedStep.RACE))
@@ -115,7 +129,8 @@ class GuidedSetupStepPlannerTest {
     }
 
     @Test
-    fun `removed conditional destination resolves to closest preceding step`() {
+    fun `resolveGuidedSetupStep should return closest preceding step when destination was removed`() {
+        // Given
         val availableSteps = listOf(
             GuidedStep.BASICS,
             GuidedStep.CLASS,
@@ -127,12 +142,13 @@ class GuidedSetupStepPlannerTest {
             GuidedStep.REVIEW,
         )
 
-        assertThat(
-            resolveGuidedSetupStep(GuidedStep.ANCESTRY_CHOICES, availableSteps),
-        ).isEqualTo(GuidedStep.ABILITY_ASSIGN)
-        assertThat(
-            resolveGuidedSetupStep(GuidedStep.PROFICIENCIES_LANGUAGES, availableSteps),
-        ).isEqualTo(GuidedStep.ABILITY_ASSIGN)
+        // When
+        val ancestryDestination = resolveGuidedSetupStep(GuidedStep.ANCESTRY_CHOICES, availableSteps)
+        val proficienciesDestination = resolveGuidedSetupStep(GuidedStep.PROFICIENCIES_LANGUAGES, availableSteps)
+
+        // Then
+        assertThat(ancestryDestination).isEqualTo(GuidedStep.ABILITY_ASSIGN)
+        assertThat(proficienciesDestination).isEqualTo(GuidedStep.ABILITY_ASSIGN)
     }
 
     private fun requirement(

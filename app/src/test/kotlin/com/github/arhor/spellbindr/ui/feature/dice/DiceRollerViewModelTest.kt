@@ -7,7 +7,7 @@ import org.junit.Test
 class DiceRollerViewModelTest {
 
     @Test
-    fun `dispatch should toggle check section`() {
+    fun `dispatch should toggle check section when toggle check intent arrives`() {
         // Given
         val vm = DiceRollerViewModel()
 
