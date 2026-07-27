@@ -23,3 +23,19 @@ filigree, dramatic magic, or exaggerated ears.
 ## Processing
 
 `ffmpeg -i input.png -c:v libwebp -quality 72 -compression_level 6 elf.webp`
+
+## Anatomical correction
+
+The generated proof was edited with the original asset as the edit target:
+
+```text
+Remove the extra third hand gripping the far-left outer edge of the open book. Reconstruct that small area as the
+natural left edge of the parchment page and the matching softly painted academy background behind it. The male elf
+must have exactly two hands total: one hand supporting the book from underneath near the lower-left/center of the
+book, and one hand resting on or turning the lower-right page. Do not add, remove, relocate, or redesign either of
+those two correct hands. Preserve both elves' identities, faces, expressions, hair, ears, poses, bodies, clothing,
+accessories, book size and orientation, remaining two hands, page drawings, background, trees, architecture, palette,
+lighting, dark lower UI-safe area, framing, resolution, and the hand-painted gouache/watercolor sourcebook style.
+```
+
+No other intentional changes were requested.
