@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "pipeline": {
+    "aspectRatio": "3:4",
+    "format": "webp",
+    "targetQuality": 78,
+    "compressionLevel": 6,
+    "maximumBytesPerAsset": 163840
+  },
+  "assets": [
+    {
+      "raceId": "dragonborn",
+      "file": "app/src/main/assets/images/races/dragonborn.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/dragonborn.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 68,
+        "compressionLevel": 6,
+        "bytes": 159904,
+        "sha256": "34ef6e8e2793f9b6210b3aba104e733a4ec9020c395b56ef7b2776919c2de9b7"
+      }
+    },
+    {
+      "raceId": "dwarf",
+      "file": "app/src/main/assets/images/races/dwarf.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/dwarf.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 74,
+        "compressionLevel": 6,
+        "bytes": 147858,
+        "sha256": "a4f8860f575e1b6aa8f591457520a2509953a97cacccb59fbc4c5b1c679eac34"
+      }
+    },
+    {
+      "raceId": "elf",
+      "file": "app/src/main/assets/images/races/elf.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/elf.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 72,
+        "compressionLevel": 6,
+        "bytes": 113202,
+        "sha256": "c31b1d0b2d8de820fbaaabb897c691fd47bedd2cb56dada545a1244b3474abd1"
+      }
+    },
+    {
+      "raceId": "gnome",
+      "file": "app/src/main/assets/images/races/gnome.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/gnome.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 74,
+        "compressionLevel": 6,
+        "bytes": 148296,
+        "sha256": "07fb7df55f25b056379db831310e6c59ac718d2bed4667801b70eaa2104a620e"
+      }
+    },
+    {
+      "raceId": "half-elf",
+      "file": "app/src/main/assets/images/races/half-elf.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/half-elf.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 78,
+        "compressionLevel": 6,
+        "bytes": 145928,
+        "sha256": "aa86911f0d219bfba1821f6f80a7335a960d58fce0e3b690c62d9b75b48924da"
+      }
+    },
+    {
+      "raceId": "half-orc",
+      "file": "app/src/main/assets/images/races/half-orc.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/half-orc.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 73,
+        "compressionLevel": 6,
+        "bytes": 147856,
+        "sha256": "87f05703102c6887ac85652475ef2c5d29cb15827272dc256e13e68e75d85c9f"
+      }
+    },
+    {
+      "raceId": "halfling",
+      "file": "app/src/main/assets/images/races/halfling.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/halfling.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 75,
+        "compressionLevel": 6,
+        "bytes": 146574,
+        "sha256": "bfacf1119156b71a5c233b1c17684993bea33a6d8d5c14389d6b05a844ed1f77"
+      }
+    },
+    {
+      "raceId": "human",
+      "file": "app/src/main/assets/images/races/human.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/human.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 78,
+        "compressionLevel": 6,
+        "bytes": 161642,
+        "sha256": "9d02b06f048da91f738e3d2b9d0773e0d2f73e81dad18973b0089675015ac0db"
+      }
+    },
+    {
+      "raceId": "tiefling",
+      "file": "app/src/main/assets/images/races/tiefling.webp",
+      "status": "production",
+      "promptArchive": "docs/art/prompts/tiefling.md",
+      "source": {
+        "method": "generated",
+        "toolOrArtist": "OpenAI built-in image generation",
+        "createdAt": "2026-07-27",
+        "license": "Project-generated asset",
+        "sourceMaterial": []
+      },
+      "output": {
+        "widthPx": 1086,
+        "heightPx": 1448,
+        "format": "webp",
+        "lossless": false,
+        "quality": 78,
+        "compressionLevel": 6,
+        "bytes": 135406,
+        "sha256": "7243446a5f9bd4a2603e7e46572bd268f6798a4efdfc6ae9fd166c7d245e4ce3"
+      }
+    }
+  ]
+}

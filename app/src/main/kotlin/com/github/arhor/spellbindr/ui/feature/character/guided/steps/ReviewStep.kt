@@ -132,12 +132,23 @@ internal fun ReviewStep(
                 onClick = { onGoToStep(GuidedStep.ABILITY_ASSIGN) },
             )
         }
-        item {
-            SummaryRow(
-                label = "Skills & proficiencies",
-                value = "Tap to edit",
-                onClick = { onGoToStep(GuidedStep.SKILLS_PROFICIENCIES) },
-            )
+        if (GuidedStep.ANCESTRY_CHOICES in state.steps) {
+            item {
+                SummaryRow(
+                    label = "Ancestry choices",
+                    value = "Tap to edit",
+                    onClick = { onGoToStep(GuidedStep.ANCESTRY_CHOICES) },
+                )
+            }
+        }
+        if (GuidedStep.PROFICIENCIES_LANGUAGES in state.steps) {
+            item {
+                SummaryRow(
+                    label = "Proficiencies & languages",
+                    value = "Tap to edit",
+                    onClick = { onGoToStep(GuidedStep.PROFICIENCIES_LANGUAGES) },
+                )
+            }
         }
         item {
             SummaryRow(
@@ -186,4 +197,3 @@ internal fun ReviewStep(
         }
     }
 }
-
