@@ -38,9 +38,10 @@ everyday or adventuring activity, but action must be calm enough that the card r
 
 ## Spellbindr visual language
 
-Create polished, painterly fantasy editorial illustrations with restrained texture, clean silhouettes, and soft
-cinematic lighting. The style should feel welcoming and contemporary rather than gritty, photorealistic, comic-book
-exaggerated, or like a generic character-sheet splash screen.
+Create friendly hand-painted fantasy illustrations with visible gouache/watercolor texture, lightly drawn edges,
+simplified shapes, and clean silhouettes. Use a classic Western tabletop-RPG sourcebook and European storybook visual
+language. The style should feel welcoming, warm, and handcrafted rather than photorealistic, glossy, cinematic,
+airbrushed, anime-influenced, or like mobile-game character splash art.
 
 - Use a dark indigo/charcoal, parchment, muted violet, antique-gold, and ember palette that complements the app theme.
   Useful anchors are dark background `#0F1015`, dark surface `#151621`, gold `#C6A866`, violet `#8C7BB6`, and ember
@@ -104,9 +105,10 @@ from this shared template, replacing bracketed fields while retaining the compos
 Depict two diverse, clearly adult [RACE] representatives as equally capable [ACTIVITY/ROLE] partners in [SETTING].
 Medium camera distance, waist-up to three-quarter view; both faces and race-defining silhouettes in the upper-middle
 of the frame. Leave the lower 38 percent as quiet, low-detail [GROUND/ATMOSPHERE] for a UI summary overlay.
-Polished painterly rendering, clean silhouettes, restrained texture, warm/cool cinematic upper light; palette of
-deep indigo-charcoal, parchment, muted violet, antique gold, and restrained ember accents. Welcoming, dignified,
-non-sexualized practical clothing, coherent anatomy, shallow atmospheric background, no text or logos.
+Hand-painted 2D gouache and watercolor rendering, visible brush texture, lightly inked storybook edges, simplified
+shapes, and clean silhouettes; palette of warm ochre, moss, muted brick, parchment, weathered brown, and slate blue.
+Welcoming, dignified, non-sexualized practical clothing, moderately stylized anatomy, shallow atmospheric background,
+no text or logos.
 ```
 
 Attach a negative prompt or equivalent generation constraints when the tool supports it:
@@ -114,7 +116,8 @@ Attach a negative prompt or equivalent generation constraints when the tool supp
 ```text
 text, letters, logo, watermark, signature, UI frame, cropped face, focal detail in lower third, extra limbs/fingers,
 deformed anatomy, sexualized clothing or pose, child, gore, horror, caricature, stereotype, real-person likeness,
-copyrighted character, brand mark, busy crowd, photorealism, extreme close-up
+copyrighted character, brand mark, busy crowd, photorealism, extreme close-up,
+glossy airbrushing, cinematic backlight, gacha-game splash art, collectible-card shine, 3D render, anime styling
 ```
 
 Use the approved proof's model/version, style reference, seed policy, aspect ratio, and processing settings for the set.

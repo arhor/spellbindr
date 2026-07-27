@@ -3,7 +3,7 @@
   "pipeline": {
     "aspectRatio": "3:4",
     "format": "webp",
-    "quality": 84,
+    "quality": 78,
     "compressionLevel": 6,
     "maximumBytesPerAsset": 163840
   },
@@ -29,10 +29,10 @@
         "heightPx": 1448,
         "format": "webp",
         "lossless": false,
-        "quality": 84,
+        "quality": 78,
         "compressionLevel": 6,
-        "bytes": 87864,
-        "sha256": "a10f1c4e395138b2d5ff8bd3d58487a2fb6db35241b0f6e859cdfeeedf46a868"
+        "bytes": 161642,
+        "sha256": "9d02b06f048da91f738e3d2b9d0773e0d2f73e81dad18973b0089675015ac0db"
       },
       "review": {
         "reviewedAt": null,
