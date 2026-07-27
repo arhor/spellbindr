@@ -33,8 +33,8 @@ Keep the following zones relative to a normalized 1086 x 1448 canvas:
 
 Compose both figures as a readable pair, not as one foreground hero with an incidental background extra. Keep at least
 one face and each figure's race-defining silhouette inside the primary focal zone. Favour waist-up to three-quarter
-views and a medium camera distance; do not use distant landscape compositions or extreme close-ups. The pair may share an
-everyday or adventuring activity, but action must be calm enough that the card remains legible at phone size.
+views and a medium camera distance; do not use distant landscape compositions or extreme close-ups. The pair may share
+an everyday or adventuring activity, but action must be calm enough that the card remains legible at phone size.
 
 ## Spellbindr visual language
 
@@ -151,8 +151,8 @@ Required per-asset manifest shape:
     "heightPx": 1448,
     "format": "webp",
     "lossless": false,
-    "quality": 82,
-    "method": 6,
+    "quality": 78,
+    "compressionLevel": 6,
     "bytes": 0,
     "sha256": "lowercase hex digest"
   },
@@ -169,17 +169,17 @@ archive, and distribution-rights record. Update `status` from `proof` to `approv
 Retain the original/working source outside application assets only if its licence and project storage policy allow it.
 The committed runtime file is the common 3:4 opaque WebP. Strip EXIF and other nonessential metadata before committing.
 
-Use deterministic lossy WebP settings for the proof and every production file:
+Start with the shared deterministic lossy WebP settings for every production file:
 
 ```shell
-ffmpeg -i input.png -c:v libwebp -quality 84 -compression_level 6 <race-id>.webp
+ffmpeg -i input.png -c:v libwebp -quality 78 -compression_level 6 <race-id>.webp
 ```
 
-Do not change quality, method, dimensions, or colour treatment for one race merely to hide an overly complex
-composition; simplify the art and re-export first. The hard budget is **160 KiB per asset** and **1.44 MiB for the
-nine-file set**. Record actual byte count and SHA-256 in the manifest. If the proof cannot meet 160 KiB without visible
-banding, blurred faces, or poor crop readability, pause batch work and obtain approval for a revised documented budget;
-do not silently ship a larger set.
+If an asset exceeds the hard **160 KiB per asset** budget, reduce quality only as far as required and record the
+per-file value in both its prompt archive and manifest. Keep dimensions, compression method, and colour treatment
+consistent. The complete nine-file set must remain below **1.44 MiB**. Record actual byte count and SHA-256 in the
+manifest. If an asset cannot meet the limit without visible banding, blurred faces, or poor crop readability, simplify
+the composition and regenerate rather than silently shipping a larger file.
 
 ## Inspection and approval checklist
 
@@ -188,7 +188,8 @@ only in an image viewer:
 
 - [ ] File path and race ID match exactly; manifest entry, prompt archive, provenance, byte count, and SHA-256 are
       complete.
-- [ ] Image is opaque 3:4 WebP, exported with quality 84/compression level 6 and below 160 KiB.
+- [ ] Image is opaque 3:4 WebP, exported at target quality 78 (or the documented lower value), compression level 6,
+      and below 160 KiB.
 - [ ] At 360 x 640 dp, both representatives, faces, and defining silhouettes remain clear above the summary overlay.
 - [ ] In the wider preview, centred crop, rounded corners, and pager-neighbour clipping do not remove a focal feature.
 - [ ] The lower 38% contains no essential face, hand, weapon, lettering, or mechanically meaningful visual cue.
@@ -198,8 +199,7 @@ only in an image viewer:
 - [ ] The image remains decorative in semantics; text and controls communicate every decision without it.
 - [ ] Temporarily removing or corrupting the asset displays the deterministic placeholder and leaves race selection and
       Next usable.
-- [ ] The proof has explicit product/design approval before generating or integrating the remaining eight files.
+- [ ] The approved Human proof establishes the visual language used by the remaining eight files.
 
 Run the Race Carousel screenshot suite after each material artwork or layout change, export the images for visual
-review, and retain the review artifact with the implementation change. Do not begin the full set until the proof
-satisfies this checklist in both themes.
+review, and retain the review artifact with the implementation change.
