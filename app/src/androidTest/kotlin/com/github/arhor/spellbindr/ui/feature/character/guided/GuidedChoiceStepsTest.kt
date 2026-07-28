@@ -25,7 +25,8 @@ class GuidedChoiceStepsTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun proficiencies_step_shows_merged_sources_conflict_and_independent_progress() {
+    fun `ProficienciesLanguagesStep should show merged sources and progress when requirements conflict`() {
+        // Given
         val grants = listOf(
             fixedGrant(GuidedChoiceSource.CLASS, "Class: Ranger"),
             fixedGrant(GuidedChoiceSource.RACE_TRAIT, "Race trait: Keen Senses"),
@@ -46,6 +47,7 @@ class GuidedChoiceStepsTest {
             ),
         )
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 ProficienciesLanguagesStep(
@@ -57,6 +59,7 @@ class GuidedChoiceStepsTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithText("Granted by Class: Ranger, Race trait: Keen Senses").assertIsDisplayed()
         composeTestRule.onNodeWithText("Class").assertIsDisplayed()
         composeTestRule.onNodeWithText("Race & subrace").assertIsDisplayed()
@@ -71,7 +74,8 @@ class GuidedChoiceStepsTest {
     }
 
     @Test
-    fun ancestry_step_shows_trait_context_and_completed_state() {
+    fun `AncestryChoicesStep should show trait context and completion when choice is selected`() {
+        // Given
         val requirement = GuidedChoiceRequirement(
             key = "race/trait/draconic-ancestry/choice",
             source = GuidedChoiceSource.RACE_TRAIT,
@@ -91,6 +95,7 @@ class GuidedChoiceStepsTest {
             disabledOptions = emptyMap(),
         )
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 AncestryChoicesStep(
@@ -101,6 +106,7 @@ class GuidedChoiceStepsTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithText("✓ Race trait: Draconic Ancestry").assertIsDisplayed()
         composeTestRule.onNodeWithText(
             "Choose the type of dragon in your ancestry. Choose 1. Complete.",

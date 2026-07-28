@@ -11,7 +11,8 @@ import org.junit.Test
 class RaceSummaryUiModelTest {
 
     @Test
-    fun `summary resolves structured mechanics and counts deferred choices`() {
+    fun `raceSummaryUiModel should resolve mechanics and deferred choices when subrace is selected`() {
+        // Given
         val race = race()
         val traits = mapOf(
             "ability-score-increase-test" to trait(
@@ -53,12 +54,14 @@ class RaceSummaryUiModelTest {
             ),
         )
 
+        // When
         val result = raceSummaryUiModel(
             race = race,
             traitsById = traits,
             selectedSubraceId = "scholar-test",
         )
 
+        // Then
         assertThat(result.name).isEqualTo("Testfolk")
         assertThat(result.selectedSubraceName).isEqualTo("Scholar Testfolk")
         assertThat(result.size).isEqualTo("Medium")
@@ -73,7 +76,8 @@ class RaceSummaryUiModelTest {
     }
 
     @Test
-    fun `summary excludes subrace traits until that subrace is selected`() {
+    fun `raceSummaryUiModel should exclude subrace traits when subrace is not selected`() {
+        // Given
         val race = race()
         val subraceTrait = trait(
             id = "subrace-magic-test",
@@ -81,25 +85,32 @@ class RaceSummaryUiModelTest {
             spellChoice = Choice.OptionsArrayChoice(choose = 1, from = listOf("light")),
         )
 
+        // When
         val result = raceSummaryUiModel(
             race = race,
             traitsById = mapOf("subrace-magic-test" to subraceTrait),
             selectedSubraceId = null,
         )
 
+        // Then
         assertThat(result.selectedSubraceName).isNull()
         assertThat(result.traitDetails).isEmpty()
         assertThat(result.deferredChoices).isEmpty()
     }
 
     @Test
-    fun `summary ignores missing trait references without inventing mechanics`() {
+    fun `raceSummaryUiModel should omit mechanics when trait references are missing`() {
+        // Given
+        val race = race()
+
+        // When
         val result = raceSummaryUiModel(
-            race = race(),
+            race = race,
             traitsById = emptyMap(),
             selectedSubraceId = "unknown-subrace",
         )
 
+        // Then
         assertThat(result.size).isNull()
         assertThat(result.speedFeet).isNull()
         assertThat(result.abilityBonuses).isEmpty()

@@ -11,16 +11,20 @@ import org.junit.Test
 class SpellsTabStateMapperTest {
 
     @Test
-    fun `toSpellsState marks shared slots unconfigured when totals are zero`() {
+    fun `toSpellsState should mark shared slots unconfigured when totals are zero`() {
+        // Given
         val sheet = CharacterSheet(id = "test")
 
+        // When
         val state = sheet.toSpellsState(allSpells = emptyList(), spellcastingClasses = emptyList())
 
+        // Then
         assertThat(state.hasConfiguredSharedSlots).isFalse()
     }
 
     @Test
-    fun `toSpellsState exposes pact slots when warlock spells exist`() {
+    fun `toSpellsState should expose unconfigured pact slots when warlock spells exist`() {
+        // Given
         val sheet = CharacterSheet(
             id = "test",
             characterSpells = listOf(CharacterSpell(spellId = "eldritch-blast", sourceClass = "Warlock")),
@@ -43,8 +47,10 @@ class SpellsTabStateMapperTest {
             levels = emptyList(),
         )
 
+        // When
         val state = sheet.toSpellsState(allSpells = emptyList(), spellcastingClasses = listOf(warlockClass))
 
+        // Then
         assertThat(state.pactSlots).isNotNull()
         assertThat(state.pactSlots?.isConfigured).isFalse()
     }

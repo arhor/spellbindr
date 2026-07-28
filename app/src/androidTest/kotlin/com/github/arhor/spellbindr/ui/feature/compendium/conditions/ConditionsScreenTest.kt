@@ -22,7 +22,7 @@ class ConditionsScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `render should show loading indicator when state is loading`() {
+    fun `ConditionsScreen should show loading indicator when state is loading`() {
         // Given
         val state = ConditionsUiState.Loading
 
@@ -40,7 +40,7 @@ class ConditionsScreenTest {
     }
 
     @Test
-    fun `render should show error message when state is error`() {
+    fun `ConditionsScreen should show error message when state is error`() {
         // Given
         val state = ConditionsUiState.Failure("Something went wrong")
 
@@ -58,7 +58,7 @@ class ConditionsScreenTest {
     }
 
     @Test
-    fun `render should show expanded description when selected item id matches`() {
+    fun `ConditionsScreen should show expanded description when selected item id matches`() {
         // Given
         val condition = Condition(
             id = "blinded",
@@ -84,7 +84,7 @@ class ConditionsScreenTest {
     }
 
     @Test
-    fun `click should dispatch intent when condition item tapped`() {
+    fun `ConditionsScreen should dispatch intent when condition item is tapped`() {
         // Given
         val condition = Condition(
             id = "blinded",

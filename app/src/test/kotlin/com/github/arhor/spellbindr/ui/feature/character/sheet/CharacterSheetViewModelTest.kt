@@ -32,7 +32,8 @@ class CharacterSheetViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `persist should debounce consecutive updates and save latest sheet only`() = runTest {
+    fun `adjustCurrentHp should save latest sheet once when updates occur within debounce window`() = runTest {
+        // Given
         val saveCharacterSheetUseCase = mockk<SaveCharacterSheetUseCase>()
         coEvery { saveCharacterSheetUseCase(any()) } returns Unit
         val initialSheet = CharacterSheet(
@@ -49,6 +50,7 @@ class CharacterSheetViewModelTest {
 
         advanceUntilIdle()
 
+        // When
         vm.adjustCurrentHp(-1)
         vm.adjustCurrentHp(-1)
         vm.adjustCurrentHp(+1)
@@ -60,20 +62,24 @@ class CharacterSheetViewModelTest {
         advanceTimeBy(1)
         advanceUntilIdle()
 
+        // Then
         val captured = mutableListOf<CharacterSheet>()
         coVerify(exactly = 1) { saveCharacterSheetUseCase(capture(captured)) }
         assertThat(captured.single().currentHitPoints).isEqualTo(4)
     }
 
     @Test
-    fun `weapon catalog failure should be exposed in ui state error message`() = runTest {
+    fun `uiState should expose error message when weapon catalog loading fails`() = runTest {
+        // Given
         val vm = createViewModel(
             initialSheet = CharacterSheet(id = TEST_CHARACTER_ID),
             weaponCatalogState = Loadable.Failure(errorMessage = "boom"),
         )
 
+        // When
         advanceUntilIdle()
 
+        // Then
         val state = vm.uiState.value as CharacterSheetUiState.Content
         assertThat(state.errorMessage).isEqualTo("Unable to load weapon catalog")
     }

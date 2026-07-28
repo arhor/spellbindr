@@ -22,7 +22,7 @@ class AlignmentsScreenTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `render should show loading indicator when state is loading`() {
+    fun `AlignmentsScreen should show loading indicator when state is loading`() {
         // Given
         val state = AlignmentsUiState.Loading
 
@@ -38,7 +38,7 @@ class AlignmentsScreenTest {
     }
 
     @Test
-    fun `render should show error message when state is error`() {
+    fun `AlignmentsScreen should show error message when state is error`() {
         // Given
         val state = AlignmentsUiState.Failure("Failed to load alignments")
 
@@ -54,7 +54,7 @@ class AlignmentsScreenTest {
     }
 
     @Test
-    fun `click should dispatch intent when alignment tile tapped`() {
+    fun `AlignmentsScreen should dispatch intent when alignment tile is tapped`() {
         // Given
         val alignment = Alignment(
             id = "lg",

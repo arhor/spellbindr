@@ -24,7 +24,7 @@ class CharacterSpellPickerViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `dispatch should update query and favorites filter`() =
+    fun `dispatch should update query and favorites filter when matching intents arrive`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val observeCharacterSheet = mockk<ObserveCharacterSheetUseCase>()

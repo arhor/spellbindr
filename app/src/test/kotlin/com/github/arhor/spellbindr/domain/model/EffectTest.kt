@@ -6,7 +6,7 @@ import org.junit.Test
 class EffectTest {
 
     @Test
-    fun `add hp effect should add flat value when not per level`() {
+    fun `applyTo should add flat hit points when effect is not per level`() {
         // Given
         val state = Character.State(level = 5, maximumHitPoints = 10)
         val effect = Effect.AddHpEffect(value = 2)
@@ -19,7 +19,7 @@ class EffectTest {
     }
 
     @Test
-    fun `add hp effect should scale value by level when marked per level`() {
+    fun `applyTo should scale hit points when effect is marked per level`() {
         // Given
         val state = Character.State(level = 3, maximumHitPoints = 7)
         val effect = Effect.AddHpEffect(value = 2, perLevel = true)
@@ -32,7 +32,7 @@ class EffectTest {
     }
 
     @Test
-    fun `add equipment effect should merge equipment ids and quantities`() {
+    fun `applyTo should merge equipment ids and quantities when effect adds existing and new equipment`() {
         // Given
         val state = Character.State(
             equipment = setOf(EntityRef("torch")),

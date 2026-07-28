@@ -34,7 +34,7 @@ class SettingsRepositoryImplTest {
     }
 
     @Test
-    fun `setThemeMode should persist selected mode`() = runTest {
+    fun `setThemeMode should persist selected mode when mode is non-null`() = runTest {
         // Given
         val (repository, _, file) = createRepository()
         try {
@@ -50,7 +50,7 @@ class SettingsRepositoryImplTest {
     }
 
     @Test
-    fun `setThemeMode with null should clear stored mode`() = runTest {
+    fun `setThemeMode should clear stored mode when mode is null`() = runTest {
         // Given
         val (repository, _, file) = createRepository()
         try {
@@ -68,7 +68,7 @@ class SettingsRepositoryImplTest {
     }
 
     @Test
-    fun `settings should map invalid stored mode to null`() = runTest {
+    fun `settings should map stored mode to null when value is invalid`() = runTest {
         // Given
         val (repository, dataStore, file) = createRepository()
         try {

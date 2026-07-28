@@ -8,21 +8,40 @@ import org.junit.Test
 class SpellsTabFilteringTest {
 
     @Test
-    fun `parseCastingTimeFilter maps action`() {
-        assertThat(parseCastingTimeFilter("Action")).isEqualTo(CastingTimeFilter.Action)
-        assertThat(parseCastingTimeFilter("1 action")).isEqualTo(CastingTimeFilter.Action)
-        assertThat(parseCastingTimeFilter("Cast")).isEqualTo(CastingTimeFilter.Action)
+    fun `parseCastingTimeFilter should return action when text uses action aliases`() {
+        // Given
+        val values = listOf("Action", "1 action", "Cast")
+
+        // When
+        val results = values.map(::parseCastingTimeFilter)
+
+        // Then
+        assertThat(results).containsExactly(
+            CastingTimeFilter.Action,
+            CastingTimeFilter.Action,
+            CastingTimeFilter.Action,
+        ).inOrder()
     }
 
     @Test
-    fun `parseCastingTimeFilter maps bonus and reaction`() {
-        assertThat(parseCastingTimeFilter("Bonus Action")).isEqualTo(CastingTimeFilter.Bonus)
-        assertThat(parseCastingTimeFilter("1 bonus action")).isEqualTo(CastingTimeFilter.Bonus)
-        assertThat(parseCastingTimeFilter("Reaction")).isEqualTo(CastingTimeFilter.Reaction)
+    fun `parseCastingTimeFilter should return bonus or reaction when text names those timings`() {
+        // Given
+        val values = listOf("Bonus Action", "1 bonus action", "Reaction")
+
+        // When
+        val results = values.map(::parseCastingTimeFilter)
+
+        // Then
+        assertThat(results).containsExactly(
+            CastingTimeFilter.Bonus,
+            CastingTimeFilter.Bonus,
+            CastingTimeFilter.Reaction,
+        ).inOrder()
     }
 
     @Test
-    fun `filterAndSortSpellLevels filters by casting time and tags`() {
+    fun `filterAndSortSpellLevels should retain matching spell when casting time and tags are selected`() {
+        // Given
         val spells = listOf(
             spell(name = "A", level = 0, castingTime = "Action", concentration = false, ritual = false),
             spell(name = "B", level = 1, castingTime = "Bonus Action", concentration = true, ritual = false),
@@ -33,6 +52,7 @@ class SpellsTabFilteringTest {
             SpellLevelUiModel(level = 1, spells = spells.filter { it.level == 1 }),
         )
 
+        // When
         val result = filterAndSortSpellLevels(
             spellLevels = levels,
             castingTime = CastingTimeFilter.Reaction,
@@ -41,13 +61,15 @@ class SpellsTabFilteringTest {
             sort = SpellSort.Level,
         )
 
+        // Then
         assertThat(result).hasSize(1)
         assertThat(result.single().level).isEqualTo(1)
         assertThat(result.single().spells.map { it.name }).containsExactly("C")
     }
 
     @Test
-    fun `filterAndSortSpellLevels sorts by level then name`() {
+    fun `filterAndSortSpellLevels should sort by level then name when level sort is selected`() {
+        // Given
         val spells = listOf(
             spell(name = "Zeta", level = 1, castingTime = "Action", concentration = false, ritual = false),
             spell(name = "Alpha", level = 0, castingTime = "Action", concentration = false, ritual = false),
@@ -58,6 +80,7 @@ class SpellsTabFilteringTest {
             SpellLevelUiModel(level = 1, spells = spells.filter { it.level == 1 }),
         )
 
+        // When
         val result = filterAndSortSpellLevels(
             spellLevels = levels,
             castingTime = null,
@@ -66,6 +89,7 @@ class SpellsTabFilteringTest {
             sort = SpellSort.Level,
         )
 
+        // Then
         assertThat(result.map { it.level }).containsExactly(0, 1).inOrder()
         assertThat(result.first().spells.map { it.name }).containsExactly("Alpha")
         assertThat(result[1].spells.map { it.name }).containsExactly("Beta", "Zeta").inOrder()
@@ -94,4 +118,3 @@ class SpellsTabFilteringTest {
         )
     }
 }
-

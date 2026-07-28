@@ -31,7 +31,8 @@ class SpellsTabScrollStateTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `Spells tab preserves scroll position when switching tabs`() {
+    fun `CharacterSheetContent should preserve spells scroll position when switching tabs`() {
+        // Given
         val spellsState = buildSpellsState(spellCount = 60)
         composeTestRule.setContent {
             var selectedTab by remember { mutableStateOf(CharacterSheetTab.Spells) }
@@ -66,8 +67,10 @@ class SpellsTabScrollStateTest {
             }
         }
 
+        // When
         val targetSpell = "Spell 40"
         composeTestRule.onNodeWithText(targetSpell).performScrollTo()
+        // Then
         composeTestRule.onNodeWithText(targetSpell).assertIsDisplayed()
 
         composeTestRule.onNodeWithText("Overview").performClick()

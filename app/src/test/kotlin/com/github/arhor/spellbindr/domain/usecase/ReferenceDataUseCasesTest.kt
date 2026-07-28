@@ -17,7 +17,7 @@ class ReferenceDataUseCasesTest {
     private val traitsRepository = FakeTraitsRepository()
 
     @Test
-    fun `ObserveRacesUseCase should emit latest races when repository updates`() = runTest {
+    fun `invoke should emit latest races when race repository updates`() = runTest {
         // Given
         val race = Race(
             id = "elf",
@@ -35,7 +35,7 @@ class ReferenceDataUseCasesTest {
     }
 
     @Test
-    fun `ObserveTraitsUseCase should emit latest traits when repository updates`() = runTest {
+    fun `invoke should emit latest traits when trait repository updates`() = runTest {
         // Given
         val trait = Trait(id = "darkvision", name = "Darkvision", desc = listOf("See in the dark."))
         traitsRepository.allTraitsState.value = Loadable.Content(listOf(trait))

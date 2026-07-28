@@ -32,7 +32,7 @@ class WeaponCatalogSelectionTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun `WeaponCatalogDialog should prefill editor while allowing manual edits`() {
+    fun `WeaponCatalogDialog should prefill editor while allowing manual edits when weapon is selected`() {
         // Given
         val catalog = listOf(
             WeaponCatalogUiModel(

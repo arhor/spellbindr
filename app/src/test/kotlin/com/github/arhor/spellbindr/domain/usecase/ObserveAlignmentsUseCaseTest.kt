@@ -18,7 +18,7 @@ class ObserveAlignmentsUseCaseTest {
     private val observeAllAlignmentsUseCase = ObserveAllAlignmentsUseCase(alignmentRepository)
 
     @Test
-    fun `ObserveAlignmentsUseCase should emit latest alignments when repository updates`() = runTest {
+    fun `invoke should emit latest alignments when repository updates`() = runTest {
         // Given
         val alignment = Alignment(id = "lawful-good", name = "Lawful Good", desc = "Desc", abbr = "LG")
         val loadable = Loadable.Content(listOf(alignment))

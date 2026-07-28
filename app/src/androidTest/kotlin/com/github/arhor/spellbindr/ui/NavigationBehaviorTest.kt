@@ -45,7 +45,7 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun `opening spell should keep top bar visible when navigating to details`() {
+    fun `MainActivity should keep top bar visible when navigating to spell details`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
@@ -64,11 +64,10 @@ class NavigationBehaviorTest {
 
         // Then
         composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Back").assertIsDisplayed()
     }
 
     @Test
-    fun `dice roll details should dismiss when navigating away and returning`() {
+    fun `MainActivity should dismiss dice roll details when navigating away and returning`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Dice").performClick()
@@ -91,7 +90,7 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun `character editor should reset when switching tabs`() {
+    fun `MainActivity should reset character editor when switching tabs`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithContentDescription("Create character").performClick()
@@ -111,7 +110,7 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun `character sheet navigation should remain stable when adding spells`() {
+    fun `MainActivity should clear character sheet navigation when switching tabs from spell picker`() {
         // Given
         waitForContentDescription("Create character")
         createCharacter("Test Hero")
@@ -119,7 +118,10 @@ class NavigationBehaviorTest {
         // When
         composeTestRule.onNodeWithText("Test Hero").performClick()
         waitForContentDescription("Back")
-        val backVisibleDuringSheet = composeTestRule.onAllNodesWithContentDescription("Back").fetchSemanticsNodes().isNotEmpty()
+        val backVisibleDuringSheet = composeTestRule
+            .onAllNodesWithContentDescription("Back")
+            .fetchSemanticsNodes()
+            .isNotEmpty()
 
         composeTestRule.onNodeWithText("Spells").performClick()
         composeTestRule.onNodeWithText("Add spells").performClick()
@@ -135,7 +137,7 @@ class NavigationBehaviorTest {
     }
 
     @Test
-    fun `compendium sections should open conditions and render description`() {
+    fun `MainActivity should render condition description when compendium condition is opened`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()
@@ -149,11 +151,15 @@ class NavigationBehaviorTest {
 
         // Then
         waitForText("- A blinded creature can't see and automatically fails any ability check that requires sight.")
-        composeTestRule.onNodeWithText("- A blinded creature can't see and automatically fails any ability check that requires sight.").assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText(
+                "- A blinded creature can't see and automatically fails any ability check that requires sight.",
+            )
+            .assertIsDisplayed()
     }
 
     @Test
-    fun `compendium sections should reappear when returning from other tabs`() {
+    fun `MainActivity should show compendium sections when returning from another tab`() {
         // Given
         waitForContentDescription("Create character")
         composeTestRule.onNodeWithText("Compendium").performClick()

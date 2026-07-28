@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 class AndroidLoggerFactoryTest {
 
     @Test
-    fun `create should return same logger instance for the same tag`() {
+    fun `getLogger should return same logger instance when tag is unchanged`() {
         // Given
         val factory = AndroidLoggerFactory()
 
@@ -21,7 +21,7 @@ class AndroidLoggerFactoryTest {
     }
 
     @Test
-    fun `create should return same logger instance for the same tag under concurrent load`() {
+    fun `getLogger should return same logger instance when tag is requested concurrently`() {
         // Given
         val factory = AndroidLoggerFactory()
         val executor = Executors.newFixedThreadPool(8)
@@ -42,7 +42,7 @@ class AndroidLoggerFactoryTest {
     }
 
     @Test
-    fun `create should return different logger instances for different tags`() {
+    fun `getLogger should return different logger instances when tags differ`() {
         // Given
         val factory = AndroidLoggerFactory()
 

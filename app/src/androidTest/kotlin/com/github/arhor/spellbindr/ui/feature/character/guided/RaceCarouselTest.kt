@@ -25,9 +25,11 @@ class RaceCarouselTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
-    fun first_visible_page_is_not_selected_automatically() {
+    fun `RaceCarousel should not select first page when initially displayed`() {
+        // Given
         val selectedRaceIds = mutableListOf<String>()
 
+        // When
         composeTestRule.setContent {
             AppTheme {
                 RaceCarousel(
@@ -42,6 +44,7 @@ class RaceCarouselTest {
             }
         }
 
+        // Then
         composeTestRule.onNodeWithContentDescription("Elf, 1 of 2").assertIsDisplayed()
         composeTestRule.runOnIdle {
             assertThat(selectedRaceIds).isEmpty()
@@ -49,9 +52,9 @@ class RaceCarouselTest {
     }
 
     @Test
-    fun tapping_visible_page_selects_exactly_that_race() {
+    fun `RaceCarousel should select visible race once when page is tapped`() {
+        // Given
         val selectedRaceIds = mutableListOf<String>()
-
         composeTestRule.setContent {
             AppTheme {
                 RaceCarousel(
@@ -66,16 +69,19 @@ class RaceCarouselTest {
             }
         }
 
+        // When
         composeTestRule.onNodeWithContentDescription("Elf, 1 of 2").performClick()
+
+        // Then
         composeTestRule.runOnIdle {
             assertThat(selectedRaceIds).containsExactly("elf")
         }
     }
 
     @Test
-    fun settling_a_user_swipe_selects_the_new_page_once() {
+    fun `RaceCarousel should select new race once when user swipe settles`() {
+        // Given
         val selectedRaceIds = mutableListOf<String>()
-
         composeTestRule.setContent {
             AppTheme {
                 RaceCarousel(
@@ -90,11 +96,13 @@ class RaceCarouselTest {
             }
         }
 
+        // When
         composeTestRule
             .onNodeWithContentDescription("Elf, 1 of 2")
             .performTouchInput { swipeLeft() }
         composeTestRule.waitForIdle()
 
+        // Then
         composeTestRule.runOnIdle {
             assertThat(selectedRaceIds).containsExactly("dwarf")
         }
