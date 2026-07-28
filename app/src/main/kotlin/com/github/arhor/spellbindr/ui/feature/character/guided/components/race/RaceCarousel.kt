@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Trait
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlin.math.absoluteValue
 
 @Composable
 internal fun RaceCarousel(
@@ -158,7 +159,7 @@ internal fun RaceCarousel(
                             val distanceFromCenter = (
                                 (pagerState.currentPage - page) +
                                     pagerState.currentPageOffsetFraction
-                                ).let(::kotlin.math.abs)
+                                ).absoluteValue
                                 .coerceIn(0f, 1f)
                             val prominence = 1f - distanceFromCenter
                             val scale = 0.94f + (0.06f * prominence)
