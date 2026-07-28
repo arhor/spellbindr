@@ -48,6 +48,7 @@ internal fun RaceCarouselPage(
                 next()
                 true
             })
+        }
     }
 
     Box(
