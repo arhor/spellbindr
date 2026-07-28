@@ -27,6 +27,7 @@ internal fun RaceCarouselPage(
     position: Int,
     totalCount: Int,
     selected: Boolean,
+    focused: Boolean,
     selectedSubraceId: String?,
     onSelect: () -> Unit,
     onSubraceSelected: (String) -> Unit,
@@ -36,6 +37,7 @@ internal fun RaceCarouselPage(
     modifier: Modifier = Modifier,
 ) {
     val scrim = MaterialTheme.colorScheme.scrim
+    val conciseSummary = summary.conciseDescription()
     val accessibilityActions = buildList {
         onPrevious?.let { previous ->
             add(CustomAccessibilityAction("Previous race") {
@@ -54,45 +56,58 @@ internal fun RaceCarouselPage(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .semantics {
-                contentDescription = buildString {
-                    append(summary.name)
-                    append(", ")
-                    append(position)
-                    append(" of ")
-                    append(totalCount)
-                    summary.conciseDescription().takeIf { it.isNotBlank() }?.let {
-                        append(". ")
-                        append(it)
-                    }
-                }
-                stateDescription = if (selected) "Selected" else "Not selected"
-                customActions = accessibilityActions
-            }
-            .selectable(selected = selected, role = Role.RadioButton, onClick = onSelect),
+            .then(
+                if (focused) {
+                    Modifier
+                        .semantics {
+                            contentDescription = buildString {
+                                append(summary.name)
+                                append(", ")
+                                append(position)
+                                append(" of ")
+                                append(totalCount)
+                                conciseSummary.takeIf { it.isNotBlank() }?.let {
+                                    append(". ")
+                                    append(it)
+                                }
+                            }
+                            stateDescription = if (selected) "Selected" else "Not selected"
+                            customActions = accessibilityActions
+                        }
+                        .selectable(
+                            selected = selected,
+                            role = Role.RadioButton,
+                            onClick = onSelect,
+                        )
+                } else {
+                    Modifier
+                },
+            ),
     ) {
         RaceArtwork(raceId = race.id, modifier = Modifier.fillMaxSize())
-        RaceSummaryPanel(
-            summary = summary,
-            subraces = race.subraces,
-            selectedSubraceId = selectedSubraceId,
-            onSubraceSelected = onSubraceSelected,
-            onViewDetails = onViewDetails,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .drawWithCache {
-                    onDrawBehind {
-                        drawRect(
-                            Brush.verticalGradient(
-                                0f to scrim.copy(alpha = 0f),
-                                0.30f to scrim.copy(alpha = 0.72f),
-                                1f to scrim.copy(alpha = 0.94f),
-                            ),
-                        )
+        if (focused) {
+            RaceSummaryPanel(
+                summary = summary,
+                subraces = race.subraces,
+                selectedSubraceId = selectedSubraceId,
+                onSubraceSelected = onSubraceSelected,
+                onViewDetails = onViewDetails,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .drawWithCache {
+                        onDrawBehind {
+                            drawRect(
+                                Brush.verticalGradient(
+                                    0f to scrim.copy(alpha = 0f),
+                                    0.30f to scrim.copy(alpha = 0.72f),
+                                    1f to scrim.copy(alpha = 0.94f),
+                                ),
+                            )
+                        }
                     }
-                }
-                .padding(top = 38.dp),
-        )
+                    .padding(top = 38.dp),
+            )
+        }
     }
 }

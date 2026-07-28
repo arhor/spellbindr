@@ -3,8 +3,10 @@
 package com.github.arhor.spellbindr.ui.feature.character.guided.components.race
 
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
@@ -30,6 +34,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -65,6 +71,7 @@ internal fun RaceCarousel(
     )
     val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
     val currentSelectedRaceId by rememberUpdatedState(selectedRaceId)
+    val pageShape = RoundedCornerShape(16.dp)
     var userDragStartPage by remember { mutableStateOf<Int?>(null) }
     var detailsRaceId by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -104,53 +111,83 @@ internal fun RaceCarousel(
         }
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        HorizontalPager(
-            state = pagerState,
+    Column(modifier = modifier.fillMaxSize()) {
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 24.dp),
-            pageSpacing = 12.dp,
-            beyondViewportPageCount = 1,
-            key = { races[it].id },
-        ) { page ->
-            val race = races[page]
-            val isSelected = race.id == selectedRaceId
-            val subraceId = selectedSubraceId.takeIf { isSelected }
-            val summary = remember(race, traitsById, subraceId) {
-                raceSummaryUiModel(
+                .weight(1f),
+        ) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 24.dp),
+                pageSpacing = 12.dp,
+                beyondViewportPageCount = 1,
+                key = { races[it].id },
+            ) { page ->
+                val race = races[page]
+                val isSelected = race.id == selectedRaceId
+                val subraceId = selectedSubraceId.takeIf { isSelected }
+                val summary = remember(race, traitsById, subraceId) {
+                    raceSummaryUiModel(
+                        race = race,
+                        traitsById = traitsById,
+                        selectedSubraceId = subraceId,
+                    )
+                }
+                RaceCarouselPage(
                     race = race,
-                    traitsById = traitsById,
+                    summary = summary,
+                    position = page + 1,
+                    totalCount = races.size,
+                    selected = isSelected,
+                    focused = page == pagerState.currentPage,
                     selectedSubraceId = subraceId,
+                    onSelect = { selectPage(page) },
+                    onSubraceSelected = { onSubraceSelected(race.id, it) },
+                    onViewDetails = { detailsRaceId = race.id },
+                    onPrevious = (page - 1).takeIf { it >= 0 }?.let { previous ->
+                        { selectPage(previous) }
+                    },
+                    onNext = (page + 1).takeIf { it < races.size }?.let { next ->
+                        { selectPage(next) }
+                    },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            val distanceFromCenter = (
+                                (pagerState.currentPage - page) +
+                                    pagerState.currentPageOffsetFraction
+                                ).let(::kotlin.math.abs)
+                                .coerceIn(0f, 1f)
+                            val prominence = 1f - distanceFromCenter
+                            val scale = 0.94f + (0.06f * prominence)
+                            scaleX = scale
+                            scaleY = scale
+                            alpha = 0.72f + (0.28f * prominence)
+                            shape = pageShape
+                            clip = true
+                        },
                 )
             }
-            RaceCarouselPage(
-                race = race,
-                summary = summary,
-                position = page + 1,
-                totalCount = races.size,
-                selected = isSelected,
-                selectedSubraceId = subraceId,
-                onSelect = { selectPage(page) },
-                onSubraceSelected = { onSubraceSelected(race.id, it) },
-                onViewDetails = { detailsRaceId = race.id },
-                onPrevious = (page - 1).takeIf { it >= 0 }?.let { previous ->
-                    { selectPage(previous) }
-                },
-                onNext = (page + 1).takeIf { it < races.size }?.let { next ->
-                    { selectPage(next) }
-                },
-                modifier = Modifier.fillMaxSize(),
+
+            CarouselArrow(
+                onClick = { selectPage(pagerState.currentPage - 1) },
+                enabled = pagerState.currentPage > 0,
+                previous = true,
+                modifier = Modifier.align(Alignment.CenterStart),
+            )
+            CarouselArrow(
+                onClick = { selectPage(pagerState.currentPage + 1) },
+                enabled = pagerState.currentPage < races.lastIndex,
+                previous = false,
+                modifier = Modifier.align(Alignment.CenterEnd),
             )
         }
 
-        RaceCarouselNavigation(
+        RaceCarouselPagination(
             currentPage = pagerState.currentPage,
             pageCount = races.size,
-            onPrevious = { selectPage(pagerState.currentPage - 1) },
-            onNext = { selectPage(pagerState.currentPage + 1) },
-            modifier = Modifier.align(Alignment.BottomCenter),
         )
     }
 
@@ -172,55 +209,63 @@ internal fun RaceCarousel(
 }
 
 @Composable
-private fun RaceCarouselNavigation(
+private fun RaceCarouselPagination(
     currentPage: Int,
     pageCount: Int,
-    onPrevious: () -> Unit,
-    onNext: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        IconButton(
-            onClick = onPrevious,
-            enabled = currentPage > 0,
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                contentDescription = "Previous race",
-            )
-        }
-        Row(
-            modifier = Modifier.semantics {
+            .padding(vertical = 4.dp)
+            .semantics {
                 contentDescription = "Race ${currentPage + 1} of $pageCount"
             },
-            horizontalArrangement = Arrangement.spacedBy(5.dp),
-        ) {
-            repeat(pageCount) { index ->
-                Text(
-                    text = if (index == currentPage) "●" else "○",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = if (index == currentPage) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.outline
-                    },
-                )
-            }
-        }
-        IconButton(
-            onClick = onNext,
-            enabled = currentPage < pageCount - 1,
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
-                contentDescription = "Next race",
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally),
+    ) {
+        repeat(pageCount) { index ->
+            Text(
+                text = if (index == currentPage) "●" else "○",
+                style = MaterialTheme.typography.labelSmall,
+                color = if (index == currentPage) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.outline
+                },
             )
         }
+    }
+}
+
+@Composable
+private fun CarouselArrow(
+    onClick: () -> Unit,
+    enabled: Boolean,
+    previous: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    val contentColor = if (MaterialTheme.colorScheme.surface.luminance() > 0.5f) {
+        MaterialTheme.colorScheme.onPrimary
+    } else {
+        MaterialTheme.colorScheme.onSurface
+    }
+    IconButton(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier.background(
+            color = MaterialTheme.colorScheme.scrim.copy(alpha = if (enabled) 0.48f else 0.24f),
+            shape = CircleShape,
+        ),
+    ) {
+        Icon(
+            imageVector = if (previous) {
+                Icons.AutoMirrored.Outlined.ArrowBack
+            } else {
+                Icons.AutoMirrored.Outlined.ArrowForward
+            },
+            contentDescription = if (previous) "Previous race" else "Next race",
+            tint = contentColor.copy(alpha = if (enabled) 1f else 0.38f),
+        )
     }
 }
