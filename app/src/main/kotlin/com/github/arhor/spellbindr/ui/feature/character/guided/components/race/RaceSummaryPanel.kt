@@ -14,6 +14,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -28,6 +29,11 @@ internal fun RaceSummaryPanel(
     onViewDetails: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val contentColor = if (MaterialTheme.colorScheme.surface.luminance() > 0.5f) {
+        MaterialTheme.colorScheme.onPrimary
+    } else {
+        MaterialTheme.colorScheme.onSurface
+    }
     Column(
         modifier = modifier.padding(horizontal = 14.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -41,6 +47,7 @@ internal fun RaceSummaryPanel(
                 text = summary.name,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold,
+                color = contentColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f),
@@ -51,19 +58,6 @@ internal fun RaceSummaryPanel(
             }
         }
 
-        if (subraces.isNotEmpty()) {
-            Text(
-                text = "Choose a subrace",
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            SubraceSelector(
-                subraces = subraces,
-                selectedSubraceId = selectedSubraceId,
-                onSubraceSelected = onSubraceSelected,
-            )
-        }
-
         val mechanics = buildList {
             summary.size?.let { add("Size $it") }
             summary.speedFeet?.let { add("Speed $it ft") }
@@ -72,6 +66,7 @@ internal fun RaceSummaryPanel(
             Text(
                 text = mechanics,
                 style = MaterialTheme.typography.bodyMedium,
+                color = contentColor,
                 maxLines = 1,
             )
         }
@@ -79,15 +74,28 @@ internal fun RaceSummaryPanel(
             Text(
                 text = summary.abilityBonuses.joinToString("  •  "),
                 style = MaterialTheme.typography.bodyMedium,
+                color = contentColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+            )
+        }
+        if (subraces.isNotEmpty()) {
+            Text(
+                text = "Choose a subrace",
+                style = MaterialTheme.typography.labelMedium,
+                color = contentColor,
+            )
+            SubraceSelector(
+                subraces = subraces,
+                selectedSubraceId = selectedSubraceId,
+                onSubraceSelected = onSubraceSelected,
             )
         }
         if (summary.definingTraits.isNotEmpty()) {
             Text(
                 text = summary.definingTraits.joinToString("  •  "),
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = contentColor.copy(alpha = 0.82f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )

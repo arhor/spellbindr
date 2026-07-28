@@ -5,7 +5,6 @@ package com.github.arhor.spellbindr.ui.feature.character.guided.components.race
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -105,15 +104,12 @@ internal fun RaceCarousel(
         }
     }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
+    Box(modifier = modifier.fillMaxSize()) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 24.dp),
             pageSpacing = 12.dp,
             beyondViewportPageCount = 1,
@@ -154,6 +150,7 @@ internal fun RaceCarousel(
             pageCount = races.size,
             onPrevious = { selectPage(pagerState.currentPage - 1) },
             onNext = { selectPage(pagerState.currentPage + 1) },
+            modifier = Modifier.align(Alignment.BottomCenter),
         )
     }
 
@@ -180,11 +177,12 @@ private fun RaceCarouselNavigation(
     pageCount: Int,
     onPrevious: () -> Unit,
     onNext: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = 20.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
