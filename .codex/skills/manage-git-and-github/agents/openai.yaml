@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git and GitHub Operations"
+  short_description: "Safely manage local Git and GitHub work"
+  default_prompt: "Use $manage-git-and-github to inspect this repository and safely complete the requested Git or GitHub operation."
