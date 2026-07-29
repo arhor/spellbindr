@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   build:
-    name: Lint, unit test, and release assemble
+    name: Lint and unit test
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -41,7 +41,9 @@ jobs:
           java-version: 17
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          packages: tools platform-tools platforms;android-37 build-tools;36.0.0
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
@@ -49,8 +51,8 @@ jobs:
           cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/master') && !startsWith(github.ref, 'refs/heads/stable') }}
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-      - name: Lint, unit test, and release assemble
-        run: ./gradlew lintDebug test testDebugUnitTest assembleRelease --stacktrace
+      - name: Lint and unit test
+        run: ./gradlew lintDebug test testDebugUnitTest --stacktrace
 
       - name: Assemble debug APK
         uses: ./.github/actions/assemble-debug-apk

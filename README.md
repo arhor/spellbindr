@@ -77,5 +77,5 @@ Exports are copied to `<module>/build/outputs/preview-screenshots/<timestamp>/`.
 
 ## CI / Quality
 
-- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug test testDebugUnitTest assembleRelease` on push and PRs.
+- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug test testDebugUnitTest` on push and PRs.
 - PRs also assemble a debug APK and upload it as the `app-debug-apk` artifact.
