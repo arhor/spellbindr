@@ -8,9 +8,12 @@ import com.github.arhor.spellbindr.data.mapper.toEntity
 import com.github.arhor.spellbindr.data.mapper.toSnapshot
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.Character
+import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.model.ProgressionState
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.utils.asLoadableFlow
 import kotlinx.coroutines.flow.Flow
@@ -43,6 +46,17 @@ class CharacterRepositoryImpl @Inject constructor(
             it?.manualSheet?.toDomain(it.id)
         }
 
+    override fun observeCharacterWithProgression(id: String): Flow<CharacterWithProgression?> =
+        characterDao.observeCharacterWithProgression(id).map { relation ->
+            relation?.let {
+                val sheet = it.character.manualSheet?.toDomain(it.character.id) ?: return@map null
+                CharacterWithProgression(
+                    sheet = sheet,
+                    progressionState = it.progression.toDomain(progressionJsonCodec),
+                )
+            }
+        }
+
     override fun observeCharacterSheetState(id: String): Flow<Loadable<CharacterSheet?>> =
         characterDao.getCharacterById(id)
             .map(::entityToCharacterSheet)
@@ -56,16 +70,17 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun upsertCharacterSheet(sheet: CharacterSheet) {
         val existing = characterDao.getCharacterById(sheet.id).firstOrNull()
         val base = existing ?: CharacterEntity(id = sheet.id)
-        val updated = base.copy(
-            id = sheet.id,
-            name = sheet.name,
-            race = sheet.race.asEntityRef("race", sheet.id),
-            background = sheet.background.asEntityRef("background", sheet.id),
-            classes = sheet.toClassLevels(),
-            abilityScores = sheet.toAbilityScoreMap(),
-            manualSheet = sheet.toSnapshot(),
+        characterDao.saveCharacter(sheet.toCharacterEntity(base))
+    }
+
+    override suspend fun saveGuidedCharacter(result: CharacterCreationResult) {
+        characterDao.saveCharacterWithProgression(
+            character = result.sheet.toCharacterEntity(CharacterEntity(id = result.sheet.id)),
+            progression = ProgressionState.Managed(result.progression).toEntity(
+                characterId = result.sheet.id,
+                codec = progressionJsonCodec,
+            ),
         )
-        characterDao.saveCharacter(updated)
     }
 
     override fun getCharacters(): Flow<List<Character>> {
@@ -88,6 +103,16 @@ class CharacterRepositoryImpl @Inject constructor(
 
     private fun entityToCharacterSheet(entity: CharacterEntity?): CharacterSheet? =
         entity?.manualSheet?.toDomain(entity.id)
+
+    private fun CharacterSheet.toCharacterEntity(base: CharacterEntity): CharacterEntity = base.copy(
+        id = id,
+        name = name,
+        race = race.asEntityRef("race", id),
+        background = background.asEntityRef("background", id),
+        classes = toClassLevels(),
+        abilityScores = toAbilityScoreMap(),
+        manualSheet = toSnapshot(),
+    )
 
     private fun String.asEntityRef(prefix: String, id: String): EntityRef =
         EntityRef(this.takeIf { it.isNotBlank() } ?: "${prefix}_$id")

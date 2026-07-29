@@ -1,7 +1,9 @@
 package com.github.arhor.spellbindr.domain.repository
 
 import com.github.arhor.spellbindr.domain.model.Character
+import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
 import com.github.arhor.spellbindr.domain.model.Loadable
 import kotlinx.coroutines.flow.Flow
 
@@ -23,6 +25,12 @@ interface CharacterRepository {
     fun observeCharacterSheet(id: String): Flow<CharacterSheet?>
 
     /**
+     * Observes a specific character sheet and its progression management state by [id].
+     * Emits null if the character or its manual sheet is not found.
+     */
+    fun observeCharacterWithProgression(id: String): Flow<CharacterWithProgression?>
+
+    /**
      * Observes a specific character sheet state by [id]. Emits null if not found.
      */
     fun observeCharacterSheetState(id: String): Flow<Loadable<CharacterSheet?>>
@@ -34,6 +42,11 @@ interface CharacterRepository {
      * @param sheet The character sheet data to save.
      */
     suspend fun upsertCharacterSheet(sheet: CharacterSheet)
+
+    /**
+     * Saves a character created by the guided flow with managed progression in one transaction.
+     */
+    suspend fun saveGuidedCharacter(result: CharacterCreationResult)
 
     /**
      * Observes all characters as fully realized domain models.
