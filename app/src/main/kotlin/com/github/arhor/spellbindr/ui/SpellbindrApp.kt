@@ -84,7 +84,11 @@ fun SpellbindrApp(onReady: () -> Unit) {
         ) {
             Scaffold(
                 topBar = { AppTopBar(resolvedConfig) },
-                bottomBar = { AppBottomBar(controller) },
+                bottomBar = {
+                    if (!(destination matches AppDestination.GuidedCharacterSetup::class)) {
+                        AppBottomBar(controller)
+                    }
+                },
                 snackbarHost = { SnackbarHost(snackbarHostState) },
             ) { innerPadding ->
                 SpellbindrAppNavGraph(

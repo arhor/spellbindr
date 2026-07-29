@@ -1,21 +1,16 @@
 package com.github.arhor.spellbindr.ui.feature.character.guided.components.race
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -32,6 +27,7 @@ internal fun RaceCarouselPage(
     position: Int,
     totalCount: Int,
     selected: Boolean,
+    focused: Boolean,
     selectedSubraceId: String?,
     onSelect: () -> Unit,
     onSubraceSelected: (String) -> Unit,
@@ -40,85 +36,56 @@ internal fun RaceCarouselPage(
     onNext: (() -> Unit)?,
     modifier: Modifier = Modifier,
 ) {
-    val artworkWeight = if (LocalDensity.current.fontScale >= LARGE_FONT_SCALE) 0.22f else 0.30f
+    val scrim = MaterialTheme.colorScheme.scrim
+    val conciseSummary = summary.conciseDescription()
     val accessibilityActions = buildList {
         onPrevious?.let { previous ->
-            add(CustomAccessibilityAction(label = "Previous race") {
+            add(CustomAccessibilityAction("Previous race") {
                 previous()
                 true
             })
         }
         onNext?.let { next ->
-            add(CustomAccessibilityAction(label = "Next race") {
+            add(CustomAccessibilityAction("Next race") {
                 next()
                 true
             })
         }
     }
 
-    Card(
+    Box(
         modifier = modifier
             .fillMaxSize()
-            .semantics {
-                contentDescription = buildString {
-                    append(summary.name)
-                    append(", ")
-                    append(position)
-                    append(" of ")
-                    append(totalCount)
-                    val conciseSummary = summary.conciseDescription()
-                    if (conciseSummary.isNotBlank()) {
-                        append(". ")
-                        append(conciseSummary)
-                    }
-                }
-                stateDescription = if (selected) "Selected" else "Not selected"
-                customActions = accessibilityActions
-            }
-            .selectable(
-                selected = selected,
-                role = Role.RadioButton,
-                onClick = onSelect,
-            ),
-        border = BorderStroke(
-            width = if (selected) 2.dp else 1.dp,
-            color = if (selected) {
-                MaterialTheme.colorScheme.primary
-            } else {
-                MaterialTheme.colorScheme.outlineVariant
-            },
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        ),
-    ) {
-        Column(Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(artworkWeight),
-            ) {
-                RaceArtwork(
-                    raceId = race.id,
-                    modifier = Modifier.fillMaxSize(),
-                )
-                if (selected) {
-                    Surface(
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .padding(10.dp),
-                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.94f),
-                        shape = MaterialTheme.shapes.small,
-                    ) {
-                        Text(
-                            text = "Selected",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
+            .then(
+                if (focused) {
+                    Modifier
+                        .semantics {
+                            contentDescription = buildString {
+                                append(summary.name)
+                                append(", ")
+                                append(position)
+                                append(" of ")
+                                append(totalCount)
+                                conciseSummary.takeIf { it.isNotBlank() }?.let {
+                                    append(". ")
+                                    append(it)
+                                }
+                            }
+                            stateDescription = if (selected) "Selected" else "Not selected"
+                            customActions = accessibilityActions
+                        }
+                        .selectable(
+                            selected = selected,
+                            role = Role.RadioButton,
+                            onClick = onSelect,
                         )
-                    }
-                }
-            }
+                } else {
+                    Modifier
+                },
+            ),
+    ) {
+        RaceArtwork(raceId = race.id, modifier = Modifier.fillMaxSize())
+        if (focused) {
             RaceSummaryPanel(
                 summary = summary,
                 subraces = race.subraces,
@@ -127,10 +94,20 @@ internal fun RaceCarouselPage(
                 onViewDetails = onViewDetails,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f - artworkWeight),
+                    .align(Alignment.BottomCenter)
+                    .drawWithCache {
+                        onDrawBehind {
+                            drawRect(
+                                Brush.verticalGradient(
+                                    0f to scrim.copy(alpha = 0f),
+                                    0.30f to scrim.copy(alpha = 0.72f),
+                                    1f to scrim.copy(alpha = 0.94f),
+                                ),
+                            )
+                        }
+                    }
+                    .padding(top = 38.dp),
             )
         }
     }
 }
-
-private const val LARGE_FONT_SCALE = 1.2f

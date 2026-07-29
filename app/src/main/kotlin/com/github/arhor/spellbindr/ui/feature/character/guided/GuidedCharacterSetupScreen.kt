@@ -210,7 +210,7 @@ private fun GuidedCharacterSetupContent(
             null
         }
 
-        if (blockingReason != null) {
+        if (blockingReason != null && state.step != GuidedStep.RACE) {
             Text(
                 text = blockingReason,
                 style = MaterialTheme.typography.bodySmall,
