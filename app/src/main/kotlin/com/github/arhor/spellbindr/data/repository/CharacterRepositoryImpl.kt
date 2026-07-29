@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.repository
 
+import com.github.arhor.spellbindr.data.local.database.CharacterProgressionJsonCodec
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
 import com.github.arhor.spellbindr.data.mapper.toDomain
@@ -28,7 +29,8 @@ import javax.inject.Singleton
  */
 @Singleton
 class CharacterRepositoryImpl @Inject constructor(
-    private val characterDao: CharacterDao
+    private val characterDao: CharacterDao,
+    private val progressionJsonCodec: CharacterProgressionJsonCodec,
 ) : CharacterRepository {
 
     override fun observeCharacterSheets(): Flow<Loadable<List<CharacterSheet>>> =

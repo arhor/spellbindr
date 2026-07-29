@@ -4,7 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterProgressionEntity
+import com.github.arhor.spellbindr.data.local.database.model.CharacterWithProgressionEntity
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -24,11 +27,27 @@ interface CharacterDao {
     @Query("SELECT * FROM characters WHERE id = :id")
     fun getCharacterById(id: String): Flow<CharacterEntity?>
 
+    @Transaction
+    @Query("SELECT * FROM characters WHERE id = :id")
+    fun observeCharacterWithProgression(id: String): Flow<CharacterWithProgressionEntity?>
+
     /**
      * Inserts or replaces a character entity.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCharacter(character: CharacterEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveProgression(progression: CharacterProgressionEntity)
+
+    @Transaction
+    suspend fun saveCharacterWithProgression(
+        character: CharacterEntity,
+        progression: CharacterProgressionEntity,
+    ) {
+        saveCharacter(character)
+        saveProgression(progression)
+    }
 
     /**
      * Deletes a character by ID.
