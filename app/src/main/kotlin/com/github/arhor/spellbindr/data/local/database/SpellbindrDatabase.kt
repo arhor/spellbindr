@@ -18,7 +18,7 @@ import com.github.arhor.spellbindr.data.local.database.entity.FavoriteEntity
         FavoriteEntity::class,
     ],
     version = 4,
-    exportSchema = false,
+    exportSchema = true,
 )
 @TypeConverters(
     value = [
