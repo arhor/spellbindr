@@ -38,6 +38,20 @@ app/                    # all application, domain, data, feature, UI, and test c
 
 - Repository interfaces, data implementations, domain logic, feature UI, and application wiring all live in `:app`.
 
+### Character progression storage
+
+Guided character creation atomically stores the mutable character-sheet snapshot and a separate, structured
+`Managed` progression record. Progression keeps permanent build decisions as ordered level records, including stable
+class/subclass references, hit-point choices, feature choices, ability-score decisions, and spell changes. Repeated
+class entries are supported, so the persisted history is ready for future multiclass progression and is intended to
+be the source of truth for permanent build decisions.
+
+Characters created through the manual flow and characters migrated from older databases have no synthesized
+progression history and resolve as `Unmanaged`. Database migration 3→4 preserves their existing character and sheet
+data while adding an empty one-to-one `character_progressions` table; deleting a character cascades to its progression
+row. The character sheet currently exposes only a read-only Managed/Unmanaged summary. No level-up action,
+calculation engine, or progression/sheet mutation flow exists yet.
+
 ## Getting Started
 
 Prereqs:
@@ -45,6 +59,9 @@ Prereqs:
 - JDK 17.
 - Android SDK 36.
 - An SDK path configured in `local.properties` or `ANDROID_HOME`.
+
+API 36 is the stable compile/target baseline. AndroidX Core 1.18.0, Lifecycle 2.10.0, and Hilt Navigation Compose
+1.3.0 are the minimal direct dependency alignment that keeps published AAR metadata compatible with that baseline.
 
 ## Build / Run / Test
 

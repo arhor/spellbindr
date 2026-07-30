@@ -67,6 +67,19 @@ androidTest components. Avoid committing local SDK paths or secrets.
   Use this as the source of truth for `Intent/Route/Screen/ViewModel/Effect` wiring, route-owned navigation
   interception, and dispatch-based screen APIs.
 
+### Character Progression Readiness Boundary
+
+- Newly created guided characters are `Managed`: the sheet snapshot and structured progression are saved atomically.
+  Progression is stored separately from mutable sheet/play state as ordered, multiclass-ready level records and is the
+  future source of truth for permanent build decisions.
+- Characters created through the manual flow and legacy characters are `Unmanaged`. Migration 3→4 preserves existing
+  character/sheet data exactly, creates the one-to-one `character_progressions` table empty, and relies on its
+  character foreign key for cascading deletion. Do not infer or synthesize legacy progression from sheet snapshots.
+- The current character-sheet progression summary is read-only. This foundation does not include a level-up action,
+  progression engine, or any level-up mutation of progression and sheet state.
+- Keep compile/target SDK 36 as the stable baseline. Core KTX 1.18.0, Lifecycle 2.10.0, and Hilt Navigation Compose
+  1.3.0 are the minimal direct dependency alignment selected for API 36 metadata compatibility.
+
 ## Compose Screenshot Exports (Preview → PNG)
 
 This repo is configured for Android’s Compose Screenshot Testing (AGP screenshot plugin) to generate PNGs from Compose
