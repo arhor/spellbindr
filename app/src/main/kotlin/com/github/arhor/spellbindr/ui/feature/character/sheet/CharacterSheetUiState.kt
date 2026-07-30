@@ -5,6 +5,7 @@ import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterHea
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetTab
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.OverviewTabState
+import com.github.arhor.spellbindr.ui.feature.character.sheet.model.ProgressionSummaryUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SkillsTabState
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SpellCastUiModel
@@ -27,6 +28,7 @@ sealed interface CharacterSheetUiState {
         val editMode: SheetEditMode,
         val header: CharacterHeaderUiState,
         val overview: OverviewTabState,
+        val progression: ProgressionSummaryUiModel,
         val skills: SkillsTabState,
         val spells: SpellsTabState,
         val castSpell: SpellCastUiModel?,

@@ -9,13 +9,15 @@ import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.CharacterSpellAssignment
 import com.github.arhor.spellbindr.domain.model.DamageType
+import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.model.ProgressionState
 import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
 import com.github.arhor.spellbindr.domain.usecase.DeleteCharacterUseCase
-import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.LoadCharacterWithProgressionUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllCharacterClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
-import com.github.arhor.spellbindr.domain.usecase.ObserveSpellcastingClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveWeaponCatalogUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ToggleSpellSlotUseCase
@@ -24,6 +26,7 @@ import com.github.arhor.spellbindr.domain.usecase.UpdateWeaponListUseCase
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CastSlotOptionUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetEditingState
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetTab
+import com.github.arhor.spellbindr.ui.feature.character.sheet.model.ProgressionSummaryUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SpellSlotPool
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.WeaponCatalogUiModel
@@ -57,9 +60,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
     private val deleteCharacterUseCase: DeleteCharacterUseCase,
-    private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
+    private val loadCharacterWithProgressionUseCase: LoadCharacterWithProgressionUseCase,
+    private val observeAllCharacterClassesUseCase: ObserveAllCharacterClassesUseCase,
     private val observeAllSpellsUseCase: ObserveAllSpellsUseCase,
-    private val observeSpellcastingClassesUseCase: ObserveSpellcastingClassesUseCase,
     private val observeWeaponCatalogUseCase: ObserveWeaponCatalogUseCase,
     private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
     private val updateHitPointsUseCase: UpdateHitPointsUseCase,
@@ -81,8 +84,9 @@ class CharacterSheetViewModel @Inject constructor(
 
     private var hasLoaded = characterId == null
     private var currentSheet: CharacterSheet? = null
+    private var currentProgressionState: ProgressionState = ProgressionState.Unmanaged
     private var cachedSpells: List<Spell> = emptyList()
-    private var cachedSpellcastingClasses: List<CharacterClass> = emptyList()
+    private var cachedCharacterClasses: List<CharacterClass> = emptyList()
     private var weaponCatalog: List<WeaponCatalogUiModel> = emptyList()
     private var selectedTab: CharacterSheetTab = CharacterSheetTab.Overview
     private var editMode: SheetEditMode = SheetEditMode.View
@@ -98,8 +102,8 @@ class CharacterSheetViewModel @Inject constructor(
             renderState()
         } else {
             observeCharacter(characterId)
+            observeCharacterClasses()
             observeSpells()
-            observeSpellcastingClasses()
             observeWeaponCatalog()
         }
     }
@@ -440,12 +444,13 @@ class CharacterSheetViewModel @Inject constructor(
     }
 
     private fun observeCharacter(id: String) {
-        loadCharacterSheetUseCase(id)
-            .onEach { sheet ->
+        loadCharacterWithProgressionUseCase(id)
+            .onEach { character ->
                 hasLoaded = true
-                currentSheet = sheet
+                currentSheet = character?.sheet
+                currentProgressionState = character?.progressionState ?: ProgressionState.Unmanaged
                 errorMessage = null
-                if (sheet == null) {
+                if (character == null) {
                     editMode = SheetEditMode.View
                     editingState = null
                     weaponEditorState = null
@@ -455,10 +460,37 @@ class CharacterSheetViewModel @Inject constructor(
             .catch { throwable ->
                 hasLoaded = true
                 currentSheet = null
+                currentProgressionState = ProgressionState.Unmanaged
                 editMode = SheetEditMode.View
                 editingState = null
                 weaponEditorState = null
                 errorMessage = throwable.message ?: "Unable to load character"
+                renderState()
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun observeCharacterClasses() {
+        observeAllCharacterClassesUseCase()
+            .onEach { state ->
+                when (state) {
+                    is Loadable.Content -> {
+                        cachedCharacterClasses = state.data
+                        if (errorMessage == SPELLCASTING_CLASSES_ERROR_MESSAGE) {
+                            errorMessage = null
+                        }
+                    }
+
+                    is Loadable.Failure -> {
+                        errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
+                    }
+
+                    is Loadable.Loading -> Unit
+                }
+                renderState()
+            }
+            .catch {
+                errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
                 renderState()
             }
             .launchIn(viewModelScope)
@@ -485,32 +517,6 @@ class CharacterSheetViewModel @Inject constructor(
             }
             .catch {
                 errorMessage = SPELLS_ERROR_MESSAGE
-                renderState()
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun observeSpellcastingClasses() {
-        observeSpellcastingClassesUseCase()
-            .onEach { state ->
-                when (state) {
-                    is Loadable.Content -> {
-                        cachedSpellcastingClasses = state.data
-                        if (errorMessage == SPELLCASTING_CLASSES_ERROR_MESSAGE) {
-                            errorMessage = null
-                        }
-                    }
-
-                    is Loadable.Failure -> {
-                        errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
-                    }
-
-                    is Loadable.Loading -> Unit
-                }
-                renderState()
-            }
-            .catch {
-                errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
                 renderState()
             }
             .launchIn(viewModelScope)
@@ -565,7 +571,7 @@ class CharacterSheetViewModel @Inject constructor(
                 !hasLoaded -> CharacterSheetUiState.Loading
                 sheet == null -> CharacterSheetUiState.Failure(errorMessage ?: "Character not found")
                 else -> {
-                    val spellsState = sheet.toSpellsState(cachedSpells, cachedSpellcastingClasses)
+                    val spellsState = sheet.toSpellsState(cachedSpells, cachedCharacterClasses)
                     val castSpell = castingSpellId?.let { spellId -> sheet.toCastSpellState(spellId, cachedSpells) }
                     CharacterSheetUiState.Content(
                         characterId = sheet.id,
@@ -573,6 +579,7 @@ class CharacterSheetViewModel @Inject constructor(
                         editMode = editMode,
                         header = sheet.toHeaderState(),
                         overview = sheet.toOverviewState(),
+                        progression = currentProgressionState.toProgressionSummary(cachedCharacterClasses),
                         skills = sheet.toSkillsState(),
                         spells = spellsState,
                         castSpell = castSpell,
@@ -587,6 +594,33 @@ class CharacterSheetViewModel @Inject constructor(
             }
         }
     }
+
+    private fun ProgressionState.toProgressionSummary(
+        characterClasses: List<CharacterClass>,
+    ): ProgressionSummaryUiModel =
+        when (this) {
+            is ProgressionState.Unmanaged -> ProgressionSummaryUiModel.Unmanaged
+            is ProgressionState.Managed -> {
+                val classNames = characterClasses.associate { clazz -> clazz.id.lowercase() to clazz.name }
+                val classTotals = progression.levels.groupingBy { record -> record.classId }.eachCount()
+                val classes = progression.levels
+                    .distinctBy { record -> record.classId }
+                    .joinToString(" / ") { record ->
+                        "${classNames.resolveClassName(record.classId)} ${classTotals.getValue(record.classId)}"
+                    }
+                val levels = progression.levels.map { record ->
+                    "${record.characterLevel}. ${classNames.resolveClassName(record.classId)} ${record.classLevel}"
+                }
+                ProgressionSummaryUiModel.Managed(
+                    totalLevel = progression.totalLevel,
+                    classes = classes,
+                    levels = levels,
+                )
+            }
+        }
+
+    private fun Map<String, String>.resolveClassName(classId: String): String =
+        get(classId.lowercase()) ?: EntityRef(classId).prettyString()
 
     private fun persist(updated: CharacterSheet) {
         if (characterId == null) return
@@ -608,4 +642,3 @@ class CharacterSheetViewModel @Inject constructor(
         private const val WEAPON_CATALOG_ERROR_MESSAGE = "Unable to load weapon catalog"
     }
 }
-
