@@ -22,7 +22,7 @@ Golden paths:
 - `run/setup.sh`: Linux-only SDK bootstrap (downloads cmdline tools, installs the required Android SDK, runs
   `git submodule update`).
 
-Prereqs: JDK 17 (`.java-version`) and Android SDK 37 (`app/build.gradle.kts`).
+Prereqs: JDK 17 (`.java-version`) and Android SDK 36 (`app/build.gradle.kts`).
 Set the SDK path in `local.properties` or `ANDROID_HOME`.
 
 ## Coding Style & Naming Conventions

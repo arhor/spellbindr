@@ -5,7 +5,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.arhor.spellbindr.domain.model.AbilityId
-import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.Feature
 import com.github.arhor.spellbindr.domain.model.Language
@@ -20,7 +20,7 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllLanguagesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllTraitsUseCase
-import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.SaveGuidedCharacterUseCase
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedReferenceData
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedReferenceDataState
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedSpellsData
@@ -29,7 +29,7 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedCh
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceRequirement
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceRequirements
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedFixedGrant
-import com.github.arhor.spellbindr.ui.feature.character.guided.internal.buildGuidedCharacterSheet
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.buildGuidedCharacterCreationResult
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.computeGuidedPreview
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.computeGuidedSetupSteps
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultPointBuyScores
@@ -68,7 +68,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
     observeFeatures: ObserveAllFeaturesUseCase,
     observeEquipment: ObserveAllEquipmentUseCase,
     private val observeSpells: ObserveAllSpellsUseCase,
-    private val saveCharacterSheet: SaveCharacterSheetUseCase,
+    private val saveGuidedCharacter: SaveGuidedCharacterUseCase,
 ) : ViewModel() {
 
     @Immutable
@@ -462,9 +462,9 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         _state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
             try {
-                val sheet = buildCharacterSheet(content)
-                saveCharacterSheet(sheet)
-                _effects.emit(GuidedCharacterSetupEffect.CharacterCreated(sheet.id))
+                val result = buildCharacterCreationResult(content)
+                saveGuidedCharacter(result)
+                _effects.emit(GuidedCharacterSetupEffect.CharacterCreated(result.sheet.id))
             } catch (t: Throwable) {
                 _effects.emit(GuidedCharacterSetupEffect.Error(t.message ?: "Failed to save character."))
             } finally {
@@ -473,8 +473,9 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         }
     }
 
-    internal fun buildCharacterSheet(content: GuidedCharacterSetupUiState.Content): CharacterSheet =
-        buildGuidedCharacterSheet(content)
+    internal fun buildCharacterCreationResult(
+        content: GuidedCharacterSetupUiState.Content,
+    ): CharacterCreationResult = buildGuidedCharacterCreationResult(content)
 
     private fun computePreview(
         selection: GuidedSelection,

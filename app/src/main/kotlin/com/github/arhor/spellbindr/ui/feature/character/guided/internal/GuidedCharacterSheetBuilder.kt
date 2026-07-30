@@ -6,6 +6,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.Background
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.Choice
@@ -27,6 +28,13 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedSelection
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedCharacterPreview
 import java.util.UUID
+
+internal fun buildGuidedCharacterCreationResult(
+    content: GuidedCharacterSetupUiState.Content,
+): CharacterCreationResult = CharacterCreationResult(
+    sheet = buildGuidedCharacterSheet(content),
+    progression = buildGuidedCharacterProgression(content),
+)
 
 internal fun computeInitialSlotsForClass(
     clazz: CharacterClass?,

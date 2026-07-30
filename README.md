@@ -19,7 +19,7 @@ the SRD—and includes source metadata where provided.
 ## Tech Stack
 
 - Kotlin 2.4.10, JVM 17 (`.java-version`), Android Gradle Plugin 9.3.1.
-- Android minSdk 33, target/compile SDK 37 (`app/build.gradle.kts`).
+- Android minSdk 33, target/compile SDK 36 (`app/build.gradle.kts`).
 - Jetpack Compose (Material3, Navigation), Hilt DI, KSP.
 - Room for character persistence; DataStore Preferences for app settings and favorites.
 - Kotlinx Serialization + Coroutines/Flow.
@@ -43,7 +43,7 @@ app/                    # all application, domain, data, feature, UI, and test c
 Prereqs:
 
 - JDK 17.
-- Android SDK 37.
+- Android SDK 36.
 - An SDK path configured in `local.properties` or `ANDROID_HOME`.
 
 ## Build / Run / Test
