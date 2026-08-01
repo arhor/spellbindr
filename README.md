@@ -19,7 +19,7 @@ the SRD—and includes source metadata where provided.
 ## Tech Stack
 
 - Kotlin 2.4.10, JVM 17 (`.java-version`), Android Gradle Plugin 9.3.1.
-- Android minSdk 33, target/compile SDK 36 (`app/build.gradle.kts`).
+- Android minSdk 33, target/compile SDK 37 (`app/build.gradle.kts`).
 - Jetpack Compose (Material3, Navigation), Hilt DI, KSP.
 - Room for character persistence; DataStore Preferences for app settings and favorites.
 - Kotlinx Serialization + Coroutines/Flow.
@@ -57,11 +57,11 @@ calculation engine, or progression/sheet mutation flow exists yet.
 Prereqs:
 
 - JDK 17.
-- Android SDK 36.
+- Android SDK 37.
 - An SDK path configured in `local.properties` or `ANDROID_HOME`.
 
-API 36 is the stable compile/target baseline. AndroidX Core 1.18.0, Lifecycle 2.10.0, and Hilt Navigation Compose
-1.3.0 are the minimal direct dependency alignment that keeps published AAR metadata compatible with that baseline.
+API 37 is the compile/target baseline. AndroidX Core 1.19.0, Lifecycle 2.11.0, and Hilt Navigation Compose 1.4.0
+are the compatible current direct dependency versions.
 
 ## Build / Run / Test
 

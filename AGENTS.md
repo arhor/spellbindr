@@ -22,7 +22,7 @@ Golden paths:
 - `run/setup.sh`: Linux-only SDK bootstrap (downloads cmdline tools, installs the required Android SDK, runs
   `git submodule update`).
 
-Prereqs: JDK 17 (`.java-version`) and Android SDK 36 (`app/build.gradle.kts`).
+Prereqs: JDK 17 (`.java-version`) and Android SDK 37 (`app/build.gradle.kts`).
 Set the SDK path in `local.properties` or `ANDROID_HOME`.
 
 ## Coding Style & Naming Conventions
@@ -77,8 +77,8 @@ androidTest components. Avoid committing local SDK paths or secrets.
   character foreign key for cascading deletion. Do not infer or synthesize legacy progression from sheet snapshots.
 - The current character-sheet progression summary is read-only. This foundation does not include a level-up action,
   progression engine, or any level-up mutation of progression and sheet state.
-- Keep compile/target SDK 36 as the stable baseline. Core KTX 1.18.0, Lifecycle 2.10.0, and Hilt Navigation Compose
-  1.3.0 are the minimal direct dependency alignment selected for API 36 metadata compatibility.
+- Keep compile/target SDK 37 as the stable baseline. Core KTX 1.19.0, Lifecycle 2.11.0, and Hilt Navigation Compose
+  1.4.0 are the compatible current direct dependency versions.
 
 ## Compose Screenshot Exports (Preview → PNG)
 
