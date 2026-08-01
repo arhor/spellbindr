@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.di
 
 import android.content.Context
 import androidx.room.Room
+import com.github.arhor.spellbindr.data.local.database.MIGRATION_3_4
 import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
 import com.github.arhor.spellbindr.data.local.database.converter.Converter
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
@@ -25,6 +26,7 @@ object DatabaseModule {
         converters: Set<@JvmSuppressWildcards Converter>,
     ): SpellbindrDatabase =
         Room.databaseBuilder<SpellbindrDatabase>(context, "spellbindr.db")
+            .addMigrations(MIGRATION_3_4)
             .apply { converters.forEach(::addTypeConverter) }
             .build()
 

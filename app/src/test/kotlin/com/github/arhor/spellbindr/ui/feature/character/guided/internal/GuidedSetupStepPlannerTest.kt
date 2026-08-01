@@ -1,9 +1,12 @@
 package com.github.arhor.spellbindr.ui.feature.character.guided.internal
 
 import com.github.arhor.spellbindr.domain.model.Choice
+import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Feature
 import com.github.arhor.spellbindr.domain.model.Spellcasting
+import com.github.arhor.spellbindr.domain.model.Subclass
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedStep
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -126,6 +129,52 @@ class GuidedSetupStepPlannerTest {
         assertThat(steps).contains(GuidedStep.SPELLS)
         assertThat(steps.indexOf(GuidedStep.CLASS_CHOICES)).isLessThan(steps.indexOf(GuidedStep.RACE))
         assertThat(steps.indexOf(GuidedStep.SPELLS)).isLessThan(steps.indexOf(GuidedStep.REVIEW))
+    }
+
+    @Test
+    fun `computeGuidedSetupSteps should include class choices when selected subclass owns level one choice`() {
+        // Given
+        val choiceFeature = Feature(
+            id = "dragon-ancestor",
+            name = "Dragon Ancestor",
+            desc = emptyList(),
+            choice = Choice.FeatureChoice(choose = 1, from = listOf("black-dragon")),
+        )
+        val sorcerer = CharacterClass(
+            id = "sorcerer",
+            name = "Sorcerer",
+            hitDie = 6,
+            proficiencies = emptyList(),
+            proficiencyChoices = emptyList(),
+            savingThrows = emptyList(),
+            subclasses = listOf(
+                Subclass(
+                    id = "draconic",
+                    name = "Draconic",
+                    desc = emptyList(),
+                    subclassFlavor = "Sorcerous Origin",
+                    levels = listOf(
+                        ClassLevel(
+                            id = "draconic-1",
+                            level = 1,
+                            features = listOf(choiceFeature.id),
+                        ),
+                    ),
+                ),
+            ),
+            levels = emptyList(),
+        )
+
+        // When
+        val steps = computeGuidedSetupSteps(
+            selectedClass = sorcerer,
+            selectedSubclassId = "draconic",
+            featuresById = mapOf(choiceFeature.id to choiceFeature),
+            choiceRequirements = GuidedChoiceRequirements(emptyList(), emptyList()),
+        )
+
+        // Then
+        assertThat(steps).contains(GuidedStep.CLASS_CHOICES)
     }
 
     @Test

@@ -6,6 +6,7 @@ import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.Background
 import com.github.arhor.spellbindr.domain.model.Character
 import com.github.arhor.spellbindr.domain.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
 import com.github.arhor.spellbindr.domain.model.Choice
@@ -27,6 +28,13 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedSelection
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedCharacterPreview
 import java.util.UUID
+
+internal fun buildGuidedCharacterCreationResult(
+    content: GuidedCharacterSetupUiState.Content,
+): CharacterCreationResult = CharacterCreationResult(
+    sheet = buildGuidedCharacterSheet(content),
+    progression = buildGuidedCharacterProgression(content),
+)
 
 internal fun computeInitialSlotsForClass(
     clazz: CharacterClass?,
@@ -231,18 +239,6 @@ internal fun computeGuidedPreview(
     )
 }
 
-internal fun findGuidedLevelOneFeatureChoices(
-    clazz: CharacterClass?,
-    featuresById: Map<String, Feature>,
-): List<Pair<String, Choice>> {
-    if (clazz == null) return emptyList()
-    val level1Features = clazz.levels.firstOrNull { it.level == 1 }?.features.orEmpty()
-    return level1Features.mapNotNull { featureId ->
-        val choice = featuresById[featureId]?.choice ?: return@mapNotNull null
-        featureId to choice
-    }
-}
-
 internal fun computeGuidedSpellRequirementSummary(
     clazz: CharacterClass,
     preview: GuidedCharacterPreview,
@@ -384,7 +380,7 @@ internal fun buildGuidedAllEffects(
         }
     }
 
-    findGuidedLevelOneFeatureChoices(clazz, featuresById).forEach { (featureId, choice) ->
+    findGuidedLevelOneFeatureChoices(clazz, selection.subclassId, featuresById).forEach { (featureId, choice) ->
         val selected =
             selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(featureId)].orEmpty()
         if (selected.isEmpty()) return@forEach
@@ -446,7 +442,7 @@ internal fun buildGuidedFeaturesAndTraitsText(
             }
         }
 
-        findGuidedLevelOneFeatureChoices(clazz, content.featuresById).forEach { (featureId, _) ->
+        findGuidedLevelOneFeatureChoices(clazz, selection.subclassId, content.featuresById).forEach { (featureId, _) ->
             val selected =
                 selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(featureId)].orEmpty()
             if (selected.isEmpty()) return@forEach

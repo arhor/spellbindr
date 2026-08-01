@@ -8,15 +8,17 @@ import com.github.arhor.spellbindr.data.local.database.converter.EntityRefConver
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
+import com.github.arhor.spellbindr.data.local.database.entity.CharacterProgressionEntity
 import com.github.arhor.spellbindr.data.local.database.entity.FavoriteEntity
 
 @Database(
     entities = [
         CharacterEntity::class,
+        CharacterProgressionEntity::class,
         FavoriteEntity::class,
     ],
-    version = 3,
-    exportSchema = false,
+    version = 4,
+    exportSchema = true,
 )
 @TypeConverters(
     value = [

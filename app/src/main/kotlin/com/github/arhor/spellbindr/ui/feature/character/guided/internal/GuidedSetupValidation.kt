@@ -180,7 +180,11 @@ internal fun validateGuidedSetupContent(
             issues += validationError("Choose a subclass.")
         }
 
-        findGuidedLevelOneFeatureChoices(clazz, content.featuresById).forEach { (featureId, choice) ->
+        findGuidedLevelOneFeatureChoices(
+            clazz = clazz,
+            subclassId = content.selection.subclassId,
+            featuresById = content.featuresById,
+        ).forEach { (featureId, choice) ->
             val selected =
                 content.selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(featureId)].orEmpty()
             if (selected.size != choice.choose) {

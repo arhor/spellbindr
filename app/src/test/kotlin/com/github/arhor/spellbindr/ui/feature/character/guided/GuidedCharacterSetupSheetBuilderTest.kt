@@ -4,18 +4,25 @@ import com.github.arhor.spellbindr.MainDispatcherRule
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.Background
+import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Feature
 import com.github.arhor.spellbindr.domain.model.GenericInfo
+import com.github.arhor.spellbindr.domain.model.HitPointGain
 import com.github.arhor.spellbindr.domain.model.Language
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.model.ProgressionOrigin
+import com.github.arhor.spellbindr.domain.model.ProficiencyChoiceSelection
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.Spellcasting
+import com.github.arhor.spellbindr.domain.model.Subclass
 import com.github.arhor.spellbindr.domain.model.Trait
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllBackgroundsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllCharacterClassesUseCase
@@ -25,7 +32,8 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllLanguagesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllRacesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllTraitsUseCase
-import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.SaveGuidedCharacterUseCase
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.buildGuidedCharacterSheet
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultPointBuyScores
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultStandardArrayAssignments
 import com.github.arhor.spellbindr.ui.feature.character.guided.model.AbilityScoreMethod
@@ -45,7 +53,232 @@ class GuidedCharacterSetupSheetBuilderTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `buildCharacterSheet should apply per-level hp effects when selected race grants one`() =
+    fun `buildCharacterCreationResult should preserve level one progression when guided setup is complete`() =
+        runTest(mainDispatcherRule.dispatcher) {
+            // Given
+            val vm = buildViewModel()
+            val lifeDomainFeature = Feature(
+                id = "divine-domain",
+                name = "Divine Domain",
+                desc = emptyList(),
+                choice = Choice.FeatureChoice(
+                    choose = 1,
+                    from = listOf("life"),
+                ),
+            )
+            val life = Subclass(
+                id = "life",
+                name = "Life Domain",
+                desc = emptyList(),
+                subclassFlavor = "Divine Domain",
+            )
+            val cleric = CharacterClass(
+                id = "cleric",
+                name = "Cleric",
+                hitDie = 8,
+                proficiencies = emptyList(),
+                proficiencyChoices = listOf(
+                    Choice.OptionsArrayChoice(
+                        choose = 2,
+                        from = listOf("skill-medicine", "skill-religion", "skill-insight"),
+                    ),
+                ),
+                savingThrows = listOf("wis", "cha"),
+                spellcasting = Spellcasting(
+                    info = emptyList(),
+                    level = 1,
+                    spellcastingAbility = EntityRef("wis"),
+                ),
+                startingEquipment = null,
+                subclasses = listOf(life),
+                levels = listOf(
+                    ClassLevel(
+                        id = "cleric-1",
+                        level = 1,
+                        features = listOf(lifeDomainFeature.id),
+                    ),
+                ),
+            )
+            val human = Race(
+                id = "human",
+                name = "Human",
+                traits = emptyList(),
+                subraces = emptyList(),
+            )
+            val acolyte = Background(
+                id = "acolyte",
+                name = "Acolyte",
+                feature = GenericInfo(name = "Shelter of the Faithful", desc = emptyList()),
+                effects = emptyList(),
+            )
+            val selection = GuidedSelection(
+                classId = cleric.id,
+                subclassId = life.id,
+                raceId = human.id,
+                subraceId = null,
+                backgroundId = acolyte.id,
+                abilityMethod = AbilityScoreMethod.POINT_BUY,
+                standardArrayAssignments = defaultStandardArrayAssignments(),
+                pointBuyScores = AbilityIds.standardOrder.associateWith { abilityId ->
+                    if (abilityId == AbilityIds.CON) 14 else 10
+                },
+                choiceSelections = linkedMapOf(
+                    GuidedCharacterSetupViewModel.classProficiencyChoiceKey(0) to
+                        linkedSetOf("skill-medicine", "skill-religion"),
+                    GuidedCharacterSetupViewModel.featureChoiceKey(lifeDomainFeature.id) to setOf(life.id),
+                    GuidedCharacterSetupViewModel.featureChoiceKey("foreign-feature") to setOf("foreign-option"),
+                    GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey() to setOf("celestial"),
+                    GuidedCharacterSetupViewModel.spellCantripsChoiceKey() to
+                        linkedSetOf("sacred-flame", "thaumaturgy"),
+                    GuidedCharacterSetupViewModel.spellLevel1ChoiceKey() to
+                        linkedSetOf("bless", "cure-wounds"),
+                ),
+            )
+            val content = buildContent(
+                name = "Sol",
+                classes = listOf(cleric),
+                races = listOf(human),
+                backgrounds = listOf(acolyte),
+                traits = emptyList(),
+                features = listOf(lifeDomainFeature),
+                spells = emptyList(),
+                selection = selection,
+            )
+            val expectedSheet = buildGuidedCharacterSheet(content)
+
+            // When
+            val result: CharacterCreationResult = vm.buildCharacterCreationResult(content)
+
+            // Then
+            assertThat(result.sheet.copy(id = expectedSheet.id)).isEqualTo(expectedSheet)
+            assertThat(result.progression.origin).isEqualTo(ProgressionOrigin.Guided)
+            assertThat(result.progression.totalLevel).isEqualTo(1)
+            assertThat(result.progression.rulesetId).isEqualTo("srd-5e-2014-v1")
+            assertThat(result.progression.referenceDataVersion).isEqualTo("srd-5e-2014-data-v1")
+
+            val record = result.progression.levels.single()
+            assertThat(record.characterLevel).isEqualTo(1)
+            assertThat(record.classId).isEqualTo("cleric")
+            assertThat(record.classLevel).isEqualTo(1)
+            assertThat(record.subclassId).isEqualTo("life")
+            assertThat(record.hitPointGain).isEqualTo(HitPointGain.Fixed(rolledValue = 8))
+            assertThat(record.featureChoices).isEqualTo(
+                mapOf("divine-domain" to setOf("life")),
+            )
+            assertThat(record.proficiencyChoices).containsExactly(
+                ProficiencyChoiceSelection(
+                    choiceId = "class/cleric/starting-proficiency/1",
+                    selectedProficiencyIds = setOf("skill-medicine", "skill-religion"),
+                ),
+            )
+            assertThat(record.spellChanges.learned).containsExactly(
+                ClassSpellRef(classId = "cleric", spellId = "sacred-flame"),
+                ClassSpellRef(classId = "cleric", spellId = "thaumaturgy"),
+            )
+            assertThat(record.spellChanges.addedToSpellbook).isEmpty()
+        }
+
+    @Test
+    fun `buildCharacterCreationResult should preserve subclass feature choice when level one subclass owns choice`() =
+        runTest(mainDispatcherRule.dispatcher) {
+            // Given
+            val vm = buildViewModel()
+            val selectedDragon = Feature(
+                id = "dragon-ancestor-black---acid-damage",
+                name = "Dragon Ancestor: Black - Acid Damage",
+                desc = emptyList(),
+            )
+            val dragonAncestor = Feature(
+                id = "dragon-ancestor",
+                name = "Dragon Ancestor",
+                desc = emptyList(),
+                choice = Choice.FeatureChoice(
+                    choose = 1,
+                    from = listOf(selectedDragon.id),
+                ),
+            )
+            val draconic = Subclass(
+                id = "draconic",
+                name = "Draconic",
+                desc = emptyList(),
+                subclassFlavor = "Sorcerous Origin",
+                levels = listOf(
+                    ClassLevel(
+                        id = "draconic-1",
+                        level = 1,
+                        features = listOf(dragonAncestor.id),
+                    ),
+                ),
+            )
+            val sorcerer = CharacterClass(
+                id = "sorcerer",
+                name = "Sorcerer",
+                hitDie = 6,
+                proficiencies = emptyList(),
+                proficiencyChoices = emptyList(),
+                savingThrows = listOf("con", "cha"),
+                spellcasting = null,
+                startingEquipment = null,
+                subclasses = listOf(draconic),
+                levels = listOf(
+                    ClassLevel(
+                        id = "sorcerer-1",
+                        level = 1,
+                        features = listOf("sorcerous-origin"),
+                    ),
+                ),
+            )
+            val human = Race(
+                id = "human",
+                name = "Human",
+                traits = emptyList(),
+                subraces = emptyList(),
+            )
+            val hermit = Background(
+                id = "hermit",
+                name = "Hermit",
+                feature = GenericInfo(name = "Discovery", desc = emptyList()),
+                effects = emptyList(),
+            )
+            val selection = GuidedSelection(
+                classId = sorcerer.id,
+                subclassId = draconic.id,
+                raceId = human.id,
+                subraceId = null,
+                backgroundId = hermit.id,
+                abilityMethod = AbilityScoreMethod.POINT_BUY,
+                standardArrayAssignments = defaultStandardArrayAssignments(),
+                pointBuyScores = defaultPointBuyScores(),
+                choiceSelections = mapOf(
+                    GuidedCharacterSetupViewModel.featureChoiceKey(dragonAncestor.id) to setOf(selectedDragon.id),
+                ),
+            )
+            val content = buildContent(
+                name = "Ember",
+                classes = listOf(sorcerer),
+                races = listOf(human),
+                backgrounds = listOf(hermit),
+                traits = emptyList(),
+                features = listOf(dragonAncestor, selectedDragon),
+                spells = emptyList(),
+                selection = selection,
+            )
+
+            // When
+            val result = vm.buildCharacterCreationResult(content)
+
+            // Then
+            assertThat(result.progression.levels.single().featureChoices).containsExactly(
+                "dragon-ancestor",
+                setOf("dragon-ancestor-black---acid-damage"),
+            )
+            assertThat(result.sheet.featuresAndTraits).contains(
+                "Dragon Ancestor: Dragon Ancestor: Black - Acid Damage",
+            )
+        }
+
+    @Test
+    fun `buildCharacterCreationResult should apply per-level hp effects when selected race grants one`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val vm = buildViewModel()
@@ -112,7 +345,7 @@ class GuidedCharacterSetupSheetBuilderTest {
             )
 
             // When
-            val sheet = vm.buildCharacterSheet(content)
+            val sheet = vm.buildCharacterCreationResult(content).sheet
 
             // Then
             // Base HP at level 1: hit die + CON mod (0) = 8, plus racial bonus +1.
@@ -120,7 +353,7 @@ class GuidedCharacterSetupSheetBuilderTest {
         }
 
     @Test
-    fun `buildCharacterSheet should mark expertise when expertise skills are selected`() =
+    fun `buildCharacterCreationResult should mark expertise when expertise skills are selected`() =
         runTest(mainDispatcherRule.dispatcher) {
             // Given
             val vm = buildViewModel()
@@ -193,7 +426,7 @@ class GuidedCharacterSetupSheetBuilderTest {
             )
 
             // When
-            val sheet = vm.buildCharacterSheet(content)
+            val sheet = vm.buildCharacterCreationResult(content).sheet
 
             // Then
             val stealth = sheet.skills.first { it.skill == Skill.STEALTH }
@@ -370,7 +603,7 @@ class GuidedCharacterSetupSheetBuilderTest {
         val observeFeatures = mockk<ObserveAllFeaturesUseCase>()
         val observeEquipment = mockk<ObserveAllEquipmentUseCase>()
         val observeSpells = mockk<ObserveAllSpellsUseCase>()
-        val saveCharacterSheet = mockk<SaveCharacterSheetUseCase>(relaxed = true)
+        val saveGuidedCharacter = mockk<SaveGuidedCharacterUseCase>(relaxed = true)
 
         every { observeClasses() } returns flowOf(Loadable.Content(emptyList()))
         every { observeRaces() } returns flowOf(Loadable.Content(emptyList()))
@@ -390,7 +623,7 @@ class GuidedCharacterSetupSheetBuilderTest {
             observeFeatures = observeFeatures,
             observeEquipment = observeEquipment,
             observeSpells = observeSpells,
-            saveCharacterSheet = saveCharacterSheet,
+            saveGuidedCharacter = saveGuidedCharacter,
         )
     }
 
@@ -421,7 +654,7 @@ class GuidedCharacterSetupSheetBuilderTest {
             equipmentById = emptyMap(),
             spells = spells,
             spellsById = spells.associateBy { it.id },
-            referenceDataVersion = 1,
+            referenceDataVersion = "srd-5e-2014-data-v1",
             selection = selection,
             preview = GuidedCharacterPreview(
                 abilityScores = AbilityScores(),

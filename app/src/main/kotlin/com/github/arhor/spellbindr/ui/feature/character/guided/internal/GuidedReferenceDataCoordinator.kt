@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.character.guided.internal
 
 import com.github.arhor.spellbindr.domain.model.Background
 import com.github.arhor.spellbindr.domain.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.Equipment
 import com.github.arhor.spellbindr.domain.model.Feature
 import com.github.arhor.spellbindr.domain.model.Language
@@ -28,10 +29,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
-import java.util.concurrent.atomic.AtomicInteger
 
 internal data class GuidedReferenceData(
-    val version: Int,
+    val version: String,
     val classes: List<CharacterClass>,
     val races: List<Race>,
     val backgrounds: List<Background>,
@@ -78,8 +78,6 @@ internal fun observeGuidedReferenceDataState(
     observeFeatures: ObserveAllFeaturesUseCase,
     observeEquipment: ObserveAllEquipmentUseCase,
 ): StateFlow<GuidedReferenceDataState> {
-    val versionCounter = AtomicInteger(0)
-
     return combine(
         combine(
             observeClasses(),
@@ -137,7 +135,7 @@ internal fun observeGuidedReferenceDataState(
 
         GuidedReferenceDataState.Content(
             GuidedReferenceData(
-                version = versionCounter.incrementAndGet(),
+                version = CharacterProgression.BUNDLED_REFERENCE_DATA_VERSION,
                 classes = classesContent,
                 races = racesContent,
                 backgrounds = backgroundsContent,
