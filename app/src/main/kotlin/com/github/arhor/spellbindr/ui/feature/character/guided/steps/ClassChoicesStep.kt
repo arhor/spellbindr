@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.ui.feature.character.guided.components.ChoiceSection
 import com.github.arhor.spellbindr.ui.feature.character.guided.components.SelectRow
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.findGuidedLevelOneFeatureChoices
 
 @Composable
 internal fun ClassChoicesStep(
@@ -62,10 +63,12 @@ internal fun ClassChoicesStep(
             }
         }
 
-        val level1FeatureIds = clazz.levels.firstOrNull { it.level == 1 }?.features.orEmpty()
-        val featureChoices = level1FeatureIds.mapNotNull { featureId ->
+        val featureChoices = findGuidedLevelOneFeatureChoices(
+            clazz = clazz,
+            subclassId = state.selection.subclassId,
+            featuresById = state.featuresById,
+        ).mapNotNull { (featureId, choice) ->
             val feature = state.featuresById[featureId] ?: return@mapNotNull null
-            val choice = feature.choice ?: return@mapNotNull null
             Triple(featureId, feature, choice)
         }
 
@@ -94,4 +97,3 @@ internal fun ClassChoicesStep(
         }
     }
 }
-

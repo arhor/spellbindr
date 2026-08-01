@@ -62,7 +62,7 @@ private fun guidedRacePreviewState(
     equipmentById = emptyMap(),
     spells = emptyList(),
     spellsById = emptyMap(),
-    referenceDataVersion = 1,
+    referenceDataVersion = "srd-5e-2014-data-v1",
     selection = GuidedSelection(
         classId = null,
         subclassId = null,

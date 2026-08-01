@@ -23,7 +23,7 @@ read-only progression summary without adding level-up behavior.
 - Stable IDs, not display names or parsed prose, own class, subclass, feature-choice, and spell decisions.
 - Progression domain code must not depend on Android, Compose, or Room.
 - Feature-entry UI follows `docs/mvi-dispatch-contract.md`.
-- Use JDK 17, Android SDK 37, JUnit4, Truth, and MockK.
+- Use JDK 17, the user-approved Android SDK 36 baseline, JUnit4, Truth, and MockK.
 
 ---
 
@@ -394,7 +394,8 @@ For a level-one Cleric with Life subclass, feature choices, cantrips, and spells
 - record class ID is `cleric`, class level is 1, and subclass ID is `life`;
 - fixed HP stores the class hit die before Constitution modifier;
 - feature choices preserve the original feature-key-to-option-ID map;
-- spell changes use stable spell IDs with class ID `cleric`;
+- cantrip spell changes use stable spell IDs with class ID `cleric`, while mutable prepared spell selections do not
+  enter progression;
 - sheet content remains equal to the current expected sheet.
 
 - [ ] **Step 2: Run the builder test and verify failure**
@@ -407,10 +408,11 @@ Expected: FAIL because only a sheet is built.
 
 - [ ] **Step 3: Implement the progression builder**
 
-Build exactly one `CharacterLevelRecord`. Filter `choiceSelections` to class-owned feature keys, strip the UI key
-prefix, and retain stable feature IDs. Convert selected class cantrips and level-one spells into
-`SpellChanges.learned`. Use the selected class hit die as `HitPointGain.Fixed`; derived Constitution HP remains
-represented by the existing sheet.
+Build exactly one `CharacterLevelRecord`. Preserve selected starting-class proficiencies and level-one class/subclass
+feature choices with stable source and option IDs. Apply the approved class-specific spell policy: class cantrips and
+spells-known choices enter `SpellChanges.learned`, Wizard level-one spell choices enter `addedToSpellbook`, and mutable
+Cleric/Druid prepared spell selections do not enter progression. Use the selected class hit die as
+`HitPointGain.Fixed`; derived Constitution HP remains represented by the existing sheet.
 
 - [ ] **Step 4: Replace guided save with atomic result save**
 

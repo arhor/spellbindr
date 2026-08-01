@@ -6,6 +6,7 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.model.GuidedStep
 
 internal fun computeGuidedSetupSteps(
     selectedClass: CharacterClass?,
+    selectedSubclassId: String? = null,
     featuresById: Map<String, Feature>,
     choiceRequirements: GuidedChoiceRequirements,
 ): List<GuidedStep> {
@@ -16,11 +17,11 @@ internal fun computeGuidedSetupSteps(
 
     val classChoicesNeeded = selectedClass?.let { clazz ->
         val requiresSubclass = clazz.requiresLevelOneSubclassAtLevelOne()
-        val level1FeatureChoiceCount = clazz.levels
-            .firstOrNull { it.level == 1 }
-            ?.features
-            .orEmpty()
-            .count { featuresById[it]?.choice != null }
+        val level1FeatureChoiceCount = findGuidedLevelOneFeatureChoices(
+            clazz = clazz,
+            subclassId = selectedSubclassId,
+            featuresById = featuresById,
+        ).size
         requiresSubclass || level1FeatureChoiceCount > 0
     } == true
 

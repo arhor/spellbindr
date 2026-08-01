@@ -35,6 +35,7 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.internal.computeG
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultPointBuyScores
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.defaultStandardArrayAssignments
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.deriveGuidedChoiceRequirements
+import com.github.arhor.spellbindr.ui.feature.character.guided.internal.findGuidedLevelOneFeatureChoices
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.guidedPointBuyTotalCost
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.observeGuidedReferenceDataState
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.observeGuidedSpellsDataState
@@ -164,6 +165,7 @@ class GuidedCharacterSetupViewModel @Inject constructor(
 
                 val steps = computeSteps(
                     selectedClass = selectedClass,
+                    selectedSubclassId = state.subclassId,
                     featuresById = referenceData.featuresById,
                     choiceRequirements = choiceRequirements,
                 )
@@ -259,7 +261,9 @@ class GuidedCharacterSetupViewModel @Inject constructor(
     }
 
     private fun onSubclassSelected(subclassId: String) {
-        _state.update { it.copy(subclassId = subclassId) }
+        updateUpstreamSelection(
+            transform = { it.copy(subclassId = subclassId) },
+        )
     }
 
     private fun onRaceSelected(raceId: String) {
@@ -427,12 +431,11 @@ class GuidedCharacterSetupViewModel @Inject constructor(
         val selectedClass = referenceData.classes.firstOrNull { it.id == state.classId } ?: return emptySet()
         return buildSet {
             if (includeClassOwnedSelections) {
-                selectedClass.levels
-                    .firstOrNull { it.level == 1 }
-                    ?.features
-                    .orEmpty()
-                    .filter { referenceData.featuresById[it]?.choice != null }
-                    .forEach { add(featureChoiceKey(it)) }
+                findGuidedLevelOneFeatureChoices(
+                    clazz = selectedClass,
+                    subclassId = state.subclassId,
+                    featuresById = referenceData.featuresById,
+                ).forEach { (featureId, _) -> add(featureChoiceKey(featureId)) }
             }
 
             if (includeClassOwnedSelections && selectedClass.spellcasting?.level == 1) {
@@ -503,10 +506,12 @@ class GuidedCharacterSetupViewModel @Inject constructor(
 
     private fun computeSteps(
         selectedClass: com.github.arhor.spellbindr.domain.model.CharacterClass?,
+        selectedSubclassId: String?,
         featuresById: Map<String, Feature>,
         choiceRequirements: GuidedChoiceRequirements,
     ): List<GuidedStep> = computeGuidedSetupSteps(
         selectedClass = selectedClass,
+        selectedSubclassId = selectedSubclassId,
         featuresById = featuresById,
         choiceRequirements = choiceRequirements,
     )
@@ -574,7 +579,7 @@ sealed interface GuidedCharacterSetupUiState {
         val equipmentById: Map<String, Equipment>,
         val spells: List<Spell>,
         val spellsById: Map<String, Spell>,
-        val referenceDataVersion: Int,
+        val referenceDataVersion: String,
         val selection: GuidedSelection,
         val choiceRequirements: List<GuidedChoiceRequirement> = emptyList(),
         val fixedGrants: List<GuidedFixedGrant> = emptyList(),

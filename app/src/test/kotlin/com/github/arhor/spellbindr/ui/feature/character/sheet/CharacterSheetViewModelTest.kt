@@ -147,10 +147,55 @@ class CharacterSheetViewModelTest {
         ).inOrder()
     }
 
+    @Test
+    fun `uiState should fall back to stable id label when managed class is absent from reference data`() = runTest {
+        // Given
+        val progression = CharacterProgression(
+            referenceDataVersion = "test",
+            origin = ProgressionOrigin.Guided,
+            levels = listOf(
+                levelRecord(characterLevel = 1, classId = "blood-hunter", classLevel = 1),
+            ),
+        )
+        val vm = createViewModel(
+            initialSheet = CharacterSheet(id = TEST_CHARACTER_ID),
+            progressionState = ProgressionState.Managed(progression),
+            characterClasses = emptyList(),
+            weaponCatalogState = Loadable.Content(emptyList()),
+        )
+
+        // When
+        advanceUntilIdle()
+
+        // Then
+        val state = vm.uiState.value as CharacterSheetUiState.Content
+        val summary = state.progression as ProgressionSummaryUiModel.Managed
+        assertThat(summary.classes).isEqualTo("Blood Hunter 1")
+        assertThat(summary.levels).containsExactly("1. Blood Hunter 1")
+    }
+
+    @Test
+    fun `uiState should expose character classes message when all-class reference loading fails`() = runTest {
+        // Given
+        val vm = createViewModel(
+            initialSheet = CharacterSheet(id = TEST_CHARACTER_ID),
+            characterClassesState = Loadable.Failure(errorMessage = "boom"),
+            weaponCatalogState = Loadable.Content(emptyList()),
+        )
+
+        // When
+        advanceUntilIdle()
+
+        // Then
+        val state = vm.uiState.value as CharacterSheetUiState.Content
+        assertThat(state.errorMessage).isEqualTo("Unable to load character classes")
+    }
+
     private fun createViewModel(
         initialSheet: CharacterSheet,
         progressionState: ProgressionState = ProgressionState.Unmanaged,
         characterClasses: List<CharacterClass> = emptyList(),
+        characterClassesState: Loadable<List<CharacterClass>> = Loadable.Content(characterClasses),
         saveCharacterSheetUseCase: SaveCharacterSheetUseCase = mockk(relaxed = true),
         weaponCatalogState: Loadable<List<com.github.arhor.spellbindr.domain.model.WeaponCatalogEntry>>,
     ): CharacterSheetViewModel {
@@ -167,7 +212,7 @@ class CharacterSheetViewModelTest {
             )
         )
         every { observeAllSpellsUseCase() } returns flowOf(Loadable.Content(emptyList()))
-        every { observeAllCharacterClassesUseCase() } returns flowOf(Loadable.Content(characterClasses))
+        every { observeAllCharacterClassesUseCase() } returns flowOf(characterClassesState)
         every { observeWeaponCatalogUseCase() } returns flowOf(weaponCatalogState)
 
         return CharacterSheetViewModel(

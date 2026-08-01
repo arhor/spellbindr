@@ -164,8 +164,15 @@ data class CharacterLevelRecord(
     val subclassId: String? = null,
     val hitPointGain: HitPointGain,
     val featureChoices: Map<String, Set<String>> = emptyMap(),
+    val proficiencyChoices: List<ProficiencyChoiceSelection> = emptyList(),
     val abilityScoreDecision: AbilityScoreDecision? = null,
     val spellChanges: SpellChanges = SpellChanges(),
+)
+
+@Serializable
+data class ProficiencyChoiceSelection(
+    val choiceId: String,
+    val selectedProficiencyIds: Set<String>,
 )
 
 @Serializable
@@ -185,6 +192,9 @@ sealed interface HitPointGain {
 
 `rolledValue` is the die/fixed result before the Constitution modifier and other per-level effects. It is persisted so
 recalculation never rerolls HP.
+
+Starting-class proficiency selections use a stable, class-owned choice ID and stable proficiency option IDs. This
+keeps multiple proficiency-choice grants distinct without persisting transient UI keys or display names.
 
 ### Ability score and feat decisions
 

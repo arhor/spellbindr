@@ -476,13 +476,13 @@ class CharacterSheetViewModel @Inject constructor(
                 when (state) {
                     is Loadable.Content -> {
                         cachedCharacterClasses = state.data
-                        if (errorMessage == SPELLCASTING_CLASSES_ERROR_MESSAGE) {
+                        if (errorMessage == CHARACTER_CLASSES_ERROR_MESSAGE) {
                             errorMessage = null
                         }
                     }
 
                     is Loadable.Failure -> {
-                        errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
+                        errorMessage = CHARACTER_CLASSES_ERROR_MESSAGE
                     }
 
                     is Loadable.Loading -> Unit
@@ -490,7 +490,7 @@ class CharacterSheetViewModel @Inject constructor(
                 renderState()
             }
             .catch {
-                errorMessage = SPELLCASTING_CLASSES_ERROR_MESSAGE
+                errorMessage = CHARACTER_CLASSES_ERROR_MESSAGE
                 renderState()
             }
             .launchIn(viewModelScope)
@@ -638,7 +638,7 @@ class CharacterSheetViewModel @Inject constructor(
     companion object {
         private const val SAVE_DEBOUNCE_MS = 150L
         private const val SPELLS_ERROR_MESSAGE = "Unable to load spells"
-        private const val SPELLCASTING_CLASSES_ERROR_MESSAGE = "Unable to load spellcasting classes"
+        private const val CHARACTER_CLASSES_ERROR_MESSAGE = "Unable to load character classes"
         private const val WEAPON_CATALOG_ERROR_MESSAGE = "Unable to load weapon catalog"
     }
 }

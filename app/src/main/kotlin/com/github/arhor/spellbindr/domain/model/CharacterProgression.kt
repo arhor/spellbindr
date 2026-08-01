@@ -1,14 +1,17 @@
 package com.github.arhor.spellbindr.domain.model
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface ProgressionState {
 
     @Serializable
+    @SerialName("managed")
     data class Managed(val progression: CharacterProgression) : ProgressionState
 
     @Serializable
+    @SerialName("unmanaged")
     data object Unmanaged : ProgressionState
 }
 
@@ -28,6 +31,7 @@ data class CharacterProgression(
 
     companion object {
         const val SUPPORTED_RULESET_ID = "srd-5e-2014-v1"
+        const val BUNDLED_REFERENCE_DATA_VERSION = "srd-5e-2014-data-v1"
     }
 }
 
@@ -45,8 +49,15 @@ data class CharacterLevelRecord(
     val subclassId: String? = null,
     val hitPointGain: HitPointGain,
     val featureChoices: Map<String, Set<String>> = emptyMap(),
+    val proficiencyChoices: List<ProficiencyChoiceSelection> = emptyList(),
     val abilityScoreDecision: AbilityScoreDecision? = null,
     val spellChanges: SpellChanges = SpellChanges(),
+)
+
+@Serializable
+data class ProficiencyChoiceSelection(
+    val choiceId: String,
+    val selectedProficiencyIds: Set<String>,
 )
 
 @Serializable
@@ -54,12 +65,15 @@ sealed interface HitPointGain {
     val rolledValue: Int
 
     @Serializable
+    @SerialName("fixed")
     data class Fixed(override val rolledValue: Int) : HitPointGain
 
     @Serializable
+    @SerialName("rolled")
     data class Rolled(override val rolledValue: Int) : HitPointGain
 
     @Serializable
+    @SerialName("manual")
     data class Manual(override val rolledValue: Int) : HitPointGain
 }
 
@@ -67,9 +81,11 @@ sealed interface HitPointGain {
 sealed interface AbilityScoreDecision {
 
     @Serializable
+    @SerialName("ability-score-increase")
     data class Increase(val increases: Map<AbilityId, Int>) : AbilityScoreDecision
 
     @Serializable
+    @SerialName("feat")
     data class Feat(val featId: String) : AbilityScoreDecision
 }
 

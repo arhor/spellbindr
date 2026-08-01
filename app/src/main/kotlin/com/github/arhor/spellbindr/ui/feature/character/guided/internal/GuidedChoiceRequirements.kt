@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.character.guided.internal
 
 import com.github.arhor.spellbindr.domain.model.Background
 import com.github.arhor.spellbindr.domain.model.CharacterClass
+import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.EntityRef
@@ -74,7 +75,7 @@ internal data class GuidedChoiceContext(
     val equipment: List<Equipment> = emptyList(),
     val featuresById: Map<String, Feature> = emptyMap(),
     val spells: List<Spell> = emptyList(),
-    val referenceDataVersion: Int = 0,
+    val referenceDataVersion: String = CharacterProgression.BUNDLED_REFERENCE_DATA_VERSION,
 )
 
 internal data class GuidedChoiceRequirements(
