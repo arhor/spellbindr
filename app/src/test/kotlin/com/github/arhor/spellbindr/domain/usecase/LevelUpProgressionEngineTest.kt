@@ -879,6 +879,43 @@ class LevelUpProgressionEngineTest {
         assertThat(requirement.eligibility.single { it.classId == "wizard" }.reasons.single()).contains("override")
     }
 
+    @Test
+    fun `rebuild should restore feature proficiency when persisted class feature owns selection`() {
+        // Given
+        val training = Feature(
+            id = "training",
+            name = "Training",
+            desc = emptyList(),
+            choice = Choice.ProficiencyChoice(choose = 1, from = listOf("skill-insight")),
+        )
+        val trainedFighter = fighter.copy(
+            levels = fighter.levels.map { level ->
+                if (level.level == 1) level.copy(features = listOf(training.id)) else level
+            },
+        )
+        val trainedProgression = progression("fighter").copy(
+            levels = progression("fighter").levels.map { record ->
+                record.copy(featureChoices = mapOf(training.id to setOf("skill-insight")))
+            },
+        )
+
+        // When
+        val preview = LevelUpProgressionEngine.rebuild(
+            sheet = CharacterSheet(id = "character", level = 1),
+            progression = trainedProgression,
+            plan = plan(1, "fighter", HitPointGain.Fixed(6)),
+            referenceData = LevelUpReferenceData(
+                classes = listOf(trainedFighter, wizard),
+                features = listOf(training),
+                referenceDataVersion = "test-v1",
+            ),
+        )
+
+        // Then
+        assertThat(preview.before.proficiencyIds).contains("skill-insight")
+        assertThat(preview.after.proficiencyIds).contains("skill-insight")
+    }
+
     private fun issue(code: LevelUpValidationCode, severity: LevelUpValidationSeverity) =
         com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue(code, "Ability prerequisites for Wizard are not met.", severity)
 

@@ -780,9 +780,32 @@ object LevelUpProgressionEngine {
                 proficiencyIds += clazz.multiClassing?.proficiencyGrants.orEmpty()
             }
             proficiencyIds += record.proficiencyChoices.flatMap { it.selectedProficiencyIds }
-            clazz.levels.firstOrNull { it.level == record.classLevel }?.features?.let(featureIds::addAll)
-            record.subclassId?.let { subclassId -> clazz.subclasses.firstOrNull { it.id == subclassId }
-                ?.levels?.firstOrNull { it.level == record.classLevel }?.features?.let(featureIds::addAll) }
+            val gainedFeatureIds = buildList {
+                addAll(clazz.levels.firstOrNull { it.level == record.classLevel }?.features.orEmpty())
+                record.subclassId?.let { subclassId ->
+                    addAll(
+                        clazz.subclasses.firstOrNull { it.id == subclassId }
+                            ?.levels?.firstOrNull { it.level == record.classLevel }
+                            ?.features.orEmpty(),
+                    )
+                }
+            }
+            featureIds += gainedFeatureIds
+            gainedFeatureIds.forEach { featureId ->
+                val choice = data.featuresById[featureId]?.choice as? Choice.ProficiencyChoice
+                    ?: return@forEach
+                val selected = record.featureChoices["$featureId:choice"]
+                    ?: record.featureChoices[featureId]
+                    ?: emptySet()
+                selected.filter { it in choice.from }.forEach { proficiencyId ->
+                    val ability = proficiencyId.removePrefix(SAVING_THROW_PREFIX)
+                    if (proficiencyId.startsWith(SAVING_THROW_PREFIX) && ability in AbilityIds.standardOrder) {
+                        savingThrows += ability
+                    } else {
+                        proficiencyIds += proficiencyId
+                    }
+                }
+            }
             val feat = (record.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId?.let(data.featsById::get)
             feat?.effects?.filterIsInstance<Effect.AddProficienciesEffect>()
                 ?.flatMap { it.proficiencies }

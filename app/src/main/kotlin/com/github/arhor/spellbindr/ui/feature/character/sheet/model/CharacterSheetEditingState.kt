@@ -21,7 +21,7 @@ data class CharacterSheetEditingState(
             currentHp = sheet.currentHitPoints.toString(),
             tempHp = sheet.temporaryHitPoints.toString(),
             speed = sheet.speed,
-            hitDice = sheet.hitDice,
+            hitDice = sheet.effectiveHitDiceText(),
             senses = sheet.senses,
             languages = sheet.languages,
             proficiencies = sheet.proficiencies,

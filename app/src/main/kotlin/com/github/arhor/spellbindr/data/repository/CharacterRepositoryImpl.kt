@@ -23,12 +23,15 @@ import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.ManagedProgressionSheetState
+import com.github.arhor.spellbindr.domain.model.ManagedSpellGrant
+import com.github.arhor.spellbindr.domain.model.ManagedSpellGrantType
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.ProgressionState
 import com.github.arhor.spellbindr.domain.model.SpellLearningPolicy
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.usecase.LevelUpProgressionEngine
 import com.github.arhor.spellbindr.utils.asLoadableFlow
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -145,13 +148,20 @@ class CharacterRepositoryImpl @Inject constructor(
                 validations = preview.validations,
             )
             val updatedProgression = progression.copy(levels = progression.levels + record)
-            val updatedSheet = sheet.materializeManagedLevel(preview.after, record, referenceData)
+            val updatedSheet = sheet.materializeManagedLevel(
+                before = preview.before,
+                after = preview.after,
+                updatedProgression = updatedProgression,
+                referenceData = referenceData,
+            )
+            val priorProgressionSpellIds = progression.ownedSpellGrants().mapTo(hashSetOf()) { it.spell.spellId }
             val updatedEntity = updatedSheet.toCharacterEntity(relation.character).copy(
                 classes = preview.after.classLevels.mapKeys { EntityRef(it.key) },
                 abilityScores = updatedSheet.toAbilityScoreMap(),
                 // Structured entity fields can also contain user-authored values. Never replace them.
                 proficiencies = updatedSheet.allProficiencyIds.mapTo(linkedSetOf(), ::EntityRef),
-                spells = relation.character.spells + updatedSheet.characterSpells.map { EntityRef(it.spellId) },
+                spells = relation.character.spells.filterNotTo(linkedSetOf()) { it.id in priorProgressionSpellIds } +
+                    updatedSheet.characterSpells.map { EntityRef(it.spellId) },
             )
             characterDao.saveCharacterWithProgression(
                 character = updatedEntity,
@@ -159,6 +169,8 @@ class CharacterRepositoryImpl @Inject constructor(
             )
             ApplyLevelUpResult.Success(updatedSheet, updatedProgression)
         }
+    } catch (cancellation: CancellationException) {
+        throw cancellation
     } catch (failure: Throwable) {
         ApplyLevelUpResult.PersistenceFailure(failure.message ?: "Unable to save level-up changes.")
     }
@@ -213,8 +225,9 @@ class CharacterRepositoryImpl @Inject constructor(
     }
 
     private fun CharacterSheet.materializeManagedLevel(
+        before: com.github.arhor.spellbindr.domain.model.LevelUpSnapshot,
         after: com.github.arhor.spellbindr.domain.model.LevelUpSnapshot,
-        record: com.github.arhor.spellbindr.domain.model.CharacterLevelRecord,
+        updatedProgression: com.github.arhor.spellbindr.domain.model.CharacterProgression,
         referenceData: LevelUpReferenceData,
     ): CharacterSheet {
         val existingPools = managedProgression?.hitDicePools.orEmpty().associateBy(HitDicePoolState::dieSize)
@@ -241,38 +254,49 @@ class CharacterRepositoryImpl @Inject constructor(
                 expended = pactSlots?.expended.orZero().coerceIn(0, capacity.slots),
             )
         }
-        val selectedClass = referenceData.classesById[record.classId]
-        val changedSpells = characterSpells
-            .filterNot { spell -> record.spellChanges.replaced.any { replacement ->
-                val sourceMatches = spell.sourceClass.equals(replacement.classId, ignoreCase = true) ||
-                    spell.sourceClass.equals(selectedClass?.name, ignoreCase = true)
-                sourceMatches && replacement.removedSpellId == spell.spellId
-            } }
-            .toMutableSet()
-        (record.spellChanges.learned + record.spellChanges.addedToSpellbook +
-            record.spellChanges.featureLearned.values.flatten() +
-            record.spellChanges.replaced.map { replacement ->
-                com.github.arhor.spellbindr.domain.model.ClassSpellRef(
-                    replacement.classId,
-                    replacement.learnedSpellId,
-                )
-            }).forEach { spell ->
-            changedSpells += com.github.arhor.spellbindr.domain.model.CharacterSpell(spell.spellId, spell.classId)
+        val priorSpellGrants = managedProgression?.ownedSpellGrants
+            ?.takeIf { it.isNotEmpty() }
+            ?: managedProgression?.spellGrants?.takeIf { it.isNotEmpty() }
+                ?.mapIndexed { index, spell ->
+                    ManagedSpellGrant("legacy:$index", ManagedSpellGrantType.Learned, spell)
+                }
+            ?: updatedProgression.copy(levels = updatedProgression.levels.dropLast(1)).ownedSpellGrants()
+        val updatedSpellGrants = updatedProgression.ownedSpellGrants()
+        val changedSpells = characterSpells.toMutableList()
+        priorSpellGrants.map(ManagedSpellGrant::spell).distinct().forEach { spell ->
+            val index = changedSpells.indexOfFirst { stored -> stored.matches(spell, referenceData) }
+            if (index >= 0) changedSpells.removeAt(index)
         }
-        val spellPolicy = LevelUpReferenceRules.policyFor(record.classId)?.spells
+        updatedSpellGrants.map(ManagedSpellGrant::spell).distinct().forEach { spell ->
+            changedSpells += com.github.arhor.spellbindr.domain.model.CharacterSpell(
+                spell.spellId,
+                spell.classId,
+            )
+        }
+        val selectedClassId = updatedProgression.levels.last().classId
+        val selectedClassLevel = updatedProgression.classLevels.getValue(selectedClassId)
+        val selectedClass = referenceData.classesById[selectedClassId]
+        val spellPolicy = LevelUpReferenceRules.policyFor(selectedClassId)?.spells
         if (selectedClass != null && spellPolicy is SpellLearningPolicy.Prepared) {
-            val maxSpellLevel = selectedClass.levels.firstOrNull { it.level == record.classLevel }
+            val maxSpellLevel = selectedClass.levels.firstOrNull { it.level == selectedClassLevel }
                 ?.spellcasting?.spellSlots.orEmpty().keys.mapNotNull(String::toIntOrNull).maxOrNull().orZero()
-            val capacity = (record.classLevel / spellPolicy.preparation.levelDivisor +
+            val capacity = (selectedClassLevel / spellPolicy.preparation.levelDivisor +
                 after.abilityScores.modifierFor(spellPolicy.preparation.abilityId))
                 .coerceAtLeast(spellPolicy.preparation.minimumPreparedSpells)
             var retainedPrepared = 0
+            val permanentGrantsToProtect = updatedSpellGrants.map(ManagedSpellGrant::spell).distinct().toMutableList()
             changedSpells.removeAll { stored ->
                 val belongsToClass = stored.sourceClass.equals(selectedClass.id, ignoreCase = true) ||
                     stored.sourceClass.equals(selectedClass.name, ignoreCase = true)
                 val spell = referenceData.spellsById[stored.spellId]
+                val ownedIndex = permanentGrantsToProtect.indexOfFirst { grant ->
+                    stored.matches(grant, referenceData)
+                }
+                val isPermanentGrant = ownedIndex >= 0
+                if (isPermanentGrant) permanentGrantsToProtect.removeAt(ownedIndex)
                 when {
                     !belongsToClass -> false
+                    isPermanentGrant -> false
                     spell == null -> true
                     spell.level == 0 -> false
                     else -> {
@@ -290,16 +314,35 @@ class CharacterRepositoryImpl @Inject constructor(
             abilityScores = after.abilityScores,
             proficiencyBonus = after.proficiencyBonus,
             maxHitPoints = after.maximumHitPoints,
+            currentHitPoints = currentHitPoints.coerceIn(0, after.maximumHitPoints),
+            temporaryHitPoints = temporaryHitPoints.coerceAtLeast(0),
             // Managed pools replace the old free-text hit-dice field; manual sheets remain untouched.
             hitDice = "",
             spellSlots = slots,
             pactSlots = pact,
             savingThrows = savingThrows.map { save ->
-                save.copy(proficient = save.proficient || save.abilityId in after.savingThrowAbilityIds)
+                val manuallyProficient = save.proficient && save.abilityId !in previousSavingThrowGrants(before)
+                val effectivelyProficient = manuallyProficient || save.abilityId in after.savingThrowAbilityIds
+                save.copy(
+                    bonus = after.abilityScores.modifierFor(save.abilityId) +
+                        if (effectivelyProficient) after.proficiencyBonus else 0,
+                    proficient = manuallyProficient,
+                )
             },
             skills = skills.map { skill ->
                 val skillId = "skill-${skill.skill.name.lowercase().replace('_', '-')}"
-                skill.copy(proficient = skill.proficient || skillId in after.proficiencyIds)
+                val manuallyProficient = skill.proficient && skillId !in previousProficiencyGrants(before)
+                val effectivelyProficient = manuallyProficient || skillId in after.proficiencyIds
+                val proficiencyMultiplier = when {
+                    skill.expertise -> 2
+                    effectivelyProficient -> 1
+                    else -> 0
+                }
+                skill.copy(
+                    bonus = after.abilityScores.modifierFor(skill.skill.abilityId) +
+                        after.proficiencyBonus * proficiencyMultiplier,
+                    proficient = manuallyProficient,
+                )
             },
             characterSpells = changedSpells.sortedWith(compareBy({ it.sourceClass }, { it.spellId })),
             managedProgression = ManagedProgressionSheetState(
@@ -308,8 +351,73 @@ class CharacterRepositoryImpl @Inject constructor(
                 savingThrowAbilityIds = after.savingThrowAbilityIds,
                 featureIds = after.featureIds,
                 languageIds = after.languageIds,
+                spellGrants = updatedSpellGrants.mapTo(linkedSetOf()) { it.spell },
+                ownedSpellGrants = updatedSpellGrants,
             ),
         )
+    }
+
+    private fun CharacterSheet.previousSavingThrowGrants(
+        before: com.github.arhor.spellbindr.domain.model.LevelUpSnapshot,
+    ): Set<String> = managedProgression?.savingThrowAbilityIds
+        ?.takeIf { it.isNotEmpty() }
+        ?: before.savingThrowAbilityIds
+
+    private fun CharacterSheet.previousProficiencyGrants(
+        before: com.github.arhor.spellbindr.domain.model.LevelUpSnapshot,
+    ): Set<String> = managedProgression?.proficiencyIds
+        ?.takeIf { it.isNotEmpty() }
+        ?: before.proficiencyIds
+
+    private fun com.github.arhor.spellbindr.domain.model.CharacterProgression.ownedSpellGrants():
+        List<ManagedSpellGrant> = buildList {
+        levels.forEach { level ->
+            val levelKey = "level:${level.characterLevel}:${level.classId}"
+            level.spellChanges.learned.sortedBy { it.spellId }.forEach { spell ->
+                add(ManagedSpellGrant("$levelKey:learned:${spell.spellId}", ManagedSpellGrantType.Learned, spell))
+            }
+            level.spellChanges.addedToSpellbook.sortedBy { it.spellId }.forEach { spell ->
+                add(ManagedSpellGrant("$levelKey:spellbook:${spell.spellId}", ManagedSpellGrantType.Spellbook, spell))
+            }
+            level.spellChanges.featureLearned.toSortedMap().forEach { (featureId, spells) ->
+                spells.sortedBy { it.spellId }.forEach { spell ->
+                    add(ManagedSpellGrant(
+                        "$levelKey:feature:$featureId:${spell.spellId}",
+                        ManagedSpellGrantType.Feature,
+                        spell,
+                    ))
+                }
+            }
+            level.spellChanges.replaced.sortedWith(
+                compareBy({ it.classId }, { it.removedSpellId }, { it.learnedSpellId }),
+            )
+                .forEach { replacement ->
+                    val removedIndex = indexOfFirst { grant ->
+                        grant.spell.classId == replacement.classId &&
+                            grant.spell.spellId == replacement.removedSpellId
+                    }
+                    if (removedIndex >= 0) removeAt(removedIndex)
+                    add(ManagedSpellGrant(
+                        "$levelKey:replacement:${replacement.removedSpellId}:${replacement.learnedSpellId}",
+                        ManagedSpellGrantType.Replacement,
+                        com.github.arhor.spellbindr.domain.model.ClassSpellRef(
+                            classId = replacement.classId,
+                            spellId = replacement.learnedSpellId,
+                        ),
+                    ))
+                }
+            }
+    }
+
+    private fun com.github.arhor.spellbindr.domain.model.CharacterSpell.matches(
+        grant: com.github.arhor.spellbindr.domain.model.ClassSpellRef,
+        referenceData: LevelUpReferenceData,
+    ): Boolean {
+        val className = referenceData.classesById[grant.classId]?.name
+        return spellId == grant.spellId && (
+            sourceClass.equals(grant.classId, ignoreCase = true) ||
+                className != null && sourceClass.equals(className, ignoreCase = true)
+            )
     }
 
     private fun Int?.orZero(): Int = this ?: 0

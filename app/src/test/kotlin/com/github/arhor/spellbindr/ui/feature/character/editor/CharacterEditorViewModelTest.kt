@@ -6,6 +6,8 @@ import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
+import com.github.arhor.spellbindr.domain.model.HitDicePoolState
+import com.github.arhor.spellbindr.domain.model.ManagedProgressionSheetState
 import com.github.arhor.spellbindr.domain.model.ProgressionOrigin
 import com.github.arhor.spellbindr.domain.model.ProgressionState
 import com.github.arhor.spellbindr.domain.model.Skill
@@ -59,7 +61,10 @@ class CharacterEditorViewModelTest {
                     level = 3,
                     proficiencyBonus = 2,
                     maxHitPoints = 14,
-                    hitDice = "3d6",
+                    hitDice = "",
+                    managedProgression = ManagedProgressionSheetState(
+                        hitDicePools = listOf(HitDicePoolState(dieSize = 6, total = 3, expended = 1)),
+                    ),
                 ),
                 progressionState = ProgressionState.Managed(
                     CharacterProgression(

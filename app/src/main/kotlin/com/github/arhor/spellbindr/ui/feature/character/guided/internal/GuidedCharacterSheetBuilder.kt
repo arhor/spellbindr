@@ -14,6 +14,10 @@ import com.github.arhor.spellbindr.domain.model.CountedEntityRef
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Feature
+import com.github.arhor.spellbindr.domain.model.HitDicePoolState
+import com.github.arhor.spellbindr.domain.model.ManagedProgressionSheetState
+import com.github.arhor.spellbindr.domain.model.ManagedSpellGrant
+import com.github.arhor.spellbindr.domain.model.ManagedSpellGrantType
 import com.github.arhor.spellbindr.domain.model.PactSlotState
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
@@ -102,6 +106,28 @@ internal fun buildGuidedCharacterSheet(content: GuidedCharacterSetupUiState.Cont
     }.trim()
 
     val proficiencies = computed.proficiencies.map(EntityRef::prettyString).sorted().joinToString(", ")
+    val classOwnedProficiencyIds = buildSet {
+        addAll(clazz?.proficiencies.orEmpty())
+        clazz?.proficiencyChoices.orEmpty().indices.forEach { index ->
+            addAll(selection.choiceSelections[GuidedCharacterSetupViewModel.classProficiencyChoiceKey(index)].orEmpty())
+        }
+        findGuidedLevelOneFeatureChoices(clazz, selection.subclassId, content.featuresById)
+            .filter { (_, choice) -> choice is Choice.ProficiencyChoice }
+            .forEach { (featureId, _) ->
+                addAll(
+                    selection.choiceSelections[
+                        GuidedCharacterSetupViewModel.featureChoiceKey(featureId)
+                    ].orEmpty(),
+                )
+            }
+    }
+    val classFeatureSavingThrows = classOwnedProficiencyIds.mapNotNullTo(linkedSetOf()) { proficiencyId ->
+        proficiencyId.removePrefix("saving-throw-")
+            .takeIf { proficiencyId.startsWith("saving-throw-") && it in AbilityIds.standardOrder }
+    }
+    val classProficiencyIds = classOwnedProficiencyIds -
+        classFeatureSavingThrows.mapTo(hashSetOf()) { "saving-throw-$it" }
+    val manualProficiencyIds = computed.proficiencies.mapTo(linkedSetOf()) { it.id } - classOwnedProficiencyIds
     val languages = computed.languages.map { ref ->
         content.languagesById[ref.id]?.name ?: ref.prettyString()
     }.sorted().joinToString(", ")
@@ -113,12 +139,12 @@ internal fun buildGuidedCharacterSheet(content: GuidedCharacterSetupUiState.Cont
         }
 
     val savingThrows = AbilityIds.standardOrder.map { abilityId ->
-        val proficient = clazz?.savingThrows?.any { it.equals(abilityId, ignoreCase = true) } == true
-        val bonus = finalAbilityScores.modifierFor(abilityId) + if (proficient) proficiencyBonus else 0
+        val progressionProficient = clazz?.savingThrows?.any { it.equals(abilityId, ignoreCase = true) } == true
+        val bonus = finalAbilityScores.modifierFor(abilityId) + if (progressionProficient) proficiencyBonus else 0
         SavingThrowEntry(
             abilityId = abilityId,
             bonus = bonus,
-            proficient = proficient,
+            proficient = false,
         )
     }
     val expertiseProficiencies =
@@ -126,18 +152,20 @@ internal fun buildGuidedCharacterSheet(content: GuidedCharacterSetupUiState.Cont
     val expertiseSkills = expertiseProficiencies.mapNotNull(::skillFromProficiencyId).toSet()
     val skillProficiencies = computed.proficiencies.mapNotNull(::skillFromProficiencyId).toSet() + expertiseSkills
     val skills = Skill.entries.map { skill ->
-        val proficient = skill in skillProficiencies
+        val effectivelyProficient = skill in skillProficiencies
         val expertise = skill in expertiseSkills
+        val skillId = "skill-${skill.name.lowercase().replace('_', '-')}"
+        val manuallyProficient = skillId in manualProficiencyIds || expertise
         val multiplier = when {
             expertise -> 2
-            proficient -> 1
+            effectivelyProficient -> 1
             else -> 0
         }
         val bonus = finalAbilityScores.modifierFor(skill.abilityId) + proficiencyBonus * multiplier
         SkillEntry(
             skill = skill,
             bonus = bonus,
-            proficient = proficient,
+            proficient = manuallyProficient,
             expertise = expertise,
         )
     }
@@ -173,6 +201,36 @@ internal fun buildGuidedCharacterSheet(content: GuidedCharacterSetupUiState.Cont
     }
     val characterSpells = classSpells + racialSpells
     val (spellSlots, pactSlots) = computeInitialSlotsForClass(clazz)
+    val spellChanges = buildGuidedLevelOneSpellChanges(
+        classId = clazz?.id.orEmpty(),
+        cantripSpellIds = selection.choiceSelections[
+            GuidedCharacterSetupViewModel.spellCantripsChoiceKey()
+        ].orEmpty(),
+        levelOneSpellIds = selection.choiceSelections[
+            GuidedCharacterSetupViewModel.spellLevel1ChoiceKey()
+        ].orEmpty(),
+    )
+    val managedSpellGrants = buildList {
+        spellChanges.learned.sortedBy { it.spellId }.forEach { spell ->
+            add(ManagedSpellGrant(
+                ownerKey = "level:1:${clazz?.id}:learned:${spell.spellId}",
+                type = ManagedSpellGrantType.Learned,
+                spell = spell,
+            ))
+        }
+        spellChanges.addedToSpellbook.sortedBy { it.spellId }.forEach { spell ->
+            add(ManagedSpellGrant(
+                ownerKey = "level:1:${clazz?.id}:spellbook:${spell.spellId}",
+                type = ManagedSpellGrantType.Spellbook,
+                spell = spell,
+            ))
+        }
+    }
+    val levelOneFeatureIds = buildSet {
+        addAll(clazz?.levels?.firstOrNull { it.level == 1 }?.features.orEmpty())
+        val subclass = selection.subclassId?.let { id -> clazz?.subclasses?.firstOrNull { it.id == id } }
+        addAll(subclass?.levels?.firstOrNull { it.level == 1 }?.features.orEmpty())
+    }
 
     return CharacterSheet(
         id = UUID.randomUUID().toString(),
@@ -198,6 +256,16 @@ internal fun buildGuidedCharacterSheet(content: GuidedCharacterSetupUiState.Cont
         equipment = equipmentText,
         featuresAndTraits = buildGuidedFeaturesAndTraitsText(content, clazz, race, background),
         characterSpells = characterSpells,
+        manualProficiencyIds = manualProficiencyIds,
+        managedProgression = ManagedProgressionSheetState(
+            hitDicePools = clazz?.let { listOf(HitDicePoolState(dieSize = it.hitDie, total = 1)) }.orEmpty(),
+            proficiencyIds = classProficiencyIds,
+            savingThrowAbilityIds = clazz?.savingThrows.orEmpty().mapTo(linkedSetOf()) { it.lowercase() } +
+                classFeatureSavingThrows,
+            featureIds = levelOneFeatureIds,
+            spellGrants = managedSpellGrants.mapTo(linkedSetOf()) { it.spell },
+            ownedSpellGrants = managedSpellGrants,
+        ),
     )
 }
 
@@ -533,7 +601,9 @@ internal fun buildGuidedFeaturesAndTraitsText(
             }
             trait.spellChoice?.let {
                 val selected =
-                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(trait.id)].orEmpty()
+                    selection.choiceSelections[
+                        GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(trait.id)
+                    ].orEmpty()
                 if (selected.isNotEmpty()) {
                     bullet("${trait.name}: ${selected.map(::spellName).sorted().joinToString(", ")}")
                 }

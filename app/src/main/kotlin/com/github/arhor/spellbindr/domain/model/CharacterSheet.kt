@@ -96,6 +96,13 @@ data class CharacterSheet(
     /** The effective structured proficiency set used by persistence and rules checks. */
     val allProficiencyIds: Set<String>
         get() = manualProficiencyIds + managedProgression?.proficiencyIds.orEmpty()
+
+    /** Effective hit-die capacity for display; the legacy manual field remains untouched. */
+    fun effectiveHitDiceText(): String = managedProgression?.hitDicePools
+        ?.takeIf { it.isNotEmpty() }
+        ?.sortedBy(HitDicePoolState::dieSize)
+        ?.joinToString(" + ") { pool -> "${pool.total}d${pool.dieSize}" }
+        ?: hitDice
 }
 
 @Serializable
@@ -105,7 +112,26 @@ data class ManagedProgressionSheetState(
     val savingThrowAbilityIds: Set<AbilityId> = emptySet(),
     val featureIds: Set<String> = emptySet(),
     val languageIds: Set<String> = emptySet(),
+    /** Legacy aggregate retained so older snapshots remain decodable. New writes also populate [ownedSpellGrants]. */
+    val spellGrants: Set<ClassSpellRef> = emptySet(),
+    /** One entry per permanent progression owner; overlapping grants intentionally remain distinct. */
+    val ownedSpellGrants: List<ManagedSpellGrant> = emptyList(),
 )
+
+@Serializable
+data class ManagedSpellGrant(
+    val ownerKey: String,
+    val type: ManagedSpellGrantType,
+    val spell: ClassSpellRef,
+)
+
+@Serializable
+enum class ManagedSpellGrantType {
+    Learned,
+    Spellbook,
+    Feature,
+    Replacement,
+}
 
 /** A managed hit-die pool; legacy [CharacterSheet.hitDice] stays available to unmanaged sheets. */
 @Serializable
