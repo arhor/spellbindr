@@ -23,6 +23,7 @@ fun OverviewTab(
     progression: ProgressionSummaryUiModel,
     editMode: SheetEditMode,
     editingState: CharacterSheetEditingState?,
+    onLevelUp: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -40,6 +41,7 @@ fun OverviewTab(
         )
         ProgressionSummaryCard(
             progression = progression,
+            onLevelUp = onLevelUp,
         )
     }
 }

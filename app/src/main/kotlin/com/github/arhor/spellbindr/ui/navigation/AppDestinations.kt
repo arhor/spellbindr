@@ -24,6 +24,9 @@ sealed class AppDestination(open val title: String) {
     data class CharacterEditor(val characterId: String? = null) : AppDestination(title = "Character Editor")
 
     @Serializable
+    data class CharacterLevelUp(val characterId: String) : AppDestination(title = "Level up")
+
+    @Serializable
     data object GuidedCharacterSetup : AppDestination(title = "Guided setup")
 
     @Serializable

@@ -83,6 +83,7 @@ internal fun CharacterSheetScreen(
                     onConcentrationClear = { dispatch(CharacterSheetIntent.ConcentrationCleared) },
                     onAddWeaponClick = { dispatch(CharacterSheetIntent.AddWeaponClicked) },
                     onWeaponSelected = { dispatch(CharacterSheetIntent.WeaponSelected(it)) },
+                    onLevelUp = { dispatch(CharacterSheetIntent.LevelUpClicked) },
                     modifier = modifier,
                 )
                 state.weaponEditorState?.let { editor ->

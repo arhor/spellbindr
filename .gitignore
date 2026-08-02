@@ -48,6 +48,7 @@ google-services.json
 .DS_Store
 /build
 /captures
+/.worktrees/
 .externalNativeBuild
 .cxx
 android-commandlinetools.zip

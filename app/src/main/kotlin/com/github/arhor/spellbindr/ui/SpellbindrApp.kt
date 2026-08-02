@@ -85,7 +85,9 @@ fun SpellbindrApp(onReady: () -> Unit) {
             Scaffold(
                 topBar = { AppTopBar(resolvedConfig) },
                 bottomBar = {
-                    if (!(destination matches AppDestination.GuidedCharacterSetup::class)) {
+                    if (!(destination matches AppDestination.GuidedCharacterSetup::class) &&
+                        !(destination matches AppDestination.CharacterLevelUp::class)
+                    ) {
                         AppBottomBar(controller)
                     }
                 },

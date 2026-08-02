@@ -5,6 +5,9 @@ import com.github.arhor.spellbindr.domain.model.CharacterCreationResult
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
 import com.github.arhor.spellbindr.domain.model.Loadable
+import com.github.arhor.spellbindr.domain.model.ApplyLevelUpResult
+import com.github.arhor.spellbindr.domain.model.LevelUpPlan
+import com.github.arhor.spellbindr.domain.model.LevelUpReferenceData
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -47,6 +50,14 @@ interface CharacterRepository {
      * Saves a character created by the guided flow with managed progression in one transaction.
      */
     suspend fun saveGuidedCharacter(result: CharacterCreationResult)
+
+    /** Atomically validates, materializes, and appends exactly one managed level. */
+    suspend fun applyLevelUp(
+        characterId: String,
+        expectedTotalLevel: Int,
+        plan: LevelUpPlan,
+        referenceData: LevelUpReferenceData,
+    ): ApplyLevelUpResult
 
     /**
      * Observes all characters as fully realized domain models.

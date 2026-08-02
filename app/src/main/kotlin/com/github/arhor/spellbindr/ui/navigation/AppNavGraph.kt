@@ -15,6 +15,7 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.GuidedCharacterSe
 import com.github.arhor.spellbindr.ui.feature.character.list.CharactersListRoute
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CharacterListItem
 import com.github.arhor.spellbindr.ui.feature.character.list.model.CreateCharacterMode
+import com.github.arhor.spellbindr.ui.feature.character.levelup.CharacterLevelUpRoute
 import com.github.arhor.spellbindr.ui.feature.character.sheet.CHARACTER_SPELL_SELECTION_RESULT_KEY
 import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetRoute
 import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetRouteArgs
@@ -117,8 +118,15 @@ private fun NavGraphBuilder.charactersNavGraph(controller: NavHostController) {
             onOpenSpellDetail = { controller.navigate(AppDestination.SpellDetails(it)) },
             onAddSpells = { controller.navigate(AppDestination.CharacterSpellPicker(it)) },
             onOpenFullEditor = { controller.navigate(AppDestination.CharacterEditor(it)) },
+            onLevelUp = { controller.navigate(AppDestination.CharacterLevelUp(it)) },
             onCharacterDeleted = controller::navigateUp,
             onBack = controller::navigateUp,
+        )
+    }
+    composable<AppDestination.CharacterLevelUp> {
+        CharacterLevelUpRoute(
+            onBack = controller::navigateUp,
+            onFinished = controller::navigateUp,
         )
     }
     composable<AppDestination.CharacterSpellPicker> {

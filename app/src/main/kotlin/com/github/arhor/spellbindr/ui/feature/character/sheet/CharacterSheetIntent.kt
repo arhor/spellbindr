@@ -43,6 +43,7 @@ sealed interface CharacterSheetIntent {
     data object CancelEditMode : CharacterSheetIntent
     data object SaveEditsClicked : CharacterSheetIntent
     data object OpenFullEditorClicked : CharacterSheetIntent
+    data object LevelUpClicked : CharacterSheetIntent
     data object DeleteCharacterClicked : CharacterSheetIntent
     data object LongRestConfirmed : CharacterSheetIntent
     data object ShortRestConfirmed : CharacterSheetIntent

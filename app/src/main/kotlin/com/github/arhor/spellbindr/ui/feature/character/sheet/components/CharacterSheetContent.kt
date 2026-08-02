@@ -54,6 +54,7 @@ internal fun CharacterSheetContent(
     onConcentrationClear: () -> Unit,
     onAddWeaponClick: () -> Unit,
     onWeaponSelected: (String) -> Unit,
+    onLevelUp: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val tabs = CharacterSheetTab.entries
@@ -109,6 +110,7 @@ internal fun CharacterSheetContent(
                     progression = state.progression,
                     editMode = state.editMode,
                     editingState = state.editingState,
+                    onLevelUp = onLevelUp,
                     modifier = Modifier.fillMaxSize(),
                 )
 
@@ -171,6 +173,7 @@ private fun CharacterSheetContentPreview() {
             onConcentrationClear = {},
             onAddWeaponClick = {},
             onWeaponSelected = {},
+            onLevelUp = {},
             modifier = Modifier.fillMaxSize(),
         )
     }
