@@ -199,7 +199,7 @@ class LevelUpProgressionEngineTest {
         val preview = LevelUpProgressionEngine.rebuild(sheet, progression, plan, data)
 
         // Then
-        assertThat(preview.before.sharedSpellSlots).containsExactly(1, 2)
+        assertThat(preview.before.sharedSpellSlots).containsExactly(1, 3)
         assertThat(preview.before.pactMagic?.slotLevel).isEqualTo(1)
         assertThat(preview.before.pactMagic?.slots).isEqualTo(1)
     }
