@@ -341,8 +341,17 @@ object LevelUpProgressionEngine {
                     if (!meetsFeatPrerequisites(abilities, proficiencyIds, feat.prerequisites)) {
                         validations += blocking(LevelUpValidationCode.FeatPrerequisite, "Prerequisites for ${feat.name} are not met.")
                     }
-                    feat.abilityBonusChoice?.let { choice -> validateFeatChoice(feat.abilityBonusChoiceId.orEmpty(), choice,
-                        selections.featChoices[feat.abilityBonusChoiceId].orEmpty(), abilities, feat.name, validations) }
+                    feat.abilityBonusChoice?.let { choice ->
+                        val choiceId = feat.abilityBonusChoiceId.orEmpty()
+                        validateFeatChoice(
+                            choiceId,
+                            choice,
+                            selections.featChoices[choiceId].orEmpty(),
+                            abilities,
+                            feat.name,
+                            validations,
+                        )
+                    }
                     val afterFeat = applyAbilityDecision(abilities, selections, data)
                     if (AbilityIds.standardOrder.any { abilityScore(afterFeat, it) > 20 }) {
                         validations += blocking(LevelUpValidationCode.InvalidAbilityScoreIncrease, "A feat cannot increase an ability score above 20.")
