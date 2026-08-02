@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class CharacterClass(
     val id: String,
     val name: String,
-//    val multiClassing: MultiClassing,
+    val multiClassing: MultiClassing? = null,
     val hitDie: Int,
     val proficiencies: List<String>,
     val proficiencyChoices: List<Choice>,

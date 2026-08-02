@@ -32,6 +32,11 @@ interface CharacterDao {
     @Query("SELECT * FROM characters WHERE id = :id")
     fun observeCharacterWithProgression(id: String): Flow<CharacterWithProgressionEntity?>
 
+    /** One-shot relation read used inside the repository's Room transaction. */
+    @Transaction
+    @Query("SELECT * FROM characters WHERE id = :id")
+    suspend fun getCharacterWithProgression(id: String): CharacterWithProgressionEntity?
+
     /**
      * Inserts a new character or updates the existing row without deleting it.
      *

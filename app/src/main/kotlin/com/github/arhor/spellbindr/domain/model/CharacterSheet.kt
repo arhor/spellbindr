@@ -85,6 +85,33 @@ data class CharacterSheet(
     val notes: String = "",
     val characterSpells: List<CharacterSpell> = emptyList(),
     val weapons: List<Weapon> = emptyList(),
+    /** User-authored structured proficiencies; progression recalculation never replaces these ids. */
+    val manualProficiencyIds: Set<String> = emptySet(),
+    /**
+     * Derived, progression-owned state for managed characters.  It is intentionally separate from
+     * the free-text sheet fields so recalculating a level never rewrites player-authored notes.
+     */
+    val managedProgression: ManagedProgressionSheetState? = null,
+) {
+    /** The effective structured proficiency set used by persistence and rules checks. */
+    val allProficiencyIds: Set<String>
+        get() = manualProficiencyIds + managedProgression?.proficiencyIds.orEmpty()
+}
+
+@Serializable
+data class ManagedProgressionSheetState(
+    val hitDicePools: List<HitDicePoolState> = emptyList(),
+    val proficiencyIds: Set<String> = emptySet(),
+    val savingThrowAbilityIds: Set<AbilityId> = emptySet(),
+    val featureIds: Set<String> = emptySet(),
+)
+
+/** A managed hit-die pool; legacy [CharacterSheet.hitDice] stays available to unmanaged sheets. */
+@Serializable
+data class HitDicePoolState(
+    val dieSize: Int,
+    val total: Int,
+    val expended: Int = 0,
 )
 
 /**

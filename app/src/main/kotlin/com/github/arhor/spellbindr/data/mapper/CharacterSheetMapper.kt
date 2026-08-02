@@ -3,7 +3,10 @@ package com.github.arhor.spellbindr.data.mapper
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterSheetSnapshot
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 
-fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet(
+fun CharacterSheetSnapshot.toDomain(
+    id: String,
+    legacyProficiencyIds: Set<String> = emptySet(),
+): CharacterSheet = CharacterSheet(
     id = id,
     name = name,
     level = level,
@@ -41,6 +44,10 @@ fun CharacterSheetSnapshot.toDomain(id: String): CharacterSheet = CharacterSheet
     notes = notes,
     characterSpells = characterSpells,
     weapons = weapons,
+    manualProficiencyIds = manualProficiencyIds.ifEmpty {
+        legacyProficiencyIds - managedProgression?.proficiencyIds.orEmpty()
+    },
+    managedProgression = managedProgression,
 )
 
 fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot(
@@ -80,4 +87,6 @@ fun CharacterSheet.toSnapshot(): CharacterSheetSnapshot = CharacterSheetSnapshot
     notes = notes,
     characterSpells = characterSpells,
     weapons = weapons,
+    manualProficiencyIds = manualProficiencyIds,
+    managedProgression = managedProgression,
 )

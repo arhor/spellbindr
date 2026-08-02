@@ -143,6 +143,7 @@ class CharacterSheetViewModel @Inject constructor(
             is CharacterSheetIntent.CancelEditMode -> cancelEditMode()
             is CharacterSheetIntent.SaveEditsClicked -> saveInlineEdits()
             is CharacterSheetIntent.OpenFullEditorClicked -> Unit
+            is CharacterSheetIntent.LevelUpClicked -> Unit
             is CharacterSheetIntent.DeleteCharacterClicked -> deleteCharacter()
             is CharacterSheetIntent.LongRestConfirmed -> longRest()
             is CharacterSheetIntent.ShortRestConfirmed -> shortRest()

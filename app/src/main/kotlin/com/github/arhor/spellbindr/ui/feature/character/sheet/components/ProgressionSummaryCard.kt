@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +20,7 @@ import com.github.arhor.spellbindr.ui.feature.character.sheet.model.ProgressionS
 @Composable
 internal fun ProgressionSummaryCard(
     progression: ProgressionSummaryUiModel,
+    onLevelUp: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -35,7 +38,7 @@ internal fun ProgressionSummaryCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             when (progression) {
-                is ProgressionSummaryUiModel.Managed -> ManagedProgressionSummary(progression)
+                is ProgressionSummaryUiModel.Managed -> ManagedProgressionSummary(progression, onLevelUp)
                 is ProgressionSummaryUiModel.Unmanaged -> UnmanagedProgressionSummary(progression)
             }
         }
@@ -45,6 +48,7 @@ internal fun ProgressionSummaryCard(
 @Composable
 private fun ManagedProgressionSummary(
     progression: ProgressionSummaryUiModel.Managed,
+    onLevelUp: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -81,6 +85,9 @@ private fun ManagedProgressionSummary(
             )
         }
     }
+    Button(onClick = onLevelUp, enabled = progression.totalLevel < 20, modifier = Modifier.fillMaxWidth()) {
+        Text(if (progression.totalLevel >= 20) "Maximum level reached" else "Level up")
+    }
 }
 
 @Composable
@@ -97,4 +104,7 @@ private fun UnmanagedProgressionSummary(
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurface,
     )
+    OutlinedButton(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth()) {
+        Text("Set up level progression")
+    }
 }

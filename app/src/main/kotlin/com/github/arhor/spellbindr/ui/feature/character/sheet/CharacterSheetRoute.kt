@@ -52,6 +52,7 @@ fun CharacterSheetRoute(
     onOpenSpellDetail: (String) -> Unit,
     onAddSpells: (String) -> Unit,
     onOpenFullEditor: (String) -> Unit,
+    onLevelUp: (String) -> Unit,
     onCharacterDeleted: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -96,6 +97,7 @@ fun CharacterSheetRoute(
             is CharacterSheetIntent.SpellSelected -> onOpenSpellDetail(intent.spellId)
             CharacterSheetIntent.AddSpellsClicked -> contentState?.characterId?.let(onAddSpells)
             CharacterSheetIntent.OpenFullEditorClicked -> contentState?.characterId?.let(onOpenFullEditor)
+            CharacterSheetIntent.LevelUpClicked -> contentState?.characterId?.let(onLevelUp)
             CharacterSheetIntent.LongRestClicked -> showLongRestConfirmation = true
             CharacterSheetIntent.ShortRestClicked -> showShortRestConfirmation = true
             else -> vm.dispatch(intent)
@@ -135,6 +137,23 @@ fun CharacterSheetRoute(
                         expanded = overflowExpanded,
                         onDismissRequest = { overflowExpanded = false },
                     ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    when (val progression = contentState?.progression) {
+                                        is com.github.arhor.spellbindr.ui.feature.character.sheet.model.ProgressionSummaryUiModel.Managed ->
+                                            if (progression.totalLevel >= 20) "Level up · Maximum level reached" else "Level up"
+                                        else -> "Set up level progression"
+                                    },
+                                )
+                            },
+                            onClick = {
+                                overflowExpanded = false
+                                dispatch(CharacterSheetIntent.LevelUpClicked)
+                            },
+                            enabled = (contentState?.progression as? com.github.arhor.spellbindr.ui.feature.character.sheet.model.ProgressionSummaryUiModel.Managed)
+                                ?.totalLevel in 1..19,
+                        )
                         DropdownMenuItem(
                             text = { Text("Open full editor") },
                             onClick = {

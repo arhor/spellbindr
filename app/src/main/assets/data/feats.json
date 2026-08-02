@@ -177,10 +177,11 @@
     "name": "Grappler",
     "prerequisites": [
       {
-        "abilityScore": {
-          "id": "str"
-        },
-        "minimumScore": 13
+        "type": "ability-score",
+        "abilityScore": [
+          "str"
+        ],
+        "minimumValue": 13
       }
     ],
     "desc": [

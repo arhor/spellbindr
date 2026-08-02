@@ -224,6 +224,13 @@ private fun CharacterEditorForm(
                 )
             }
         }
+        if (state.isProgressionManaged) {
+            Text(
+                text = "Level, class, ability scores, grants, and spell capacities are managed by Level Up.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
         SectionCard(title = "Identity") {
             OutlinedTextField(
                 value = state.name,
@@ -242,12 +249,14 @@ private fun CharacterEditorForm(
                     onValueChange = onClassChanged,
                     label = { Text("Class") },
                     modifier = Modifier.weight(1f),
+                    enabled = !state.isProgressionManaged,
                 )
                 OutlinedTextField(
                     value = state.level,
                     onValueChange = onLevelChanged,
                     label = { Text("Level") },
                     modifier = Modifier.weight(1f),
+                    enabled = !state.isProgressionManaged,
                     isError = state.levelError != null,
                     supportingText = state.levelError?.let { error -> { Text(error) } },
                     keyboardOptions = KeyboardOptions.Default.copy(
@@ -294,6 +303,7 @@ private fun CharacterEditorForm(
         SectionCard(title = "Ability Scores") {
             AbilityGrid(
                 abilities = state.abilities,
+                enabled = !state.isProgressionManaged,
                 onAbilityChanged = { ability, value ->
                     onAbilityChanged(ability, value)
                 },
@@ -306,6 +316,7 @@ private fun CharacterEditorForm(
                     onValueChange = onProficiencyBonusChanged,
                     label = { Text("Proficiency bonus") },
                     modifier = Modifier.weight(1f),
+                    enabled = !state.isProgressionManaged,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number,
                         imeAction = ImeAction.Next,
@@ -334,6 +345,7 @@ private fun CharacterEditorForm(
                     onValueChange = onMaxHpChanged,
                     label = { Text("Max HP") },
                     modifier = Modifier.weight(1f),
+                    enabled = !state.isProgressionManaged,
                     isError = state.maxHitPointsError != null,
                     supportingText = state.maxHitPointsError?.let { error -> { Text(error) } },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -383,6 +395,7 @@ private fun CharacterEditorForm(
                     onValueChange = onHitDiceChanged,
                     label = { Text("Hit Dice") },
                     modifier = Modifier.weight(1f),
+                    enabled = !state.isProgressionManaged,
                 )
             }
         }
@@ -391,6 +404,7 @@ private fun CharacterEditorForm(
                 state.savingThrows.forEach { entry ->
                     SavingThrowRow(
                         entry = entry,
+                        enabled = !state.isProgressionManaged,
                         onProficiencyChanged = {
                             onSavingThrowProficiencyChanged(entry.abilityId, it)
                         },
@@ -403,6 +417,7 @@ private fun CharacterEditorForm(
                 state.skills.forEach { entry ->
                     SkillRow(
                         entry = entry,
+                        enabled = !state.isProgressionManaged,
                         onProficiencyChanged = {
                             onSkillProficiencyChanged(entry.skill, it)
                         },
@@ -512,6 +527,7 @@ private fun SectionCard(
 @Composable
 private fun AbilityGrid(
     abilities: List<AbilityFieldState>,
+    enabled: Boolean,
     onAbilityChanged: (AbilityId, String) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -523,6 +539,7 @@ private fun AbilityGrid(
                 rowItems.forEach { ability ->
                     AbilityCard(
                         state = ability,
+                        enabled = enabled,
                         onAbilityChanged = { value -> onAbilityChanged(ability.abilityId, value) },
                         modifier = Modifier.weight(1f),
                     )
@@ -538,6 +555,7 @@ private fun AbilityGrid(
 @Composable
 private fun AbilityCard(
     state: AbilityFieldState,
+    enabled: Boolean,
     onAbilityChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -561,6 +579,7 @@ private fun AbilityCard(
                 label = { Text("Score") },
                 singleLine = true,
                 isError = state.error != null,
+                enabled = enabled,
                 supportingText = state.error?.let { error -> { Text(error) } },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             )
@@ -576,6 +595,7 @@ private fun AbilityCard(
 @Composable
 private fun SavingThrowRow(
     entry: SavingThrowInputState,
+    enabled: Boolean,
     onProficiencyChanged: (Boolean) -> Unit,
 ) {
     Row(
@@ -589,6 +609,7 @@ private fun SavingThrowRow(
                 Checkbox(
                     checked = entry.proficient,
                     onCheckedChange = onProficiencyChanged,
+                    enabled = enabled,
                 )
                 Text(text = "Proficient")
             }
@@ -603,6 +624,7 @@ private fun SavingThrowRow(
 @Composable
 private fun SkillRow(
     entry: SkillInputState,
+    enabled: Boolean,
     onProficiencyChanged: (Boolean) -> Unit,
     onExpertiseChanged: (Boolean) -> Unit,
 ) {
@@ -622,6 +644,7 @@ private fun SkillRow(
                 Checkbox(
                     checked = entry.proficient,
                     onCheckedChange = onProficiencyChanged,
+                    enabled = enabled,
                 )
                 Text(text = "Proficient")
             }
@@ -629,6 +652,7 @@ private fun SkillRow(
                 Checkbox(
                     checked = entry.expertise,
                     onCheckedChange = onExpertiseChanged,
+                    enabled = enabled,
                 )
                 Text(text = "Expertise")
             }

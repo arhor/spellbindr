@@ -8,6 +8,7 @@ import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.SkillEntry
 import com.github.arhor.spellbindr.domain.model.SpellSlotState
 import com.github.arhor.spellbindr.domain.model.Weapon
+import com.github.arhor.spellbindr.domain.model.ManagedProgressionSheetState
 import com.github.arhor.spellbindr.domain.model.defaultSavingThrows
 import com.github.arhor.spellbindr.domain.model.defaultSkills
 import com.github.arhor.spellbindr.domain.model.defaultSpellSlots
@@ -54,4 +55,7 @@ data class CharacterSheetSnapshot(
     val notes: String = "",
     val characterSpells: List<CharacterSpell> = emptyList(),
     val weapons: List<Weapon> = emptyList(),
+    /** Added with a default so snapshots written before level-up support remain decodable. */
+    val manualProficiencyIds: Set<String> = emptySet(),
+    val managedProgression: ManagedProgressionSheetState? = null,
 )

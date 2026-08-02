@@ -10,6 +10,7 @@ import com.github.arhor.spellbindr.data.local.assets.ConditionsDataStore
 import com.github.arhor.spellbindr.data.local.assets.DefaultAssetBootstrapper
 import com.github.arhor.spellbindr.data.local.assets.EquipmentAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.FeaturesAssetDataStore
+import com.github.arhor.spellbindr.data.local.assets.FeatsAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.LanguagesAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.SpellAssetDataStore
 import com.github.arhor.spellbindr.data.local.assets.TraitsAssetDataStore
@@ -65,6 +66,11 @@ abstract class AssetDataStoreModule {
     @Binds
     @IntoSet
     abstract fun bindFeaturesAssetDataStore(dataStore: FeaturesAssetDataStore)
+        : AssetDataStore<*>
+
+    @Binds
+    @IntoSet
+    abstract fun bindFeatsAssetDataStore(dataStore: FeatsAssetDataStore)
         : AssetDataStore<*>
 
     @Binds

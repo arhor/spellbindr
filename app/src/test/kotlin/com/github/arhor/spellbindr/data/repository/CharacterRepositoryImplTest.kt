@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.data.repository
 
 import com.github.arhor.spellbindr.data.local.database.CharacterProgressionJsonCodec
+import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterEntity
 import com.github.arhor.spellbindr.data.local.database.entity.CharacterProgressionEntity
@@ -38,7 +39,8 @@ class CharacterRepositoryImplTest {
             classDiscriminator = "type"
         }
     )
-    private val repository = CharacterRepositoryImpl(characterDao, progressionJsonCodec)
+    private val database = mockk<SpellbindrDatabase>(relaxed = true)
+    private val repository = CharacterRepositoryImpl(characterDao, progressionJsonCodec, database)
 
     @Test
     fun `observeCharacterWithProgression should map unmanaged state when progression row is missing`() = runTest {

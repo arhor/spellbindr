@@ -51,7 +51,13 @@ data class CharacterLevelRecord(
     val featureChoices: Map<String, Set<String>> = emptyMap(),
     val proficiencyChoices: List<ProficiencyChoiceSelection> = emptyList(),
     val abilityScoreDecision: AbilityScoreDecision? = null,
+    /** Selections owned by a feat, keyed by the feat's stable choice id. */
+    val featChoices: Map<String, Set<String>> = emptyMap(),
     val spellChanges: SpellChanges = SpellChanges(),
+    /** Overrideable rules explicitly acknowledged while this level was taken. */
+    val ruleAcknowledgements: Set<String> = emptySet(),
+    /** Optional player-facing context for an acknowledgement or manual HP result. */
+    val notes: String? = null,
 )
 
 @Serializable

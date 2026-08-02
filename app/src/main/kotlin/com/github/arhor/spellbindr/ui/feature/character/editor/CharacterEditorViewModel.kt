@@ -9,12 +9,14 @@ import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSheetInputError
+import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
+import com.github.arhor.spellbindr.domain.model.ProgressionState
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.SkillEntry
 import com.github.arhor.spellbindr.domain.usecase.BuildCharacterSheetFromInputsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ComputeDerivedBonusesUseCase
-import com.github.arhor.spellbindr.domain.usecase.LoadCharacterSheetUseCase
+import com.github.arhor.spellbindr.domain.usecase.LoadCharacterWithProgressionUseCase
 import com.github.arhor.spellbindr.domain.usecase.SaveCharacterSheetUseCase
 import com.github.arhor.spellbindr.domain.usecase.ValidateCharacterSheetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +35,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterEditorViewModel @Inject constructor(
-    private val loadCharacterSheetUseCase: LoadCharacterSheetUseCase,
+    private val loadCharacterWithProgressionUseCase: LoadCharacterWithProgressionUseCase,
     private val saveCharacterSheetUseCase: SaveCharacterSheetUseCase,
     private val validateCharacterSheetUseCase: ValidateCharacterSheetUseCase,
     private val computeDerivedBonusesUseCase: ComputeDerivedBonusesUseCase,
@@ -61,11 +63,11 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun observeCharacter(id: String) {
-        loadCharacterSheetUseCase(id)
-            .onEach { sheet ->
-                _uiState.value = if (sheet != null) {
-                    baseSheet = sheet
-                    sheet.toEditorState(computeDerivedBonusesUseCase)
+        loadCharacterWithProgressionUseCase(id)
+            .onEach { character ->
+                _uiState.value = if (character != null) {
+                    baseSheet = character.sheet
+                    character.toEditorState(computeDerivedBonusesUseCase)
                 } else {
                     CharacterEditorUiState.Content(
                         characterId = id,
@@ -126,10 +128,12 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onClassChanged(value: String) {
+        if (isManagedCharacter()) return
         updateContent { it.copy(className = value) }
     }
 
     private fun onLevelChanged(value: String) {
+        if (isManagedCharacter()) return
         updateContent { it.copy(level = value, levelError = null) }
     }
 
@@ -150,6 +154,7 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onAbilityChanged(abilityId: AbilityId, value: String) {
+        if (isManagedCharacter()) return
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 abilities = state.abilities.map { field ->
@@ -160,6 +165,7 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onProficiencyBonusChanged(value: String) {
+        if (isManagedCharacter()) return
         updateContent(recomputeDerivedBonuses = true) { it.copy(proficiencyBonus = value) }
     }
 
@@ -168,6 +174,7 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onMaxHpChanged(value: String) {
+        if (isManagedCharacter()) return
         updateContent { it.copy(maxHitPoints = value, maxHitPointsError = null) }
     }
 
@@ -192,10 +199,12 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onHitDiceChanged(value: String) {
+        if (isManagedCharacter()) return
         updateContent { it.copy(hitDice = value) }
     }
 
     private fun onSavingThrowProficiencyChanged(abilityId: AbilityId, value: Boolean) {
+        if (isManagedCharacter()) return
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 savingThrows = state.savingThrows.map { entry ->
@@ -206,6 +215,7 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onSkillProficiencyChanged(skill: Skill, value: Boolean) {
+        if (isManagedCharacter()) return
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 skills = state.skills.map { entry ->
@@ -216,6 +226,7 @@ class CharacterEditorViewModel @Inject constructor(
     }
 
     private fun onSkillExpertiseChanged(skill: Skill, value: Boolean) {
+        if (isManagedCharacter()) return
         updateContent(recomputeDerivedBonuses = true) { state ->
             state.copy(
                 skills = state.skills.map { entry ->
@@ -289,6 +300,7 @@ class CharacterEditorViewModel @Inject constructor(
 
         viewModelScope.launch {
             val sheet = buildCharacterSheetFromInputsUseCase(validatedState.toDomainInput(), baseSheet)
+                .preservingProgressionOwnedFieldsFrom(baseSheet, validatedState.isProgressionManaged)
             _uiState.update { state ->
                 if (state is CharacterEditorUiState.Content) {
                     state.copy(
@@ -344,6 +356,9 @@ class CharacterEditorViewModel @Inject constructor(
             }
         }
     }
+
+    private fun isManagedCharacter(): Boolean =
+        (_uiState.value as? CharacterEditorUiState.Content)?.isProgressionManaged == true
 }
 
 enum class EditorMode {
@@ -359,6 +374,7 @@ sealed interface CharacterEditorUiState {
     data class Content(
         val characterId: String? = null,
         val mode: EditorMode = EditorMode.Create,
+        val isProgressionManaged: Boolean = false,
         val isSaving: Boolean = false,
         val name: String = "",
         val nameError: String? = null,
@@ -443,45 +459,70 @@ data class SkillInputState(
     }
 }
 
-private fun CharacterSheet.toEditorState(
+private fun CharacterWithProgression.toEditorState(
     computeDerivedBonusesUseCase: ComputeDerivedBonusesUseCase,
 ): CharacterEditorUiState.Content {
-    val baseState = CharacterEditorUiState.Content(
-        characterId = id,
-        mode = EditorMode.Edit,
-        name = name,
-        className = className,
-        level = level.toString(),
-        race = race,
-        background = background,
-        alignment = alignment,
-        experiencePoints = experiencePoints?.toString() ?: "",
-        abilities = abilityScores.toFieldStates(),
-        proficiencyBonus = proficiencyBonus.toString(),
-        inspiration = inspiration,
-        maxHitPoints = maxHitPoints.toString(),
-        currentHitPoints = currentHitPoints.toString(),
-        temporaryHitPoints = temporaryHitPoints.toString(),
-        armorClass = armorClass.toString(),
-        initiative = initiative.toString(),
-        speed = speed,
-        hitDice = hitDice,
-        savingThrows = savingThrows.savingThrowsToInputStates(),
-        skills = skills.skillsToInputStates(),
-        senses = senses,
-        languages = languages,
-        proficiencies = proficiencies,
-        attacksAndCantrips = attacksAndCantrips,
-        featuresAndTraits = featuresAndTraits,
-        equipment = equipment,
-        personalityTraits = personalityTraits,
-        ideals = ideals,
-        bonds = bonds,
-        flaws = flaws,
-        notes = notes,
+    val characterSheet = sheet
+    val isProgressionManaged = progressionState is ProgressionState.Managed
+    return characterSheet.run {
+        val baseState = CharacterEditorUiState.Content(
+            characterId = id,
+            mode = EditorMode.Edit,
+            isProgressionManaged = isProgressionManaged,
+            name = name,
+            className = className,
+            level = level.toString(),
+            race = race,
+            background = background,
+            alignment = alignment,
+            experiencePoints = experiencePoints?.toString() ?: "",
+            abilities = abilityScores.toFieldStates(),
+            proficiencyBonus = proficiencyBonus.toString(),
+            inspiration = inspiration,
+            maxHitPoints = maxHitPoints.toString(),
+            currentHitPoints = currentHitPoints.toString(),
+            temporaryHitPoints = temporaryHitPoints.toString(),
+            armorClass = armorClass.toString(),
+            initiative = initiative.toString(),
+            speed = speed,
+            hitDice = hitDice,
+            savingThrows = savingThrows.savingThrowsToInputStates(),
+            skills = skills.skillsToInputStates(),
+            senses = senses,
+            languages = languages,
+            proficiencies = proficiencies,
+            attacksAndCantrips = attacksAndCantrips,
+            featuresAndTraits = featuresAndTraits,
+            equipment = equipment,
+            personalityTraits = personalityTraits,
+            ideals = ideals,
+            bonds = bonds,
+            flaws = flaws,
+            notes = notes,
+        )
+        val derived = computeDerivedBonusesUseCase(baseState.toDomainInput())
+        baseState.withDerivedBonuses(derived)
+    }
+}
+
+private fun CharacterSheet.preservingProgressionOwnedFieldsFrom(
+    base: CharacterSheet?,
+    isProgressionManaged: Boolean,
+): CharacterSheet {
+    if (!isProgressionManaged || base == null) return this
+    return copy(
+        level = base.level,
+        className = base.className,
+        abilityScores = base.abilityScores,
+        proficiencyBonus = base.proficiencyBonus,
+        maxHitPoints = base.maxHitPoints,
+        hitDice = base.hitDice,
+        spellSlots = base.spellSlots,
+        pactSlots = base.pactSlots,
+        savingThrows = base.savingThrows,
+        skills = base.skills,
+        managedProgression = base.managedProgression,
     )
-    val derived = computeDerivedBonusesUseCase(baseState.toDomainInput())
-    return baseState.withDerivedBonuses(derived)
 }
 
 private fun CharacterSheetInputError.toRequiredMessage(): String = "Required"
