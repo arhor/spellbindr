@@ -4,7 +4,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertDoesNotExist
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.isToggleable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodes
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -12,6 +14,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
 import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Feat
@@ -26,6 +29,9 @@ import com.github.arhor.spellbindr.domain.model.LevelUpSnapshot
 import com.github.arhor.spellbindr.domain.model.LevelUpFeatureSpellGrantRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpSpellOption
 import com.github.arhor.spellbindr.domain.model.LevelUpSpellReplacementRequirement
+import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
+import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
+import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.SpellChanges
 import com.github.arhor.spellbindr.domain.model.SpellReplacement
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -39,6 +45,81 @@ class CharacterLevelUpScreenTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch class selection when class option is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val fighter = characterClass("fighter", "Fighter")
+        setContent(
+            contentState(
+                step = CharacterLevelUpStep.Class,
+                classes = listOf(fighter),
+                requirements = listOf(LevelUpRequirement.ClassSelection(
+                    eligibleClassIds = listOf(fighter.id),
+                    selectedClassId = null,
+                )),
+            ),
+            intents::add,
+        )
+
+        // When
+        composeTestRule.onNodeWithText("Fighter").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.ClassSelected("fighter"))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch subclass selection when subclass option is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        setContent(
+            contentState(
+                step = CharacterLevelUpStep.Choices,
+                requirements = listOf(LevelUpRequirement.SubclassSelection(
+                    id = "fighter:3:subclass",
+                    classId = "fighter",
+                    options = listOf(LevelUpChoiceOption("champion", "Champion")),
+                    selectedSubclassId = null,
+                )),
+            ),
+            intents::add,
+        )
+
+        // When
+        composeTestRule.onNodeWithText("Champion").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SubclassSelected("champion"))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch feature choice when choice option is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        setContent(
+            contentState(
+                step = CharacterLevelUpStep.Choices,
+                requirements = listOf(LevelUpRequirement.ChoiceSelection(
+                    id = "fighting-style",
+                    sourceId = "fighter",
+                    label = "Fighting Style",
+                    choice = Choice.OptionsArrayChoice(1, listOf("defense")),
+                    selectedOptionIds = emptySet(),
+                    category = LevelUpChoiceCategory.Feature,
+                    options = listOf(LevelUpChoiceOption("defense", "Defense")),
+                )),
+            ),
+            intents::add,
+        )
+
+        // When
+        composeTestRule.onNodeWithText("Defense").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.ChoiceToggled("fighting-style", "defense", 1))
+    }
 
     @Test
     fun `CharacterLevelUpScreen should dispatch fixed hit points when fixed option is clicked`() {
@@ -476,6 +557,112 @@ class CharacterLevelUpScreenTest {
         assertThat(intents).isEmpty()
     }
 
+    @Test
+    fun `CharacterLevelUpScreen should dispatch acknowledgement when review checkbox is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val issue = LevelUpValidationIssue(
+            code = LevelUpValidationCode.MulticlassPrerequisite,
+            message = "Multiclass prerequisite is not met.",
+            severity = LevelUpValidationSeverity.Overrideable,
+        )
+        setContent(reviewState(validations = listOf(issue)), intents::add)
+
+        // When
+        composeTestRule.onAllNodes(isToggleable())[0].performClick()
+
+        // Then
+        assertThat(intents).contains(
+            CharacterLevelUpIntent.AcknowledgementChanged(issue.acknowledgementId, true),
+        )
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch reload when stale draft action is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        setContent(reviewState(staleMessage = "The character changed."), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Reload draft").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.ReloadClicked)
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch confirm when valid review is confirmed`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        setContent(reviewState(), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Confirm level up").assertIsEnabled().performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.ConfirmClicked)
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch back when back action is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        setContent(reviewState(), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Back").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.BackClicked)
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch cancel when cancel action is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        setContent(hitPointState(), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Cancel").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.CancelClicked)
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should disable review controls when confirmation is saving`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val issue = LevelUpValidationIssue(
+            code = LevelUpValidationCode.MulticlassPrerequisite,
+            message = "Multiclass prerequisite is not met.",
+            severity = LevelUpValidationSeverity.Overrideable,
+        )
+        setContent(
+            reviewState(
+                validations = listOf(issue),
+                staleMessage = "The character changed.",
+                isSaving = true,
+            ),
+            intents::add,
+        )
+
+        // When
+        val cancel = composeTestRule.onNodeWithText("Cancel")
+        val back = composeTestRule.onNodeWithText("Back")
+        val confirm = composeTestRule.onNodeWithText("Saving…")
+        val reload = composeTestRule.onNodeWithText("Reload draft")
+        val acknowledgement = composeTestRule.onAllNodes(isToggleable())[0]
+
+        // Then
+        cancel.assertIsNotEnabled()
+        back.assertIsNotEnabled()
+        confirm.assertIsNotEnabled()
+        reload.assertIsNotEnabled()
+        acknowledgement.assertIsNotEnabled()
+        assertThat(intents).isEmpty()
+    }
+
     private fun setContent(
         state: CharacterLevelUpUiState.Content,
         dispatch: CharacterLevelUpDispatch,
@@ -532,6 +719,24 @@ class CharacterLevelUpScreenTest {
             requirements = listOf(requirement),
         )
 
+    private fun reviewState(
+        validations: List<LevelUpValidationIssue> = emptyList(),
+        staleMessage: String? = null,
+        isSaving: Boolean = false,
+    ): CharacterLevelUpUiState.Content {
+        val before = snapshot(AbilityScores())
+        return contentState(
+            step = CharacterLevelUpStep.Review,
+            requirements = emptyList(),
+        ).copy(
+            preview = LevelUpPreview(before, before.copy(totalLevel = 4), emptyList(), validations),
+            steps = listOf(CharacterLevelUpStep.Class, CharacterLevelUpStep.Review),
+            currentStepIndex = 1,
+            staleMessage = staleMessage,
+            isSaving = isSaving,
+        )
+    }
+
     private fun spellRequirement(
         classId: String = "bard",
         policyId: String = "known",
@@ -563,6 +768,7 @@ class CharacterLevelUpScreenTest {
     private fun contentState(
         step: CharacterLevelUpStep,
         abilities: AbilityScores = AbilityScores(),
+        classes: List<CharacterClass> = emptyList(),
         feats: List<Feat> = emptyList(),
         selections: LevelUpSelections = LevelUpSelections(),
         requirements: List<LevelUpRequirement>,
@@ -578,7 +784,7 @@ class CharacterLevelUpScreenTest {
                 selections = selections,
             ),
             preview = LevelUpPreview(before, before.copy(totalLevel = 4), requirements, emptyList()),
-            classes = emptyList(),
+            classes = classes,
             feats = feats,
             spells = emptyList(),
             steps = listOf(step, CharacterLevelUpStep.Review),
@@ -600,5 +806,16 @@ class CharacterLevelUpScreenTest {
         featureIds = emptySet(),
         sharedCasterLevel = 0,
         sharedSpellSlots = emptyMap(),
+    )
+
+    private fun characterClass(id: String, name: String) = CharacterClass(
+        id = id,
+        name = name,
+        hitDie = 10,
+        proficiencies = emptyList(),
+        proficiencyChoices = emptyList(),
+        savingThrows = emptyList(),
+        subclasses = emptyList(),
+        levels = emptyList(),
     )
 }

@@ -250,7 +250,13 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                     ?.let { requirement -> SpellDecisions(requirement, dispatch) }
             }
             CharacterLevelUpStep.Review -> {
-                state.staleMessage?.let { WarningCard(it); Button(onClick = { dispatch(CharacterLevelUpIntent.ReloadClicked) }) { Text("Reload draft") } }
+                state.staleMessage?.let {
+                    WarningCard(it)
+                    Button(
+                        enabled = !state.isSaving,
+                        onClick = { dispatch(CharacterLevelUpIntent.ReloadClicked) },
+                    ) { Text("Reload draft") }
+                }
                 state.persistenceMessage?.let { WarningCard(it) }
                 ReviewRow("Total level", state.preview.before.totalLevel.toString(), state.preview.after.totalLevel.toString())
                 ReviewRow("Class", state.preview.before.classDisplayName, state.preview.after.classDisplayName)
@@ -260,7 +266,16 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                     if (issue.severity == LevelUpValidationSeverity.Overrideable) {
                         val checked = issue.acknowledgementId in state.plan.selections.acknowledgedIssueCodes
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Checkbox(checked, onCheckedChange = { dispatch(CharacterLevelUpIntent.AcknowledgementChanged(issue.acknowledgementId, it)) })
+                            Checkbox(
+                                checked = checked,
+                                enabled = !state.isSaving,
+                                onCheckedChange = {
+                                    dispatch(CharacterLevelUpIntent.AcknowledgementChanged(
+                                        issue.acknowledgementId,
+                                        it,
+                                    ))
+                                },
+                            )
                             Text(issue.message)
                         }
                     } else WarningCard(issue.message)
@@ -268,8 +283,16 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End)) {
-            OutlinedButton(onClick = { dispatch(CharacterLevelUpIntent.CancelClicked) }) { Text("Cancel") }
-            if (state.currentStepIndex > 0) OutlinedButton(onClick = { dispatch(CharacterLevelUpIntent.BackClicked) }) { Text("Back") }
+            OutlinedButton(
+                enabled = !state.isSaving,
+                onClick = { dispatch(CharacterLevelUpIntent.CancelClicked) },
+            ) { Text("Cancel") }
+            if (state.currentStepIndex > 0) {
+                OutlinedButton(
+                    enabled = !state.isSaving,
+                    onClick = { dispatch(CharacterLevelUpIntent.BackClicked) },
+                ) { Text("Back") }
+            }
             if (state.isReview) Button(enabled = state.canConfirm, onClick = { dispatch(CharacterLevelUpIntent.ConfirmClicked) }) { Text(if (state.isSaving) "Saving…" else "Confirm level up") }
             else Button(
                 enabled = state.canAdvance,

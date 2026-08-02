@@ -58,6 +58,7 @@ class CharacterLevelUpViewModel @Inject constructor(
     private val characterId: String? = savedStateHandle["characterId"]
     private val draft = MutableStateFlow(restoredDraft())
     private var latestReady: SourceState.Ready? = null
+    private var confirmationInFlight = false
     private val _effects = MutableSharedFlow<CharacterLevelUpEffect>()
     val effects = _effects.asSharedFlow()
 
@@ -132,7 +133,7 @@ class CharacterLevelUpViewModel @Inject constructor(
             }
             CharacterLevelUpIntent.NextClicked -> move(1)
             CharacterLevelUpIntent.BackClicked -> move(-1)
-            CharacterLevelUpIntent.CancelClicked -> viewModelScope.launch { _effects.emit(CharacterLevelUpEffect.Cancelled) }
+            CharacterLevelUpIntent.CancelClicked -> cancel()
             CharacterLevelUpIntent.ConfirmClicked -> confirm()
             CharacterLevelUpIntent.ReloadClicked -> reloadDraft()
         }
@@ -158,20 +159,39 @@ class CharacterLevelUpViewModel @Inject constructor(
                 spells = source.reference.spells,
                 languages = source.reference.languages,
             )
-            val restored = draft?.plan?.takeIf { it.expectedTotalLevel == progression.totalLevel && it.rulesetId == progression.rulesetId && it.referenceDataVersion == reference.referenceDataVersion }
-            val plan = restored ?: createPlan(progression)
-            if (restored == null && draft != null) clearSavedDraft()
+            val restoredDraft = draft?.takeIf {
+                it.plan.expectedTotalLevel == progression.totalLevel &&
+                    it.plan.rulesetId == progression.rulesetId &&
+                    it.plan.referenceDataVersion == reference.referenceDataVersion
+            }
+            val plan = restoredDraft?.plan ?: createPlan(progression)
+            if (restoredDraft == null && draft != null) clearSavedDraft()
             val preview = rebuildPlan(source.character.sheet, progression, plan, reference)
             val steps = characterLevelUpSteps(preview.requirements)
-            val requested = restored?.let { draft.step } ?: CharacterLevelUpStep.Class
+            val requested = restoredDraft?.step ?: CharacterLevelUpStep.Class
             val step = requested.takeIf(steps::contains) ?: steps.first()
-            CharacterLevelUpUiState.Content(source.character.sheet.name, plan, preview, source.reference.classes, source.reference.feats, source.reference.spells, steps, step, steps.indexOf(step), draft?.isSaving == true, draft?.staleMessage, draft?.persistenceMessage)
+            CharacterLevelUpUiState.Content(
+                source.character.sheet.name,
+                plan,
+                preview,
+                source.reference.classes,
+                source.reference.feats,
+                source.reference.spells,
+                steps,
+                step,
+                steps.indexOf(step),
+                restoredDraft?.isSaving == true,
+                restoredDraft?.staleMessage,
+                restoredDraft?.persistenceMessage,
+            )
         }
         }
     }
 
     private fun updatePlan(transform: (LevelUpPlan) -> LevelUpPlan) {
+        if (confirmationInFlight) return
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
+        if (content.isSaving) return
         setDraft(SavedDraft(content.step, transform(content.plan)))
     }
 
@@ -200,20 +220,28 @@ class CharacterLevelUpViewModel @Inject constructor(
     }
 
     private fun move(delta: Int) {
+        if (confirmationInFlight) return
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
+        if (content.isSaving) return
         if (delta > 0 && !content.canAdvance) return
         val next = (content.currentStepIndex + delta).coerceIn(0, content.steps.lastIndex)
         setDraft(SavedDraft(content.steps[next], content.plan))
     }
 
     private fun reloadDraft() {
+        if (confirmationInFlight) return
         clearSavedDraft()
         draft.value = null
     }
 
+    private fun cancel() {
+        if (confirmationInFlight) return
+        viewModelScope.launch { _effects.emit(CharacterLevelUpEffect.Cancelled) }
+    }
+
     private fun confirm() {
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
-        if (!content.canConfirm || characterId == null) return
+        if (!content.canConfirm || characterId == null || confirmationInFlight) return
         val ready = latestReady ?: return
         val reference = LevelUpReferenceData(
             classes = ready.reference.classes,
@@ -223,22 +251,58 @@ class CharacterLevelUpViewModel @Inject constructor(
             spells = ready.reference.spells,
             languages = ready.reference.languages,
         )
+        confirmationInFlight = true
         setDraft(SavedDraft(content.step, content.plan, isSaving = true))
         viewModelScope.launch {
             when (val result = applyLevelUp(characterId, content.plan.expectedTotalLevel, content.plan, reference)) {
                 is ApplyLevelUpResult.Success -> { clearSavedDraft(); _effects.emit(CharacterLevelUpEffect.Completed) }
-                ApplyLevelUpResult.StaleState -> setDraft(SavedDraft(CharacterLevelUpStep.Review, content.plan, staleMessage = "The character changed. Reload this draft before confirming."))
-                is ApplyLevelUpResult.PersistenceFailure -> setDraft(SavedDraft(CharacterLevelUpStep.Review, content.plan, persistenceMessage = result.message.ifBlank { "Unable to save. Your reviewed choices are ready to retry." }))
-                is ApplyLevelUpResult.ValidationFailure -> setDraft(SavedDraft(CharacterLevelUpStep.Review, content.plan, persistenceMessage = result.issues.joinToString("\n") { it.message }))
-                ApplyLevelUpResult.MissingCharacter -> _effects.emit(CharacterLevelUpEffect.Message("Character not found"))
-                ApplyLevelUpResult.UnmanagedCharacter -> _effects.emit(CharacterLevelUpEffect.Message("This character is not managed"))
+                ApplyLevelUpResult.StaleState -> retainDraftAfterFailure(
+                    content.plan,
+                    staleMessage = "The character changed. Reload this draft before confirming.",
+                )
+                is ApplyLevelUpResult.PersistenceFailure -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = result.message.ifBlank {
+                        "Unable to save. Your reviewed choices are ready to retry."
+                    },
+                )
+                is ApplyLevelUpResult.ValidationFailure -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = result.issues.joinToString("\n") { it.message },
+                )
+                ApplyLevelUpResult.MissingCharacter -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = "Character not found",
+                )
+                ApplyLevelUpResult.UnmanagedCharacter -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = "This character is not managed",
+                )
             }
         }
     }
 
+    private fun retainDraftAfterFailure(
+        plan: LevelUpPlan,
+        staleMessage: String? = null,
+        persistenceMessage: String? = null,
+    ) {
+        confirmationInFlight = false
+        setDraft(SavedDraft(
+            step = CharacterLevelUpStep.Review,
+            plan = plan,
+            staleMessage = staleMessage,
+            persistenceMessage = persistenceMessage,
+        ))
+    }
+
     private fun setDraft(value: SavedDraft) { draft.value = value; savedStateHandle[DRAFT_KEY] = JSON.encodeToString(SavedDraft.serializer(), value) }
     private fun clearSavedDraft() { savedStateHandle.remove<String>(DRAFT_KEY) }
-    private fun restoredDraft(): SavedDraft? = savedStateHandle.get<String>(DRAFT_KEY)?.let { runCatching { JSON.decodeFromString(SavedDraft.serializer(), it) }.getOrNull() }
+    private fun restoredDraft(): SavedDraft? = savedStateHandle.get<String>(DRAFT_KEY)?.let {
+        runCatching { JSON.decodeFromString(SavedDraft.serializer(), it) }
+            .getOrNull()
+            ?.copy(isSaving = false)
+    }
 
     @Serializable
     private data class SavedDraft(val step: CharacterLevelUpStep, val plan: LevelUpPlan, val isSaving: Boolean = false, val staleMessage: String? = null, val persistenceMessage: String? = null)
