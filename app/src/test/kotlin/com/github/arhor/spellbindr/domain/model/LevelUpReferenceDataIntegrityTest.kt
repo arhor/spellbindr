@@ -101,8 +101,8 @@ class LevelUpReferenceDataIntegrityTest {
             assertThat(capability).isInstanceOf(FeatureCapability.Selection::class.java)
             assertThat((capability as FeatureCapability.Selection).choiceId).isEqualTo("${feature.id}:choice")
         }
-        assertThat(features.filter { it.choice == null }.map { capabilities.getValue(it.id) })
-            .containsOnly(FeatureCapability.Descriptive)
+        assertThat(features.filter { it.choice == null }.map { capabilities.getValue(it.id) }.toSet())
+            .containsExactly(FeatureCapability.Descriptive)
     }
 
     @Test
