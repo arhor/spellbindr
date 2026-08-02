@@ -123,7 +123,7 @@ class CharacterLevelUpViewModel @Inject constructor(
                 it.copy(selections = it.selections.copy(hitPointGain = null))
             }
             is CharacterLevelUpIntent.AbilityScoreDecisionSelected -> updatePlan { it.copy(selections = it.selections.copy(abilityScoreDecision = intent.decision, featChoices = emptyMap())) }
-            is CharacterLevelUpIntent.SpellChangesSelected -> updatePlan { it.copy(selections = it.selections.copy(spellChanges = intent.changes)) }
+            is CharacterLevelUpIntent.SpellChangesSelected -> updatePlan { it.applySpellChangesSelection(intent) }
             is CharacterLevelUpIntent.AcknowledgementChanged -> updatePlan { plan ->
                 val codes = plan.selections.acknowledgedIssueCodes.toMutableSet().apply {
                     if (intent.acknowledged) add(intent.issueCode) else remove(intent.issueCode)

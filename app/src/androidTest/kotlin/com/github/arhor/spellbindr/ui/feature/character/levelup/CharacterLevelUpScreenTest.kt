@@ -12,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
 import com.github.arhor.spellbindr.domain.model.AbilityScores
+import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Feat
 import com.github.arhor.spellbindr.domain.model.HitPointGain
@@ -22,6 +23,11 @@ import com.github.arhor.spellbindr.domain.model.LevelUpPreview
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpSelections
 import com.github.arhor.spellbindr.domain.model.LevelUpSnapshot
+import com.github.arhor.spellbindr.domain.model.LevelUpFeatureSpellGrantRequirement
+import com.github.arhor.spellbindr.domain.model.LevelUpSpellOption
+import com.github.arhor.spellbindr.domain.model.LevelUpSpellReplacementRequirement
+import com.github.arhor.spellbindr.domain.model.SpellChanges
+import com.github.arhor.spellbindr.domain.model.SpellReplacement
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
@@ -318,6 +324,158 @@ class CharacterLevelUpScreenTest {
         assertThat(intents).contains(CharacterLevelUpIntent.NextClicked)
     }
 
+    @Test
+    fun `CharacterLevelUpScreen should dispatch learned cantrip when cantrip option is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val requirement = spellRequirement(
+            classId = "druid",
+            policyId = "prepared",
+            requiredCantripCount = 1,
+            cantripCandidates = listOf(LevelUpSpellOption("fire-bolt", "Fire Bolt", 0)),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Fire Bolt").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SpellChangesSelected(
+            SpellChanges(learned = setOf(ClassSpellRef("druid", "fire-bolt"))),
+        ))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch known spell when known spell option is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val requirement = spellRequirement(
+            requiredKnownSpellCount = 1,
+            knownSpellCandidates = listOf(LevelUpSpellOption("healing-word", "Healing Word", 1)),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Healing Word (level 1)").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SpellChangesSelected(
+            SpellChanges(learned = setOf(ClassSpellRef("bard", "healing-word"))),
+        ))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch spellbook addition when spellbook option is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val requirement = spellRequirement(
+            classId = "wizard",
+            policyId = "spellbook",
+            requiredSpellbookAdditionCount = 1,
+            spellbookCandidates = listOf(LevelUpSpellOption("shield", "Shield", 1)),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Shield (level 1)").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SpellChangesSelected(
+            SpellChanges(addedToSpellbook = setOf(ClassSpellRef("wizard", "shield"))),
+        ))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch Magical Secrets grant when any class spell is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val option = LevelUpSpellOption("fire-bolt", "Fire Bolt", 0)
+        val requirement = spellRequirement(
+            featureSpellGrants = listOf(LevelUpFeatureSpellGrantRequirement(
+                featureId = "magical-secrets-1",
+                label = "Magical Secrets",
+                requiredCount = 2,
+                candidates = listOf(option),
+                selectedSpellIds = emptySet(),
+            )),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Fire Bolt").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SpellChangesSelected(
+            SpellChanges(featureLearned = mapOf(
+                "magical-secrets-1" to setOf(ClassSpellRef("bard", "fire-bolt")),
+            )),
+        ))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch pending replacement source when known source is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val source = LevelUpSpellOption("known-spell", "Known Spell", 1)
+        val target = LevelUpSpellOption("new-spell", "New Spell", 1)
+        val requirement = spellRequirement(
+            replacement = LevelUpSpellReplacementRequirement(listOf(source), listOf(target)),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("Known Spell (level 1)").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SpellChangesSelected(
+            SpellChanges(replacementSourceSpellId = "known-spell"),
+        ))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should dispatch completed replacement when replacement target is clicked`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val source = LevelUpSpellOption("known-spell", "Known Spell", 1)
+        val target = LevelUpSpellOption("new-spell", "New Spell", 1)
+        val changes = SpellChanges(replacementSourceSpellId = source.spellId)
+        val requirement = spellRequirement(
+            changes = changes,
+            replacement = LevelUpSpellReplacementRequirement(
+                sourceCandidates = listOf(source),
+                replacementCandidates = listOf(target),
+                selectedSourceSpellId = source.spellId,
+            ),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        composeTestRule.onNodeWithText("New Spell (level 1)").performClick()
+
+        // Then
+        assertThat(intents).contains(CharacterLevelUpIntent.SpellChangesSelected(
+            SpellChanges(replaced = setOf(SpellReplacement("bard", "known-spell", "new-spell"))),
+        ))
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should disable next when spell count is unresolved`() {
+        // Given
+        val intents = mutableListOf<CharacterLevelUpIntent>()
+        val requirement = spellRequirement(
+            requiredKnownSpellCount = 1,
+            knownSpellCandidates = listOf(LevelUpSpellOption("healing-word", "Healing Word", 1)),
+        )
+        setContent(spellState(requirement), intents::add)
+
+        // When
+        val next = composeTestRule.onNodeWithText("Next")
+
+        // Then
+        next.assertIsNotEnabled()
+        assertThat(intents).isEmpty()
+    }
+
     private fun setContent(
         state: CharacterLevelUpUiState.Content,
         dispatch: CharacterLevelUpDispatch,
@@ -366,6 +524,41 @@ class CharacterLevelUpScreenTest {
             requirements = listOfNotNull(requirement, featChoice),
         )
     }
+
+    private fun spellState(requirement: LevelUpRequirement.SpellDecisions): CharacterLevelUpUiState.Content =
+        contentState(
+            step = CharacterLevelUpStep.Spells,
+            selections = LevelUpSelections(spellChanges = requirement.changes),
+            requirements = listOf(requirement),
+        )
+
+    private fun spellRequirement(
+        classId: String = "bard",
+        policyId: String = "known",
+        changes: SpellChanges = SpellChanges(),
+        requiredCantripCount: Int = 0,
+        cantripCandidates: List<LevelUpSpellOption> = emptyList(),
+        requiredKnownSpellCount: Int = 0,
+        knownSpellCandidates: List<LevelUpSpellOption> = emptyList(),
+        featureSpellGrants: List<LevelUpFeatureSpellGrantRequirement> = emptyList(),
+        replacement: LevelUpSpellReplacementRequirement? = null,
+        requiredSpellbookAdditionCount: Int = 0,
+        spellbookCandidates: List<LevelUpSpellOption> = emptyList(),
+    ) = LevelUpRequirement.SpellDecisions(
+        id = "$classId:2:spells",
+        classId = classId,
+        classLevel = 2,
+        policyId = policyId,
+        changes = changes,
+        requiredCantripCount = requiredCantripCount,
+        cantripCandidates = cantripCandidates,
+        requiredKnownSpellCount = requiredKnownSpellCount,
+        knownSpellCandidates = knownSpellCandidates,
+        featureSpellGrants = featureSpellGrants,
+        replacement = replacement,
+        requiredSpellbookAdditionCount = requiredSpellbookAdditionCount,
+        spellbookCandidates = spellbookCandidates,
+    )
 
     private fun contentState(
         step: CharacterLevelUpStep,

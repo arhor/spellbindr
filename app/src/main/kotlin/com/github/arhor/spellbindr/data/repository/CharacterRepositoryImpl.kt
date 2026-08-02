@@ -250,6 +250,7 @@ class CharacterRepositoryImpl @Inject constructor(
             } }
             .toMutableSet()
         (record.spellChanges.learned + record.spellChanges.addedToSpellbook +
+            record.spellChanges.featureLearned.values.flatten() +
             record.spellChanges.replaced.map { replacement ->
                 com.github.arhor.spellbindr.domain.model.ClassSpellRef(
                     replacement.classId,

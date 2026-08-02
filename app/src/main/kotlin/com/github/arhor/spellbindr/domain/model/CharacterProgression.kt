@@ -100,6 +100,10 @@ data class SpellChanges(
     val learned: Set<ClassSpellRef> = emptySet(),
     val replaced: Set<SpellReplacement> = emptySet(),
     val addedToSpellbook: Set<ClassSpellRef> = emptySet(),
+    /** Feature-owned grants, keyed by the stable feature id and stored with their owning class id. */
+    val featureLearned: Map<String, Set<ClassSpellRef>> = emptyMap(),
+    /** Restorable first half of an optional replacement; cleared when a complete replacement is selected. */
+    val replacementSourceSpellId: String? = null,
 )
 
 @Serializable

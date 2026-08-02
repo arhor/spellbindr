@@ -88,7 +88,11 @@ sealed interface CharacterLevelUpUiState {
                 ?.hasValidSelection() == true
 
             CharacterLevelUpStep.AbilityScore -> hasValidAbilityScoreDecision()
-            CharacterLevelUpStep.Spells -> preview.validations.none { it.code == LevelUpValidationCode.SpellPolicy }
+            CharacterLevelUpStep.Spells -> preview.requirements
+                .filterIsInstance<LevelUpRequirement.SpellDecisions>()
+                .singleOrNull()
+                ?.isComplete() == true &&
+                preview.validations.none { it.code == LevelUpValidationCode.SpellPolicy }
             CharacterLevelUpStep.Review -> false
         }
 
@@ -128,6 +132,35 @@ sealed interface CharacterLevelUpUiState {
             }
         }
     }
+}
+
+private fun LevelUpRequirement.SpellDecisions.isComplete(): Boolean {
+    val cantripIds = cantripCandidates.mapTo(hashSetOf()) { it.spellId }
+    val knownIds = knownSpellCandidates.mapTo(hashSetOf()) { it.spellId }
+    val spellbookIds = spellbookCandidates.mapTo(hashSetOf()) { it.spellId }
+    val selectedCantrips = changes.learned.filter { it.classId == classId && it.spellId in cantripIds }
+    val selectedKnown = changes.learned.filter { it.classId == classId && it.spellId in knownIds }
+    val selectedSpellbook = changes.addedToSpellbook.filter { it.classId == classId && it.spellId in spellbookIds }
+    val featureGrantsAreComplete = changes.featureLearned.keys == featureSpellGrants.map { it.featureId }.toSet() &&
+        featureSpellGrants.all { grant ->
+            val candidateIds = grant.candidates.mapTo(hashSetOf()) { it.spellId }
+            val selected = changes.featureLearned[grant.featureId].orEmpty()
+            selected.size == grant.requiredCount &&
+                selected.all { it.classId == classId && it.spellId in candidateIds }
+        }
+    val completedReplacement = changes.replaced.singleOrNull()
+    val replacementIsComplete = changes.replacementSourceSpellId == null &&
+        changes.replaced.size <= 1 &&
+        (completedReplacement == null || replacement?.let { requirement ->
+            completedReplacement.classId == classId &&
+                completedReplacement.removedSpellId in requirement.sourceCandidates.map { it.spellId } &&
+                completedReplacement.learnedSpellId in requirement.replacementCandidates.map { it.spellId }
+        } == true)
+    return selectedCantrips.size == requiredCantripCount &&
+        selectedKnown.size == requiredKnownSpellCount &&
+        selectedSpellbook.size == requiredSpellbookAdditionCount &&
+        featureGrantsAreComplete &&
+        replacementIsComplete
 }
 
 private fun LevelUpRequirement.HitPoints.hasValidSelection(): Boolean = when (val gain = selectedGain) {

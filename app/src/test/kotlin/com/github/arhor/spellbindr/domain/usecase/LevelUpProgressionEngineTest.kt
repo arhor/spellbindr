@@ -555,6 +555,8 @@ class LevelUpProgressionEngineTest {
         assertThat(eligibility.getValue("martial-adept").deferredDecision)
             .isEqualTo(LevelUpDeferredFeatDecision.ManeuverSelection)
         assertThat(eligibility.values.map { it.eligible }).containsExactly(false, false, false, false)
+        assertThat(eligibility.getValue("magic-initiate").reasons)
+            .contains("This feat's spell ownership and casting rules cannot be represented by the bundled progression model.")
         assertThat(preview.validations.map { it.code }).contains(LevelUpValidationCode.UnsupportedFeatDecision)
     }
 

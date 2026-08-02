@@ -137,6 +137,14 @@ sealed interface LevelUpRequirement {
         val classLevel: Int,
         val policyId: String,
         val changes: SpellChanges,
+        val requiredCantripCount: Int = 0,
+        val cantripCandidates: List<LevelUpSpellOption> = emptyList(),
+        val requiredKnownSpellCount: Int = 0,
+        val knownSpellCandidates: List<LevelUpSpellOption> = emptyList(),
+        val featureSpellGrants: List<LevelUpFeatureSpellGrantRequirement> = emptyList(),
+        val replacement: LevelUpSpellReplacementRequirement? = null,
+        val requiredSpellbookAdditionCount: Int = 0,
+        val spellbookCandidates: List<LevelUpSpellOption> = emptyList(),
         /** A mutable prepared list may contain at most this many spells, when applicable. */
         val preparationCapacity: Int? = null,
     ) : LevelUpRequirement
@@ -181,6 +189,30 @@ enum class LevelUpChoiceCategory {
 data class LevelUpChoiceOption(
     val id: String,
     val label: String = id,
+)
+
+@Serializable
+data class LevelUpSpellOption(
+    val spellId: String,
+    val name: String,
+    val level: Int,
+)
+
+@Serializable
+data class LevelUpSpellReplacementRequirement(
+    val sourceCandidates: List<LevelUpSpellOption>,
+    val replacementCandidates: List<LevelUpSpellOption>,
+    val selectedSourceSpellId: String? = null,
+    val selectedReplacementSpellId: String? = null,
+)
+
+@Serializable
+data class LevelUpFeatureSpellGrantRequirement(
+    val featureId: String,
+    val label: String,
+    val requiredCount: Int,
+    val candidates: List<LevelUpSpellOption>,
+    val selectedSpellIds: Set<String>,
 )
 
 @Serializable

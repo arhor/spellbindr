@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.character.levelup
 
 import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
 import com.github.arhor.spellbindr.domain.model.HitPointGain
+import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.SpellChanges
 
 sealed interface CharacterLevelUpIntent {
@@ -21,3 +22,7 @@ sealed interface CharacterLevelUpIntent {
 }
 
 typealias CharacterLevelUpDispatch = (CharacterLevelUpIntent) -> Unit
+
+internal fun LevelUpPlan.applySpellChangesSelection(
+    intent: CharacterLevelUpIntent.SpellChangesSelected,
+): LevelUpPlan = copy(selections = selections.copy(spellChanges = intent.changes))

@@ -46,6 +46,23 @@ class CharacterLevelUpStepPlannerTest {
     }
 
     @Test
+    fun `characterLevelUpSteps should remove spell step when changed requirements no longer contain spell decisions`() {
+        // Given
+        val before = listOf<LevelUpRequirement>(
+            LevelUpRequirement.SpellDecisions("bard:2:spells", "bard", 2, "known", SpellChanges()),
+        )
+        val after = listOf<LevelUpRequirement>(LevelUpRequirement.HitPoints(hitDie = 10, selectedGain = null))
+
+        // When
+        val beforeSteps = characterLevelUpSteps(before)
+        val afterSteps = characterLevelUpSteps(after)
+
+        // Then
+        assertThat(beforeSteps).contains(CharacterLevelUpStep.Spells)
+        assertThat(afterSteps).doesNotContain(CharacterLevelUpStep.Spells)
+    }
+
+    @Test
     fun `characterLevelUpSteps should keep feat owned choices in ability step when feat has a choice`() {
         // Given
         val requirements = listOf(

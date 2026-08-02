@@ -31,11 +31,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
+import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.HitPointGain
 import com.github.arhor.spellbindr.domain.model.LevelUpChoiceCategory
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
+import com.github.arhor.spellbindr.domain.model.LevelUpSpellOption
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
+import com.github.arhor.spellbindr.domain.model.SpellChanges
+import com.github.arhor.spellbindr.domain.model.SpellReplacement
 
 @Composable
 fun CharacterLevelUpScreen(
@@ -242,10 +246,8 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                 }
             }
             CharacterLevelUpStep.Spells -> {
-                val spellRequirement = state.preview.requirements.filterIsInstance<LevelUpRequirement.SpellDecisions>().firstOrNull()
-                Text("${spellRequirement?.policyId ?: "Spellcasting"} decisions are validated for this class level.")
-                spellRequirement?.preparationCapacity?.let { Text("You may prepare up to $it spells after leveling. Prepared spells remain mutable play state.") }
-                Text("Learned, replaced, and spellbook changes will be listed here when required by the class policy.")
+                state.preview.requirements.filterIsInstance<LevelUpRequirement.SpellDecisions>().firstOrNull()
+                    ?.let { requirement -> SpellDecisions(requirement, dispatch) }
             }
             CharacterLevelUpStep.Review -> {
                 state.staleMessage?.let { WarningCard(it); Button(onClick = { dispatch(CharacterLevelUpIntent.ReloadClicked) }) { Text("Reload draft") } }
@@ -275,6 +277,220 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
             ) { Text("Next") }
         }
     }
+}
+
+@Composable
+private fun SpellDecisions(
+    requirement: LevelUpRequirement.SpellDecisions,
+    dispatch: CharacterLevelUpDispatch,
+) {
+    Text(
+        "${requirement.policyId.replaceFirstChar { it.uppercase() }} spell decisions for " +
+            "class level ${requirement.classLevel}.",
+    )
+    if (requirement.requiredCantripCount > 0) {
+        SpellSelection(
+            title = "Choose ${requirement.requiredCantripCount} new cantrip(s)",
+            options = requirement.cantripCandidates,
+            selectedSpellIds = requirement.changes.learned
+                .filter { it.classId == requirement.classId }
+                .mapTo(hashSetOf()) { it.spellId },
+        ) { spellId ->
+            dispatch(CharacterLevelUpIntent.SpellChangesSelected(
+                requirement.changes.toggleLearned(
+                    classId = requirement.classId,
+                    spellId = spellId,
+                    candidates = requirement.cantripCandidates,
+                    maximum = requirement.requiredCantripCount,
+                ),
+            ))
+        }
+    }
+    if (requirement.requiredKnownSpellCount > 0) {
+        SpellSelection(
+            title = "Choose ${requirement.requiredKnownSpellCount} new known spell(s)",
+            options = requirement.knownSpellCandidates,
+            selectedSpellIds = requirement.changes.learned
+                .filter { it.classId == requirement.classId }
+                .mapTo(hashSetOf()) { it.spellId },
+        ) { spellId ->
+            dispatch(CharacterLevelUpIntent.SpellChangesSelected(
+                requirement.changes.toggleLearned(
+                    classId = requirement.classId,
+                    spellId = spellId,
+                    candidates = requirement.knownSpellCandidates,
+                    maximum = requirement.requiredKnownSpellCount,
+                ),
+            ))
+        }
+    }
+    requirement.featureSpellGrants.forEach { grant ->
+        SpellSelection(
+            title = "${grant.label}: choose ${grant.requiredCount} spell(s) from any class",
+            options = grant.candidates,
+            selectedSpellIds = grant.selectedSpellIds,
+        ) { spellId ->
+            dispatch(CharacterLevelUpIntent.SpellChangesSelected(
+                requirement.changes.toggleFeatureGrant(
+                    classId = requirement.classId,
+                    featureId = grant.featureId,
+                    spellId = spellId,
+                    candidates = grant.candidates,
+                    maximum = grant.requiredCount,
+                ),
+            ))
+        }
+    }
+    if (requirement.requiredSpellbookAdditionCount > 0) {
+        SpellSelection(
+            title = "Add ${requirement.requiredSpellbookAdditionCount} spell(s) to your spellbook",
+            options = requirement.spellbookCandidates,
+            selectedSpellIds = requirement.changes.addedToSpellbook
+                .filter { it.classId == requirement.classId }
+                .mapTo(hashSetOf()) { it.spellId },
+        ) { spellId ->
+            dispatch(CharacterLevelUpIntent.SpellChangesSelected(
+                requirement.changes.toggleSpellbookAddition(
+                    classId = requirement.classId,
+                    spellId = spellId,
+                    candidates = requirement.spellbookCandidates,
+                    maximum = requirement.requiredSpellbookAdditionCount,
+                ),
+            ))
+        }
+    }
+    requirement.replacement?.let { replacement ->
+        SectionTitle("Replace one known spell (optional)")
+        if (replacement.sourceCandidates.isEmpty()) {
+            Text("No currently known class spell is eligible for replacement.")
+        } else {
+            Text("Spell to replace")
+            replacement.sourceCandidates.forEach { option ->
+                FilterChip(
+                    selected = option.spellId == replacement.selectedSourceSpellId,
+                    onClick = {
+                        val updated = if (option.spellId == replacement.selectedSourceSpellId) {
+                            requirement.changes.copy(replaced = emptySet(), replacementSourceSpellId = null)
+                        } else {
+                            requirement.changes.copy(
+                                replaced = emptySet(),
+                                replacementSourceSpellId = option.spellId,
+                            )
+                        }
+                        dispatch(CharacterLevelUpIntent.SpellChangesSelected(updated))
+                    },
+                    label = { Text(option.displayLabel()) },
+                )
+            }
+            replacement.selectedSourceSpellId?.let { sourceSpellId ->
+                Text("Replacement spell")
+                replacement.replacementCandidates.forEach { option ->
+                    FilterChip(
+                        selected = option.spellId == replacement.selectedReplacementSpellId,
+                        onClick = {
+                            val updated = if (option.spellId == replacement.selectedReplacementSpellId) {
+                                requirement.changes.copy(
+                                    replaced = emptySet(),
+                                    replacementSourceSpellId = sourceSpellId,
+                                )
+                            } else {
+                                requirement.changes.copy(
+                                    replaced = setOf(SpellReplacement(
+                                        classId = requirement.classId,
+                                        removedSpellId = sourceSpellId,
+                                        learnedSpellId = option.spellId,
+                                    )),
+                                    replacementSourceSpellId = null,
+                                )
+                            }
+                            dispatch(CharacterLevelUpIntent.SpellChangesSelected(updated))
+                        },
+                        label = { Text(option.displayLabel()) },
+                    )
+                }
+            }
+        }
+    }
+    requirement.preparationCapacity?.let { capacity ->
+        Text("You may prepare up to $capacity spell(s) after leveling. Prepared spells remain mutable play state.")
+    }
+}
+
+@Composable
+private fun SpellSelection(
+    title: String,
+    options: List<LevelUpSpellOption>,
+    selectedSpellIds: Set<String>,
+    onToggle: (String) -> Unit,
+) {
+    SectionTitle(title)
+    if (options.isEmpty()) {
+        Text("No legal spells are available from the bundled catalog.")
+    }
+    options.forEach { option ->
+        FilterChip(
+            selected = option.spellId in selectedSpellIds,
+            onClick = { onToggle(option.spellId) },
+            label = { Text(option.displayLabel()) },
+        )
+    }
+}
+
+private fun LevelUpSpellOption.displayLabel(): String =
+    if (level == 0) name else "$name (level $level)"
+
+private fun SpellChanges.toggleLearned(
+    classId: String,
+    spellId: String,
+    candidates: List<LevelUpSpellOption>,
+    maximum: Int,
+): SpellChanges {
+    val candidateIds = candidates.mapTo(hashSetOf()) { it.spellId }
+    val updated = learned.toMutableSet()
+    val ref = ClassSpellRef(classId, spellId)
+    if (!updated.remove(ref)) {
+        val selectedInGroup = updated.filter { it.classId == classId && it.spellId in candidateIds }
+        if (selectedInGroup.size >= maximum) updated.remove(selectedInGroup.first())
+        updated.add(ref)
+    }
+    return copy(learned = updated)
+}
+
+private fun SpellChanges.toggleSpellbookAddition(
+    classId: String,
+    spellId: String,
+    candidates: List<LevelUpSpellOption>,
+    maximum: Int,
+): SpellChanges {
+    val candidateIds = candidates.mapTo(hashSetOf()) { it.spellId }
+    val updated = addedToSpellbook.toMutableSet()
+    val ref = ClassSpellRef(classId, spellId)
+    if (!updated.remove(ref)) {
+        val selectedInGroup = updated.filter { it.classId == classId && it.spellId in candidateIds }
+        if (selectedInGroup.size >= maximum) updated.remove(selectedInGroup.first())
+        updated.add(ref)
+    }
+    return copy(addedToSpellbook = updated)
+}
+
+private fun SpellChanges.toggleFeatureGrant(
+    classId: String,
+    featureId: String,
+    spellId: String,
+    candidates: List<LevelUpSpellOption>,
+    maximum: Int,
+): SpellChanges {
+    val candidateIds = candidates.mapTo(hashSetOf()) { it.spellId }
+    val updatedGrants = featureLearned.toMutableMap()
+    val selected = updatedGrants[featureId].orEmpty().toMutableSet()
+    val ref = ClassSpellRef(classId, spellId)
+    if (!selected.remove(ref)) {
+        val selectedInGroup = selected.filter { it.classId == classId && it.spellId in candidateIds }
+        if (selectedInGroup.size >= maximum) selected.remove(selectedInGroup.first())
+        selected.add(ref)
+    }
+    updatedGrants[featureId] = selected
+    return copy(featureLearned = updatedGrants)
 }
 
 @Composable private fun ChoiceRow(label: String, selected: Boolean, onClick: () -> Unit) = Surface(onClick = onClick, modifier = Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium) { Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) { RadioButton(selected, onClick = onClick); Text(label) } }

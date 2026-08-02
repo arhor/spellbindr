@@ -20,6 +20,7 @@ import com.github.arhor.spellbindr.domain.model.LevelUpChoiceOption
 import com.github.arhor.spellbindr.domain.model.LevelUpClassEligibility
 import com.github.arhor.spellbindr.domain.model.LevelUpDeferredFeatDecision
 import com.github.arhor.spellbindr.domain.model.LevelUpFeatEligibility
+import com.github.arhor.spellbindr.domain.model.LevelUpFeatureSpellGrantRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpHitDicePool
 import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.LevelUpPactMagicCapacity
@@ -29,6 +30,8 @@ import com.github.arhor.spellbindr.domain.model.LevelUpReferenceRules
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpSelections
 import com.github.arhor.spellbindr.domain.model.LevelUpSnapshot
+import com.github.arhor.spellbindr.domain.model.LevelUpSpellOption
+import com.github.arhor.spellbindr.domain.model.LevelUpSpellReplacementRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
@@ -70,8 +73,8 @@ class ValidateLevelUpPlanUseCase @Inject constructor() {
 /**
  * Pure rules engine shared by the wizard and the eventual transactional materializer.
  *
- * Spell legality deliberately remains a contract-only requirement here; the spell subsystem can extend it without
- * changing level ordering, multiclass checks, or the persisted draft shape.
+ * Spell choices are derived from the selected class's own progression. Shared multiclass slot capacity never widens
+ * a class spell list or the maximum spell level that class may learn.
  */
 object LevelUpProgressionEngine {
 
@@ -306,7 +309,15 @@ object LevelUpProgressionEngine {
                 validations,
             )
         }
-        validateSpellChanges(progression, selections.spellChanges, clazz, nextClassLevel, data, validations)
+        validateSpellChanges(
+            progression,
+            selections.spellChanges,
+            clazz,
+            nextClassLevel,
+            proposedSubclass,
+            data,
+            validations,
+        )
     }
 
     private fun validateHitPointGain(
@@ -454,12 +465,25 @@ object LevelUpProgressionEngine {
         changes: com.github.arhor.spellbindr.domain.model.SpellChanges,
         clazz: CharacterClass,
         classLevel: Int,
+        subclassId: String?,
         data: LevelUpReferenceData,
         validations: MutableList<LevelUpValidationIssue>,
     ) {
-        val policy = LevelUpReferenceRules.policyFor(clazz.id)?.spells ?: return
-        if (policy == SpellLearningPolicy.None) return
-        val allRefs = changes.learned + changes.addedToSpellbook + changes.replaced.flatMapTo(linkedSetOf()) {
+        val policy = LevelUpReferenceRules.policyFor(clazz.id)?.spells
+        if (policy == null || policy == SpellLearningPolicy.None) {
+            if (changes != com.github.arhor.spellbindr.domain.model.SpellChanges()) {
+                validations += blocking(
+                    LevelUpValidationCode.SpellPolicy,
+                    "The selected class does not allow spell decisions at this level.",
+                )
+            }
+            return
+        }
+        val featureRequirements = magicalSecretFeatures(clazz, classLevel, subclassId, data)
+        val featureRefs = changes.featureLearned.values.flatten()
+        val previouslyOwnedSpellIds = classOwnedSpellIds(progression, clazz.id)
+        val allRefs = changes.learned + changes.addedToSpellbook + featureRefs +
+            changes.replaced.flatMapTo(linkedSetOf()) {
             setOf(com.github.arhor.spellbindr.domain.model.ClassSpellRef(it.classId, it.removedSpellId),
                 com.github.arhor.spellbindr.domain.model.ClassSpellRef(it.classId, it.learnedSpellId))
         }
@@ -469,50 +493,126 @@ object LevelUpProgressionEngine {
         }
         val classSpellcasting = clazz.levels.firstOrNull { it.level == classLevel }?.spellcasting
         val previousSpellcasting = clazz.levels.firstOrNull { it.level == classLevel - 1 }?.spellcasting
+        val maximumSpellLevel = maximumSpellLevel(classSpellcasting)
         fun spell(ref: com.github.arhor.spellbindr.domain.model.ClassSpellRef) = data.spellsById[ref.spellId]
-        val invalid = allRefs.any { ref ->
+        val ordinaryGrantedRefs = changes.learned + changes.addedToSpellbook + changes.replaced.map { replacement ->
+            com.github.arhor.spellbindr.domain.model.ClassSpellRef(replacement.classId, replacement.learnedSpellId)
+        }
+        val replacementSourceRefs = changes.replaced.map { replacement ->
+            com.github.arhor.spellbindr.domain.model.ClassSpellRef(replacement.classId, replacement.removedSpellId)
+        }
+        val invalid = ordinaryGrantedRefs.any { ref ->
             val value = spell(ref)
             value == null || clazz.id !in value.classes.map { it.id } ||
-                value.level > classSpellcasting?.spellSlots.orEmpty().keys.maxOfOrNull { it.toInt() }.orZero()
+                value.level > maximumSpellLevel
+        } || replacementSourceRefs.any { ref ->
+            val value = spell(ref)
+            value == null || ref.spellId !in previouslyOwnedSpellIds || value.level > maximumSpellLevel
+        } || featureRefs.any { ref ->
+            val value = spell(ref)
+            value == null || value.level > maximumSpellLevel || ref.spellId in previouslyOwnedSpellIds
         }
-        if (invalid) validations += blocking(LevelUpValidationCode.SpellPolicy, "A selected spell is not legal for this class level.")
+        if (invalid) {
+            validations += blocking(
+                LevelUpValidationCode.SpellPolicy,
+                "A selected spell is not legal for this class level.",
+            )
+        }
         val selectedCantrips = changes.learned.count { spell(it)?.level == 0 }
         val selectedKnown = changes.learned.count { spell(it)?.level?.let { level -> level > 0 } == true }
-        val expectedCantrips = (classSpellcasting?.cantrips.orZero() - previousSpellcasting?.cantrips.orZero()).coerceAtLeast(0)
+        val expectedCantrips = (
+            classSpellcasting?.cantrips.orZero() - previousSpellcasting?.cantrips.orZero()
+        ).coerceAtLeast(0)
+        val expectedFeatureIds = featureRequirements.mapTo(hashSetOf()) { it.first }
+        val featureSelectionsAreInvalid = changes.featureLearned.keys != expectedFeatureIds ||
+            featureRequirements.any { (featureId, _) -> changes.featureLearned[featureId].orEmpty().size != 2 }
+        if (featureSelectionsAreInvalid) {
+            validations += blocking(
+                LevelUpValidationCode.SpellPolicy,
+                "Choose exactly two spells for each Magical Secrets feature gained at this level.",
+            )
+        }
+        val allNewSpellIds = changes.learned.map { it.spellId } +
+            changes.addedToSpellbook.map { it.spellId } +
+            featureRefs.map { it.spellId } +
+            changes.replaced.map { it.learnedSpellId }
+        if (allNewSpellIds.distinct().size != allNewSpellIds.size) {
+            validations += blocking(LevelUpValidationCode.SpellPolicy, "Each newly granted spell must be distinct.")
+        }
         when (policy) {
             is SpellLearningPolicy.Known -> {
-                val expectedKnown = (classSpellcasting?.spells.orZero() - previousSpellcasting?.spells.orZero()).coerceAtLeast(0)
+                val classMagicalSecretCount = featureRequirements.count { it.first in BARD_MAGICAL_SECRETS } * 2
+                val expectedKnown = ((
+                    classSpellcasting?.spells.orZero() - previousSpellcasting?.spells.orZero()
+                ).coerceAtLeast(0) - classMagicalSecretCount).coerceAtLeast(0)
                 if (selectedCantrips != expectedCantrips || selectedKnown != expectedKnown) {
-                    validations += blocking(LevelUpValidationCode.SpellPolicy, "Choose the required known spells and cantrips for this class level.")
+                    validations += blocking(
+                        LevelUpValidationCode.SpellPolicy,
+                        "Choose the required known spells and cantrips for this class level.",
+                    )
                 }
                 if (changes.addedToSpellbook.isNotEmpty() || changes.replaced.size > 1 ||
                     (changes.replaced.isNotEmpty() && classLevel < policy.replacementStartsAtLevel)
-                ) validations += blocking(LevelUpValidationCode.SpellPolicy, "The selected spell replacement is not allowed at this class level.")
+                ) {
+                    validations += blocking(
+                        LevelUpValidationCode.SpellPolicy,
+                        "The selected spell replacement is not allowed at this class level.",
+                    )
+                }
                 val currentlyKnown = classOwnedSpellIds(progression, clazz.id)
                 val removed = changes.replaced.map { it.removedSpellId }
                 val replacements = changes.replaced.map { it.learnedSpellId }
                 val learned = changes.learned.map { it.spellId }
                 if (removed.distinct().size != removed.size || replacements.distinct().size != replacements.size ||
-                    removed.any { it !in currentlyKnown } || changes.replaced.any { it.removedSpellId == it.learnedSpellId } ||
+                    removed.any { it !in currentlyKnown || data.spellsById[it]?.level == 0 } ||
+                    changes.replaced.any { it.removedSpellId == it.learnedSpellId } ||
+                    replacements.any { data.spellsById[it]?.level == 0 } ||
                     replacements.any { it in currentlyKnown && it !in removed } ||
                     (replacements + learned).distinct().size != replacements.size + learned.size ||
                     learned.any { it in currentlyKnown && it !in removed }
                 ) {
                     validations += blocking(
                         LevelUpValidationCode.SpellPolicy,
-                        "Replacements must remove a currently known class spell and learn a distinct, non-duplicate spell.",
+                        "Replacements must remove a currently known class spell and learn a distinct, " +
+                            "non-duplicate spell.",
+                    )
+                }
+                if (changes.replacementSourceSpellId != null) {
+                    val sourceIsLegal = classLevel >= policy.replacementStartsAtLevel &&
+                        changes.replacementSourceSpellId in currentlyKnown &&
+                        data.spellsById[changes.replacementSourceSpellId]?.level?.let { it > 0 } == true
+                    validations += blocking(
+                        LevelUpValidationCode.SpellPolicy,
+                        if (sourceIsLegal) {
+                            "Choose the replacement spell or clear the optional replacement."
+                        } else {
+                            "The selected spell replacement source is not legal for this class level."
+                        },
                     )
                 }
             }
             is SpellLearningPolicy.Prepared -> {
-                if (selectedCantrips != expectedCantrips || selectedKnown != 0 || changes.addedToSpellbook.isNotEmpty() || changes.replaced.isNotEmpty()) {
-                    validations += blocking(LevelUpValidationCode.SpellPolicy, "Prepared casters only choose newly gained cantrips here.")
+                if (selectedCantrips != expectedCantrips || selectedKnown != 0 ||
+                    changes.addedToSpellbook.isNotEmpty() ||
+                    changes.replaced.isNotEmpty() || changes.replacementSourceSpellId != null ||
+                    changes.featureLearned.isNotEmpty()
+                ) {
+                    validations += blocking(
+                        LevelUpValidationCode.SpellPolicy,
+                        "Prepared casters only choose newly gained cantrips here.",
+                    )
                 }
             }
             is SpellLearningPolicy.Spellbook -> {
                 val expectedBook = if (classLevel == 1) policy.spellsAtFirstLevel else policy.spellsAddedPerLevel
-                if (selectedCantrips != expectedCantrips || selectedKnown != 0 || changes.addedToSpellbook.size != expectedBook || changes.replaced.isNotEmpty()) {
-                    validations += blocking(LevelUpValidationCode.SpellPolicy, "Choose the required spellbook additions and cantrips for this class level.")
+                if (selectedCantrips != expectedCantrips || selectedKnown != 0 ||
+                    changes.addedToSpellbook.size != expectedBook || changes.replaced.isNotEmpty() ||
+                    changes.replacementSourceSpellId != null || changes.featureLearned.isNotEmpty()
+                ) {
+                    validations += blocking(
+                        LevelUpValidationCode.SpellPolicy,
+                        "Choose the required spellbook additions and cantrips for this class level.",
+                    )
                 }
                 if (changes.addedToSpellbook.any { spell(it)?.level == 0 }) {
                     validations += blocking(LevelUpValidationCode.SpellPolicy, "Cantrips are not spellbook additions.")
@@ -626,11 +726,30 @@ object LevelUpProgressionEngine {
                     }
                 }
             }
-            if (policy.spells != SpellLearningPolicy.None) add(LevelUpRequirement.SpellDecisions(
-                id = "${selectedClass.id}:$nextClassLevel:spells", classId = selectedClass.id,
-                classLevel = nextClassLevel, policyId = spellPolicyId(policy.spells), changes = plan.selections.spellChanges,
-                preparationCapacity = preparationCapacity(policy.spells, nextClassLevel, abilities, plan, referenceData),
-            ))
+            val currentSpellcasting = selectedClass.levels.firstOrNull { it.level == nextClassLevel }?.spellcasting
+            val hasSpellcastingCapacity = currentSpellcasting?.let { spellcasting ->
+                spellcasting.cantrips.orZero() > 0 ||
+                    spellcasting.spells.orZero() > 0 ||
+                    spellcasting.spellSlots.orEmpty().values.any { it > 0 }
+            } == true
+            if (policy.spells != SpellLearningPolicy.None && hasSpellcastingCapacity) {
+                add(spellRequirementFor(
+                    clazz = selectedClass,
+                    classLevel = nextClassLevel,
+                    policy = policy.spells,
+                    subclassId = subclass,
+                    progression = progression,
+                    changes = plan.selections.spellChanges,
+                    preparationCapacity = preparationCapacity(
+                        policy.spells,
+                        nextClassLevel,
+                        abilities,
+                        plan,
+                        referenceData,
+                    ),
+                    data = referenceData,
+                ))
+            }
         }
         validations.filter { it.severity == LevelUpValidationSeverity.Overrideable }.forEach { issue ->
             add(LevelUpRequirement.Acknowledgement(issue.acknowledgementId, issue,
@@ -826,6 +945,131 @@ object LevelUpProgressionEngine {
         is SpellLearningPolicy.Spellbook -> "spellbook"
     }
 
+    private fun spellRequirementFor(
+        clazz: CharacterClass,
+        classLevel: Int,
+        policy: SpellLearningPolicy,
+        subclassId: String?,
+        progression: CharacterProgression,
+        changes: com.github.arhor.spellbindr.domain.model.SpellChanges,
+        preparationCapacity: Int?,
+        data: LevelUpReferenceData,
+    ): LevelUpRequirement.SpellDecisions {
+        val currentSpellcasting = clazz.levels.firstOrNull { it.level == classLevel }?.spellcasting
+        val previousSpellcasting = clazz.levels.firstOrNull { it.level == classLevel - 1 }?.spellcasting
+        val requiredCantrips = (currentSpellcasting?.cantrips.orZero() - previousSpellcasting?.cantrips.orZero())
+            .coerceAtLeast(0)
+        val maximumSpellLevel = maximumSpellLevel(currentSpellcasting)
+        val ownedSpellIds = classOwnedSpellIds(progression, clazz.id)
+        val legalSpells = data.spells.asSequence()
+            .filter { spell -> clazz.id in spell.classes.map { it.id } && spell.level <= maximumSpellLevel }
+            .sortedWith(compareBy({ it.level }, { it.name }, { it.id }))
+            .toList()
+        val cantrips = legalSpells.filter { it.level == 0 && it.id !in ownedSpellIds }.map { spell ->
+            LevelUpSpellOption(spell.id, spell.name, spell.level)
+        }
+        val leveledSpells = legalSpells.filter { it.level > 0 && it.id !in ownedSpellIds }.map { spell ->
+            LevelUpSpellOption(spell.id, spell.name, spell.level)
+        }
+        val selectedReplacementSpellId = changes.replaced.singleOrNull()?.learnedSpellId
+        val selectedLearnedSpellIds = changes.learned.mapTo(hashSetOf()) { it.spellId }
+        val requiredKnown = if (policy is SpellLearningPolicy.Known) {
+            val classMagicalSecretCount = magicalSecretFeatures(clazz, classLevel, subclassId, data)
+                .count { it.first in BARD_MAGICAL_SECRETS } * 2
+            ((currentSpellcasting?.spells.orZero() - previousSpellcasting?.spells.orZero()).coerceAtLeast(0) -
+                classMagicalSecretCount).coerceAtLeast(0)
+        } else {
+            0
+        }
+        val requiredSpellbook = when (policy) {
+            is SpellLearningPolicy.Spellbook -> if (classLevel == 1) {
+                policy.spellsAtFirstLevel
+            } else {
+                policy.spellsAddedPerLevel
+            }
+            else -> 0
+        }
+        val replacement = (policy as? SpellLearningPolicy.Known)
+            ?.takeIf { classLevel >= it.replacementStartsAtLevel }
+            ?.let {
+                val selected = changes.replaced.singleOrNull()
+                val sourceCandidates = ownedSpellIds.mapNotNull(data.spellsById::get)
+                    .filter { spell -> spell.level > 0 }
+                    .sortedWith(compareBy({ spell -> spell.level }, { spell -> spell.name }, { spell -> spell.id }))
+                    .map { spell -> LevelUpSpellOption(spell.id, spell.name, spell.level) }
+                LevelUpSpellReplacementRequirement(
+                    sourceCandidates = sourceCandidates,
+                    replacementCandidates = leveledSpells.filter { option ->
+                        option.spellId !in selectedLearnedSpellIds || option.spellId == selectedReplacementSpellId
+                    },
+                    selectedSourceSpellId = changes.replacementSourceSpellId ?: selected?.removedSpellId,
+                    selectedReplacementSpellId = selected?.learnedSpellId,
+                )
+            }
+        val featureSpellGrants = magicalSecretFeatures(clazz, classLevel, subclassId, data).map { (featureId, label) ->
+            val selectedForFeature = changes.featureLearned[featureId].orEmpty().mapTo(hashSetOf()) { it.spellId }
+            val selectedElsewhere = changes.learned.mapTo(hashSetOf()) { it.spellId } +
+                changes.addedToSpellbook.map { it.spellId } +
+                changes.featureLearned.filterKeys { it != featureId }.values.flatten().map { it.spellId } +
+                changes.replaced.map { it.learnedSpellId }
+            val candidates = data.spells.asSequence()
+                .filter { it.level <= maximumSpellLevel }
+                .filter { it.id !in ownedSpellIds }
+                .filter { it.id !in selectedElsewhere || it.id in selectedForFeature }
+                .sortedWith(compareBy({ it.level }, { it.name }, { it.id }))
+                .map { LevelUpSpellOption(it.id, it.name, it.level) }
+                .toList()
+            LevelUpFeatureSpellGrantRequirement(
+                featureId = featureId,
+                label = label,
+                requiredCount = 2,
+                candidates = candidates,
+                selectedSpellIds = selectedForFeature,
+            )
+        }
+        return LevelUpRequirement.SpellDecisions(
+            id = "${clazz.id}:$classLevel:spells",
+            classId = clazz.id,
+            classLevel = classLevel,
+            policyId = spellPolicyId(policy),
+            changes = changes,
+            requiredCantripCount = requiredCantrips,
+            cantripCandidates = cantrips,
+            requiredKnownSpellCount = requiredKnown,
+            knownSpellCandidates = if (policy is SpellLearningPolicy.Known) {
+                leveledSpells.filter { it.spellId != selectedReplacementSpellId }
+            } else {
+                emptyList()
+            },
+            featureSpellGrants = featureSpellGrants,
+            replacement = replacement,
+            requiredSpellbookAdditionCount = requiredSpellbook,
+            spellbookCandidates = if (policy is SpellLearningPolicy.Spellbook) leveledSpells else emptyList(),
+            preparationCapacity = preparationCapacity,
+        )
+    }
+
+    private fun magicalSecretFeatures(
+        clazz: CharacterClass,
+        classLevel: Int,
+        subclassId: String?,
+        data: LevelUpReferenceData,
+    ): List<Pair<String, String>> {
+        if (clazz.id != "bard") return emptyList()
+        val classFeatureIds = clazz.levels.firstOrNull { it.level == classLevel }?.features.orEmpty()
+        val subclassFeatureIds = subclassId?.let { selectedSubclassId ->
+            clazz.subclasses.firstOrNull { it.id == selectedSubclassId }?.levels
+                ?.firstOrNull { it.level == classLevel }?.features.orEmpty()
+        }.orEmpty()
+        return (classFeatureIds + subclassFeatureIds)
+            .filter { it in BARD_MAGICAL_SECRETS || it == ADDITIONAL_MAGICAL_SECRETS }
+            .distinct()
+            .map { featureId -> featureId to (data.featuresById[featureId]?.name ?: featureId) }
+    }
+
+    private fun maximumSpellLevel(spellcasting: com.github.arhor.spellbindr.domain.model.LevelSpellcasting?): Int =
+        spellcasting?.spellSlots.orEmpty().keys.mapNotNull(String::toIntOrNull).maxOrNull().orZero()
+
     private fun preparationCapacity(
         policy: SpellLearningPolicy,
         classLevel: Int,
@@ -883,6 +1127,7 @@ object LevelUpProgressionEngine {
             }
             known.addAll(record.spellChanges.learned.map { it.spellId })
             known.addAll(record.spellChanges.addedToSpellbook.map { it.spellId })
+            known.addAll(record.spellChanges.featureLearned.values.flatten().map { it.spellId })
             known
         }
 
@@ -968,7 +1213,7 @@ object LevelUpProgressionEngine {
 
     private fun deferredFeatReason(decision: LevelUpDeferredFeatDecision): String = when (decision) {
         LevelUpDeferredFeatDecision.SpellSelection ->
-            "This feat requires spell choices that will be enabled by the spell-decision subsystem."
+            "This feat's spell ownership and casting rules cannot be represented by the bundled progression model."
         LevelUpDeferredFeatDecision.ManeuverSelection ->
             "This feat requires maneuver choices that are not available in the bundled reference model."
     }
@@ -1198,6 +1443,8 @@ object LevelUpProgressionEngine {
     }
 
     private const val SAVING_THROW_PREFIX = "saving-throw-"
+    private const val ADDITIONAL_MAGICAL_SECRETS = "additional-magical-secrets"
+    private val BARD_MAGICAL_SECRETS = setOf("magical-secrets-1", "magical-secrets-2", "magical-secrets-3")
 
     private fun blocking(code: LevelUpValidationCode, message: String) =
         LevelUpValidationIssue(code, message, LevelUpValidationSeverity.Blocking)
