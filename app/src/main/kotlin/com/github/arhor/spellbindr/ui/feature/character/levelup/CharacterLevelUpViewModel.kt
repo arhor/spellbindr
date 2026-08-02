@@ -9,6 +9,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
 import com.github.arhor.spellbindr.domain.model.Feat
 import com.github.arhor.spellbindr.domain.model.HitPointGain
+import com.github.arhor.spellbindr.domain.model.Language
 import com.github.arhor.spellbindr.domain.model.LevelUpChoiceCategory
 import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.LevelUpPreview
@@ -25,6 +26,7 @@ import com.github.arhor.spellbindr.domain.usecase.LoadCharacterWithProgressionUs
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllCharacterClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllFeatsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllFeaturesUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllLanguagesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.RebuildLevelUpPlanUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +49,7 @@ class CharacterLevelUpViewModel @Inject constructor(
     observeFeatures: ObserveAllFeaturesUseCase,
     observeFeats: ObserveAllFeatsUseCase,
     observeSpells: ObserveAllSpellsUseCase,
+    observeLanguages: ObserveAllLanguagesUseCase,
     private val createPlan: CreateLevelUpPlanUseCase,
     private val rebuildPlan: RebuildLevelUpPlanUseCase,
     private val applyLevelUp: ApplyLevelUpUseCase,
@@ -63,27 +66,44 @@ class CharacterLevelUpViewModel @Inject constructor(
         val features: List<com.github.arhor.spellbindr.domain.model.Feature>,
         val feats: List<Feat>,
         val spells: List<Spell>,
+        val languages: List<Language>,
+    )
+
+    private data class LoadedReferences(
+        val classes: Loadable<List<CharacterClass>>,
+        val features: Loadable<List<com.github.arhor.spellbindr.domain.model.Feature>>,
+        val feats: Loadable<List<Feat>>,
+        val spells: Loadable<List<Spell>>,
+        val languages: Loadable<List<Language>>,
+    )
+
+    private val references = combine(
+        observeClasses(),
+        observeFeatures(),
+        observeFeats(),
+        observeSpells(),
+        observeLanguages(),
+        ::LoadedReferences,
     )
 
     private val source = if (characterId == null) {
         kotlinx.coroutines.flow.flowOf<SourceState>(SourceState.Failure("Missing character id"))
     } else {
-        combine(
-            loadCharacter(characterId),
-            observeClasses(),
-            observeFeatures(),
-            observeFeats(),
-            observeSpells(),
-        ) { character, classes, features, feats, spells ->
+        combine(loadCharacter(characterId), references) { character, references ->
+            val classes = references.classes
+            val features = references.features
+            val feats = references.feats
+            val spells = references.spells
+            val languages = references.languages
             when {
                 character == null -> SourceState.Failure("Character not found")
                 classes is Loadable.Failure || features is Loadable.Failure ||
-                    feats is Loadable.Failure || spells is Loadable.Failure ->
+                    feats is Loadable.Failure || spells is Loadable.Failure || languages is Loadable.Failure ->
                     SourceState.Failure("Unable to load level-up reference data")
                 classes is Loadable.Content && features is Loadable.Content &&
-                    feats is Loadable.Content && spells is Loadable.Content -> SourceState.Ready(
+                    feats is Loadable.Content && spells is Loadable.Content && languages is Loadable.Content -> SourceState.Ready(
                     character,
-                    ReferenceState(classes.data, features.data, feats.data, spells.data),
+                    ReferenceState(classes.data, features.data, feats.data, spells.data, languages.data),
                 )
                 else -> SourceState.Loading
             }
@@ -99,6 +119,9 @@ class CharacterLevelUpViewModel @Inject constructor(
             is CharacterLevelUpIntent.SubclassSelected -> updatePlan { it.copy(selections = it.selections.copy(subclassId = intent.subclassId)) }
             is CharacterLevelUpIntent.ChoiceToggled -> toggleChoice(intent)
             is CharacterLevelUpIntent.HitPointsSelected -> updatePlan { it.copy(selections = it.selections.copy(hitPointGain = intent.gain)) }
+            CharacterLevelUpIntent.HitPointsCleared -> updatePlan {
+                it.copy(selections = it.selections.copy(hitPointGain = null))
+            }
             is CharacterLevelUpIntent.AbilityScoreDecisionSelected -> updatePlan { it.copy(selections = it.selections.copy(abilityScoreDecision = intent.decision, featChoices = emptyMap())) }
             is CharacterLevelUpIntent.SpellChangesSelected -> updatePlan { it.copy(selections = it.selections.copy(spellChanges = intent.changes)) }
             is CharacterLevelUpIntent.AcknowledgementChanged -> updatePlan { plan ->
@@ -127,7 +150,14 @@ class CharacterLevelUpViewModel @Inject constructor(
             if (progression.totalLevel >= LevelUpReferenceRules.maximumCharacterLevel) {
                 return CharacterLevelUpUiState.Unavailable("Maximum level reached", "This character is already level 20.")
             }
-            val reference = LevelUpReferenceData(source.reference.classes, source.reference.features, source.reference.feats, LevelUpReferenceRules.referenceDataVersion, source.reference.spells)
+            val reference = LevelUpReferenceData(
+                classes = source.reference.classes,
+                features = source.reference.features,
+                feats = source.reference.feats,
+                referenceDataVersion = LevelUpReferenceRules.referenceDataVersion,
+                spells = source.reference.spells,
+                languages = source.reference.languages,
+            )
             val restored = draft?.plan?.takeIf { it.expectedTotalLevel == progression.totalLevel && it.rulesetId == progression.rulesetId && it.referenceDataVersion == reference.referenceDataVersion }
             val plan = restored ?: createPlan(progression)
             if (restored == null && draft != null) clearSavedDraft()
@@ -171,6 +201,7 @@ class CharacterLevelUpViewModel @Inject constructor(
 
     private fun move(delta: Int) {
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
+        if (delta > 0 && !content.canAdvance) return
         val next = (content.currentStepIndex + delta).coerceIn(0, content.steps.lastIndex)
         setDraft(SavedDraft(content.steps[next], content.plan))
     }
@@ -184,7 +215,14 @@ class CharacterLevelUpViewModel @Inject constructor(
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
         if (!content.canConfirm || characterId == null) return
         val ready = latestReady ?: return
-        val reference = LevelUpReferenceData(ready.reference.classes, ready.reference.features, ready.reference.feats, LevelUpReferenceRules.referenceDataVersion, ready.reference.spells)
+        val reference = LevelUpReferenceData(
+            classes = ready.reference.classes,
+            features = ready.reference.features,
+            feats = ready.reference.feats,
+            referenceDataVersion = LevelUpReferenceRules.referenceDataVersion,
+            spells = ready.reference.spells,
+            languages = ready.reference.languages,
+        )
         setDraft(SavedDraft(content.step, content.plan, isSaving = true))
         viewModelScope.launch {
             when (val result = applyLevelUp(characterId, content.plan.expectedTotalLevel, content.plan, reference)) {

@@ -306,6 +306,7 @@ class CharacterRepositoryImpl @Inject constructor(
                 proficiencyIds = after.proficiencyIds,
                 savingThrowAbilityIds = after.savingThrowAbilityIds,
                 featureIds = after.featureIds,
+                languageIds = after.languageIds,
             ),
         )
     }

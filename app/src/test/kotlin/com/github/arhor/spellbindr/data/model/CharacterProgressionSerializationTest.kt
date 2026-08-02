@@ -82,6 +82,35 @@ class CharacterProgressionSerializationTest {
     }
 
     @Test
+    fun `decode should restore feat owned choices when codec round trips progression`() {
+        // Given
+        val state = ProgressionState.Managed(
+            CharacterProgression(
+                referenceDataVersion = "data-v1",
+                origin = ProgressionOrigin.Guided,
+                levels = listOf(
+                    CharacterLevelRecord(
+                        characterLevel = 4,
+                        classId = "fighter",
+                        classLevel = 4,
+                        hitPointGain = HitPointGain.Fixed(6),
+                        abilityScoreDecision = AbilityScoreDecision.Feat("linguist"),
+                        featChoices = mapOf(
+                            "linguist:language" to setOf("common", "dwarvish", "elvish"),
+                        ),
+                    ),
+                ),
+            ),
+        )
+
+        // When
+        val restored = codec.decode(codec.encode(state))
+
+        // Then
+        assertThat(restored).isEqualTo(state)
+    }
+
+    @Test
     fun `encode should use stable discriminator names when progression contains polymorphic decisions`() {
         // Given
         val state = ProgressionState.Managed(

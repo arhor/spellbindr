@@ -104,6 +104,7 @@ data class ManagedProgressionSheetState(
     val proficiencyIds: Set<String> = emptySet(),
     val savingThrowAbilityIds: Set<AbilityId> = emptySet(),
     val featureIds: Set<String> = emptySet(),
+    val languageIds: Set<String> = emptySet(),
 )
 
 /** A managed hit-die pool; legacy [CharacterSheet.hitDice] stays available to unmanaged sheets. */

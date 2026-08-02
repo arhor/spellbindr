@@ -16,8 +16,37 @@ data class Feat(
     val prerequisites: List<Prerequisite> = emptyList(),
     val effects: List<Effect> = emptyList(),
     val abilityBonusChoice: Choice.AbilityBonusChoice? = null,
+    val languageChoice: Choice.ResourceListChoice? = null,
+    val proficiencyChoice: Choice.OptionsArrayChoice? = null,
+    val damageTypeChoice: Choice.OptionsArrayChoice? = null,
+    val correlatesAbilityAndSavingThrow: Boolean = false,
+    val repeatable: Boolean = false,
 ) {
     /** Stable persisted key for the feat-owned ability choice, when the feat has one. */
     val abilityBonusChoiceId: String?
         get() = abilityBonusChoice?.let { "$id:ability-bonus" }
+
+    val languageChoiceId: String?
+        get() = languageChoice?.let { "$id:language" }
+
+    val proficiencyChoiceId: String?
+        get() = proficiencyChoice?.let { "$id:proficiency" }
+
+    val damageTypeChoiceId: String?
+        get() = damageTypeChoice?.let { "$id:damage-type" }
+
+    val correlatedAbilitySavingThrowChoiceId: String?
+        get() = takeIf { correlatesAbilityAndSavingThrow }?.let { "$id:ability-and-saving-throw" }
+
+    val ownedChoiceIds: Set<String>
+        get() = if (correlatesAbilityAndSavingThrow) {
+            setOfNotNull(correlatedAbilitySavingThrowChoiceId, languageChoiceId, damageTypeChoiceId)
+        } else {
+            setOfNotNull(
+                abilityBonusChoiceId,
+                languageChoiceId,
+                proficiencyChoiceId,
+                damageTypeChoiceId,
+            )
+        }
 }
