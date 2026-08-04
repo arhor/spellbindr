@@ -107,7 +107,7 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
             }
             CharacterLevelUpStep.Review -> {
                 state.staleMessage?.let { WarningCard(it); Button(onClick = { dispatch(CharacterLevelUpIntent.ReloadClicked) }) { Text("Reload draft") } }
-                state.persistenceMessage?.let(::WarningCard)
+                state.persistenceMessage?.let { WarningCard(it) }
                 ReviewRow("Total level", state.preview.before.totalLevel.toString(), state.preview.after.totalLevel.toString())
                 ReviewRow("Class", state.preview.before.classDisplayName, state.preview.after.classDisplayName)
                 ReviewRow("Proficiency bonus", "+${state.preview.before.proficiencyBonus}", "+${state.preview.after.proficiencyBonus}")
