@@ -148,7 +148,7 @@ class LevelUpProgressionEngineCoreTest {
         val wizard = characterClass(
             id = "wizard",
             hitDie = 6,
-            prrequisites = listOf(AbilityScorePrerequisite(listOf(AbilityIds.INT), 13)),
+            prerequisites = listOf(AbilityScorePrerequisite(listOf(AbilityIds.INT), 13)),
         )
 
         fun characterClass(
@@ -158,7 +158,7 @@ class LevelUpProgressionEngineCoreTest {
         ) = CharacterClass(
             id = id,
             name = id.replaceFirstChar { it.uppercase() },
-            multiClassing = MultiClassing(prerequisites = prrequisites),
+            multiClassing = MultiClassing(prerequisites = prerequisites),
             hitDie = hitDie,
             proficiencies = emptyList(),
             proficiencyChoices = emptyList(),
