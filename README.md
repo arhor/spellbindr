@@ -33,6 +33,7 @@ app/                    # all application, domain, data, feature, UI, and test c
   src/main/kotlin/      # application and package-organized implementation code
   src/test/kotlin/      # JVM tests and shared test helpers
   src/androidTest/      # instrumentation tests
+  src/screenshotTest/   # screenshot previews and tests
 ```
 
 ## Architecture
@@ -78,7 +79,8 @@ are the compatible current direct dependency versions.
 - Build debug APK: `./gradlew assembleDebug` (output: `app/build/outputs/apk/debug/app-debug.apk`).
 - CI-equivalent checks: `./gradlew lintDebug test testDebugUnitTest assembleRelease --stacktrace`.
 - Instrumentation tests: `./gradlew connectedDebugAndroidTest` (requires a device or emulator).
-- Linux SDK bootstrap: `run/setup.sh`.
+- Linux SDK bootstrap helper: `run/setup.sh`. It currently installs Android platform/build-tools 36, so install SDK 37
+  separately before building against the configured compile SDK.
 
 ## Screenshot exports (Compose previews → PNG)
 
