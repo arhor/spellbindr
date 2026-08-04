@@ -6,12 +6,13 @@ reference data, managing characters, and rolling dice.
 ## Overview
 
 Spellbindr boots from `SpellbindrApplication` and `MainActivity`, then loads the JSON assets in
-`app/src/main/assets/data` via the asset bootstrapper. The bundled data is drawn from multiple 5e data sets—not only
-the SRD—and includes source metadata where provided.
+`app/src/main/assets/data` via the asset bootstrapper. The bundled data is drawn from multiple 5e data sets, not only
+the SRD, and includes source metadata where provided.
 
 ## Key Features
 
-- Characters: list, guided setup, manual editor, and character sheet screens with spell selection.
+- Characters: list, guided setup, manual editor, character sheet, spell selection, and a one-level,
+  multiclass-capable Level Up flow for managed characters.
 - Compendium: spells (search, class filters, favorites, details), races, alignments, and conditions.
 - Dice roller with advantage/disadvantage and roll breakdowns.
 - Light/dark theme setting and favorites stored via DataStore Preferences.
@@ -29,28 +30,38 @@ the SRD—and includes source metadata where provided.
 ```
 app/                    # all application, domain, data, feature, UI, and test code
   src/main/assets/data/ # bundled multi-source 5e reference data
-  src/main/kotlin/     # application and package-organized implementation code
+  src/main/kotlin/      # application and package-organized implementation code
   src/test/kotlin/      # JVM tests and shared test helpers
-  src/androidTest/     # instrumentation tests
+  src/androidTest/      # instrumentation tests
+  src/screenshotTest/   # screenshot previews and tests
 ```
 
 ## Architecture
 
 - Repository interfaces, data implementations, domain logic, feature UI, and application wiring all live in `:app`.
 
-### Character progression storage
+### Character progression and level-up
 
 Guided character creation atomically stores the mutable character-sheet snapshot and a separate, structured
 `Managed` progression record. Progression keeps permanent build decisions as ordered level records, including stable
 class/subclass references, hit-point choices, feature choices, ability-score decisions, and spell changes. Repeated
-class entries are supported, so the persisted history is ready for future multiclass progression and is intended to
-be the source of truth for permanent build decisions.
+class entries support multiclass progression, and the progression history is the source of truth for permanent build
+decisions.
 
 Characters created through the manual flow and characters migrated from older databases have no synthesized
 progression history and resolve as `Unmanaged`. Database migration 3→4 preserves their existing character and sheet
 data while adding an empty one-to-one `character_progressions` table; deleting a character cascades to its progression
-row. The character sheet currently exposes only a read-only Managed/Unmanaged summary. No level-up action,
-calculation engine, or progression/sheet mutation flow exists yet.
+row. Do not infer progression history for these characters from their sheet snapshots.
+
+Managed characters at levels 1–19 can start a one-level Level Up flow from the progression card or character-sheet
+overflow menu. The flow validates bundled class and multiclass rules, collects applicable class/subclass, hit-point,
+feature, proficiency, ability-score/feat, and spell decisions, then appends one progression record and materializes the
+updated sheet in a single Room transaction. Stale state and validation failures are reported without partially saving.
+Level-20 and `Unmanaged` characters expose disabled level-up actions with explanatory text.
+
+For managed characters, the full editor keeps progression-owned class, level, ability-score, proficiency, maximum-HP,
+hit-dice, saving-throw, and skill fields read-only while mutable play state and free-text fields remain editable. See
+`docs/level-up-progress.md` for the implementation ledger and current limitations.
 
 ## Getting Started
 
@@ -66,9 +77,10 @@ are the compatible current direct dependency versions.
 ## Build / Run / Test
 
 - Build debug APK: `./gradlew assembleDebug` (output: `app/build/outputs/apk/debug/app-debug.apk`).
-- Lint + unit tests (CI): `./gradlew lintDebug test testDebugUnitTest`.
+- CI-equivalent checks: `./gradlew lintDebug test testDebugUnitTest assembleRelease --stacktrace`.
 - Instrumentation tests: `./gradlew connectedDebugAndroidTest` (requires a device or emulator).
-- Linux SDK bootstrap: `run/setup.sh`.
+- Linux SDK bootstrap helper: `run/setup.sh`. It currently installs Android platform/build-tools 36, so install SDK 37
+  separately before building against the configured compile SDK.
 
 ## Screenshot exports (Compose previews → PNG)
 
@@ -94,5 +106,6 @@ Exports are copied to `<module>/build/outputs/preview-screenshots/<timestamp>/`.
 
 ## CI / Quality
 
-- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug test testDebugUnitTest assembleRelease` on push and PRs.
-- PRs also assemble a debug APK and upload it as the `app-debug-apk` artifact.
+- `.github/workflows/android-ci.yml` runs `./gradlew lintDebug test testDebugUnitTest assembleRelease --stacktrace`
+  on pushes and pull requests targeting `master` or `stable`.
+- Pull requests also assemble a debug APK, upload it as the `app-debug-apk` artifact, and post its download link.
