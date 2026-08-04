@@ -10,6 +10,7 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.github.arhor.spellbindr.data.local.database.SpellbindrDatabase
+import com.github.arhor.spellbindr.data.local.database.converter.Converter
 import com.github.arhor.spellbindr.data.local.database.dao.CharacterDao
 import com.github.arhor.spellbindr.data.local.database.dao.FavoritesDao
 import com.github.arhor.spellbindr.settings.di.SettingsDataStore
@@ -68,9 +69,12 @@ object TestDataModule {
 
     @Provides
     @Singleton
-    fun provideTestDatabase(): SpellbindrDatabase {
+    fun provideTestDatabase(
+        converters: Set<@JvmSuppressWildcards Converter>,
+    ): SpellbindrDatabase {
         val context = ApplicationProvider.getApplicationContext<Context>()
         return Room.inMemoryDatabaseBuilder(context, SpellbindrDatabase::class.java)
+            .apply { converters.forEach(::addTypeConverter) }
             .allowMainThreadQueries()
             .build()
     }
