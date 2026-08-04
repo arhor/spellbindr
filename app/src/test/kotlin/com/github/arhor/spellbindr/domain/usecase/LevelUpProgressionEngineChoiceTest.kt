@@ -219,7 +219,7 @@ class LevelUpProgressionEngineChoiceTest {
         ) = CharacterClass(
             id = id,
             name = id.replaceFirstChar { it.uppercase() },
-            multiClassing = MultiClassing(prerequisites = prrequisites),
+            multiClassing = MultiClassing(prerequisites = prerequisites),
             hitDie = hitDie,
             proficiencies = emptyList(),
             proficiencyChoices = emptyList(),
