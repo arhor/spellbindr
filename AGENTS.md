@@ -20,8 +20,8 @@ Golden paths:
 - `./gradlew test`: JVM unit tests in `:app`.
 - `./gradlew testDebugUnitTest`: debug-variant JVM unit tests.
 - `./gradlew connectedDebugAndroidTest`: instrumentation/UI tests (device or emulator required).
-- `run/setup.sh`: Linux-only SDK bootstrap (downloads cmdline tools, installs the required Android SDK, runs
-  `git submodule update`).
+- `run/setup.sh`: Linux-only SDK bootstrap helper and submodule initializer. It currently installs Android
+  platform/build-tools 36, so install SDK 37 separately before building against the configured compile SDK.
 
 Prereqs: JDK 17 (`.java-version`) and Android SDK 37 (`app/build.gradle.kts`).
 Set the SDK path in `local.properties` or `ANDROID_HOME`.
