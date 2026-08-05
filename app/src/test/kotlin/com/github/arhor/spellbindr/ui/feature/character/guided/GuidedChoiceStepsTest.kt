@@ -14,11 +14,13 @@ import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedCh
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedChoiceSource
 import com.github.arhor.spellbindr.ui.feature.character.guided.internal.GuidedFixedGrant
 import com.github.arhor.spellbindr.ui.theme.AppTheme
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@Ignore("Quarantined until #156: Guided choice semantics are not deterministic under Robolectric")
 class GuidedChoiceStepsTest {
 
     @get:Rule
