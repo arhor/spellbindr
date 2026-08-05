@@ -22,7 +22,6 @@ android {
         targetSdk = 37
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "com.github.arhor.spellbindr.HiltApplicationTestRunner"
     }
 
     buildTypes {
@@ -60,10 +59,6 @@ android {
                 "--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
             )
         }
-    }
-
-    sourceSets {
-        getByName("androidTest").assets.directories.add("$projectDir/schemas")
     }
 
     experimentalProperties["android.experimental.enableScreenshotTest"] = true
@@ -126,17 +121,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-
-    kspAndroidTest(libs.hilt.android.compiler)
-
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.room.testing)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.mockk.android)
-    androidTestImplementation(libs.hilt.android.testing)
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
