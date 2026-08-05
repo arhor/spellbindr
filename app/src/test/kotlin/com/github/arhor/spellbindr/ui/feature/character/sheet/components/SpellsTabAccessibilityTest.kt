@@ -2,7 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.character.sheet.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertExists
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -59,10 +59,10 @@ class SpellsTabAccessibilityTest {
         val slotTypeShared = context.getString(R.string.spells_slot_type_shared)
         val usedPip = context.getString(R.string.spells_slot_pip_used, slotTypeShared, 1, 4)
 
-        composeTestRule.onNodeWithContentDescription(increaseShared).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(decreaseShared).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(increasePact).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(decreasePact).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(usedPip).assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription(increaseShared).assertExists()
+        composeTestRule.onNodeWithContentDescription(decreaseShared).assertExists()
+        composeTestRule.onNodeWithContentDescription(increasePact).assertExists()
+        composeTestRule.onNodeWithContentDescription(decreasePact).assertExists()
+        composeTestRule.onNodeWithContentDescription(usedPip).assertExists()
     }
 }

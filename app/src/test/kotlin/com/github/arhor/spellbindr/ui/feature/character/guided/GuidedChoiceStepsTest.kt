@@ -62,7 +62,7 @@ class GuidedChoiceStepsTest {
         // Then
         composeTestRule.onNodeWithText("Granted by Class: Ranger, Race trait: Keen Senses").assertIsDisplayed()
         composeTestRule.onNodeWithText("Class").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Race & subrace").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Race & subrace").performScrollTo().assertIsDisplayed()
         composeTestRule
             .onNodeWithText("Already have - Race trait: Keen Senses")
             .performScrollTo()
