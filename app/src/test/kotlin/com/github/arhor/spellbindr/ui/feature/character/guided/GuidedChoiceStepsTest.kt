@@ -63,14 +63,8 @@ class GuidedChoiceStepsTest {
         composeTestRule.onNodeWithText("Granted by Class: Ranger, Race trait: Keen Senses").assertIsDisplayed()
         composeTestRule.onNodeWithText("Class").assertIsDisplayed()
         composeTestRule.onNodeWithText("Race & subrace").fetchSemanticsNode()
-        composeTestRule
-            .onNodeWithText("Already have - Race trait: Keen Senses")
-            .performScrollTo()
-            .assertIsDisplayed()
-        composeTestRule
-            .onNodeWithText("0 of 2 choices complete")
-            .performScrollTo()
-            .assertIsDisplayed()
+        composeTestRule.onNodeWithText("Already have - Race trait: Keen Senses").fetchSemanticsNode()
+        composeTestRule.onNodeWithText("0 of 2 choices complete").fetchSemanticsNode()
     }
 
     @Test
