@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetDispatch
 import com.github.arhor.spellbindr.ui.feature.character.sheet.CharacterSheetIntent
@@ -59,7 +60,7 @@ class CharacterSheetContentTest {
 
         // Then
         composeTestRule.onNodeWithText("Overview").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Saving Throws").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Saving Throws").performScrollTo().assertIsDisplayed()
     }
 
     @Test

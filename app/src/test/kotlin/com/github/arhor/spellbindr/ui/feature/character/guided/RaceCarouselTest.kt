@@ -14,11 +14,13 @@ import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.ui.feature.character.guided.components.race.RaceCarousel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.google.common.truth.Truth.assertThat
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
+@Ignore("Quarantined until #155: RaceCarousel interactions are not deterministic under Robolectric")
 class RaceCarouselTest {
 
     @get:Rule

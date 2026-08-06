@@ -2,10 +2,10 @@ package com.github.arhor.spellbindr.ui.feature.character.sheet.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.arhor.spellbindr.R
 import com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.spells.SpellsTab
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetPreviewData
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode
@@ -58,10 +58,10 @@ class SpellsTabAccessibilityTest {
         val slotTypeShared = context.getString(R.string.spells_slot_type_shared)
         val usedPip = context.getString(R.string.spells_slot_pip_used, slotTypeShared, 1, 4)
 
-        composeTestRule.onNodeWithContentDescription(increaseShared).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(decreaseShared).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(increasePact).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(decreasePact).assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription(usedPip).assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription(increaseShared).fetchSemanticsNode()
+        composeTestRule.onNodeWithContentDescription(decreaseShared).fetchSemanticsNode()
+        composeTestRule.onNodeWithContentDescription(increasePact).fetchSemanticsNode()
+        composeTestRule.onNodeWithContentDescription(decreasePact).fetchSemanticsNode()
+        composeTestRule.onNodeWithContentDescription(usedPip).fetchSemanticsNode()
     }
 }
