@@ -260,7 +260,7 @@ class CharacterLevelUpRepositoryIntegrationTest {
         }
 
     @Test
-    fun `applyLevelUp should replace only class owned spell when spell decision supersedes a grant`() = runBlocking {
+    fun `applyLevelUp should replace only class owned spell when spell decision supersedes a grant`(): Unit = runBlocking {
         // Given
         val progression = progression("bard", hitDie = 8).copy(
             levels = listOf(
