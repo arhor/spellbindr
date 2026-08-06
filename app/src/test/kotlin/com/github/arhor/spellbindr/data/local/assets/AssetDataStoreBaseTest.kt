@@ -1,5 +1,6 @@
 package com.github.arhor.spellbindr.data.local.assets
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.di.AppInfrastructureModule
 import com.github.arhor.spellbindr.di.DatabaseModule
 import com.github.arhor.spellbindr.di.FavoritesDataStoreModule
@@ -12,6 +13,7 @@ import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -21,6 +23,7 @@ import javax.inject.Inject
     FavoritesDataStoreModule::class,
     SettingsDataStoreModule::class,
 )
+@RunWith(AndroidJUnit4::class)
 class AssetDataStoreBaseTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
