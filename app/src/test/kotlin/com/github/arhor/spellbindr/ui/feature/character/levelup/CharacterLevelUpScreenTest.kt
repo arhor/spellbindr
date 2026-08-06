@@ -255,13 +255,14 @@ class CharacterLevelUpScreenTest {
                     choice = feat.abilityBonusChoice!!,
                     selectedOptionIds = emptySet(),
                     category = LevelUpChoiceCategory.Feat,
+                    options = listOf(LevelUpChoiceOption(AbilityIds.DEX, "Athlete bonus: +1 DEX")),
                 ),
             ),
             intents::add,
         )
 
         // When
-        composeTestRule.onNodeWithText("+1 DEX").performScrollTo().performClick()
+        composeTestRule.onNodeWithText("Athlete bonus: +1 DEX").performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.ChoiceToggled(
