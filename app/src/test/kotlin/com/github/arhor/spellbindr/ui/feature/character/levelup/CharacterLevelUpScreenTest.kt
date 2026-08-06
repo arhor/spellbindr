@@ -7,6 +7,7 @@ import androidx.compose.ui.test.isToggleable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.AbilityIds
@@ -195,7 +196,7 @@ class CharacterLevelUpScreenTest {
         setContent(abilityState(selectedDecision = selected), intents::add)
 
         // When
-        composeTestRule.onNodeWithText("+1 DEX").performClick()
+        composeTestRule.onNodeWithText("+1 DEX").performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.AbilityScoreDecisionSelected(
@@ -224,7 +225,7 @@ class CharacterLevelUpScreenTest {
         setContent(abilityState(feats = listOf(feat), eligibleFeatIds = listOf(feat.id)), intents::add)
 
         // When
-        composeTestRule.onNodeWithText("Feat: Athlete").performClick()
+        composeTestRule.onNodeWithText("Feat: Athlete").performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.AbilityScoreDecisionSelected(
@@ -260,7 +261,7 @@ class CharacterLevelUpScreenTest {
         )
 
         // When
-        composeTestRule.onNodeWithText("+1 DEX").performClick()
+        composeTestRule.onNodeWithText("+1 DEX").performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.ChoiceToggled(
@@ -298,7 +299,7 @@ class CharacterLevelUpScreenTest {
         )
 
         // When
-        composeTestRule.onNodeWithText("skill-arcana").performClick()
+        composeTestRule.onNodeWithText("skill-arcana").performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.ChoiceToggled(
@@ -337,7 +338,7 @@ class CharacterLevelUpScreenTest {
         )
 
         // When
-        composeTestRule.onNodeWithText("Elvish").performClick()
+        composeTestRule.onNodeWithText("Elvish").performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.ChoiceToggled(
@@ -370,7 +371,7 @@ class CharacterLevelUpScreenTest {
         setContent(abilityState(selectedDecision = complete), intents::add)
 
         // When
-        composeTestRule.onNodeWithText("Next").assertIsEnabled().performClick()
+        composeTestRule.onNodeWithText("Next").performScrollTo().assertIsEnabled().performClick()
 
         // Then
         assertThat(intents).contains(CharacterLevelUpIntent.NextClicked)
