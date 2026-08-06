@@ -73,7 +73,10 @@ class CharacterSheetContentTest {
         )
 
         // When
-        composeTestRule.onNodeWithText("Level up").assertIsEnabled().performClick()
+        composeTestRule.onNodeWithText("Level up")
+            .performScrollTo()
+            .assertIsEnabled()
+            .performClick()
 
         // Then
         assertThat(intents).containsExactly(CharacterSheetIntent.LevelUpClicked)
@@ -89,7 +92,7 @@ class CharacterSheetContentTest {
         )
 
         // When
-        val action = composeTestRule.onNodeWithText("Maximum level reached")
+        val action = composeTestRule.onNodeWithText("Maximum level reached").performScrollTo()
 
         // Then
         action.assertIsDisplayed().assertIsNotEnabled()
@@ -103,7 +106,7 @@ class CharacterSheetContentTest {
         setScreenContent(progression = ProgressionSummaryUiModel.Unmanaged, dispatch = intents::add)
 
         // When
-        val action = composeTestRule.onNodeWithText("Set up level progression")
+        val action = composeTestRule.onNodeWithText("Set up level progression").performScrollTo()
 
         // Then
         action.assertIsDisplayed().assertIsNotEnabled()
