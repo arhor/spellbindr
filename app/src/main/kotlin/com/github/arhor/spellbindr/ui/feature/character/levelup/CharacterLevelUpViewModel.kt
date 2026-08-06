@@ -9,6 +9,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterWithProgression
 import com.github.arhor.spellbindr.domain.model.Feat
 import com.github.arhor.spellbindr.domain.model.HitPointGain
+import com.github.arhor.spellbindr.domain.model.Language
 import com.github.arhor.spellbindr.domain.model.LevelUpChoiceCategory
 import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.LevelUpPreview
@@ -25,6 +26,7 @@ import com.github.arhor.spellbindr.domain.usecase.LoadCharacterWithProgressionUs
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllCharacterClassesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllFeatsUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllFeaturesUseCase
+import com.github.arhor.spellbindr.domain.usecase.ObserveAllLanguagesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.RebuildLevelUpPlanUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +49,7 @@ class CharacterLevelUpViewModel @Inject constructor(
     observeFeatures: ObserveAllFeaturesUseCase,
     observeFeats: ObserveAllFeatsUseCase,
     observeSpells: ObserveAllSpellsUseCase,
+    observeLanguages: ObserveAllLanguagesUseCase,
     private val createPlan: CreateLevelUpPlanUseCase,
     private val rebuildPlan: RebuildLevelUpPlanUseCase,
     private val applyLevelUp: ApplyLevelUpUseCase,
@@ -55,6 +58,7 @@ class CharacterLevelUpViewModel @Inject constructor(
     private val characterId: String? = savedStateHandle["characterId"]
     private val draft = MutableStateFlow(restoredDraft())
     private var latestReady: SourceState.Ready? = null
+    private var confirmationInFlight = false
     private val _effects = MutableSharedFlow<CharacterLevelUpEffect>()
     val effects = _effects.asSharedFlow()
 
@@ -63,27 +67,44 @@ class CharacterLevelUpViewModel @Inject constructor(
         val features: List<com.github.arhor.spellbindr.domain.model.Feature>,
         val feats: List<Feat>,
         val spells: List<Spell>,
+        val languages: List<Language>,
+    )
+
+    private data class LoadedReferences(
+        val classes: Loadable<List<CharacterClass>>,
+        val features: Loadable<List<com.github.arhor.spellbindr.domain.model.Feature>>,
+        val feats: Loadable<List<Feat>>,
+        val spells: Loadable<List<Spell>>,
+        val languages: Loadable<List<Language>>,
+    )
+
+    private val references = combine(
+        observeClasses(),
+        observeFeatures(),
+        observeFeats(),
+        observeSpells(),
+        observeLanguages(),
+        ::LoadedReferences,
     )
 
     private val source = if (characterId == null) {
         kotlinx.coroutines.flow.flowOf<SourceState>(SourceState.Failure("Missing character id"))
     } else {
-        combine(
-            loadCharacter(characterId),
-            observeClasses(),
-            observeFeatures(),
-            observeFeats(),
-            observeSpells(),
-        ) { character, classes, features, feats, spells ->
+        combine(loadCharacter(characterId), references) { character, references ->
+            val classes = references.classes
+            val features = references.features
+            val feats = references.feats
+            val spells = references.spells
+            val languages = references.languages
             when {
                 character == null -> SourceState.Failure("Character not found")
                 classes is Loadable.Failure || features is Loadable.Failure ||
-                    feats is Loadable.Failure || spells is Loadable.Failure ->
+                    feats is Loadable.Failure || spells is Loadable.Failure || languages is Loadable.Failure ->
                     SourceState.Failure("Unable to load level-up reference data")
                 classes is Loadable.Content && features is Loadable.Content &&
-                    feats is Loadable.Content && spells is Loadable.Content -> SourceState.Ready(
+                    feats is Loadable.Content && spells is Loadable.Content && languages is Loadable.Content -> SourceState.Ready(
                     character,
-                    ReferenceState(classes.data, features.data, feats.data, spells.data),
+                    ReferenceState(classes.data, features.data, feats.data, spells.data, languages.data),
                 )
                 else -> SourceState.Loading
             }
@@ -99,8 +120,11 @@ class CharacterLevelUpViewModel @Inject constructor(
             is CharacterLevelUpIntent.SubclassSelected -> updatePlan { it.copy(selections = it.selections.copy(subclassId = intent.subclassId)) }
             is CharacterLevelUpIntent.ChoiceToggled -> toggleChoice(intent)
             is CharacterLevelUpIntent.HitPointsSelected -> updatePlan { it.copy(selections = it.selections.copy(hitPointGain = intent.gain)) }
+            CharacterLevelUpIntent.HitPointsCleared -> updatePlan {
+                it.copy(selections = it.selections.copy(hitPointGain = null))
+            }
             is CharacterLevelUpIntent.AbilityScoreDecisionSelected -> updatePlan { it.copy(selections = it.selections.copy(abilityScoreDecision = intent.decision, featChoices = emptyMap())) }
-            is CharacterLevelUpIntent.SpellChangesSelected -> updatePlan { it.copy(selections = it.selections.copy(spellChanges = intent.changes)) }
+            is CharacterLevelUpIntent.SpellChangesSelected -> updatePlan { it.applySpellChangesSelection(intent) }
             is CharacterLevelUpIntent.AcknowledgementChanged -> updatePlan { plan ->
                 val codes = plan.selections.acknowledgedIssueCodes.toMutableSet().apply {
                     if (intent.acknowledged) add(intent.issueCode) else remove(intent.issueCode)
@@ -109,7 +133,7 @@ class CharacterLevelUpViewModel @Inject constructor(
             }
             CharacterLevelUpIntent.NextClicked -> move(1)
             CharacterLevelUpIntent.BackClicked -> move(-1)
-            CharacterLevelUpIntent.CancelClicked -> viewModelScope.launch { _effects.emit(CharacterLevelUpEffect.Cancelled) }
+            CharacterLevelUpIntent.CancelClicked -> cancel()
             CharacterLevelUpIntent.ConfirmClicked -> confirm()
             CharacterLevelUpIntent.ReloadClicked -> reloadDraft()
         }
@@ -127,21 +151,47 @@ class CharacterLevelUpViewModel @Inject constructor(
             if (progression.totalLevel >= LevelUpReferenceRules.maximumCharacterLevel) {
                 return CharacterLevelUpUiState.Unavailable("Maximum level reached", "This character is already level 20.")
             }
-            val reference = LevelUpReferenceData(source.reference.classes, source.reference.features, source.reference.feats, LevelUpReferenceRules.referenceDataVersion, source.reference.spells)
-            val restored = draft?.plan?.takeIf { it.expectedTotalLevel == progression.totalLevel && it.rulesetId == progression.rulesetId && it.referenceDataVersion == reference.referenceDataVersion }
-            val plan = restored ?: createPlan(progression)
-            if (restored == null && draft != null) clearSavedDraft()
+            val reference = LevelUpReferenceData(
+                classes = source.reference.classes,
+                features = source.reference.features,
+                feats = source.reference.feats,
+                referenceDataVersion = LevelUpReferenceRules.referenceDataVersion,
+                spells = source.reference.spells,
+                languages = source.reference.languages,
+            )
+            val restoredDraft = draft?.takeIf {
+                it.plan.expectedTotalLevel == progression.totalLevel &&
+                    it.plan.rulesetId == progression.rulesetId &&
+                    it.plan.referenceDataVersion == reference.referenceDataVersion
+            }
+            val plan = restoredDraft?.plan ?: createPlan(progression)
+            if (restoredDraft == null && draft != null) clearSavedDraft()
             val preview = rebuildPlan(source.character.sheet, progression, plan, reference)
             val steps = characterLevelUpSteps(preview.requirements)
-            val requested = restored?.let { draft.step } ?: CharacterLevelUpStep.Class
+            val requested = restoredDraft?.step ?: CharacterLevelUpStep.Class
             val step = requested.takeIf(steps::contains) ?: steps.first()
-            CharacterLevelUpUiState.Content(source.character.sheet.name, plan, preview, source.reference.classes, source.reference.feats, source.reference.spells, steps, step, steps.indexOf(step), draft?.isSaving == true, draft?.staleMessage, draft?.persistenceMessage)
+            CharacterLevelUpUiState.Content(
+                source.character.sheet.name,
+                plan,
+                preview,
+                source.reference.classes,
+                source.reference.feats,
+                source.reference.spells,
+                steps,
+                step,
+                steps.indexOf(step),
+                restoredDraft?.isSaving == true,
+                restoredDraft?.staleMessage,
+                restoredDraft?.persistenceMessage,
+            )
         }
         }
     }
 
     private fun updatePlan(transform: (LevelUpPlan) -> LevelUpPlan) {
+        if (confirmationInFlight) return
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
+        if (content.isSaving) return
         setDraft(SavedDraft(content.step, transform(content.plan)))
     }
 
@@ -170,37 +220,89 @@ class CharacterLevelUpViewModel @Inject constructor(
     }
 
     private fun move(delta: Int) {
+        if (confirmationInFlight) return
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
+        if (content.isSaving) return
+        if (delta > 0 && !content.canAdvance) return
         val next = (content.currentStepIndex + delta).coerceIn(0, content.steps.lastIndex)
         setDraft(SavedDraft(content.steps[next], content.plan))
     }
 
     private fun reloadDraft() {
+        if (confirmationInFlight) return
         clearSavedDraft()
         draft.value = null
     }
 
+    private fun cancel() {
+        if (confirmationInFlight) return
+        viewModelScope.launch { _effects.emit(CharacterLevelUpEffect.Cancelled) }
+    }
+
     private fun confirm() {
         val content = uiState.value as? CharacterLevelUpUiState.Content ?: return
-        if (!content.canConfirm || characterId == null) return
+        if (!content.canConfirm || characterId == null || confirmationInFlight) return
         val ready = latestReady ?: return
-        val reference = LevelUpReferenceData(ready.reference.classes, ready.reference.features, ready.reference.feats, LevelUpReferenceRules.referenceDataVersion, ready.reference.spells)
+        val reference = LevelUpReferenceData(
+            classes = ready.reference.classes,
+            features = ready.reference.features,
+            feats = ready.reference.feats,
+            referenceDataVersion = LevelUpReferenceRules.referenceDataVersion,
+            spells = ready.reference.spells,
+            languages = ready.reference.languages,
+        )
+        confirmationInFlight = true
         setDraft(SavedDraft(content.step, content.plan, isSaving = true))
         viewModelScope.launch {
             when (val result = applyLevelUp(characterId, content.plan.expectedTotalLevel, content.plan, reference)) {
                 is ApplyLevelUpResult.Success -> { clearSavedDraft(); _effects.emit(CharacterLevelUpEffect.Completed) }
-                ApplyLevelUpResult.StaleState -> setDraft(SavedDraft(CharacterLevelUpStep.Review, content.plan, staleMessage = "The character changed. Reload this draft before confirming."))
-                is ApplyLevelUpResult.PersistenceFailure -> setDraft(SavedDraft(CharacterLevelUpStep.Review, content.plan, persistenceMessage = result.message.ifBlank { "Unable to save. Your reviewed choices are ready to retry." }))
-                is ApplyLevelUpResult.ValidationFailure -> setDraft(SavedDraft(CharacterLevelUpStep.Review, content.plan, persistenceMessage = result.issues.joinToString("\n") { it.message }))
-                ApplyLevelUpResult.MissingCharacter -> _effects.emit(CharacterLevelUpEffect.Message("Character not found"))
-                ApplyLevelUpResult.UnmanagedCharacter -> _effects.emit(CharacterLevelUpEffect.Message("This character is not managed"))
+                ApplyLevelUpResult.StaleState -> retainDraftAfterFailure(
+                    content.plan,
+                    staleMessage = "The character changed. Reload this draft before confirming.",
+                )
+                is ApplyLevelUpResult.PersistenceFailure -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = result.message.ifBlank {
+                        "Unable to save. Your reviewed choices are ready to retry."
+                    },
+                )
+                is ApplyLevelUpResult.ValidationFailure -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = result.issues.joinToString("\n") { it.message },
+                )
+                ApplyLevelUpResult.MissingCharacter -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = "Character not found",
+                )
+                ApplyLevelUpResult.UnmanagedCharacter -> retainDraftAfterFailure(
+                    content.plan,
+                    persistenceMessage = "This character is not managed",
+                )
             }
         }
     }
 
+    private fun retainDraftAfterFailure(
+        plan: LevelUpPlan,
+        staleMessage: String? = null,
+        persistenceMessage: String? = null,
+    ) {
+        confirmationInFlight = false
+        setDraft(SavedDraft(
+            step = CharacterLevelUpStep.Review,
+            plan = plan,
+            staleMessage = staleMessage,
+            persistenceMessage = persistenceMessage,
+        ))
+    }
+
     private fun setDraft(value: SavedDraft) { draft.value = value; savedStateHandle[DRAFT_KEY] = JSON.encodeToString(SavedDraft.serializer(), value) }
     private fun clearSavedDraft() { savedStateHandle.remove<String>(DRAFT_KEY) }
-    private fun restoredDraft(): SavedDraft? = savedStateHandle.get<String>(DRAFT_KEY)?.let { runCatching { JSON.decodeFromString(SavedDraft.serializer(), it) }.getOrNull() }
+    private fun restoredDraft(): SavedDraft? = savedStateHandle.get<String>(DRAFT_KEY)?.let {
+        runCatching { JSON.decodeFromString(SavedDraft.serializer(), it) }
+            .getOrNull()
+            ?.copy(isSaving = false)
+    }
 
     @Serializable
     private data class SavedDraft(val step: CharacterLevelUpStep, val plan: LevelUpPlan, val isSaving: Boolean = false, val staleMessage: String? = null, val persistenceMessage: String? = null)

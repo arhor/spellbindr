@@ -61,6 +61,8 @@ enum class LevelUpValidationCode {
     InvalidAbilityScoreIncrease,
     FeatRequired,
     FeatPrerequisite,
+    FeatAlreadySelected,
+    UnsupportedFeatDecision,
     MissingFeat,
     SpellPolicy,
 }
@@ -104,12 +106,14 @@ sealed interface LevelUpRequirement {
         val choice: Choice,
         val selectedOptionIds: Set<String>,
         val category: LevelUpChoiceCategory,
+        val options: List<LevelUpChoiceOption> = emptyList(),
     ) : LevelUpRequirement
 
     @Serializable
     data class HitPoints(
         override val id: String = "hit-points",
         val hitDie: Int,
+        val fixedGain: Int = hitDie / 2 + 1,
         val selectedGain: HitPointGain?,
     ) : LevelUpRequirement
 
@@ -120,6 +124,8 @@ sealed interface LevelUpRequirement {
         val abilityPoints: Int,
         val maximumAbilityScore: Int,
         val allowsFeat: Boolean,
+        val eligibleFeatIds: List<String> = emptyList(),
+        val featEligibility: List<LevelUpFeatEligibility> = emptyList(),
         val selectedDecision: AbilityScoreDecision?,
     ) : LevelUpRequirement
 
@@ -131,6 +137,14 @@ sealed interface LevelUpRequirement {
         val classLevel: Int,
         val policyId: String,
         val changes: SpellChanges,
+        val requiredCantripCount: Int = 0,
+        val cantripCandidates: List<LevelUpSpellOption> = emptyList(),
+        val requiredKnownSpellCount: Int = 0,
+        val knownSpellCandidates: List<LevelUpSpellOption> = emptyList(),
+        val featureSpellGrants: List<LevelUpFeatureSpellGrantRequirement> = emptyList(),
+        val replacement: LevelUpSpellReplacementRequirement? = null,
+        val requiredSpellbookAdditionCount: Int = 0,
+        val spellbookCandidates: List<LevelUpSpellOption> = emptyList(),
         /** A mutable prepared list may contain at most this many spells, when applicable. */
         val preparationCapacity: Int? = null,
     ) : LevelUpRequirement
@@ -151,6 +165,20 @@ data class LevelUpClassEligibility(
 )
 
 @Serializable
+data class LevelUpFeatEligibility(
+    val featId: String,
+    val eligible: Boolean,
+    val reasons: List<String> = emptyList(),
+    val deferredDecision: LevelUpDeferredFeatDecision? = null,
+)
+
+@Serializable
+enum class LevelUpDeferredFeatDecision {
+    SpellSelection,
+    ManeuverSelection,
+}
+
+@Serializable
 enum class LevelUpChoiceCategory {
     Feature,
     Proficiency,
@@ -161,6 +189,30 @@ enum class LevelUpChoiceCategory {
 data class LevelUpChoiceOption(
     val id: String,
     val label: String = id,
+)
+
+@Serializable
+data class LevelUpSpellOption(
+    val spellId: String,
+    val name: String,
+    val level: Int,
+)
+
+@Serializable
+data class LevelUpSpellReplacementRequirement(
+    val sourceCandidates: List<LevelUpSpellOption>,
+    val replacementCandidates: List<LevelUpSpellOption>,
+    val selectedSourceSpellId: String? = null,
+    val selectedReplacementSpellId: String? = null,
+)
+
+@Serializable
+data class LevelUpFeatureSpellGrantRequirement(
+    val featureId: String,
+    val label: String,
+    val requiredCount: Int,
+    val candidates: List<LevelUpSpellOption>,
+    val selectedSpellIds: Set<String>,
 )
 
 @Serializable
@@ -185,6 +237,7 @@ data class LevelUpSnapshot(
     val sharedSpellSlots: Map<Int, Int>,
     /** Pact Magic never contributes to the shared multiclass slot table. */
     val pactMagic: LevelUpPactMagicCapacity? = null,
+    val languageIds: Set<String> = emptySet(),
 )
 
 @Serializable
@@ -214,9 +267,11 @@ data class LevelUpReferenceData(
     val feats: List<Feat> = emptyList(),
     val referenceDataVersion: String = LevelUpReferenceRules.referenceDataVersion,
     val spells: List<Spell> = emptyList(),
+    val languages: List<Language> = emptyList(),
 ) {
     val classesById: Map<String, CharacterClass> = classes.associateBy(CharacterClass::id)
     val featuresById: Map<String, Feature> = features.associateBy(Feature::id)
     val featsById: Map<String, Feat> = feats.associateBy(Feat::id)
     val spellsById: Map<String, Spell> = spells.associateBy(Spell::id)
+    val languagesById: Map<String, Language> = languages.associateBy(Language::id)
 }

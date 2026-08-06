@@ -163,6 +163,18 @@
   {
     "id": "elemental-adept",
     "name": "Elemental Adept",
+    "repeatable": true,
+    "damageTypeChoice": {
+      "type": "options-array",
+      "from": [
+        "acid",
+        "cold",
+        "fire",
+        "lightning",
+        "thunder"
+      ],
+      "choose": 1
+    },
     "desc": [
       "Prerequisite: The ability to cast at least one spell.",
       "When you gain this feat, choose one of the following damage types: acid, cold, fire, lightning, or thunder.",
@@ -170,7 +182,11 @@
       "- When you roll damage for a spell you cast that deals damage of the chosen type, you can treat any 1 on a damage die as a 2.",
       "You can select this feat multiple times. Each time you do so, you must choose a different damage type."
     ],
-    "prerequisites": []
+    "prerequisites": [
+      {
+        "type": "spellcasting"
+      }
+    ]
   },
   {
     "id": "grappler",
@@ -539,6 +555,7 @@
   {
     "id": "resilient",
     "name": "Resilient",
+    "correlatesAbilityAndSavingThrow": true,
     "desc": [
       "Choose one ability score. You gain the following benefits:",
       "- Increase the chosen ability score by 1, to a maximum of 20.",
@@ -740,7 +757,11 @@
       "- Your ranged spell attacks ignore half cover and three-quarters cover.",
       "- You learn one cantrip that requires an attack roll. Choose the cantrip from the bard, cleric, druid, sorcerer, warlock, or wizard spell list. Your spellcasting ability for this cantrip depends on the spell list you chose."
     ],
-    "prerequisites": []
+    "prerequisites": [
+      {
+        "type": "spellcasting"
+      }
+    ]
   },
   {
     "id": "tavern-brawler",
@@ -791,7 +812,11 @@
       "- You can perform the somatic components of spells even when you have weapons or a shield in one or both hands.",
       "- When a hostile creature's movement provokes an opportunity attack from you, you can use your reaction to cast a spell at the creature, rather than making an opportunity attack. The spell must have a casting time of 1 action and must target only that creature."
     ],
-    "prerequisites": []
+    "prerequisites": [
+      {
+        "type": "spellcasting"
+      }
+    ]
   },
   {
     "id": "weapon-master",

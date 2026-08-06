@@ -12,6 +12,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Prerequisite {
 
+    @Serializable
+    @SerialName("spellcasting")
+    data object SpellcastingPrerequisite : Prerequisite
+
     /**
      * Requires a minimum character level to access the feature.
      *

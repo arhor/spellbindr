@@ -152,7 +152,7 @@ fun CharacterSheetRoute(
                                 dispatch(CharacterSheetIntent.LevelUpClicked)
                             },
                             enabled = (contentState?.progression as? com.github.arhor.spellbindr.ui.feature.character.sheet.model.ProgressionSummaryUiModel.Managed)
-                                ?.totalLevel in 1..19,
+                                ?.totalLevel?.let { it in 1..19 } == true,
                         )
                         DropdownMenuItem(
                             text = { Text("Open full editor") },

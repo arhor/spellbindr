@@ -101,21 +101,18 @@ class LevelUpReferenceDataIntegrityTest {
             assertThat(capability).isInstanceOf(FeatureCapability.Selection::class.java)
             assertThat((capability as FeatureCapability.Selection).choiceId).isEqualTo("${feature.id}:choice")
         }
-        assertThat(
-            features.filter { it.choice == null }
-                .map { capabilities.getValue(it.id) }
-                .distinct(),
-        ).containsExactly(FeatureCapability.Descriptive)
+        assertThat(features.filter { it.choice == null }.map { capabilities.getValue(it.id) }.toSet())
+            .containsExactly(FeatureCapability.Descriptive)
     }
 
     @Test
-    fun `decode should provide valid prerequisites structured effects and stable choices for every feat`() {
+    fun `decode should provide valid prerequisites effects and choices when every feat is decoded`() {
         // Given
         val feats = decodeAsset<List<Feat>>("feats.json")
         val proficiencyIds = decodeAsset<List<Proficiency>>("proficiencies.json").map(Proficiency::id).toSet()
 
         // When
-        val featChoiceIds = feats.mapNotNull(Feat::abilityBonusChoiceId)
+        val featChoiceIds = feats.flatMap { it.ownedChoiceIds }
 
         // Then
         assertThat(feats.map(Feat::id)).containsNoDuplicates()
@@ -129,13 +126,41 @@ class LevelUpReferenceDataIntegrityTest {
                     is Prerequisite.ProficiencyPrerequisite -> {
                         assertThat(proficiencyIds).contains(prerequisite.id)
                     }
+                    Prerequisite.SpellcastingPrerequisite -> Unit
                     else -> error("Unexpected feat prerequisite for ${feat.id}: $prerequisite")
                 }
             }
             feat.abilityBonusChoice?.from?.flatMap { it.keys }?.forEach { abilityId ->
                 assertThat(AbilityIds.standardOrder).contains(abilityId)
             }
+            feat.languageChoice?.let { choice ->
+                assertThat(choice.from).isEqualTo("languages")
+                assertThat(choice.choose).isGreaterThan(0)
+            }
+            feat.proficiencyChoice?.let { choice ->
+                assertThat(choice.choose).isGreaterThan(0)
+                assertThat(choice.from).containsNoDuplicates()
+            }
+            feat.damageTypeChoice?.let { choice ->
+                assertThat(choice.choose).isGreaterThan(0)
+                assertThat(choice.from).containsNoDuplicates()
+            }
+            if (feat.correlatesAbilityAndSavingThrow) {
+                assertThat(feat.abilityBonusChoice).isNotNull()
+                assertThat(feat.proficiencyChoice).isNotNull()
+                assertThat(feat.correlatedAbilitySavingThrowChoiceId).isNotNull()
+            }
         }
+        val elementalAdept = feats.single { it.id == "elemental-adept" }
+        assertThat(elementalAdept.repeatable).isTrue()
+        assertThat(elementalAdept.damageTypeChoice?.from)
+            .containsExactly("acid", "cold", "fire", "lightning", "thunder")
+        assertThat(elementalAdept.prerequisites).contains(Prerequisite.SpellcastingPrerequisite)
+        assertThat(feats.single { it.id == "resilient" }.correlatesAbilityAndSavingThrow).isTrue()
+        assertThat(feats.single { it.id == "spell-sniper" }.prerequisites)
+            .contains(Prerequisite.SpellcastingPrerequisite)
+        assertThat(feats.single { it.id == "war-caster" }.prerequisites)
+            .contains(Prerequisite.SpellcastingPrerequisite)
     }
 
     @Test

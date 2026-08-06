@@ -485,9 +485,13 @@ private fun CharacterWithProgression.toEditorState(
             armorClass = armorClass.toString(),
             initiative = initiative.toString(),
             speed = speed,
-            hitDice = hitDice,
-            savingThrows = savingThrows.savingThrowsToInputStates(),
-            skills = skills.skillsToInputStates(),
+            hitDice = effectiveHitDiceText(),
+            savingThrows = savingThrows.savingThrowsToInputStates(
+                managedSavingThrowAbilityIds = managedProgression?.savingThrowAbilityIds.orEmpty(),
+            ),
+            skills = skills.skillsToInputStates(
+                managedProficiencyIds = managedProgression?.proficiencyIds.orEmpty(),
+            ),
             senses = senses,
             languages = languages,
             proficiencies = proficiencies,
@@ -541,23 +545,28 @@ private fun AbilityScores.toFieldStates(): List<AbilityFieldState> = listOf(
     AbilityFieldState(AbilityIds.CHA, charisma.toString()),
 )
 
-private fun List<SavingThrowEntry>.savingThrowsToInputStates(): List<SavingThrowInputState> =
+private fun List<SavingThrowEntry>.savingThrowsToInputStates(
+    managedSavingThrowAbilityIds: Set<AbilityId> = emptySet(),
+): List<SavingThrowInputState> =
     AbilityIds.standardOrder.map { abilityId ->
         val entry = firstOrNull { it.abilityId == abilityId }
         SavingThrowInputState(
             abilityId = abilityId,
             bonus = entry?.bonus ?: 0,
-            proficient = entry?.proficient ?: false,
+            proficient = entry?.proficient == true || abilityId in managedSavingThrowAbilityIds,
         )
     }
 
-private fun List<SkillEntry>.skillsToInputStates(): List<SkillInputState> =
+private fun List<SkillEntry>.skillsToInputStates(
+    managedProficiencyIds: Set<String> = emptySet(),
+): List<SkillInputState> =
     Skill.entries.map { skill ->
         val entry = firstOrNull { it.skill == skill }
         SkillInputState(
             skill = skill,
             bonus = entry?.bonus ?: 0,
-            proficient = entry?.proficient ?: false,
+            proficient = entry?.proficient == true ||
+                "skill-${skill.name.lowercase().replace('_', '-')}" in managedProficiencyIds,
             expertise = entry?.expertise ?: false,
         )
     }

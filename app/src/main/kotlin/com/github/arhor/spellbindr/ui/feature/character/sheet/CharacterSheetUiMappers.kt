@@ -46,11 +46,13 @@ internal fun CharacterSheet.toOverviewState(): OverviewTabState {
     val abilityModels = AbilityIds.standardOrder.map { abilityId ->
         val modifier = abilityScores.modifierFor(abilityId)
         val entry = savingThrowLookup[abilityId]
-        val proficiencyBonusValue = if (entry?.proficient == true) proficiencyBonus else 0
+        val effectivelyProficient = entry?.proficient == true ||
+            abilityId in managedProgression?.savingThrowAbilityIds.orEmpty()
+        val proficiencyBonusValue = if (effectivelyProficient) proficiencyBonus else 0
         val computedBonus = modifier + proficiencyBonusValue
         val resolvedBonus = when {
-            entry == null -> modifier
-            entry.bonus != 0 || entry.proficient -> entry.bonus
+            entry == null -> computedBonus
+            entry.bonus != 0 || effectivelyProficient -> entry.bonus
             else -> computedBonus
         }
         AbilityUiModel(
@@ -59,13 +61,13 @@ internal fun CharacterSheet.toOverviewState(): OverviewTabState {
             score = abilityScores.scoreFor(abilityId),
             modifier = modifier,
             savingThrowBonus = resolvedBonus,
-            savingThrowProficient = entry?.proficient ?: false,
+            savingThrowProficient = effectivelyProficient,
         )
     }
 
     return OverviewTabState(
         abilities = abilityModels,
-        hitDice = hitDice.ifBlank { "—" },
+        hitDice = effectiveHitDiceText().ifBlank { "—" },
         senses = senses,
         languages = languages,
         proficiencies = proficiencies,
@@ -84,15 +86,18 @@ internal fun CharacterSheet.toSkillsState(): SkillsTabState {
     val entries = skills.associateBy { it.skill }
     val models = Skill.entries.map { skill ->
         val entry = entries[skill]
+        val skillId = "skill-${skill.name.lowercase().replace('_', '-')}"
+        val effectivelyProficient = entry?.proficient == true ||
+            skillId in managedProgression?.proficiencyIds.orEmpty()
         val proficiencyBonus = when {
             entry?.expertise == true -> this.proficiencyBonus * 2
-            entry?.proficient == true -> this.proficiencyBonus
+            effectivelyProficient -> this.proficiencyBonus
             else -> 0
         }
         val computedBonus = abilityScores.modifierFor(skill.abilityId) + proficiencyBonus
         val resolvedBonus = when {
-            entry == null -> abilityScores.modifierFor(skill.abilityId)
-            entry.bonus != 0 || entry.proficient || entry.expertise -> entry.bonus
+            entry == null -> computedBonus
+            entry.bonus != 0 || effectivelyProficient || entry.expertise -> entry.bonus
             else -> computedBonus
         }
         SkillUiModel(
@@ -100,7 +105,7 @@ internal fun CharacterSheet.toSkillsState(): SkillsTabState {
             name = skill.displayName,
             abilityAbbreviation = skill.abilityAbbreviation,
             totalBonus = resolvedBonus,
-            proficient = entry?.proficient ?: false,
+            proficient = effectivelyProficient,
             expertise = entry?.expertise ?: false,
         )
     }
@@ -116,7 +121,7 @@ internal fun CharacterSheet.applyInlineEdits(edits: CharacterSheetEditingState):
         currentHitPoints = newCurrentHp,
         temporaryHitPoints = newTempHp,
         speed = edits.speed.trim(),
-        hitDice = edits.hitDice.trim(),
+        hitDice = if (managedProgression == null) edits.hitDice.trim() else hitDice,
         senses = edits.senses.trim(),
         languages = edits.languages.trim(),
         proficiencies = edits.proficiencies.trim(),

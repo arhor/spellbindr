@@ -66,11 +66,27 @@ class GuidedCharacterSetupSheetBuilderTest {
                     from = listOf("life"),
                 ),
             )
+            val domainTraining = Feature(
+                id = "domain-training",
+                name = "Domain Training",
+                desc = emptyList(),
+                choice = Choice.ProficiencyChoice(
+                    choose = 1,
+                    from = listOf("skill-insight"),
+                ),
+            )
             val life = Subclass(
                 id = "life",
                 name = "Life Domain",
                 desc = emptyList(),
                 subclassFlavor = "Divine Domain",
+                levels = listOf(
+                    ClassLevel(
+                        id = "life-1",
+                        level = 1,
+                        features = listOf(domainTraining.id),
+                    ),
+                ),
             )
             val cleric = CharacterClass(
                 id = "cleric",
@@ -99,17 +115,23 @@ class GuidedCharacterSetupSheetBuilderTest {
                     ),
                 ),
             )
+            val adaptable = Trait(
+                id = "adaptable",
+                name = "Adaptable",
+                desc = emptyList(),
+                effects = listOf(Effect.AddProficienciesEffect(setOf("skill-perception"))),
+            )
             val human = Race(
                 id = "human",
                 name = "Human",
-                traits = emptyList(),
+                traits = listOf(EntityRef(adaptable.id)),
                 subraces = emptyList(),
             )
             val acolyte = Background(
                 id = "acolyte",
                 name = "Acolyte",
                 feature = GenericInfo(name = "Shelter of the Faithful", desc = emptyList()),
-                effects = emptyList(),
+                effects = listOf(Effect.AddProficienciesEffect(setOf("skill-history"))),
             )
             val selection = GuidedSelection(
                 classId = cleric.id,
@@ -126,6 +148,7 @@ class GuidedCharacterSetupSheetBuilderTest {
                     GuidedCharacterSetupViewModel.classProficiencyChoiceKey(0) to
                         linkedSetOf("skill-medicine", "skill-religion"),
                     GuidedCharacterSetupViewModel.featureChoiceKey(lifeDomainFeature.id) to setOf(life.id),
+                    GuidedCharacterSetupViewModel.featureChoiceKey(domainTraining.id) to setOf("skill-insight"),
                     GuidedCharacterSetupViewModel.featureChoiceKey("foreign-feature") to setOf("foreign-option"),
                     GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey() to setOf("celestial"),
                     GuidedCharacterSetupViewModel.spellCantripsChoiceKey() to
@@ -139,8 +162,8 @@ class GuidedCharacterSetupSheetBuilderTest {
                 classes = listOf(cleric),
                 races = listOf(human),
                 backgrounds = listOf(acolyte),
-                traits = emptyList(),
-                features = listOf(lifeDomainFeature),
+                traits = listOf(adaptable),
+                features = listOf(lifeDomainFeature, domainTraining),
                 spells = emptyList(),
                 selection = selection,
             )
@@ -163,7 +186,10 @@ class GuidedCharacterSetupSheetBuilderTest {
             assertThat(record.subclassId).isEqualTo("life")
             assertThat(record.hitPointGain).isEqualTo(HitPointGain.Fixed(rolledValue = 8))
             assertThat(record.featureChoices).isEqualTo(
-                mapOf("divine-domain" to setOf("life")),
+                mapOf(
+                    "divine-domain" to setOf("life"),
+                    "domain-training" to setOf("skill-insight"),
+                ),
             )
             assertThat(record.proficiencyChoices).containsExactly(
                 ProficiencyChoiceSelection(
@@ -176,6 +202,23 @@ class GuidedCharacterSetupSheetBuilderTest {
                 ClassSpellRef(classId = "cleric", spellId = "thaumaturgy"),
             )
             assertThat(record.spellChanges.addedToSpellbook).isEmpty()
+            assertThat(result.sheet.manualProficiencyIds).containsExactly("skill-history", "skill-perception")
+            assertThat(result.sheet.managedProgression?.proficiencyIds).containsExactly(
+                "skill-medicine",
+                "skill-religion",
+                "skill-insight",
+            )
+            assertThat(result.sheet.allProficiencyIds).containsExactly(
+                "skill-history",
+                "skill-perception",
+                "skill-medicine",
+                "skill-religion",
+                "skill-insight",
+            )
+            assertThat(result.sheet.skills.single { it.skill == Skill.HISTORY }.proficient).isTrue()
+            assertThat(result.sheet.skills.single { it.skill == Skill.PERCEPTION }.proficient).isTrue()
+            assertThat(result.sheet.skills.single { it.skill == Skill.MEDICINE }.proficient).isFalse()
+            assertThat(result.sheet.skills.single { it.skill == Skill.INSIGHT }.proficient).isFalse()
         }
 
     @Test
