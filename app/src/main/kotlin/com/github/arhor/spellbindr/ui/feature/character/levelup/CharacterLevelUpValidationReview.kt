@@ -1,12 +1,14 @@
 package com.github.arhor.spellbindr.ui.feature.character.levelup
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -14,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
@@ -98,14 +99,10 @@ private fun RuleExceptionFinding(
                     },
                 )
                 .padding(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.Top,
         ) {
-            Checkbox(
-                checked = accepted,
-                enabled = !state.isSaving,
-                onCheckedChange = null,
-                modifier = Modifier.clearAndSetSemantics {},
-            )
+            ExceptionCheckIndicator(accepted)
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -119,6 +116,26 @@ private fun RuleExceptionFinding(
                     issue.reviewContext(state),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExceptionCheckIndicator(accepted: Boolean) {
+    Surface(
+        modifier = Modifier.size(24.dp),
+        shape = MaterialTheme.shapes.extraSmall,
+        color = if (accepted) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            if (accepted) {
+                Text(
+                    "✓",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.labelLarge,
                 )
             }
         }
