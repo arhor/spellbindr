@@ -34,6 +34,7 @@ data class LevelUpSelections(
 enum class LevelUpValidationSeverity {
     Blocking,
     Overrideable,
+    Informational,
 }
 
 @Serializable
