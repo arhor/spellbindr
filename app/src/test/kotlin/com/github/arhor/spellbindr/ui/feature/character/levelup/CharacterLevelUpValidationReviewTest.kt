@@ -1,7 +1,6 @@
 package com.github.arhor.spellbindr.ui.feature.character.levelup
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.isToggleable
@@ -100,7 +99,9 @@ class CharacterLevelUpValidationReviewTest {
         composeTestRule.onNodeWithText(warning.message).assertExists()
         composeTestRule.onNodeWithText(exception.message).assertExists()
         composeTestRule.onNodeWithText(blocking.message).assertExists()
-        composeTestRule.onAllNodesWithText("Accepted rule exception").assertCountEquals(1)
+        assertThat(
+            composeTestRule.onAllNodesWithText("Accepted rule exception").fetchSemanticsNodes(),
+        ).hasSize(1)
         composeTestRule.onNodeWithText("Confirm level up").assertIsNotEnabled()
         assertThat(composeTestRule.onAllNodes(isToggleable()).fetchSemanticsNodes()).hasSize(1)
     }
