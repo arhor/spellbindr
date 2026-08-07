@@ -19,6 +19,7 @@ sealed interface CharacterLevelUpIntent {
     data object CancelClicked : CharacterLevelUpIntent
     data object ConfirmClicked : CharacterLevelUpIntent
     data object ReloadClicked : CharacterLevelUpIntent
+    data object RetryClicked : CharacterLevelUpIntent
 }
 
 typealias CharacterLevelUpDispatch = (CharacterLevelUpIntent) -> Unit
