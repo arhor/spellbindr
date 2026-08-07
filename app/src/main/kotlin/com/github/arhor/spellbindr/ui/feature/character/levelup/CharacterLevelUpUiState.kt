@@ -13,6 +13,8 @@ import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.LevelUpPreview
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
+import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
+import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.Spell
 import kotlinx.serialization.Serializable
 
@@ -64,6 +66,12 @@ sealed interface CharacterLevelUpUiState {
         val isReview: Boolean get() = step == CharacterLevelUpStep.Review
         val canConfirm: Boolean get() = isReview && preview.canConfirm && !isSaving
         val canAdvance: Boolean get() = !isSaving && canAdvanceFromCurrentStep()
+        val blockingIssues: List<LevelUpValidationIssue>
+            get() = preview.validations.filter { it.severity == LevelUpValidationSeverity.Blocking }
+        val overrideableIssues: List<LevelUpValidationIssue>
+            get() = preview.validations.filter { it.severity == LevelUpValidationSeverity.Overrideable }
+        val informationalIssues: List<LevelUpValidationIssue>
+            get() = preview.validations.filter { it.severity == LevelUpValidationSeverity.Informational }
 
         private fun canAdvanceFromCurrentStep(): Boolean = when (step) {
             CharacterLevelUpStep.Class -> preview.requirements
@@ -92,7 +100,7 @@ sealed interface CharacterLevelUpUiState {
                 .filterIsInstance<LevelUpRequirement.SpellDecisions>()
                 .singleOrNull()
                 ?.isComplete() == true &&
-                preview.validations.none { it.code == LevelUpValidationCode.SpellPolicy }
+                !hasBlockingValidation(LevelUpValidationCode.SpellPolicy)
             CharacterLevelUpStep.Review -> false
         }
 
@@ -108,7 +116,12 @@ sealed interface CharacterLevelUpUiState {
                 LevelUpValidationCode.ChoiceRequired,
                 LevelUpValidationCode.InvalidChoice,
             )
-            if (preview.validations.any { it.code in abilityIssueCodes }) return false
+            if (preview.validations.any {
+                    it.severity == LevelUpValidationSeverity.Blocking && it.code in abilityIssueCodes
+                }
+            ) {
+                return false
+            }
             val requirement = preview.requirements
                 .filterIsInstance<LevelUpRequirement.AbilityScoreImprovement>()
                 .singleOrNull() ?: return false
@@ -131,6 +144,11 @@ sealed interface CharacterLevelUpUiState {
                 null -> false
             }
         }
+
+        private fun hasBlockingValidation(code: LevelUpValidationCode): Boolean =
+            preview.validations.any {
+                it.severity == LevelUpValidationSeverity.Blocking && it.code == code
+            }
     }
 }
 
