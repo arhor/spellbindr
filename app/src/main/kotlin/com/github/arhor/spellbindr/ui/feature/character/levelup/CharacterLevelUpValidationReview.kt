@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
@@ -103,6 +104,7 @@ private fun RuleExceptionFinding(
                 checked = accepted,
                 enabled = !state.isSaving,
                 onCheckedChange = null,
+                modifier = Modifier.clearAndSetSemantics {},
             )
             Column(
                 modifier = Modifier.weight(1f),
