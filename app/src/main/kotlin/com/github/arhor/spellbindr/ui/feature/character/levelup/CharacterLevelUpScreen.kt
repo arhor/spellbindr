@@ -11,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +36,6 @@ import com.github.arhor.spellbindr.domain.model.HitPointGain
 import com.github.arhor.spellbindr.domain.model.LevelUpChoiceCategory
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
 import com.github.arhor.spellbindr.domain.model.LevelUpSpellOption
-import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.SpellChanges
 import com.github.arhor.spellbindr.domain.model.SpellReplacement
 
@@ -261,27 +259,9 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                 CharacterLevelUpClassProgressionReview(state)
                 ReviewRow("Proficiency bonus", "+${state.preview.before.proficiencyBonus}", "+${state.preview.after.proficiencyBonus}")
                 CharacterLevelUpDurabilityReview(state)
-                state.preview.validations.forEach { issue ->
-                    when (issue.severity) {
-                        LevelUpValidationSeverity.Blocking -> WarningCard(issue.message)
-                        LevelUpValidationSeverity.Overrideable -> {
-                            val checked = issue.acknowledgementId in state.plan.selections.acknowledgedIssueCodes
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Checkbox(
-                                    checked = checked,
-                                    enabled = !state.isSaving,
-                                    onCheckedChange = {
-                                        dispatch(CharacterLevelUpIntent.AcknowledgementChanged(
-                                            issue.acknowledgementId,
-                                            it,
-                                        ))
-                                    },
-                                )
-                                Text(issue.message)
-                            }
-                        }
-                        LevelUpValidationSeverity.Informational -> InformationalCard(issue.message)
-                    }
+                CharacterLevelUpValidationReview(state, dispatch)
+                state.blockingIssues.forEach { issue ->
+                    WarningCard(issue.message)
                 }
             }
         }
@@ -522,7 +502,6 @@ private fun SpellChanges.toggleFeatureGrant(
 @Composable private fun ChoiceRow(label: String, selected: Boolean, onClick: () -> Unit) = Surface(onClick = onClick, modifier = Modifier.fillMaxWidth(), shape = MaterialTheme.shapes.medium) { Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) { RadioButton(selected, onClick = onClick); Text(label) } }
 @Composable private fun SectionTitle(text: String) = Text(text, style = MaterialTheme.typography.titleSmall)
 @Composable private fun WarningCard(text: String) = Surface(color = MaterialTheme.colorScheme.errorContainer, shape = MaterialTheme.shapes.medium) { Text(text, Modifier.fillMaxWidth().padding(12.dp), color = MaterialTheme.colorScheme.onErrorContainer) }
-@Composable private fun InformationalCard(text: String) = Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium) { Text(text, Modifier.fillMaxWidth().padding(12.dp), color = MaterialTheme.colorScheme.onSurfaceVariant) }
 @Composable private fun ReviewRow(label: String, before: String, after: String) = Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) { Text(label); Text("$before → $after") }
 @Composable private fun MessagePane(text: String, modifier: Modifier) = Box(modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) { Text(text) }
 
