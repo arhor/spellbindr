@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.character.levelup
 
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AbilityIds
 import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
 import com.github.arhor.spellbindr.domain.model.AbilityScores
@@ -419,6 +420,7 @@ class CharacterLevelUpViewModelTest {
         val observeFeats = mockk<ObserveAllFeatsUseCase>()
         val observeSpells = mockk<ObserveAllSpellsUseCase>()
         val observeLanguages = mockk<ObserveAllLanguagesUseCase>()
+        val assetBootstrapper = mockk<AssetBootstrapper>()
         val createPlan = mockk<CreateLevelUpPlanUseCase>()
         val rebuildPlan = mockk<RebuildLevelUpPlanUseCase>()
         val applyLevelUp = mockk<ApplyLevelUpUseCase>()
@@ -430,6 +432,7 @@ class CharacterLevelUpViewModelTest {
         every { observeFeats() } returns flowOf(Loadable.Content(emptyList()))
         every { observeSpells() } returns flowOf(Loadable.Content(emptyList()))
         every { observeLanguages() } returns flowOf(Loadable.Content(emptyList()))
+        coEvery { assetBootstrapper.retryFailedLoads() } returns Unit
         every { createPlan(any()) } answers {
             val source = firstArg<CharacterProgression>()
             LevelUpPlan(
@@ -456,6 +459,7 @@ class CharacterLevelUpViewModelTest {
                 observeFeats,
                 observeSpells,
                 observeLanguages,
+                assetBootstrapper,
                 createPlan,
                 rebuildPlan,
                 applyLevelUp,
