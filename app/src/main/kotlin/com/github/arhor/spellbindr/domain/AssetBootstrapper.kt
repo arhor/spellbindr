@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface AssetBootstrapper {
     val state: StateFlow<AssetBootstrapState>
     fun start()
+    suspend fun retryFailedLoads()
 }

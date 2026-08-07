@@ -2,6 +2,7 @@ package com.github.arhor.spellbindr.ui.feature.character.levelup
 
 import androidx.lifecycle.SavedStateHandle
 import com.github.arhor.spellbindr.MainDispatcherRule
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AbilityScores
 import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
@@ -53,6 +54,7 @@ class CharacterLevelUpGuidanceViewModelTest {
             val observeFeats = mockk<ObserveAllFeatsUseCase>()
             val observeSpells = mockk<ObserveAllSpellsUseCase>()
             val observeLanguages = mockk<ObserveAllLanguagesUseCase>()
+            val assetBootstrapper = mockk<AssetBootstrapper>()
             val createPlan = mockk<CreateLevelUpPlanUseCase>()
             val rebuildPlan = mockk<RebuildLevelUpPlanUseCase>()
             val applyLevelUp = mockk<ApplyLevelUpUseCase>()
@@ -98,6 +100,7 @@ class CharacterLevelUpGuidanceViewModelTest {
                 observeFeats = observeFeats,
                 observeSpells = observeSpells,
                 observeLanguages = observeLanguages,
+                assetBootstrapper = assetBootstrapper,
                 createPlan = createPlan,
                 rebuildPlan = rebuildPlan,
                 applyLevelUp = applyLevelUp,

@@ -45,7 +45,7 @@ internal fun characterLevelUpSteps(requirements: List<LevelUpRequirement>): List
 
 sealed interface CharacterLevelUpUiState {
     @Immutable data object Loading : CharacterLevelUpUiState
-    @Immutable data class Failure(val message: String) : CharacterLevelUpUiState
+    @Immutable data class Failure(val message: String, val canRetry: Boolean = false) : CharacterLevelUpUiState
     @Immutable data class Unavailable(val title: String, val explanation: String) : CharacterLevelUpUiState
 
     @Immutable

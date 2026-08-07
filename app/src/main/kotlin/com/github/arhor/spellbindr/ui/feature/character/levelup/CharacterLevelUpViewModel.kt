@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.character.levelup
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
 import com.github.arhor.spellbindr.domain.model.ApplyLevelUpResult
 import com.github.arhor.spellbindr.domain.model.CharacterClass
@@ -30,6 +31,7 @@ import com.github.arhor.spellbindr.domain.usecase.ObserveAllLanguagesUseCase
 import com.github.arhor.spellbindr.domain.usecase.ObserveAllSpellsUseCase
 import com.github.arhor.spellbindr.domain.usecase.RebuildLevelUpPlanUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -50,6 +52,7 @@ class CharacterLevelUpViewModel @Inject constructor(
     observeFeats: ObserveAllFeatsUseCase,
     observeSpells: ObserveAllSpellsUseCase,
     observeLanguages: ObserveAllLanguagesUseCase,
+    private val assetBootstrapper: AssetBootstrapper,
     private val createPlan: CreateLevelUpPlanUseCase,
     private val rebuildPlan: RebuildLevelUpPlanUseCase,
     private val applyLevelUp: ApplyLevelUpUseCase,
@@ -59,6 +62,7 @@ class CharacterLevelUpViewModel @Inject constructor(
     private val draft = MutableStateFlow(restoredDraft())
     private var latestReady: SourceState.Ready? = null
     private var confirmationInFlight = false
+    private var retryInFlight = false
     private val _effects = MutableSharedFlow<CharacterLevelUpEffect>()
     val effects = _effects.asSharedFlow()
 
@@ -100,7 +104,7 @@ class CharacterLevelUpViewModel @Inject constructor(
                 character == null -> SourceState.Failure("Character not found")
                 classes is Loadable.Failure || features is Loadable.Failure ||
                     feats is Loadable.Failure || spells is Loadable.Failure || languages is Loadable.Failure ->
-                    SourceState.Failure("Unable to load level-up reference data")
+                    SourceState.Failure("Unable to load level-up reference data", retryable = true)
                 classes is Loadable.Content && features is Loadable.Content &&
                     feats is Loadable.Content && spells is Loadable.Content && languages is Loadable.Content -> SourceState.Ready(
                     character,
@@ -136,6 +140,7 @@ class CharacterLevelUpViewModel @Inject constructor(
             CharacterLevelUpIntent.CancelClicked -> cancel()
             CharacterLevelUpIntent.ConfirmClicked -> confirm()
             CharacterLevelUpIntent.ReloadClicked -> reloadDraft()
+            CharacterLevelUpIntent.RetryClicked -> retryReferenceData()
         }
     }
 
@@ -143,7 +148,7 @@ class CharacterLevelUpViewModel @Inject constructor(
         latestReady = source as? SourceState.Ready
         return when (source) {
         SourceState.Loading -> CharacterLevelUpUiState.Loading
-        is SourceState.Failure -> CharacterLevelUpUiState.Failure(source.message)
+        is SourceState.Failure -> CharacterLevelUpUiState.Failure(source.message, source.retryable)
         is SourceState.Ready -> {
             val managed = source.character.progressionState as? ProgressionState.Managed
                 ?: return CharacterLevelUpUiState.Unavailable("Set up level progression", "Reconciliation is not yet available for this character.")
@@ -234,6 +239,24 @@ class CharacterLevelUpViewModel @Inject constructor(
         draft.value = null
     }
 
+    private fun retryReferenceData() {
+        if (retryInFlight) return
+        val failure = uiState.value as? CharacterLevelUpUiState.Failure ?: return
+        if (!failure.canRetry) return
+        retryInFlight = true
+        viewModelScope.launch {
+            try {
+                assetBootstrapper.retryFailedLoads()
+            } catch (error: CancellationException) {
+                throw error
+            } catch (_: Exception) {
+                // The observed asset state remains failed, so the retry action stays available.
+            } finally {
+                retryInFlight = false
+            }
+        }
+    }
+
     private fun cancel() {
         if (confirmationInFlight) return
         viewModelScope.launch { _effects.emit(CharacterLevelUpEffect.Cancelled) }
@@ -306,6 +329,6 @@ class CharacterLevelUpViewModel @Inject constructor(
 
     @Serializable
     private data class SavedDraft(val step: CharacterLevelUpStep, val plan: LevelUpPlan, val isSaving: Boolean = false, val staleMessage: String? = null, val persistenceMessage: String? = null)
-    private sealed interface SourceState { data object Loading : SourceState; data class Failure(val message: String) : SourceState; data class Ready(val character: CharacterWithProgression, val reference: ReferenceState) : SourceState }
+    private sealed interface SourceState { data object Loading : SourceState; data class Failure(val message: String, val retryable: Boolean = false) : SourceState; data class Ready(val character: CharacterWithProgression, val reference: ReferenceState) : SourceState }
     companion object { private const val DRAFT_KEY = "character-level-up-draft"; private val JSON = Json { ignoreUnknownKeys = true } }
 }

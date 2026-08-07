@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.data.local.assets
 import com.github.arhor.spellbindr.di.AppCoroutineScope
 import com.github.arhor.spellbindr.domain.AssetBootstrapper
 import com.github.arhor.spellbindr.domain.model.AssetBootstrapState
+import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.logging.LoggerFactory
 import com.github.arhor.spellbindr.logging.error
 import com.github.arhor.spellbindr.logging.getLogger
@@ -11,6 +12,7 @@ import com.github.arhor.spellbindr.utils.toCapitalCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -51,6 +53,15 @@ class DefaultAssetBootstrapper @Inject constructor(
 
             deferredLoadJob.join()
             logger.info { "Deferred initialization phase complete" }
+        }
+    }
+
+    override suspend fun retryFailedLoads() {
+        coroutineScope {
+            assetsDataStores
+                .filter { it.data.value is Loadable.Failure }
+                .map { async { it.initialize() } }
+                .awaitAll()
         }
     }
 
