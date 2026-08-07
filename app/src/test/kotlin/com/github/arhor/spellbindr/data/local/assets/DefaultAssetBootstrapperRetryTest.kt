@@ -17,7 +17,7 @@ class DefaultAssetBootstrapperRetryTest {
         // Given
         val failedStore = mockk<AssetDataStore<List<String>>>()
         val readyStore = mockk<AssetDataStore<List<String>>>()
-        every { failedStore.data } returns MutableStateFlow(Loadable.Failure(RuntimeException("boom")))
+        every { failedStore.data } returns MutableStateFlow(Loadable.Failure(cause = RuntimeException("boom")))
         every { readyStore.data } returns MutableStateFlow(Loadable.Content(listOf("ready")))
         coEvery { failedStore.initialize() } returns Unit
         coEvery { readyStore.initialize() } returns Unit
