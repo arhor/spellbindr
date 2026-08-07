@@ -260,7 +260,7 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                 state.persistenceMessage?.let { WarningCard(it) }
                 CharacterLevelUpClassProgressionReview(state)
                 ReviewRow("Proficiency bonus", "+${state.preview.before.proficiencyBonus}", "+${state.preview.after.proficiencyBonus}")
-                ReviewRow("Maximum HP", state.preview.before.maximumHitPoints.toString(), state.preview.after.maximumHitPoints.toString())
+                CharacterLevelUpDurabilityReview(state)
                 state.preview.validations.forEach { issue ->
                     if (issue.severity == LevelUpValidationSeverity.Overrideable) {
                         val checked = issue.acknowledgementId in state.plan.selections.acknowledgedIssueCodes
