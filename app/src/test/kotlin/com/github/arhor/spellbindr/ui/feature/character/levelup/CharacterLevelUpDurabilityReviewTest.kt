@@ -76,7 +76,7 @@ class CharacterLevelUpDurabilityReviewTest {
         val state = reviewState(
             selectedClassId = wizard.id,
             classes = listOf(fighter, wizard),
-            hitPointGain = HitPointGain.Rolled(7),
+            hitPointGain = HitPointGain.Rolled(5),
             hitDie = 6,
             before = snapshot(
                 totalLevel = 4,
@@ -90,7 +90,7 @@ class CharacterLevelUpDurabilityReviewTest {
                 totalLevel = 5,
                 classLevels = mapOf(fighter.id to 3, wizard.id to 2),
                 classDisplayName = "Fighter 3 / Wizard 2",
-                maximumHitPoints = 44,
+                maximumHitPoints = 42,
                 hitDicePools = listOf(LevelUpHitDicePool(6, 2), LevelUpHitDicePool(10, 3)),
                 constitution = 14,
             ),
@@ -100,8 +100,8 @@ class CharacterLevelUpDurabilityReviewTest {
         setContent(state)
 
         // Then
-        composeTestRule.onNodeWithText("+9").assertExists()
-        composeTestRule.onNodeWithText("Rolled (7 on d6) + CON +2").assertExists()
+        composeTestRule.onNodeWithText("+7").assertExists()
+        composeTestRule.onNodeWithText("Rolled (5 on d6) + CON +2").assertExists()
         composeTestRule.onNodeWithText("d6 hit dice").assertExists()
         composeTestRule.onNodeWithText("d10 hit dice").assertExists()
         assertThat(composeTestRule.onAllNodesWithText("1 → 2").fetchSemanticsNodes()).hasSize(2)
