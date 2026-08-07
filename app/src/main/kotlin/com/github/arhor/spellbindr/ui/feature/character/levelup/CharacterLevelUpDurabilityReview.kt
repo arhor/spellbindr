@@ -53,7 +53,7 @@ internal fun CharacterLevelUpDurabilityReview(state: CharacterLevelUpUiState.Con
 
             val beforePools = before.hitDicePools.associate { it.dieSize to it.total }
             val afterPools = after.hitDicePools.associate { it.dieSize to it.total }
-            (beforePools.keys + afterPools.keys).sorted().forEach { dieSize ->
+            (beforePools.keys + afterPools.keys).toSet().sorted().forEach { dieSize ->
                 DurabilityReviewRow(
                     label = "d$dieSize hit dice",
                     before = beforePools[dieSize].orZero().toString(),
