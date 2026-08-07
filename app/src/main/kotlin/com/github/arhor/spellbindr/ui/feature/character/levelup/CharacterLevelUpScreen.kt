@@ -258,8 +258,7 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                     ) { Text("Reload draft") }
                 }
                 state.persistenceMessage?.let { WarningCard(it) }
-                ReviewRow("Total level", state.preview.before.totalLevel.toString(), state.preview.after.totalLevel.toString())
-                ReviewRow("Class", state.preview.before.classDisplayName, state.preview.after.classDisplayName)
+                CharacterLevelUpClassProgressionReview(state)
                 ReviewRow("Proficiency bonus", "+${state.preview.before.proficiencyBonus}", "+${state.preview.after.proficiencyBonus}")
                 ReviewRow("Maximum HP", state.preview.before.maximumHitPoints.toString(), state.preview.after.maximumHitPoints.toString())
                 state.preview.validations.forEach { issue ->
