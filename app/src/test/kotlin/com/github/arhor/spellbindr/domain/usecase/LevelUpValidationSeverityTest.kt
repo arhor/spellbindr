@@ -77,7 +77,13 @@ class LevelUpValidationSeverityTest {
             rulesetId = CharacterProgression.SUPPORTED_RULESET_ID,
             referenceDataVersion = "test-v1",
             selectedClassId = clazz.id,
-            selections = LevelUpSelections(hitPointGain = HitPointGain.Fixed(clazz.hitDie)),
+            selections = LevelUpSelections(
+                hitPointGain = HitPointGain.Fixed(clazz.hitDie),
+                acknowledgedIssueCodes = setOf(
+                    guidance.acknowledgementId,
+                    overrideable.acknowledgementId,
+                ),
+            ),
         )
 
         val record = LevelUpProgressionEngine.recordFor(
