@@ -569,7 +569,7 @@ class CharacterLevelUpScreenTest {
         setContent(reviewState(validations = listOf(issue)), intents::add)
 
         // When
-        composeTestRule.onAllNodes(isToggleable())[0].performClick()
+        composeTestRule.onAllNodes(isToggleable())[0].performScrollTo().performClick()
 
         // Then
         assertThat(intents).contains(
