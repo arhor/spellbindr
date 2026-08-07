@@ -3,6 +3,7 @@ package com.github.arhor.spellbindr.ui.feature.character.levelup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.arhor.spellbindr.ui.components.AppTopBarConfig
@@ -44,6 +45,23 @@ fun CharacterLevelUpRoute(
             ),
         ),
     ) {
-        CharacterLevelUpScreen(state = state, dispatch = vm::dispatch)
+        CharacterLevelUpRouteContent(state = state, dispatch = vm::dispatch)
+    }
+}
+
+@Composable
+internal fun CharacterLevelUpRouteContent(
+    state: CharacterLevelUpUiState,
+    dispatch: CharacterLevelUpDispatch,
+    modifier: Modifier = Modifier,
+) {
+    if (state is CharacterLevelUpUiState.Failure && state.canRetry) {
+        CharacterLevelUpFailurePane(
+            message = state.message,
+            onRetry = { dispatch(CharacterLevelUpIntent.RetryClicked) },
+            modifier = modifier,
+        )
+    } else {
+        CharacterLevelUpScreen(state = state, dispatch = dispatch, modifier = modifier)
     }
 }
