@@ -55,7 +55,7 @@ class CharacterLevelUpRetryViewModelTest {
             advanceUntilIdle()
             fixture.vm.dispatch(CharacterLevelUpIntent.ClassSelected("rogue"))
             advanceUntilIdle()
-            fixture.classes.value = Loadable.Failure(RuntimeException("temporary"))
+            fixture.classes.value = Loadable.Failure(cause = RuntimeException("temporary"))
             advanceUntilIdle()
             val failure = fixture.vm.uiState.value as CharacterLevelUpUiState.Failure
             assertThat(failure.canRetry).isTrue()
@@ -80,7 +80,7 @@ class CharacterLevelUpRetryViewModelTest {
             val fixture = createFixture(retrySucceeds = false)
             val collector = launch { fixture.vm.uiState.collect { } }
             advanceUntilIdle()
-            fixture.classes.value = Loadable.Failure(RuntimeException("first failure"))
+            fixture.classes.value = Loadable.Failure(cause = RuntimeException("first failure"))
             advanceUntilIdle()
 
             // When
@@ -143,7 +143,7 @@ class CharacterLevelUpRetryViewModelTest {
             classes.value = if (retrySucceeds) {
                 Loadable.Content(listOf(characterClass("fighter"), characterClass("rogue")))
             } else {
-                Loadable.Failure(RuntimeException("still unavailable"))
+                Loadable.Failure(cause = RuntimeException("still unavailable"))
             }
         }
 
