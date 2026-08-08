@@ -35,8 +35,16 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Apply issue 169 implementation
         run: |
-          python3 .github/issue-169-v2.py
-          rm -f .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
+          set +e
+          python3 .github/issue-169-v2.py 2>patch-error.txt
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ]; then
+            message=$(tail -20 patch-error.txt | tr '\n' ' ')
+            echo "::error file=.github/issue-169-v2.py,title=Patch failed::$message"
+            exit "$code"
+          fi
+          rm -f patch-error.txt .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
           cat > .github/workflows/android-ci.yml <<'YAML'
           name: Build
 
