@@ -28,6 +28,7 @@ import com.github.arhor.spellbindr.domain.model.ManagedSpellGrantType
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.ProgressionState
 import com.github.arhor.spellbindr.domain.model.SpellLearningPolicy
+import com.github.arhor.spellbindr.domain.model.calculateSpellcastingClassStats
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.usecase.LevelUpProgressionEngine
 import com.github.arhor.spellbindr.utils.asLoadableFlow
@@ -351,6 +352,7 @@ class CharacterRepositoryImpl @Inject constructor(
                 savingThrowAbilityIds = after.savingThrowAbilityIds,
                 featureIds = after.featureIds,
                 languageIds = after.languageIds,
+                spellcastingClassStats = after.calculateSpellcastingClassStats(referenceData.classes),
                 spellGrants = updatedSpellGrants.mapTo(linkedSetOf()) { it.spell },
                 ownedSpellGrants = updatedSpellGrants,
             ),
