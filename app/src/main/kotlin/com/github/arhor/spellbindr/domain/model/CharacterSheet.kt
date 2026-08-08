@@ -112,6 +112,8 @@ data class ManagedProgressionSheetState(
     val savingThrowAbilityIds: Set<AbilityId> = emptySet(),
     val featureIds: Set<String> = emptySet(),
     val languageIds: Set<String> = emptySet(),
+    /** Class-owned spellcasting values materialized from the latest managed progression state. */
+    val spellcastingClassStats: Map<String, SpellcastingClassStats> = emptyMap(),
     /** Legacy aggregate retained so older snapshots remain decodable. New writes also populate [ownedSpellGrants]. */
     val spellGrants: Set<ClassSpellRef> = emptySet(),
     /** One entry per permanent progression owner; overlapping grants intentionally remain distinct. */
