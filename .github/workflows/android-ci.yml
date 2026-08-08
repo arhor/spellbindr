@@ -34,90 +34,17 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - name: Apply issue 169 implementation
-        id: patch
-        continue-on-error: true
+        run: python3 .github/issue-169-v2.py
+      - name: Commit source changes
         run: |
-          set +e
-          python3 .github/issue-169-v2.py >patch-output.txt 2>&1
-          code=$?
-          echo "exit_code=$code" >> patch-output.txt
-          exit "$code"
-      - name: Capture patch output
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue-169-patch-output
-          path: patch-output.txt
-      - name: Commit implementation
-        if: ${{ steps.patch.outcome == 'success' }}
-        run: |
-          rm -f patch-output.txt .github/issue-169-error.txt .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
-          cat > .github/workflows/android-ci.yml <<'YAML'
-          name: Build
-
-          on:
-            pull_request:
-              branches:
-                - master
-                - stable
-              types:
-                - opened
-                - reopened
-                - synchronize
-            push:
-              branches:
-                - master
-                - stable
-            workflow_dispatch:
-
-          permissions:
-            contents: read
-            issues: write
-            pull-requests: write
-
-          concurrency:
-            group: android-build-${{ github.ref }}
-            cancel-in-progress: true
-
-          jobs:
-            build:
-              name: Lint, unit test, and release assemble
-              runs-on: ubuntu-latest
-              timeout-minutes: 25
-
-              steps:
-                - name: Checkout repository
-                  uses: actions/checkout@v6
-
-                - name: Set up JDK 17
-                  uses: actions/setup-java@v5
-                  with:
-                    distribution: temurin
-                    java-version: 17
-
-                - name: Set up Android SDK
-                  uses: android-actions/setup-android@v3
-
-                - name: Setup Gradle
-                  uses: gradle/actions/setup-gradle@v5
-                  with:
-                    cache-read-only: ${{ !startsWith(github.ref, 'refs/heads/master') && !startsWith(github.ref, 'refs/heads/stable') }}
-                    cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-
-                - name: Lint, unit test, and release assemble
-                  run: ./gradlew lintDebug test testDebugUnitTest assembleRelease --stacktrace
-
-                - name: Assemble debug APK
-                  uses: ./.github/actions/assemble-debug-apk
-                  if: ${{ github.event_name == 'pull_request' }}
-          YAML
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -A
+          git add \
+            app/src/main/kotlin/com/github/arhor/spellbindr/domain/usecase/LevelUpProgressionEngine.kt \
+            app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/levelup/CharacterLevelUpClassProgressionReview.kt \
+            app/src/test/kotlin/com/github/arhor/spellbindr/data/repository/CharacterLevelUpRepositoryIntegrationTest.kt
           git commit -m "feat: support Magic Initiate level-up choices"
           git push
-      - name: Fail when patch failed
-        if: ${{ steps.patch.outcome == 'failure' }}
-        run: exit 1
 
   build:
     if: ${{ github.head_ref != 'feat/169-magic-initiate-level-up' }}
