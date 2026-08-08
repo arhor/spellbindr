@@ -233,11 +233,11 @@ data class SpellSlotState(
 )
 
 /**
- * Tracks Pact Magic slots (Warlock).
+ * Tracks Pact Magic slots (Warlock), if applicable.
  *
  * @property slotLevel The spell level of pact slots.
  * @property total Total pact slots available.
- * @property expended Number of pact slots used.
+ * @property expended Number of slots used.
  */
 @Serializable
 data class PactSlotState(
@@ -249,14 +249,35 @@ data class PactSlotState(
 /**
  * Represents a spell assigned to a character's spell list.
  *
+ * Ownership and preparation are deliberately independent. A wizard spell can be owned in a
+ * spellbook while either prepared or unprepared, while a feature-granted spell can be marked as
+ * always prepared. Defaults preserve the legacy known-spell behavior for existing non-wizard data.
+ *
  * @property spellId The unique identifier of the spell (e.g. "magic-missile").
  * @property sourceClass The class source for this spell (e.g. "Wizard"), if applicable.
+ * @property ownership How the character owns or knows the spell.
+ * @property preparation Whether the spell is currently prepared, unprepared, or always prepared.
  */
 @Serializable
 data class CharacterSpell(
     val spellId: String,
     val sourceClass: String = "",
+    val ownership: CharacterSpellOwnership = CharacterSpellOwnership.Known,
+    val preparation: CharacterSpellPreparation = CharacterSpellPreparation.Prepared,
 )
+
+@Serializable
+enum class CharacterSpellOwnership {
+    Known,
+    Spellbook,
+}
+
+@Serializable
+enum class CharacterSpellPreparation {
+    Unprepared,
+    Prepared,
+    AlwaysPrepared,
+}
 
 /**
  * Represents a weapon carried by the character.
