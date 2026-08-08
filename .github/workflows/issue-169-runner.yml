@@ -1,0 +1,32 @@
+name: Issue 169 runner
+on:
+  push:
+    branches:
+      - feat/169-magic-initiate-level-up
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/169-magic-initiate-level-up
+      - name: Apply patch script
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path('.github/workflows/issue-169-patch.yml').read_text()
+          start = text.index('        run: |\n') + len('        run: |\n')
+          end = text.index('      - name: Commit implementation\n', start)
+          body = '\n'.join(line[10:] if line.startswith('          ') else line for line in text[start:end].splitlines())
+          exec(compile(body, 'issue-169-patch.py', 'exec'))
+          PY
+          rm -f .github/workflows/issue-169-runner.yml
+      - name: Commit implementation
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "feat: support Magic Initiate level-up choices"
+          git push
