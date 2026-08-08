@@ -40,11 +40,15 @@ jobs:
           code=$?
           set -e
           if [ "$code" -ne 0 ]; then
-            message=$(tail -20 patch-error.txt | tr '\n' ' ')
-            echo "::error file=.github/issue-169-v2.py,title=Patch failed::$message"
+            cp patch-error.txt .github/issue-169-error.txt
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add .github/issue-169-error.txt
+            git commit -m "chore: capture issue 169 patch error"
+            git push
             exit "$code"
           fi
-          rm -f patch-error.txt .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
+          rm -f patch-error.txt .github/issue-169-error.txt .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
           cat > .github/workflows/android-ci.yml <<'YAML'
           name: Build
 
