@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
+import com.github.arhor.spellbindr.domain.model.SpellcastingClassStats
+import com.github.arhor.spellbindr.domain.model.calculateSpellcastingClassStats
 
 @Composable
 internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiState.Content) {
@@ -21,6 +23,8 @@ internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiSta
     val selectedClassName = selectedClassId?.let { classId ->
         state.classes.firstOrNull { it.id == classId }?.name ?: classId
     }
+    val beforeSpellcasting = before.calculateSpellcastingClassStats(state.classes)
+    val afterSpellcasting = after.calculateSpellcastingClassStats(state.classes)
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
@@ -52,6 +56,27 @@ internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiSta
             selectedSubclassName(state, selectedClassId)?.let { subclassName ->
                 Text("New subclass: $subclassName", style = MaterialTheme.typography.bodyMedium)
             }
+            val spellcastingClassIds = (beforeSpellcasting.keys + afterSpellcasting.keys).toSortedSet()
+            if (spellcastingClassIds.isNotEmpty()) {
+                Text("Spellcasting", style = MaterialTheme.typography.titleSmall)
+                spellcastingClassIds.forEach { classId ->
+                    val className = state.classes.firstOrNull { it.id == classId }?.name ?: classId
+                    val beforeStats = beforeSpellcasting[classId]
+                    val afterStats = afterSpellcasting[classId]
+                    val ability = (afterStats ?: beforeStats)?.abilityId?.uppercase()
+                    val labelPrefix = ability?.let { "$className ($it)" } ?: className
+                    ClassProgressionReviewRow(
+                        label = "$labelPrefix spell save DC",
+                        before = beforeStats?.spellSaveDc?.toString().orMissing(),
+                        after = afterStats?.spellSaveDc?.toString().orMissing(),
+                    )
+                    ClassProgressionReviewRow(
+                        label = "$labelPrefix spell attack",
+                        before = beforeStats.formatAttackBonus(),
+                        after = afterStats.formatAttackBonus(),
+                    )
+                }
+            }
         }
     }
 }
@@ -78,5 +103,11 @@ private fun selectedSubclassName(
     val selectedSubclassId = requirement.selectedSubclassId ?: return null
     return requirement.options.firstOrNull { it.id == selectedSubclassId }?.label ?: selectedSubclassId
 }
+
+private fun SpellcastingClassStats?.formatAttackBonus(): String = this?.spellAttackBonus?.let { bonus ->
+    if (bonus >= 0) "+$bonus" else bonus.toString()
+} ?: "N/A"
+
+private fun String?.orMissing(): String = this ?: "N/A"
 
 private fun Int?.orZero(): Int = this ?: 0
