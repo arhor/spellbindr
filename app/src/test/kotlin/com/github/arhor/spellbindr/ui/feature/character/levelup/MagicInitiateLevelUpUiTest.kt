@@ -1,6 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.character.levelup
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertExists
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -49,7 +50,7 @@ class MagicInitiateLevelUpUiTest {
 
     @Test
     fun `review should show selected Magic Initiate spell list and spells`() {
-        setContent(state(CharacterLevelUpStep.Review), {})
+        setContent(state(CharacterLevelUpStep.Review)) { _ -> }
 
         composeTestRule.onNodeWithText("Magic Initiate").assertExists()
         composeTestRule.onNodeWithText("Spell list: Wizard").assertExists()
