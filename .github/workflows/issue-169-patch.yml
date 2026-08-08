@@ -1,0 +1,381 @@
+name: Issue 169 patch
+on:
+  push:
+    branches: [feat/169-magic-initiate-level-up]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/169-magic-initiate-level-up
+      - name: Apply implementation
+        shell: python
+        run: |
+          from pathlib import Path
+
+          def replace_once(path, old, new, count=1):
+              p = Path(path)
+              text = p.read_text()
+              actual = text.count(old)
+              if actual != count:
+                  raise SystemExit(f"{path}: expected {count} occurrences, found {actual}: {old[:80]!r}")
+              p.write_text(text.replace(old, new))
+
+          engine = 'app/src/main/kotlin/com/github/arhor/spellbindr/domain/usecase/LevelUpProgressionEngine.kt'
+          replace_once(engine, '''        val featIds = (plan.selections.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId
+            ?.let(referenceData.featsById::get)?.ownedChoiceIds.orEmpty()
+        return plan.toRecord(
+''', '''        val selectedFeat = (plan.selections.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId
+            ?.let(referenceData.featsById::get)
+        val featIds = selectedFeat?.let(::activeFeatChoiceIds).orEmpty()
+        val persistedPlan = if (selectedFeat?.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(referenceData)) {
+            plan.withMagicInitiateSpellGrant()
+        } else {
+            plan
+        }
+        return persistedPlan.toRecord(
+''')
+          replace_once(engine, '''                    val deferredDecision = deferredFeatDecision(feat.id)
+''', '''                    val deferredDecision = deferredFeatDecision(feat.id)
+                        ?.takeUnless { feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data) }
+''')
+          replace_once(engine, '''        val deferredDecision = deferredFeatDecision(feat.id)
+''', '''        val deferredDecision = deferredFeatDecision(feat.id)
+            ?.takeUnless { feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data) }
+''')
+          replace_once(engine, '''                    val afterFeat = applyAbilityDecision(abilities, selections, data)
+''', '''                    if (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) {
+                        validateMagicInitiateSelections(selections, data, validations)
+                    }
+                    val afterFeat = applyAbilityDecision(abilities, selections, data)
+''')
+          replace_once(engine, '''                    }
+                }
+            }
+            val currentSpellcasting = selectedClass.levels.firstOrNull { it.level == nextClassLevel }?.spellcasting
+''', '''                    }
+                    if (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(referenceData)) {
+                        magicInitiateChoiceRequirements(referenceData, plan.selections.featChoices).forEach { requirement ->
+                            add(LevelUpRequirement.ChoiceSelection(
+                                id = requirement.id,
+                                sourceId = feat.id,
+                                label = requirement.label,
+                                choice = requirement.choice,
+                                selectedOptionIds = plan.selections.featChoices[requirement.id].orEmpty(),
+                                category = LevelUpChoiceCategory.Feat,
+                                options = requirement.options,
+                            ))
+                        }
+                    }
+                }
+            }
+            val currentSpellcasting = selectedClass.levels.firstOrNull { it.level == nextClassLevel }?.spellcasting
+''')
+          replace_once(engine, '''            known.addAll(record.spellChanges.featureLearned.values.flatten().map { it.spellId })
+''', '''            known.addAll(
+                record.spellChanges.featureLearned.values.flatten()
+                    .filter { it.classId == classId }
+                    .map { it.spellId },
+            )
+''')
+          replace_once(engine, '''        return abilityChoiceIsLegal && languageChoiceIsLegal && proficiencyChoiceIsLegal && damageTypeChoiceIsLegal
+''', '''        val magicInitiateChoicesAreLegal = feat.id != MAGIC_INITIATE_ID || magicInitiateIsSupported(data)
+        return abilityChoiceIsLegal && languageChoiceIsLegal && proficiencyChoiceIsLegal && damageTypeChoiceIsLegal &&
+            magicInitiateChoicesAreLegal
+''')
+          replace_once(engine, '''    private data class FeatOwnedChoiceRequirement(
+        val id: String,
+        val choice: Choice,
+        val options: List<LevelUpChoiceOption>,
+    )
+
+''', '''    private data class FeatOwnedChoiceRequirement(
+        val id: String,
+        val label: String,
+        val choice: Choice,
+        val options: List<LevelUpChoiceOption>,
+    )
+
+    private fun activeFeatChoiceIds(feat: Feat): Set<String> = feat.ownedChoiceIds +
+        if (feat.id == MAGIC_INITIATE_ID) MAGIC_INITIATE_CHOICE_IDS else emptySet()
+
+    private fun magicInitiateIsSupported(data: LevelUpReferenceData): Boolean =
+        magicInitiateClassIds(data).isNotEmpty()
+
+    private fun magicInitiateClassIds(data: LevelUpReferenceData): List<String> = MAGIC_INITIATE_CLASS_IDS
+        .filter { classId ->
+            classId in data.classesById &&
+                magicInitiateSpellCandidates(data, classId, 0).size >= 2 &&
+                magicInitiateSpellCandidates(data, classId, 1).isNotEmpty()
+        }
+        .sorted()
+
+    private fun magicInitiateSpellCandidates(
+        data: LevelUpReferenceData,
+        classId: String,
+        level: Int,
+    ) = data.spells.asSequence()
+        .filter { spell -> spell.level == level && classId in spell.classes.map { it.id } }
+        .sortedWith(compareBy({ it.name }, { it.id }))
+        .toList()
+
+    private fun validateMagicInitiateSelections(
+        selections: LevelUpSelections,
+        data: LevelUpReferenceData,
+        validations: MutableList<LevelUpValidationIssue>,
+    ) {
+        val classIds = magicInitiateClassIds(data)
+        validateChoice(
+            id = MAGIC_INITIATE_CLASS_LIST_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(1, classIds),
+            selected = selections.featChoices[MAGIC_INITIATE_CLASS_LIST_CHOICE_ID].orEmpty(),
+            label = "Magic Initiate spell list",
+            validations = validations,
+            legalOptionIds = classIds.toSet(),
+        )
+        val classId = selections.featChoices[MAGIC_INITIATE_CLASS_LIST_CHOICE_ID]
+            ?.singleOrNull()
+            ?.takeIf { it in classIds }
+            ?: return
+        val cantripIds = magicInitiateSpellCandidates(data, classId, 0).map { it.id }
+        validateChoice(
+            id = MAGIC_INITIATE_CANTRIP_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(2, cantripIds),
+            selected = selections.featChoices[MAGIC_INITIATE_CANTRIP_CHOICE_ID].orEmpty(),
+            label = "Magic Initiate cantrips",
+            validations = validations,
+            legalOptionIds = cantripIds.toSet(),
+        )
+        val firstLevelIds = magicInitiateSpellCandidates(data, classId, 1).map { it.id }
+        validateChoice(
+            id = MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(1, firstLevelIds),
+            selected = selections.featChoices[MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID].orEmpty(),
+            label = "Magic Initiate 1st-level spell",
+            validations = validations,
+            legalOptionIds = firstLevelIds.toSet(),
+        )
+    }
+
+    private fun magicInitiateChoiceRequirements(
+        data: LevelUpReferenceData,
+        featChoices: Map<String, Set<String>>,
+    ): List<FeatOwnedChoiceRequirement> = buildList {
+        val classIds = magicInitiateClassIds(data)
+        add(FeatOwnedChoiceRequirement(
+            id = MAGIC_INITIATE_CLASS_LIST_CHOICE_ID,
+            label = "Magic Initiate spell list",
+            choice = Choice.OptionsArrayChoice(1, classIds),
+            options = classIds.map { classId ->
+                LevelUpChoiceOption(classId, data.classesById[classId]?.name ?: classId)
+            },
+        ))
+        val classId = featChoices[MAGIC_INITIATE_CLASS_LIST_CHOICE_ID]
+            ?.singleOrNull()
+            ?.takeIf { it in classIds }
+            ?: return@buildList
+        val cantrips = magicInitiateSpellCandidates(data, classId, 0)
+        add(FeatOwnedChoiceRequirement(
+            id = MAGIC_INITIATE_CANTRIP_CHOICE_ID,
+            label = "Magic Initiate cantrips",
+            choice = Choice.OptionsArrayChoice(2, cantrips.map { it.id }),
+            options = cantrips.map { LevelUpChoiceOption(it.id, it.name) },
+        ))
+        val firstLevelSpells = magicInitiateSpellCandidates(data, classId, 1)
+        add(FeatOwnedChoiceRequirement(
+            id = MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID,
+            label = "Magic Initiate 1st-level spell",
+            choice = Choice.OptionsArrayChoice(1, firstLevelSpells.map { it.id }),
+            options = firstLevelSpells.map { LevelUpChoiceOption(it.id, it.name) },
+        ))
+    }
+
+    private fun LevelUpPlan.withMagicInitiateSpellGrant(): LevelUpPlan {
+        val classId = selections.featChoices[MAGIC_INITIATE_CLASS_LIST_CHOICE_ID]?.singleOrNull() ?: return this
+        val spellIds = selections.featChoices[MAGIC_INITIATE_CANTRIP_CHOICE_ID].orEmpty() +
+            selections.featChoices[MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID].orEmpty()
+        val grants = spellIds.mapTo(linkedSetOf()) { spellId ->
+            com.github.arhor.spellbindr.domain.model.ClassSpellRef(classId, spellId)
+        }
+        return copy(selections = selections.copy(
+            spellChanges = selections.spellChanges.copy(
+                featureLearned = selections.spellChanges.featureLearned +
+                    (MAGIC_INITIATE_SPELL_GRANT_OWNER_ID to grants),
+            ),
+        ))
+    }
+
+''')
+          # Existing feat-owned requirement constructors now carry a display label.
+          text = Path(engine).read_text()
+          text = text.replace('''                id = feat.correlatedAbilitySavingThrowChoiceId.orEmpty(),
+                choice =''', '''                id = feat.correlatedAbilitySavingThrowChoiceId.orEmpty(),
+                label = feat.name,
+                choice =''')
+          text = text.replace('''                id = feat.abilityBonusChoiceId.orEmpty(),
+                choice =''', '''                id = feat.abilityBonusChoiceId.orEmpty(),
+                label = feat.name,
+                choice =''')
+          text = text.replace('''                id = feat.languageChoiceId.orEmpty(),
+                choice =''', '''                id = feat.languageChoiceId.orEmpty(),
+                label = feat.name,
+                choice =''')
+          text = text.replace('''                id = feat.proficiencyChoiceId.orEmpty(),
+                choice =''', '''                id = feat.proficiencyChoiceId.orEmpty(),
+                label = feat.name,
+                choice =''')
+          text = text.replace('''                id = feat.damageTypeChoiceId.orEmpty(),
+                choice =''', '''                id = feat.damageTypeChoiceId.orEmpty(),
+                label = feat.name,
+                choice =''')
+          Path(engine).write_text(text)
+          replace_once(engine, '''    private const val SAVING_THROW_PREFIX = "saving-throw-"
+''', '''    private const val MAGIC_INITIATE_ID = "magic-initiate"
+    private const val MAGIC_INITIATE_CLASS_LIST_CHOICE_ID = "magic-initiate:class-list"
+    private const val MAGIC_INITIATE_CANTRIP_CHOICE_ID = "magic-initiate:cantrips"
+    private const val MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID = "magic-initiate:first-level-spell"
+    private const val MAGIC_INITIATE_SPELL_GRANT_OWNER_ID = "feat:magic-initiate"
+    private val MAGIC_INITIATE_CLASS_IDS = setOf("bard", "cleric", "druid", "sorcerer", "warlock", "wizard")
+    private val MAGIC_INITIATE_CHOICE_IDS = setOf(
+        MAGIC_INITIATE_CLASS_LIST_CHOICE_ID,
+        MAGIC_INITIATE_CANTRIP_CHOICE_ID,
+        MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID,
+    )
+
+    private const val SAVING_THROW_PREFIX = "saving-throw-"
+''')
+
+          review = 'app/src/main/kotlin/com/github/arhor/spellbindr/ui/feature/character/levelup/CharacterLevelUpClassProgressionReview.kt'
+          replace_once(review, '''            }
+        }
+    }
+}
+
+@Composable
+private fun ClassProgressionReviewRow''', '''            }
+            MagicInitiateReview(state)
+        }
+    }
+}
+
+@Composable
+private fun MagicInitiateReview(state: CharacterLevelUpUiState.Content) {
+    val requirements = state.preview.requirements
+        .filterIsInstance<LevelUpRequirement.ChoiceSelection>()
+        .filter { it.sourceId == "magic-initiate" }
+    if (requirements.isEmpty()) return
+    fun selectedLabels(id: String): List<String> {
+        val requirement = requirements.firstOrNull { it.id == id } ?: return emptyList()
+        return requirement.options.filter { it.id in requirement.selectedOptionIds }.map { it.label }
+    }
+    Text("Magic Initiate", style = MaterialTheme.typography.titleSmall)
+    selectedLabels("magic-initiate:class-list").singleOrNull()?.let { Text("Spell list: $it") }
+    selectedLabels("magic-initiate:cantrips").takeIf { it.isNotEmpty() }
+        ?.let { Text("Cantrips: ${it.joinToString()}") }
+    selectedLabels("magic-initiate:first-level-spell").singleOrNull()?.let { Text("1st-level spell: $it") }
+}
+
+@Composable
+private fun ClassProgressionReviewRow''')
+
+          test = 'app/src/test/kotlin/com/github/arhor/spellbindr/data/repository/CharacterLevelUpRepositoryIntegrationTest.kt'
+          replace_once(test, '''import com.github.arhor.spellbindr.domain.model.AbilityIds
+''', '''import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
+''')
+          replace_once(test, '''import com.github.arhor.spellbindr.domain.model.EntityRef
+''', '''import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Feat
+''')
+          marker = '''    private suspend fun seed(sheet: CharacterSheet, progression: CharacterProgression) {
+'''
+          integration_test = '''    @Test
+    fun `applyLevelUp should persist Magic Initiate spells with feat ownership`() = runBlocking {
+        val progression = CharacterProgression(
+            referenceDataVersion = REFERENCE_VERSION,
+            origin = ProgressionOrigin.Guided,
+            levels = (1..3).map { level ->
+                CharacterLevelRecord(level, "fighter", level, hitPointGain = HitPointGain.Fixed(if (level == 1) 10 else 6))
+            },
+        )
+        val sheet = fighterSheet().copy(level = 3, className = "Fighter 3", maxHitPoints = 22, currentHitPoints = 22)
+        seed(sheet, progression)
+        val plan = LevelUpPlan(
+            expectedTotalLevel = 3,
+            rulesetId = CharacterProgression.SUPPORTED_RULESET_ID,
+            referenceDataVersion = REFERENCE_VERSION,
+            selectedClassId = "fighter",
+            selections = LevelUpSelections(
+                hitPointGain = HitPointGain.Fixed(6),
+                abilityScoreDecision = AbilityScoreDecision.Feat("magic-initiate"),
+                featChoices = mapOf(
+                    "magic-initiate:class-list" to setOf("wizard"),
+                    "magic-initiate:cantrips" to setOf("fire-bolt", "mage-hand"),
+                    "magic-initiate:first-level-spell" to setOf("magic-missile"),
+                ),
+            ),
+        )
+        fun magicSpell(id: String, level: Int) = Spell(
+            id = id,
+            name = id.replace('-', ' ').replaceFirstChar { it.uppercase() },
+            desc = emptyList(),
+            level = level,
+            range = "Self",
+            ritual = false,
+            school = EntityRef("evocation"),
+            duration = "Instantaneous",
+            castingTime = "1 action",
+            classes = listOf(EntityRef("wizard")),
+            components = emptyList(),
+            concentration = false,
+            source = "test",
+        )
+        val data = LevelUpReferenceData(
+            classes = listOf(characterClass("fighter", 10), characterClass("wizard", 6)),
+            features = emptyList(),
+            feats = listOf(Feat("magic-initiate", "Magic Initiate", emptyList())),
+            spells = listOf(
+                magicSpell("fire-bolt", 0),
+                magicSpell("mage-hand", 0),
+                magicSpell("magic-missile", 1),
+                magicSpell("shield", 1),
+            ),
+            referenceDataVersion = REFERENCE_VERSION,
+        )
+
+        val result = repository.applyLevelUp(CHARACTER_ID, 3, plan, data)
+        val stored = requireNotNull(dao.getCharacterWithProgression(CHARACTER_ID))
+        val storedProgression = stored.progression.toDomain(codec) as ProgressionState.Managed
+        val storedSheet = requireNotNull(stored.character.manualSheet?.toDomain(CHARACTER_ID))
+
+        assertThat(result).isInstanceOf(ApplyLevelUpResult.Success::class.java)
+        assertThat(storedProgression.progression.levels.last().featChoices).containsEntry(
+            "magic-initiate:class-list", setOf("wizard"),
+        )
+        assertThat(storedSheet.characterSpells.map { it.spellId }).containsAtLeast(
+            "fire-bolt", "mage-hand", "magic-missile",
+        )
+        val featGrants = storedSheet.managedProgression?.ownedSpellGrants.orEmpty()
+            .filter { ":feature:feat:magic-initiate:" in it.ownerKey }
+        assertThat(featGrants.map { it.spell }).containsExactly(
+            ClassSpellRef("wizard", "fire-bolt"),
+            ClassSpellRef("wizard", "mage-hand"),
+            ClassSpellRef("wizard", "magic-missile"),
+        )
+    }
+
+'''
+          replace_once(test, marker, integration_test + marker)
+
+          Path('.github/workflows/issue-169-patch.yml').unlink()
+      - name: Commit implementation
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "feat: support Magic Initiate level-up choices"
+          git push
