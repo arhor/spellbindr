@@ -34,21 +34,23 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - name: Apply issue 169 implementation
+        id: patch
+        continue-on-error: true
         run: |
           set +e
-          python3 .github/issue-169-v2.py 2>patch-error.txt
+          python3 .github/issue-169-v2.py >patch-output.txt 2>&1
           code=$?
-          set -e
-          if [ "$code" -ne 0 ]; then
-            cp patch-error.txt .github/issue-169-error.txt
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add .github/issue-169-error.txt
-            git commit -m "chore: capture issue 169 patch error"
-            git push
-            exit "$code"
-          fi
-          rm -f patch-error.txt .github/issue-169-error.txt .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
+          echo "exit_code=$code" >> patch-output.txt
+          exit "$code"
+      - name: Capture patch output
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-169-patch-output
+          path: patch-output.txt
+      - name: Commit implementation
+        if: ${{ steps.patch.outcome == 'success' }}
+        run: |
+          rm -f patch-output.txt .github/issue-169-error.txt .github/issue-169-v2.py .github/workflows/issue-169-patch.yml .github/workflows/issue-169-runner.yml
           cat > .github/workflows/android-ci.yml <<'YAML'
           name: Build
 
@@ -113,6 +115,9 @@ jobs:
           git add -A
           git commit -m "feat: support Magic Initiate level-up choices"
           git push
+      - name: Fail when patch failed
+        if: ${{ steps.patch.outcome == 'failure' }}
+        run: exit 1
 
   build:
     if: ${{ github.head_ref != 'feat/169-magic-initiate-level-up' }}
