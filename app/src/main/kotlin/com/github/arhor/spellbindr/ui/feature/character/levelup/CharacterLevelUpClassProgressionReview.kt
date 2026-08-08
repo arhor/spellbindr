@@ -77,8 +77,28 @@ internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiSta
                     )
                 }
             }
+            MagicInitiateReview(state)
         }
     }
+}
+
+@Composable
+private fun MagicInitiateReview(state: CharacterLevelUpUiState.Content) {
+    val requirements = state.preview.requirements
+        .filterIsInstance<LevelUpRequirement.ChoiceSelection>()
+        .filter { it.sourceId == "magic-initiate" }
+    if (requirements.isEmpty()) return
+
+    fun selectedLabels(id: String): List<String> {
+        val requirement = requirements.firstOrNull { it.id == id } ?: return emptyList()
+        return requirement.options.filter { it.id in requirement.selectedOptionIds }.map { it.label }
+    }
+
+    Text("Magic Initiate", style = MaterialTheme.typography.titleSmall)
+    selectedLabels("magic-initiate:class-list").singleOrNull()?.let { Text("Spell list: $it") }
+    selectedLabels("magic-initiate:cantrips").takeIf { it.isNotEmpty() }
+        ?.let { Text("Cantrips: ${it.joinToString()}") }
+    selectedLabels("magic-initiate:first-level-spell").singleOrNull()?.let { Text("1st-level spell: $it") }
 }
 
 @Composable
