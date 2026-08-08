@@ -13,6 +13,7 @@ import com.github.arhor.spellbindr.data.mapper.toDomain
 import com.github.arhor.spellbindr.data.mapper.toEntity
 import com.github.arhor.spellbindr.data.mapper.toSnapshot
 import com.github.arhor.spellbindr.domain.model.AbilityIds
+import com.github.arhor.spellbindr.domain.model.AbilityScoreDecision
 import com.github.arhor.spellbindr.domain.model.ApplyLevelUpResult
 import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
@@ -23,6 +24,7 @@ import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
 import com.github.arhor.spellbindr.domain.model.EntityRef
+import com.github.arhor.spellbindr.domain.model.Feat
 import com.github.arhor.spellbindr.domain.model.HitDicePoolState
 import com.github.arhor.spellbindr.domain.model.HitPointGain
 import com.github.arhor.spellbindr.domain.model.LevelSpellcasting
@@ -365,6 +367,86 @@ class CharacterLevelUpRepositoryIntegrationTest {
         }.map { it.type }).containsExactly(
             ManagedSpellGrantType.Spellbook,
             ManagedSpellGrantType.Feature,
+        )
+    }
+
+    @Test
+    fun `applyLevelUp should persist Magic Initiate spells with feat ownership`() = runBlocking {
+        val progression = CharacterProgression(
+            referenceDataVersion = REFERENCE_VERSION,
+            origin = ProgressionOrigin.Guided,
+            levels = (1..3).map { level ->
+                CharacterLevelRecord(
+                    characterLevel = level,
+                    classId = "fighter",
+                    classLevel = level,
+                    hitPointGain = HitPointGain.Fixed(if (level == 1) 10 else 6),
+                )
+            },
+        )
+        val sheet = fighterSheet().copy(level = 3, className = "Fighter 3", maxHitPoints = 22, currentHitPoints = 22)
+        seed(sheet, progression)
+        val plan = LevelUpPlan(
+            expectedTotalLevel = 3,
+            rulesetId = CharacterProgression.SUPPORTED_RULESET_ID,
+            referenceDataVersion = REFERENCE_VERSION,
+            selectedClassId = "fighter",
+            selections = LevelUpSelections(
+                hitPointGain = HitPointGain.Fixed(6),
+                abilityScoreDecision = AbilityScoreDecision.Feat("magic-initiate"),
+                featChoices = mapOf(
+                    "magic-initiate:class-list" to setOf("wizard"),
+                    "magic-initiate:cantrips" to setOf("fire-bolt", "mage-hand"),
+                    "magic-initiate:first-level-spell" to setOf("magic-missile"),
+                ),
+            ),
+        )
+        fun magicSpell(id: String, level: Int) = Spell(
+            id = id,
+            name = id.replace('-', ' ').replaceFirstChar { it.uppercase() },
+            desc = emptyList(),
+            level = level,
+            range = "Self",
+            ritual = false,
+            school = EntityRef("evocation"),
+            duration = "Instantaneous",
+            castingTime = "1 action",
+            classes = listOf(EntityRef("wizard")),
+            components = emptyList(),
+            concentration = false,
+            source = "test",
+        )
+        val data = LevelUpReferenceData(
+            classes = listOf(characterClass("fighter", 10), characterClass("wizard", 6)),
+            features = emptyList(),
+            feats = listOf(Feat("magic-initiate", "Magic Initiate", emptyList())),
+            spells = listOf(
+                magicSpell("fire-bolt", 0),
+                magicSpell("mage-hand", 0),
+                magicSpell("magic-missile", 1),
+                magicSpell("shield", 1),
+            ),
+            referenceDataVersion = REFERENCE_VERSION,
+        )
+
+        val result = repository.applyLevelUp(CHARACTER_ID, 3, plan, data)
+        val stored = requireNotNull(dao.getCharacterWithProgression(CHARACTER_ID))
+        val storedProgression = stored.progression.toDomain(codec) as ProgressionState.Managed
+        val storedSheet = requireNotNull(stored.character.manualSheet?.toDomain(CHARACTER_ID))
+
+        assertThat(result).isInstanceOf(ApplyLevelUpResult.Success::class.java)
+        assertThat(storedProgression.progression.levels.last().featChoices).containsEntry(
+            "magic-initiate:class-list", setOf("wizard"),
+        )
+        assertThat(storedSheet.characterSpells.map { it.spellId }).containsAtLeast(
+            "fire-bolt", "mage-hand", "magic-missile",
+        )
+        val featGrants = storedSheet.managedProgression?.ownedSpellGrants.orEmpty()
+            .filter { ":feature:feat:magic-initiate:" in it.ownerKey }
+        assertThat(featGrants.map { it.spell }).containsExactly(
+            ClassSpellRef("wizard", "fire-bolt"),
+            ClassSpellRef("wizard", "mage-hand"),
+            ClassSpellRef("wizard", "magic-missile"),
         )
     }
 
