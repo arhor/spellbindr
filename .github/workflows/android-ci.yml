@@ -41,7 +41,11 @@ jobs:
           start = text.index('        run: |\n') + len('        run: |\n')
           end = text.index('      - name: Commit implementation\n', start)
           body = '\n'.join(line[10:] if line.startswith('          ') else line for line in text[start:end].splitlines())
-          exec(compile(body, 'issue-169-patch.py', 'exec'))
+          try:
+              exec(compile(body, 'issue-169-patch.py', 'exec'))
+          except BaseException as error:
+              print(f'::error file=.github/issue-169-patch.py,title=Patch failed::{error}')
+              raise
           PY
           rm -f .github/workflows/issue-169-runner.yml
           cat > .github/workflows/android-ci.yml <<'YAML'
