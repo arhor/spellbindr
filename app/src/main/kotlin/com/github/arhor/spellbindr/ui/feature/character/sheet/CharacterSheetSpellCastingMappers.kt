@@ -59,11 +59,17 @@ internal fun CharacterSheet.toSpellsState(
     val spellsBySource = spellEntries.groupBy { it.sourceKey }
     val classModels = spellsBySource
         .map { (sourceKey, spells) ->
-            val abilityId = spellcastingClasses.resolveSpellcastingAbility(sourceKey)
+            val spellcastingClass = spellcastingClasses.resolveSpellcastingClass(sourceKey)
+            val materializedStats = spellcastingClass?.id?.let { classId ->
+                managedProgression?.spellcastingClassStats?.get(classId)
+            }
+            val abilityId = materializedStats?.abilityId ?: spellcastingClass.resolveSpellcastingAbility()
             val abilityLabel = abilityId?.abbreviation()
             val abilityModifier = abilityId?.let(abilityScores::modifierFor)
-            val spellAttack = abilityModifier?.let { proficiencyBonus + it }
-            val spellDc = abilityModifier?.let { 8 + proficiencyBonus + it }
+            val spellAttack = materializedStats?.spellAttackBonus
+                ?: abilityModifier?.let { proficiencyBonus + it }
+            val spellDc = materializedStats?.spellSaveDc
+                ?: abilityModifier?.let { 8 + proficiencyBonus + it }
 
             val spellsByLevel = spells.groupBy { it.level }
             val spellLevels = buildList {
@@ -92,9 +98,7 @@ internal fun CharacterSheet.toSpellsState(
             val displayName = if (sourceKey == UNASSIGNED_SOURCE_KEY) {
                 ""
             } else {
-                spellcastingClasses.firstOrNull { clazz ->
-                    normalizeSourceKey(clazz.id) == sourceKey || normalizeSourceKey(clazz.name) == sourceKey
-                }?.name ?: spells.firstOrNull()?.sourceLabel?.ifBlank { null }
+                spellcastingClass?.name ?: spells.firstOrNull()?.sourceLabel?.ifBlank { null }
                 ?: formatSourceLabel(sourceKey)
             }
 
@@ -221,11 +225,14 @@ internal fun buildCastSlotOptions(
     }
 }
 
-private fun List<CharacterClass>.resolveSpellcastingAbility(sourceKey: String): AbilityId? {
-    val normalizedKey = sourceKey.trim().lowercase(Locale.ROOT)
-    val clazz = firstOrNull { it.id.equals(normalizedKey, ignoreCase = true) }
+private fun List<CharacterClass>.resolveSpellcastingClass(sourceKey: String): CharacterClass? {
+    val normalizedKey = normalizeSourceKey(sourceKey)
+    return firstOrNull { normalizeSourceKey(it.id) == normalizedKey }
         ?: firstOrNull { normalizeSourceKey(it.name) == normalizedKey }
-    val abilityId = clazz?.spellcasting?.spellcastingAbility?.id
+}
+
+private fun CharacterClass?.resolveSpellcastingAbility(): AbilityId? {
+    val abilityId = this?.spellcasting?.spellcastingAbility?.id
     return abilityId?.trim()?.lowercase(Locale.ROOT)?.takeIf { it in AbilityIds.standardOrder }
 }
 
