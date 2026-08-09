@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   issues: write
   pull-requests: write
 
@@ -25,34 +25,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  fix-issue-169-test-signature:
-    if: ${{ github.event_name == 'pull_request' && github.head_ref == 'feat/169-magic-initiate-level-up' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.head_ref }}
-      - name: Fix JUnit test return type
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          path = Path('app/src/test/kotlin/com/github/arhor/spellbindr/data/repository/CharacterLevelUpRepositoryIntegrationTest.kt')
-          text = path.read_text()
-          old = 'fun `applyLevelUp should persist Magic Initiate spells with feat ownership`() = runBlocking {'
-          new = 'fun `applyLevelUp should persist Magic Initiate spells with feat ownership`(): Unit = runBlocking {'
-          if text.count(old) != 1:
-              raise SystemExit(f'expected exactly one target, found {text.count(old)}')
-          path.write_text(text.replace(old, new))
-          PY
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add app/src/test/kotlin/com/github/arhor/spellbindr/data/repository/CharacterLevelUpRepositoryIntegrationTest.kt
-          git commit -m "fix: make Magic Initiate repository test return Unit"
-          git push
-
   build:
-    if: ${{ github.head_ref != 'feat/169-magic-initiate-level-up' }}
     name: Lint, unit test, and release assemble
     runs-on: ubuntu-latest
     timeout-minutes: 25
