@@ -371,7 +371,7 @@ class CharacterLevelUpRepositoryIntegrationTest {
     }
 
     @Test
-    fun `applyLevelUp should persist Magic Initiate spells with feat ownership`() = runBlocking {
+    fun `applyLevelUp should persist Magic Initiate spells with feat ownership`(): Unit = runBlocking {
         val progression = CharacterProgression(
             referenceDataVersion = REFERENCE_VERSION,
             origin = ProgressionOrigin.Guided,
