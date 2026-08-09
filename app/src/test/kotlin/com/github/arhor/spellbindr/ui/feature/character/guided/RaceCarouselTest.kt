@@ -3,24 +3,25 @@ package com.github.arhor.spellbindr.ui.feature.character.guided
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
-import androidx.compose.ui.test.swipeLeft
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.arhor.spellbindr.domain.model.Race
 import com.github.arhor.spellbindr.ui.feature.character.guided.components.race.RaceCarousel
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 import com.google.common.truth.Truth.assertThat
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Ignore("Quarantined until #155: RaceCarousel interactions are not deterministic under Robolectric")
+// Robolectric does not infer a host viewport for Compose. Keep the carousel measured at a deterministic phone size.
+@Config(qualifiers = "w411dp-h891dp")
 class RaceCarouselTest {
 
     @get:Rule
@@ -47,7 +48,7 @@ class RaceCarouselTest {
         }
 
         // Then
-        composeTestRule.onNodeWithContentDescription("Elf, 1 of 2").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("Elf, 1 of 2", substring = true).assertIsDisplayed()
         composeTestRule.runOnIdle {
             assertThat(selectedRaceIds).isEmpty()
         }
@@ -72,7 +73,7 @@ class RaceCarouselTest {
         }
 
         // When
-        composeTestRule.onNodeWithContentDescription("Elf, 1 of 2").performClick()
+        composeTestRule.onNodeWithContentDescription("Elf, 1 of 2", substring = true).performClick()
 
         // Then
         composeTestRule.runOnIdle {
@@ -98,10 +99,23 @@ class RaceCarouselTest {
             }
         }
 
+        // The v2 rule queues effects; settle composition so drag observation is active before injecting the swipe.
+        composeTestRule.waitForIdle()
+
         // When
         composeTestRule
-            .onNodeWithContentDescription("Elf, 1 of 2")
-            .performTouchInput { swipeLeft() }
+            .onNodeWithContentDescription("Elf, 1 of 2", substring = true)
+            .performTouchInput {
+                down(center)
+                moveBy(Offset(x = -50f, y = 0f))
+            }
+        composeTestRule.waitForIdle()
+        composeTestRule
+            .onNodeWithContentDescription("Elf, 1 of 2", substring = true)
+            .performTouchInput {
+                moveTo(Offset(x = 0f, y = center.y))
+                up()
+            }
         composeTestRule.waitForIdle()
 
         // Then
