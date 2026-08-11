@@ -188,6 +188,7 @@ class CharacterLevelUpViewModel @Inject constructor(
                 restoredDraft?.isSaving == true,
                 restoredDraft?.staleMessage,
                 restoredDraft?.persistenceMessage,
+                source.reference.features,
             )
         }
         }
