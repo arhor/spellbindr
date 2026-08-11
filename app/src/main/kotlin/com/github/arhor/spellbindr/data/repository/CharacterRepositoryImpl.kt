@@ -23,6 +23,7 @@ import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.ManagedProgressionSheetState
+import com.github.arhor.spellbindr.domain.model.ManagedResource
 import com.github.arhor.spellbindr.domain.model.ManagedSpellGrant
 import com.github.arhor.spellbindr.domain.model.ManagedSpellGrantType
 import com.github.arhor.spellbindr.domain.model.Loadable
@@ -355,6 +356,18 @@ class CharacterRepositoryImpl @Inject constructor(
                 spellcastingClassStats = after.calculateSpellcastingClassStats(referenceData.classes),
                 spellGrants = updatedSpellGrants.mapTo(linkedSetOf()) { it.spell },
                 ownedSpellGrants = updatedSpellGrants,
+                resources = after.resources.map { resource ->
+                    val prior = managedProgression?.resources.orEmpty().firstOrNull { it.id == resource.id }
+                    ManagedResource(
+                        ownerKey = "progression:feat:martial-adept",
+                        id = resource.id,
+                        name = resource.name,
+                        maximum = resource.maximum,
+                        recovery = resource.recovery,
+                        expended = prior?.expended.orZero().coerceIn(0, resource.maximum),
+                    )
+                },
+                featManeuvers = after.featManeuvers,
             ),
         )
     }

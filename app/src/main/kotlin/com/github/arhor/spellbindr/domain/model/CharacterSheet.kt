@@ -118,6 +118,18 @@ data class ManagedProgressionSheetState(
     val spellGrants: Set<ClassSpellRef> = emptySet(),
     /** One entry per permanent progression owner; overlapping grants intentionally remain distinct. */
     val ownedSpellGrants: List<ManagedSpellGrant> = emptyList(),
+    val resources: List<ManagedResource> = emptyList(),
+    val featManeuvers: Map<String, Set<String>> = emptyMap(),
+)
+
+@Serializable
+data class ManagedResource(
+    val ownerKey: String,
+    val id: String,
+    val name: String,
+    val maximum: Int,
+    val recovery: ResourceRecovery = ResourceRecovery.ShortOrLongRest,
+    val expended: Int = 0,
 )
 
 @Serializable
