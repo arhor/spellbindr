@@ -72,6 +72,19 @@ class CharacterLevelUpValidationReviewTest {
     }
 
     @Test
+    fun `manual hit point exception must be accepted before confirmation`() {
+        val exception = issue(
+            code = LevelUpValidationCode.ManualHitPointGainOverride,
+            message = "Manual hit point gain of 14 overrides the rules-derived fixed gain of 6 or a rolled result from 1 to 10.",
+            severity = LevelUpValidationSeverity.Overrideable,
+        )
+
+        setContent(reviewState(validations = listOf(exception)))
+        composeTestRule.onNodeWithText(exception.message).assertExists()
+        composeTestRule.onNodeWithText("Confirm level up").assertIsNotEnabled()
+    }
+
+    @Test
     fun `mixed review should keep blocking error outside accepted exceptions`() {
         val warning = issue(
             code = LevelUpValidationCode.ExperienceThreshold,

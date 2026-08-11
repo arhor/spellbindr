@@ -58,6 +58,7 @@ enum class LevelUpValidationCode {
     InvalidChoice,
     HitPointGainRequired,
     InvalidHitPointGain,
+    ManualHitPointGainOverride,
     AbilityScoreDecisionRequired,
     InvalidAbilityScoreIncrease,
     FeatRequired,

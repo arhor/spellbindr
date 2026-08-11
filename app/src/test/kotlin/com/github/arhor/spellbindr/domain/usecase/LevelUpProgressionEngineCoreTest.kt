@@ -13,12 +13,78 @@ import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.LevelUpReferenceData
 import com.github.arhor.spellbindr.domain.model.LevelUpSelections
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
+import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.MultiClassing
 import com.github.arhor.spellbindr.domain.model.ProgressionOrigin
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class LevelUpProgressionEngineCoreTest {
+
+    @Test
+    fun `manual hit point gain is an overrideable finding tied to its value`() {
+        val manual = HitPointGain.Manual(14)
+        val preview = LevelUpProgressionEngine.rebuild(
+            CharacterSheet(id = "character", level = 1),
+            progression("fighter"),
+            plan(1, "fighter", manual),
+            referenceData(),
+        )
+
+        val finding = preview.validations.single { it.code == LevelUpValidationCode.ManualHitPointGainOverride }
+        assertThat(finding.severity).isEqualTo(LevelUpValidationSeverity.Overrideable)
+        assertThat(finding.message).contains("fixed gain of 6")
+        assertThat(finding.message).contains("rolled result from 1 to 10")
+        assertThat(finding.message).contains("14")
+        assertThat(finding.acknowledgementId).isEqualTo("ManualHitPointGainOverride:14")
+        assertThat(preview.canConfirm).isFalse()
+
+        val acknowledged = LevelUpProgressionEngine.rebuild(
+            CharacterSheet(id = "character", level = 1),
+            progression("fighter"),
+            plan(
+                1,
+                "fighter",
+                manual,
+                LevelUpSelections(
+                    hitPointGain = manual,
+                    acknowledgedIssueCodes = setOf(finding.acknowledgementId),
+                ),
+            ),
+            referenceData(),
+        )
+        assertThat(acknowledged.canConfirm).isTrue()
+
+        val edited = LevelUpProgressionEngine.rebuild(
+            CharacterSheet(id = "character", level = 1),
+            progression("fighter"),
+            plan(
+                1,
+                "fighter",
+                HitPointGain.Manual(15),
+                LevelUpSelections(
+                    hitPointGain = HitPointGain.Manual(15),
+                    acknowledgedIssueCodes = setOf(finding.acknowledgementId),
+                ),
+            ),
+            referenceData(),
+        )
+        assertThat(edited.canConfirm).isFalse()
+    }
+
+    @Test
+    fun `fixed and rolled hit point gains do not create an exception finding`() {
+        listOf(HitPointGain.Fixed(6), HitPointGain.Rolled(7)).forEach { gain ->
+            val preview = LevelUpProgressionEngine.rebuild(
+                CharacterSheet(id = "character", level = 1),
+                progression("fighter"),
+                plan(1, "fighter", gain),
+                referenceData(),
+            )
+            assertThat(preview.validations.map { it.code })
+                .doesNotContain(LevelUpValidationCode.ManualHitPointGainOverride)
+        }
+    }
 
     @Test
     fun `rebuild should derive the next level from ordered class history when returning to an earlier class`() {
