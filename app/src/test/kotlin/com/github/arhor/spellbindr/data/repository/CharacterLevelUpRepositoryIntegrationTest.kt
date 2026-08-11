@@ -37,6 +37,7 @@ import com.github.arhor.spellbindr.domain.model.ManagedSpellGrantType
 import com.github.arhor.spellbindr.domain.model.MultiClassing
 import com.github.arhor.spellbindr.domain.model.ProgressionOrigin
 import com.github.arhor.spellbindr.domain.model.ProgressionState
+import com.github.arhor.spellbindr.domain.model.PactSlotState
 import com.github.arhor.spellbindr.domain.model.SavingThrowEntry
 import com.github.arhor.spellbindr.domain.model.Skill
 import com.github.arhor.spellbindr.domain.model.SkillEntry
@@ -193,7 +194,7 @@ class CharacterLevelUpRepositoryIntegrationTest {
     }
 
     @Test
-    fun `applyLevelUp should preserve mutable play state and separate grants when derived capacity changes`() =
+    fun `applyLevelUp should preserve mutable play state and separate grants when derived capacity changes`() {
         runBlocking {
             // Given
             val progression = progression("fighter", hitDie = 10)
@@ -259,7 +260,59 @@ class CharacterLevelUpRepositoryIntegrationTest {
             assertThat(stored.skills.single { it.skill == Skill.ATHLETICS }.proficient).isFalse()
             assertThat(stored.skills.single { it.skill == Skill.ARCANA }.proficient).isTrue()
             assertThat(stored.spellSlots.single { it.level == 1 }.expended).isEqualTo(0)
+            assertThat(stored.characterSpells).containsExactly(CharacterSpell("bless", "Magic Initiate"))
         }
+    }
+
+    @Test
+    fun `applyLevelUp should leave sheet and progression unchanged when validation fails`() = runBlocking {
+        val progression = progression("fighter", hitDie = 10)
+        val sheet = fighterSheet().copy(
+            currentHitPoints = 6,
+            temporaryHitPoints = 3,
+            characterSpells = listOf(CharacterSpell("bless", "Magic Initiate")),
+            manualProficiencyIds = setOf("tool-flute"),
+            managedProgression = ManagedProgressionSheetState(
+                hitDicePools = listOf(HitDicePoolState(dieSize = 10, total = 1, expended = 1)),
+            ),
+        )
+        seed(sheet, progression)
+        val before = requireNotNull(dao.getCharacterWithProgression(CHARACTER_ID))
+
+        val result = repository.applyLevelUp(
+            CHARACTER_ID,
+            expectedTotalLevel = 1,
+            plan = fighterPlan().copy(selections = LevelUpSelections(hitPointGain = HitPointGain.Fixed(1))),
+            referenceData = fighterReferenceData(),
+        )
+        val after = requireNotNull(dao.getCharacterWithProgression(CHARACTER_ID))
+
+        assertThat(result).isInstanceOf(ApplyLevelUpResult.ValidationFailure::class.java)
+        assertThat(after).isEqualTo(before)
+    }
+
+    @Test
+    fun `applyLevelUp should preserve expended pact slots within recalculated capacity`() = runBlocking {
+        val progression = progression("warlock", hitDie = 8)
+        seed(
+            fighterSheet().copy(pactSlots = PactSlotState(slotLevel = 1, total = 1, expended = 1)),
+            progression,
+        )
+        val plan = LevelUpPlan(
+            expectedTotalLevel = 1,
+            rulesetId = CharacterProgression.SUPPORTED_RULESET_ID,
+            referenceDataVersion = REFERENCE_VERSION,
+            selectedClassId = "warlock",
+            selections = LevelUpSelections(hitPointGain = HitPointGain.Fixed(5)),
+        )
+
+        val result = repository.applyLevelUp(CHARACTER_ID, 1, plan, warlockReferenceData())
+        val stored = requireNotNull(dao.getCharacterWithProgression(CHARACTER_ID))
+            .character.manualSheet?.toDomain(CHARACTER_ID)
+
+        assertThat(result).isInstanceOf(ApplyLevelUpResult.Success::class.java)
+        assertThat(stored?.pactSlots).isEqualTo(PactSlotState(slotLevel = 1, total = 2, expended = 1))
+    }
 
     @Test
     fun `applyLevelUp should replace only class owned spell when spell decision supersedes a grant`(): Unit = runBlocking {
@@ -280,6 +333,7 @@ class CharacterLevelUpRepositoryIntegrationTest {
         val sheet = fighterSheet().copy(
             className = "Bard 1",
             maxHitPoints = 8,
+            spellSlots = listOf(SpellSlotState(level = 1, total = 2, expended = 1)),
             concentrationSpellId = "old-remove",
             characterSpells = listOf(
                 CharacterSpell("old-keep", "Bard"),
@@ -353,6 +407,7 @@ class CharacterLevelUpRepositoryIntegrationTest {
             it.spellId == "old-remove" && it.sourceClass.equals("bard", ignoreCase = true)
         }).isEqualTo(2)
         assertThat(stored.concentrationSpellId).isEqualTo("old-remove")
+        assertThat(stored.spellSlots.single { it.level == 1 }.expended).isEqualTo(1)
         assertThat(stored.managedProgression?.spellGrants).containsExactly(
             ClassSpellRef("bard", "old-keep"),
             ClassSpellRef("bard", "old-remove"),
@@ -546,6 +601,12 @@ class CharacterLevelUpRepositoryIntegrationTest {
             referenceDataVersion = REFERENCE_VERSION,
         )
     }
+
+    private fun warlockReferenceData(): LevelUpReferenceData = LevelUpReferenceData(
+        classes = listOf(characterClass("warlock", 8)),
+        features = emptyList(),
+        referenceDataVersion = REFERENCE_VERSION,
+    )
 
     private fun characterClass(
         id: String,
