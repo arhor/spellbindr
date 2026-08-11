@@ -73,9 +73,11 @@ data class LevelUpValidationIssue(
     val code: LevelUpValidationCode,
     val message: String,
     val severity: LevelUpValidationSeverity,
+    /** Stable identity of this particular finding, when a code can occur more than once. */
+    val findingId: String? = null,
 ) {
     val acknowledgementId: String
-        get() = code.name
+        get() = findingId ?: code.name
 }
 
 @Serializable

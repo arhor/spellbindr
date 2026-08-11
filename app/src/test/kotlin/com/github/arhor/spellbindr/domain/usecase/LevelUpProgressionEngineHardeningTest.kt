@@ -917,7 +917,12 @@ class LevelUpProgressionEngineTest {
     }
 
     private fun issue(code: LevelUpValidationCode, severity: LevelUpValidationSeverity) =
-        com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue(code, "Ability prerequisites for Wizard are not met.", severity)
+        com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue(
+            code,
+            "Ability prerequisites for Wizard are not met.",
+            severity,
+            "multiclass-prerequisite:wizard",
+        )
 
     private fun plan(
         expectedLevel: Int,

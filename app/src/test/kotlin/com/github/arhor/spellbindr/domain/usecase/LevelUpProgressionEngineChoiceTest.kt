@@ -42,9 +42,50 @@ class LevelUpProgressionEngineChoiceTest {
                 LevelUpValidationCode.MulticlassPrerequisite,
                 "Ability prerequisites for Wizard are not met.",
                 LevelUpValidationSeverity.Overrideable,
+                "multiclass-prerequisite:wizard",
             ),
         )
         assertThat(preview.canConfirm).isFalse()
+    }
+
+    @Test
+    fun `changing selected class invalidates only the affected acknowledgement`() {
+        val sheet = CharacterSheet(
+            id = "character",
+            level = 1,
+            experiencePoints = 0,
+            abilityScores = AbilityScores(strength = 13, intelligence = 12),
+        )
+        val acknowledgements = setOf(
+            "multiclass-prerequisite:wizard",
+            "experience-threshold:2",
+        )
+        val wizardPlan = plan(
+            expectedLevel = 1,
+            classId = "wizard",
+            hitPoints = HitPointGain.Fixed(6),
+            selections = LevelUpSelections(
+                hitPointGain = HitPointGain.Fixed(6),
+                acknowledgedIssueCodes = acknowledgements,
+            ),
+        )
+
+        val wizardPreview = LevelUpProgressionEngine.rebuild(sheet, progression("fighter"), wizardPlan, referenceData())
+        assertThat(wizardPreview.requirements.filterIsInstance<com.github.arhor.spellbindr.domain.model.LevelUpRequirement.Acknowledgement>()
+            .map { it.id })
+            .containsExactlyElementsIn(acknowledgements)
+
+        val fighterPreview = LevelUpProgressionEngine.rebuild(
+            sheet,
+            progression("fighter"),
+            wizardPlan.copy(selectedClassId = "fighter"),
+            referenceData(),
+        )
+        val activeAcknowledgements = fighterPreview.requirements
+            .filterIsInstance<com.github.arhor.spellbindr.domain.model.LevelUpRequirement.Acknowledgement>()
+            .map { it.id }
+        assertThat(activeAcknowledgements).containsExactly("experience-threshold:2")
+        assertThat(fighterPreview.canConfirm).isTrue()
     }
 
     @Test
