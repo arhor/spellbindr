@@ -258,6 +258,7 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                 state.persistenceMessage?.let { WarningCard(it) }
                 CharacterLevelUpClassProgressionReview(state)
                 CharacterLevelUpAbilityScoreReview(state)
+                CharacterLevelUpSpellChangesReview(state)
                 ReviewRow("Proficiency bonus", "+${state.preview.before.proficiencyBonus}", "+${state.preview.after.proficiencyBonus}")
                 CharacterLevelUpDurabilityReview(state)
                 CharacterLevelUpValidationReview(state, dispatch)
