@@ -263,18 +263,22 @@ class CharacterRepositoryImpl @Inject constructor(
             ?: updatedProgression.copy(levels = updatedProgression.levels.dropLast(1)).ownedSpellGrants()
         val updatedSpellGrants = updatedProgression.ownedSpellGrants()
         val changedSpells = characterSpells.toMutableList()
-        val previousSpellStates = changedSpells.toList()
-        priorSpellGrants.map(ManagedSpellGrant::spell).distinct().forEach { spell ->
-            val index = changedSpells.indexOfFirst { stored -> stored.matches(spell, referenceData) }
-            if (index >= 0) changedSpells.removeAt(index)
+        val removedManagedSpellStates = mutableMapOf<com.github.arhor.spellbindr.domain.model.ClassSpellRef, MutableList<com.github.arhor.spellbindr.domain.model.CharacterSpell>>()
+        priorSpellGrants.forEach { grant ->
+            val index = changedSpells.indexOfFirst { stored -> stored.matches(grant.spell, referenceData) }
+            if (index >= 0) {
+                removedManagedSpellStates.getOrPut(grant.spell) { mutableListOf() }
+                    .add(changedSpells.removeAt(index))
+            }
         }
         // Re-materialize progression-owned spells while retaining a user's preparation choices.
         // In particular, newly added wizard spells belong to the spellbook and are not prepared
         // implicitly. Invalid or over-capacity prepared entries are intentionally retained: the
         // pure level-up engine reports them deterministically instead of silently discarding data.
-        updatedSpellGrants.map { grant ->
+        updatedSpellGrants.forEach { grant ->
             val spell = grant.spell
-            val existing = previousSpellStates.firstOrNull { stored -> stored.matches(spell, referenceData) }
+            val priorStates = removedManagedSpellStates[spell]
+            val existing = priorStates?.firstOrNull()?.also { priorStates.removeAt(0) }
             val ownership = when (grant.type) {
                 ManagedSpellGrantType.Spellbook -> com.github.arhor.spellbindr.domain.model.CharacterSpellOwnership.Spellbook
                 else -> com.github.arhor.spellbindr.domain.model.CharacterSpellOwnership.Known
@@ -290,16 +294,12 @@ class CharacterRepositoryImpl @Inject constructor(
                 ownership = ownership,
                 preparation = preparation,
             )
-        }.distinctBy { it.sourceClass.lowercase() to it.spellId }.forEach { materialized ->
-            // A remaining matching entry is user-authored (for example a duplicate manual
-            // assignment) after the one-to-one progression grant was removed above. Preserve it
-            // instead of collapsing user data while rebuilding managed grants.
-            if (changedSpells.none { stored -> stored.matches(
-                    com.github.arhor.spellbindr.domain.model.ClassSpellRef(materialized.sourceClass, materialized.spellId),
-                    referenceData,
-                ) }) {
-                changedSpells += materialized
-            }
+                .also { materialized ->
+                    // Re-add every managed grant. Any indistinguishable duplicates left in
+                    // changedSpells after consuming prior grants are user-authored extras and
+                    // must stay alongside the rebuilt managed entries.
+                    changedSpells += materialized
+                }
         }
         return copy(
             level = after.totalLevel,

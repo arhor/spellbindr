@@ -10,11 +10,8 @@ import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
-<<<<<<< HEAD
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
-=======
 import com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation
->>>>>>> ebb32f0 (feat: preserve prepared spells during level up)
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.Feature
