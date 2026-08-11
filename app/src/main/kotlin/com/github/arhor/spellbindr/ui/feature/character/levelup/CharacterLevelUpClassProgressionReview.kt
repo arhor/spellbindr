@@ -80,6 +80,7 @@ internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiSta
             MagicInitiateReview(state)
         }
     }
+    CharacterLevelUpSpellSlotReview(state)
 }
 
 @Composable
