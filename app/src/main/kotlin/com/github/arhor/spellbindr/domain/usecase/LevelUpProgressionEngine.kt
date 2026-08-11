@@ -28,6 +28,7 @@ import com.github.arhor.spellbindr.domain.model.LevelUpPreview
 import com.github.arhor.spellbindr.domain.model.LevelUpReferenceData
 import com.github.arhor.spellbindr.domain.model.LevelUpReferenceRules
 import com.github.arhor.spellbindr.domain.model.LevelUpRequirement
+import com.github.arhor.spellbindr.domain.model.LevelUpResource
 import com.github.arhor.spellbindr.domain.model.LevelUpSelections
 import com.github.arhor.spellbindr.domain.model.LevelUpSnapshot
 import com.github.arhor.spellbindr.domain.model.LevelUpSpellOption
@@ -390,8 +391,8 @@ object LevelUpProgressionEngine {
                         )
                     }
                     val deferredDecision = deferredFeatDecision(feat.id)
-
                         ?.takeUnless { feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data) }
+                        ?.takeUnless { feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null }
                     if (deferredDecision != null) {
                         validations += blocking(
                             LevelUpValidationCode.UnsupportedFeatDecision,
@@ -460,6 +461,17 @@ object LevelUpProgressionEngine {
                             label = feat.name,
                             validations = validations,
                             legalOptionIds = legalDamageTypes(feat, progression),
+                        )
+                    }
+                    feat.maneuverChoice?.let { choice ->
+                        val choiceId = feat.maneuverChoiceId.orEmpty()
+                        validateChoice(
+                            id = choiceId,
+                            choice = choice,
+                            selected = selections.featChoices[choiceId].orEmpty(),
+                            label = feat.name,
+                            validations = validations,
+                            legalOptionIds = choice.from.toSet(),
                         )
                     }
                     if (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) {
@@ -789,6 +801,8 @@ object LevelUpProgressionEngine {
         val savingThrows = linkedSetOf<AbilityId>()
         val featureIds = linkedSetOf<String>()
         val languageIds = linkedSetOf<String>()
+        val featManeuvers = linkedMapOf<String, MutableSet<String>>()
+        var martialAdeptCount = 0
         progression.levels.forEachIndexed { index, record ->
             val clazz = classesById[record.classId] ?: return@forEachIndexed
             if (index == 0) {
@@ -825,6 +839,11 @@ object LevelUpProgressionEngine {
                 }
             }
             val feat = (record.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId?.let(data.featsById::get)
+            feat?.maneuverChoiceId?.let { choiceId ->
+                val selected = record.featChoices[choiceId].orEmpty()
+                if (selected.isNotEmpty()) featManeuvers.getOrPut(feat.id) { linkedSetOf() } += selected
+                if (feat.id == MARTIAL_ADEPT_ID) martialAdeptCount++
+            }
             feat?.effects?.filterIsInstance<Effect.AddProficienciesEffect>()
                 ?.flatMap { it.proficiencies }
                 ?.forEach { proficiencyId ->
@@ -890,6 +909,14 @@ object LevelUpProgressionEngine {
             sharedSpellSlots = LevelUpReferenceRules.sharedSpellSlots[sharedCasterLevel].orEmpty(),
             pactMagic = pactMagic,
             languageIds = languageIds,
+            featManeuvers = featManeuvers.mapValues { it.value.toSet() },
+            resources = if (martialAdeptCount > 0) listOf(
+                LevelUpResource(
+                    id = SUPERIORITY_DIE_RESOURCE_ID,
+                    name = "Superiority dice",
+                    maximum = martialAdeptCount,
+                ),
+            ) else emptyList(),
         )
     }
 
@@ -1219,8 +1246,8 @@ object LevelUpProgressionEngine {
         data: LevelUpReferenceData,
     ): LevelUpFeatEligibility {
         val deferredDecision = deferredFeatDecision(feat.id)
-
             ?.takeUnless { feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data) }
+            ?.takeUnless { feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null }
         val reasons = buildList {
             if (!feat.repeatable && progression.levels.any { record ->
                     (record.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId == feat.id
@@ -1290,8 +1317,12 @@ object LevelUpProgressionEngine {
         val damageTypeChoiceIsLegal = feat.damageTypeChoice?.let { choice ->
             choice.choose <= legalDamageTypes(feat, progression).size
         } ?: true
+        val maneuverChoiceIsLegal = feat.maneuverChoice?.let { choice ->
+            choice.choose <= choice.from.distinct().size
+        } ?: true
         val magicInitiateChoicesAreLegal = feat.id != MAGIC_INITIATE_ID || magicInitiateIsSupported(data)
         return abilityChoiceIsLegal && languageChoiceIsLegal && proficiencyChoiceIsLegal && damageTypeChoiceIsLegal &&
+            maneuverChoiceIsLegal &&
             magicInitiateChoicesAreLegal
     }
 
@@ -1608,6 +1639,8 @@ object LevelUpProgressionEngine {
     }
 
     private const val MAGIC_INITIATE_ID = "magic-initiate"
+    private const val MARTIAL_ADEPT_ID = "martial-adept"
+    private const val SUPERIORITY_DIE_RESOURCE_ID = "superiority-die"
     private const val MAGIC_INITIATE_CLASS_LIST_CHOICE_ID = "magic-initiate:class-list"
     private const val MAGIC_INITIATE_CANTRIP_CHOICE_ID = "magic-initiate:cantrips"
     private const val MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID = "magic-initiate:first-level-spell"

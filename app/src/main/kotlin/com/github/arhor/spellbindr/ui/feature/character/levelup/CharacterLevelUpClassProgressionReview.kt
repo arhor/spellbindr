@@ -78,9 +78,20 @@ internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiSta
                 }
             }
             MagicInitiateReview(state)
+            MartialAdeptReview(state)
         }
     }
     CharacterLevelUpSpellSlotReview(state)
+}
+
+@Composable
+private fun MartialAdeptReview(state: CharacterLevelUpUiState.Content) {
+    val maneuvers = state.preview.after.featManeuvers["martial-adept"].orEmpty()
+    val resource = state.preview.after.resources.firstOrNull { it.id == "superiority-die" }
+    if (maneuvers.isEmpty() && resource == null) return
+    Text("Martial Adept", style = MaterialTheme.typography.titleSmall)
+    if (maneuvers.isNotEmpty()) Text("Maneuvers: ${maneuvers.sorted().joinToString()}")
+    resource?.let { Text("${it.name}: ${it.maximum}d6 (recover on short or long rest)") }
 }
 
 @Composable

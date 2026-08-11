@@ -19,6 +19,8 @@ data class Feat(
     val languageChoice: Choice.ResourceListChoice? = null,
     val proficiencyChoice: Choice.OptionsArrayChoice? = null,
     val damageTypeChoice: Choice.OptionsArrayChoice? = null,
+    /** Choices owned by Martial Adept (and future maneuver-granting feats). */
+    val maneuverChoice: Choice.OptionsArrayChoice? = null,
     val correlatesAbilityAndSavingThrow: Boolean = false,
     val repeatable: Boolean = false,
 ) {
@@ -35,6 +37,9 @@ data class Feat(
     val damageTypeChoiceId: String?
         get() = damageTypeChoice?.let { "$id:damage-type" }
 
+    val maneuverChoiceId: String?
+        get() = maneuverChoice?.let { "$id:maneuvers" }
+
     val correlatedAbilitySavingThrowChoiceId: String?
         get() = takeIf { correlatesAbilityAndSavingThrow }?.let { "$id:ability-and-saving-throw" }
 
@@ -47,6 +52,7 @@ data class Feat(
                 languageChoiceId,
                 proficiencyChoiceId,
                 damageTypeChoiceId,
+                maneuverChoiceId,
             )
         }
 }

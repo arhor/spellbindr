@@ -241,7 +241,21 @@ data class LevelUpSnapshot(
     /** Pact Magic never contributes to the shared multiclass slot table. */
     val pactMagic: LevelUpPactMagicCapacity? = null,
     val languageIds: Set<String> = emptySet(),
+    /** Maneuvers selected by each feat owner, keyed by the stable feat id. */
+    val featManeuvers: Map<String, Set<String>> = emptyMap(),
+    val resources: List<LevelUpResource> = emptyList(),
 )
+
+@Serializable
+data class LevelUpResource(
+    val id: String,
+    val name: String,
+    val maximum: Int,
+    val recovery: ResourceRecovery = ResourceRecovery.ShortOrLongRest,
+)
+
+@Serializable
+enum class ResourceRecovery { ShortRest, LongRest, ShortOrLongRest }
 
 @Serializable
 data class LevelUpPactMagicCapacity(
