@@ -348,6 +348,15 @@ object LevelUpProgressionEngine {
             is HitPointGain.Manual -> gain.rolledValue >= 1
         }
         if (!isValid) validations += blocking(LevelUpValidationCode.InvalidHitPointGain, "The hit point gain is invalid.")
+        if (gain is HitPointGain.Manual && isValid) {
+            validations += LevelUpValidationIssue(
+                code = LevelUpValidationCode.ManualHitPointGainOverride,
+                message = "Manual hit point gain of ${gain.rolledValue} overrides the rules-derived fixed gain of " +
+                    "$expectedFixed or a rolled result from 1 to $hitDie.",
+                severity = LevelUpValidationSeverity.Overrideable,
+                findingId = "${LevelUpValidationCode.ManualHitPointGainOverride.name}:${gain.rolledValue}",
+            )
+        }
     }
 
     private fun validateAbilityDecision(
