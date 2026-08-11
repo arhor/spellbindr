@@ -1223,8 +1223,7 @@ object LevelUpProgressionEngine {
             (illegal + overflow).map { it.spellId }.distinct().sorted().forEach { spellId ->
                 validations += blocking(
                     LevelUpValidationCode.SpellPolicy,
-                    "Prepared spell $spellId is no longer legal for ${clazz.name}; choose a replacement.",
-                    findingId = "prepared-spell:${clazz.id}:$spellId",
+                    "Prepared spell ${clazz.id}:$spellId is no longer legal for ${clazz.name}; choose a replacement.",
                 )
             }
         }
@@ -1822,8 +1821,8 @@ object LevelUpProgressionEngine {
     private const val ADDITIONAL_MAGICAL_SECRETS = "additional-magical-secrets"
     private val BARD_MAGICAL_SECRETS = setOf("magical-secrets-1", "magical-secrets-2", "magical-secrets-3")
 
-    private fun blocking(code: LevelUpValidationCode, message: String, findingId: String? = null) =
-        LevelUpValidationIssue(code, message, LevelUpValidationSeverity.Blocking, findingId)
+    private fun blocking(code: LevelUpValidationCode, message: String) =
+        LevelUpValidationIssue(code, message, LevelUpValidationSeverity.Blocking)
 
     private fun overrideable(
         code: LevelUpValidationCode,

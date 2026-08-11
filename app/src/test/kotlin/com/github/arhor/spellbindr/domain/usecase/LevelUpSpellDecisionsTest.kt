@@ -54,8 +54,8 @@ class LevelUpSpellDecisionsTest {
             spells = oldSpells + listOf(spell("new-a", 1, "wizard"), spell("new-b", 1, "wizard")),
         )
 
-        assertThat(preview.validations.mapNotNull { it.findingId })
-            .containsExactly("prepared-spell:wizard:old-b")
+        assertThat(preview.validations.map { it.message })
+            .contains("Prepared spell wizard:old-b is no longer legal for Wizard; choose a replacement.")
     }
 
     @Test

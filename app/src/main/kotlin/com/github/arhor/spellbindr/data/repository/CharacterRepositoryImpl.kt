@@ -262,8 +262,8 @@ class CharacterRepositoryImpl @Inject constructor(
                 }
             ?: updatedProgression.copy(levels = updatedProgression.levels.dropLast(1)).ownedSpellGrants()
         val updatedSpellGrants = updatedProgression.ownedSpellGrants()
-        val previousSpellStates = changedSpells.toList()
         val changedSpells = characterSpells.toMutableList()
+        val previousSpellStates = changedSpells.toList()
         priorSpellGrants.map(ManagedSpellGrant::spell).distinct().forEach { spell ->
             val index = changedSpells.indexOfFirst { stored -> stored.matches(spell, referenceData) }
             if (index >= 0) changedSpells.removeAt(index)
