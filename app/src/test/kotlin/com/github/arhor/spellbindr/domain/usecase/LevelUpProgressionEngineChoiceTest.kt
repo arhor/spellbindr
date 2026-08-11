@@ -63,7 +63,7 @@ class LevelUpProgressionEngineChoiceTest {
         val wizardPlan = plan(
             expectedLevel = 1,
             classId = "wizard",
-            hitPointGain = HitPointGain.Fixed(6),
+            hitPoints = HitPointGain.Fixed(6),
             selections = LevelUpSelections(acknowledgedIssueCodes = acknowledgements),
         )
 
