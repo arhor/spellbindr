@@ -20,6 +20,8 @@ import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
+import com.github.arhor.spellbindr.domain.model.CharacterSpellOwnership
+import com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation
 import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
@@ -496,6 +498,10 @@ class CharacterLevelUpRepositoryIntegrationTest {
         assertThat(storedSheet.characterSpells.map { it.spellId }).containsAtLeast(
             "fire-bolt", "mage-hand", "magic-missile",
         )
+        assertThat(storedSheet.characterSpells.first { it.spellId == "fire-bolt" }.ownership)
+            .isEqualTo(CharacterSpellOwnership.Known)
+        assertThat(storedSheet.characterSpells.first { it.spellId == "fire-bolt" }.preparation)
+            .isEqualTo(CharacterSpellPreparation.AlwaysPrepared)
         val featGrants = storedSheet.managedProgression?.ownedSpellGrants.orEmpty()
             .filter { ":feature:feat:magic-initiate:" in it.ownerKey }
         assertThat(featGrants.map { it.spell }).containsExactly(

@@ -11,6 +11,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
+import com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.Feature
@@ -126,6 +127,7 @@ object LevelUpProgressionEngine {
         } ?: progression
         val before = snapshot(sheet.abilityScores, progression, referenceData)
         val after = snapshot(applyAbilityDecision(sheet.abilityScores, plan.selections, referenceData), afterProgression, referenceData)
+        validatePreparedSpells(sheet, after.abilityScores, afterProgression, referenceData, validations)
         return LevelUpPreview(before, after, requirements, validations.distinctBy {
             Triple(it.code, it.message, it.findingId)
         })
@@ -1181,6 +1183,55 @@ object LevelUpProgressionEngine {
         val afterDecision = applyAbilityDecision(abilities, plan.selections, data)
         return (classLevel / preparation.levelDivisor + afterDecision.modifierFor(preparation.abilityId))
             .coerceAtLeast(preparation.minimumPreparedSpells)
+    }
+
+    /**
+     * Preparation is mutable sheet state, not progression state. Never normalize it while
+     * materializing a level: an ability-score change or multiclass transition can make existing
+     * entries illegal, and those entries must be reported so the user can resolve them explicitly.
+     */
+    private fun validatePreparedSpells(
+        sheet: CharacterSheet,
+        abilities: AbilityScores,
+        progression: CharacterProgression,
+        data: LevelUpReferenceData,
+        validations: MutableList<LevelUpValidationIssue>,
+    ) {
+        data.classes.sortedBy { it.id }.forEach { clazz ->
+            val classLevel = progression.classLevels[clazz.id] ?: return@forEach
+            val policy = LevelUpReferenceRules.policyFor(clazz.id)?.spells ?: return@forEach
+            val preparation = when (policy) {
+                is SpellLearningPolicy.Prepared -> policy.preparation
+                is SpellLearningPolicy.Spellbook -> policy.preparation
+                else -> return@forEach
+            }
+            val classSpells = sheet.characterSpells.filter { stored ->
+                stored.preparation == CharacterSpellPreparation.Prepared &&
+                    (stored.sourceClass.equals(clazz.id, ignoreCase = true) ||
+                        stored.sourceClass.equals(clazz.name, ignoreCase = true))
+            }
+            if (classSpells.isEmpty()) return@forEach
+            val maxSpellLevel = clazz.levels.firstOrNull { it.level == classLevel }
+                ?.spellcasting?.spellSlots.orEmpty().keys.mapNotNull(String::toIntOrNull).maxOrNull().orZero()
+            val capacity = (classLevel / preparation.levelDivisor + abilities.modifierFor(preparation.abilityId))
+                .coerceAtLeast(preparation.minimumPreparedSpells)
+            val illegal = classSpells.filter { stored ->
+                val spell = data.spellsById[stored.spellId]
+                spell == null || spell.level == 0 || spell.level > maxSpellLevel ||
+                    clazz.id !in spell.classes.map { it.id }
+            }
+            val preparedLeveled = classSpells.filter { stored ->
+                val spell = data.spellsById[stored.spellId]
+                spell != null && spell.level > 0 && stored !in illegal
+            }
+            val overflow = preparedLeveled.drop(capacity)
+            (illegal + overflow).map { it.spellId }.distinct().sorted().forEach { spellId ->
+                validations += blocking(
+                    LevelUpValidationCode.SpellPolicy,
+                    "Prepared spell ${clazz.id}:$spellId is no longer legal for ${clazz.name}; choose a replacement.",
+                )
+            }
+        }
     }
 
     private fun meetsPrerequisites(abilities: AbilityScores, prerequisites: List<AbilityScorePrerequisite>): Boolean =
