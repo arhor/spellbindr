@@ -91,9 +91,94 @@ class CharacterLevelUpClassProgressionReviewTest {
         // Then
         composeTestRule.onNodeWithText("4 → 5").assertExists()
         composeTestRule.onNodeWithText("Wizard level").assertExists()
-        composeTestRule.onNodeWithText("1 → 2").assertExists()
+        assertThat(composeTestRule.onAllNodesWithText("1 → 2").fetchSemanticsNodes()).isNotEmpty()
         composeTestRule.onNodeWithText("Fighter 3 / Wizard 1 → Fighter 3 / Wizard 2").assertExists()
         composeTestRule.onNodeWithText("New subclass", substring = true).assertDoesNotExist()
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should show only changed shared spell slots for single-class level-up`() {
+        val wizard = characterClass("wizard", "Wizard")
+        setContent(
+            reviewState(
+                selectedClassId = wizard.id,
+                classes = listOf(wizard),
+                before = snapshot(
+                    totalLevel = 4,
+                    classLevels = mapOf(wizard.id to 4),
+                    classDisplayName = "Wizard 4",
+                    sharedSpellSlots = mapOf(1 to 4, 2 to 3),
+                ),
+                after = snapshot(
+                    totalLevel = 5,
+                    classLevels = mapOf(wizard.id to 5),
+                    classDisplayName = "Wizard 5",
+                    sharedSpellSlots = mapOf(1 to 4, 2 to 3, 3 to 2),
+                ),
+            ),
+        )
+
+        composeTestRule.onNodeWithText("Spell slots").assertExists()
+        composeTestRule.onNodeWithText("3rd-level shared slots").assertExists()
+        composeTestRule.onNodeWithText("1st-level shared slots").assertDoesNotExist()
+        composeTestRule.onNodeWithText("2nd-level shared slots").assertDoesNotExist()
+        composeTestRule.onNodeWithText("0 → 2").assertExists()
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should show changed shared spell slots for multiclass level-up`() {
+        val cleric = characterClass("cleric", "Cleric")
+        val wizard = characterClass("wizard", "Wizard")
+        setContent(
+            reviewState(
+                selectedClassId = wizard.id,
+                classes = listOf(cleric, wizard),
+                before = snapshot(
+                    totalLevel = 2,
+                    classLevels = mapOf(cleric.id to 1, wizard.id to 1),
+                    classDisplayName = "Cleric 1 / Wizard 1",
+                    sharedSpellSlots = mapOf(1 to 3),
+                ),
+                after = snapshot(
+                    totalLevel = 3,
+                    classLevels = mapOf(cleric.id to 1, wizard.id to 2),
+                    classDisplayName = "Cleric 1 / Wizard 2",
+                    sharedSpellSlots = mapOf(1 to 3, 2 to 2),
+                ),
+            ),
+        )
+
+        composeTestRule.onNodeWithText("2nd-level shared slots").assertExists()
+        composeTestRule.onNodeWithText("1st-level shared slots").assertDoesNotExist()
+        composeTestRule.onNodeWithText("0 → 2").assertExists()
+    }
+
+    @Test
+    fun `CharacterLevelUpScreen should show Pact Magic count and level separately`() {
+        val warlock = characterClass("warlock", "Warlock")
+        setContent(
+            reviewState(
+                selectedClassId = warlock.id,
+                classes = listOf(warlock),
+                before = snapshot(
+                    totalLevel = 1,
+                    classLevels = mapOf(warlock.id to 1),
+                    classDisplayName = "Warlock 1",
+                    pactMagic = com.github.arhor.spellbindr.domain.model.LevelUpPactMagicCapacity(1, 1),
+                ),
+                after = snapshot(
+                    totalLevel = 2,
+                    classLevels = mapOf(warlock.id to 2),
+                    classDisplayName = "Warlock 2",
+                    pactMagic = com.github.arhor.spellbindr.domain.model.LevelUpPactMagicCapacity(1, 2),
+                ),
+            ),
+        )
+
+        composeTestRule.onNodeWithText("Pact Magic").assertExists()
+        composeTestRule.onNodeWithText("Pact Magic slots").assertExists()
+        assertThat(composeTestRule.onAllNodesWithText("1 → 2").fetchSemanticsNodes()).isNotEmpty()
+        composeTestRule.onNodeWithText("Pact Magic slot level").assertDoesNotExist()
     }
 
     private fun setContent(state: CharacterLevelUpUiState.Content) {
@@ -141,6 +226,8 @@ class CharacterLevelUpClassProgressionReviewTest {
         totalLevel: Int,
         classLevels: Map<String, Int>,
         classDisplayName: String,
+        sharedSpellSlots: Map<Int, Int> = emptyMap(),
+        pactMagic: com.github.arhor.spellbindr.domain.model.LevelUpPactMagicCapacity? = null,
     ) = LevelUpSnapshot(
         totalLevel = totalLevel,
         classLevels = classLevels,
@@ -153,7 +240,8 @@ class CharacterLevelUpClassProgressionReviewTest {
         savingThrowAbilityIds = emptySet(),
         featureIds = emptySet(),
         sharedCasterLevel = 0,
-        sharedSpellSlots = emptyMap(),
+        sharedSpellSlots = sharedSpellSlots,
+        pactMagic = pactMagic,
     )
 
     private fun characterClass(id: String, name: String) = CharacterClass(
