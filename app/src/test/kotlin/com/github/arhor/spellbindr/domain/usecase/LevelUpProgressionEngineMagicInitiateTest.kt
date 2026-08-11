@@ -89,6 +89,42 @@ class LevelUpProgressionEngineMagicInitiateTest {
             )
     }
 
+    @Test
+    fun `rebuild should offer only attack roll cantrips for Spell Sniper`() {
+        val data = referenceData().copy(
+            feats = listOf(Feat("spell-sniper", "Spell Sniper", emptyList())),
+            spells = listOf(
+                spell("fire-bolt", "Fire Bolt", 0, "wizard", attackType = "ranged"),
+                spell("mage-hand", "Mage Hand", 0, "wizard"),
+            ),
+        )
+        val preview = LevelUpProgressionEngine.rebuild(
+            sheet(), progression(), spellSniperPlan(mapOf(SPELL_SNIPER_CLASS_LIST to setOf("wizard"))), data,
+        )
+        val choices = preview.requirements.filterIsInstance<LevelUpRequirement.ChoiceSelection>().associateBy { it.id }
+
+        assertThat(choices.getValue(SPELL_SNIPER_CANTRIP).options.map { it.id }).containsExactly("fire-bolt")
+        assertThat(preview.validations.map { it.code }).contains(LevelUpValidationCode.ChoiceRequired)
+    }
+
+    @Test
+    fun `recordFor should persist Spell Sniper cantrip under stable feat owner`() {
+        val data = referenceData().copy(
+            feats = listOf(Feat("spell-sniper", "Spell Sniper", emptyList())),
+            spells = listOf(spell("fire-bolt", "Fire Bolt", 0, "wizard", attackType = "ranged")),
+        )
+        val plan = spellSniperPlan(mapOf(
+            SPELL_SNIPER_CLASS_LIST to setOf("wizard"), SPELL_SNIPER_CANTRIP to setOf("fire-bolt"),
+        ))
+        val preview = LevelUpProgressionEngine.rebuild(sheet(), progression(), plan, data)
+        val record = LevelUpProgressionEngine.recordFor(plan, data.classesById.getValue("fighter"), 4, progression(), data)
+
+        assertThat(preview.canConfirm).isTrue()
+        assertThat(record.featChoices).containsExactlyEntriesIn(plan.selections.featChoices)
+        assertThat(record.spellChanges.featureLearned.getValue("feat:spell-sniper"))
+            .containsExactly(com.github.arhor.spellbindr.domain.model.ClassSpellRef("wizard", "fire-bolt"))
+    }
+
     private fun sheet() = CharacterSheet(id = "character", level = 3, className = "Fighter 3")
 
     private fun progression() = CharacterProgression(
@@ -114,6 +150,10 @@ class LevelUpProgressionEngineMagicInitiateTest {
             abilityScoreDecision = AbilityScoreDecision.Feat("magic-initiate"),
             featChoices = featChoices,
         ),
+    )
+
+    private fun spellSniperPlan(featChoices: Map<String, Set<String>>) = plan(featChoices).copy(
+        selections = plan(featChoices).selections.copy(abilityScoreDecision = AbilityScoreDecision.Feat("spell-sniper")),
     )
 
     private fun referenceData() = LevelUpReferenceData(
@@ -142,7 +182,7 @@ class LevelUpProgressionEngineMagicInitiateTest {
         levels = (1..20).map { level -> ClassLevel("$id-$level", level, emptyList()) },
     )
 
-    private fun spell(id: String, name: String, level: Int, classId: String) = Spell(
+    private fun spell(id: String, name: String, level: Int, classId: String, attackType: String? = null) = Spell(
         id = id,
         name = name,
         desc = emptyList(),
@@ -155,6 +195,7 @@ class LevelUpProgressionEngineMagicInitiateTest {
         classes = listOf(EntityRef(classId)),
         components = emptyList(),
         concentration = false,
+        attackType = attackType,
         source = "test",
     )
 
@@ -162,5 +203,7 @@ class LevelUpProgressionEngineMagicInitiateTest {
         const val CLASS_LIST = "magic-initiate:class-list"
         const val CANTRIPS = "magic-initiate:cantrips"
         const val FIRST_LEVEL = "magic-initiate:first-level-spell"
+        const val SPELL_SNIPER_CLASS_LIST = "spell-sniper:class-list"
+        const val SPELL_SNIPER_CANTRIP = "spell-sniper:cantrip"
     }
 }
