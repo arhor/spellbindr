@@ -291,11 +291,15 @@ class CharacterRepositoryImpl @Inject constructor(
                 preparation = preparation,
             )
         }.distinctBy { it.sourceClass.lowercase() to it.spellId }.forEach { materialized ->
-            changedSpells.removeAll { stored -> stored.matches(
-                com.github.arhor.spellbindr.domain.model.ClassSpellRef(materialized.sourceClass, materialized.spellId),
-                referenceData,
-            ) }
-            changedSpells += materialized
+            // A remaining matching entry is user-authored (for example a duplicate manual
+            // assignment) after the one-to-one progression grant was removed above. Preserve it
+            // instead of collapsing user data while rebuilding managed grants.
+            if (changedSpells.none { stored -> stored.matches(
+                    com.github.arhor.spellbindr.domain.model.ClassSpellRef(materialized.sourceClass, materialized.spellId),
+                    referenceData,
+                ) }) {
+                changedSpells += materialized
+            }
         }
         return copy(
             level = after.totalLevel,
