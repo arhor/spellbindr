@@ -79,6 +79,7 @@ internal fun CharacterLevelUpClassProgressionReview(state: CharacterLevelUpUiSta
             }
             MagicInitiateReview(state)
             MartialAdeptReview(state)
+            SpellSniperReview(state)
         }
     }
     CharacterLevelUpSpellSlotReview(state)
@@ -111,6 +112,23 @@ private fun MagicInitiateReview(state: CharacterLevelUpUiState.Content) {
     selectedLabels("magic-initiate:cantrips").takeIf { it.isNotEmpty() }
         ?.let { Text("Cantrips: ${it.joinToString()}") }
     selectedLabels("magic-initiate:first-level-spell").singleOrNull()?.let { Text("1st-level spell: $it") }
+}
+
+@Composable
+private fun SpellSniperReview(state: CharacterLevelUpUiState.Content) {
+    val requirements = state.preview.requirements
+        .filterIsInstance<LevelUpRequirement.ChoiceSelection>()
+        .filter { it.sourceId == "spell-sniper" }
+    if (requirements.isEmpty()) return
+
+    fun selectedLabel(id: String): String? {
+        val requirement = requirements.firstOrNull { it.id == id } ?: return null
+        return requirement.options.firstOrNull { it.id in requirement.selectedOptionIds }?.label
+    }
+
+    Text("Spell Sniper", style = MaterialTheme.typography.titleSmall)
+    selectedLabel("spell-sniper:class-list")?.let { Text("Spell list: $it") }
+    selectedLabel("spell-sniper:cantrip")?.let { Text("Attack-roll cantrip: $it") }
 }
 
 @Composable

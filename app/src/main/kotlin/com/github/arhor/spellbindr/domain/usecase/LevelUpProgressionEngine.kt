@@ -10,6 +10,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.Feature
@@ -39,6 +40,7 @@ import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.ProficiencyChoiceSelection
 import com.github.arhor.spellbindr.domain.model.Prerequisite
 import com.github.arhor.spellbindr.domain.model.SpellLearningPolicy
+import com.github.arhor.spellbindr.domain.model.Spell
 import javax.inject.Inject
 
 /** Creates an empty, stale-safe one-level draft without inspecting a UI state. */
@@ -152,10 +154,10 @@ object LevelUpProgressionEngine {
         val selectedFeat = (plan.selections.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId
             ?.let(referenceData.featsById::get)
         val featIds = selectedFeat?.let(::activeFeatChoiceIds).orEmpty()
-        val persistedPlan = if (selectedFeat?.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(referenceData)) {
-            plan.withMagicInitiateSpellGrant()
-        } else {
-            plan
+        val persistedPlan = when (selectedFeat?.id) {
+            MAGIC_INITIATE_ID -> plan.takeIf { magicInitiateIsSupported(referenceData) }?.withMagicInitiateSpellGrant() ?: plan
+            SPELL_SNIPER_ID -> plan.takeIf { spellSniperIsSupported(referenceData) }?.withSpellSniperSpellGrant() ?: plan
+            else -> plan
         }
         return persistedPlan.toRecord(
             clazz = clazz,
@@ -400,7 +402,10 @@ object LevelUpProgressionEngine {
                         )
                     }
                     val deferredDecision = deferredFeatDecision(feat.id)
-                        ?.takeUnless { feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data) }
+                        ?.takeUnless {
+                            (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) ||
+                                (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data))
+                        }
                         ?.takeUnless { feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null }
                     if (deferredDecision != null) {
                         validations += blocking(
@@ -485,6 +490,9 @@ object LevelUpProgressionEngine {
                     }
                     if (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) {
                         validateMagicInitiateSelections(selections, data, validations)
+                    }
+                    if (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data)) {
+                        validateSpellSniperSelections(selections, data, validations)
                     }
                     val afterFeat = applyAbilityDecision(abilities, selections, data)
                     if (AbilityIds.standardOrder.any { abilityScore(afterFeat, it) > 20 }) {
@@ -762,6 +770,9 @@ object LevelUpProgressionEngine {
                     }
                     if (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(referenceData)) {
                         addAll(magicInitiateChoiceRequirements(referenceData, plan.selections.featChoices))
+                    }
+                    if (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(referenceData)) {
+                        addAll(spellSniperChoiceRequirements(referenceData, plan.selections.featChoices))
                     }
                 }
             }
@@ -1255,7 +1266,10 @@ object LevelUpProgressionEngine {
         data: LevelUpReferenceData,
     ): LevelUpFeatEligibility {
         val deferredDecision = deferredFeatDecision(feat.id)
-            ?.takeUnless { feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data) }
+            ?.takeUnless {
+                (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) ||
+                    (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data))
+            }
             ?.takeUnless { feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null }
         val reasons = buildList {
             if (!feat.repeatable && progression.levels.any { record ->
@@ -1330,9 +1344,10 @@ object LevelUpProgressionEngine {
             choice.choose <= choice.from.distinct().size
         } ?: true
         val magicInitiateChoicesAreLegal = feat.id != MAGIC_INITIATE_ID || magicInitiateIsSupported(data)
+        val spellSniperChoicesAreLegal = feat.id != SPELL_SNIPER_ID || spellSniperIsSupported(data)
         return abilityChoiceIsLegal && languageChoiceIsLegal && proficiencyChoiceIsLegal && damageTypeChoiceIsLegal &&
             maneuverChoiceIsLegal &&
-            magicInitiateChoicesAreLegal
+            magicInitiateChoicesAreLegal && spellSniperChoicesAreLegal
     }
 
     private fun legalFeatAbilityOptions(
@@ -1353,8 +1368,11 @@ object LevelUpProgressionEngine {
         .flatMap { it.abilities.entries }
         .fold(abilities) { scores, (ability, amount) -> updateAbility(scores, ability, amount) }
 
-    private fun activeFeatChoiceIds(feat: Feat): Set<String> = feat.ownedChoiceIds +
-        if (feat.id == MAGIC_INITIATE_ID) MAGIC_INITIATE_CHOICE_IDS else emptySet()
+    private fun activeFeatChoiceIds(feat: Feat): Set<String> = feat.ownedChoiceIds + when (feat.id) {
+        MAGIC_INITIATE_ID -> MAGIC_INITIATE_CHOICE_IDS
+        SPELL_SNIPER_ID -> SPELL_SNIPER_CHOICE_IDS
+        else -> emptySet()
+    }
 
     private fun magicInitiateIsSupported(data: LevelUpReferenceData): Boolean =
         magicInitiateClassIds(data).isNotEmpty()
@@ -1465,6 +1483,84 @@ object LevelUpProgressionEngine {
             spellChanges = selections.spellChanges.copy(
                 featureLearned = selections.spellChanges.featureLearned +
                     (MAGIC_INITIATE_SPELL_GRANT_OWNER_ID to grants),
+            ),
+        ))
+    }
+
+    private fun spellSniperSpellCandidates(data: LevelUpReferenceData, classId: String): List<Spell> =
+        data.spells.asSequence()
+            .filter { spell -> spell.level == 0 && classId in spell.classes.map { it.id } && spell.attackType != null }
+            .sortedWith(compareBy({ it.name }, { it.id }))
+            .toList()
+
+    private fun spellSniperClassIds(data: LevelUpReferenceData): List<String> =
+        SPELL_SNIPER_CLASS_IDS.filter { spellSniperSpellCandidates(data, it).isNotEmpty() }.sorted()
+
+    private fun spellSniperIsSupported(data: LevelUpReferenceData): Boolean =
+        spellSniperClassIds(data).isNotEmpty()
+
+    private fun validateSpellSniperSelections(
+        selections: LevelUpSelections,
+        data: LevelUpReferenceData,
+        validations: MutableList<LevelUpValidationIssue>,
+    ) {
+        val classIds = spellSniperClassIds(data)
+        validateChoice(
+            id = SPELL_SNIPER_CLASS_LIST_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(1, classIds),
+            selected = selections.featChoices[SPELL_SNIPER_CLASS_LIST_CHOICE_ID].orEmpty(),
+            label = "Spell Sniper spell list",
+            validations = validations,
+            legalOptionIds = classIds.toSet(),
+        )
+        val classId = selections.featChoices[SPELL_SNIPER_CLASS_LIST_CHOICE_ID]
+            ?.singleOrNull()?.takeIf { it in classIds } ?: return
+        val cantripIds = spellSniperSpellCandidates(data, classId).map { it.id }
+        validateChoice(
+            id = SPELL_SNIPER_CANTRIP_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(1, cantripIds),
+            selected = selections.featChoices[SPELL_SNIPER_CANTRIP_CHOICE_ID].orEmpty(),
+            label = "Spell Sniper attack-roll cantrip",
+            validations = validations,
+            legalOptionIds = cantripIds.toSet(),
+        )
+    }
+
+    private fun spellSniperChoiceRequirements(
+        data: LevelUpReferenceData,
+        featChoices: Map<String, Set<String>>,
+    ): List<LevelUpRequirement.ChoiceSelection> = buildList {
+        val classIds = spellSniperClassIds(data)
+        val selectedClass = featChoices[SPELL_SNIPER_CLASS_LIST_CHOICE_ID].orEmpty()
+        add(LevelUpRequirement.ChoiceSelection(
+            id = SPELL_SNIPER_CLASS_LIST_CHOICE_ID,
+            sourceId = SPELL_SNIPER_ID,
+            label = "Spell Sniper spell list",
+            choice = Choice.OptionsArrayChoice(1, classIds),
+            selectedOptionIds = selectedClass,
+            category = LevelUpChoiceCategory.Feat,
+            options = classIds.map { LevelUpChoiceOption(it, data.classesById[it]?.name ?: it) },
+        ))
+        val classId = selectedClass.singleOrNull()?.takeIf { it in classIds } ?: return@buildList
+        val cantrips = spellSniperSpellCandidates(data, classId)
+        add(LevelUpRequirement.ChoiceSelection(
+            id = SPELL_SNIPER_CANTRIP_CHOICE_ID,
+            sourceId = SPELL_SNIPER_ID,
+            label = "Spell Sniper attack-roll cantrip",
+            choice = Choice.OptionsArrayChoice(1, cantrips.map { it.id }),
+            selectedOptionIds = featChoices[SPELL_SNIPER_CANTRIP_CHOICE_ID].orEmpty(),
+            category = LevelUpChoiceCategory.Feat,
+            options = cantrips.map { LevelUpChoiceOption(it.id, it.name) },
+        ))
+    }
+
+    private fun LevelUpPlan.withSpellSniperSpellGrant(): LevelUpPlan {
+        val classId = selections.featChoices[SPELL_SNIPER_CLASS_LIST_CHOICE_ID]?.singleOrNull() ?: return this
+        val spellId = selections.featChoices[SPELL_SNIPER_CANTRIP_CHOICE_ID]?.singleOrNull() ?: return this
+        return copy(selections = selections.copy(
+            spellChanges = selections.spellChanges.copy(
+                featureLearned = selections.spellChanges.featureLearned +
+                    (SPELL_SNIPER_SPELL_GRANT_OWNER_ID to setOf(ClassSpellRef(classId, spellId))),
             ),
         ))
     }
@@ -1654,12 +1750,18 @@ object LevelUpProgressionEngine {
     private const val MAGIC_INITIATE_CANTRIP_CHOICE_ID = "magic-initiate:cantrips"
     private const val MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID = "magic-initiate:first-level-spell"
     private const val MAGIC_INITIATE_SPELL_GRANT_OWNER_ID = "feat:magic-initiate"
+    private const val SPELL_SNIPER_ID = "spell-sniper"
+    private const val SPELL_SNIPER_CLASS_LIST_CHOICE_ID = "spell-sniper:class-list"
+    private const val SPELL_SNIPER_CANTRIP_CHOICE_ID = "spell-sniper:cantrip"
+    private const val SPELL_SNIPER_SPELL_GRANT_OWNER_ID = "feat:spell-sniper"
     private val MAGIC_INITIATE_CLASS_IDS = setOf("bard", "cleric", "druid", "sorcerer", "warlock", "wizard")
     private val MAGIC_INITIATE_CHOICE_IDS = setOf(
         MAGIC_INITIATE_CLASS_LIST_CHOICE_ID,
         MAGIC_INITIATE_CANTRIP_CHOICE_ID,
         MAGIC_INITIATE_FIRST_LEVEL_SPELL_CHOICE_ID,
     )
+    private val SPELL_SNIPER_CLASS_IDS = setOf("bard", "cleric", "druid", "sorcerer", "warlock", "wizard")
+    private val SPELL_SNIPER_CHOICE_IDS = setOf(SPELL_SNIPER_CLASS_LIST_CHOICE_ID, SPELL_SNIPER_CANTRIP_CHOICE_ID)
 
     private const val SAVING_THROW_PREFIX = "saving-throw-"
     private const val ADDITIONAL_MAGICAL_SECRETS = "additional-magical-secrets"
