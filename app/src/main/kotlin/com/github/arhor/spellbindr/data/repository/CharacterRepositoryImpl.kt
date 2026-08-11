@@ -18,7 +18,6 @@ import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.HitDicePoolState
 import com.github.arhor.spellbindr.domain.model.LevelUpPlan
 import com.github.arhor.spellbindr.domain.model.LevelUpReferenceData
-import com.github.arhor.spellbindr.domain.model.LevelUpReferenceRules
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationCode
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
@@ -28,7 +27,6 @@ import com.github.arhor.spellbindr.domain.model.ManagedSpellGrant
 import com.github.arhor.spellbindr.domain.model.ManagedSpellGrantType
 import com.github.arhor.spellbindr.domain.model.Loadable
 import com.github.arhor.spellbindr.domain.model.ProgressionState
-import com.github.arhor.spellbindr.domain.model.SpellLearningPolicy
 import com.github.arhor.spellbindr.domain.model.calculateSpellcastingClassStats
 import com.github.arhor.spellbindr.domain.repository.CharacterRepository
 import com.github.arhor.spellbindr.domain.usecase.LevelUpProgressionEngine
@@ -264,51 +262,40 @@ class CharacterRepositoryImpl @Inject constructor(
                 }
             ?: updatedProgression.copy(levels = updatedProgression.levels.dropLast(1)).ownedSpellGrants()
         val updatedSpellGrants = updatedProgression.ownedSpellGrants()
+        val previousSpellStates = changedSpells.toList()
         val changedSpells = characterSpells.toMutableList()
         priorSpellGrants.map(ManagedSpellGrant::spell).distinct().forEach { spell ->
             val index = changedSpells.indexOfFirst { stored -> stored.matches(spell, referenceData) }
             if (index >= 0) changedSpells.removeAt(index)
         }
-        updatedSpellGrants.map(ManagedSpellGrant::spell).distinct().forEach { spell ->
-            changedSpells += com.github.arhor.spellbindr.domain.model.CharacterSpell(
-                spell.spellId,
-                spell.classId,
-            )
-        }
-        val selectedClassId = updatedProgression.levels.last().classId
-        val selectedClassLevel = updatedProgression.classLevels.getValue(selectedClassId)
-        val selectedClass = referenceData.classesById[selectedClassId]
-        val spellPolicy = LevelUpReferenceRules.policyFor(selectedClassId)?.spells
-        if (selectedClass != null && spellPolicy is SpellLearningPolicy.Prepared) {
-            val maxSpellLevel = selectedClass.levels.firstOrNull { it.level == selectedClassLevel }
-                ?.spellcasting?.spellSlots.orEmpty().keys.mapNotNull(String::toIntOrNull).maxOrNull().orZero()
-            val capacity = (selectedClassLevel / spellPolicy.preparation.levelDivisor +
-                after.abilityScores.modifierFor(spellPolicy.preparation.abilityId))
-                .coerceAtLeast(spellPolicy.preparation.minimumPreparedSpells)
-            var retainedPrepared = 0
-            val permanentGrantsToProtect = updatedSpellGrants.map(ManagedSpellGrant::spell).distinct().toMutableList()
-            changedSpells.removeAll { stored ->
-                val belongsToClass = stored.sourceClass.equals(selectedClass.id, ignoreCase = true) ||
-                    stored.sourceClass.equals(selectedClass.name, ignoreCase = true)
-                val spell = referenceData.spellsById[stored.spellId]
-                val ownedIndex = permanentGrantsToProtect.indexOfFirst { grant ->
-                    stored.matches(grant, referenceData)
-                }
-                val isPermanentGrant = ownedIndex >= 0
-                if (isPermanentGrant) permanentGrantsToProtect.removeAt(ownedIndex)
-                when {
-                    !belongsToClass -> false
-                    isPermanentGrant -> false
-                    spell == null -> true
-                    spell.level == 0 -> false
-                    else -> {
-                        val eligible = selectedClass.id in spell.classes.map { it.id } && spell.level <= maxSpellLevel
-                        val preserve = eligible && retainedPrepared < capacity
-                        if (preserve) retainedPrepared++
-                        !preserve
-                    }
-                }
+        // Re-materialize progression-owned spells while retaining a user's preparation choices.
+        // In particular, newly added wizard spells belong to the spellbook and are not prepared
+        // implicitly. Invalid or over-capacity prepared entries are intentionally retained: the
+        // pure level-up engine reports them deterministically instead of silently discarding data.
+        updatedSpellGrants.map { grant ->
+            val spell = grant.spell
+            val existing = previousSpellStates.firstOrNull { stored -> stored.matches(spell, referenceData) }
+            val ownership = when (grant.type) {
+                ManagedSpellGrantType.Spellbook -> com.github.arhor.spellbindr.domain.model.CharacterSpellOwnership.Spellbook
+                else -> com.github.arhor.spellbindr.domain.model.CharacterSpellOwnership.Known
             }
+            val preparation = existing?.preparation ?: when (grant.type) {
+                ManagedSpellGrantType.Spellbook -> com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation.Unprepared
+                ManagedSpellGrantType.Feature -> com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation.AlwaysPrepared
+                else -> com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation.Prepared
+            }
+            com.github.arhor.spellbindr.domain.model.CharacterSpell(
+                spellId = spell.spellId,
+                sourceClass = spell.classId,
+                ownership = ownership,
+                preparation = preparation,
+            )
+        }.distinctBy { it.sourceClass.lowercase() to it.spellId }.forEach { materialized ->
+            changedSpells.removeAll { stored -> stored.matches(
+                com.github.arhor.spellbindr.domain.model.ClassSpellRef(materialized.sourceClass, materialized.spellId),
+                referenceData,
+            ) }
+            changedSpells += materialized
         }
         return copy(
             level = after.totalLevel,
