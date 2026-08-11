@@ -62,6 +62,7 @@ sealed interface CharacterLevelUpUiState {
         val isSaving: Boolean = false,
         val staleMessage: String? = null,
         val persistenceMessage: String? = null,
+        val features: List<com.github.arhor.spellbindr.domain.model.Feature> = emptyList(),
     ) : CharacterLevelUpUiState {
         val isReview: Boolean get() = step == CharacterLevelUpStep.Review
         val canConfirm: Boolean get() = isReview && preview.canConfirm && !isSaving

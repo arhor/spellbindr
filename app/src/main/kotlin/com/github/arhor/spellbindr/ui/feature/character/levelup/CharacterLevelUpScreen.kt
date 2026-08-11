@@ -259,6 +259,7 @@ private fun Content(state: CharacterLevelUpUiState.Content, dispatch: CharacterL
                 CharacterLevelUpClassProgressionReview(state)
                 CharacterLevelUpAbilityScoreReview(state)
                 CharacterLevelUpSpellChangesReview(state)
+                CharacterLevelUpChangesReview(state)
                 ReviewRow("Proficiency bonus", "+${state.preview.before.proficiencyBonus}", "+${state.preview.after.proficiencyBonus}")
                 CharacterLevelUpDurabilityReview(state)
                 CharacterLevelUpValidationReview(state, dispatch)
