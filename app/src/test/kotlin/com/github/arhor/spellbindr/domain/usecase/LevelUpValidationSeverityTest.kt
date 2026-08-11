@@ -102,10 +102,31 @@ class LevelUpValidationSeverityTest {
         assertThat(record.ruleAcknowledgements).containsExactly(overrideable.acknowledgementId)
     }
 
+    @Test
+    fun `duplicate validation codes retain independent stable acknowledgements`() {
+        val first = validation(
+            code = LevelUpValidationCode.MulticlassPrerequisite,
+            severity = LevelUpValidationSeverity.Overrideable,
+            findingId = "multiclass-prerequisite:fighter",
+        )
+        val second = validation(
+            code = LevelUpValidationCode.MulticlassPrerequisite,
+            severity = LevelUpValidationSeverity.Overrideable,
+            findingId = "multiclass-prerequisite:wizard",
+        )
+        val requirements = listOf(first, second).map {
+            LevelUpRequirement.Acknowledgement(it.acknowledgementId, it, acknowledged = true)
+        }
+
+        assertThat(first.acknowledgementId).isNotEqualTo(second.acknowledgementId)
+        assertThat(preview(listOf(first, second), requirements).canConfirm).isTrue()
+    }
+
     private fun validation(
         code: LevelUpValidationCode,
         severity: LevelUpValidationSeverity,
-    ) = LevelUpValidationIssue(code, "${severity.name} finding", severity)
+        findingId: String? = null,
+    ) = LevelUpValidationIssue(code, "${severity.name} finding", severity, findingId)
 
     private fun preview(
         validations: List<LevelUpValidationIssue>,

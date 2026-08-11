@@ -123,7 +123,9 @@ object LevelUpProgressionEngine {
         } ?: progression
         val before = snapshot(sheet.abilityScores, progression, referenceData)
         val after = snapshot(applyAbilityDecision(sheet.abilityScores, plan.selections, referenceData), afterProgression, referenceData)
-        return LevelUpPreview(before, after, requirements, validations.distinctBy { it.code to it.message })
+        return LevelUpPreview(before, after, requirements, validations.distinctBy {
+            Triple(it.code, it.message, it.findingId)
+        })
     }
 
     /** Creates the persisted record only after [rebuild] reports that confirmation is allowed. */
@@ -232,6 +234,7 @@ object LevelUpProgressionEngine {
                     validations += overrideable(
                         LevelUpValidationCode.MulticlassPrerequisite,
                         "Ability prerequisites for ${data.classesById[classId]?.name ?: classId} are not met.",
+                        findingId = "multiclass-prerequisite:$classId",
                     )
                 }
             }
@@ -243,6 +246,7 @@ object LevelUpProgressionEngine {
             validations += overrideable(
                 LevelUpValidationCode.ExperienceThreshold,
                 "${threshold - experience} more XP is normally required for level $targetLevel.",
+                findingId = "experience-threshold:$targetLevel",
             )
         }
     }
@@ -1622,6 +1626,9 @@ object LevelUpProgressionEngine {
     private fun blocking(code: LevelUpValidationCode, message: String) =
         LevelUpValidationIssue(code, message, LevelUpValidationSeverity.Blocking)
 
-    private fun overrideable(code: LevelUpValidationCode, message: String) =
-        LevelUpValidationIssue(code, message, LevelUpValidationSeverity.Overrideable)
+    private fun overrideable(
+        code: LevelUpValidationCode,
+        message: String,
+        findingId: String? = null,
+    ) = LevelUpValidationIssue(code, message, LevelUpValidationSeverity.Overrideable, findingId)
 }
