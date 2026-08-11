@@ -6,6 +6,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
+import com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation
 import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.EntityRef
@@ -27,6 +28,35 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class LevelUpSpellDecisionsTest {
+
+    @Test
+    fun `rebuild reports deterministic prepared overflow after an ability score change`() {
+        val wizard = casterClass("wizard", 6) {
+            LevelSpellcasting(cantrips = 0, spells = 2, spellSlots = mapOf("1" to 2))
+        }
+        val oldSpells = listOf(spell("old-a", 1, "wizard"), spell("old-b", 1, "wizard"))
+        val preview = rebuild(
+            sheet = CharacterSheet(
+                id = "character",
+                level = 1,
+                abilityScores = AbilityScores(intelligence = 8),
+                characterSpells = oldSpells.map { CharacterSpell(it.id, "wizard", preparation = CharacterSpellPreparation.Prepared) },
+            ),
+            progression = progression(record(1, "wizard", 1)),
+            plan = plan(
+                expectedLevel = 1,
+                classId = "wizard",
+                spellChanges = SpellChanges(
+                    addedToSpellbook = setOf(ClassSpellRef("wizard", "new-a"), ClassSpellRef("wizard", "new-b")),
+                ),
+            ),
+            classes = listOf(wizard),
+            spells = oldSpells + listOf(spell("new-a", 1, "wizard"), spell("new-b", 1, "wizard")),
+        )
+
+        assertThat(preview.validations.map { it.message })
+            .contains("Prepared spell wizard:old-b is no longer legal for Wizard; choose a replacement.")
+    }
 
     @Test
     fun `rebuild should expose class scoped known spell candidates when multiclass slots are higher`() {

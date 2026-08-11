@@ -20,6 +20,8 @@ import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.CharacterSpell
+import com.github.arhor.spellbindr.domain.model.CharacterSpellOwnership
+import com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation
 import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.DeathSaveState
@@ -496,12 +498,66 @@ class CharacterLevelUpRepositoryIntegrationTest {
         assertThat(storedSheet.characterSpells.map { it.spellId }).containsAtLeast(
             "fire-bolt", "mage-hand", "magic-missile",
         )
+        assertThat(storedSheet.characterSpells.first { it.spellId == "fire-bolt" }.ownership)
+            .isEqualTo(CharacterSpellOwnership.Known)
+        assertThat(storedSheet.characterSpells.first { it.spellId == "fire-bolt" }.preparation)
+            .isEqualTo(CharacterSpellPreparation.AlwaysPrepared)
         val featGrants = storedSheet.managedProgression?.ownedSpellGrants.orEmpty()
             .filter { ":feature:feat:magic-initiate:" in it.ownerKey }
         assertThat(featGrants.map { it.spell }).containsExactly(
             ClassSpellRef("wizard", "fire-bolt"),
             ClassSpellRef("wizard", "mage-hand"),
             ClassSpellRef("wizard", "magic-missile"),
+        )
+    }
+
+    @Test
+    fun `applyLevelUp should persist Ritual Caster spells with feat ownership`(): Unit = runBlocking {
+        val progression = CharacterProgression(
+            referenceDataVersion = REFERENCE_VERSION, origin = ProgressionOrigin.Guided,
+            levels = (1..3).map { level ->
+                CharacterLevelRecord(
+                    characterLevel = level,
+                    classId = "fighter",
+                    classLevel = level,
+                    hitPointGain = HitPointGain.Fixed(if (level == 1) 10 else 6),
+                )
+            },
+        )
+        val sheet = fighterSheet().copy(level = 3, className = "Fighter 3", maxHitPoints = 22, currentHitPoints = 22)
+        seed(sheet, progression)
+        val plan = LevelUpPlan(
+            expectedTotalLevel = 3, rulesetId = CharacterProgression.SUPPORTED_RULESET_ID,
+            referenceDataVersion = REFERENCE_VERSION, selectedClassId = "fighter",
+            selections = LevelUpSelections(
+                hitPointGain = HitPointGain.Fixed(6), abilityScoreDecision = AbilityScoreDecision.Feat("ritual-caster"),
+                featChoices = mapOf(
+                    "ritual-caster:class-list" to setOf("wizard"),
+                    "ritual-caster:starting-spells" to setOf("find-familiar", "identify"),
+                ),
+            ),
+        )
+        fun ritualSpell(id: String) = Spell(
+            id = id, name = id.replace('-', ' ').replaceFirstChar { it.uppercase() }, desc = emptyList(), level = 1,
+            range = "Self", ritual = true, school = EntityRef("divination"), duration = "Instantaneous",
+            castingTime = "1 minute", classes = listOf(EntityRef("wizard")), components = emptyList(),
+            concentration = false, source = "test",
+        )
+        val data = LevelUpReferenceData(
+            classes = listOf(characterClass("fighter", 10), characterClass("wizard", 6)), features = emptyList(),
+            feats = listOf(Feat("ritual-caster", "Ritual Caster", emptyList())),
+            spells = listOf(ritualSpell("find-familiar"), ritualSpell("identify")), referenceDataVersion = REFERENCE_VERSION,
+        )
+
+        val result = repository.applyLevelUp(CHARACTER_ID, 3, plan, data)
+        val stored = requireNotNull(dao.getCharacterWithProgression(CHARACTER_ID))
+        val storedSheet = requireNotNull(stored.character.manualSheet?.toDomain(CHARACTER_ID))
+        assertThat(result).isInstanceOf(ApplyLevelUpResult.Success::class.java)
+        assertThat(storedSheet.characterSpells.map { it.spellId }).containsAtLeast("find-familiar", "identify")
+        assertThat(storedSheet.managedProgression?.ownedSpellGrants.orEmpty().filter {
+            ":feature:feat:ritual-caster:" in it.ownerKey
+        }.map { it.spell }).containsExactly(
+            ClassSpellRef("wizard", "find-familiar"), ClassSpellRef("wizard", "identify"),
         )
     }
 

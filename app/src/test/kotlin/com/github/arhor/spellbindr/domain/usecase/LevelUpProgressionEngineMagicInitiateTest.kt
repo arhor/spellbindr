@@ -5,6 +5,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterClass
 import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
+import com.github.arhor.spellbindr.domain.model.ClassSpellRef
 import com.github.arhor.spellbindr.domain.model.ClassLevel
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Feat
@@ -20,6 +21,47 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class LevelUpProgressionEngineMagicInitiateTest {
+
+    @Test
+    fun `rebuild should expose only level one ritual spells for Ritual Caster`() {
+        val data = referenceData().copy(
+            feats = listOf(Feat("ritual-caster", "Ritual Caster", emptyList())),
+            spells = listOf(
+                spell("identify", "Identify", 1, "wizard", ritual = true),
+                spell("find-familiar", "Find Familiar", 1, "wizard", ritual = true),
+                spell("shield", "Shield", 1, "wizard"),
+                spell("arcane-lock", "Arcane Lock", 2, "wizard", ritual = true),
+            ),
+        )
+        val preview = LevelUpProgressionEngine.rebuild(
+            sheet(), progression(), planFor("ritual-caster", mapOf(
+                RITUAL_CLASS_LIST to setOf("wizard"),
+            )), data,
+        )
+        val choices = preview.requirements.filterIsInstance<LevelUpRequirement.ChoiceSelection>().associateBy { it.id }
+        assertThat(choices.getValue(RITUAL_SPELLS).options.map { it.id })
+            .containsExactly("find-familiar", "identify")
+    }
+
+    @Test
+    fun `recordFor should retain two Ritual Caster spells under feat owner`() {
+        val data = referenceData().copy(
+            feats = listOf(Feat("ritual-caster", "Ritual Caster", emptyList())),
+            spells = listOf(
+                spell("identify", "Identify", 1, "wizard", ritual = true),
+                spell("find-familiar", "Find Familiar", 1, "wizard", ritual = true),
+            ),
+        )
+        val plan = planFor("ritual-caster", mapOf(
+            RITUAL_CLASS_LIST to setOf("wizard"),
+            RITUAL_SPELLS to setOf("identify", "find-familiar"),
+        ))
+        val preview = LevelUpProgressionEngine.rebuild(sheet(), progression(), plan, data)
+        assertThat(preview.canConfirm).isTrue()
+        val record = LevelUpProgressionEngine.recordFor(plan, data.classesById.getValue("fighter"), 4, progression(), data, preview.validations)
+        assertThat(record.spellChanges.featureLearned.getValue("feat:ritual-caster"))
+            .containsExactly(ClassSpellRef("wizard", "identify"), ClassSpellRef("wizard", "find-familiar"))
+    }
 
     @Test
     fun `rebuild should filter Magic Initiate choices by selected class list and spell level`() {
@@ -152,6 +194,18 @@ class LevelUpProgressionEngineMagicInitiateTest {
         ),
     )
 
+    private fun planFor(featId: String, featChoices: Map<String, Set<String>>) = LevelUpPlan(
+        expectedTotalLevel = 3,
+        rulesetId = CharacterProgression.SUPPORTED_RULESET_ID,
+        referenceDataVersion = "test-v1",
+        selectedClassId = "fighter",
+        selections = LevelUpSelections(
+            hitPointGain = HitPointGain.Fixed(6),
+            abilityScoreDecision = AbilityScoreDecision.Feat(featId),
+            featChoices = featChoices,
+        ),
+    )
+
     private fun spellSniperPlan(featChoices: Map<String, Set<String>>) = plan(featChoices).copy(
         selections = plan(featChoices).selections.copy(abilityScoreDecision = AbilityScoreDecision.Feat("spell-sniper")),
     )
@@ -182,13 +236,20 @@ class LevelUpProgressionEngineMagicInitiateTest {
         levels = (1..20).map { level -> ClassLevel("$id-$level", level, emptyList()) },
     )
 
-    private fun spell(id: String, name: String, level: Int, classId: String, attackType: String? = null) = Spell(
+    private fun spell(
+        id: String,
+        name: String,
+        level: Int,
+        classId: String,
+        ritual: Boolean = false,
+        attackType: String? = null,
+    ) = Spell(
         id = id,
         name = name,
         desc = emptyList(),
         level = level,
         range = "Self",
-        ritual = false,
+        ritual = ritual,
         school = EntityRef("evocation"),
         duration = "Instantaneous",
         castingTime = "1 action",
@@ -205,5 +266,7 @@ class LevelUpProgressionEngineMagicInitiateTest {
         const val FIRST_LEVEL = "magic-initiate:first-level-spell"
         const val SPELL_SNIPER_CLASS_LIST = "spell-sniper:class-list"
         const val SPELL_SNIPER_CANTRIP = "spell-sniper:cantrip"
+        const val RITUAL_CLASS_LIST = "ritual-caster:class-list"
+        const val RITUAL_SPELLS = "ritual-caster:starting-spells"
     }
 }

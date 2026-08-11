@@ -11,6 +11,7 @@ import com.github.arhor.spellbindr.domain.model.CharacterLevelRecord
 import com.github.arhor.spellbindr.domain.model.CharacterProgression
 import com.github.arhor.spellbindr.domain.model.CharacterSheet
 import com.github.arhor.spellbindr.domain.model.ClassSpellRef
+import com.github.arhor.spellbindr.domain.model.CharacterSpellPreparation
 import com.github.arhor.spellbindr.domain.model.Choice
 import com.github.arhor.spellbindr.domain.model.Effect
 import com.github.arhor.spellbindr.domain.model.Feature
@@ -39,8 +40,8 @@ import com.github.arhor.spellbindr.domain.model.LevelUpValidationIssue
 import com.github.arhor.spellbindr.domain.model.LevelUpValidationSeverity
 import com.github.arhor.spellbindr.domain.model.ProficiencyChoiceSelection
 import com.github.arhor.spellbindr.domain.model.Prerequisite
-import com.github.arhor.spellbindr.domain.model.SpellLearningPolicy
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.domain.model.SpellLearningPolicy
 import javax.inject.Inject
 
 /** Creates an empty, stale-safe one-level draft without inspecting a UI state. */
@@ -126,6 +127,7 @@ object LevelUpProgressionEngine {
         } ?: progression
         val before = snapshot(sheet.abilityScores, progression, referenceData)
         val after = snapshot(applyAbilityDecision(sheet.abilityScores, plan.selections, referenceData), afterProgression, referenceData)
+        validatePreparedSpells(sheet, after.abilityScores, afterProgression, referenceData, validations)
         return LevelUpPreview(before, after, requirements, validations.distinctBy {
             Triple(it.code, it.message, it.findingId)
         })
@@ -157,6 +159,7 @@ object LevelUpProgressionEngine {
         val persistedPlan = when (selectedFeat?.id) {
             MAGIC_INITIATE_ID -> plan.takeIf { magicInitiateIsSupported(referenceData) }?.withMagicInitiateSpellGrant() ?: plan
             SPELL_SNIPER_ID -> plan.takeIf { spellSniperIsSupported(referenceData) }?.withSpellSniperSpellGrant() ?: plan
+            RITUAL_CASTER_ID -> plan.takeIf { ritualCasterIsSupported(referenceData) }?.withRitualCasterSpellGrant() ?: plan
             else -> plan
         }
         return persistedPlan.toRecord(
@@ -404,9 +407,10 @@ object LevelUpProgressionEngine {
                     val deferredDecision = deferredFeatDecision(feat.id)
                         ?.takeUnless {
                             (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) ||
-                                (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data))
+                                (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data)) ||
+                                (feat.id == RITUAL_CASTER_ID && ritualCasterIsSupported(data)) ||
+                                (feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null)
                         }
-                        ?.takeUnless { feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null }
                     if (deferredDecision != null) {
                         validations += blocking(
                             LevelUpValidationCode.UnsupportedFeatDecision,
@@ -493,6 +497,9 @@ object LevelUpProgressionEngine {
                     }
                     if (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data)) {
                         validateSpellSniperSelections(selections, data, validations)
+                    }
+                    if (feat.id == RITUAL_CASTER_ID && ritualCasterIsSupported(data)) {
+                        validateRitualCasterSelections(selections, data, validations)
                     }
                     val afterFeat = applyAbilityDecision(abilities, selections, data)
                     if (AbilityIds.standardOrder.any { abilityScore(afterFeat, it) > 20 }) {
@@ -773,6 +780,9 @@ object LevelUpProgressionEngine {
                     }
                     if (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(referenceData)) {
                         addAll(spellSniperChoiceRequirements(referenceData, plan.selections.featChoices))
+                    }
+                    if (feat.id == RITUAL_CASTER_ID && ritualCasterIsSupported(referenceData)) {
+                        addAll(ritualCasterChoiceRequirements(referenceData, plan.selections.featChoices))
                     }
                 }
             }
@@ -1175,6 +1185,55 @@ object LevelUpProgressionEngine {
             .coerceAtLeast(preparation.minimumPreparedSpells)
     }
 
+    /**
+     * Preparation is mutable sheet state, not progression state. Never normalize it while
+     * materializing a level: an ability-score change or multiclass transition can make existing
+     * entries illegal, and those entries must be reported so the user can resolve them explicitly.
+     */
+    private fun validatePreparedSpells(
+        sheet: CharacterSheet,
+        abilities: AbilityScores,
+        progression: CharacterProgression,
+        data: LevelUpReferenceData,
+        validations: MutableList<LevelUpValidationIssue>,
+    ) {
+        data.classes.sortedBy { it.id }.forEach { clazz ->
+            val classLevel = progression.classLevels[clazz.id] ?: return@forEach
+            val policy = LevelUpReferenceRules.policyFor(clazz.id)?.spells ?: return@forEach
+            val preparation = when (policy) {
+                is SpellLearningPolicy.Prepared -> policy.preparation
+                is SpellLearningPolicy.Spellbook -> policy.preparation
+                else -> return@forEach
+            }
+            val classSpells = sheet.characterSpells.filter { stored ->
+                stored.preparation == CharacterSpellPreparation.Prepared &&
+                    (stored.sourceClass.equals(clazz.id, ignoreCase = true) ||
+                        stored.sourceClass.equals(clazz.name, ignoreCase = true))
+            }
+            if (classSpells.isEmpty()) return@forEach
+            val maxSpellLevel = clazz.levels.firstOrNull { it.level == classLevel }
+                ?.spellcasting?.spellSlots.orEmpty().keys.mapNotNull(String::toIntOrNull).maxOrNull().orZero()
+            val capacity = (classLevel / preparation.levelDivisor + abilities.modifierFor(preparation.abilityId))
+                .coerceAtLeast(preparation.minimumPreparedSpells)
+            val illegal = classSpells.filter { stored ->
+                val spell = data.spellsById[stored.spellId]
+                spell == null || spell.level == 0 || spell.level > maxSpellLevel ||
+                    clazz.id !in spell.classes.map { it.id }
+            }
+            val preparedLeveled = classSpells.filter { stored ->
+                val spell = data.spellsById[stored.spellId]
+                spell != null && spell.level > 0 && stored !in illegal
+            }
+            val overflow = preparedLeveled.drop(capacity)
+            (illegal + overflow).map { it.spellId }.distinct().sorted().forEach { spellId ->
+                validations += blocking(
+                    LevelUpValidationCode.SpellPolicy,
+                    "Prepared spell ${clazz.id}:$spellId is no longer legal for ${clazz.name}; choose a replacement.",
+                )
+            }
+        }
+    }
+
     private fun meetsPrerequisites(abilities: AbilityScores, prerequisites: List<AbilityScorePrerequisite>): Boolean =
         prerequisites.all { prerequisite ->
             val checks = prerequisite.abilityScore.map { abilityScore(abilities, it) >= prerequisite.minimumScore }
@@ -1268,9 +1327,10 @@ object LevelUpProgressionEngine {
         val deferredDecision = deferredFeatDecision(feat.id)
             ?.takeUnless {
                 (feat.id == MAGIC_INITIATE_ID && magicInitiateIsSupported(data)) ||
-                    (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data))
+                    (feat.id == SPELL_SNIPER_ID && spellSniperIsSupported(data)) ||
+                    (feat.id == RITUAL_CASTER_ID && ritualCasterIsSupported(data)) ||
+                    (feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null)
             }
-            ?.takeUnless { feat.id == MARTIAL_ADEPT_ID && feat.maneuverChoice != null }
         val reasons = buildList {
             if (!feat.repeatable && progression.levels.any { record ->
                     (record.abilityScoreDecision as? AbilityScoreDecision.Feat)?.featId == feat.id
@@ -1343,11 +1403,15 @@ object LevelUpProgressionEngine {
         val maneuverChoiceIsLegal = feat.maneuverChoice?.let { choice ->
             choice.choose <= choice.from.distinct().size
         } ?: true
-        val magicInitiateChoicesAreLegal = feat.id != MAGIC_INITIATE_ID || magicInitiateIsSupported(data)
-        val spellSniperChoicesAreLegal = feat.id != SPELL_SNIPER_ID || spellSniperIsSupported(data)
+        val spellChoiceIsLegal = when (feat.id) {
+            MAGIC_INITIATE_ID -> magicInitiateIsSupported(data)
+            SPELL_SNIPER_ID -> spellSniperIsSupported(data)
+            RITUAL_CASTER_ID -> ritualCasterIsSupported(data)
+            else -> true
+        }
         return abilityChoiceIsLegal && languageChoiceIsLegal && proficiencyChoiceIsLegal && damageTypeChoiceIsLegal &&
             maneuverChoiceIsLegal &&
-            magicInitiateChoicesAreLegal && spellSniperChoicesAreLegal
+            spellChoiceIsLegal
     }
 
     private fun legalFeatAbilityOptions(
@@ -1368,11 +1432,13 @@ object LevelUpProgressionEngine {
         .flatMap { it.abilities.entries }
         .fold(abilities) { scores, (ability, amount) -> updateAbility(scores, ability, amount) }
 
-    private fun activeFeatChoiceIds(feat: Feat): Set<String> = feat.ownedChoiceIds + when (feat.id) {
-        MAGIC_INITIATE_ID -> MAGIC_INITIATE_CHOICE_IDS
-        SPELL_SNIPER_ID -> SPELL_SNIPER_CHOICE_IDS
-        else -> emptySet()
-    }
+    private fun activeFeatChoiceIds(feat: Feat): Set<String> = feat.ownedChoiceIds +
+        when (feat.id) {
+            MAGIC_INITIATE_ID -> MAGIC_INITIATE_CHOICE_IDS
+            SPELL_SNIPER_ID -> SPELL_SNIPER_CHOICE_IDS
+            RITUAL_CASTER_ID -> RITUAL_CASTER_CHOICE_IDS
+            else -> emptySet()
+        }
 
     private fun magicInitiateIsSupported(data: LevelUpReferenceData): Boolean =
         magicInitiateClassIds(data).isNotEmpty()
@@ -1561,6 +1627,89 @@ object LevelUpProgressionEngine {
             spellChanges = selections.spellChanges.copy(
                 featureLearned = selections.spellChanges.featureLearned +
                     (SPELL_SNIPER_SPELL_GRANT_OWNER_ID to setOf(ClassSpellRef(classId, spellId))),
+            ),
+        ))
+    }
+
+    private fun ritualCasterIsSupported(data: LevelUpReferenceData): Boolean =
+        ritualCasterClassIds(data).any { ritualCasterSpellCandidates(data, it).size >= 2 }
+
+    private fun ritualCasterClassIds(data: LevelUpReferenceData): List<String> = RITUAL_CASTER_CLASS_IDS
+        .filter { classId -> classId in data.classesById && ritualCasterSpellCandidates(data, classId).size >= 2 }
+        .sorted()
+
+    private fun ritualCasterSpellCandidates(data: LevelUpReferenceData, classId: String) = data.spells.asSequence()
+        .filter { spell ->
+            spell.level == 1 && spell.ritual && classId in spell.classes.map { it.id }
+        }
+        .sortedWith(compareBy({ it.name }, { it.id }))
+        .toList()
+
+    private fun validateRitualCasterSelections(
+        selections: LevelUpSelections,
+        data: LevelUpReferenceData,
+        validations: MutableList<LevelUpValidationIssue>,
+    ) {
+        val classIds = ritualCasterClassIds(data)
+        validateChoice(
+            id = RITUAL_CASTER_CLASS_LIST_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(1, classIds),
+            selected = selections.featChoices[RITUAL_CASTER_CLASS_LIST_CHOICE_ID].orEmpty(),
+            label = "Ritual Caster spell list",
+            validations = validations,
+            legalOptionIds = classIds.toSet(),
+        )
+        val classId = selections.featChoices[RITUAL_CASTER_CLASS_LIST_CHOICE_ID]
+            ?.singleOrNull()?.takeIf { it in classIds } ?: return
+        val spellIds = ritualCasterSpellCandidates(data, classId).map { it.id }
+        validateChoice(
+            id = RITUAL_CASTER_SPELL_CHOICE_ID,
+            choice = Choice.OptionsArrayChoice(2, spellIds),
+            selected = selections.featChoices[RITUAL_CASTER_SPELL_CHOICE_ID].orEmpty(),
+            label = "Ritual Caster starting rituals",
+            validations = validations,
+            legalOptionIds = spellIds.toSet(),
+        )
+    }
+
+    private fun ritualCasterChoiceRequirements(
+        data: LevelUpReferenceData,
+        featChoices: Map<String, Set<String>>,
+    ): List<LevelUpRequirement.ChoiceSelection> = buildList {
+        val classIds = ritualCasterClassIds(data)
+        val classSelection = featChoices[RITUAL_CASTER_CLASS_LIST_CHOICE_ID].orEmpty()
+        add(LevelUpRequirement.ChoiceSelection(
+            id = RITUAL_CASTER_CLASS_LIST_CHOICE_ID,
+            sourceId = RITUAL_CASTER_ID,
+            label = "Ritual Caster spell list",
+            choice = Choice.OptionsArrayChoice(1, classIds),
+            selectedOptionIds = classSelection,
+            category = LevelUpChoiceCategory.Feat,
+            options = classIds.map { classId ->
+                LevelUpChoiceOption(classId, data.classesById[classId]?.name ?: classId)
+            },
+        ))
+        val classId = classSelection.singleOrNull()?.takeIf { it in classIds } ?: return@buildList
+        val spells = ritualCasterSpellCandidates(data, classId)
+        add(LevelUpRequirement.ChoiceSelection(
+            id = RITUAL_CASTER_SPELL_CHOICE_ID,
+            sourceId = RITUAL_CASTER_ID,
+            label = "Ritual Caster starting rituals",
+            choice = Choice.OptionsArrayChoice(2, spells.map { it.id }),
+            selectedOptionIds = featChoices[RITUAL_CASTER_SPELL_CHOICE_ID].orEmpty(),
+            category = LevelUpChoiceCategory.Feat,
+            options = spells.map { LevelUpChoiceOption(it.id, it.name) },
+        ))
+    }
+
+    private fun LevelUpPlan.withRitualCasterSpellGrant(): LevelUpPlan {
+        val classId = selections.featChoices[RITUAL_CASTER_CLASS_LIST_CHOICE_ID]?.singleOrNull() ?: return this
+        val grants = selections.featChoices[RITUAL_CASTER_SPELL_CHOICE_ID].orEmpty()
+            .mapTo(linkedSetOf()) { spellId -> ClassSpellRef(classId, spellId) }
+        return copy(selections = selections.copy(
+            spellChanges = selections.spellChanges.copy(
+                featureLearned = selections.spellChanges.featureLearned +
+                    (RITUAL_CASTER_SPELL_GRANT_OWNER_ID to grants),
             ),
         ))
     }
@@ -1762,6 +1911,15 @@ object LevelUpProgressionEngine {
     )
     private val SPELL_SNIPER_CLASS_IDS = setOf("bard", "cleric", "druid", "sorcerer", "warlock", "wizard")
     private val SPELL_SNIPER_CHOICE_IDS = setOf(SPELL_SNIPER_CLASS_LIST_CHOICE_ID, SPELL_SNIPER_CANTRIP_CHOICE_ID)
+    private const val RITUAL_CASTER_ID = "ritual-caster"
+    private const val RITUAL_CASTER_CLASS_LIST_CHOICE_ID = "ritual-caster:class-list"
+    private const val RITUAL_CASTER_SPELL_CHOICE_ID = "ritual-caster:starting-spells"
+    private const val RITUAL_CASTER_SPELL_GRANT_OWNER_ID = "feat:ritual-caster"
+    private val RITUAL_CASTER_CLASS_IDS = setOf("bard", "cleric", "druid", "sorcerer", "warlock", "wizard")
+    private val RITUAL_CASTER_CHOICE_IDS = setOf(
+        RITUAL_CASTER_CLASS_LIST_CHOICE_ID,
+        RITUAL_CASTER_SPELL_CHOICE_ID,
+    )
 
     private const val SAVING_THROW_PREFIX = "saving-throw-"
     private const val ADDITIONAL_MAGICAL_SECRETS = "additional-magical-secrets"
