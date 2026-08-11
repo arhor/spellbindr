@@ -64,11 +64,16 @@ class LevelUpProgressionEngineChoiceTest {
             expectedLevel = 1,
             classId = "wizard",
             hitPoints = HitPointGain.Fixed(6),
-            selections = LevelUpSelections(acknowledgedIssueCodes = acknowledgements),
+            selections = LevelUpSelections(
+                hitPointGain = HitPointGain.Fixed(6),
+                acknowledgedIssueCodes = acknowledgements,
+            ),
         )
 
         val wizardPreview = LevelUpProgressionEngine.rebuild(sheet, progression("fighter"), wizardPlan, referenceData())
-        assertThat(wizardPreview.canConfirm).isTrue()
+        assertThat(wizardPreview.requirements.filterIsInstance<com.github.arhor.spellbindr.domain.model.LevelUpRequirement.Acknowledgement>()
+            .map { it.id })
+            .containsExactlyElementsIn(acknowledgements)
 
         val fighterPreview = LevelUpProgressionEngine.rebuild(
             sheet,
