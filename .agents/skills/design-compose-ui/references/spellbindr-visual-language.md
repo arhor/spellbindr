@@ -32,7 +32,7 @@ Preserve these traits:
 | Image-led precedent | `ui/feature/character/guided/components/race/` |
 | Screenshot previews | `app/src/screenshotTest/kotlin/com/github/arhor/spellbindr/ui/` |
 | Screenshot wrapper | `app/src/screenshotTest/kotlin/com/github/arhor/spellbindr/ui/screenshot/ScreenshotHarness.kt` |
-| Export helper | `run/export-preview-screenshot.sh` |
+| Export helper | `.agents/skills/design-compose-ui/scripts/export-preview-screenshot.sh` |
 | MVI entry contract | `docs/adr/0002-use-route-owned-mvi-dispatch.md` |
 
 ## Reuse before invention

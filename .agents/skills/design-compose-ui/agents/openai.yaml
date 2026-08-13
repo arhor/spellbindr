@@ -1,4 +1,4 @@
 interface:
   display_name: "Compose UI Designer"
   short_description: "Design and verify polished Spellbindr Compose UI"
-  default_prompt: "Use $design-compose-ui to critique and refine this Spellbindr Compose interface, then verify the rendered result."
+  default_prompt: "Use $design-compose-ui to match this image in Compose and compare the exported screenshot."

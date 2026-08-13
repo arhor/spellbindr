@@ -19,8 +19,10 @@ Optional:
   -h, --help           Show this help
 
 Examples:
-  run/export-preview-screenshot.sh --module :core:ui --tests '*AppTopBar*'
-  run/export-preview-screenshot.sh --module :feature:character --tests '*SpellsTab_Screenshot*'
+  .agents/skills/design-compose-ui/scripts/export-preview-screenshot.sh \
+    --module :app --tests '*ProgressionSummaryCardScreenshot*'
+  .agents/skills/design-compose-ui/scripts/export-preview-screenshot.sh \
+    --module :app --tests '*SpellsTab_Screenshot*' --skip-gradle
 EOF
 }
 
@@ -81,7 +83,7 @@ if [ "$variant" != "debug" ]; then
   exit 2
 fi
 
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
 cd "$repo_root"
 
 if [[ "$module_path" != :* ]]; then

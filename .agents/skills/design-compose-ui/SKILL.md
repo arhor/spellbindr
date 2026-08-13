@@ -2,10 +2,10 @@
 name: design-compose-ui
 description: >-
   Design, critique, refine, or visually verify Spellbindr Android UI built with Jetpack Compose and Material 3. Use
-  for new screens, focused visual polish, screenshot matching or review, image-led composition, visual hierarchy,
-  spacing, typography, color, shape, density, motion, accessibility, adaptive layouts, or UI design-system work.
-  Do not use for Compose changes limited to state, navigation, business logic, performance, or tests with no visual
-  or interaction-design decision.
+  when implementing from a supplied image, screenshot, or mockup, and for new screens, focused visual polish,
+  screenshot matching or review, image-led composition, visual hierarchy, spacing, typography, color, shape, density,
+  motion, accessibility, adaptive layouts, or UI design-system work. Do not use for Compose changes limited to state,
+  navigation, business logic, performance, or tests with no visual or interaction-design decision.
 ---
 
 # Design Compose UI
@@ -36,8 +36,9 @@ they disagree; call out the mismatch and update the skill if the repository's in
   code.
 - **Image-led UI**: make artwork structurally important; keep controls legible without burying the image under cards or
   copy.
-- **Reference match**: reproduce the reference state and dimensions, compare renders, and iterate from observed
-  differences.
+- **Reference match**: inspect the supplied image before editing, reproduce its state and dimensions within Spellbindr's
+  design, behavior, and accessibility constraints, then follow the mandatory render-compare-iterate workflow in
+  [Visual verification](references/visual-verification.md).
 
 If no render is available, inspect the code but label visual conclusions as hypotheses. Do not claim polish from source
 inspection alone.
@@ -86,8 +87,8 @@ Preserve what already works. Do not turn a focused request into a broad redesign
 - Prefer existing components and `MaterialTheme` roles. Introduce a reusable component only for a repeated semantic
   pattern.
 - Hoist interaction state and callbacks; keep previews deterministic and free of Android runtime dependencies.
-- Use semantic Material/Foundation controls before low-level gesture handling. Add custom semantics only when defaults do
-  not express the action, role, value, state, or traversal correctly.
+- Use semantic Material/Foundation controls before low-level gesture handling. Add custom semantics only when defaults
+  do not express the action, role, value, state, or traversal correctly.
 - Keep decorative imagery and icons out of the semantics tree; describe meaningful imagery by purpose, not appearance.
 - Use scalable text styles and allow content to reflow. Avoid fixed heights around text and actions.
 - Make layout decisions from available window space, not device names or orientation checks.
@@ -96,15 +97,17 @@ Preserve what already works. Do not turn a focused request into a broad redesign
 
 ## Verify from rendered output
 
-1. Add or update a dedicated `@PreviewTest` in `app/src/screenshotTest/kotlin` for the exact state.
-2. Include the standard compact render plus only the risk-relevant variants: dark/light, large font, narrow height, wider
-   window, RTL, or state variants.
-3. Wrap the preview with `ScreenshotHarness`.
-4. Generate and export PNGs with the repository commands in [Visual verification](references/visual-verification.md).
-5. Inspect the PNG. Compare hierarchy, clipping, alignment, density, contrast, touch affordance, and reference
-   differences.
-6. Apply one batched correction pass, render again, and re-inspect. Continue only when a concrete defect remains.
-7. Run the narrowest screenshot validation, Compose/UI test, compile, and lint checks proportional to the change.
+1. When implementing from a supplied image, inspect the target first and keep it available throughout verification.
+2. Add or update a dedicated `@PreviewTest` in `app/src/screenshotTest/kotlin` for the exact state.
+3. Include the standard compact render plus only the risk-relevant variants: dark/light, large font, narrow height,
+   wider window, RTL, or state variants.
+4. Wrap the preview with `ScreenshotHarness`.
+5. Generate and export PNGs with the repository commands in [Visual verification](references/visual-verification.md).
+6. Inspect the exported PNG at full-image and detail scales. For a reference match, compare it directly with the
+   supplied target and record concrete differences before changing code.
+7. Apply a batched correction pass, render again, and re-inspect. Repeat until no material mismatch remains or a
+   Spellbindr constraint prevents closer matching.
+8. Run the narrowest screenshot validation, Compose/UI test, compile, and lint checks proportional to the change.
 
 Never update a reference image merely to make a failure pass. Review the actual/reference/diff first and state why the
 new rendering is intentional. Screenshot checks complement, but do not replace, semantics tests and human judgment.
@@ -116,6 +119,7 @@ Report:
 - the design outcome and what was deliberately preserved or removed;
 - files and behavior changed;
 - rendered variants inspected and concrete visual observations;
+- remaining differences from a supplied reference and the constraint or tradeoff behind each one;
 - deterministic checks run and their results;
 - known tradeoffs or remaining human-design decisions.
 
