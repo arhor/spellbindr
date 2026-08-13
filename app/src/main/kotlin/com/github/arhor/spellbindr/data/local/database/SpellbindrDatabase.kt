@@ -17,7 +17,7 @@ import com.github.arhor.spellbindr.data.local.database.entity.FavoriteEntity
         CharacterProgressionEntity::class,
         FavoriteEntity::class,
     ],
-    version = 4,
+    version = 1,
     exportSchema = true,
 )
 @TypeConverters(

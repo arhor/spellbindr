@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 3,
-    "identityHash": "4bca32d7caa3f41edc66440de3069297",
+    "version": 1,
+    "identityHash": "0b1ed5df170d1065766e2c7d2c162789",
     "entities": [
       {
         "tableName": "characters",
@@ -87,6 +87,54 @@
         }
       },
       {
+        "tableName": "character_progressions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`characterId` TEXT NOT NULL, `stateJson` TEXT NOT NULL, PRIMARY KEY(`characterId`), FOREIGN KEY(`characterId`) REFERENCES `characters`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stateJson",
+            "columnName": "stateJson",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "characterId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_character_progressions_characterId",
+            "unique": false,
+            "columnNames": [
+              "characterId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_character_progressions_characterId` ON `${TABLE_NAME}` (`characterId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "characters",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "characterId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
         "tableName": "favorites",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type` TEXT NOT NULL, `entityId` TEXT NOT NULL, PRIMARY KEY(`type`, `entityId`))",
         "fields": [
@@ -125,7 +173,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4bca32d7caa3f41edc66440de3069297')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0b1ed5df170d1065766e2c7d2c162789')"
     ]
   }
 }
