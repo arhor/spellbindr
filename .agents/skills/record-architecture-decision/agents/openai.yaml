@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Decision Recorder"
+  short_description: "Record and maintain durable repository decisions"
+  default_prompt: "Use $record-architecture-decision to assess and record this durable architecture decision."

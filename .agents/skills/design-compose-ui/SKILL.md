@@ -18,8 +18,11 @@ Produce focused, product-specific UI work that preserves behavior and is judged 
 2. Read [Spellbindr visual language](references/spellbindr-visual-language.md) for every task.
 3. Read [Compose design guidance](references/compose-design-guidance.md) when designing or changing UI.
 4. Read [Visual verification](references/visual-verification.md) before planning rendered checks or reviewing an image.
-5. Read `docs/mvi-dispatch-contract.md` when a change touches feature entry points, dispatch, effects, or navigation.
-6. Read [Provenance and maintenance](references/provenance.md) only when updating this skill or importing guidance.
+5. Read [ADR 0002](../../../docs/adr/0002-use-route-owned-mvi-dispatch.md) when a change touches feature entry points,
+   dispatch, effects, or navigation.
+6. Read [Race-carousel art production](references/race-carousel-art-production.md) only when creating, replacing,
+   cropping, reviewing, or recording provenance for race artwork.
+7. Read [Provenance and maintenance](references/provenance.md) only when updating this skill or importing guidance.
 
 Do not load unrelated references. Treat the running UI and repository source as more authoritative than this skill when
 they disagree; call out the mismatch and update the skill if the repository's intentional design language changed.

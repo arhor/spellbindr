@@ -1,4 +1,4 @@
 interface:
   display_name: "Kotlin Test Writer"
-  short_description: "Write and maintain repository-native Kotlin tests"
+  short_description: "Write focused repository-native Kotlin tests"
   default_prompt: "Use $write-kotlin-tests to add focused tests for the requested Kotlin behavior."

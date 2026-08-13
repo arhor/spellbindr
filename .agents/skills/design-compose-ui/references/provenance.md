@@ -17,7 +17,14 @@ Conceptual influences:
 - `android/skills` and developer.android.com (Apache-2.0/content license as applicable): official open-skill conventions
   and current Android technical guidance.
 
-See `docs/compose-ui-design-skill-research.md` for the evaluated versions, links, limitations, and decision record.
+The repository adopted this skill after evaluating general frontend-design, Android-design, Material 3, and Compose
+guidance. The retained text is deliberately repository-specific; discarded research and validation reports are not
+part of the operational knowledge surface.
+
+Representative positive activations include “match this screenshot,” “polish the race picker,” “design a new Compose
+screen,” and “review spacing, hierarchy, and accessibility.” Representative negative activations include “fix this
+ViewModel race,” “change navigation state only,” “optimize recomposition without visual changes,” and “add unit tests
+for this use case.”
 
 ## Maintenance
 
@@ -28,6 +35,7 @@ Review this skill when any of these change:
 - AGP screenshot plugin tasks, paths, or `ScreenshotHarness`;
 - supported Android window/form-factor policy;
 - Compose Material 3, adaptive, or accessibility APIs used by the app.
+- the race-carousel asset contract, fallback, manifest, or art-production pipeline.
 
 Prefer updating repository-specific references over importing a broad upstream skill. Re-check upstream sources and
 licenses before copying any new material. Pin or record a commit when vendoring content; review instructions and scripts
