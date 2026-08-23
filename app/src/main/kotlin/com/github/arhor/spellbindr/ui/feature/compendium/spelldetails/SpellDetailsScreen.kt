@@ -34,7 +34,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellIcon
+import com.github.arhor.spellbindr.ui.components.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
@@ -101,6 +101,7 @@ private fun SpellDetailsContent(
                     SpellIcon(
                         modifier = Modifier.clip(RoundedCornerShape(16.dp)),
                         spellName = spell.name,
+                        assetKey = spell.id,
                         size = 60.dp,
                         iconSize = 60.dp,
                     )
@@ -218,10 +219,8 @@ private fun SpellDetailsPreview() {
                 spell = Spell(
                     id = "arcane_blast",
                     name = "Arcane Blast",
-                    desc = listOf(
-                        "A surge of arcane energy leaps from your hands to strike a creature.",
-                        "On a hit, the target takes 2d8 force damage.",
-                    ),
+                    desc = listOf("A burst of pure arcane energy strikes a foe."),
+                    higherLevel = listOf("The blast deals extra damage when cast with a higher-level slot."),
                     level = 2,
                     range = "60 ft",
                     ritual = false,
@@ -231,10 +230,8 @@ private fun SpellDetailsPreview() {
                     classes = listOf(EntityRef(id = "wizard")),
                     components = listOf("V", "S"),
                     concentration = false,
-                    higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
-                    source = "Homebrew",
+                    source = "PHB",
                 ),
-                isFavorite = false,
             ),
         )
     }
