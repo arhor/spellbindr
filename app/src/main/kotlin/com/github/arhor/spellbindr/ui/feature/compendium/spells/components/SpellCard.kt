@@ -45,7 +45,6 @@ fun SpellCard(
         ) {
             SpellIcon(
                 spellName = spell.name,
-                assetKey = spell.id,
                 size = 40.dp,
                 iconSize = 30.dp,
             )
