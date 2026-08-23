@@ -68,7 +68,6 @@ internal fun SpellRow(
             ) {
                 SpellIcon(
                     spellName = spell.name,
-                    assetKey = spell.spellId,
                     size = 40.dp,
                     iconSize = 30.dp,
                 )
