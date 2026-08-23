@@ -1,7 +1,7 @@
 package com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.spells
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertExists
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -65,10 +65,10 @@ class SpellRowTest {
         }
 
         // When / Then
-        composeTestRule.onNodeWithText("Evocation · Action · 120 ft").assertExists()
-        composeTestRule.onNodeWithText("VSM").assertExists()
-        composeTestRule.onNodeWithText("Concentration").assertExists()
-        composeTestRule.onNodeWithText("Ritual").assertExists()
+        composeTestRule.onNodeWithText("Evocation · Action · 120 ft").assertIsDisplayed()
+        composeTestRule.onNodeWithText("VSM").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Concentration").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Ritual").assertIsDisplayed()
         composeTestRule.onNodeWithText("Cast").assertIsNotEnabled()
     }
 
