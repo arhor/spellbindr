@@ -1,33 +1,34 @@
 package com.github.arhor.spellbindr.ui.feature.character.sheet.components.tabs.spells
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.R
-import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSheetPreviewData
+import com.github.arhor.spellbindr.ui.components.SpellIcon
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.CharacterSpellUiModel
 import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMode
 import com.github.arhor.spellbindr.ui.theme.AppTheme
@@ -44,8 +45,12 @@ internal fun SpellRow(
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surfaceVariant,
+        color = MaterialTheme.colorScheme.surface,
         tonalElevation = 0.dp,
+        border = BorderStroke(
+            width = 1.dp,
+            color = MaterialTheme.colorScheme.outlineVariant,
+        ),
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
     ) {
@@ -56,65 +61,73 @@ internal fun SpellRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.MenuBook,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(16.dp),
-            )
+            Surface(
+                modifier = Modifier.size(40.dp),
+                shape = CircleShape,
+                color = MaterialTheme.colorScheme.primaryContainer,
+            ) {
+                SpellIcon(
+                    spellName = spell.name,
+                    assetKey = spell.spellId,
+                    size = 40.dp,
+                    iconSize = 30.dp,
+                )
+            }
 
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
                     text = spell.name,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.titleMedium,
                 )
 
-                val detailParts = buildList {
-                    spell.school.takeIf { it.isNotBlank() }?.let { add(it) }
-                    spell.castingTime.takeIf { it.isNotBlank() }?.let { add(it) }
-                    spell.range.takeIf { it.isNotBlank() }?.let { add(it) }
+                val detailText = buildList {
+                    spell.school.takeIf { it.isNotBlank() }?.let(::add)
+                    spell.castingTime.takeIf { it.isNotBlank() }?.let(::add)
+                    spell.range.takeIf { it.isNotBlank() }?.let(::add)
+                }.joinToString(separator = " · ")
+
+                if (detailText.isNotEmpty()) {
+                    Text(
+                        text = detailText,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
 
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
-                ) {
-                    detailParts.forEach { part ->
-                        Text(
-                            text = part,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
+                val components = spell.components
+                    .map(String::trim)
+                    .filter(String::isNotEmpty)
+                    .joinToString(separator = "")
 
-                    val components = spell.components
-                        .map { it.trim() }
-                        .filter { it.isNotEmpty() }
-                        .joinToString(separator = "")
-
-                    if (components.isNotEmpty()) {
-                        SpellTag(
-                            text = components,
-                            containerColor = MaterialTheme.colorScheme.outline,
-                            contentColor = MaterialTheme.colorScheme.surfaceBright,
-                        )
-                    }
-                    if (spell.concentration) {
-                        SpellTag(
-                            text = stringResource(R.string.spells_concentration_chip),
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                    if (spell.ritual) {
-                        SpellTag(
-                            text = stringResource(R.string.spells_ritual_chip),
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
+                if (components.isNotEmpty() || spell.concentration || spell.ritual) {
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        if (components.isNotEmpty()) {
+                            SpellTag(
+                                text = components,
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        if (spell.concentration) {
+                            SpellTag(
+                                text = stringResource(R.string.spells_concentration_chip),
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                            )
+                        }
+                        if (spell.ritual) {
+                            SpellTag(
+                                text = stringResource(R.string.spells_ritual_chip),
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            )
+                        }
                     }
                 }
             }
@@ -130,17 +143,15 @@ internal fun SpellRow(
                 }
 
                 SheetEditMode.View -> {
-                    Button(
+                    FilledTonalButton(
                         onClick = onCastClick,
                         enabled = canCast,
-                        modifier = Modifier.height(32.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.outline,
-                            contentColor = MaterialTheme.colorScheme.surfaceBright,
-                            disabledContainerColor = MaterialTheme.colorScheme.outlineVariant,
-                            disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.minimumInteractiveComponentSize(),
+                        colors = ButtonDefaults.filledTonalButtonColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
-                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 0.dp),
+                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 0.dp),
                         shape = MaterialTheme.shapes.medium,
                     ) {
                         Text(
@@ -176,17 +187,24 @@ private fun SpellTag(
 }
 
 @Composable
-@Preview
+@PreviewLightDark
 private fun SpellRowPreview() {
     AppTheme {
         SpellRow(
-            spell = CharacterSheetPreviewData.spells
-                .spellcastingClasses
-                .first()
-                .spellLevels
-                .first()
-                .spells
-                .first(),
+            spell = CharacterSpellUiModel(
+                spellId = "fire_bolt",
+                name = "Fire Bolt",
+                level = 0,
+                school = "Evocation",
+                castingTime = "Action",
+                range = "120 ft",
+                components = listOf("V", "S"),
+                ritual = false,
+                concentration = true,
+                sourceClass = "Wizard",
+                sourceLabel = "Wizard",
+                sourceKey = "wizard",
+            ),
             editMode = SheetEditMode.View,
             onClick = {},
             canCast = true,
