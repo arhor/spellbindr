@@ -1,9 +1,13 @@
 name: Spell Row Preview
 
 on:
-  push:
+  pull_request:
     branches:
-      - issue-207-refine-spell-cards
+      - master
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 permissions:
   contents: read
