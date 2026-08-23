@@ -13,13 +13,13 @@ import com.github.arhor.spellbindr.ui.feature.character.sheet.model.SheetEditMod
 @Preview(
     name = "Light",
     widthDp = 390,
-    heightDp = 110,
+    heightDp = 140,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     name = "Dark",
     widthDp = 390,
-    heightDp = 110,
+    heightDp = 140,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
@@ -72,7 +72,7 @@ fun SpellRow_Edit_Screenshot() {
 }
 
 @PreviewTest
-@Preview(widthDp = 320, heightDp = 220, fontScale = 1.5f)
+@Preview(widthDp = 320, heightDp = 360, fontScale = 1.5f)
 @Composable
 fun SpellRow_LargeFont_Screenshot() {
     ScreenshotHarness {
