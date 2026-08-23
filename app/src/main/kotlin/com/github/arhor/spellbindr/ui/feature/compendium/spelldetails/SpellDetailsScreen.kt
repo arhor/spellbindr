@@ -34,7 +34,7 @@ import com.github.arhor.spellbindr.domain.model.Spell
 import com.github.arhor.spellbindr.ui.components.ErrorMessage
 import com.github.arhor.spellbindr.ui.components.GradientDivider
 import com.github.arhor.spellbindr.ui.components.LoadingIndicator
-import com.github.arhor.spellbindr.ui.feature.compendium.spells.components.SpellIcon
+import com.github.arhor.spellbindr.ui.components.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.Accent
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 

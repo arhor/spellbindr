@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.arhor.spellbindr.domain.model.EntityRef
 import com.github.arhor.spellbindr.domain.model.Spell
+import com.github.arhor.spellbindr.ui.components.SpellIcon
 import com.github.arhor.spellbindr.ui.theme.AppTheme
 
 @Composable
@@ -40,12 +41,12 @@ fun SpellCard(
                 .size(40.dp)
                 .clip(CircleShape)
                 .background(color = Color.Transparent),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             SpellIcon(
                 spellName = spell.name,
                 size = 40.dp,
-                iconSize = 30.dp
+                iconSize = 30.dp,
             )
         }
 

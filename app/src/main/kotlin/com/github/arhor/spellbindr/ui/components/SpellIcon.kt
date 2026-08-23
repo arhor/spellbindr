@@ -1,5 +1,6 @@
-package com.github.arhor.spellbindr.ui.feature.compendium.spells.components
+package com.github.arhor.spellbindr.ui.components
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,12 +12,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -36,15 +39,23 @@ fun SpellIcon(
 ) {
     val context = LocalContext.current.applicationContext
     val assetName = "icons/spells/${spellName.lowercase().replace(" ", "_")}.png"
-    val bitmap by produceState<ImageBitmap?>(initialValue = null, key1 = assetName) {
-        value = spellIconBitmapCache[assetName] ?: withContext(Dispatchers.IO) {
-            runCatching {
-                context.assets.open(assetName).use { stream ->
-                    BitmapFactory.decodeStream(stream)?.asImageBitmap()
-                }
-            }.getOrNull()
-        }?.also { decoded ->
-            spellIconBitmapCache[assetName] = decoded
+    val isInInspectionMode = LocalInspectionMode.current
+    val inspectionBitmap = remember(assetName, isInInspectionMode) {
+        if (isInInspectionMode) {
+            loadSpellIcon(context, assetName)
+        } else {
+            null
+        }
+    }
+    val bitmap by produceState<ImageBitmap?>(
+        initialValue = inspectionBitmap,
+        key1 = assetName,
+        key2 = isInInspectionMode,
+    ) {
+        if (inspectionBitmap == null) {
+            value = withContext(Dispatchers.IO) {
+                loadSpellIcon(context, assetName)
+            }
         }
     }
 
@@ -52,7 +63,7 @@ fun SpellIcon(
         modifier = modifier
             .size(size)
             .background(color = Color.Transparent),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         val resolvedBitmap = bitmap
         if (resolvedBitmap != null) {
@@ -65,9 +76,22 @@ fun SpellIcon(
             Icon(
                 imageVector = Icons.Filled.Star,
                 contentDescription = null,
-                modifier = Modifier.size(iconSize)
+                modifier = Modifier.size(iconSize),
             )
         }
+    }
+}
+
+private fun loadSpellIcon(
+    context: Context,
+    assetName: String,
+): ImageBitmap? {
+    return spellIconBitmapCache[assetName] ?: runCatching {
+        context.assets.open(assetName).use { stream ->
+            BitmapFactory.decodeStream(stream)?.asImageBitmap()
+        }
+    }.getOrNull()?.also { decoded ->
+        spellIconBitmapCache[assetName] = decoded
     }
 }
 
@@ -75,6 +99,6 @@ fun SpellIcon(
 @Composable
 private fun SpellIconPreview() {
     AppTheme {
-        SpellIcon(spellName = "Arcane Blast")
+        SpellIcon(spellName = "Fire Bolt")
     }
 }
