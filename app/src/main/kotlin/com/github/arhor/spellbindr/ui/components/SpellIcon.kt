@@ -34,12 +34,11 @@ private val spellIconBitmapCache = ConcurrentHashMap<String, ImageBitmap>()
 fun SpellIcon(
     spellName: String,
     modifier: Modifier = Modifier,
-    assetKey: String = spellName.lowercase().replace(" ", "_"),
     size: Dp = 40.dp,
     iconSize: Dp = 30.dp,
 ) {
     val context = LocalContext.current.applicationContext
-    val assetName = "icons/spells/$assetKey.png"
+    val assetName = "icons/spells/${spellName.lowercase().replace(" ", "_")}.png"
     val isInInspectionMode = LocalInspectionMode.current
     val inspectionBitmap = remember(assetName, isInInspectionMode) {
         if (isInInspectionMode) {
