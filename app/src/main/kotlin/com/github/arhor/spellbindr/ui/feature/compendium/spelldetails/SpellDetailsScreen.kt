@@ -219,8 +219,10 @@ private fun SpellDetailsPreview() {
                 spell = Spell(
                     id = "arcane_blast",
                     name = "Arcane Blast",
-                    desc = listOf("A burst of pure arcane energy strikes a foe."),
-                    higherLevel = listOf("The blast deals extra damage when cast with a higher-level slot."),
+                    desc = listOf(
+                        "A surge of arcane energy leaps from your hands to strike a creature.",
+                        "On a hit, the target takes 2d8 force damage.",
+                    ),
                     level = 2,
                     range = "60 ft",
                     ritual = false,
@@ -230,8 +232,10 @@ private fun SpellDetailsPreview() {
                     classes = listOf(EntityRef(id = "wizard")),
                     components = listOf("V", "S"),
                     concentration = false,
-                    source = "PHB",
+                    higherLevel = listOf("Damage increases by 1d8 for each slot above 2nd."),
+                    source = "Homebrew",
                 ),
+                isFavorite = false,
             ),
         )
     }
