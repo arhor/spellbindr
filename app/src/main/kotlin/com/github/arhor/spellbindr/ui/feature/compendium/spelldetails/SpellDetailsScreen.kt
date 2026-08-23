@@ -101,7 +101,6 @@ private fun SpellDetailsContent(
                     SpellIcon(
                         modifier = Modifier.clip(RoundedCornerShape(16.dp)),
                         spellName = spell.name,
-                        assetKey = spell.id,
                         size = 60.dp,
                         iconSize = 60.dp,
                     )
