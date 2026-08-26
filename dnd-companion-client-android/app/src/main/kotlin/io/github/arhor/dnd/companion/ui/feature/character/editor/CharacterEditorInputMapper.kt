@@ -1,0 +1,58 @@
+package io.github.arhor.dnd.companion.ui.feature.character.editor
+
+import io.github.arhor.dnd.companion.domain.model.AbilityScoreInput
+import io.github.arhor.dnd.companion.domain.model.CharacterEditorDerivedBonuses
+import io.github.arhor.dnd.companion.domain.model.CharacterEditorInput
+import io.github.arhor.dnd.companion.domain.model.SavingThrowInput
+import io.github.arhor.dnd.companion.domain.model.SkillProficiencyInput
+
+fun CharacterEditorUiState.Content.toDomainInput(): CharacterEditorInput = CharacterEditorInput(
+    characterId = characterId,
+    name = name,
+    level = level,
+    className = className,
+    race = race,
+    background = background,
+    alignment = alignment,
+    experiencePoints = experiencePoints,
+    abilities = abilities.map { AbilityScoreInput(abilityId = it.abilityId, score = it.score) },
+    proficiencyBonus = proficiencyBonus,
+    inspiration = inspiration,
+    maxHitPoints = maxHitPoints,
+    currentHitPoints = currentHitPoints,
+    temporaryHitPoints = temporaryHitPoints,
+    armorClass = armorClass,
+    initiative = initiative,
+    speed = speed,
+    hitDice = hitDice,
+    savingThrows = savingThrows.map { SavingThrowInput(abilityId = it.abilityId, proficient = it.proficient) },
+    skills = skills.map {
+        SkillProficiencyInput(skill = it.skill, proficient = it.proficient, expertise = it.expertise)
+    },
+    senses = senses,
+    languages = languages,
+    proficiencies = proficiencies,
+    attacksAndCantrips = attacksAndCantrips,
+    featuresAndTraits = featuresAndTraits,
+    equipment = equipment,
+    personalityTraits = personalityTraits,
+    ideals = ideals,
+    bonds = bonds,
+    flaws = flaws,
+    notes = notes,
+)
+
+fun CharacterEditorUiState.Content.withDerivedBonuses(
+    derived: CharacterEditorDerivedBonuses,
+): CharacterEditorUiState.Content {
+    val savingThrowBonuses = derived.savingThrows.associateBy { it.abilityId }
+    val skillBonuses = derived.skills.associateBy { it.skill }
+    return copy(
+        savingThrows = savingThrows.map { entry ->
+            entry.copy(bonus = savingThrowBonuses[entry.abilityId]?.bonus ?: entry.bonus)
+        },
+        skills = skills.map { entry ->
+            entry.copy(bonus = skillBonuses[entry.skill]?.bonus ?: entry.bonus)
+        },
+    )
+}

@@ -1,0 +1,20 @@
+package io.github.arhor.dnd.companion.ui.feature.compendium.spelldetails
+
+import androidx.compose.runtime.Immutable
+import io.github.arhor.dnd.companion.domain.model.Spell
+
+sealed interface SpellDetailsUiState {
+    @Immutable
+    data object Loading : SpellDetailsUiState
+
+    @Immutable
+    data class Content(
+        val spell: Spell,
+        val isFavorite: Boolean,
+    ) : SpellDetailsUiState
+
+    @Immutable
+    data class Failure(
+        val errorMessage: String,
+    ) : SpellDetailsUiState
+}

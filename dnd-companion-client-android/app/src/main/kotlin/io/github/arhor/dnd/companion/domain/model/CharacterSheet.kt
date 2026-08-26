@@ -1,0 +1,343 @@
+package io.github.arhor.dnd.companion.domain.model
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import java.util.UUID
+
+/**
+ * Represents the full data captured by the manual character sheet editor.
+ * This is the primary persistence model for user-created characters.
+ *
+ * @property id Unique identifier.
+ * @property name Character name.
+ * @property level Total character level.
+ * @property className Free-text or selected class name(s).
+ * @property race Free-text or selected race name.
+ * @property background Free-text or selected background.
+ * @property alignment Character alignment (e.g. "Chaotic Good").
+ * @property experiencePoints Current XP amount.
+ * @property abilityScores The six core ability scores.
+ * @property proficiencyBonus Derived or manually set proficiency bonus.
+ * @property inspiration Whether the character currently has inspiration.
+ * @property maxHitPoints Maximum HP.
+ * @property currentHitPoints Current HP.
+ * @property temporaryHitPoints Temporary HP buffer.
+ * @property armorClass Armor Class (AC).
+ * @property initiative Initiative bonus.
+ * @property speed Movement speed description (e.g. "30 ft").
+ * @property hitDice Available hit dice (e.g. "1d8").
+ * @property deathSaves Current death save successes/failures.
+ * @property spellSlots Tracked spell slots per level.
+ * @property pactSlots Pact magic slot pool (Warlock), if applicable.
+ * @property concentrationSpellId Spell currently being concentrated on, if any.
+ * @property savingThrows Configured saving throws with bonuses and proficiency.
+ * @property skills Configured skills with bonuses and proficiency/expertise.
+ * @property senses Passive perception or other senses.
+ * @property languages Known languages.
+ * @property proficiencies Armor, weapon, and tool proficiencies.
+ * @property attacksAndCantrips Free-text attacks section.
+ * @property featuresAndTraits Free-text features section.
+ * @property equipment Free-text equipment list.
+ * @property personalityTraits Roleplay personality traits.
+ * @property ideals Roleplay ideals.
+ * @property bonds Roleplay bonds.
+ * @property flaws Roleplay flaws.
+ * @property notes General notes.
+ * @property characterSpells List of spells assigned to the character.
+ * @property weapons List of weapons equipped or in inventory.
+ */
+@Serializable
+data class CharacterSheet(
+    val id: String,
+    val name: String = "",
+    val level: Int = 1,
+    val className: String = "",
+    val race: String = "",
+    val background: String = "",
+    val alignment: String = "",
+    val experiencePoints: Int? = null,
+    val abilityScores: AbilityScores = AbilityScores(),
+    val proficiencyBonus: Int = 2,
+    val inspiration: Boolean = false,
+    val maxHitPoints: Int = 1,
+    val currentHitPoints: Int = 1,
+    val temporaryHitPoints: Int = 0,
+    val armorClass: Int = 10,
+    val initiative: Int = 0,
+    val speed: String = "",
+    val hitDice: String = "",
+    val deathSaves: DeathSaveState = DeathSaveState(),
+    val spellSlots: List<SpellSlotState> = defaultSpellSlots(),
+    val pactSlots: PactSlotState? = null,
+    val concentrationSpellId: String? = null,
+    val savingThrows: List<SavingThrowEntry> = defaultSavingThrows(),
+    val skills: List<SkillEntry> = defaultSkills(),
+    val senses: String = "",
+    val languages: String = "",
+    val proficiencies: String = "",
+    val attacksAndCantrips: String = "",
+    val featuresAndTraits: String = "",
+    val equipment: String = "",
+    val personalityTraits: String = "",
+    val ideals: String = "",
+    val bonds: String = "",
+    val flaws: String = "",
+    val notes: String = "",
+    val characterSpells: List<CharacterSpell> = emptyList(),
+    val weapons: List<Weapon> = emptyList(),
+    /** User-authored structured proficiencies; progression recalculation never replaces these ids. */
+    val manualProficiencyIds: Set<String> = emptySet(),
+    /**
+     * Derived, progression-owned state for managed characters.  It is intentionally separate from
+     * the free-text sheet fields so recalculating a level never rewrites player-authored notes.
+     */
+    val managedProgression: ManagedProgressionSheetState? = null,
+) {
+    /** The effective structured proficiency set used by persistence and rules checks. */
+    val allProficiencyIds: Set<String>
+        get() = manualProficiencyIds + managedProgression?.proficiencyIds.orEmpty()
+
+    /** Effective hit-die capacity for display; the legacy manual field remains untouched. */
+    fun effectiveHitDiceText(): String = managedProgression?.hitDicePools
+        ?.takeIf { it.isNotEmpty() }
+        ?.sortedBy(HitDicePoolState::dieSize)
+        ?.joinToString(" + ") { pool -> "${pool.total}d${pool.dieSize}" }
+        ?: hitDice
+}
+
+@Serializable
+data class ManagedProgressionSheetState(
+    val hitDicePools: List<HitDicePoolState> = emptyList(),
+    val proficiencyIds: Set<String> = emptySet(),
+    val savingThrowAbilityIds: Set<AbilityId> = emptySet(),
+    val featureIds: Set<String> = emptySet(),
+    val languageIds: Set<String> = emptySet(),
+    /** Class-owned spellcasting values materialized from the latest managed progression state. */
+    val spellcastingClassStats: Map<String, SpellcastingClassStats> = emptyMap(),
+    /** Legacy aggregate retained so older snapshots remain decodable. New writes also populate [ownedSpellGrants]. */
+    val spellGrants: Set<ClassSpellRef> = emptySet(),
+    /** One entry per permanent progression owner; overlapping grants intentionally remain distinct. */
+    val ownedSpellGrants: List<ManagedSpellGrant> = emptyList(),
+    val resources: List<ManagedResource> = emptyList(),
+    val featManeuvers: Map<String, Set<String>> = emptyMap(),
+)
+
+@Serializable
+data class ManagedResource(
+    val ownerKey: String,
+    val id: String,
+    val name: String,
+    val maximum: Int,
+    val recovery: ResourceRecovery = ResourceRecovery.ShortOrLongRest,
+    val expended: Int = 0,
+)
+
+@Serializable
+data class ManagedSpellGrant(
+    val ownerKey: String,
+    val type: ManagedSpellGrantType,
+    val spell: ClassSpellRef,
+)
+
+@Serializable
+enum class ManagedSpellGrantType {
+    Learned,
+    Spellbook,
+    Feature,
+    Replacement,
+}
+
+/** A managed hit-die pool; legacy [CharacterSheet.hitDice] stays available to unmanaged sheets. */
+@Serializable
+data class HitDicePoolState(
+    val dieSize: Int,
+    val total: Int,
+    val expended: Int = 0,
+)
+
+/**
+ * Container for the six standard D&D ability scores.
+ *
+ * @property strength Strength score.
+ * @property dexterity Dexterity score.
+ * @property constitution Constitution score.
+ * @property intelligence Intelligence score.
+ * @property wisdom Wisdom score.
+ * @property charisma Charisma score.
+ */
+@Serializable
+data class AbilityScores(
+    val strength: Int = 10,
+    val dexterity: Int = 10,
+    val constitution: Int = 10,
+    val intelligence: Int = 10,
+    val wisdom: Int = 10,
+    val charisma: Int = 10,
+) {
+    /**
+     * Calculates the modifier for a given [ability] based on its score.
+     * Formula: `(score - 10) / 2` (integer division).
+     */
+    fun modifierFor(abilityId: AbilityId): Int = when (abilityId.lowercase()) {
+        AbilityIds.STR -> Math.floorDiv(strength - 10, 2)
+        AbilityIds.DEX -> Math.floorDiv(dexterity - 10, 2)
+        AbilityIds.CON -> Math.floorDiv(constitution - 10, 2)
+        AbilityIds.INT -> Math.floorDiv(intelligence - 10, 2)
+        AbilityIds.WIS -> Math.floorDiv(wisdom - 10, 2)
+        AbilityIds.CHA -> Math.floorDiv(charisma - 10, 2)
+        else -> 0
+    }
+}
+
+/**
+ * Represents a saving throw configuration for a specific ability.
+ *
+ * @property ability The ability associated with the save.
+ * @property bonus Total bonus to add to the d20 roll.
+ * @property proficient Whether the character is proficient in this save.
+ */
+@Serializable
+data class SavingThrowEntry(
+    @SerialName("ability")
+    val abilityId: AbilityId,
+    val bonus: Int = 0,
+    val proficient: Boolean = false,
+)
+
+/**
+ * Represents a skill configuration.
+ *
+ * @property skill The specific skill (e.g. Athletics, Stealth).
+ * @property bonus Total bonus to add to the d20 roll.
+ * @property proficient Whether the character is proficient in this skill.
+ * @property expertise Whether the character has expertise (double proficiency) in this skill.
+ */
+@Serializable
+data class SkillEntry(
+    val skill: Skill,
+    val bonus: Int = 0,
+    val proficient: Boolean = false,
+    val expertise: Boolean = false,
+)
+
+/**
+ * Tracks success and failure counts for death saving throws.
+ *
+ * @property successes Number of successful saves (typically max 3).
+ * @property failures Number of failed saves (typically max 3).
+ */
+@Serializable
+data class DeathSaveState(
+    val successes: Int = 0,
+    val failures: Int = 0,
+)
+
+/**
+ * Tracks usage of spell slots for a specific spell level.
+ *
+ * @property level The spell level (1-9).
+ * @property total Total slots available at this level.
+ * @property expended Number of slots used.
+ */
+@Serializable
+data class SpellSlotState(
+    val level: Int,
+    val total: Int = 0,
+    val expended: Int = 0,
+)
+
+/**
+ * Tracks Pact Magic slots (Warlock), if applicable.
+ *
+ * @property slotLevel The spell level of pact slots.
+ * @property total Total pact slots available.
+ * @property expended Number of slots used.
+ */
+@Serializable
+data class PactSlotState(
+    val slotLevel: Int = 1,
+    val total: Int = 0,
+    val expended: Int = 0,
+)
+
+/**
+ * Represents a spell assigned to a character's spell list.
+ *
+ * Ownership and preparation are deliberately independent. A wizard spell can be owned in a
+ * spellbook while either prepared or unprepared, while a feature-granted spell can be marked as
+ * always prepared. Defaults preserve the legacy known-spell behavior for existing non-wizard data.
+ *
+ * @property spellId The unique identifier of the spell (e.g. "magic-missile").
+ * @property sourceClass The class source for this spell (e.g. "Wizard"), if applicable.
+ * @property ownership How the character owns or knows the spell.
+ * @property preparation Whether the spell is currently prepared, unprepared, or always prepared.
+ */
+@Serializable
+data class CharacterSpell(
+    val spellId: String,
+    val sourceClass: String = "",
+    val ownership: CharacterSpellOwnership = CharacterSpellOwnership.Known,
+    val preparation: CharacterSpellPreparation = CharacterSpellPreparation.Prepared,
+)
+
+@Serializable
+enum class CharacterSpellOwnership {
+    Known,
+    Spellbook,
+}
+
+@Serializable
+enum class CharacterSpellPreparation {
+    Unprepared,
+    Prepared,
+    AlwaysPrepared,
+}
+
+/**
+ * Represents a weapon carried by the character.
+ *
+ * @property id Unique instance ID for this weapon entry.
+ * @property catalogId Optional ID referencing the standard weapon catalog.
+ * @property name Display name of the weapon.
+ * @property category Broad category (Simple, Martial, etc.).
+ * @property categories Set of specific categories this weapon belongs to.
+ * @property ability The ability used for attack and damage rolls.
+ * @property proficient Whether the character is proficient with this weapon.
+ * @property damageDiceCount Number of dice to roll for damage.
+ * @property damageDieSize Size of the damage die (e.g. 6 for d6).
+ * @property useAbilityForDamage Whether to add the ability modifier to damage.
+ * @property damageType The type of damage dealt (Slashing, Piercing, etc.).
+ */
+@Serializable
+data class Weapon(
+    val id: String = UUID.randomUUID().toString(),
+    val catalogId: String? = null,
+    val name: String,
+    val category: EquipmentCategory? = null,
+    val categories: Set<EquipmentCategory> = emptySet(),
+    @SerialName("attackAbility")
+    val abilityId: AbilityId = AbilityIds.STR,
+    val proficient: Boolean = false,
+    val damageDiceCount: Int = 1,
+    val damageDieSize: Int = 6,
+    val useAbilityForDamage: Boolean = true,
+    val damageType: DamageType = DamageType.SLASHING,
+)
+
+/**
+ * Returns a list of default [SpellSlotState] for levels 1 through 9.
+ */
+fun defaultSpellSlots(): List<SpellSlotState> =
+    (1..9).map { level -> SpellSlotState(level = level) }
+
+/**
+ * Returns a list of default [SavingThrowEntry] for all abilities.
+ */
+fun defaultSavingThrows(): List<SavingThrowEntry> =
+    AbilityIds.standardOrder.map { abilityId -> SavingThrowEntry(abilityId = abilityId) }
+
+/**
+ * Returns a list of default [SkillEntry] for all standard skills.
+ */
+fun defaultSkills(): List<SkillEntry> =
+    Skill.entries.map { skill -> SkillEntry(skill = skill) }

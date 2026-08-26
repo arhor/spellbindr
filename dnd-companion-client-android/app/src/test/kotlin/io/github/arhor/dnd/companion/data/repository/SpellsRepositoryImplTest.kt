@@ -1,0 +1,33 @@
+package io.github.arhor.dnd.companion.data.repository
+
+import io.github.arhor.dnd.companion.data.local.assets.SpellAssetDataStore
+import io.github.arhor.dnd.companion.domain.model.Loadable
+import io.github.arhor.dnd.companion.domain.model.Spell
+import io.github.arhor.dnd.companion.domain.repository.FavoritesRepository
+import com.google.common.truth.Truth.assertThat
+import io.mockk.every
+import io.mockk.mockk
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeout
+import org.junit.Test
+
+class SpellsRepositoryImplTest {
+
+    @Test
+    fun `getSpellById should return null when asset load fails`() = runTest {
+        // Given
+        val stateFlow = MutableStateFlow<Loadable<List<Spell>>>(Loadable.Failure(cause = IllegalStateException("Boom")))
+        val dataStore = mockk<SpellAssetDataStore> {
+            every { data } returns stateFlow
+        }
+        val favoritesRepository = mockk<FavoritesRepository>(relaxed = true)
+        val repository = SpellsRepositoryImpl(dataStore, favoritesRepository)
+
+        // When
+        val result = withTimeout(1_000) { repository.getSpellById("missing") }
+
+        // Then
+        assertThat(result).isNull()
+    }
+}

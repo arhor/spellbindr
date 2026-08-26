@@ -13,11 +13,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.arhor.spellbindr"
+    namespace = "io.github.arhor.dnd.companion"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.github.arhor.spellbindr"
+        applicationId = "io.github.arhor.dnd.companion"
         minSdk = 33
         targetSdk = 37
         versionCode = 1

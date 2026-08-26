@@ -1,0 +1,97 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package io.github.arhor.dnd.companion.ui.components
+
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import io.github.arhor.dnd.companion.ui.theme.AppTheme
+
+private val EmptyNavigationIcon: @Composable (() -> Unit) = {}
+
+/**
+ * Simple configuration object describing how the shared app bar should look.
+ *
+ * @property title Text content for the title.
+ * @property navigation Navigation icon configuration (e.g., Back arrow).
+ * @property actions RowScope block for action icons.
+ */
+@Stable
+data class AppTopBarConfig(
+    val title: String? = null,
+    val navigation: AppTopBarNavigation = AppTopBarNavigation.None,
+    val actions: @Composable (RowScope.() -> Unit) = {},
+) {
+    companion object {
+        val None = AppTopBarConfig()
+    }
+}
+
+/**
+ * Defines the navigation icon behavior for the top bar.
+ */
+@Stable
+sealed interface AppTopBarNavigation {
+
+    fun asNavigationIcon(): @Composable (() -> Unit)
+
+    data object None : AppTopBarNavigation {
+        override fun asNavigationIcon(): @Composable (() -> Unit) = EmptyNavigationIcon
+    }
+
+    data class Back(val onClick: () -> Unit) : AppTopBarNavigation {
+        override fun asNavigationIcon(): @Composable (() -> Unit) = {
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Shared TopAppBar implementation driven by [AppTopBarConfig].
+ */
+@Composable
+fun AppTopBar(config: AppTopBarConfig) {
+    TopAppBar(
+        title = {
+            config.title?.let {
+                Text(it)
+            }
+        },
+        navigationIcon = config.navigation.asNavigationIcon(),
+        actions = config.actions,
+    )
+}
+
+@PreviewLightDark
+@Composable
+private fun AppTopBarPreview() {
+    AppTheme {
+        AppTopBar(
+            config = AppTopBarConfig(
+                title = "Spellbindr",
+                navigation = AppTopBarNavigation.Back {},
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null,
+                        )
+                    }
+                },
+            ),
+        )
+    }
+}

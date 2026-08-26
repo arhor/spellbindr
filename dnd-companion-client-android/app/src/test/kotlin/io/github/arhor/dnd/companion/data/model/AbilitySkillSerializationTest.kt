@@ -1,0 +1,152 @@
+package io.github.arhor.dnd.companion.data.model
+
+import io.github.arhor.dnd.companion.domain.model.Ability
+import io.github.arhor.dnd.companion.domain.model.AbilityIds
+import io.github.arhor.dnd.companion.domain.model.Skill
+import io.github.arhor.dnd.companion.domain.model.displayName
+import com.google.common.truth.Truth.assertThat
+import kotlinx.serialization.json.Json
+import org.junit.Test
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+
+class AbilitySkillSerializationTest {
+
+    private val json = Json {
+        ignoreUnknownKeys = true
+        classDiscriminator = "type"
+    }
+
+    private val projectRoot by lazy {
+        resolveProjectRoot()
+    }
+
+    private val abilitiesJsonPath by lazy {
+        listOf(
+            projectRoot.resolve(Paths.get("data", "compendium", "src", "main", "assets", "data", "abilities.json")),
+            projectRoot.resolve(Paths.get("app", "src", "main", "assets", "data", "abilities.json")),
+            Paths.get("data", "compendium", "src", "main", "assets", "data", "abilities.json"),
+            Paths.get("app", "src", "main", "assets", "data", "abilities.json"),
+            Paths.get("src", "main", "assets", "data", "abilities.json"),
+        ).firstOrNull(Files::exists)
+            ?: error("Expected abilities asset under data/compendium/src/main/assets/data")
+    }
+
+    private val abilitiesFromAsset by lazy {
+        json.decodeFromString<List<Ability>>(abilitiesJsonPath.toFile().readText())
+    }
+
+    @Test
+    fun `abilitiesFromAsset should expose ids names and descriptions when asset is decoded`() {
+        // Given
+        val abilitiesById = abilitiesFromAsset.associateBy(Ability::id)
+
+        // When
+        val orderedAbilities = AbilityIds.standardOrder.map(abilitiesById::getValue)
+
+        // Then
+        assertThat(abilitiesById.keys).containsExactlyElementsIn(AbilityIds.standardOrder)
+        assertThat(orderedAbilities).hasSize(AbilityIds.standardOrder.size)
+
+        AbilityIds.standardOrder.forEach { abilityId ->
+            val ability = abilitiesById.getValue(abilityId)
+            assertThat(ability.displayName).isEqualTo(abilityId.displayName())
+            assertThat(ability.description).hasSize(2)
+            assertThat(ability.description.first()).contains(ability.displayName)
+            assertThat(ability.description.last()).isNotEmpty()
+        }
+
+        assertThat(abilitiesById.getValue(AbilityIds.STR).description[1]).contains("Athletics skill reflects aptitude")
+    }
+
+    @Test
+    fun `skills should reference abilities defined in assets when mapping ability ids`() {
+        // Given
+        val abilityIds = abilitiesFromAsset.map(Ability::id).toSet()
+
+        // When
+        val referencedAbilityIds = Skill.entries.map(Skill::abilityId).toSet()
+
+        // Then
+        assertThat(abilityIds).containsAtLeastElementsIn(referencedAbilityIds)
+    }
+
+    @Test
+    fun `decodeFromString should return original ability when encoded ability is decoded`() {
+        // Given
+        val ability = Ability(
+            id = "str",
+            displayName = "Strength",
+            description = listOf("Test description"),
+        )
+
+        // When
+        val encoded = json.encodeToString(Ability.serializer(), ability)
+        val decoded = json.decodeFromString(Ability.serializer(), encoded)
+
+        // Then
+        assertThat(decoded).isEqualTo(ability)
+    }
+
+    @Test
+    fun `decodeFromString should create ability when required attributes are provided`() {
+        // Given
+        val encoded = """
+            {
+              "id": "wis",
+              "displayName": "Wisdom",
+              "description": ["desc"]
+            }
+        """.trimIndent()
+
+        // When
+        val decoded = json.decodeFromString(
+            Ability.serializer(),
+            encoded,
+        )
+
+        // Then
+        val expected = Ability(
+            id = "wis",
+            displayName = "Wisdom",
+            description = listOf("desc"),
+        )
+        assertThat(decoded).isEqualTo(expected)
+    }
+
+    @Test
+    fun `encodeToString should use kebab case when skill is encoded`() {
+        // Given
+        val skill = Skill.ANIMAL_HANDLING
+
+        // When
+        val encoded = json.encodeToString(Skill.serializer(), skill)
+
+        // Then
+        assertThat(encoded).isEqualTo("\"animal-handling\"")
+    }
+
+    @Test
+    fun `decodeFromString should ignore case when skill is decoded`() {
+        // Given
+        val encoded = "\"PeRcEpTiOn\""
+
+        // When
+        val decoded = json.decodeFromString(Skill.serializer(), encoded)
+
+        // Then
+        assertThat(decoded).isEqualTo(Skill.PERCEPTION)
+    }
+
+    private fun resolveProjectRoot(): Path {
+        var current = Paths.get(System.getProperty("user.dir")).toAbsolutePath()
+        while (true) {
+            if (Files.exists(current.resolve("settings.gradle.kts"))) {
+                return current
+            }
+            val parent = current.parent ?: return current
+            current = parent
+        }
+    }
+}

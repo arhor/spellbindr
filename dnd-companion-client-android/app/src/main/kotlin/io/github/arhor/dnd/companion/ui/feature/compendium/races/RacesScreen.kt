@@ -1,0 +1,107 @@
+package io.github.arhor.dnd.companion.ui.feature.compendium.races
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import io.github.arhor.dnd.companion.domain.model.EntityRef
+import io.github.arhor.dnd.companion.domain.model.Race
+import io.github.arhor.dnd.companion.domain.model.Trait
+import io.github.arhor.dnd.companion.ui.components.ErrorMessage
+import io.github.arhor.dnd.companion.ui.components.LoadingIndicator
+import io.github.arhor.dnd.companion.ui.feature.compendium.races.components.RaceListItem
+import io.github.arhor.dnd.companion.ui.theme.AppTheme
+import io.github.arhor.dnd.companion.utils.scrollToItemIfNeeded
+
+@Composable
+internal fun RacesScreen(
+    uiState: RacesUiState,
+    dispatch: RacesDispatch = {},
+) {
+    when (uiState) {
+        is RacesUiState.Loading -> LoadingIndicator()
+        is RacesUiState.Failure -> ErrorMessage(uiState.errorMessage)
+        is RacesUiState.Content -> RacesContent(uiState, dispatch)
+    }
+}
+
+@Composable
+private fun RacesContent(
+    uiState: RacesUiState.Content,
+    dispatch: RacesDispatch,
+) {
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(uiState.selectedItemId, uiState.races) {
+        listState.scrollToItemIfNeeded(
+            items = uiState.races,
+            selector = Race::id,
+            selectedKey = uiState.selectedItemId,
+        )
+    }
+
+    LazyColumn(
+        state = listState,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        items(items = uiState.races, key = { it.id }) { race ->
+            RaceListItem(
+                race = race,
+                traits = uiState.traits,
+                isExpanded = race.id == uiState.selectedItemId,
+                onItemClick = { dispatch(RacesIntent.RaceClicked(race.id)) }
+            )
+        }
+    }
+}
+
+@Composable
+@PreviewLightDark
+private fun RacesScreenPreview() {
+    val darkvision = Trait(
+        id = "darkvision",
+        name = "Darkvision",
+        desc = listOf("Accustomed to twilit forests and the night sky, you can see in dim light within 60 feet."),
+    )
+    val keenSenses = Trait(
+        id = "keen_senses",
+        name = "Keen Senses",
+        desc = listOf("You have proficiency in the Perception skill."),
+    )
+    val race = Race(
+        id = "elf",
+        name = "Elf",
+        traits = listOf(EntityRef(id = darkvision.id)),
+        subraces = listOf(
+            Race.Subrace(
+                id = "high_elf",
+                name = "High Elf",
+                desc = "Elves with keen intellect and magic affinity.",
+                traits = listOf(EntityRef(id = keenSenses.id)),
+            )
+        ),
+    )
+
+    AppTheme {
+        RacesScreen(
+            uiState = RacesUiState.Content(
+                races = listOf(race),
+                traits = mapOf(
+                    darkvision.id to darkvision,
+                    keenSenses.id to keenSenses,
+                ),
+                selectedItemId = race.id,
+            ),
+        )
+    }
+}

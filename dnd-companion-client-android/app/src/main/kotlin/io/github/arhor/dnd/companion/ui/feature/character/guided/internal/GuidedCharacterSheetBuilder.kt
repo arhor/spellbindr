@@ -1,0 +1,672 @@
+package io.github.arhor.dnd.companion.ui.feature.character.guided.internal
+
+import io.github.arhor.dnd.companion.domain.model.AbilityId
+import io.github.arhor.dnd.companion.domain.model.AbilityIds
+import io.github.arhor.dnd.companion.domain.model.AbilityScores
+import io.github.arhor.dnd.companion.domain.model.Background
+import io.github.arhor.dnd.companion.domain.model.Character
+import io.github.arhor.dnd.companion.domain.model.CharacterClass
+import io.github.arhor.dnd.companion.domain.model.CharacterCreationResult
+import io.github.arhor.dnd.companion.domain.model.CharacterSheet
+import io.github.arhor.dnd.companion.domain.model.CharacterSpell
+import io.github.arhor.dnd.companion.domain.model.Choice
+import io.github.arhor.dnd.companion.domain.model.CountedEntityRef
+import io.github.arhor.dnd.companion.domain.model.Effect
+import io.github.arhor.dnd.companion.domain.model.EntityRef
+import io.github.arhor.dnd.companion.domain.model.Feature
+import io.github.arhor.dnd.companion.domain.model.HitDicePoolState
+import io.github.arhor.dnd.companion.domain.model.ManagedProgressionSheetState
+import io.github.arhor.dnd.companion.domain.model.ManagedSpellGrant
+import io.github.arhor.dnd.companion.domain.model.ManagedSpellGrantType
+import io.github.arhor.dnd.companion.domain.model.PactSlotState
+import io.github.arhor.dnd.companion.domain.model.Race
+import io.github.arhor.dnd.companion.domain.model.SavingThrowEntry
+import io.github.arhor.dnd.companion.domain.model.Skill
+import io.github.arhor.dnd.companion.domain.model.SkillEntry
+import io.github.arhor.dnd.companion.domain.model.SpellSlotState
+import io.github.arhor.dnd.companion.domain.model.Trait
+import io.github.arhor.dnd.companion.domain.model.displayName
+import io.github.arhor.dnd.companion.ui.feature.character.guided.GuidedCharacterSetupUiState
+import io.github.arhor.dnd.companion.ui.feature.character.guided.GuidedCharacterSetupViewModel
+import io.github.arhor.dnd.companion.ui.feature.character.guided.GuidedSelection
+import io.github.arhor.dnd.companion.ui.feature.character.guided.model.AbilityScoreMethod
+import io.github.arhor.dnd.companion.ui.feature.character.guided.model.GuidedCharacterPreview
+import java.util.UUID
+
+internal fun buildGuidedCharacterCreationResult(
+    content: GuidedCharacterSetupUiState.Content,
+): CharacterCreationResult = CharacterCreationResult(
+    sheet = buildGuidedCharacterSheet(content),
+    progression = buildGuidedCharacterProgression(content),
+)
+
+internal fun computeInitialSlotsForClass(
+    clazz: CharacterClass?,
+): Pair<List<SpellSlotState>, PactSlotState?> {
+    val emptySharedSlots = (1..9).map { level -> SpellSlotState(level = level) }
+    if (clazz?.spellcasting?.level != 1) return emptySharedSlots to null
+
+    val level1Slots: Map<String, Int> =
+        clazz.levels.firstOrNull { it.level == 1 }?.spellcasting?.spellSlots.orEmpty()
+    val sharedSlots = (1..9).map { level ->
+        SpellSlotState(
+            level = level,
+            total = level1Slots[level.toString()] ?: 0,
+            expended = 0,
+        )
+    }
+
+    if (clazz.id != "warlock") return sharedSlots to null
+
+    val pactTotal = level1Slots["1"] ?: 0
+    return emptySharedSlots to PactSlotState(
+        slotLevel = 1,
+        total = pactTotal,
+        expended = 0,
+    )
+}
+
+internal fun buildGuidedCharacterSheet(content: GuidedCharacterSetupUiState.Content): CharacterSheet {
+    val selection = content.selection
+    val clazz = content.classes.firstOrNull { it.id == selection.classId }
+    val race = content.races.firstOrNull { it.id == selection.raceId }
+    val background = content.backgrounds.firstOrNull { it.id == selection.backgroundId }
+
+    val baseAbilityScores = resolveGuidedBaseAbilityScores(selection) ?: AbilityIds.standardOrder.associateWith { 10 }
+    val effects = buildGuidedAllEffects(
+        selection = selection,
+        clazz = clazz,
+        races = content.races,
+        backgrounds = content.backgrounds,
+        traitsById = content.traitsById,
+        featuresById = content.featuresById,
+    )
+    val computed =
+        effects.fold(Character.State(level = 1, abilityScores = baseAbilityScores.toEntityRefMap())) { state, effect ->
+            effect.applyTo(state)
+        }
+    val finalAbilityScores = computed.abilityScores.toAbilityScores()
+
+    val proficiencyBonus = 2
+    val conMod = finalAbilityScores.modifierFor(AbilityIds.CON)
+    val dexMod = finalAbilityScores.modifierFor(AbilityIds.DEX)
+    val baseHp = ((clazz?.hitDie ?: 8) + conMod).coerceAtLeast(1)
+    val maxHp = (baseHp + computed.maximumHitPoints).coerceAtLeast(1)
+
+    val raceName = buildString {
+        append(race?.name.orEmpty())
+        val subraceName = selection.subraceId?.let { id ->
+            race?.subraces?.firstOrNull { it.id == id }?.name
+        }
+        if (!subraceName.isNullOrBlank()) {
+            append(" (")
+            append(subraceName)
+            append(')')
+        }
+    }.trim()
+
+    val proficiencies = computed.proficiencies.map(EntityRef::prettyString).sorted().joinToString(", ")
+    val classOwnedProficiencyIds = buildSet {
+        addAll(clazz?.proficiencies.orEmpty())
+        clazz?.proficiencyChoices.orEmpty().indices.forEach { index ->
+            addAll(selection.choiceSelections[GuidedCharacterSetupViewModel.classProficiencyChoiceKey(index)].orEmpty())
+        }
+        findGuidedLevelOneFeatureChoices(clazz, selection.subclassId, content.featuresById)
+            .filter { (_, choice) -> choice is Choice.ProficiencyChoice }
+            .forEach { (featureId, _) ->
+                addAll(
+                    selection.choiceSelections[
+                        GuidedCharacterSetupViewModel.featureChoiceKey(featureId)
+                    ].orEmpty(),
+                )
+            }
+    }
+    val classFeatureSavingThrows = classOwnedProficiencyIds.mapNotNullTo(linkedSetOf()) { proficiencyId ->
+        proficiencyId.removePrefix("saving-throw-")
+            .takeIf { proficiencyId.startsWith("saving-throw-") && it in AbilityIds.standardOrder }
+    }
+    val classProficiencyIds = classOwnedProficiencyIds -
+        classFeatureSavingThrows.mapTo(hashSetOf()) { "saving-throw-$it" }
+    val manualProficiencyIds = computed.proficiencies.mapTo(linkedSetOf()) { it.id } - classOwnedProficiencyIds
+    val languages = computed.languages.map { ref ->
+        content.languagesById[ref.id]?.name ?: ref.prettyString()
+    }.sorted().joinToString(", ")
+    val equipmentText = computed.inventory.entries
+        .sortedBy { it.key.id }
+        .joinToString(separator = "\n") { (ref, count) ->
+            val name = content.equipmentById[ref.id]?.name ?: ref.prettyString()
+            if (count <= 1) name else "$name x$count"
+        }
+
+    val savingThrows = AbilityIds.standardOrder.map { abilityId ->
+        val progressionProficient = clazz?.savingThrows?.any { it.equals(abilityId, ignoreCase = true) } == true
+        val bonus = finalAbilityScores.modifierFor(abilityId) + if (progressionProficient) proficiencyBonus else 0
+        SavingThrowEntry(
+            abilityId = abilityId,
+            bonus = bonus,
+            proficient = false,
+        )
+    }
+    val expertiseProficiencies =
+        selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(ROGUE_EXPERTISE_FEATURE_ID)].orEmpty()
+    val expertiseSkills = expertiseProficiencies.mapNotNull(::skillFromProficiencyId).toSet()
+    val skillProficiencies = computed.proficiencies.mapNotNull(::skillFromProficiencyId).toSet() + expertiseSkills
+    val skills = Skill.entries.map { skill ->
+        val effectivelyProficient = skill in skillProficiencies
+        val expertise = skill in expertiseSkills
+        val skillId = "skill-${skill.name.lowercase().replace('_', '-')}"
+        val manuallyProficient = skillId in manualProficiencyIds || expertise
+        val multiplier = when {
+            expertise -> 2
+            effectivelyProficient -> 1
+            else -> 0
+        }
+        val bonus = finalAbilityScores.modifierFor(skill.abilityId) + proficiencyBonus * multiplier
+        SkillEntry(
+            skill = skill,
+            bonus = bonus,
+            proficient = manuallyProficient,
+            expertise = expertise,
+        )
+    }
+
+    val classSpells = buildList {
+        val source = clazz?.name.orEmpty()
+        val cantrips =
+            selection.choiceSelections[GuidedCharacterSetupViewModel.spellCantripsChoiceKey()].orEmpty()
+        val level1 =
+            selection.choiceSelections[GuidedCharacterSetupViewModel.spellLevel1ChoiceKey()].orEmpty()
+        cantrips.forEach { add(CharacterSpell(spellId = it, sourceClass = source)) }
+        level1.forEach { add(CharacterSpell(spellId = it, sourceClass = source)) }
+    }
+    val racialSpells = buildList {
+        val selectedRace = race ?: return@buildList
+        val traitIds = buildList {
+            addAll(selectedRace.traits.map { it.id })
+            val subrace = selection.subraceId?.let { sid -> selectedRace.subraces.firstOrNull { it.id == sid } }
+            if (subrace != null) {
+                addAll(subrace.traits.map { it.id })
+            }
+        }
+        traitIds.mapNotNull(content.traitsById::get).forEach { trait ->
+            trait.spellChoice ?: return@forEach
+            val selected =
+                selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(trait.id)].orEmpty()
+            if (selected.isNotEmpty()) {
+                selected.forEach { spellId ->
+                    add(CharacterSpell(spellId = spellId, sourceClass = trait.name))
+                }
+            }
+        }
+    }
+    val characterSpells = classSpells + racialSpells
+    val (spellSlots, pactSlots) = computeInitialSlotsForClass(clazz)
+    val spellChanges = buildGuidedLevelOneSpellChanges(
+        classId = clazz?.id.orEmpty(),
+        cantripSpellIds = selection.choiceSelections[
+            GuidedCharacterSetupViewModel.spellCantripsChoiceKey()
+        ].orEmpty(),
+        levelOneSpellIds = selection.choiceSelections[
+            GuidedCharacterSetupViewModel.spellLevel1ChoiceKey()
+        ].orEmpty(),
+    )
+    val managedSpellGrants = buildList {
+        spellChanges.learned.sortedBy { it.spellId }.forEach { spell ->
+            add(ManagedSpellGrant(
+                ownerKey = "level:1:${clazz?.id}:learned:${spell.spellId}",
+                type = ManagedSpellGrantType.Learned,
+                spell = spell,
+            ))
+        }
+        spellChanges.addedToSpellbook.sortedBy { it.spellId }.forEach { spell ->
+            add(ManagedSpellGrant(
+                ownerKey = "level:1:${clazz?.id}:spellbook:${spell.spellId}",
+                type = ManagedSpellGrantType.Spellbook,
+                spell = spell,
+            ))
+        }
+    }
+    val levelOneFeatureIds = buildSet {
+        addAll(clazz?.levels?.firstOrNull { it.level == 1 }?.features.orEmpty())
+        val subclass = selection.subclassId?.let { id -> clazz?.subclasses?.firstOrNull { it.id == id } }
+        addAll(subclass?.levels?.firstOrNull { it.level == 1 }?.features.orEmpty())
+    }
+
+    return CharacterSheet(
+        id = UUID.randomUUID().toString(),
+        name = content.name.trim(),
+        level = 1,
+        className = clazz?.name.orEmpty(),
+        race = raceName,
+        background = background?.name.orEmpty(),
+        abilityScores = finalAbilityScores,
+        proficiencyBonus = proficiencyBonus,
+        maxHitPoints = maxHp,
+        currentHitPoints = maxHp,
+        armorClass = 10 + dexMod,
+        initiative = dexMod,
+        speed = "${computed.speed} ft",
+        hitDice = "1d${clazz?.hitDie ?: 8}",
+        spellSlots = spellSlots,
+        pactSlots = pactSlots,
+        savingThrows = savingThrows,
+        skills = skills,
+        languages = languages,
+        proficiencies = proficiencies,
+        equipment = equipmentText,
+        featuresAndTraits = buildGuidedFeaturesAndTraitsText(content, clazz, race, background),
+        characterSpells = characterSpells,
+        manualProficiencyIds = manualProficiencyIds,
+        managedProgression = ManagedProgressionSheetState(
+            hitDicePools = clazz?.let { listOf(HitDicePoolState(dieSize = it.hitDie, total = 1)) }.orEmpty(),
+            proficiencyIds = classProficiencyIds,
+            savingThrowAbilityIds = clazz?.savingThrows.orEmpty().mapTo(linkedSetOf()) { it.lowercase() } +
+                classFeatureSavingThrows,
+            featureIds = levelOneFeatureIds,
+            spellGrants = managedSpellGrants.mapTo(linkedSetOf()) { it.spell },
+            ownedSpellGrants = managedSpellGrants,
+        ),
+    )
+}
+
+internal fun computeGuidedPreview(
+    selection: GuidedSelection,
+    selectedClass: CharacterClass?,
+    races: List<Race>,
+    backgrounds: List<Background>,
+    traitsById: Map<String, Trait>,
+    featuresById: Map<String, Feature>,
+): GuidedCharacterPreview {
+    val baseAbilityScores = resolveGuidedBaseAbilityScores(selection) ?: AbilityIds.standardOrder.associateWith { 10 }
+    val effects = buildGuidedAllEffects(
+        selection = selection,
+        clazz = selectedClass,
+        races = races,
+        backgrounds = backgrounds,
+        traitsById = traitsById,
+        featuresById = featuresById,
+    )
+    val computed =
+        effects.fold(Character.State(level = 1, abilityScores = baseAbilityScores.toEntityRefMap())) { state, effect ->
+            effect.applyTo(state)
+        }
+    val finalAbilityScores = computed.abilityScores.toAbilityScores()
+
+    val conMod = finalAbilityScores.modifierFor(AbilityIds.CON)
+    val dexMod = finalAbilityScores.modifierFor(AbilityIds.DEX)
+    val baseHp = ((selectedClass?.hitDie ?: 8) + conMod).coerceAtLeast(1)
+    val maxHp = (baseHp + computed.maximumHitPoints).coerceAtLeast(1)
+
+    return GuidedCharacterPreview(
+        abilityScores = finalAbilityScores,
+        maxHitPoints = maxHp,
+        armorClass = 10 + dexMod,
+        speed = computed.speed,
+        languagesCount = computed.languages.size,
+        proficienciesCount = computed.proficiencies.size,
+    )
+}
+
+internal fun computeGuidedSpellRequirementSummary(
+    clazz: CharacterClass,
+    preview: GuidedCharacterPreview,
+): GuidedSpellRequirementSummary? {
+    if (clazz.spellcasting?.level != 1) return null
+
+    val level1 = clazz.levels.firstOrNull { it.level == 1 }?.spellcasting
+    val cantrips = level1?.cantrips ?: 0
+    val level1Spells = when {
+        clazz.id == "wizard" -> 6
+        level1?.spells != null -> level1.spells ?: 0
+        clazz.id == "cleric" || clazz.id == "druid" -> (preview.abilityScores.modifierFor(AbilityIds.WIS) + 1)
+            .coerceAtLeast(1)
+
+        else -> 0
+    }
+    val level1Label = when (clazz.id) {
+        "wizard" -> "spellbook spell(s)"
+        "cleric", "druid" -> "prepared spell(s)"
+        else -> "spell(s)"
+    }
+
+    return GuidedSpellRequirementSummary(
+        cantrips = cantrips,
+        level1Spells = level1Spells,
+        level1Label = level1Label,
+    )
+}
+
+internal fun resolveGuidedBaseAbilityScores(selection: GuidedSelection): Map<AbilityId, Int>? =
+    when (selection.abilityMethod) {
+        AbilityScoreMethod.STANDARD_ARRAY -> {
+            if (!guidedIsStandardArrayValid(selection.standardArrayAssignments)) return null
+            selection.standardArrayAssignments.mapValues { it.value ?: 10 }
+        }
+
+        AbilityScoreMethod.POINT_BUY -> selection.pointBuyScores
+        null -> null
+    }
+
+internal fun buildGuidedAllEffects(
+    selection: GuidedSelection,
+    clazz: CharacterClass?,
+    races: List<Race>,
+    backgrounds: List<Background>,
+    traitsById: Map<String, Trait>,
+    featuresById: Map<String, Feature>,
+): List<Effect> {
+    val effects = mutableListOf<Effect>()
+
+    if (clazz != null) {
+        effects += Effect.AddProficienciesEffect(clazz.proficiencies.toSet())
+    }
+    val startingEquipment = clazz?.startingEquipment
+    if (startingEquipment != null) {
+        effects += Effect.AddEquipmentEffect(
+            startingEquipment.map { CountedEntityRef(it.id, it.quantity) },
+        )
+    }
+
+    val background = backgrounds.firstOrNull { it.id == selection.backgroundId }
+    if (background != null) {
+        effects += background.effects
+        val backgroundLanguages =
+            selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()].orEmpty()
+        if (background.languageChoice != null && backgroundLanguages.isNotEmpty()) {
+            effects += Effect.AddLanguagesEffect(backgroundLanguages)
+        }
+        val backgroundEquipment = activeBackgroundEquipmentChoiceKeys(background.equipmentChoice)
+            .flatMapTo(linkedSetOf()) { key -> selection.choiceSelections[key].orEmpty() }
+        if (background.equipmentChoice != null && backgroundEquipment.isNotEmpty()) {
+            effects += Effect.AddEquipmentEffect(
+                backgroundEquipment.map { CountedEntityRef(it, 1) },
+            )
+        }
+    }
+
+    val race = races.firstOrNull { it.id == selection.raceId }
+    if (race != null) {
+        val traitIds = buildList {
+            addAll(race.traits.map { it.id })
+            val subrace = selection.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
+            if (subrace != null) {
+                addAll(subrace.traits.map { it.id })
+            }
+        }
+        val traits = traitIds.mapNotNull(traitsById::get)
+        traits.forEach { trait ->
+            trait.effects?.let(effects::addAll)
+
+            trait.abilityBonusChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitAbilityBonusChoiceKey(
+                        trait.id
+                    )]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    effects += Effect.ModifyAbilityEffect(selected.associateWith { 1 })
+                }
+            }
+            trait.languageChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitLanguageChoiceKey(trait.id)]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    effects += Effect.AddLanguagesEffect(selected)
+                }
+            }
+            trait.proficiencyChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitProficiencyChoiceKey(
+                        trait.id
+                    )]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    effects += Effect.AddProficienciesEffect(selected)
+                }
+            }
+            trait.draconicAncestryChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitDraconicAncestryChoiceKey(
+                        trait.id
+                    )]
+                        .orEmpty()
+                selected.mapNotNull(traitsById::get).forEach { selectedTrait ->
+                    selectedTrait.effects?.let(effects::addAll)
+                }
+            }
+        }
+    }
+
+    if (clazz != null) {
+        clazz.proficiencyChoices.forEachIndexed { index, _ ->
+            val selected =
+                selection.choiceSelections[GuidedCharacterSetupViewModel.classProficiencyChoiceKey(index)].orEmpty()
+            if (selected.isNotEmpty()) {
+                effects += Effect.AddProficienciesEffect(selected)
+            }
+        }
+    }
+
+    findGuidedLevelOneFeatureChoices(clazz, selection.subclassId, featuresById).forEach { (featureId, choice) ->
+        val selected =
+            selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(featureId)].orEmpty()
+        if (selected.isEmpty()) return@forEach
+        if (choice is Choice.ProficiencyChoice && featureId != ROGUE_EXPERTISE_FEATURE_ID) {
+            effects += Effect.AddProficienciesEffect(selected)
+        }
+    }
+
+    return effects
+}
+
+internal fun buildGuidedFeaturesAndTraitsText(
+    content: GuidedCharacterSetupUiState.Content,
+    clazz: CharacterClass?,
+    race: Race?,
+    background: Background?,
+): String {
+    val selection = content.selection
+    val lines = mutableListOf<String>()
+
+    fun header(title: String) {
+        if (lines.isNotEmpty()) lines += ""
+        lines += title
+    }
+
+    fun bullet(text: String) {
+        lines += "• $text"
+    }
+
+    fun spellName(id: String): String =
+        content.spellsById[id]?.name ?: id
+
+    fun optionName(id: String): String {
+        if (id.lowercase() in AbilityIds.standardOrder) return id.displayName()
+        if (id.startsWith("skill-")) {
+            val normalized = id.removePrefix("skill-").replace("-", "_").uppercase()
+            val skill = Skill.entries.firstOrNull { it.name == normalized }
+            if (skill != null) return skill.displayName
+        }
+        content.languagesById[id]?.let { return it.name }
+        content.equipmentById[id]?.let { return it.name }
+        content.featuresById[id]?.let { return it.name }
+        content.traitsById[id]?.let { return it.name }
+        content.spellsById[id]?.let { return it.name }
+        return EntityRef(id).prettyString()
+    }
+
+    if (clazz != null) {
+        header("Class")
+        bullet(clazz.name)
+
+        val subclass = selection.subclassId?.let { sid -> clazz.subclasses.firstOrNull { it.id == sid } }
+        if (subclass != null) {
+            bullet("Subclass: ${subclass.name}")
+            val subclassLevel1Features = subclass.levels?.firstOrNull { it.level == 1 }?.features.orEmpty()
+            subclassLevel1Features.mapNotNull(content.featuresById::get).forEach { feature ->
+                val summary = feature.desc.firstOrNull().orEmpty()
+                bullet(if (summary.isBlank()) feature.name else "${feature.name} — $summary")
+            }
+        }
+
+        findGuidedLevelOneFeatureChoices(clazz, selection.subclassId, content.featuresById).forEach { (featureId, _) ->
+            val selected =
+                selection.choiceSelections[GuidedCharacterSetupViewModel.featureChoiceKey(featureId)].orEmpty()
+            if (selected.isEmpty()) return@forEach
+            val title = content.featuresById[featureId]?.name ?: featureId
+            val values = selected.map(::optionName).sorted().joinToString(", ")
+            bullet("$title: $values")
+        }
+
+        val selectedCantrips =
+            selection.choiceSelections[GuidedCharacterSetupViewModel.spellCantripsChoiceKey()].orEmpty()
+        val selectedLevel1 =
+            selection.choiceSelections[GuidedCharacterSetupViewModel.spellLevel1ChoiceKey()].orEmpty()
+        if (selectedCantrips.isNotEmpty() || selectedLevel1.isNotEmpty()) {
+            header("Spells")
+            if (selectedCantrips.isNotEmpty()) {
+                bullet("Cantrips: ${selectedCantrips.map(::spellName).sorted().joinToString(", ")}")
+            }
+            if (selectedLevel1.isNotEmpty()) {
+                bullet("Level 1: ${selectedLevel1.map(::spellName).sorted().joinToString(", ")}")
+            }
+        }
+    }
+
+    if (race != null) {
+        header("Race")
+        val raceLabel = buildString {
+            append(race.name)
+            val subrace = selection.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
+            if (subrace != null) {
+                append(" (")
+                append(subrace.name)
+                append(")")
+            }
+        }
+        bullet(raceLabel)
+
+        val traitIds = buildList {
+            addAll(race.traits.map { it.id })
+            val subrace = selection.subraceId?.let { sid -> race.subraces.firstOrNull { it.id == sid } }
+            if (subrace != null) {
+                addAll(subrace.traits.map { it.id })
+            }
+        }
+        val traits = traitIds.mapNotNull(content.traitsById::get)
+        val traitNames = traits.map { it.name }.sorted()
+        if (traitNames.isNotEmpty()) {
+            bullet("Traits: ${traitNames.joinToString(", ")}")
+        }
+
+        traits.forEach { trait ->
+            trait.abilityBonusChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitAbilityBonusChoiceKey(
+                        trait.id
+                    )]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    bullet("${trait.name}: ${selected.joinToString(", ") { id -> "${id.displayName()} +1" }}")
+                }
+            }
+            trait.languageChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitLanguageChoiceKey(trait.id)]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    bullet("${trait.name}: ${selected.map(::optionName).sorted().joinToString(", ")}")
+                }
+            }
+            trait.proficiencyChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitProficiencyChoiceKey(
+                        trait.id
+                    )]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    bullet("${trait.name}: ${selected.map(::optionName).sorted().joinToString(", ")}")
+                }
+            }
+            trait.draconicAncestryChoice?.let {
+                val selected =
+                    selection.choiceSelections[GuidedCharacterSetupViewModel.raceTraitDraconicAncestryChoiceKey(
+                        trait.id
+                    )]
+                        .orEmpty()
+                if (selected.isNotEmpty()) {
+                    bullet("${trait.name}: ${selected.map(::optionName).sorted().joinToString(", ")}")
+                }
+            }
+            trait.spellChoice?.let {
+                val selected =
+                    selection.choiceSelections[
+                        GuidedCharacterSetupViewModel.raceTraitSpellChoiceKey(trait.id)
+                    ].orEmpty()
+                if (selected.isNotEmpty()) {
+                    bullet("${trait.name}: ${selected.map(::spellName).sorted().joinToString(", ")}")
+                }
+            }
+        }
+    }
+
+    if (background != null) {
+        header("Background")
+        bullet(background.name)
+        bullet("Feature: ${background.feature.name}")
+
+        background.languageChoice?.let {
+            val selected =
+                selection.choiceSelections[GuidedCharacterSetupViewModel.backgroundLanguageChoiceKey()].orEmpty()
+            if (selected.isNotEmpty()) {
+                bullet("Languages: ${selected.map(::optionName).sorted().joinToString(", ")}")
+            }
+        }
+        background.equipmentChoice?.let {
+            val selected = activeBackgroundEquipmentChoiceKeys(it)
+                .flatMapTo(linkedSetOf()) { key -> selection.choiceSelections[key].orEmpty() }
+            if (selected.isNotEmpty()) {
+                bullet("Equipment: ${selected.map(::optionName).sorted().joinToString(", ")}")
+            }
+        }
+    }
+
+    return lines.joinToString("\n").trim()
+}
+
+internal fun Map<AbilityId, Int>.toEntityRefMap(): Map<EntityRef, Int> =
+    entries.associate { (abilityId, score) -> EntityRef(abilityId) to score }
+
+internal fun Map<EntityRef, Int>.toAbilityScores(): AbilityScores =
+    AbilityScores(
+        strength = this[EntityRef(AbilityIds.STR)] ?: 10,
+        dexterity = this[EntityRef(AbilityIds.DEX)] ?: 10,
+        constitution = this[EntityRef(AbilityIds.CON)] ?: 10,
+        intelligence = this[EntityRef(AbilityIds.INT)] ?: 10,
+        wisdom = this[EntityRef(AbilityIds.WIS)] ?: 10,
+        charisma = this[EntityRef(AbilityIds.CHA)] ?: 10,
+    )
+
+internal fun skillFromProficiencyId(id: EntityRef): Skill? = skillFromProficiencyId(id.id)
+
+internal fun skillFromProficiencyId(id: String): Skill? {
+    val normalized = id.removePrefix("skill-")
+        .replace("-", "_")
+        .uppercase()
+    return Skill.entries.firstOrNull { it.name == normalized }
+}
+
+private fun activeBackgroundEquipmentChoiceKeys(
+    choice: Choice?,
+    baseKey: String = GuidedCharacterSetupViewModel.backgroundEquipmentChoiceKey(),
+): List<String> = when (choice) {
+    null -> emptyList()
+    is Choice.NestedChoice -> choice.from.flatMapIndexed { index, nested ->
+        activeBackgroundEquipmentChoiceKeys(nested, "$baseKey/$index")
+    }
+
+    else -> listOf(baseKey)
+}
+
+private const val ROGUE_EXPERTISE_FEATURE_ID = "rogue-expertise-1"

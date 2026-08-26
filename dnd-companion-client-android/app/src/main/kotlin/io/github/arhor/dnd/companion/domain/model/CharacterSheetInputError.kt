@@ -1,0 +1,6 @@
+package io.github.arhor.dnd.companion.domain.model
+
+sealed interface CharacterSheetInputError {
+    data object Required : CharacterSheetInputError
+    data class MinValue(val min: Int) : CharacterSheetInputError
+}

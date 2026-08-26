@@ -1,0 +1,80 @@
+package io.github.arhor.dnd.companion.ui.feature.compendium.spelldetails
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.arhor.dnd.companion.ui.components.AppTopBarConfig
+import io.github.arhor.dnd.companion.ui.components.AppTopBarNavigation
+import io.github.arhor.dnd.companion.ui.components.LocalSnackbarHostState
+import io.github.arhor.dnd.companion.ui.components.ProvideTopBarState
+import io.github.arhor.dnd.companion.ui.components.TopBarState
+
+@Composable
+fun SpellDetailsRoute(
+    vm: SpellDetailsViewModel = hiltViewModel(),
+    onBack: () -> Unit,
+) {
+    val state by vm.uiState.collectAsStateWithLifecycle()
+    val snackbarHostState = LocalSnackbarHostState.current
+
+    LaunchedEffect(vm) {
+        vm.effects.collect { effect ->
+            when (effect) {
+                is SpellDetailsEffect.ShowMessage -> snackbarHostState.showSnackbar(effect.message)
+            }
+        }
+    }
+
+    ProvideTopBarState(
+        topBarState = TopBarState(
+            config = AppTopBarConfig(
+                title = "Spells",
+                navigation = AppTopBarNavigation.Back(onBack),
+                actions = {
+                    ToggleFavoriteSpell(
+                        state = state,
+                        dispatch = vm::dispatch,
+                    )
+                },
+            ),
+        ),
+    ) {
+        SpellDetailsScreen(
+            uiState = state,
+            dispatch = vm::dispatch,
+        )
+    }
+}
+
+@Composable
+private fun ToggleFavoriteSpell(
+    state: SpellDetailsUiState,
+    dispatch: SpellDetailsDispatch,
+) {
+    val isEnabled = state is SpellDetailsUiState.Content
+    val isFavorite = (state as? SpellDetailsUiState.Content)?.isFavorite == true
+
+    IconButton(
+        onClick = { dispatch(SpellDetailsIntent.ToggleFavorite) },
+        enabled = isEnabled,
+    ) {
+        if (isFavorite) {
+            Icon(
+                imageVector = Icons.Filled.Favorite,
+                contentDescription = "Remove from favorites",
+            )
+        } else {
+            Icon(
+                imageVector = Icons.Outlined.FavoriteBorder,
+                contentDescription = "Add to favorites",
+            )
+        }
+    }
+}

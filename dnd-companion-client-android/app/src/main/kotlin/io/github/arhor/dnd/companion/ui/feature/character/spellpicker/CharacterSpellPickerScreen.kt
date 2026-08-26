@@ -1,0 +1,187 @@
+package io.github.arhor.dnd.companion.ui.feature.character.spellpicker
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import io.github.arhor.dnd.companion.domain.model.CharacterSpellAssignment
+import io.github.arhor.dnd.companion.domain.model.EntityRef
+import io.github.arhor.dnd.companion.ui.components.ErrorMessage
+import io.github.arhor.dnd.companion.ui.components.LoadingIndicator
+import io.github.arhor.dnd.companion.ui.feature.compendium.spells.components.SpellList
+import io.github.arhor.dnd.companion.ui.feature.compendium.spells.components.SpellSearchInput
+import io.github.arhor.dnd.companion.ui.theme.AppTheme
+
+@Composable
+fun CharacterSpellPickerScreen(
+    state: CharacterSpellPickerUiState,
+    dispatch: CharacterSpellPickerDispatch = {},
+) {
+    when (state) {
+        is CharacterSpellPickerUiState.Loading -> LoadingIndicator()
+
+        is CharacterSpellPickerUiState.Content -> CharacterSpellPickerContent(
+            state = state,
+            dispatch = dispatch,
+        )
+
+        is CharacterSpellPickerUiState.Failure -> ErrorMessage(state.errorMessage)
+    }
+}
+
+@Composable
+private fun CharacterSpellPickerContent(
+    state: CharacterSpellPickerUiState.Content,
+    dispatch: CharacterSpellPickerDispatch,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        if (state.spellcastingClassOptions.isNotEmpty() && state.selectedSpellcastingClass != null) {
+            SpellcastingClassSelector(
+                spellcastingClassOptions = state.spellcastingClassOptions,
+                selectedSpellcastingClass = state.selectedSpellcastingClass,
+                onSpellcastingClassSelected = {
+                    dispatch(CharacterSpellPickerIntent.SpellcastingClassSelected(it))
+                },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        } else {
+            OutlinedTextField(
+                value = state.sourceClass,
+                onValueChange = { value ->
+                    dispatch(CharacterSpellPickerIntent.SourceClassChanged(value))
+                },
+                label = { Text("Spellcasting class") },
+                placeholder = { Text(text = state.defaultSourceClass.ifBlank { "Spellbook" }) },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        Text(
+            text = "Tap a spell below to add it to the character.",
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                SpellSearchInput(
+                    query = state.query,
+                    onQueryChanged = { dispatch(CharacterSpellPickerIntent.QueryChanged(it)) },
+                    showFavorite = state.showFavoriteOnly,
+                    onFavoriteClick = { dispatch(CharacterSpellPickerIntent.FavoritesToggled) },
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                SpellList(
+                    spells = state.spells,
+                    onSpellClick = {
+                        val resolvedSourceClass = state.selectedSpellcastingClass?.name
+                            ?: state.sourceClass.ifBlank { state.defaultSourceClass }
+                        dispatch(
+                            CharacterSpellPickerIntent.SpellClicked(
+                                CharacterSpellAssignment(
+                                    it.id,
+                                    resolvedSourceClass,
+                                ),
+                            ),
+                        )
+                    },
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SpellcastingClassSelector(
+    spellcastingClassOptions: List<SpellcastingClassOption>,
+    selectedSpellcastingClass: SpellcastingClassOption,
+    onSpellcastingClassSelected: (EntityRef) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        modifier = modifier,
+    ) {
+        OutlinedTextField(
+            value = selectedSpellcastingClass.name,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text("Spellcasting class") },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable),
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+        ) {
+            spellcastingClassOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(option.name) },
+                    onClick = {
+                        expanded = false
+                        onSpellcastingClassSelected(option.id)
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun CharacterSpellPickerPreview() {
+    AppTheme {
+        CharacterSpellPickerScreen(
+            state = CharacterSpellPickerUiState.Content(
+                query = "",
+                spells = emptyList(),
+                showFavoriteOnly = false,
+                sourceClass = "",
+                defaultSourceClass = "Wizard",
+                spellcastingClassOptions = listOf(
+                    SpellcastingClassOption(
+                        id = EntityRef("wizard"),
+                        name = "Wizard",
+                    ),
+                ),
+                selectedSpellcastingClass = SpellcastingClassOption(
+                    id = EntityRef("wizard"),
+                    name = "Wizard",
+                ),
+            ),
+        )
+    }
+}
