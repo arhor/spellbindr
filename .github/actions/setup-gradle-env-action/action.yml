@@ -1,0 +1,41 @@
+name: 'Set up Gradle environment'
+description: 'Configures Java, the optional Android SDK, and Gradle caching'
+
+inputs:
+  java-version:
+    description: 'Java version used by Gradle'
+    required: true
+  java-distribution:
+    description: 'Java distribution used by Gradle'
+    required: false
+    default: 'temurin'
+  setup-android-sdk:
+    description: 'Whether to install and configure the Android SDK'
+    required: false
+    default: 'false'
+  cache-read-only:
+    description: 'Whether Gradle may only read shared cache entries'
+    required: false
+    default: 'true'
+  cache-encryption-key:
+    description: 'Optional encryption key for Gradle configuration-cache data'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up JDK ${{ inputs.java-version }}
+      uses: actions/setup-java@v5
+      with:
+        distribution: ${{ inputs.java-distribution }}
+        java-version: ${{ inputs.java-version }}
+
+    - name: Set up Android SDK
+      if: ${{ inputs.setup-android-sdk == 'true' }}
+      uses: android-actions/setup-android@v3
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v5
+      with:
+        cache-read-only: ${{ inputs.cache-read-only }}
+        cache-encryption-key: ${{ inputs.cache-encryption-key }}

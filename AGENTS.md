@@ -1,26 +1,33 @@
 # Repository Guidelines
 
-Spellbindr is a single-module Android project. `:app` owns application wiring, domain and data code, Compose UI,
-assets, and all test source sets. Treat `app/build.gradle.kts`, `gradle/libs.versions.toml`, executable scripts, and CI
-workflows as authoritative for versions and runnable behavior.
+Spellbindr is a Gradle composite-build monorepository. `dnd-companion-client-android` contains the single-module Android
+client, where `:app` owns application wiring, domain and data code, Compose UI, assets, and all test source sets.
+`dnd-companion-server` is the server build. Treat component build files and version catalogs, executable scripts, and
+CI workflows as authoritative for versions and runnable behavior.
 
 ## Build and verification
 
-Use the narrowest relevant check while developing. JVM tests live in `app/src/test/kotlin`; use
-`./gradlew testDebugUnitTest --tests 'fully.qualified.TestClass'` for focused runs. Instrumentation and Compose UI tests
-live in `app/src/androidTest/kotlin` and require a device or emulator. Screenshot previews and tests live in
-`app/src/screenshotTest/kotlin`.
+Use the narrowest relevant check while developing. Android JVM tests live in
+`dnd-companion-client-android/app/src/test/kotlin`; use
+`./gradlew :dnd-companion-client-android:app:testDebugUnitTest --tests 'fully.qualified.TestClass'` for focused runs.
+Instrumentation and Compose UI tests live in `dnd-companion-client-android/app/src/androidTest/kotlin` and require a
+device or emulator. Screenshot previews and tests live in `dnd-companion-client-android/app/src/screenshotTest/kotlin`.
 
 Before handoff, run checks proportional to the change. The broad CI-equivalent command is:
 
 ```text
-./gradlew lintDebug test assembleRelease --stacktrace
+./gradlew \
+    :dnd-companion-client-android:app:lintDebug \
+    :dnd-companion-client-android:app:test \
+    :dnd-companion-client-android:app:assembleRelease \
+    --stacktrace
 ```
 
 ## Code organization and style
 
 Keep code and tests close to the package that owns them. Static multi-source 5e reference data lives in
-`app/src/main/assets/data`; runtime artwork and icons live under `app/src/main/assets`.
+`dnd-companion-client-android/app/src/main/assets/data`; runtime artwork and icons live under
+`dnd-companion-client-android/app/src/main/assets`.
 
 Follow `.editorconfig`: four-space indentation, LF endings, a 120-character line limit, and a final newline; JSON and
 YAML use two spaces. Preserve established names such as `*Screen`, `*Route`, `*ViewModel`, `*UseCase`, `*Repository`,

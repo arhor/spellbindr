@@ -1,19 +1,24 @@
 name: 'Assemble debug APK'
 description: 'Assemble debug APK and upload it via GitHub Actions'
 
+inputs:
+  application-name:
+    description: 'Name of the included Android build'
+    required: true
+
 runs:
   using: composite
   steps:
     - name: Assemble debug
       shell: bash
-      run: ./gradlew assembleDebug --stacktrace
+      run: ./gradlew :${{ inputs.application-name }}:app:assembleDebug --stacktrace
 
     - name: Upload debug APK
       id: upload_debug_apk
       uses: actions/upload-artifact@v5
       with:
         name: app-debug-apk
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: ${{ github.workspace }}/${{ inputs.application-name }}/app/build/outputs/apk/debug/app-debug.apk
         overwrite: true
         retention-days: 7
         if-no-files-found: error

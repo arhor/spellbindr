@@ -1,0 +1,36 @@
+name: Build and test Android client
+
+on:
+  workflow_call:
+    inputs:
+      application-name:
+        description: Name of the included Android build
+        required: true
+        type: string
+    secrets:
+      GRADLE_ENCRYPTION_KEY:
+        description: Encryption key for the shared Gradle configuration-cache data
+        required: false
+
+jobs:
+  build:
+    name: Lint, unit test, and release assemble
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Build and test Android client
+        uses: ./.github/actions/build-android-client-action
+        with:
+          application-name: ${{ inputs.application-name }}
+          cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/stable' }}
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Assemble debug APK
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./.github/actions/assemble-debug-apk
+        with:
+          application-name: ${{ inputs.application-name }}

@@ -3,20 +3,20 @@
 ## Prerequisites and setup
 
 - Install JDK 17 (also recorded in `.java-version`).
-- Install the Android SDK platform and build-tools versions configured by `app/build.gradle.kts`.
+- Install the Android SDK platform and build-tools versions configured by
+  `dnd-companion-client-android/app/build.gradle.kts`.
 - Set the SDK path in `local.properties` or `ANDROID_HOME`.
-- On Linux, `run/setup.sh` can install the command-line tools and configured SDK baseline.
 
-Build a debug APK with `./gradlew assembleDebug`. The output is
-`app/build/outputs/apk/debug/app-debug.apk`.
+Build a debug APK with `./gradlew :dnd-companion-client-android:app:assembleDebug`. The output is
+`dnd-companion-client-android/app/build/outputs/apk/debug/app-debug.apk`.
 
 ## Tests and checks
 
 Run the narrowest check that covers the change while iterating. Examples:
 
 ```text
-./gradlew testDebugUnitTest --tests 'fully.qualified.TestClass'
-./gradlew connectedDebugAndroidTest
+./gradlew :dnd-companion-client-android:app:testDebugUnitTest --tests 'fully.qualified.TestClass'
+./gradlew :dnd-companion-client-android:app:connectedDebugAndroidTest
 ```
 
 The second command requires a connected device or emulator. Instrumentation and screenshot tests are not part of the
@@ -26,7 +26,11 @@ Repository UI skills under `.agents/skills` document the screenshot-preview work
 Before opening a pull request, run:
 
 ```text
-./gradlew lintDebug test assembleRelease --stacktrace
+./gradlew \
+    :dnd-companion-client-android:app:lintDebug \
+    :dnd-companion-client-android:app:test \
+    :dnd-companion-client-android:app:assembleRelease \
+    --stacktrace
 ```
 
 ## Commits and pull requests

@@ -1,0 +1,35 @@
+name: 'Build Android client'
+description: 'Lints, tests, and assembles the Android client included build'
+
+inputs:
+  application-name:
+    description: 'Name of the included Android build'
+    required: true
+  cache-read-only:
+    description: 'Whether Gradle may only read shared cache entries'
+    required: false
+    default: 'true'
+  cache-encryption-key:
+    description: 'Optional encryption key for Gradle configuration-cache data'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Gradle environment
+      uses: ./.github/actions/setup-gradle-env-action
+      with:
+        java-version: '17'
+        java-distribution: 'temurin'
+        setup-android-sdk: 'true'
+        cache-read-only: ${{ inputs.cache-read-only }}
+        cache-encryption-key: ${{ inputs.cache-encryption-key }}
+
+    - name: Lint, unit test, and release assemble
+      shell: bash
+      run: >-
+        ./gradlew
+        :${{ inputs.application-name }}:app:lintDebug
+        :${{ inputs.application-name }}:app:test
+        :${{ inputs.application-name }}:app:assembleRelease
+        --stacktrace
