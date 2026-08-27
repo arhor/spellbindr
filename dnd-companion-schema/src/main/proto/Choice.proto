@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message Choice {
+  int32 choose = 1;
+  optional string desc = 2;
+  oneof source {
+    StringOptions string_options = 3;
+    ResourceOptions resource_options = 4;
+    AbilityBonusOptions ability_bonus_options = 5;
+    IdealOptions ideal_options = 6;
+    EquipmentCategoryOptions equipment_category_options = 7;
+    NestedOptions nested_options = 8;
+    EmptyChoice all_options = 9;
+  }
+}
+
+message StringOptions {
+    repeated string values = 1;
+}
+
+message ResourceOptions {
+  string resource = 1;
+  map<string, string> where = 2;
+}
+
+message AbilityBonusOptions {
+    repeated AbilityBonuses values = 1;
+}
+
+message AbilityBonuses {
+    map<string, int32> values = 1;
+}
+
+message IdealOptions {
+    repeated Ideal values = 1;
+}
+
+message Ideal {
+  string desc = 1;
+  repeated string alignment_ids = 2;
+}
+
+message EquipmentCategoryOptions {
+    repeated string categories = 1;
+}
+
+message NestedOptions {
+    repeated Choice values = 1;
+}
+
+message EmptyChoice {}

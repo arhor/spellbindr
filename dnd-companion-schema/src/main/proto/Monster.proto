@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "Spell.proto";
+import "SrdReference.proto";
+
+message Monster {
+  string index = 1;
+  string name = 2;
+  string size = 3;
+  string type = 4;
+  optional string subtype = 5;
+  string alignment = 6;
+  repeated MonsterArmorClass armor_class = 7;
+  int32 hit_points = 8;
+  string hit_dice = 9;
+  string hit_points_roll = 10;
+  MonsterSpeed speed = 11;
+  int32 strength = 12;
+  int32 dexterity = 13;
+  int32 constitution = 14;
+  int32 intelligence = 15;
+  int32 wisdom = 16;
+  int32 charisma = 17;
+  repeated MonsterProficiency proficiencies = 18;
+  repeated string damage_vulnerabilities = 19;
+  repeated string damage_resistances = 20;
+  repeated string damage_immunities = 21;
+  repeated SrdReference condition_immunities = 22;
+  MonsterSenses senses = 23;
+  string languages = 24;
+  double challenge_rating = 25;
+  int32 proficiency_bonus = 26;
+  int32 xp = 27;
+  repeated MonsterAbility special_abilities = 28;
+  repeated MonsterAction actions = 29;
+  repeated MonsterAction legendary_actions = 30;
+  repeated MonsterAction reactions = 31;
+  optional string image = 32;
+  string url = 33;
+  repeated SrdReference forms = 34;
+}
+
+message MonsterArmorClass {
+  string type = 1;
+  int32 value = 2;
+  repeated SrdReference armor = 3;
+  optional string desc = 4;
+}
+
+message MonsterSpeed {
+  optional string walk = 1;
+  optional string burrow = 2;
+  optional string climb = 3;
+  optional string fly = 4;
+  optional string swim = 5;
+  optional bool hover = 6;
+}
+
+message MonsterProficiency {
+  int32 value = 1;
+  SrdReference proficiency = 2;
+}
+
+message MonsterSenses {
+  optional string blindsight = 1;
+  optional string darkvision = 2;
+  optional string tremorsense = 3;
+  optional string truesight = 4;
+  int32 passive_perception = 5;
+}
+
+message MonsterAbility {
+  string name = 1;
+  string desc = 2;
+  optional int32 attack_bonus = 3;
+  repeated MonsterDamage damage = 4;
+  optional MonsterDifficultyClass difficulty_class = 5;
+  optional MonsterSpellcasting spellcasting = 6;
+  optional MonsterUsage usage = 7;
+}
+
+message MonsterAction {
+  string name = 1;
+  string desc = 2;
+  optional int32 attack_bonus = 3;
+  repeated MonsterDamage damage = 4;
+  optional MonsterDifficultyClass difficulty_class = 5;
+  optional MonsterUsage usage = 6;
+  optional string multiattack_type = 7;
+  repeated MonsterActionReference actions = 8;
+  repeated MonsterActionReference options = 9;
+  optional AreaOfEffect area_of_effect = 10;
+}
+
+message MonsterDamage {
+  SrdReference damage_type = 1;
+  string damage_dice = 2;
+}
+
+message MonsterDifficultyClass {
+  SrdReference ability = 1;
+  int32 value = 2;
+  string success_type = 3;
+}
+
+message MonsterUsage {
+  string type = 1;
+  optional int32 times = 2;
+  optional string rest_types = 3;
+  optional string dice = 4;
+  optional int32 minimum_value = 5;
+}
+
+message MonsterSpellcasting {
+  optional int32 level = 1;
+  optional SrdReference ability = 2;
+  optional MonsterDifficultyClass difficulty_class = 3;
+  map<string, MonsterSpellList> spells = 4;
+  repeated MonsterSpellSlot slots = 5;
+  repeated string components_required = 6;
+  optional string school = 7;
+  optional string modifier = 8;
+}
+
+message MonsterSpellList { repeated MonsterSpell values = 1; }
+
+message MonsterSpell {
+  string name = 1;
+  optional int32 level = 2;
+  string url = 3;
+  optional string usage = 4;
+  optional string notes = 5;
+}
+
+message MonsterSpellSlot {
+  int32 level = 1;
+  int32 slots = 2;
+}
+
+message MonsterActionReference {
+  string action_name = 1;
+  optional int32 count = 2;
+  optional string type = 3;
+}

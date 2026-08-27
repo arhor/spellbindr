@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message Prerequisite {
+  oneof value {
+    EmptyPrerequisite spellcasting = 1;
+    int32 level = 2;
+    string class_level_id = 3;
+    string feature_id = 4;
+    string spell_id = 5;
+    string proficiency_id = 6;
+    AbilityScorePrerequisite ability_score = 7;
+  }
+}
+
+message EmptyPrerequisite {}
+
+message AbilityScorePrerequisite {
+  repeated string ability_score_ids = 1;
+  int32 minimum_value = 2;
+  bool at_least_one = 3;
+}

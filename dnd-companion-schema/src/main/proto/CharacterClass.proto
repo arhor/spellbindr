@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "google/protobuf/struct.proto";
+
+import "Choice.proto";
+import "Effect.proto";
+import "EntityReference.proto";
+import "GenericInfo.proto";
+import "Prerequisite.proto";
+
+message CharacterClass {
+  string id = 1;
+  string name = 2;
+  int32 hit_die = 3;
+  repeated Choice proficiency_choices = 4;
+  repeated string proficiency_ids = 5;
+  repeated string saving_throw_ids = 6;
+  repeated CountedReference starting_equipment = 7;
+  repeated Choice starting_equipment_options = 8;
+  optional Multiclassing multiclassing = 9;
+  optional Spellcasting spellcasting = 10;
+  repeated Subclass subclasses = 11;
+  repeated ClassLevel levels = 12;
+}
+
+message Multiclassing {
+  repeated AbilityScorePrerequisite prerequisites = 1;
+  repeated string proficiency_ids = 2;
+  repeated Choice proficiency_choices = 3;
+}
+
+message Spellcasting {
+  repeated GenericInfo info = 1;
+  int32 level = 2;
+  EntityReference ability = 3;
+}
+
+message Subclass {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  repeated SubclassSpell spells = 4;
+  string subclass_flavor = 5;
+  repeated ClassLevel levels = 6;
+}
+
+message SubclassSpell {
+  repeated Prerequisite prerequisites = 1;
+  EntityReference spell = 2;
+}
+
+message ClassLevel {
+  string id = 1;
+  int32 level = 2;
+  repeated string feature_ids = 3;
+  optional LevelSpellcasting spellcasting = 4;
+  optional int32 ability_score_bonuses = 5;
+  optional int32 proficiency_bonus = 6;
+  google.protobuf.Struct class_specific = 7;
+}
+
+message LevelSpellcasting {
+  optional int32 cantrips = 1;
+  optional int32 spells = 2;
+  map<string, int32> spell_slots = 3;
+}

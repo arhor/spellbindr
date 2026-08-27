@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "Ability.proto";
+import "Alignment.proto";
+import "Background.proto";
+import "CharacterClass.proto";
+import "Condition.proto";
+import "DescribedData.proto";
+import "Equipment.proto";
+import "Feat.proto";
+import "Feature.proto";
+import "Language.proto";
+import "MagicItem.proto";
+import "Monster.proto";
+import "Proficiency.proto";
+import "Race.proto";
+import "Spell.proto";
+import "SrdRule.proto";
+import "Trait.proto";
+
+message ReferenceData {
+  repeated Ability abilities = 1;
+  repeated Alignment alignments = 2;
+  repeated Background backgrounds = 3;
+  repeated CharacterClass classes = 4;
+  repeated Condition conditions = 5;
+  repeated Equipment equipment = 6;
+  repeated Feat feats = 7;
+  repeated Feature features = 8;
+  repeated Language languages = 9;
+  repeated MagicItem magic_items = 10;
+  repeated DescribedData magic_schools = 11;
+  repeated Proficiency proficiencies = 12;
+  repeated Race races = 13;
+  repeated DescribedData rule_sections = 14;
+  repeated Spell spells = 15;
+  repeated Trait traits = 16;
+  repeated DescribedData weapon_properties = 17;
+  repeated SrdRule srd_rules = 18;
+  repeated Monster monsters = 19;
+}

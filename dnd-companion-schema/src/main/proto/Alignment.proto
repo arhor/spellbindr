@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message Alignment {
+  string id = 1;
+  string name = 2;
+  string abbreviation = 3;
+  string desc = 4;
+}

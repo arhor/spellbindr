@@ -47,4 +47,4 @@ package and type names.
 
 - [ADR 0006: Use Quarkus and gRPC for the server API](0006-use-quarkus-grpc-for-server-api.md)
 - [Shared schema build](../../dnd-companion-schema/build.gradle.kts)
-- [Shared protobuf API](../../dnd-companion-schema/src/main/proto/companion.proto)
+- [Shared protobuf API](../../dnd-companion-schema/src/main/proto)

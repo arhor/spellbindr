@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message DescribedData {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+}

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message Equipment {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  optional EquipmentArmorClass armor_class = 4;
+  optional string capacity = 5;
+  repeated EquipmentContent contents = 6;
+  Cost cost = 7;
+  optional Damage damage = 8;
+  repeated string property_ids = 9;
+  optional int32 quantity = 10;
+  optional DistanceRange range = 11;
+  repeated string special = 12;
+  optional EquipmentSpeed speed = 13;
+  optional bool stealth_disadvantage = 14;
+  optional int32 strength_minimum = 15;
+  optional DistanceRange throw_range = 16;
+  optional Damage two_handed_damage = 17;
+  optional double weight = 18;
+  repeated string categories = 19;
+}
+
+message EquipmentArmorClass {
+  int32 base = 1;
+  bool dex_bonus = 2;
+  optional int32 max_bonus = 3;
+}
+
+message EquipmentContent {
+  string item_id = 1;
+  int32 quantity = 2;
+}
+
+message Cost {
+  int32 quantity = 1;
+  string unit = 2;
+}
+
+message Damage {
+  string damage_dice = 1;
+  string damage_type_id = 2;
+}
+
+message DistanceRange {
+  int32 base = 1;
+  optional int32 long = 2;
+}
+
+message EquipmentSpeed {
+  double quantity = 1;
+  string unit = 2;
+}

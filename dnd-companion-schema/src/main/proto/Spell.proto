@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message Spell {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  int32 level = 4;
+  string range = 5;
+  bool ritual = 6;
+  string school_id = 7;
+  string duration = 8;
+  string casting_time = 9;
+  repeated string class_ids = 10;
+  repeated string components = 11;
+  bool concentration = 12;
+  optional AreaOfEffect area_of_effect = 13;
+  optional string attack_type = 14;
+  optional SpellDamage damage = 15;
+  optional SpellDifficultyClass difficulty_class = 16;
+  map<string, string> heal_at_slot_level = 17;
+  repeated string higher_level = 18;
+  optional string material = 19;
+  repeated string subclass_ids = 20;
+  string source = 21;
+}
+
+message AreaOfEffect {
+  int32 size = 1;
+  string type = 2;
+}
+
+message SpellDamage {
+  optional string damage_type_id = 1;
+  map<string, string> damage_at_slot_level = 2;
+  map<string, string> damage_at_character_level = 3;
+}
+
+message SpellDifficultyClass {
+  optional string desc = 1;
+  string ability_id = 2;
+  string success = 3;
+}

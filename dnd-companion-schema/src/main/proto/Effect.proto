@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "Choice.proto";
+import "EntityReference.proto";
+import "Monster.proto";
+import "Spell.proto";
+
+message Effect {
+  oneof value {
+    AbilityBonuses modify_abilities = 1;
+    StringOptions add_proficiencies = 2;
+    StringOptions add_known_spells = 3;
+    EntityReference add_resistance = 4;
+    HitPointEffect add_hit_points = 5;
+    EntityReference add_condition_immunity = 6;
+    CharacterActions add_actions = 7;
+    StringOptions add_languages = 8;
+    string modify_size = 9;
+    int32 modify_speed = 10;
+    CountedReferences add_equipment = 11;
+  }
+}
+
+message HitPointEffect {
+  int32 value = 1;
+  bool per_level = 2;
+}
+
+message CountedReference {
+  string id = 1;
+  int32 quantity = 2;
+}
+
+message CountedReferences { repeated CountedReference values = 1; }
+
+message CharacterActions { repeated CharacterAction values = 1; }
+
+message CharacterAction {
+  string name = 1;
+  string desc = 2;
+  optional MonsterUsage usage = 3;
+  optional MonsterDifficultyClass difficulty_class = 4;
+  repeated ActionDamage damage = 5;
+  optional AreaOfEffect area_of_effect = 6;
+}
+
+message ActionDamage {
+  string damage_type_id = 1;
+  map<string, string> damage_at_character_level = 2;
+}

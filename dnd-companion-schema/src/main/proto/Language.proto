@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+message Language {
+  string id = 1;
+  string name = 2;
+  optional string desc = 3;
+  string type = 4;
+  optional string script = 5;
+  repeated string typical_speakers = 6;
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "Choice.proto";
+import "Effect.proto";
+import "GenericInfo.proto";
+
+message Background {
+  string id = 1;
+  string name = 2;
+  GenericInfo feature = 3;
+  repeated Effect effects = 4;
+  optional Choice language_choice = 5;
+  optional Choice equipment_choice = 6;
+  optional Choice personality_traits = 7;
+  optional Choice ideals = 8;
+  optional Choice bonds = 9;
+  optional Choice flaws = 10;
+}

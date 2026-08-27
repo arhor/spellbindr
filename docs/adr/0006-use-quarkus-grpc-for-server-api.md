@@ -46,5 +46,5 @@ project owner explicitly selected Quarkus, Kotlin, Java 21, and gRPC as migratio
 
 - [Server build configuration](../../dnd-companion-server/build.gradle.kts)
 - [Server dependency catalog](../../dnd-companion-server/gradle/libs.versions.toml)
-- [Shared protobuf API](../../dnd-companion-schema/src/main/proto/companion.proto)
+- [Shared protobuf API](../../dnd-companion-schema/src/main/proto)
 - [ADR 0007: Share protobuf contracts across client and server](0007-share-protobuf-contracts-across-client-and-server.md)

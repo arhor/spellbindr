@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "Choice.proto";
+import "Effect.proto";
+import "Prerequisite.proto";
+
+message Feat {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  repeated Prerequisite prerequisites = 4;
+  repeated Effect effects = 5;
+  optional Choice ability_bonus_choice = 6;
+  optional Choice language_choice = 7;
+  optional Choice proficiency_choice = 8;
+  optional Choice damage_type_choice = 9;
+  optional Choice maneuver_choice = 10;
+  bool correlates_ability_and_saving_throw = 11;
+  bool repeatable = 12;
+}
