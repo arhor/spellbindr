@@ -28,4 +28,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "dnd-companion-client-android"
 
+includeBuild("../dnd-companion-schema")
+
 include(":app")

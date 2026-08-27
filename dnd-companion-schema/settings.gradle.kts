@@ -2,6 +2,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "dnd-companion-server"
-
-includeBuild("../dnd-companion-schema")
+rootProject.name = "dnd-companion-schema"

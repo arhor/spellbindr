@@ -88,6 +88,7 @@ ksp {
 }
 
 dependencies {
+    implementation("io.github.arhor.dnd.companion:dnd-companion-schema:0.1.0-SNAPSHOT")
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
     kspTest(libs.hilt.android.compiler)

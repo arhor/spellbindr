@@ -1,0 +1,556 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+import "google/protobuf/struct.proto";
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+// Reference data bundled in dnd-companion-client-android/app/src/main/assets/data.
+// Each repeated field corresponds to one JSON asset array.
+message ReferenceData {
+  repeated Ability abilities = 1;
+  repeated Alignment alignments = 2;
+  repeated Background backgrounds = 3;
+  repeated CharacterClass classes = 4;
+  repeated Condition conditions = 5;
+  repeated Equipment equipment = 6;
+  repeated Feat feats = 7;
+  repeated Feature features = 8;
+  repeated Language languages = 9;
+  repeated MagicItem magic_items = 10;
+  repeated DescribedData magic_schools = 11;
+  repeated Proficiency proficiencies = 12;
+  repeated Race races = 13;
+  repeated DescribedData rule_sections = 14;
+  repeated Spell spells = 15;
+  repeated Trait traits = 16;
+  repeated DescribedData weapon_properties = 17;
+  repeated SrdRule srd_rules = 18;
+  repeated Monster monsters = 19;
+}
+
+message EntityReference {
+  string id = 1;
+}
+
+message SrdReference {
+  string index = 1;
+  string name = 2;
+  string url = 3;
+}
+
+message DescribedData {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+}
+
+message Ability {
+  string id = 1;
+  string display_name = 2;
+  repeated string description = 3;
+}
+
+message Alignment {
+  string id = 1;
+  string name = 2;
+  string abbreviation = 3;
+  string desc = 4;
+}
+
+message Condition {
+  string id = 1;
+  string display_name = 2;
+  repeated string description = 3;
+}
+
+message Language {
+  string id = 1;
+  string name = 2;
+  optional string desc = 3;
+  string type = 4;
+  optional string script = 5;
+  repeated string typical_speakers = 6;
+}
+
+message Proficiency {
+  string id = 1;
+  string type = 2;
+  string name = 3;
+  string reference = 4;
+}
+
+message Race {
+  string id = 1;
+  string name = 2;
+  repeated string trait_ids = 3;
+  repeated Subrace subraces = 4;
+}
+
+message Subrace {
+  string id = 1;
+  string name = 2;
+  string desc = 3;
+  repeated string trait_ids = 4;
+}
+
+message GenericInfo {
+  string name = 1;
+  repeated string desc = 2;
+}
+
+message Background {
+  string id = 1;
+  string name = 2;
+  GenericInfo feature = 3;
+  repeated Effect effects = 4;
+  optional Choice language_choice = 5;
+  optional Choice equipment_choice = 6;
+  optional Choice personality_traits = 7;
+  optional Choice ideals = 8;
+  optional Choice bonds = 9;
+  optional Choice flaws = 10;
+}
+
+message Choice {
+  int32 choose = 1;
+  optional string desc = 2;
+  oneof source {
+    StringOptions string_options = 3;
+    ResourceOptions resource_options = 4;
+    AbilityBonusOptions ability_bonus_options = 5;
+    IdealOptions ideal_options = 6;
+    EquipmentCategoryOptions equipment_category_options = 7;
+    NestedOptions nested_options = 8;
+    EmptyChoice all_options = 9;
+  }
+}
+
+message StringOptions { repeated string values = 1; }
+
+message ResourceOptions {
+  string resource = 1;
+  map<string, string> where = 2;
+}
+
+message AbilityBonusOptions { repeated AbilityBonuses values = 1; }
+message AbilityBonuses { map<string, int32> values = 1; }
+message IdealOptions { repeated Ideal values = 1; }
+
+message Ideal {
+  string desc = 1;
+  repeated string alignment_ids = 2;
+}
+
+message EquipmentCategoryOptions { repeated string categories = 1; }
+message NestedOptions { repeated Choice values = 1; }
+message EmptyChoice {}
+
+message Effect {
+  oneof value {
+    AbilityBonuses modify_abilities = 1;
+    StringOptions add_proficiencies = 2;
+    StringOptions add_known_spells = 3;
+    EntityReference add_resistance = 4;
+    HitPointEffect add_hit_points = 5;
+    EntityReference add_condition_immunity = 6;
+    CharacterActions add_actions = 7;
+    StringOptions add_languages = 8;
+    string modify_size = 9;
+    int32 modify_speed = 10;
+    CountedReferences add_equipment = 11;
+  }
+}
+
+message HitPointEffect {
+  int32 value = 1;
+  bool per_level = 2;
+}
+
+message CountedReference {
+  string id = 1;
+  int32 quantity = 2;
+}
+
+message CountedReferences { repeated CountedReference values = 1; }
+message CharacterActions { repeated CharacterAction values = 1; }
+
+message Prerequisite {
+  oneof value {
+    EmptyPrerequisite spellcasting = 1;
+    int32 level = 2;
+    string class_level_id = 3;
+    string feature_id = 4;
+    string spell_id = 5;
+    string proficiency_id = 6;
+    AbilityScorePrerequisite ability_score = 7;
+  }
+}
+
+message EmptyPrerequisite {}
+
+message AbilityScorePrerequisite {
+  repeated string ability_score_ids = 1;
+  int32 minimum_value = 2;
+  bool at_least_one = 3;
+}
+
+message Feat {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  repeated Prerequisite prerequisites = 4;
+  repeated Effect effects = 5;
+  optional Choice ability_bonus_choice = 6;
+  optional Choice language_choice = 7;
+  optional Choice proficiency_choice = 8;
+  optional Choice damage_type_choice = 9;
+  optional Choice maneuver_choice = 10;
+  bool correlates_ability_and_saving_throw = 11;
+  bool repeatable = 12;
+}
+
+message Trait {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  repeated Effect effects = 4;
+  optional Choice spell_choice = 5;
+  optional Choice language_choice = 6;
+  optional Choice proficiency_choice = 7;
+  optional Choice ability_bonus_choice = 8;
+  optional Choice draconic_ancestry_choice = 9;
+}
+
+message Feature {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  optional EntityReference character_class = 4;
+  optional int32 level = 5;
+  optional Choice choice = 6;
+}
+
+message CharacterClass {
+  string id = 1;
+  string name = 2;
+  int32 hit_die = 3;
+  repeated Choice proficiency_choices = 4;
+  repeated string proficiency_ids = 5;
+  repeated string saving_throw_ids = 6;
+  repeated CountedReference starting_equipment = 7;
+  repeated Choice starting_equipment_options = 8;
+  optional Multiclassing multiclassing = 9;
+  optional Spellcasting spellcasting = 10;
+  repeated Subclass subclasses = 11;
+  repeated ClassLevel levels = 12;
+}
+
+message Multiclassing {
+  repeated AbilityScorePrerequisite prerequisites = 1;
+  repeated string proficiency_ids = 2;
+  repeated Choice proficiency_choices = 3;
+}
+
+message Spellcasting {
+  repeated GenericInfo info = 1;
+  int32 level = 2;
+  EntityReference ability = 3;
+}
+
+message Subclass {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  repeated SubclassSpell spells = 4;
+  string subclass_flavor = 5;
+  repeated ClassLevel levels = 6;
+}
+
+message SubclassSpell {
+  repeated Prerequisite prerequisites = 1;
+  EntityReference spell = 2;
+}
+
+message ClassLevel {
+  string id = 1;
+  int32 level = 2;
+  repeated string feature_ids = 3;
+  optional LevelSpellcasting spellcasting = 4;
+  optional int32 ability_score_bonuses = 5;
+  optional int32 proficiency_bonus = 6;
+  google.protobuf.Struct class_specific = 7;
+}
+
+message LevelSpellcasting {
+  optional int32 cantrips = 1;
+  optional int32 spells = 2;
+  map<string, int32> spell_slots = 3;
+}
+
+message Equipment {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  optional EquipmentArmorClass armor_class = 4;
+  optional string capacity = 5;
+  repeated EquipmentContent contents = 6;
+  Cost cost = 7;
+  optional Damage damage = 8;
+  repeated string property_ids = 9;
+  optional int32 quantity = 10;
+  optional DistanceRange range = 11;
+  repeated string special = 12;
+  optional EquipmentSpeed speed = 13;
+  optional bool stealth_disadvantage = 14;
+  optional int32 strength_minimum = 15;
+  optional DistanceRange throw_range = 16;
+  optional Damage two_handed_damage = 17;
+  optional double weight = 18;
+  repeated string categories = 19;
+}
+
+message EquipmentArmorClass {
+  int32 base = 1;
+  bool dex_bonus = 2;
+  optional int32 max_bonus = 3;
+}
+
+message EquipmentContent {
+  string item_id = 1;
+  int32 quantity = 2;
+}
+
+message Cost {
+  int32 quantity = 1;
+  string unit = 2;
+}
+
+message Damage {
+  string damage_dice = 1;
+  string damage_type_id = 2;
+}
+
+message DistanceRange {
+  int32 base = 1;
+  optional int32 long = 2;
+}
+
+message EquipmentSpeed {
+  double quantity = 1;
+  string unit = 2;
+}
+
+message Spell {
+  string id = 1;
+  string name = 2;
+  repeated string desc = 3;
+  int32 level = 4;
+  string range = 5;
+  bool ritual = 6;
+  string school_id = 7;
+  string duration = 8;
+  string casting_time = 9;
+  repeated string class_ids = 10;
+  repeated string components = 11;
+  bool concentration = 12;
+  optional AreaOfEffect area_of_effect = 13;
+  optional string attack_type = 14;
+  optional SpellDamage damage = 15;
+  optional SpellDifficultyClass difficulty_class = 16;
+  map<string, string> heal_at_slot_level = 17;
+  repeated string higher_level = 18;
+  optional string material = 19;
+  repeated string subclass_ids = 20;
+  string source = 21;
+}
+
+message AreaOfEffect {
+  int32 size = 1;
+  string type = 2;
+}
+
+message SpellDamage {
+  optional string damage_type_id = 1;
+  map<string, string> damage_at_slot_level = 2;
+  map<string, string> damage_at_character_level = 3;
+}
+
+message SpellDifficultyClass {
+  optional string desc = 1;
+  string ability_id = 2;
+  string success = 3;
+}
+
+message MagicItem {
+  string id = 1;
+  string name = 2;
+  string equipment_category = 3;
+  string rarity = 4;
+  repeated string desc = 5;
+  repeated string variant_ids = 6;
+}
+
+message SrdRule {
+  string name = 1;
+  string index = 2;
+  string desc = 3;
+  repeated SrdReference subsections = 4;
+  string url = 5;
+}
+
+message Monster {
+  string index = 1;
+  string name = 2;
+  string size = 3;
+  string type = 4;
+  optional string subtype = 5;
+  string alignment = 6;
+  repeated MonsterArmorClass armor_class = 7;
+  int32 hit_points = 8;
+  string hit_dice = 9;
+  string hit_points_roll = 10;
+  MonsterSpeed speed = 11;
+  int32 strength = 12;
+  int32 dexterity = 13;
+  int32 constitution = 14;
+  int32 intelligence = 15;
+  int32 wisdom = 16;
+  int32 charisma = 17;
+  repeated MonsterProficiency proficiencies = 18;
+  repeated string damage_vulnerabilities = 19;
+  repeated string damage_resistances = 20;
+  repeated string damage_immunities = 21;
+  repeated SrdReference condition_immunities = 22;
+  MonsterSenses senses = 23;
+  string languages = 24;
+  double challenge_rating = 25;
+  int32 proficiency_bonus = 26;
+  int32 xp = 27;
+  repeated MonsterAbility special_abilities = 28;
+  repeated MonsterAction actions = 29;
+  repeated MonsterAction legendary_actions = 30;
+  repeated MonsterAction reactions = 31;
+  optional string image = 32;
+  string url = 33;
+  repeated SrdReference forms = 34;
+}
+
+message MonsterArmorClass {
+  string type = 1;
+  int32 value = 2;
+  repeated SrdReference armor = 3;
+  optional string desc = 4;
+}
+
+message MonsterSpeed {
+  optional string walk = 1;
+  optional string burrow = 2;
+  optional string climb = 3;
+  optional string fly = 4;
+  optional string swim = 5;
+  optional bool hover = 6;
+}
+
+message MonsterProficiency {
+  int32 value = 1;
+  SrdReference proficiency = 2;
+}
+
+message MonsterSenses {
+  optional string blindsight = 1;
+  optional string darkvision = 2;
+  optional string tremorsense = 3;
+  optional string truesight = 4;
+  int32 passive_perception = 5;
+}
+
+message MonsterAbility {
+  string name = 1;
+  string desc = 2;
+  optional int32 attack_bonus = 3;
+  repeated MonsterDamage damage = 4;
+  optional MonsterDifficultyClass difficulty_class = 5;
+  optional MonsterSpellcasting spellcasting = 6;
+  optional MonsterUsage usage = 7;
+}
+
+message MonsterAction {
+  string name = 1;
+  string desc = 2;
+  optional int32 attack_bonus = 3;
+  repeated MonsterDamage damage = 4;
+  optional MonsterDifficultyClass difficulty_class = 5;
+  optional MonsterUsage usage = 6;
+  optional string multiattack_type = 7;
+  repeated MonsterActionReference actions = 8;
+  repeated MonsterActionReference options = 9;
+  optional AreaOfEffect area_of_effect = 10;
+}
+
+message MonsterDamage {
+  SrdReference damage_type = 1;
+  string damage_dice = 2;
+}
+
+message MonsterDifficultyClass {
+  SrdReference ability = 1;
+  int32 value = 2;
+  string success_type = 3;
+}
+
+message MonsterUsage {
+  string type = 1;
+  optional int32 times = 2;
+  optional string rest_types = 3;
+  optional string dice = 4;
+  optional int32 minimum_value = 5;
+}
+
+message MonsterSpellcasting {
+  optional int32 level = 1;
+  optional SrdReference ability = 2;
+  optional MonsterDifficultyClass difficulty_class = 3;
+  map<string, MonsterSpellList> spells = 4;
+  repeated MonsterSpellSlot slots = 5;
+  repeated string components_required = 6;
+  optional string school = 7;
+  optional string modifier = 8;
+}
+
+message MonsterSpellList { repeated MonsterSpell values = 1; }
+
+message MonsterSpell {
+  string name = 1;
+  optional int32 level = 2;
+  string url = 3;
+  optional string usage = 4;
+  optional string notes = 5;
+}
+
+message MonsterSpellSlot {
+  int32 level = 1;
+  int32 slots = 2;
+}
+
+message MonsterActionReference {
+  string action_name = 1;
+  optional int32 count = 2;
+  optional string type = 3;
+}
+
+message CharacterAction {
+  string name = 1;
+  string desc = 2;
+  optional MonsterUsage usage = 3;
+  optional MonsterDifficultyClass difficulty_class = 4;
+  repeated ActionDamage damage = 5;
+  optional AreaOfEffect area_of_effect = 6;
+}
+
+message ActionDamage {
+  string damage_type_id = 1;
+  map<string, string> damage_at_character_level = 2;
+}
