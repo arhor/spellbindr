@@ -6,6 +6,19 @@ plugins {
 group = "io.github.arhor.dnd.companion"
 version = "0.1.0-SNAPSHOT"
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+    compilerOptions {
+        javaParameters = true
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -19,19 +32,6 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
     testImplementation(libs.quarkus.junit)
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-kotlin {
-    jvmToolchain(21)
-    compilerOptions {
-        javaParameters = true
-    }
 }
 
 tasks.withType<Test>().configureEach {
