@@ -30,7 +30,7 @@ data class CharacterProgression(
         get() = levels.groupingBy { it.classId }.eachCount()
 
     companion object {
-        const val SUPPORTED_RULESET_ID = "srd-5e-2014-v1"
+        const val SUPPORTED_RULESET_ID = "dnd-5e-2014-v1"
         const val BUNDLED_REFERENCE_DATA_VERSION = "srd-5e-2014-data-v1"
     }
 }

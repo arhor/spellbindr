@@ -19,18 +19,20 @@ class CharacterProgressionJsonCodec @Inject constructor(
     fun encode(state: ProgressionState): String = json.encodeToString(state)
 
     fun decode(value: String): ProgressionState = json.decodeFromJsonElement(
-        json.parseToJsonElement(value).withStableProgressionDiscriminators(),
+        json.parseToJsonElement(value).withStableProgressionValues(),
     )
 }
 
-private fun JsonElement.withStableProgressionDiscriminators(): JsonElement = when (this) {
-    is JsonArray -> JsonArray(map(JsonElement::withStableProgressionDiscriminators))
+private fun JsonElement.withStableProgressionValues(): JsonElement = when (this) {
+    is JsonArray -> JsonArray(map(JsonElement::withStableProgressionValues))
     is JsonObject -> JsonObject(
         mapValues { (key, value) ->
             if (key == "type" && value is JsonPrimitive && value.isString) {
                 JsonPrimitive(legacyProgressionDiscriminatorAliases[value.content] ?: value.content)
+            } else if (key == "rulesetId" && value is JsonPrimitive && value.content == LEGACY_RULESET_ID) {
+                JsonPrimitive(CANONICAL_RULESET_ID)
             } else {
-                value.withStableProgressionDiscriminators()
+                value.withStableProgressionValues()
             }
         },
     )
@@ -47,3 +49,6 @@ private val legacyProgressionDiscriminatorAliases = mapOf(
     "io.github.arhor.dnd.companion.domain.model.AbilityScoreDecision.Increase" to "ability-score-increase",
     "io.github.arhor.dnd.companion.domain.model.AbilityScoreDecision.Feat" to "feat",
 )
+
+private const val LEGACY_RULESET_ID = "srd-5e-2014-v1"
+private const val CANONICAL_RULESET_ID = "dnd-5e-2014-v1"

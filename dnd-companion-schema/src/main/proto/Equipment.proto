@@ -4,6 +4,7 @@ package dnd.companion.api.v1;
 
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
+import "Catalog.proto";
 
 message Equipment {
   string id = 1;
@@ -25,6 +26,7 @@ message Equipment {
   optional Damage two_handed_damage = 17;
   optional double weight = 18;
   repeated string categories = 19;
+  ResourceMetadata metadata = 20;
 }
 
 message EquipmentArmorClass {

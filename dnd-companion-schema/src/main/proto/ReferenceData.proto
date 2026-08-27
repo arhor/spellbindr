@@ -18,10 +18,12 @@ import "Language.proto";
 import "MagicItem.proto";
 import "Monster.proto";
 import "Proficiency.proto";
+import "PublicResources.proto";
 import "Race.proto";
 import "Spell.proto";
 import "SrdRule.proto";
 import "Trait.proto";
+import "Catalog.proto";
 
 message ReferenceData {
   repeated Ability abilities = 1;
@@ -34,13 +36,20 @@ message ReferenceData {
   repeated Feature features = 8;
   repeated Language languages = 9;
   repeated MagicItem magic_items = 10;
-  repeated DescribedData magic_schools = 11;
+  repeated MagicSchool magic_schools = 11;
   repeated Proficiency proficiencies = 12;
   repeated Race races = 13;
-  repeated DescribedData rule_sections = 14;
+  repeated RuleSection rule_sections = 14;
   repeated Spell spells = 15;
   repeated Trait traits = 16;
-  repeated DescribedData weapon_properties = 17;
+  repeated WeaponProperty weapon_properties = 17;
   repeated SrdRule srd_rules = 18;
   repeated Monster monsters = 19;
+}
+
+message CatalogSnapshot {
+  CatalogManifest manifest = 1;
+  repeated Ruleset rulesets = 2;
+  repeated ContentSource sources = 3;
+  ReferenceData data = 4;
 }

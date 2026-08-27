@@ -6,10 +6,11 @@ option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
 
 import "Spell.proto";
+import "Catalog.proto";
 import "SrdReference.proto";
 
 message Monster {
-  string index = 1;
+  string index = 1 [deprecated = true];
   string name = 2;
   string size = 3;
   string type = 4;
@@ -43,6 +44,8 @@ message Monster {
   optional string image = 32;
   string url = 33;
   repeated SrdReference forms = 34;
+  string id = 35;
+  ResourceMetadata metadata = 36;
 }
 
 message MonsterArmorClass {

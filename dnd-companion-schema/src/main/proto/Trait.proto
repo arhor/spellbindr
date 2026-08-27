@@ -6,6 +6,7 @@ option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
 
 import "Choice.proto";
+import "Catalog.proto";
 import "Effect.proto";
 
 message Trait {
@@ -18,4 +19,5 @@ message Trait {
   optional Choice proficiency_choice = 7;
   optional Choice ability_bonus_choice = 8;
   optional Choice draconic_ancestry_choice = 9;
+  ResourceMetadata metadata = 10;
 }

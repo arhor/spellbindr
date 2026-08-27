@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
     implementation("io.github.arhor.dnd.companion:dnd-companion-schema:0.1.0-SNAPSHOT")
+    implementation("io.github.arhor.dnd.companion:dnd-companion-catalog:0.1.0-SNAPSHOT")
     implementation(enforcedPlatform(libs.quarkus.bom))
     implementation(libs.protobuf.kotlin)
     implementation(libs.quarkus.grpc)

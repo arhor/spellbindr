@@ -4,6 +4,7 @@ package dnd.companion.api.v1;
 
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
+import "Catalog.proto";
 
 message Spell {
   string id = 1;
@@ -26,7 +27,8 @@ message Spell {
   repeated string higher_level = 18;
   optional string material = 19;
   repeated string subclass_ids = 20;
-  string source = 21;
+  string source = 21 [deprecated = true];
+  ResourceMetadata metadata = 22;
 }
 
 message AreaOfEffect {

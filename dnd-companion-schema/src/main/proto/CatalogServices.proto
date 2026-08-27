@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package dnd.companion.api.v1;
+
+option java_multiple_files = true;
+option java_package = "io.github.arhor.dnd.companion.api.v1";
+
+import "Ability.proto";
+import "Alignment.proto";
+import "Background.proto";
+import "Catalog.proto";
+import "CharacterClass.proto";
+import "Condition.proto";
+import "Equipment.proto";
+import "Feat.proto";
+import "Feature.proto";
+import "Language.proto";
+import "MagicItem.proto";
+import "Monster.proto";
+import "Proficiency.proto";
+import "PublicResources.proto";
+import "Race.proto";
+import "Spell.proto";
+import "SrdRule.proto";
+import "Trait.proto";
+
+service CatalogService {
+  rpc ListRulesets(ListRulesetsRequest) returns (ListRulesetsResponse);
+  rpc ListContentSources(ListContentSourcesRequest) returns (ListContentSourcesResponse);
+  rpc GetCatalogManifest(GetCatalogManifestRequest) returns (GetCatalogManifestResponse);
+}
+
+service CharacterOptionsService {
+  rpc GetAbility(GetAbilityRequest) returns (GetAbilityResponse); rpc ListAbilities(ListAbilitiesRequest) returns (ListAbilitiesResponse);
+  rpc GetAlignment(GetAlignmentRequest) returns (GetAlignmentResponse); rpc ListAlignments(ListAlignmentsRequest) returns (ListAlignmentsResponse);
+  rpc GetBackground(GetBackgroundRequest) returns (GetBackgroundResponse); rpc ListBackgrounds(ListBackgroundsRequest) returns (ListBackgroundsResponse);
+  rpc GetCharacterClass(GetCharacterClassRequest) returns (GetCharacterClassResponse); rpc ListCharacterClasses(ListCharacterClassesRequest) returns (ListCharacterClassesResponse);
+  rpc GetFeat(GetFeatRequest) returns (GetFeatResponse); rpc ListFeats(ListFeatsRequest) returns (ListFeatsResponse);
+  rpc GetFeature(GetFeatureRequest) returns (GetFeatureResponse); rpc ListFeatures(ListFeaturesRequest) returns (ListFeaturesResponse);
+  rpc GetLanguage(GetLanguageRequest) returns (GetLanguageResponse); rpc ListLanguages(ListLanguagesRequest) returns (ListLanguagesResponse);
+  rpc GetProficiency(GetProficiencyRequest) returns (GetProficiencyResponse); rpc ListProficiencies(ListProficienciesRequest) returns (ListProficienciesResponse);
+  rpc GetRace(GetRaceRequest) returns (GetRaceResponse); rpc ListRaces(ListRacesRequest) returns (ListRacesResponse);
+  rpc GetTrait(GetTraitRequest) returns (GetTraitResponse); rpc ListTraits(ListTraitsRequest) returns (ListTraitsResponse);
+}
+service SpellService {
+  rpc GetSpell(GetSpellRequest) returns (GetSpellResponse); rpc ListSpells(ListSpellsRequest) returns (ListSpellsResponse);
+  rpc GetMagicSchool(GetMagicSchoolRequest) returns (GetMagicSchoolResponse); rpc ListMagicSchools(ListMagicSchoolsRequest) returns (ListMagicSchoolsResponse);
+}
+service EquipmentService {
+  rpc GetEquipment(GetEquipmentRequest) returns (GetEquipmentResponse); rpc ListEquipment(ListEquipmentRequest) returns (ListEquipmentResponse);
+  rpc GetMagicItem(GetMagicItemRequest) returns (GetMagicItemResponse); rpc ListMagicItems(ListMagicItemsRequest) returns (ListMagicItemsResponse);
+  rpc GetWeaponProperty(GetWeaponPropertyRequest) returns (GetWeaponPropertyResponse); rpc ListWeaponProperties(ListWeaponPropertiesRequest) returns (ListWeaponPropertiesResponse);
+}
+service MonsterService { rpc GetMonster(GetMonsterRequest) returns (GetMonsterResponse); rpc ListMonsters(ListMonstersRequest) returns (ListMonstersResponse); }
+service RulesService {
+  rpc GetCondition(GetConditionRequest) returns (GetConditionResponse); rpc ListConditions(ListConditionsRequest) returns (ListConditionsResponse);
+  rpc GetRuleSection(GetRuleSectionRequest) returns (GetRuleSectionResponse); rpc ListRuleSections(ListRuleSectionsRequest) returns (ListRuleSectionsResponse);
+  rpc GetSrdRule(GetSrdRuleRequest) returns (GetSrdRuleResponse); rpc ListSrdRules(ListSrdRulesRequest) returns (ListSrdRulesResponse);
+}
+
+message GetAbilityRequest { CatalogReadContext context = 1; string id = 2; } message GetAbilityResponse { string snapshot_id = 1; string collection_revision = 2; Ability ability = 3; }
+message ListAbilitiesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListAbilitiesResponse { string snapshot_id = 1; string collection_revision = 2; repeated Ability abilities = 3; PageInfo page_info = 4; }
+message GetAlignmentRequest { CatalogReadContext context = 1; string id = 2; } message GetAlignmentResponse { string snapshot_id = 1; string collection_revision = 2; Alignment alignment = 3; }
+message ListAlignmentsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListAlignmentsResponse { string snapshot_id = 1; string collection_revision = 2; repeated Alignment alignments = 3; PageInfo page_info = 4; }
+message GetBackgroundRequest { CatalogReadContext context = 1; string id = 2; } message GetBackgroundResponse { string snapshot_id = 1; string collection_revision = 2; Background background = 3; }
+message ListBackgroundsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListBackgroundsResponse { string snapshot_id = 1; string collection_revision = 2; repeated Background backgrounds = 3; PageInfo page_info = 4; }
+message GetCharacterClassRequest { CatalogReadContext context = 1; string id = 2; } message GetCharacterClassResponse { string snapshot_id = 1; string collection_revision = 2; CharacterClass character_class = 3; }
+message ListCharacterClassesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListCharacterClassesResponse { string snapshot_id = 1; string collection_revision = 2; repeated CharacterClass character_classes = 3; PageInfo page_info = 4; }
+message GetFeatRequest { CatalogReadContext context = 1; string id = 2; } message GetFeatResponse { string snapshot_id = 1; string collection_revision = 2; Feat feat = 3; }
+message ListFeatsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListFeatsResponse { string snapshot_id = 1; string collection_revision = 2; repeated Feat feats = 3; PageInfo page_info = 4; }
+message GetFeatureRequest { CatalogReadContext context = 1; string id = 2; } message GetFeatureResponse { string snapshot_id = 1; string collection_revision = 2; Feature feature = 3; }
+message ListFeaturesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListFeaturesResponse { string snapshot_id = 1; string collection_revision = 2; repeated Feature features = 3; PageInfo page_info = 4; }
+message GetLanguageRequest { CatalogReadContext context = 1; string id = 2; } message GetLanguageResponse { string snapshot_id = 1; string collection_revision = 2; Language language = 3; }
+message ListLanguagesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListLanguagesResponse { string snapshot_id = 1; string collection_revision = 2; repeated Language languages = 3; PageInfo page_info = 4; }
+message GetProficiencyRequest { CatalogReadContext context = 1; string id = 2; } message GetProficiencyResponse { string snapshot_id = 1; string collection_revision = 2; Proficiency proficiency = 3; }
+message ListProficienciesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListProficienciesResponse { string snapshot_id = 1; string collection_revision = 2; repeated Proficiency proficiencies = 3; PageInfo page_info = 4; }
+message GetRaceRequest { CatalogReadContext context = 1; string id = 2; } message GetRaceResponse { string snapshot_id = 1; string collection_revision = 2; Race race = 3; }
+message ListRacesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListRacesResponse { string snapshot_id = 1; string collection_revision = 2; repeated Race races = 3; PageInfo page_info = 4; }
+message GetTraitRequest { CatalogReadContext context = 1; string id = 2; } message GetTraitResponse { string snapshot_id = 1; string collection_revision = 2; Trait trait = 3; }
+message ListTraitsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListTraitsResponse { string snapshot_id = 1; string collection_revision = 2; repeated Trait traits = 3; PageInfo page_info = 4; }
+message GetSpellRequest { CatalogReadContext context = 1; string id = 2; } message GetSpellResponse { string snapshot_id = 1; string collection_revision = 2; Spell spell = 3; }
+message ListSpellsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListSpellsResponse { string snapshot_id = 1; string collection_revision = 2; repeated Spell spells = 3; PageInfo page_info = 4; }
+message GetMagicSchoolRequest { CatalogReadContext context = 1; string id = 2; } message GetMagicSchoolResponse { string snapshot_id = 1; string collection_revision = 2; MagicSchool magic_school = 3; }
+message ListMagicSchoolsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListMagicSchoolsResponse { string snapshot_id = 1; string collection_revision = 2; repeated MagicSchool magic_schools = 3; PageInfo page_info = 4; }
+message GetEquipmentRequest { CatalogReadContext context = 1; string id = 2; } message GetEquipmentResponse { string snapshot_id = 1; string collection_revision = 2; Equipment equipment = 3; }
+message ListEquipmentRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListEquipmentResponse { string snapshot_id = 1; string collection_revision = 2; repeated Equipment equipment = 3; PageInfo page_info = 4; }
+message GetMagicItemRequest { CatalogReadContext context = 1; string id = 2; } message GetMagicItemResponse { string snapshot_id = 1; string collection_revision = 2; MagicItem magic_item = 3; }
+message ListMagicItemsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListMagicItemsResponse { string snapshot_id = 1; string collection_revision = 2; repeated MagicItem magic_items = 3; PageInfo page_info = 4; }
+message GetWeaponPropertyRequest { CatalogReadContext context = 1; string id = 2; } message GetWeaponPropertyResponse { string snapshot_id = 1; string collection_revision = 2; WeaponProperty weapon_property = 3; }
+message ListWeaponPropertiesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListWeaponPropertiesResponse { string snapshot_id = 1; string collection_revision = 2; repeated WeaponProperty weapon_properties = 3; PageInfo page_info = 4; }
+message GetMonsterRequest { CatalogReadContext context = 1; string id = 2; } message GetMonsterResponse { string snapshot_id = 1; string collection_revision = 2; Monster monster = 3; }
+message ListMonstersRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListMonstersResponse { string snapshot_id = 1; string collection_revision = 2; repeated Monster monsters = 3; PageInfo page_info = 4; }
+message GetConditionRequest { CatalogReadContext context = 1; string id = 2; } message GetConditionResponse { string snapshot_id = 1; string collection_revision = 2; Condition condition = 3; }
+message ListConditionsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListConditionsResponse { string snapshot_id = 1; string collection_revision = 2; repeated Condition conditions = 3; PageInfo page_info = 4; }
+message GetRuleSectionRequest { CatalogReadContext context = 1; string id = 2; } message GetRuleSectionResponse { string snapshot_id = 1; string collection_revision = 2; RuleSection rule_section = 3; }
+message ListRuleSectionsRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListRuleSectionsResponse { string snapshot_id = 1; string collection_revision = 2; repeated RuleSection rule_sections = 3; PageInfo page_info = 4; }
+message GetSrdRuleRequest { CatalogReadContext context = 1; string id = 2; } message GetSrdRuleResponse { string snapshot_id = 1; string collection_revision = 2; SrdRule srd_rule = 3; }
+message ListSrdRulesRequest { CatalogReadContext context = 1; repeated string ids = 2; PageRequest page = 3; } message ListSrdRulesResponse { string snapshot_id = 1; string collection_revision = 2; repeated SrdRule srd_rules = 3; PageInfo page_info = 4; }

@@ -8,6 +8,7 @@ option java_package = "io.github.arhor.dnd.companion.api.v1";
 import "google/protobuf/struct.proto";
 
 import "Choice.proto";
+import "Catalog.proto";
 import "Effect.proto";
 import "EntityReference.proto";
 import "GenericInfo.proto";
@@ -26,6 +27,7 @@ message CharacterClass {
   optional Spellcasting spellcasting = 10;
   repeated Subclass subclasses = 11;
   repeated ClassLevel levels = 12;
+  ResourceMetadata metadata = 13;
 }
 
 message Multiclassing {

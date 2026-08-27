@@ -17,3 +17,4 @@ records explicitly.
 | [0005](0005-treat-race-artwork-as-optional-decoration.md)     | Treat race-carousel artwork as optional decorative data          | Accepted | 2026-08-13 |
 | [0006](0006-use-quarkus-grpc-for-server-api.md)               | Use Quarkus and gRPC for the server API                           | Accepted | 2026-08-26 |
 | [0007](0007-share-protobuf-contracts-across-client-and-server.md) | Share protobuf contracts across client and server              | Accepted | 2026-08-27 |
+| [0008](0008-own-a-revisioned-offline-catalog.md)               | Own a revisioned offline catalog                                | Proposed | 2026-08-27 |

@@ -6,6 +6,7 @@ option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
 
 import "Choice.proto";
+import "Catalog.proto";
 import "Effect.proto";
 import "Prerequisite.proto";
 
@@ -22,4 +23,5 @@ message Feat {
   optional Choice maneuver_choice = 10;
   bool correlates_ability_and_saving_throw = 11;
   bool repeatable = 12;
+  ResourceMetadata metadata = 13;
 }

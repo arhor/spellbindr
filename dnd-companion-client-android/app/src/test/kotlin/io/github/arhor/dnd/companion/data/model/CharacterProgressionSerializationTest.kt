@@ -25,6 +25,18 @@ class CharacterProgressionSerializationTest {
     )
 
     @Test
+    fun `decode should migrate managed progression when persisted ruleset uses the legacy id`() {
+        // Given
+        val persisted = """{"type":"managed","progression":{"rulesetId":"srd-5e-2014-v1","referenceDataVersion":"data-v1","origin":"Guided","levels":[]}}"""
+
+        // When
+        val restored = codec.decode(persisted) as ProgressionState.Managed
+
+        // Then
+        assertThat(restored.progression.rulesetId).isEqualTo("dnd-5e-2014-v1")
+    }
+
+    @Test
     fun `decode should restore managed progression when codec round trips persisted state`() {
         // Given
         val state = ProgressionState.Managed(

@@ -4,6 +4,7 @@ package dnd.companion.api.v1;
 
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
+import "Catalog.proto";
 
 message MagicItem {
   string id = 1;
@@ -12,4 +13,5 @@ message MagicItem {
   string rarity = 4;
   repeated string desc = 5;
   repeated string variant_ids = 6;
+  ResourceMetadata metadata = 7;
 }

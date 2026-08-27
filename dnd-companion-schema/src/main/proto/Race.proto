@@ -4,12 +4,14 @@ package dnd.companion.api.v1;
 
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
+import "Catalog.proto";
 
 message Race {
   string id = 1;
   string name = 2;
   repeated string trait_ids = 3;
   repeated Subrace subraces = 4;
+  ResourceMetadata metadata = 5;
 }
 
 message Subrace {

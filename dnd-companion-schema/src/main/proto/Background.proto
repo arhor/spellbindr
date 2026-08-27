@@ -6,6 +6,7 @@ option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
 
 import "Choice.proto";
+import "Catalog.proto";
 import "Effect.proto";
 import "GenericInfo.proto";
 
@@ -20,4 +21,5 @@ message Background {
   optional Choice ideals = 8;
   optional Choice bonds = 9;
   optional Choice flaws = 10;
+  ResourceMetadata metadata = 11;
 }
