@@ -2,13 +2,14 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-import "Catalog.proto";
 
 message Ability {
   string id = 1;
   string display_name = 2;
-  repeated string description = 3;
+  repeated string descriptions = 3 [json_name = "description"];
   ResourceMetadata metadata = 4;
 }

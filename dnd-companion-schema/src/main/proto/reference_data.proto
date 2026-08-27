@@ -2,28 +2,28 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "ability.proto";
+import "alignment.proto";
+import "background.proto";
+import "catalog.proto";
+import "character_class.proto";
+import "condition.proto";
+import "described_data.proto";
+import "equipment.proto";
+import "feat.proto";
+import "feature.proto";
+import "language.proto";
+import "magic_item.proto";
+import "monster.proto";
+import "proficiency.proto";
+import "public_resources.proto";
+import "race.proto";
+import "spell.proto";
+import "srd_rule.proto";
+import "trait.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-
-import "Ability.proto";
-import "Alignment.proto";
-import "Background.proto";
-import "CharacterClass.proto";
-import "Condition.proto";
-import "DescribedData.proto";
-import "Equipment.proto";
-import "Feat.proto";
-import "Feature.proto";
-import "Language.proto";
-import "MagicItem.proto";
-import "Monster.proto";
-import "Proficiency.proto";
-import "PublicResources.proto";
-import "Race.proto";
-import "Spell.proto";
-import "SrdRule.proto";
-import "Trait.proto";
-import "Catalog.proto";
 
 message ReferenceData {
   repeated Ability abilities = 1;

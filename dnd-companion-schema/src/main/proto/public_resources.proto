@@ -2,28 +2,28 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-
-import "Catalog.proto";
 
 message MagicSchool {
   string id = 1;
   string name = 2;
-  repeated string desc = 3;
+  repeated string descriptions = 3 [json_name = "desc"];
   ResourceMetadata metadata = 4;
 }
 
 message RuleSection {
   string id = 1;
   string name = 2;
-  repeated string desc = 3;
+  repeated string descriptions = 3 [json_name = "desc"];
   ResourceMetadata metadata = 4;
 }
 
 message WeaponProperty {
   string id = 1;
   string name = 2;
-  repeated string desc = 3;
+  repeated string descriptions = 3 [json_name = "desc"];
   ResourceMetadata metadata = 4;
 }

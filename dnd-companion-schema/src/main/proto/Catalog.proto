@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "google/protobuf/timestamp.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-
-import "google/protobuf/timestamp.proto";
 
 message CatalogSelection {
   string ruleset_id = 1;
@@ -82,9 +82,29 @@ message PageInfo {
   int32 total_size = 2;
 }
 
-message ListRulesetsRequest { PageRequest page = 1; }
-message ListRulesetsResponse { repeated Ruleset rulesets = 1; PageInfo page_info = 2; }
-message ListContentSourcesRequest { string ruleset_id = 1; PageRequest page = 2; }
-message ListContentSourcesResponse { repeated ContentSource sources = 1; PageInfo page_info = 2; }
-message GetCatalogManifestRequest { CatalogSelection selection = 1; }
-message GetCatalogManifestResponse { CatalogManifest manifest = 1; }
+message ListRulesetsRequest {
+  PageRequest page = 1;
+}
+
+message ListRulesetsResponse {
+  repeated Ruleset rulesets = 1;
+  PageInfo page_info = 2;
+}
+
+message ListContentSourcesRequest {
+  string ruleset_id = 1;
+  PageRequest page = 2;
+}
+
+message ListContentSourcesResponse {
+  repeated ContentSource sources = 1;
+  PageInfo page_info = 2;
+}
+
+message GetCatalogManifestRequest {
+  CatalogSelection selection = 1;
+}
+
+message GetCatalogManifestResponse {
+  CatalogManifest manifest = 1;
+}

@@ -2,13 +2,13 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "choice.proto";
+import "entity_reference.proto";
+import "monster.proto";
+import "spell.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-
-import "Choice.proto";
-import "EntityReference.proto";
-import "Monster.proto";
-import "Spell.proto";
 
 message Effect {
   oneof value {
@@ -36,9 +36,13 @@ message CountedReference {
   int32 quantity = 2;
 }
 
-message CountedReferences { repeated CountedReference values = 1; }
+message CountedReferences {
+  repeated CountedReference values = 1;
+}
 
-message CharacterActions { repeated CharacterAction values = 1; }
+message CharacterActions {
+  repeated CharacterAction values = 1;
+}
 
 message CharacterAction {
   string name = 1;

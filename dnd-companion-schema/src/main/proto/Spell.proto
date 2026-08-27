@@ -2,14 +2,15 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-import "Catalog.proto";
 
 message Spell {
   string id = 1;
   string name = 2;
-  repeated string desc = 3;
+  repeated string descriptions = 3 [json_name = "desc"];
   int32 level = 4;
   string range = 5;
   bool ritual = 6;
@@ -24,7 +25,7 @@ message Spell {
   optional SpellDamage damage = 15;
   optional SpellDifficultyClass difficulty_class = 16;
   map<string, string> heal_at_slot_level = 17;
-  repeated string higher_level = 18;
+  repeated string higher_levels = 18 [json_name = "higher_level"];
   optional string material = 19;
   repeated string subclass_ids = 20;
   string source = 21 [deprecated = true];

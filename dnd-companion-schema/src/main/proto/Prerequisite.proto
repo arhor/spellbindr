@@ -21,6 +21,6 @@ message EmptyPrerequisite {}
 
 message AbilityScorePrerequisite {
   repeated string ability_score_ids = 1;
-  int32 minimum_value = 2;
+  int32 minimum = 2 [json_name = "minimum_value"];
   bool at_least_one = 3;
 }

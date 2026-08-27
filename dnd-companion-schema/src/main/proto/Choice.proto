@@ -20,7 +20,7 @@ message Choice {
 }
 
 message StringOptions {
-    repeated string values = 1;
+  repeated string values = 1;
 }
 
 message ResourceOptions {
@@ -29,15 +29,15 @@ message ResourceOptions {
 }
 
 message AbilityBonusOptions {
-    repeated AbilityBonuses values = 1;
+  repeated AbilityBonuses values = 1;
 }
 
 message AbilityBonuses {
-    map<string, int32> values = 1;
+  map<string, int32> values = 1;
 }
 
 message IdealOptions {
-    repeated Ideal values = 1;
+  repeated Ideal values = 1;
 }
 
 message Ideal {
@@ -46,11 +46,11 @@ message Ideal {
 }
 
 message EquipmentCategoryOptions {
-    repeated string categories = 1;
+  repeated string categories = 1;
 }
 
 message NestedOptions {
-    repeated Choice values = 1;
+  repeated Choice values = 1;
 }
 
 message EmptyChoice {}

@@ -69,5 +69,5 @@ on platform-specific implementation details.
 
 - [ADR 0006: Use Quarkus and gRPC for the server API](0006-use-quarkus-grpc-for-server-api.md)
 - [ADR 0007: Share protobuf contracts across client and server](0007-share-protobuf-contracts-across-client-and-server.md)
-- [Shared catalog contract](../../dnd-companion-schema/src/main/proto/CatalogServices.proto)
+- [Shared catalog contract](../../dnd-companion-schema/src/main/proto/catalog_services.proto)
 - [Catalog build](../../dnd-companion-catalog)

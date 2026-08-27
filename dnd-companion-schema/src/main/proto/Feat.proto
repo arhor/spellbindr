@@ -2,18 +2,18 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+import "choice.proto";
+import "effect.proto";
+import "prerequisite.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-
-import "Choice.proto";
-import "Catalog.proto";
-import "Effect.proto";
-import "Prerequisite.proto";
 
 message Feat {
   string id = 1;
   string name = 2;
-  repeated string desc = 3;
+  repeated string descriptions = 3 [json_name = "desc"];
   repeated Prerequisite prerequisites = 4;
   repeated Effect effects = 5;
   optional Choice ability_bonus_choice = 6;

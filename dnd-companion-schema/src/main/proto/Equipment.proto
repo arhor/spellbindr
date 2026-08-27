@@ -2,14 +2,15 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-import "Catalog.proto";
 
 message Equipment {
   string id = 1;
   string name = 2;
-  repeated string desc = 3;
+  repeated string descriptions = 3 [json_name = "desc"];
   optional EquipmentArmorClass armor_class = 4;
   optional string capacity = 5;
   repeated EquipmentContent contents = 6;
@@ -18,7 +19,7 @@ message Equipment {
   repeated string property_ids = 9;
   optional int32 quantity = 10;
   optional DistanceRange range = 11;
-  repeated string special = 12;
+  repeated string special_properties = 12 [json_name = "special"];
   optional EquipmentSpeed speed = 13;
   optional bool stealth_disadvantage = 14;
   optional int32 strength_minimum = 15;
@@ -52,7 +53,7 @@ message Damage {
 
 message DistanceRange {
   int32 base = 1;
-  optional int32 long = 2;
+  optional int32 long_distance = 2 [json_name = "long"];
 }
 
 message EquipmentSpeed {

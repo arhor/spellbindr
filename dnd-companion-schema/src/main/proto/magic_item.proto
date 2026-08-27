@@ -2,16 +2,17 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-import "Catalog.proto";
 
 message MagicItem {
   string id = 1;
   string name = 2;
   string equipment_category = 3;
   string rarity = 4;
-  repeated string desc = 5;
+  repeated string descriptions = 5 [json_name = "desc"];
   repeated string variant_ids = 6;
   ResourceMetadata metadata = 7;
 }

@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package dnd.companion.api.v1;
 
+import "catalog.proto";
+import "spell.proto";
+import "srd_reference.proto";
+
 option java_multiple_files = true;
 option java_package = "io.github.arhor.dnd.companion.api.v1";
-
-import "Spell.proto";
-import "Catalog.proto";
-import "SrdReference.proto";
 
 message Monster {
   string index = 1 [deprecated = true];
@@ -16,7 +16,7 @@ message Monster {
   string type = 4;
   optional string subtype = 5;
   string alignment = 6;
-  repeated MonsterArmorClass armor_class = 7;
+  repeated MonsterArmorClass armor_classes = 7 [json_name = "armor_class"];
   int32 hit_points = 8;
   string hit_dice = 9;
   string hit_points_roll = 10;
@@ -116,7 +116,7 @@ message MonsterUsage {
   optional int32 times = 2;
   optional string rest_types = 3;
   optional string dice = 4;
-  optional int32 minimum_value = 5;
+  optional int32 minimum = 5 [json_name = "minimum_value"];
 }
 
 message MonsterSpellcasting {
@@ -130,7 +130,9 @@ message MonsterSpellcasting {
   optional string modifier = 8;
 }
 
-message MonsterSpellList { repeated MonsterSpell values = 1; }
+message MonsterSpellList {
+  repeated MonsterSpell values = 1;
+}
 
 message MonsterSpell {
   string name = 1;
